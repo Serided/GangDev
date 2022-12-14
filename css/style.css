@@ -64,7 +64,7 @@ h2,h3,h4,h5,h6 {
 }
 
 .line {
-  opacity: 75%;
+  opacity: 100%;
 }
 
 /* Make the sections snap to the sides of the page */
@@ -82,8 +82,7 @@ h2,h3,h4,h5,h6 {
 /* Dropdown Buttons */
 .btn {
   font-family: "Book Antiqua";
-  background-color: #FB7F4D;
-  opacity: 75%;
+  background-color: rgba(251,127,77,.85);
   border-radius: 10px;
   /* background-color: transparent; */
   text-decoration: none;
