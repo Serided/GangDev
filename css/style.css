@@ -4,20 +4,30 @@ html {
 
 /* To space the sections */
 .spacing {
-  margin-top: 40px !important;
+  margin-top: 80px !important;
 }
 
 /* Format of each individual section on a page */
 .sect {
-  background-color: cornsilk;
+  background-color: #FEF9D0;
   display: inline-block;
   margin: 0;
-  text-align: center;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
-/* Settings for main pages */
+.cpy-w {
+  background-color: #FBAD77;
+  display: inline-block;
+  margin: 0;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
 
+.filler {
+  height: 100px;
+  background-color: transparent;
+}
+
+/* Settings for main pages */
 .main-p {
   /*
   background-image: url("../img/background-2.jpg");
@@ -33,29 +43,50 @@ html {
 
 /* Set up margins for headers */
 
-h1,h2,h3,h4,h5,h6 {
+h1 {
+  letter-spacing: 2px;
+  font-size: 60px;
+  margin: 20px;
+}
+
+h2 {
+  font-size: 25px;
+}
+
+h2,h3,h4,h5,h6 {
   margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.no-m {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* Make the sections snap to the sides of the page */
-
 .fullw {
   box-sizing: border-box;
   width: 100%;
 }
 
+/* The navigation bar on the top of the screen */
+.navbar {
+  position: fixed;
+  margin: 0;
+}
+
 /* Dropdown Buttons */
 .btn {
   font-family: "Book Antiqua";
-  background-color: black;
+  background-color: #FB7F4D;
+  border-radius: 10px;
+  /* background-color: transparent; */
   text-decoration: none;
   margin-left: 20px;
   margin-right: 20px;
-  margin-top: 20px;
-  font-size: 20px;
+  font-size: 40px;
   border: none;
   cursor: pointer;
-  border-radius: 4px;
 }
 
 /* How to decorate the text */
@@ -79,7 +110,7 @@ h1,h2,h3,h4,h5,h6 {
   min-width: 80px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-  right: 0px;
+  right: 0;
 }
 
 /* Links inside the dropdown */
