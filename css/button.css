@@ -1,21 +1,11 @@
-/* Dropdown Button */
-html {
-  font-family: "Book Antiqua";
-}
-
-.main-p {
-  background-image: url("../img/background-2.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
+/* Dropdown Buttons */
 .btn {
   font-family: "Book Antiqua";
   background-color: black;
   text-decoration: none;
   margin-left: 20px;
   margin-right: 20px;
+  margin-top: 20px;
   font-size: 20px;
   border: none;
   cursor: pointer;
@@ -42,6 +32,7 @@ html {
   min-width: 80px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  right: 0px;
 }
 
 /* Links inside the dropdown */

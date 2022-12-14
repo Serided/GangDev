@@ -1,0 +1,25 @@
+html {
+  font-family: "Book Antiqua";
+}
+
+section {
+  background-color: cornsilk;
+  display: inline-block;
+  margin: 0;
+  text-align: center;
+}
+
+.main-p {
+  background-image: url("../img/background-2.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.fullw {
+  box-sizing: border-box;
+  width: 100%;
+}
