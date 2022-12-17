@@ -15,19 +15,18 @@ function determineWinner({player, enemy, timerId}){
   if (player.stats.health === enemy.stats.health) {
     console.log('Tie')
     document.querySelector('#displayText').innerHTML = 'Tie.'
+    return;
   }
-  else if (player.stats.health > enemy.stats.health){
+  else if (((100/player.stats.maxHealth)*(player.stats.health)) > ((100/enemy.stats.maxHealth)*(enemy.stats.health))){
     console.log('Player1 wins!')
     document.querySelector('#displayText').innerHTML = 'Player1 Wins!'
+    return;
   }
-  else if (player.stats.health < enemy.stats.health){
+  else if (((100/player.stats.maxHealth)*(player.stats.health)) < ((100/enemy.stats.maxHealth)*(enemy.stats.health))){
     console.log('Player2 wins!')
     document.querySelector('#displayText').innerHTML = 'Player2 Wins!'
+    return;
   }
-
-  player.stats.health = undefined
-  enemy.stats.health = undefined
-  return
 }
 
 let timer = 60

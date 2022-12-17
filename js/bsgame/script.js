@@ -29,7 +29,7 @@ const shop = new Sprite({
 
 const player = new Fighter({
   position: {
-    x: 0,
+    x: 10,
     y: 0
   },
   velocity: {
@@ -39,8 +39,9 @@ const player = new Fighter({
   stats: {
     pdamage: 1,
     pspeed: 5,
-    maxHealth: 10,
-    health: 10
+    maxHealth: 50,
+    health: 50,
+    dead: 0
   },
   imageSrc: './img/bfgame/samuraiMack/Idle.png',
   frames: 8,
@@ -98,7 +99,7 @@ const player = new Fighter({
 
 const enemy = new Fighter({
   position: {
-    x: 500,
+    x: 960,
     y: 0
   },
   velocity: {
@@ -108,8 +109,9 @@ const enemy = new Fighter({
   stats: {
     pdamage: 1,
     pspeed: 7,
-    maxHealth: 5,
-    health: 5
+    maxHealth: 20,
+    health: 20,
+    dead: 0
   },
   color: 'green',
   imageSrc: './img/bfgame/kenji/Idle.png',
@@ -143,7 +145,7 @@ const enemy = new Fighter({
     attack1: {
       imageSrc: './img/bfgame/kenji/Attack1.png',
       frames: 4,
-      framesHold: 6,
+      framesHold: 3,
     },
     takeHit: {
       frames: 3,

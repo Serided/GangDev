@@ -29,6 +29,8 @@ class Sprite {
   }
 
   animateFrames(){
+    if (this.dead) return
+
     this.framesElapsed++
 
     if (this.framesElapsed % this.framesHold === 0) {
@@ -43,7 +45,7 @@ class Sprite {
 
   update() {
     this.draw()
-    this.animateFrames()
+    if (!this.dead) this.animateFrames()
   }
 }
 
@@ -101,10 +103,12 @@ class Fighter extends Sprite{
     }
   }
 
-
-
   update(){
     this.draw()
+    if (this.image === this.sprites.death.image) {
+      if (this.framesCurrent === this.sprites.death.frames - 1)
+        this.dead = true
+    }
     if (!this.dead) this.animateFrames()
 
     // Attack boxes
