@@ -25,8 +25,8 @@ function determineWinner({player, enemy, timerId}){
     document.querySelector('#displayText').innerHTML = 'Player2 Wins!'
   }
 
-  player.stats.health = 'ir1'
-  enemy.stats.health = 'ir2'
+  player.stats.health = undefined
+  enemy.stats.health = undefined
   return
 }
 
