@@ -27,7 +27,7 @@ const shop = new Sprite({
   framesHold: 7
 })
 
-const player = new Fighter({
+const player1 = new Fighter({
   position: {
     x: 10,
     y: 0
@@ -74,7 +74,7 @@ const player = new Fighter({
     attack1: {
       imageSrc: './img/bfgame/samuraiMack/Attack1.png',
       frames: 6,
-      framesHold: 5,
+      framesHold: 7,
     },
     takeHit: {
       imageSrc: './img/bfgame/samuraiMack/Take Hit - white silhouette.png',
@@ -97,7 +97,7 @@ const player = new Fighter({
   }
 })
 
-const enemy = new Fighter({
+const player2 = new Fighter({
   position: {
     x: 960,
     y: 0
@@ -109,8 +109,8 @@ const enemy = new Fighter({
   stats: {
     pdamage: 1,
     pspeed: 7,
-    maxHealth: 20,
-    health: 20,
+    maxHealth: 25,
+    health: 25,
     dead: 0
   },
   color: 'green',
@@ -145,7 +145,7 @@ const enemy = new Fighter({
     attack1: {
       imageSrc: './img/bfgame/kenji/Attack1.png',
       frames: 4,
-      framesHold: 3,
+      framesHold: 6,
     },
     takeHit: {
       frames: 3,
@@ -168,9 +168,9 @@ const enemy = new Fighter({
   }
 })
 
-enemy.draw()
+player2.draw()
 
-console.log(player)
+console.log(player1)
 
 const keys = {
   a: {
@@ -197,99 +197,99 @@ function animate(){
   shop.update()
   c.fillStyle = 'rgba(255,255,255, 0.1)'
   c.fillRect(0,0,canvas.width,canvas.height)
-  player.update()
-  enemy.update()
+  player1.update()
+  player2.update()
 
-  // player movement
-  player.movement(keys.a, keys.d,'a','d')
+  // player1 movement
+  player1.movement(keys.a, keys.d,'a','d')
 
-  // enemy movement
-  enemy.movement(keys.ArrowLeft, keys.ArrowRight,'ArrowLeft','ArrowRight')
+  // player2 movement
+  player2.movement(keys.ArrowLeft, keys.ArrowRight,'ArrowLeft','ArrowRight')
 
   // detect for collision
   if (
     rectangularCollision({
-      rectangle1: player,
-      rectangle2: enemy
+      rectangle1: player1,
+      rectangle2: player2
     }) &&
-    player.isAttacking && player.framesCurrent === 4
+    player1.isAttacking && player1.framesCurrent === 4
     ) {
-    enemy.takeHit(player.stats.pdamage)
-    player.isAttacking = false
-    console.log('hit enemy')
+    player2.takeHit(player1.stats.pdamage)
+    player1.isAttacking = false
+    console.log('hit player2')
 
-    gsap.to('#enemyHealth', {
-      width: ((100 / enemy.stats.maxHealth) * (enemy.stats.health)) + '%'
+    gsap.to('#player2Health', {
+      width: ((100 / player2.stats.maxHealth) * (player2.stats.health)) + '%'
     })
   }
 
-  // If player misses
-  if (player.isAttacking && player.framesCurrent === 4){
-    player.isAttacking = false
+  // If player1 misses
+  if (player1.isAttacking && player1.framesCurrent === 4){
+    player1.isAttacking = false
   }
 
   if (
     rectangularCollision({
-      rectangle1: enemy,
-      rectangle2: player
+      rectangle1: player2,
+      rectangle2: player1
     }) &&
-    enemy.isAttacking && enemy.framesCurrent === 1
+    player2.isAttacking && player2.framesCurrent === 1
   ) {
-    player.takeHit(enemy.stats.pdamage)
-    enemy.isAttacking = false
-    console.log('hit player')
+    player1.takeHit(player2.stats.pdamage)
+    player2.isAttacking = false
+    console.log('hit player1')
 
-    gsap.to('#playerHealth', {
-      width: ((100/player.stats.maxHealth)*(player.stats.health)) + '%'
+    gsap.to('#player1Health', {
+      width: ((100/player1.stats.maxHealth)*(player1.stats.health)) + '%'
     })
   }
 
-  if (enemy.isAttacking && enemy.framesCurrent === 1){
-    enemy.isAttacking = false
+  if (player2.isAttacking && player2.framesCurrent === 1){
+    player2.isAttacking = false
   }
 
   // End game based on health
-  if (enemy.stats.health <= 0 || player.stats.health <= 0){
-    determineWinner({player,enemy, timerId})
+  if (player2.stats.health <= 0 || player1.stats.health <= 0){
+    determineWinner({player1,player2, timerId})
   }
 }
 
 animate()
 
 window.addEventListener('keydown', (event) => {
-  if (!player.dead) {
+  if (!player1.dead) {
     switch (event.key) {
       case 'd':
         keys.d.pressed = true
-        player.lastKey = 'd'
+        player1.lastKey = 'd'
         break
       case 'a':
         keys.a.pressed = true
-        player.lastKey = 'a'
+        player1.lastKey = 'a'
         break
       case 'w':
-        player.velocity.y = jumph
+        player1.velocity.y = jumph
         break
       case ' ':
-        player.attack()
+        player1.attack()
         break
     }
   }
-  if (!enemy.dead){
+  if (!player2.dead){
     switch (event.key) {
       case 'ArrowRight':
         keys.ArrowRight.pressed = true
-        enemy.lastKey = 'ArrowRight'
+        player2.lastKey = 'ArrowRight'
         break
       case 'ArrowLeft':
         keys.ArrowLeft.pressed = true
-        enemy.lastKey = 'ArrowLeft'
+        player2.lastKey = 'ArrowLeft'
         break
       case 'ArrowUp':
-        enemy.velocity.y = jumph
+        player2.velocity.y = jumph
         break
       case 'ArrowDown':
-        enemy.attack()
+        player2.attack()
         break
     }
   }
@@ -297,7 +297,7 @@ window.addEventListener('keydown', (event) => {
 
 window.addEventListener('keyup', (event) => {
   switch (event.key) {
-    // player
+    // player1
     case 'd':
       keys.d.pressed = false
       break
@@ -305,7 +305,7 @@ window.addEventListener('keyup', (event) => {
       keys.a.pressed = false
       break
 
-    // enemy
+    // player2
     case 'ArrowRight':
       keys.ArrowRight.pressed = false
       break
