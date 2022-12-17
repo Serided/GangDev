@@ -76,7 +76,7 @@ const player = new Fighter({
       framesHold: 5,
     },
     takeHit: {
-      imageSrc: './img/bfgame/samuraiMack/Take hit - white silhouette.png',
+      imageSrc: './img/bfgame/samuraiMack/Take Hit - white silhouette.png',
       frames: 4,
       framesHold: 7,
     },
