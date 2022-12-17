@@ -3,7 +3,7 @@ const bgColor = '#2F2F30'
 const snakeColor = '#c2c2c2'
 const foodColor = '#DB0B03'
 
-const socket = io('http://localhost:3000');
+const socket = io('gangdev.co/multiplayerSnakeGame.html');
 
 socket.on('init', handleInit)
 
