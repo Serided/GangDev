@@ -3,11 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/bfgame.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
     * {
       box-sizing: border-box;
+      font-family: 'Press Start 2P', cursive;
     }
   </style>
 </head>
@@ -17,28 +21,31 @@
     <!-- second container -->
     <div style="position: absolute; display: flex; width: 100%; align-items: center; padding: 20px">
       <!-- player health -->
-      <div style="position: relative; height: 30px; width: 100%; display: flex; justify-content: flex-end">
-        <div style="background-color: yellow; height: 30px; width: 100%"></div>
-        <div id="playerHealth" style="position: absolute; background-color: blue; top: 0; bottom: 0; right: 0; width: 100%"></div>
+      <div style="position: relative; width: 100%; display: flex; justify-content: flex-end; border-top: 4px solid white; border-bottom: 4px solid white; border-left: 4px solid white; border-radius: 3px">
+        <div style="background-color: red; height: 30px; width: 100%"></div>
+        <div id="playerHealth" style="position: absolute; background-color: forestgreen; top: 0; bottom: 0; right: 0; width: 100%"></div>
       </div>
       <!-- timer -->
-      <div style="background-color: red; width: 100px; height: 100px; flex-shrink: 0; display: block; align-items: center; justify-content: center">
+      <div style="background-color: gray; width: 75px; height: 50px; flex-shrink: 0; display: block; align-items: center; justify-content: center; color: white; border: 4px solid white; border-radius: 3px">
         <div id="timer" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%"></div>
         <div style="display: flex; align-items: center; justify-content: center">
-          <button class="gamebtn" style="margin: 0">
+          <button class="gamebtn" style="margin: 10px">
             <a href="index.html" class="btn-text" style="text-align: center">Home</a>
           </button>
         </div>
       </div>
       <!-- enemy health -->
-      <div style="position: relative; height: 30px; width: 100%">
-        <div style="background-color: yellow; height: 30px"></div>
-        <div id="enemyHealth" style="position: absolute; background-color: blue; top: 0; bottom: 0; left: 0; right: 0"></div>
+      <div style="position: relative; width: 100%; border-top: 4px solid white; border-bottom: 4px solid white; border-right: 4px solid white; border-radius: 3px">
+        <div style="background-color: red; height: 30px"></div>
+        <div id="enemyHealth" style="position: absolute; background-color: forestgreen; top: 0; bottom: 0; left: 0; right: 0"></div>
       </div>
     </div>
     <div id="displayText" style="position: absolute; color: white; display: none; align-items: center; justify-content: center; top: 0; left: 0; right: 0; bottom: 0">Tie</div>
     <canvas></canvas>
   </div>
-  <script src="js/bfgame.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/bsgame/utilities.js"></script>
+  <script src="js/bsgame/classes.js"></script>
+  <script src="js/bsgame/script.js"></script>
 </body>
 </html>
