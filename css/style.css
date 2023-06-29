@@ -16,7 +16,8 @@ html {
 }
 
 .cpy-w {
-  background-color: #FBAD77;
+  /* background-color: #FBAD77; */
+  background-image: url("/img/valley_portrait_2.jpg");
   display: inline-block;
   margin: 0;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
