@@ -1,3 +1,6 @@
+<?php
+$navbar = file_get_contents ("navBar.html");
+?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
   <head>
@@ -7,57 +10,8 @@
     <script src="js/script.js"></script>
   </head>
   <body class="main-p fullw">
-    <!-- <div>Logo here</div> -->
-    <div class="navbar fullw">
-      <hr size="8px" width="660px" color="white" class="line">
-
-      <button class="btn">
-        <a href="index.html" class="btn-text">Home</a>
-      </button>
-
-      <div class="dropdown">
-        <button class="btn">
-          <a href="#about" class="btn-text">About</a>
-        </button>
-
-        <div class="dropdown-content">
-          <a href="jens.html">Jens</a>
-          <a href="jorgen.html">Jorgen</a>
-          <a href="kate.html">Kate</a>
-          <a href="john.html">John</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <button class="btn">
-          <a href="#contact" class="btn-text">Contact</a>
-        </button>
-
-        <div class="dropdown-content">
-          <a href="jens.html">Jens</a>
-          <a href="jorgen.html">Jorgen</a>
-          <a href="kate.html">Kate</a>
-          <a href="john.html">John</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <button class="btn">
-          <a href="#games" class="btn-text">Games</a>
-        </button>
-
-        <div class="dropdown-content">
-          <a href="basicCubeGame.html">The Bouncing Cube (Alpha)</a>
-          <a href="basicFighterGame.html">Fighting Game (Beta)</a>
-          <a href="basicPlatformerGame.html">Platformer Game (Alpha)</a>
-        </div>
-      </div>
-
-      <hr size="8px" width="660px" color="white" class="line">
-    </div>
-
-    <div class="filler fullw"></div>
-
+    <?= navbar ?>
+    
     <h1>
       Home
     </h1>

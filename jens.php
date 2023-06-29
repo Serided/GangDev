@@ -65,10 +65,12 @@
       <section>
         <h2>Who Am I?</h2>
         <p>
+          Hello! My full name is Jens Hansen.<br>
           The superior gamer, I've been popping off in all of your favorite video games since you were a wee kid.<br>
           My current video games are Fortnite, Minecraft, League of Legends, and Valorant.<br>
+          Recently, I have been getting into Factorio and Satisfactory.<br>
           Favorite food has <u>GOT</u> to be donuts. Those rings of perfection are my go-to for anything: meals, snacking, and wedding luncheons.<br>
-          Favorite general activities are coding and working out. I get those gains and then I rabidly lose them.<br>
+          Favorite general activities are coding and working out. I get those gains and then I rapidly lose them.<br>
           I am toxic so don't kill me in Fortnite or I <u>WILL</u> call you trash. Even if you are better.<br>
         </p>
       </section>
@@ -115,10 +117,11 @@
       <section class="fullw">
         <h2>My Links</h2>
         <p class="fullw">
-          <a href="https://scandinalienballer.wixsite.com/jenshansenportfolio">Digital Media Portfolio</a><br>
-          <a href="https://www.youtube.com/channel/UC_SfGASnIXAkrVwugpZ9eLg">YouTube</a><br>
-          <a href="https://github.com/Serided">GitHub</a><br>
-          <a href="https://stackoverflow.com/users/20779197/serided">Stack Overflow</a>
+          <a href="https://www.instagram.com/ser1ded/" target="_blank">Instagram</a><br>
+          <a href="https://scandinalienballer.wixsite.com/jenshansenportfolio" target="_blank">Digital Media Portfolio</a><br>
+          <a href="https://www.youtube.com/channel/UC_SfGASnIXAkrVwugpZ9eLg" target="_blank">YouTube</a><br>
+          <a href="https://github.com/Serided" target="_blank">GitHub</a><br>
+          <a href="https://stackoverflow.com/users/20779197/serided" target="_blank">Stack Overflow</a>
         </p>
       </section>
     </div>
@@ -127,10 +130,10 @@
       <section class="fullw">
         <h2>Projects</h2>
         <p class="fullw">
-          <a href="https://github.com/Serided/GangDev">GangDev Website</a><br>
-          <a href="basicCubeGame.html">The Bouncing Cube (Beta)</a><br>
-          <a href="basicFighterGame.html">Fighting Game (Beta)</a><br>
-          <a href="basicPlatformerGame.html">Platformer Game (Alpha)</a>
+          <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
+          <a href="basicCubeGame.html" target="_blank">The Bouncing Cube (Beta)</a><br>
+          <a href="basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>
+          <a href="basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a>
         </p>
       </section>
     </div>

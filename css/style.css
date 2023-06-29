@@ -102,12 +102,16 @@ b {
 .navbar {
   position: fixed;
   margin: 0;
+  text-align: center;
+  overflow-wrap: anywhere;
+  display: block;
 }
 
 /* Dropdown Buttons */
 .btn {
   font-family: "Book Antiqua";
-  background-color: rgba(251,127,77,.85);
+  /* background-color: rgba(251,127,77,.85); */
+  background-color: gray;
   border-radius: 10px;
   /* background-color: transparent; */
   text-decoration: none;
