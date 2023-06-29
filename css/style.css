@@ -32,7 +32,7 @@ html {
   
   background-image: url("../img/valley_portrait_2.jpg");
   background-repeat: no-repeat;
-  background-attachment: scroll;
+  background-attachment: fixed;
   background-size: cover;
   
   background-color: #FB7F4D;
