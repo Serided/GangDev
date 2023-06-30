@@ -20,7 +20,7 @@ $navbar = file_get_contents ("navBar.html");
         <section class="fullw">
             <h2>About The Company</h2>
             <p class="fullw">
-                Founded by the One and Only, Most Amazing Jens Hansen, under the influence of too much sugar and a tad bit of caffeine.
+                Founded by the One and Only Most Amazing Jens Hansen, under the influence of too much sugar and a tad bit of caffeine.
             </p>
         </section>
         </div>

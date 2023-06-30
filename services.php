@@ -53,10 +53,10 @@ $navbar = file_get_contents ("navBar.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2 style="color:red">
-                    <b>WARNING!</b>
+                    <b>Note:</b>
                 </h2>
                 <p class="fullw">
-                    While these businesses are very legit, it is a negotiation between the customer and the seller, as opposed to an official business.<br>
+                    While these services are legit, it is a negotiation between the customer and the seller, as opposed to an official business.<br>
                     Currently nothing is available at a set price.
                 </p>
             </section>

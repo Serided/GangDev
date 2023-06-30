@@ -72,6 +72,16 @@ $navbar = file_get_contents ("navBar.html");
           <b style="font-size:30px; margin:0">PHP</b>
         </p>
       </div>
+      <div>
+        <p class="exp-crcls">
+          60+ hours of<br>
+          <b style="font-size:30px; margin:0">PC Assembly</b>
+        </p>
+        <p class="no-m nfullw exp-crcls">
+          10+ hours of<br>
+          <b style="font-size:30px; margin:0">PC Building</b>
+        </p>
+      </div>
     </div>
 
 

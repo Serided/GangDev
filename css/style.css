@@ -81,8 +81,8 @@ p {
 
 .exp-crcls {
   margin: 20px !important;
-  background-color: darkred;
-  color: #01DCFA;
+  background-color: darkblue;
+  color: rgba(255, 207, 75, 0.747);
   box-sizing: content-box !important;
   display: inline-block;
   padding-top:20px;
