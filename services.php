@@ -22,8 +22,11 @@ $navbar = file_get_contents ("navBar.html");
                     PC Building
                 </h2>
                 <p class="fullw">
-                    Jens has 60+ hours experience assembling PC builds online, and 10+ hours experience building PCs.<br>
-
+                    <i>"Have your PC fully assembled and/or built based on your budget!"</i><br>
+                    Jens has 60+ hours experience assembling PC builds online, and 10+ hours experience building PCs.
+                    He has also assembled PCs for multiple third parties.
+                    Payments will be agreed on through communication. Further clarification through email.
+                    <br><a href="mailto:scandinalien.work@gmail.com">Email Me (scandinalien.work@gmail.com)</a>
                 </p>
             </section>
         </div>
@@ -34,7 +37,10 @@ $navbar = file_get_contents ("navBar.html");
                     John's Lemonade
                 </h2>
                 <p class="fullw">
-                    A cup of the finest lemonade, delivered straight to you. Shipping included in the cost. Very expensive.
+                    <i>"A cup of the finest lemonade, delivered straight to you. Shipping included in the cost. Very expensive."</i><br>
+                    Basically "Buy Me A Coffee" but you buy yourself a lemonade and we use the remaining money to make coding profitable.
+                    This also gives us a chance to get out of our chairs and drive around town (delivering the lemonade). All around dubs.
+                    <br><a href="mailto:scandinalien.work@gmail.com">Email Me (scandinalien.work@gmail.com)</a>
                 </p>
             </section>
         </div>
@@ -42,10 +48,13 @@ $navbar = file_get_contents ("navBar.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    Minecraft Coding
+                    Minecraft Coding and 'Adminning'
                 </h2>
                 <p class="fullw">
-                    One sec...
+                    <i>"Hire an admin for your server for dirt cheap, and/or get a idea up and running in Minecraft with the use of datapacks and coding."</i><br>
+                    Jens has over 450+ hours of experience coding in Minecraft, having done it since he was ten. Has been the admin of 10+ servers over the past few years,
+                    half of which were not private.
+                    <br><a href="mailto:scandinalien.work@gmail.com">Email Me (scandinalien.work@gmail.com)</a>
                 </p>
             </section>
         </div>
