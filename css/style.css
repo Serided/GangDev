@@ -150,7 +150,7 @@ b {
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   text-decoration: none;
-  display: block;
+  display: inline-block;
   position: absolute;
   background-color: #f1f1f1;
   min-width: 80px;
