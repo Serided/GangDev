@@ -45,7 +45,7 @@ $navbar = file_get_contents ("navBar.html");
       <section class="fullw">
         <h2>Contact</h2>
         <p>
-          <a href="mailto:scandinalien.work@gmail.com">Email Jens</a>
+          <a href="mailto:scandinalien.work@gmail.com">Email Jens (scandinalien.work@gmail.com)</a>
         </p>
       </section>
     </div>
@@ -60,6 +60,17 @@ $navbar = file_get_contents ("navBar.html");
         </p>
       </section>
     </div>
+
+    <div class="fullw sect spacing">
+            <section class="fullw">
+                <h2 style="color:red">
+                    <b>Note:</b>
+                </h2>
+                <p class="fullw">
+                    This page is about to get an overhaul. Everything here is a little out dated and not nearly funny enough, so it's gotta go.
+                </p>
+            </section>
+        </div>
 
     <div class="fullw cpy-w spacing">
       <section class="fullw">

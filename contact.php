@@ -31,12 +31,12 @@ $navbar = file_get_contents ("navBar.html");
 
             <h3>Jens</h3>
             <p class="fullw" style="margin:0; color: purple">
-                <a href="mailto:scandinalien.work@gmail.com">Email</a>
+                <a href="mailto:scandinalien.work@gmail.com">Email Me (scandinalien.work@gmail.com)</a>
             </p>
 
             <h3>Jorgen</h3>
             <p class="fullw" style="margin:0; color: green">
-                <a href="mailto:jorgen@iviking.org">Email</a>
+                <a href="mailto:jorgen@iviking.org">Email Me(jorgen@iviking.org)</a>
             </p>
 
             <h3>Kate</h3>
