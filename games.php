@@ -48,7 +48,7 @@ $navbar = file_get_contents ("navBar.html");
                     <a href="basicPlatformerGame.php" target="_blank">Platformer Game (Alpha)</a>
                 </h2>
                 <p class="fullw">
-                    Unplayable currently, the next stupendous production in this line of phenomenal games.
+                    Currently unplayable, the next stupendous production in this line of phenomenal games.
                 </p>
             </section>
         </div>
