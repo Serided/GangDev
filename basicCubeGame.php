@@ -14,7 +14,7 @@
 
   <div id="menu" style="text-align: center">
     <button class="gamebtn">
-      <a href="index.html" class="btn-text">Home</a>
+      <a href="index.php" class="btn-text">Home</a>
     </button>
   </div>
 </body>

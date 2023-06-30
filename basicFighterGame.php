@@ -30,7 +30,7 @@
         <div id="timer" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%"></div>
         <div style="display: flex; align-items: center; justify-content: center">
           <button class="gamebtn" style="margin: 10px">
-            <a href="index.html" class="btn-text" style="text-align: center">Home</a>
+            <a href="index.php" class="btn-text" style="text-align: center">Home</a>
           </button>
         </div>
       </div>
