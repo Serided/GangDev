@@ -18,36 +18,35 @@ $navbar = file_get_contents ("navBar.html");
 
         <div class="fullw sect">
         <section class="fullw">
-            <h2>About The Company</h2>
+            <h2>Contacting The Company</h2>
             <p class="fullw">
-                Amongus
+                We don't currently have a group email or phone set up yet. I will keep you posted though... I swear.
             </p>
         </section>
         </div>
 
         <div class="fullw sect spacing">
         <section class="fullw">
-            <h2>About The Gang</h2>
+            <h2>Individual Contacts</h2>
 
             <h3>Jens</h3>
             <p class="fullw" style="margin:0; color: purple">
-                During the most convenient of times (school finals), Jens got the sudden inspiration to create his own website. He then proceeded to buy an ip, server,
-                and whip out the bones of this website in the span of 16 hours. Thus started GangDev, the coolest group of programmers you ever dreamed of.
+                <a href="mailto:scandinalien.work@gmail.com">Email</a>
             </p>
 
             <h3>Jorgen</h3>
             <p class="fullw" style="margin:0; color: green">
-                He's playing Minecraft... one sec.
+                <a href="mailto:jorgen@iviking.org">Email</a>
             </p>
 
             <h3>Kate</h3>
             <p class="fullw" style="margin:0; color: pink">
-                Doing something healthy and not in front of her computer...
+                Kinda SUS that you looking over here... keep your eyes to your own email, buddy.
             </p>
 
             <h3>John</h3>
             <p class="fullw" style="margin-top:0; margin-bottom:20px; color: blue">
-                Pwning noobs either irl or online... I really don't know.
+                "Probably not for now" says he.
             </p>
         </section>
         </div>
