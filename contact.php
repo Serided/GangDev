@@ -29,7 +29,7 @@ $navbar = file_get_contents ("navBar.html");
         <section class="fullw">
             <h2>About The Gang</h2>
             <p class="fullw">
-                <h3>SUS</h3><br>
+                <h3 class="spacing">SUS</h3>
                 Amongus
             </p>
             <p class="fullw">
