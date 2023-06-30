@@ -5,7 +5,7 @@ $navbar = file_get_contents ("navBar.html");
 <html lang="en" class="fullw">
   <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>John</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js"></script>
   </head>

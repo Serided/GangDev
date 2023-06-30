@@ -64,6 +64,10 @@ $navbar = file_get_contents ("navBar.html");
           5+ hours of<br>
           <b>Kotlin</b>
         </p>
+        <p class="fnc-crcls">
+          5+ hours of<br>
+        <b>PHP</b>
+        </p>
       </div>
     </div>
 
