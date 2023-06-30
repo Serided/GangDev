@@ -43,29 +43,29 @@ $navbar = file_get_contents ("navBar.html");
       <div>
         <p class="fnc-crcls">
           90+ hours of<br>
-        <b style="font-size: 30px,margin:0">HTML</b>
+        <b style="font-size:30px; margin:0">HTML</b>
         </p>
         <p class="no-m nfullw fnc-crcls">
           55+ hours of<br>
-          <b style="font-size: 30px,margin:0">CSS</b>
+          <b style="font-size:30px; margin:0">CSS</b>
         </p>
         <p class="no-m nfullw fnc-crcls">
           30+ hours of<br>
-          <b style="font-size: 30px,margin:0">JS</b>
+          <b style="font-size:30px; margin:0">JS</b>
         </p>
         <p class="no-m nfullw fnc-crcls">
           110+ hours of<br>
-          <b style="font-size: 30px,margin:0">Python</b>
+          <b style="font-size:30px; margin:0">Python</b>
         </p>
         <p class="no-m nfullw fnc-crcls">
           30+ hours of<br>
-          <b style="font-size: 30px,margin:0">Ruby</b>
+          <b style="font-size:30px; margin:0">Ruby</b>
         <p class="no-m nfullw fnc-crcls">
           5+ hours of<br>
-          <b style="font-size: 30px,margin:0">Kotlin</b>
+          <b style="font-size:30px; margin:0">Kotlin</b>
         <p class="fnc-crcls">
           5+ hours of<br>
-          <b style="font-size: 30px,margin:0">PHP</b>
+          <b style="font-size:30px; margin:0">PHP</b>
         </p>
       </div>
     </div>
