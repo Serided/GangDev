@@ -16,7 +16,7 @@ $navbar = file_get_contents ("navBar.html");
             Games
         </h1>
 
-        <div class="fullw sect spacing">
+        <div class="fullw sect">
             <section class="fullw">
                 <h2>
                     <a href="basicCubeGame.php" target="_blank">The Bouncing Cube (Alpha)</a>
