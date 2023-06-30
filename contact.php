@@ -41,7 +41,7 @@ $navbar = file_get_contents ("navBar.html");
             </p>
 
             <h3>Kate</h3>
-            <p class="fullw" style="margin:0; color: aqua">
+            <p class="fullw" style="margin:0; color: pink">
                 Doing something healthy and not in front of her computer...
             </p>
 
