@@ -43,7 +43,7 @@ $navbar = file_get_contents ("navBar.html");
                 Amongus
             </p>
 
-            <p class="fullw" style="margin:0">
+            <p class="fullw" style="margin-top:0; margin-bottom:20px">
                 Amongus
             </p>
         </section>
