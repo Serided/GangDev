@@ -10,7 +10,7 @@ $navbar = file_get_contents ("navBar.html");
     <script src="js/script.js"></script>
   </head>
   <body class="main-p fullw">
-    <?= navbar ?>
+    <?= $navbar ?>
     
     <h1>
       Home
