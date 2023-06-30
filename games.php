@@ -16,7 +16,7 @@ $navbar = file_get_contents ("navBar.html");
             Games
         </h1>
 
-        <div class="fullw sect">
+        <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
                     <a href="basicCubeGame.php" target="_blank">The Bouncing Cube (Alpha)</a>
@@ -29,7 +29,7 @@ $navbar = file_get_contents ("navBar.html");
             </section>
         </div>
 
-        <div class="fullw sect">
+        <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
                     <a href="basicFighterGame.php" target="_blank">Fighting Game (Beta)</a>
@@ -42,7 +42,7 @@ $navbar = file_get_contents ("navBar.html");
             </section>
         </div>
 
-        <div class="fullw sect">
+        <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
                     <a href="basicPlatformerGame.php" target="_blank">Platformer Game (Alpha)</a>
@@ -53,7 +53,7 @@ $navbar = file_get_contents ("navBar.html");
             </section>
         </div>
 
-        <div class="fullw sect">
+        <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>WARNING!</h2>
                 <p class="fullw">
