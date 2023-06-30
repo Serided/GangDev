@@ -41,29 +41,33 @@ $navbar = file_get_contents ("navBar.html");
         </section>
       </div>
       <div>
-        <p class="fnc-crcls">
-          90+ hours of<br>
-        <b style="font-size:30px; margin:0">HTML</b>
+        <p class="coding-crcls">
+          450+ hours of<br>
+          <b style="font-size:30px; margin:0">MC Code</b>
         </p>
-        <p class="no-m nfullw fnc-crcls">
-          55+ hours of<br>
-          <b style="font-size:30px; margin:0">CSS</b>
-        </p>
-        <p class="no-m nfullw fnc-crcls">
-          30+ hours of<br>
-          <b style="font-size:30px; margin:0">JS</b>
-        </p>
-        <p class="no-m nfullw fnc-crcls">
+        <p class="no-m nfullw coding-crcls">
           110+ hours of<br>
           <b style="font-size:30px; margin:0">Python</b>
         </p>
-        <p class="no-m nfullw fnc-crcls">
+        <p class="no-m nfullw coding-crcls">
+          90+ hours of<br>
+          <b style="font-size:30px; margin:0">HTML</b>
+        </p>
+        <p class="no-m nfullw coding-crcls">
+          55+ hours of<br>
+          <b style="font-size:30px; margin:0">CSS</b>
+        </p>
+        <p class="no-m nfullw coding-crcls">
+          30+ hours of<br>
+          <b style="font-size:30px; margin:0">JS</b>
+        </p>
+        <p class="no-m nfullw coding-crcls">
           30+ hours of<br>
           <b style="font-size:30px; margin:0">Ruby</b>
-        <p class="no-m nfullw fnc-crcls">
+        <p class="no-m nfullw coding-crcls">
           5+ hours of<br>
           <b style="font-size:30px; margin:0">Kotlin</b>
-        <p class="fnc-crcls">
+        <p class="no-m nfullw coding-crcls">
           5+ hours of<br>
           <b style="font-size:30px; margin:0">PHP</b>
         </p>
