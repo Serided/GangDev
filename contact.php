@@ -28,17 +28,20 @@ $navbar = file_get_contents ("navBar.html");
         <div class="fullw sect spacing">
         <section class="fullw">
             <h2>About The Gang</h2>
-            <p class="fullw">
-                <h3 class="spacing">SUS</h3>
+            
+            <h3 class="spacing">SUS</h3>
+            <p class="fullw" style="margin:0">
                 Amongus
             </p>
-            <p class="fullw">
+
+            <h3 class="spacing">SUS</h3>
+            <p class="fullw" style="margin:0">
                 Amongus
             </p>
-            <p class="fullw">
+            <p class="fullw" style="margin:0">
                 Amongus
             </p>
-            <p class="fullw">
+            <p class="fullw" style="margin:0">
                 Amongus
             </p>
         </section>
