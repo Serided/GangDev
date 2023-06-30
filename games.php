@@ -24,7 +24,7 @@ $navbar = file_get_contents ("navBar.html");
                 <p class="fullw">
                     An incredibly produced knock-off of the dinosaur game, it'll blow you away with it's stunning art and riveting game play.<br>
                     <br>
-                    To play, click any key to make it jump.
+                    <b>To play, click any key to make it jump.</b>
                 </p>
             </section>
         </div>
@@ -37,7 +37,7 @@ $navbar = file_get_contents ("navBar.html");
                 <p class="fullw">
                     A piece of art, this game showcases some of the most unique game play and graphical art you have ever seen.<br>
                     <br>
-                    To play, player on the left uses the W, A, S and D keys and the player on the right uses the arrow keys.
+                    <b>To play, player on the left uses the W, A, S and D keys and the player on the right uses the arrow keys.</b>
                 </p>
             </section>
         </div>
