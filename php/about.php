@@ -6,7 +6,7 @@ $navbar = file_get_contents ("html/navBar.html");
     <head>
         <meta charset="UTF-8">
         <title>About</title>
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="../css/style.css">
         <script src="js/script.js"></script>
     </head>
     <body class="main-p fullw">
