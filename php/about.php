@@ -1,5 +1,5 @@
 <?php
-$navbar = file_get_contents ("html/navBar.html");
+$navbar = file_get_contents ("../html/navBar.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
@@ -7,7 +7,7 @@ $navbar = file_get_contents ("html/navBar.html");
         <meta charset="UTF-8">
         <title>About</title>
         <link rel="stylesheet" href="../css/style.css">
-        <script src="js/script.js"></script>
+        <script src="../js/script.js"></script>
     </head>
     <body class="main-p fullw">
         <?= $navbar ?>

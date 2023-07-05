@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Basic Cube Game (Alpha)</title>
-  <link rel="stylesheet" href="css/basicCubeGame.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/basicCubeGame.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
   <div id="game">
@@ -14,9 +14,9 @@
 
   <div id="menu" style="text-align: center">
     <button class="gamebtn">
-      <a href="index.php" class="btn-text">Home</a>
+      <a href="../index.php" class="btn-text">Home</a>
     </button>
   </div>
 </body>
-<script src="js/basicCubeGame/script.js"></script>
+<script src="../js/basicCubeGame/script.js"></script>
 </html>

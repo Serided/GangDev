@@ -1,13 +1,13 @@
 <?php
-$navbar = file_get_contents ("html/navBar.html");
+$navbar = file_get_contents ("../html/navBar.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
   <head>
     <meta charset="UTF-8">
     <title>Jens</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js"></script>
   </head>
   <body class="main-p fullw">
     <?= $navbar ?>
@@ -103,9 +103,9 @@ $navbar = file_get_contents ("html/navBar.html");
         <h2>Projects</h2>
         <p class="fullw">
           <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
-          <a href="php/games/basicCubeGame.html" target="_blank">The Bouncing Cube (Beta)</a><br>
-          <a href="php/games/basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>
-          <a href="php/games/basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a>
+          <a href="../php/games/basicCubeGame.html" target="_blank">The Bouncing Cube (Beta)</a><br>
+          <a href="../php/games/basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>
+          <a href="../php/games/basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a>
         </p>
       </section>
     </div>

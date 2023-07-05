@@ -1,13 +1,13 @@
 <?php
-$navbar = file_get_contents ("html/navBar.html");
+$navbar = file_get_contents ("../html/navBar.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
     <head>
         <meta charset="UTF-8">
         <title>Services</title>
-        <link rel="stylesheet" href="css/style.css">
-        <script src="js/script.js"></script>
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/script.js"></script>
     </head>
     <body class="main-p fullw">
         <?= $navbar ?>
