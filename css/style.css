@@ -2,6 +2,32 @@ html {
   font-family: "Book Antiqua";
 }
 
+
+/* Set up margins for headers */
+
+h1 {
+  letter-spacing: 2px;
+  font-size: 60px;
+  margin: 20px;
+}
+
+section h2 {
+  font-size: 25px;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+h3 {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+/* Body sizing */
+p {
+  font-size: 20px;
+}
+
 /* To space the sections */
 .spacing {
   margin-top: 80px !important;
@@ -41,29 +67,43 @@ html {
   overflow-wrap: anywhere;
 }
 
-/* Set up margins for headers */
-
-h1 {
-  letter-spacing: 2px;
-  font-size: 60px;
-  margin: 20px;
+.jens-gettin-buff {
+  
+  background-image: url("/img/jens/the_cave_three.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  
+  background-color: whitesmoke;
+  text-align: center;
+  margin: 0;
+  overflow-wrap: anywhere;
 }
 
-section h2 {
-  font-size: 25px;
-  margin-top: 20px;
-  margin-bottom: 0;
+.jens-theorizing {
+  
+  background-image: url("/img/jens/stock_space_image.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  
+  background-color: whitesmoke;
+  text-align: center;
+  margin: 0;
+  overflow-wrap: anywhere;
 }
 
-h3 {
-  font-size: 20px;
-  margin-top: 20px;
-  margin-bottom: 0;
-}
-
-/* Body sizing */
-p {
-  font-size: 20px;
+.jens-gaming {
+  
+  background-image: url("/img/jens/bros_cracked_at_fortnite_my_guy.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  
+  background-color: whitesmoke;
+  text-align: center;
+  margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .coding-crcls {

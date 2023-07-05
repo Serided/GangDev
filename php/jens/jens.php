@@ -53,11 +53,11 @@ $navbar = file_get_contents ("../../html/navBar.html");
           <b style="font-size:30px; margin:0">Python</b>
         </p>
         <p class="no-m nfullw coding-crcls">
-          90+ hours of<br>
+          100+ hours of<br>
           <b style="font-size:30px; margin:0">HTML</b>
         </p>
         <p class="no-m nfullw coding-crcls">
-          55+ hours of<br>
+          65+ hours of<br>
           <b style="font-size:30px; margin:0">CSS</b>
         </p>
         <p class="no-m nfullw coding-crcls">
