@@ -1,5 +1,5 @@
 <?php
-$navbar = file_get_contents ("/html/navBar.html");
+$navbar = file_get_contents ("../../html/navBar.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
