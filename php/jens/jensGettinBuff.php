@@ -7,6 +7,5 @@
         <script src="/js/script.js"></script>
     </head>
     <body class="main-p fullw">
-        <a href="http://www.google.com" style="visibility:hidden">Test</a>
     </body>
 </html>

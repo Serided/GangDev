@@ -20,7 +20,7 @@ $navbar = file_get_contents ("../../html/navBar.html");
       <section>
         <h2>Who Am I?</h2>
         <p>
-          <a href="/php/jens/jensGettinBuff.php">Test</a><br>
+          <a href="/php/jens/jensGettinBuff.php" style="color:inherit; text-decoration:inherit;">Test</a><br>
           Hello! My full name is Jens Hansen.<br>
           The superior gamer, I've been popping off in all of your favorite video games since you were a wee kid.<br>
           My current video games are Fortnite, Minecraft, League of Legends, and Valorant.<br>
