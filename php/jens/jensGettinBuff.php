@@ -1,21 +1,12 @@
-<head>
-    <title></title>
-    <meta charset="utf-8" />
-    <style>
-        #Tagthree {
-        visibility:hidden;
-        }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-        $(function () {
-            $("#Tagtwo").css("visibility", "hidden");
-        })
-    </script>
-
-</head>
-<body>
-    <a id="Tagone" href="http://www.google.com" style="visibility:hidden">Tagone</a>
-    <a id="Tagtwo" href="http://www.google.com">Tagtwo</a>
-    <a id="Tagthree" href="http://www.google.com">Tagthree</a>
-</body>
+<!DOCTYPE html>
+<html lang="en" class="fullw">
+    <head>
+        <meta charset="UTF-8">
+        <title>Home</title>
+        <link rel="stylesheet" href="/css/style.css">
+        <script src="/js/script.js"></script>
+    </head>
+    <body class="main-p fullw">
+        <a id="Tagone" href="http://www.google.com" style="visibility:hidden">Test</a>
+    </body>
+</html>
