@@ -1,11 +1,11 @@
 <?php
-$navbar = file_get_contents ("navBar.html");
+$navbar = file_get_contents ("html/navBar.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
   <head>
     <meta charset="UTF-8">
-    <title>John</title>
+    <title>Kate</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js"></script>
   </head>
@@ -13,14 +13,14 @@ $navbar = file_get_contents ("navBar.html");
     <?= $navbar ?>
 
     <h1>
-      John
+      Kate
     </h1>
 
     <div class="fullw sect">
       <section class="fullw">
-        <h2>Chungus</h2>
+        <h2>No</h2>
         <p class="fullw">
-          Amongus
+          This isn't ready yet buddy
         </p>
       </section>
     </div>

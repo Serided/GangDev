@@ -1,5 +1,5 @@
 <?php
-$navbar = file_get_contents ("navBar.html");
+$navbar = file_get_contents ("html/navBar.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
@@ -65,9 +65,9 @@ $navbar = file_get_contents ("navBar.html");
       <section class="fullw">
         <h2>Games</h2>
         <p class="fullw">
-          <a href="basicCubeGame.html">The Bouncing Cube (Alpha)</a><br>
-          <a href="basicFighterGame.html">Fighting Game (Beta)</a><br>
-          <a href="basicPlatformerGame.html">Platformer Game (Alpha)</a>
+          <a href="php/games/basicCubeGame.html">The Bouncing Cube (Alpha)</a><br>
+          <a href="php/games/basicFighterGame.html">Fighting Game (Beta)</a><br>
+          <a href="php/games/basicPlatformerGame.html">Platformer Game (Alpha)</a>
         </p>
       </section>
     </div>
