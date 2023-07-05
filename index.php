@@ -1,13 +1,13 @@
 <?php
-$navbar = file_get_contents ("../html/navBar.html");
+$navbar = file_get_contents ("/html/navBar.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
   <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/script.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/script.js"></script>
   </head>
   <body class="main-p fullw">
     <?= $navbar ?>
@@ -65,9 +65,9 @@ $navbar = file_get_contents ("../html/navBar.html");
       <section class="fullw">
         <h2>Games</h2>
         <p class="fullw">
-          <a href="../php/games/basicCubeGame.html">The Bouncing Cube (Alpha)</a><br>
-          <a href="../php/games/basicFighterGame.html">Fighting Game (Beta)</a><br>
-          <a href="../php/games/basicPlatformerGame.html">Platformer Game (Alpha)</a>
+          <a href="/php/games/basicCubeGame.html">The Bouncing Cube (Alpha)</a><br>
+          <a href="/php/games/basicFighterGame.html">Fighting Game (Beta)</a><br>
+          <a href="/php/games/basicPlatformerGame.html">Platformer Game (Alpha)</a>
         </p>
       </section>
     </div>

@@ -1,13 +1,13 @@
 <?php
-$navbar = file_get_contents ("../html/navBar.html");
+$navbar = file_get_contents ("/html/navBar.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
     <head>
         <meta charset="UTF-8">
         <title>Games</title>
-        <link rel="stylesheet" href="../css/style.css">
-        <script src="../js/script.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+        <script src="/js/script.js"></script>
     </head>
     <body class="main-p fullw">
         <?= $navbar ?>
@@ -19,7 +19,7 @@ $navbar = file_get_contents ("../html/navBar.html");
         <div class="fullw sect">
             <section class="fullw">
                 <h2>
-                    <a href="../php/games/basicCubeGame.php" target="_blank">The Bouncing Cube (Alpha)</a>
+                    <a href="/php/games/basicCubeGame.php" target="_blank">The Bouncing Cube (Alpha)</a>
                 </h2>
                 <p class="fullw">
                     An incredibly produced knock-off of the dinosaur game, it'll blow you away with it's stunning art and riveting game play.<br>
@@ -32,7 +32,7 @@ $navbar = file_get_contents ("../html/navBar.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="../php/games/basicFighterGame.php" target="_blank">Fighting Game (Beta)</a>
+                    <a href="/php/games/basicFighterGame.php" target="_blank">Fighting Game (Beta)</a>
                 </h2>
                 <p class="fullw">
                     A piece of art, this game showcases some of the most unique game play and graphical art you have ever seen.<br>
@@ -45,7 +45,7 @@ $navbar = file_get_contents ("../html/navBar.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="../php/games/basicPlatformerGame.php" target="_blank">Platformer Game (Alpha)</a>
+                    <a href="/php/games/basicPlatformerGame.php" target="_blank">Platformer Game (Alpha)</a>
                 </h2>
                 <p class="fullw">
                     Currently unplayable, the next stupendous production in this line of phenomenal games.

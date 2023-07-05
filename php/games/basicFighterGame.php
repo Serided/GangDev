@@ -6,8 +6,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/basicFighterGame.css">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="/css/basicFighterGame.css">
+  <link rel="stylesheet" href="/css/style.css">
   <style>
     * {
       box-sizing: border-box;
@@ -30,7 +30,7 @@
         <div id="timer" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%"></div>
         <div style="display: flex; align-items: center; justify-content: center">
           <button class="gamebtn" style="margin: 10px">
-            <a href="../index.php" class="btn-text" style="text-align: center">Home</a>
+            <a href="/index.php" class="btn-text" style="text-align: center">Home</a>
           </button>
         </div>
       </div>
@@ -44,8 +44,8 @@
     <canvas></canvas>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="../js/basicFighterGame/utilities.js"></script>
-  <script src="../js/basicFighterGame/classes.js"></script>
-  <script src="../js/basicFighterGame/script.js"></script>
+  <script src="/js/basicFighterGame/utilities.js"></script>
+  <script src="/js/basicFighterGame/classes.js"></script>
+  <script src="/js/basicFighterGame/script.js"></script>
 </body>
 </html>
