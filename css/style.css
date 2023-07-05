@@ -30,7 +30,7 @@ html {
 /* Settings for main pages */
 .main-p {
   
-  background-image: url("../img/valley_portrait_2.jpg");
+  background-image: url("/img/valley_portrait_2.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
