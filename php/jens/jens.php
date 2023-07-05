@@ -20,13 +20,18 @@ $navbar = file_get_contents ("../../html/navBar.html");
       <section>
         <h2>Who Am I?</h2>
         <p>
-          <a href="/php/jens/jensGettinBuff.php" style="color:inherit; text-decoration:inherit;">Test</a><br>
           Hello! My full name is Jens Hansen.<br>
           The superior gamer, I've been popping off in all of your favorite video games since you were a wee kid.<br>
           My current video games are Fortnite, Minecraft, League of Legends, and Valorant.<br>
           Recently, I have been getting into Factorio and Satisfactory.<br>
           Favorite food has <u>GOT</u> to be donuts. Those rings of perfection are my go-to for anything: meals, snacking, and wedding luncheons.<br>
-          Favorite general activities are coding and working out. I get those gains and then I rapidly lose them.<br>
+          Favorite general activities are coding, 
+          <a href="/php/jens/jensGaming.php" style="color:inherit; text-decoration:inherit;">gaming</a>
+          , 
+          <a href="/php/jens/jensTheories.php" style="color:inherit; text-decoration:inherit;">theorizing</a>
+          , and 
+          <a href="/php/jens/jensGettinBuff.php" style="color:inherit; text-decoration:inherit;">working out</a>
+          . I get those gains and then I rapidly lose them.<br>
           I am toxic so don't kill me in Fortnite or I <u>WILL</u> call you trash. Even if you are better.<br>
         </p>
       </section>

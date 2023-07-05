@@ -1,1 +1,1 @@
-<!-- Test -->
+<!-- Theories page -->
