@@ -32,7 +32,7 @@ $navbar = file_get_contents ("../../html/navBar.html");
         <section>
           <h2>Insult</h2>
           <p>
-            < insert insult here, JENS u silly billy >
+            <button id="btn">Insult will be generated here. Click text for new roast.</button>
           </p>
         </section>
       </div>
