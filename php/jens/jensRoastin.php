@@ -8,7 +8,7 @@ $navbar = file_get_contents ("../../html/navBar.html");
     <title>Jens Be Roastin'</title>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/script.js"></script>
-    <script src="/js/jens/insult.js"></script>
+    <script src="/js/jens/roast.js"></script>
   </head>
   <body class="main-p fullw">
     <?= $navbar ?>
@@ -32,7 +32,7 @@ $navbar = file_get_contents ("../../html/navBar.html");
         <section>
           <h2>Insult</h2>
           <p>
-            <button id="btn">Insult will be generated here. Click text for new roast.</button>
+            <button id="btn output">Insult will be generated here. Click text for new roast.</button>
           </p>
         </section>
       </div>
