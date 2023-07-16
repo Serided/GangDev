@@ -29,7 +29,8 @@ $navbar = file_get_contents ("../../html/navBar.html");
           <a href="/php/jens/jensGaming.php" style="color:inherit; text-decoration:inherit;">gaming</a>, 
           <a href="/php/jens/jensTheories.php" style="color:inherit; text-decoration:inherit;">theorizing</a>, and 
           <a href="/php/jens/jensGettinBuff.php" style="color:inherit; text-decoration:inherit;">working out</a>. I get those gains and then I rapidly lose them.<br>
-          I am toxic so don't kill me in Fortnite or I <u>WILL</u> call you trash. Even if you are better.<br>
+          I am toxic so don't kill me in Fortnite or I <u>WILL</u> 
+          <a href="/php/jens/jensRoastin.php" style="color:inherit; text-decoration:inherit;">call you trash</a>. Even if you are better.<br>
         </p>
       </section>
     </div>
