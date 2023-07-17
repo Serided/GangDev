@@ -31,8 +31,9 @@ $navbar = file_get_contents ("../../html/navBar.html");
       <div>
         <section>
           <h2>Insult</h2>
-          <p>
-            <button id="btn output">Insult will be generated here. Click text for new roast.</button>
+          <button id="btn">Click to generate an absolute beast of an insult</button>
+          <p id="output">
+            Insult will be generated here haha lol poggers
           </p>
         </section>
       </div>
