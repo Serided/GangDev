@@ -27,7 +27,6 @@ $navbar = file_get_contents ("../../html/navBar.html");
     </div>
 
     <div class="fullw sect spacing">
-      <script src="/js/jens/roast.js"></script>
       <div>
         <section>
           <h2>Insult</h2>
@@ -37,6 +36,8 @@ $navbar = file_get_contents ("../../html/navBar.html");
         </section>
       </div>
     </div>
+
+    <script src="/js/jens/roast.js"></script>
 
     <div class="fullw cpy-w spacing">
       <section class="fullw">
