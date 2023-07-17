@@ -8,7 +8,6 @@ $navbar = file_get_contents ("../../html/navBar.html");
     <title>Jens Be Roastin'</title>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/script.js"></script>
-    <script src="/js/jens/roast.js"></script>
   </head>
   <body class="main-p fullw">
     <?= $navbar ?>
@@ -28,12 +27,12 @@ $navbar = file_get_contents ("../../html/navBar.html");
     </div>
 
     <div class="fullw sect spacing">
+      <script src="/js/jens/roast.js"></script>
       <div>
         <section>
           <h2>Insult</h2>
-          <button id="btn">Click to generate an absolute beast of an insult</button>
           <p id="output">
-            Insult will be generated here haha lol poggers
+            <button id="btn output">Click this text to generate an absolutely exquisite insult.</button>
           </p>
         </section>
       </div>
