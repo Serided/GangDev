@@ -33,11 +33,10 @@ $navbar = file_get_contents ("../../html/navBar.html");
           <p id="output">
             <button id="btn output">Click this text to generate an absolutely exquisite insult.</button>
           </p>
+          <script src="/js/jens/roast.js"></script>
         </section>
       </div>
     </div>
-
-    <script src="/js/jens/roast.js"></script>
 
     <div class="fullw cpy-w spacing">
       <section class="fullw">
