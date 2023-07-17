@@ -30,8 +30,8 @@ $navbar = file_get_contents ("../../html/navBar.html");
       <div>
         <section>
           <h2>Insult</h2>
-          <p id="output">
-            <button id="btn">Click this text to generate an absolutely exquisite insult.</button>
+          <p>
+            <button id="btn output">Click this text to generate an absolutely exquisite insult.</button>
             <div id="output">Fricken work</div>
           </p>
           <script src="/js/jens/roast.js"></script>
