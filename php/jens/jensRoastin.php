@@ -29,10 +29,11 @@ $navbar = file_get_contents ("../../html/navBar.html");
     <div class="fullw sect spacing">
       <div>
         <section>
-          <h2>Insult</h2>
-          <p>
-            <button id="btn">Click this text to generate an absolutely exquisite insult.</button>
-            <div id="output">Fricken work</div>
+          <h2>
+            <button id="btn">Insult Me</button>
+          </h2>
+          <p id="output">
+            Don't feel forced into this. You are consciously making this decision right now.
           </p>
           <script src="/js/jens/roast.js"></script>
         </section>
