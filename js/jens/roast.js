@@ -9,5 +9,5 @@ let roasts = [
 
 btn.addEventListener('click', function(){
     var randomRoast = roasts[Math.floor(Math.random() * roasts.length)]
-    output.innerHTML = randomRoast
+    output.innerHTML = randomRoast;
 })
