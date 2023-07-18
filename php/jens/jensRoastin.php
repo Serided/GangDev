@@ -30,10 +30,11 @@ $navbar = file_get_contents ("../../html/navBar.html");
     <div class="fullw sect spacing">
       <div>
         <section>
-          <h2>Insult</h2>
-          <p>
-            <button id="btn">Insult will be generated here. Click text for new roast.</button>
-            <div id="output">Insult will generate here.</div>
+          <h2>
+            <button id="btn">Insult Me</button>
+          </h2>
+          <p id="output">
+            Insult will generate here.
           </p>
         </section>
       </div>
