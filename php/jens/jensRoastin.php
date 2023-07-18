@@ -8,7 +8,6 @@ $navbar = file_get_contents ("../../html/navBar.html");
     <title>Jens Be Roastin'</title>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/script.js"></script>
-    <script src="/js/jens/roast.js"></script>
   </head>
   <body class="main-p fullw">
     <?= $navbar ?>
@@ -36,6 +35,7 @@ $navbar = file_get_contents ("../../html/navBar.html");
           <p id="output">
             Insult should generate here.
           </p>
+          <script src="/js/jens/roast.js"></script>
         </section>
       </div>
     </div>
