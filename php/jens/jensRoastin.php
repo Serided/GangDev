@@ -4,7 +4,7 @@ $navbar = file_get_contents ("../../html/navBar.html");
 <!DOCTYPE html>
 <html lang="en" class="fullw">
   <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
     <title>Jens Be Roastin'</title>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/script.js"></script>
@@ -32,7 +32,8 @@ $navbar = file_get_contents ("../../html/navBar.html");
         <section>
           <h2>Insult</h2>
           <p>
-            <button id="btn output">Insult will be generated here. Click text for new roast.</button>
+            <button id="btn">Insult will be generated here. Click text for new roast.</button>
+            <div id="output">Insult will generate here.</div>
           </p>
         </section>
       </div>

@@ -221,6 +221,12 @@ p {
   display: block;
 }
 
+.hidden-link {
+  color:inherit;
+  text-decoration:inherit;
+  cursor: text;
+}
+
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #ddd;}
 

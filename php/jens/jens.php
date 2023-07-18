@@ -26,11 +26,11 @@ $navbar = file_get_contents ("../../html/navBar.html");
           Recently, I have been getting into Factorio and Satisfactory.<br>
           Favorite food has <u>GOT</u> to be donuts. Those rings of perfection are my go-to for anything: meals, snacking, and wedding luncheons.<br>
           Favorite general activities are coding, 
-          <a href="/php/jens/jensGaming.php" style="color:inherit; text-decoration:inherit;">gaming</a>, 
-          <a href="/php/jens/jensTheories.php" style="color:inherit; text-decoration:inherit;">theorizing</a>, and 
-          <a href="/php/jens/jensGettinBuff.php" style="color:inherit; text-decoration:inherit;">working out</a>. I get those gains and then I rapidly lose them.<br>
+          <a href="/php/jens/jensGaming.php" class="hidden-link">gaming</a>,
+          <a href="/php/jens/jensTheories.php" class="hidden-link">theorizing</a>, and
+          <a href="/php/jens/jensGettinBuff.php" class="hidden-link">working out</a>. I get those gains and then I rapidly lose them.<br>
           I am toxic so don't kill me in Fortnite or I <u>WILL</u> 
-          <a href="/php/jens/jensRoastin.php" style="color:inherit; text-decoration:inherit;">call you trash</a>. Even if you are better.<br>
+          <a href="/php/jens/jensRoastin.php" class="hidden-link">call you trash</a>. Even if you are better.<br>
         </p>
       </section>
     </div>
