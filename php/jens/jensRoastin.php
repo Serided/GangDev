@@ -30,11 +30,18 @@ $navbar = file_get_contents ("../../html/navBar.html");
       <div>
         <section>
           <h2>
-            <button id="btn">Insult Me</button>
+            <button id="btn" class="roastbtn roastbtntext" style="font-size: 15px">
+              Push me to <br> <b style="font-size: 25px">Insult Yourself</b>
+            </button>
           </h2>
-          <p id="output">
-            Insult should generate here.
-          </p>
+          <div>
+            <p style="margin-top: 1px; font-size: 15px">
+              Or <b id="timer" style="font-size: 18px">15</b> seconds until it insults you, for you.
+            </p>
+            <p id="output" style="color: red; font-size: 25px">
+              Insult should generate here, and if it doesn't, it just doesn't like you. Rest in pepperonis!
+            </p>
+          </div>
           <script src="/js/jens/roast.js"></script>
         </section>
       </div>

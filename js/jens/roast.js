@@ -1,13 +1,75 @@
 let btn = document.getElementById('btn');
 let output = document.getElementById('output');
-let roasts = [
-    'You are built like an exotic Oompa Loompa.',
-    'You have no earnings.',
-    'Go have yourself a donut and fill that elongated hole of a mouth you have.',
-    'You are one unusually silly billy.'
+
+let timer = document.getElementById('timer');
+let time = 15
+let timerId
+
+
+var start = [
+    "You"
+];
+
+var end = [
+    "with no earnings","with no rizz","with no dexterity","without basic cooking ability","with positively gigantic cooking mits",
+    "with sweaty hands","without chicken nuggets",
+];
+
+var nouns = [
+    "Aerococcus Urinae","Pediococcus Acidilactici","Tetragenococcus Halophilus","Bacillus Anthracis","Klebsiella Aerogenes",
+    "Vibrio Parahaemolyticus","Campylobacter Rectus","Spirillum Minus","Treponema Denticola","African Wild Dog","American Bulldog",
+    "Chinese Crested Dog","Oompa Loompa","doorknob"
+];
+
+var verbs = [
+    "Bibbling"
+];
+
+function generateInsult(){
+    var adjs= [
+        "corpulent","obese","portly","stout","fleshy","rotund",
+        "adipose","bloated","porcine","pursy","dull","foolish","futile","ill-advised","irrelevant","laughable",
+        "ludicrous","naive","senseless","shortsighted","simple","trivial","rash", "thick","unintelligent",
+        "dazed","deficient","dense","dim","doltish","dopey","gullible","half-baked","half-witted","imbecilic","inane","indiscreet",
+        "insensate","meaningless","mindless","moronic","nonsensical","obtuse","out to lunch","pointless","puerile","simpleminded","slow",
+        "sluggish","stolid","stupefied", "thick-headed","unthinking","witless","sus"
     ];
 
-btn.addEventListener('click', function(){
-    var randomRoast = roasts[Math.floor(Math.random() * roasts.length)]
-    output.innerHTML = randomRoast;
-})
+    let roast = ["You"];
+    // var roastLength = Math.floor(Math.random() * adjs.length);
+    var noun = Math.floor(Math.random() * nouns.length);
+    var ending = Math.floor(Math.random() * end.length);
+
+    for (let i = 0; i < 13; i++) {
+        var adj = Math.floor(Math.random() * adjs.length);
+        roast.push(adjs[adj])
+        adjs.splice(adj,1)
+    }
+
+    roast.push(nouns[noun])
+    roast.push(end[ending])
+    // console.log(roastLength);
+
+    output.innerHTML = roast.join(" ");
+
+    time = 15
+    timer.innerHTML = time
+}
+
+
+function decreaseTimer() {
+    if (time > 0) {
+        timerId = setTimeout(decreaseTimer, 1000)
+        time--
+        // console.log(time)
+    }
+    if (time <= 0) {
+        time = 15
+        generateInsult()
+    }
+    timer.innerHTML = time
+}
+
+btn.addEventListener('click', generateInsult)
+
+decreaseTimer()

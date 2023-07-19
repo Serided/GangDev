@@ -1,0 +1,17 @@
+{
+  "adjectives": {
+    "fat": [
+      "corpulent","obese","portly","stout","fleshy","overweight","gross","chubby","plump","pudgy","rotund","bulky","burly","fatty",
+      "adipose","bloated","porcine","weighty","pursy","heavy"
+    ],
+    "dumb": [
+      "dull","dumb","foolish","futile","ill-advised","irrelevant","laughable","ludicrous","naive","senseless","shortsighted","simple","trivial","dummy","loser","rash",
+      "thick","unintelligent","brainless","dazed","deficient","dense","dim","doltish","dopey","gullible","half-baked","half-witted","idiotic","imbecilic","inane","indiscreet",
+      "insensate","meaningless","mindless","moronic","nonsensical","obtuse","out to lunch","pointless","puerile","simpleminded","slow","sluggish","stolid","stupefied",
+      "thick-headed","unthinking","witless"
+    ],
+    "disabled": [
+
+    ]
+  }
+}

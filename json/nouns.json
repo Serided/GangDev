@@ -1,0 +1,25 @@
+{
+  "nouns": {
+    "bacterias": {
+      "spherical": [
+        "Aerococcus Urinae","Pediococcus Acidilactici","Tetragenococcus Halophilus"
+      ],
+      "rodical": [
+        "Bacillus Anthracis","Klebsiella Aerogenes","Vibrio Parahaemolyticus"
+      ],
+      "spiralical": [
+        "Campylobacter Rectus","Spirillum Minus","Treponema Denticola"
+      ],
+    },
+    "animals": {
+      "dogs": [
+        "African Wild Dog","American Bulldog","Chinese Crested Dog"
+      ],
+    },
+    "insects": {
+      "ants": [
+
+      ]
+    }
+  }
+}
