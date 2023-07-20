@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Basic Cube Game (Alpha)</title>
-  <link rel="stylesheet" href="/css/basicCubeGame.css">
+  <link rel="stylesheet" href="/css/games/basicCubeGame.css">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -18,5 +18,5 @@
     </button>
   </div>
 </body>
-<script src="/js/basicCubeGame/script.js"></script>
+<script src="/js/games/basicCubeGame/script.js"></script>
 </html>
