@@ -39,7 +39,7 @@ $navbar = file_get_contents ("../html/navBar.html");
                 <a href="mailto:jorgen@iviking.org">Email Me(jorgen@iviking.org)</a>
             </p>
 
-            <h3>Kate</h3>
+            <!-- <h3>Kate</h3>
             <p class="fullw" style="margin:0; color: pink">
                 Kinda SUS that you looking over here... keep your eyes to your own email, buddy.
             </p>
@@ -47,7 +47,7 @@ $navbar = file_get_contents ("../html/navBar.html");
             <h3>John</h3>
             <p class="fullw" style="margin-top:0; margin-bottom:20px; color: blue">
                 "Probably not for now" says he.
-            </p>
+            </p> -->
         </section>
         </div>
 
