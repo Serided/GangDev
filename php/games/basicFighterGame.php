@@ -6,7 +6,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/basicFighterGame.css">
+  <link rel="stylesheet" href="/css/games/basicFighterGame.css">
   <link rel="stylesheet" href="/css/style.css">
   <style>
     * {
@@ -44,8 +44,8 @@
     <canvas></canvas>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="/js/basicFighterGame/utilities.js"></script>
-  <script src="/js/basicFighterGame/classes.js"></script>
-  <script src="/js/basicFighterGame/script.js"></script>
+  <script src="/js/games/basicFighterGame/utilities.js"></script>
+  <script src="/js/games/basicFighterGame/classes.js"></script>
+  <script src="/js/games/basicFighterGame/script.js"></script>
 </body>
 </html>
