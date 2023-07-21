@@ -12,10 +12,26 @@
     <div id="block"></div>
   </div>
 
-  <div id="menu" style="text-align: center">
-    <button class="gamebtn">
-      <a href="/index.php" class="btn-text">Home</a>
-    </button>
+  <div class="scoreboard spacing">
+      <p style="text-align: center">
+          <u>Furthest Traveled</u>
+      </p>
+  </div>
+
+  <div class="popup">
+      <img src="/img/green_tick.png"">
+      <div>
+          <button type="submit" class="popupbtn btn-text">Submit</button>
+      </div>
+      <div style="margin-top: 20px;">
+          <h2 style="color: limegreen">
+              Congrats!
+          </h2>
+          <p style="color: limegreen">
+              Your score has been submitted!
+          </p>
+          <button type="submit" class="btn-text tnybtnuwu">OKAY!!!</button>
+      </div>
   </div>
 </body>
 <script src="/js/games/basicCubeGame/script.js"></script>
