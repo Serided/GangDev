@@ -44,3 +44,58 @@
   0%{left: 250px;}
   100%{left: -250px;}
 }
+
+.scoreboard {
+  padding: 4px;
+  background-color: bisque;
+  width: 300px;
+  height: 500px;
+  border: 2px solid black;
+  font-family: sans-serif;
+}
+
+.popup {
+  height: 300px;
+  width: 300px;
+  background-color: royalblue;
+  border-radius: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  padding: 0 30px 30px;
+  color: #333;
+  box-shadow: 0 2px 5px black;
+}
+
+.popupbtn {
+  padding: 10px 50px;
+  background: darkgray;
+  border:0;
+  outline: none;
+  cursor: pointer;
+  font-size: 26px;
+  font-weight: 500;
+  border-radius: 30px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.tnybtnuwu {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: darkgray;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 200;
+  border-radius: 30px;
+}
+
+.popup img {
+  margin-top: 20px;
+  width: 100px;
+  height: 100px;
+}

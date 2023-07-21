@@ -15,13 +15,16 @@ function jump(){
 
 var checkDead = setInterval(function (){
   var characterTop =
-  parseInt(window.getComputedStyle(character).getPropertyValue("top"));
+    parseInt(window.getComputedStyle(character).getPropertyValue("top"));
   var blockLeft =
     parseInt(window.getComputedStyle(block).getPropertyValue("left"));
   if(blockLeft<-230 && blockLeft>-250 && characterTop>=130){
     block.style.animation = "none";
     block.style.display = "none";
-    alert("Thou lost.");
+    // alert("Thou lost.");
+    let stats = [
+        date = new Date()
+    ]
   }
 },10);
 
