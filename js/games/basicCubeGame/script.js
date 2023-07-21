@@ -4,6 +4,14 @@ var character =
 var block =
   document.getElementById("block");
 
+let popup = document.getElementById("popup");
+let submit1 = document.getElementById("submit1");
+let submit2 = document.getElementById("submit2");
+
+let timer = document.getElementById('timer');
+let time = 0
+let timerId
+
 function jump(){
   if(character.classList != "animate") {
     character.classList.add("animate")
@@ -11,6 +19,15 @@ function jump(){
       character.classList.remove("animate");
     }, 500);
   }
+}
+
+function closePopup() {
+  popup.classList.remove("openpopup");
+}
+
+function submitbtn() {
+  submit1.classList.remove("submit");
+  submit2.classList.remove("submit");
 }
 
 var checkDead = setInterval(function (){
@@ -22,12 +39,23 @@ var checkDead = setInterval(function (){
     block.style.animation = "none";
     block.style.display = "none";
     // alert("Thou lost.");
+    popup.classList.add("openpopup");
+
     let stats = [
-        date = new Date()
+        date = new Date(),
+        score = time,
     ]
   }
-},10);
+},1);
 
+function decreaseTimer() {
+  timerId = setTimeout(decreaseTimer, 10)
+  time += 0.01
+  // console.log(time)
+  timer.innerHTML = time.toFixed(2)
+}
+
+decreaseTimer()
 /*
 function newGame(){
   if(block.style.animation == "none" && block.style.display == "none"){
