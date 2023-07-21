@@ -67,7 +67,8 @@ $navbar = file_get_contents ("html/navBar.html");
         <p class="fullw">
           <a href="/php/games/basicCubeGame.php">The Bouncing Cube (Alpha)</a><br>
           <a href="/php/games/basicFighterGame.php">Fighting Game (Beta)</a><br>
-          <a href="/php/games/basicPlatformerGame.php">Platformer Game (Alpha)</a>
+          <a href="/php/games/basicPlatformerGame.php">Platformer Game (Alpha)</a><br>
+          <a href="/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
         </p>
       </section>
     </div>

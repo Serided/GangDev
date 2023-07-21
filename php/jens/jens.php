@@ -109,7 +109,8 @@ $navbar = file_get_contents ("../../html/navBar.html");
           <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
           <a href="/php/games/basicCubeGame.html" target="_blank">The Bouncing Cube (Beta)</a><br>
           <a href="/php/games/basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>
-          <a href="/php/games/basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a>
+          <a href="/php/games/basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a><br>
+          <a href="/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
         </p>
       </section>
     </div>

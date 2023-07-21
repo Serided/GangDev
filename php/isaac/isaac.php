@@ -18,9 +18,9 @@ $navbar = file_get_contents ("../../html/navBar.html");
 
 <div class="fullw sect">
 	<section>
-		<h2>Put title here</h2>
+		<h2>Isaac</h2>
 		<p>
-			Put reg text here
+			More about me later u silly billy
 		</p>
 	</section>
 </div>
@@ -29,11 +29,11 @@ $navbar = file_get_contents ("../../html/navBar.html");
 	<div>
 		<section>
 			<h2>
-
+                Games
 			</h2>
-			<p>
-
-			</p>
+            <p class="fullw">
+                <a href="/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
+            </p>
 		</section>
 	</div>
 </div>
