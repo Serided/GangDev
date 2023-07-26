@@ -33,12 +33,11 @@ update() {
     if (this.position.y +this.height +this.velocity.y <= canvas.height)
     this.velocity.y += gravity
     else this.velocity.y = 0
-}
-
+    }
 }
 
 class Platform {
-    constructor () {
+    constructor() {
         this.position = {
             x: 0,
             y: 0
@@ -48,13 +47,15 @@ class Platform {
         this.height = 20
     }
 
-    draw () {
+    draw() {
         c.fillStyle = 'blue'
-        c.fillRect (this.position.x, this.position.y, this.width, this.height)
+c.fillRect(this.position.x, this.posistion.y, this.width, this. height)
+
+    }
 }
 
 const player = new Player()
-const platform = new Platform()
+const platform = new Platform
 
 const keys = {
     right: {
@@ -69,7 +70,6 @@ function animate() {
     requestAnimationFrame (animate)
     c.clearRect (0, 0, canvas.width, canvas.height)
     player.update ()
-    platform.draw()
 
     if (keys.right.pressed) {
         player.velocity.x = 5
@@ -128,5 +128,3 @@ addEventListener('keyup' , ({keyCode}) => {
     }
     console.log(keys.right.pressed)
 })
-
-}
