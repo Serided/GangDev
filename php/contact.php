@@ -35,7 +35,7 @@ $navbar = file_get_contents ("../html/navBar.html");
             </p>
 
             <h3>Jorgen</h3>
-            <p class="fullw" style="margin:0; color: green">
+            <p class="fullw" style="margin-top:0; margin-bottom:20px; color: green">
                 <a href="mailto:jorgen@iviking.org">Email Me(jorgen@iviking.org)</a>
             </p>
 
