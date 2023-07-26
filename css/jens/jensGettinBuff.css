@@ -1,0 +1,12 @@
+.timeline {
+    align-items: center;
+    vertical-align: center;
+    display: block;
+}
+
+.buff {
+    border-radius: 10px;
+    box-shadow: 1px 8px 16px 1px rgba(0,0,0,0.2);
+    border: none;
+    margin: 10px;
+}

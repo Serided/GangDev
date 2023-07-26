@@ -69,6 +69,9 @@
   box-shadow: 0 2px 5px black;
   visibility: hidden;
   transition: transform 0.4s, top 0.4s;
+  font-family: sans-serif;
+  display: grid;
+  grid-auto-rows: 110px;
 }
 
 .popupbtn {
@@ -83,6 +86,7 @@
   width: 100%;
   margin-top: 20px;
   box-shadow: 0 1px 2px black;
+  font-family: sans-serif;
 }
 
 .tnybtnuwu {
@@ -96,6 +100,7 @@
   font-weight: 200;
   border-radius: 30px;
   box-shadow: 0 1px 1px black;
+  font-family: sans-serif;
 }
 
 .popup img {
@@ -112,4 +117,9 @@
 
 .submit {
   visibility: hidden;
+}
+
+#submit2, #submit3 {
+  grid-column: 1;
+  grid-row: 2;
 }

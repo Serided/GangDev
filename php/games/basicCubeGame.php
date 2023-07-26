@@ -24,10 +24,17 @@
 
   <div class="popup" id="popup">
       <img src="/img/green_tick.png" class="submit" id="submit1">
-      <div>
+      <div id="submit2">
+          <div id="error"></div>
+          <div>
+              <form action="/" method="get">
+                  <label style="color: white">Put your name here</label>
+                  <input type="text" id="name" maxlength="15">
+              </form>
+          </div>
           <button type="submit" class="popupbtn btn-text" onclick="submitbtn()">Submit</button>
       </div>
-      <div style="margin-top: 20px" class="submit" id="submit2">
+      <div style="margin-top: 20px" class="submit" id="submit3">
           <h2 style="color: limegreen">
               Congrats!
           </h2>

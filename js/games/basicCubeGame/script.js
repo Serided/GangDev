@@ -7,6 +7,7 @@ var block =
 let popup = document.getElementById("popup");
 let submit1 = document.getElementById("submit1");
 let submit2 = document.getElementById("submit2");
+let submit3 = document.getElementById("submit3");
 
 let timer = document.getElementById('timer');
 let time = 0
@@ -27,7 +28,8 @@ function closePopup() {
 
 function submitbtn() {
   submit1.classList.remove("submit");
-  submit2.classList.remove("submit");
+  submit2.classList.add("submit");
+  submit3.classList.remove("submit");
 }
 
 var checkDead = setInterval(function (){
@@ -43,7 +45,7 @@ var checkDead = setInterval(function (){
 
     let stats = [
         date = new Date(),
-        score = time,
+        score = time.toFixed(2),
     ]
   }
 },1);
