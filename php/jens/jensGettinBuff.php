@@ -12,5 +12,10 @@
             <img src="/img/jens/arrow.png" width="400px" height="300px" style="margin-top: 140px; margin-bottom: 160px">
             <img src="/img/jens/jens_two_7-26-2023.jpg" width="400px" height="600px" style="margin-right: auto" class="buff">
         </div>
+        <div>
+            <p>
+                Why I look so amazing (3/10): 120 push-ups in sets of 30, 500 sit-ups in sets of 250, and helka good lighting.
+            </p>
+        </div>
     </body>
 </html>
