@@ -25,11 +25,11 @@ $navbar = file_get_contents ("../../html/navBar.html");
           My current video games are Fortnite, Minecraft, League of Legends, and Valorant.<br>
           Recently, I have been getting into Factorio and Satisfactory.<br>
           Favorite food has <u>GOT</u> to be donuts. Those rings of perfection are my go-to for anything: meals, snacking, and wedding luncheons.<br>
-          Favorite general activities are coding, 
+          Favorite general activities are coding,
           <a href="/php/jens/jensGaming.php" class="hidden-link">gaming</a>,
           <a href="/php/jens/jensTheories.php" class="hidden-link">theorizing</a>, and
           <a href="/php/jens/jensGettinBuff.php" class="hidden-link">working out</a>. I get those gains and then I rapidly lose them.<br>
-          I am toxic so don't kill me in Fortnite or I <u>WILL</u> 
+          I am toxic so don't kill me in Fortnite or I <u>WILL</u>
           <a href="/php/jens/jensRoastin.php" class="hidden-link">call you trash</a>. Even if you are better.<br>
         </p>
       </section>
@@ -107,6 +107,7 @@ $navbar = file_get_contents ("../../html/navBar.html");
         <h2>Projects</h2>
         <p class="fullw">
           <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
+          <a href="/php/jens/minecraft.php" target="_blank">Minecraft</a><br>
           <a href="/php/games/basicCubeGame.html" target="_blank">The Bouncing Cube (Beta)</a><br>
           <a href="/php/games/basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>
           <a href="/php/games/basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a><br>
