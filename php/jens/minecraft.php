@@ -29,7 +29,7 @@ $navbar = file_get_contents ("../../html/navBar.html");
 	<section class="fullw">
 		<h2>Resource Packs</h2>
 		<p class="fullw">
-			FortCraft Resource Pack <a href="/files/FortCraft Resources" target="_blank" download>(Download)</a><br>
+			FortCraft Resource Pack <a href="/files/FortCraftResourcePack" target="_blank" download>(Download)</a><br>
 		</p>
 	</section>
 </div>
