@@ -26,24 +26,6 @@ $copyright = file_get_contents("../../html/copyright.html")
       </section>
     </div>
 
-    <div class="fullw sect spacing">
-      <section class="fullw">
-        <h2>Chungus</h2>
-        <p class="fullw">
-          Amongus
-        </p>
-      </section>
-    </div>
-
-    <div class="fullw sect spacing">
-       <section class="fullw">
-         <h2>Chungus</h2>
-         <p class="fullw">
-           Amongus
-         </p>
-       </section>
-    </div>
-
     <?= $copyright ?>
   </body>
 </html>
