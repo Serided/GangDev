@@ -167,9 +167,6 @@ mBL = 4096
 cW = 16
 mCL = 1
 
-x = (Math.abs(x4 - x3) + 1)
-z = (Math.abs(z4 - z3) + 1)
-
 function generateForceload() {
     // set an empty array for commands
     let commands = [];
@@ -179,6 +176,9 @@ function generateForceload() {
     var x2 = Number(document.getElementById("x2").value);
     var z1 = Number(document.getElementById("z1").value);
     var z2 = Number(document.getElementById("z2").value);
+
+    var x = (Math.abs(x4 - x3) + 1)
+    var z = (Math.abs(z4 - z3) + 1)
 
     // organize inputs
     if(x1 < x2) {
