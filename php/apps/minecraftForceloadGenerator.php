@@ -23,14 +23,15 @@ $fader = file_get_contents("../../html/pageFader.html");
             <section>
                 <h2>What the actwaw fweek is dis??</h2>
                 <p>
-
+                    Jens didn't want to manually type out every force load command for a <b>4000 x 4000</b>
+                    so he coded something to do it for him.
                 </p>
             </section>
         </div>
 
         <div class="fullw sect spacing">
             <section class="fullw">
-                <h2>Testing</h2>
+                <h2>Generator</h2>
                 <p class="fullw">
                     <input type="checkbox" id="sYN">
                     <label for="sYN">Forward Slash</label><br>
@@ -39,8 +40,9 @@ $fader = file_get_contents("../../html/pageFader.html");
                     <input type="text" id="z1">
                     <input type="text" id="x2">
                     <input type="text" id="z2"><br>
-                    <button id="btn">Press to generate commands for adding forceloads</button>
-                    <button id="btn">Press to generate commands for removing forceloads</button>
+                    <button id="btn">Press to generate commands for adding forceloads</button><br>
+                    <button id="cpy">Copy commands to clipboard</button>
+                    <!-- <button id="btn">Press to generate commands for removing forceloads</button> -->
                 </p>
                 <p id="output">
                     Commands should generate here.
