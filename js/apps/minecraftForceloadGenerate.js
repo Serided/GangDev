@@ -182,8 +182,8 @@ function generateForceload() {
     }
 
     var x1 = Number(document.getElementById("x1").value);
-    var x2 = Number(document.getElementById("x2").value);
     var z1 = Number(document.getElementById("z1").value);
+    var x2 = Number(document.getElementById("x2").value);
     var z2 = Number(document.getElementById("z2").value);
 
     // organize inputs

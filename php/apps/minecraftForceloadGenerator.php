@@ -36,8 +36,8 @@ $fader = file_get_contents("../../html/pageFader.html");
                     <label for="sYN">Forward Slash</label><br>
                     /forceload add
                     <input type="text" id="x1">
-                    <input type="text" id="x2">
                     <input type="text" id="z1">
+                    <input type="text" id="x2">
                     <input type="text" id="z2"><br>
                     <button id="btn">Press to generate commands for adding forceloads</button>
                     <button id="btn">Press to generate commands for removing forceloads</button>
