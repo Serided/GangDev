@@ -152,7 +152,9 @@ if (z === cW) {
 
  */
 
-let btn = document.getElementById('btn');
+let gFLA = document.getElementById('gFLA');
+let gFLR = document.getElementById('gFLR');
+
 let output = document.getElementById('output');
 
 //let s = check if they want slash
@@ -235,5 +237,5 @@ function generateForceload() {
     output.innerHTML = commands.join("/n");
 }
 
-btn.getElementById("gFLA").addEventListener('click', generateForceload);
-btn.getElementById("gFLR").addEventListener('click', generateForceload);
+gFLA.addEventListener('click', generateForceload);
+gFLR.addEventListener('click', generateForceload);
