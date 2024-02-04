@@ -32,6 +32,8 @@ $fader = file_get_contents("../../html/pageFader.html");
             <section class="fullw">
                 <h2>Testing</h2>
                 <p class="fullw">
+                    <input type="checkbox" id="sYN">
+                    <label for="sYN">Forward Slash</label><br>
                     /forceload add
                     <input type="text" id="x1">
                     <input type="text" id="x2">

@@ -174,11 +174,19 @@ function generateForceload() {
     let commands = [];
 
     // get inputs
+    if(document.getElementById("sYN").checked) {
+        var s = "/"
+    }
+    else {
+        var s = ""
+    }
+
     var x1 = Number(document.getElementById("x1").value);
     var x2 = Number(document.getElementById("x2").value);
     var z1 = Number(document.getElementById("z1").value);
     var z2 = Number(document.getElementById("z2").value);
 
+    // set lengths of the sides of designated chunks
     var x = (Math.abs(x4 - x3) + 1)
     var z = (Math.abs(z4 - z3) + 1)
 
