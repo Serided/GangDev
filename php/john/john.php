@@ -18,9 +18,9 @@ $navbar = file_get_contents ("../../html/navBar.html");
 
     <div class="fullw sect">
       <section class="fullw">
-        <h2>heyo</h2>
+        <h2>Heyo</h2>
         <p class="fullw" style="color: darkblue"> <!--hey jens you are very sus, in fact, you are an imposter.-->
-          hey im sus?
+          I'm a interesting person (not really).
         </p>
       </section>
     </div>
