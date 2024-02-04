@@ -20,7 +20,7 @@ $navbar = file_get_contents ("../../html/navBar.html");
       <section class="fullw">
         <h2>Fart Nuggy</h2>
         <p class="fullw"> <!--hey jens you are very sus, in fact, you are an imposter.-->
-          Amongus
+          hehehehe
         </p>
       </section>
     </div>
