@@ -5,37 +5,38 @@ $fader = file_get_contents("../../html/pageFader.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
-<head>
-	<meta charset="UTF-8">
-	<title>Jens</title>
-	<link rel="stylesheet" href="/css/style.css">
-	<script src="/js/script.js"></script>
-</head>
-<body class="main-p fullw">
-<?= $navbar ?>
+    <head>
+        <meta charset="UTF-8">
+        <title>Jens</title>
+        <link rel="stylesheet" href="/css/style.css">
+        <script src="/js/script.js"></script>
+    </head>
+    <body class="main-p fullw">
+        <?= $fader ?>
+        <?= $navbar ?>
 
-<h1>
-	Jens
-</h1>
+        <h1>
+            Jens
+        </h1>
 
-<div class="fullw sect">
-	<section>
-		<h2>What the actwaw fweek is dis??</h2>
-		<p>
+        <div class="fullw sect">
+            <section>
+                <h2>What the actwaw fweek is dis??</h2>
+                <p>
 
-		</p>
-	</section>
-</div>
+                </p>
+            </section>
+        </div>
 
-<div class="fullw sect spacing">
-	<section class="fullw">
-		<h2>Projects</h2>
-		<p class="fullw">
+        <div class="fullw sect spacing">
+            <section class="fullw">
+                <h2>Projects</h2>
+                <p class="fullw">
 
-		</p>
-	</section>
-</div>
+                </p>
+            </section>
+        </div>
 
-<?= $copyright ?>
-</body>
+        <?= $copyright ?>
+    </body>
 </html>

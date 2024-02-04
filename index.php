@@ -12,6 +12,7 @@ $fader = file_get_contents("../../html/pageFader.html");
     <script src="/js/script.js"></script>
   </head>
   <body class="main-p fullw">
+    <?= $fader ?>
     <?= $navbar ?>
     
     <h1>
