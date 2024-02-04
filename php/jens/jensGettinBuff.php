@@ -1,3 +1,8 @@
+<?php
+$navbar = file_get_contents ("../../html/navBar.html");
+$copyright = file_get_contents("../../html/copyright.html");
+$fader = file_get_contents("../../html/pageFader.html");
+?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
     <head>
@@ -7,6 +12,8 @@
         <script src="/js/script.js"></script>
     </head>
     <body class="">
+        <?= $fader ?>
+
         <div class="timeline" style="text-align: center">
             <img src="/img/jens/jens_noob_one.jpg" width="400px" height="600px" style="margin-left: auto" class="buff">
             <img src="/img/jens/arrow.png" width="400px" height="300px" style="margin-top: 140px; margin-bottom: 160px">

@@ -1,3 +1,6 @@
+<?php
+$fader = file_get_contents("../../html/pageFader.html");
+?>
 <!DOCTYPE html>
 <html lang="en" onclick="jump()" onkeypress="jump()">
 <head>
@@ -7,6 +10,8 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+  <?= $fader ?>
+
   <div id="game">
     <div id="character"></div>
     <div id="block"></div>

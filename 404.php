@@ -1,3 +1,8 @@
+<?php
+$navbar = file_get_contents ("../../html/navBar.html");
+$copyright = file_get_contents("../../html/copyright.html");
+$fader = file_get_contents("../../html/pageFader.html");
+?>
 <!doctype html>
 <html lang="en">
 
@@ -54,6 +59,7 @@
 </head>
 
 <body>
+    <?= $fader ?>
   <h1>Page Not Found</h1>
   <p>Sorry, but the page you were trying to view does not exist.</p>
 </body>

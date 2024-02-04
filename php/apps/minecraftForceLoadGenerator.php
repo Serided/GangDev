@@ -7,7 +7,7 @@ $fader = file_get_contents("../../html/pageFader.html");
 <html lang="en" class="fullw">
 <head>
 	<meta charset="UTF-8">
-	<title>Isaac</title>
+	<title>Jens</title>
 	<link rel="stylesheet" href="/css/style.css">
 	<script src="/js/script.js"></script>
 </head>
@@ -15,29 +15,25 @@ $fader = file_get_contents("../../html/pageFader.html");
 <?= $navbar ?>
 
 <h1>
-	Isaac
+	Jens
 </h1>
 
 <div class="fullw sect">
 	<section>
-		<h2>Isaac</h2>
+		<h2>What the actwaw fweek is dis??</h2>
 		<p>
-			More about me later u silly billy
+
 		</p>
 	</section>
 </div>
 
 <div class="fullw sect spacing">
-	<div>
-		<section>
-			<h2>
-                Games
-			</h2>
-            <p class="fullw">
-                <a href="/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
-            </p>
-		</section>
-	</div>
+	<section class="fullw">
+		<h2>Projects</h2>
+		<p class="fullw">
+
+		</p>
+	</section>
 </div>
 
 <?= $copyright ?>

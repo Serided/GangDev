@@ -32,7 +32,7 @@ function generateInsult(){
         "ludicrous","naive","senseless","shortsighted","simple","trivial","rash", "thick","unintelligent",
         "dazed","deficient","dense","dim","doltish","dopey","gullible","half-baked","half-witted","imbecilic","inane","indiscreet",
         "insensate","meaningless","mindless","moronic","nonsensical","obtuse","out to lunch","pointless","puerile","simpleminded","slow",
-        "sluggish","stolid","stupefied", "thick-headed","unthinking","witless","sus"
+        "sluggish","stolid","stupefied", "thick-headed","unthinking","witless","sus","toe-sucking"
     ];
 
     let roast = ["You"];
@@ -64,7 +64,7 @@ function decreaseTimer() {
         // console.log(time)
     }
     if (time <= 0) {
-        time = 15
+        time = 30
         generateInsult()
     }
     timer.innerHTML = time

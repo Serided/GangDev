@@ -1,6 +1,7 @@
 <?php
 $navbar = file_get_contents ("../../html/navBar.html");
-$copyright = file_get_contents("../../html/copyright.html")
+$copyright = file_get_contents("../../html/copyright.html");
+$fader = file_get_contents("../../html/pageFader.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
@@ -11,6 +12,7 @@ $copyright = file_get_contents("../../html/copyright.html")
     <script src="/js/script.js"></script>
   </head>
   <body class="main-p fullw">
+    <?= $fader ?>
     <?= $navbar ?>
 
     <h1>
