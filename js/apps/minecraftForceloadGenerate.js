@@ -241,7 +241,7 @@ function generateForceload() {
         commands.push(s + "forceload add " + x3 + " " + z3 + " " + x4 + " " + z4)
     }
 
-    output.innerHTML = commands.join("\n");
+    output.innerHTML = commands.join(`<br>`);
 }
 
 btn.addEventListener('click', generateForceload);
