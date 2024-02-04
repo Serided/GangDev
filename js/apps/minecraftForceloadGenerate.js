@@ -211,19 +211,22 @@ function generateForceload() {
     // generate the commands for big areas
     if ((x * z) > mBA) {
         if (x <= z) {
-            for (let i = 0; i < x / cW; i++) {
+            console.log("x is less than or equal to z")
+            for (let i = 0; i <= (x / cW); i++) {
                 x4 = x3 + cW
                 for (let i = 0; i < Math.floor(z / mBL); i++) {
                     z4 += mBL;
                     commands.push(s + "forceload add " + x3 + " " + z3 + " " + x4 + " " + (z4 - 1));
                     z3 += mBL;
+                    console.log("4096 fits into the width")
                 }
                 z4 += (((z / mBL) - Math.floor(z / mBL)) * mBL);
                 commands.push(s + "forceload add " + x3 + " " + z3 + " " + x4 + " " + (z4 - 1));
                 x3 += cW
+                console.log("x is less than or equal to z")
             }
         } else {
-            for (let i = 0; i < x / cW; i++) {
+            for (let i = 0; i <= (x / cW); i++) {
                 z4 = z3 + cW
                 for (let i = 0; i < Math.floor(x / mBL); i++) {
                     x4 += mBL;
