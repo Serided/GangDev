@@ -234,5 +234,5 @@ function generateForceload() {
     output.innerHTML = commands.join("/n");
 }
 
-btn.getElementById("gFLA").addEventListener('click', generateForceload);
+btn.addEventListener('click', generateForceload);
 btn.getElementById("gFLR").addEventListener('click', generateForceload);
