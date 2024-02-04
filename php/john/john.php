@@ -20,7 +20,7 @@ $copyright = file_get_contents("../../html/copyright.html")
     <div class="fullw sect">
       <section class="fullw">
         <h2>Heyo</h2>
-        <p class="fullw" style="color: darkblue"> <!--hey jens you are very sus, in fact, you are an imposter.-->
+        <p class="fullw" style="color: #8b0000"> <!--hey jens you are very sus, in fact, you are an imposter.-->
           I'm a interesting person (not really).
         </p>
       </section>
