@@ -1,6 +1,6 @@
 <?php
-$navbar = file_get_contents ("/html/navBar.html");
-$copyright = file_get_contents("/html/copyright.html")
+$navbar = file_get_contents ("../../html/navBar.html");
+$copyright = file_get_contents("../../html/copyright.html")
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
