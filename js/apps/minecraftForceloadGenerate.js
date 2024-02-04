@@ -214,30 +214,29 @@ function generateForceload() {
             for (let i = 0; i <= (x / cW); i++) { // increment 1 for every time 16 goes into x
                 x4 = x3 + cW // set x4 to 16 plus x3 at the start
                 let z5 = z3
-                let z6 = z4
+                let z6 = z3
                 for (let i = 0; i < Math.floor(z / mBL); i++) { // for every time that z goes into the max block limit 4096 run a cycle of max length commands
                     z6 += mBL;
-                    commands.push(s + "forceload add " + x3 + " " + z3 + " " + (x4 - 1) + " " + (z6 - 1));
+                    commands.push(s + "forceload add " + x3 + " " + z5 + " " + (x4 - 1) + " " + (z6 - 1));
                     z5 += mBL;
                     console.log("4096 fits into the width")
                 }
                 z6 += (((z / mBL) - Math.floor(z / mBL)) * mBL);
-                commands.push(s + "forceload add " + x3 + " " + z3 + " " + (x4 - 1) + " " + (z6 - 1));
+                commands.push(s + "forceload add " + x3 + " " + z5 + " " + (x4 - 1) + " " + (z6 - 1));
                 x3 += cW
-                console.log("x is less than or equal to z")
             }
         } else {
             for (let i = 0; i <= (x / cW); i++) {
                 let x5 = x3
-                let x6 = x4
+                let x6 = x3
                 z4 = z3 + cW
                 for (let i = 0; i < Math.floor(x / mBL); i++) {
                     x6 += mBL;
-                    commands.push(s + "forceload add " + x3 + " " + z3 + " " + (x6 - 1) + " " + (z4 - 1));
+                    commands.push(s + "forceload add " + x5 + " " + z3 + " " + (x6 - 1) + " " + (z4 - 1));
                     x5 += mBL;
                 }
                 x6 += (((x / mBL) - Math.floor(x / mBL)) * mBL);
-                commands.push(s + "forceload add " + x3 + " " + z3 + " " + (x6 - 1) + " " + (z4 - 1));
+                commands.push(s + "forceload add " + x5 + " " + z3 + " " + (x6 - 1) + " " + (z4 - 1));
                 z3 += cW;
             }
         }
