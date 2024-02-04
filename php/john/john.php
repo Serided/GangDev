@@ -44,6 +44,6 @@ $copyright = file_get_contents("../../html/copyright.html")
        </section>
     </div>
 
-    <?= $navbar ?>
+    <?= $copyright ?>
   </body>
 </html>
