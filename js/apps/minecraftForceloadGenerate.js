@@ -186,10 +186,6 @@ function generateForceload() {
     var z1 = Number(document.getElementById("z1").value);
     var z2 = Number(document.getElementById("z2").value);
 
-    // set lengths of the sides of designated chunks
-    var x = (Math.abs(x4 - x3) + 1)
-    var z = (Math.abs(z4 - z3) + 1)
-
     // organize inputs
     if(x1 < x2) {
         var x3 = Math.floor(x1 / cW) * cW;
@@ -208,8 +204,12 @@ function generateForceload() {
         var z3 = (Math.ceil((z2 + 1) / cW) * cW) - 1;
     }
 
+    // set lengths of the sides of designated chunks
+    var x = (Math.abs(x4 - x3) + 1)
+    var z = (Math.abs(z4 - z3) + 1)
+
     // generate the commands for big areas
-    if (x * z > mBA) {
+    if ((x * z) > mBA) {
         if (x <= z) {
             for (let i = 0; i < x / cW; i++) {
                 x4 = x3 + cW
