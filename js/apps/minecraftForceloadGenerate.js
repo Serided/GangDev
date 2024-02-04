@@ -252,7 +252,7 @@ function generateForceload() {
 
 function copyText() {
     var copyText = document.getElementById("output");
-    copyText.select();
+    // copyText.select();
     // copyText.setSelectionRange(0,9999999999999999999999999999999)
     navigator.clipboard.writeText(copyText.value())
 }
