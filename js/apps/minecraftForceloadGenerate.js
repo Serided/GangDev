@@ -195,7 +195,7 @@ function generateForceload() {
         var x4 = Math.floor(x1 / cW) * cW;
         var x3 = (Math.ceil((x2 + 1) / cW) * cW) - 1;
     }
-    if(z1 > z2) {
+    if(z1 < z2) {
         var z3 = Math.floor(z1 / cW) * cW;
         var z4 = (Math.ceil((z2 + 1) / cW) * cW) - 1;
     }
