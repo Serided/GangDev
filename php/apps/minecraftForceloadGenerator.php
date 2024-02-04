@@ -43,7 +43,7 @@ $fader = file_get_contents("../../html/pageFader.html");
                 <p id="output">
                     Commands should generate here.
                 </p>
-                <script src="/js/apps/forceloadGenerate.js"></script>
+                <script src="/js/apps/minecraftForceloadGenerate.js"></script>
             </section>
         </div>
 
