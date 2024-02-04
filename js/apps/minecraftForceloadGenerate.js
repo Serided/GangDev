@@ -250,7 +250,7 @@ function generateForceload() {
     output.innerHTML = commands.join(`<br>`);
 }
 
-function copyText() {
+function copyTextFunction() {
     var copyText = document.getElementById("output");
     // copyText.select();
     // copyText.setSelectionRange(0,9999999999999999999999999999999)
@@ -258,4 +258,4 @@ function copyText() {
 }
 
 btn.addEventListener('click', generateForceload);
-cpy.addEventListener('click', copyText);
+cpy.addEventListener('click', copyTextFunction);
