@@ -51,9 +51,6 @@ function generateInsult(){
     // console.log(roastLength);
 
     output.innerHTML = roast.join(" ");
-
-    time = 15
-    timer.innerHTML = time
 }
 
 

@@ -16,7 +16,7 @@ $fader = file_get_contents("../../html/pageFader.html");
         <?= $navbar ?>
 
         <h1>
-            Jens
+            Minecraft Mass ForceLoad Generator
         </h1>
 
         <div class="fullw sect">
