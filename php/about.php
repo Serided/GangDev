@@ -1,5 +1,6 @@
 <?php
 $navbar = file_get_contents ("../html/navBar.html");
+$copyright = file_get_contents("../../html/copyright.html")
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
@@ -43,21 +44,15 @@ $navbar = file_get_contents ("../html/navBar.html");
             <!-- <h3>Kate</h3>
             <p class="fullw" style="margin:0; color: pink">
                 Doing something healthy and not in front of her computer...
-            </p>
+            </p> -->
 
             <h3>John</h3>
             <p class="fullw" style="margin-top:0; margin-bottom:20px; color: blue">
                 Pwning noobs either irl or online... I really don't know.
-            </p> -->
-        </section>
-        </div>
-
-        <div class="fullw cpy-w spacing">
-        <section class="fullw">
-            <p class="fullw">
-            &copy; 2023 by Jens Hansen
             </p>
         </section>
         </div>
+
+        <?= $copyright ?>
     </body>
 </html>

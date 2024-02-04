@@ -1,5 +1,6 @@
 <?php
 $navbar = file_get_contents ("../html/navBar.html");
+$copyright = file_get_contents("../../html/copyright.html")
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
@@ -51,12 +52,6 @@ $navbar = file_get_contents ("../html/navBar.html");
         </section>
         </div>
 
-        <div class="fullw cpy-w spacing">
-        <section class="fullw">
-            <p class="fullw">
-            &copy; 2023 by Jens Hansen
-            </p>
-        </section>
-        </div>
+        <?= $copyright ?>
     </body>
 </html>
