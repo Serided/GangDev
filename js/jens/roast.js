@@ -43,7 +43,7 @@ function generateInsult(){
 
     output.innerHTML = roast.join(" ");
 
-    time = 30
+    return 30
 }
 
 
@@ -57,7 +57,7 @@ function decreaseTimer() {
         generateInsult();
     }
     timer.innerHTML = time;
-    btn.addEventListener('click', generateInsult)
+    btn.addEventListener('click', time = generateInsult)
 }
 
 decreaseTimer()
