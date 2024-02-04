@@ -152,8 +152,7 @@ if (z === cW) {
 
  */
 
-let gFLA = document.getElementById('gFLA');
-let gFLR = document.getElementById('gFLR');
+let btn = document.getElementById('btn');
 
 let output = document.getElementById('output');
 
@@ -237,5 +236,4 @@ function generateForceload() {
     output.innerHTML = commands.join("/n");
 }
 
-gFLA.addEventListener('click', generateForceload);
-gFLR.addEventListener('click', generateForceload);
+btn.addEventListener('click', generateForceload);

@@ -38,8 +38,8 @@ $fader = file_get_contents("../../html/pageFader.html");
                     <input type="text" id="x2">
                     <input type="text" id="z1">
                     <input type="text" id="z2"><br>
-                    <button id="btn gFLA">Press to generate commands for adding forceloads</button>
-                    <button id="btn gFLR">Press to generate commands for removing forceloads</button>
+                    <button id="btn">Press to generate commands for adding forceloads</button>
+                    <button id="btn">Press to generate commands for removing forceloads</button>
                 </p>
                 <p id="output">
                     Commands should generate here.
