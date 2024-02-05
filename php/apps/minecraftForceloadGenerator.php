@@ -61,11 +61,11 @@ $fader = file_get_contents("../../html/pageFader.html");
                         <input type="text" id="z2" placeholder="z2">
                     </div><br>
                     <div>
-                        <button id="gen" class="coding-crcls">Generate</button>
-                        <button id="cpy" class="coding-crcls">Copy commands to clipboard</button>
+                        <button id="gen" class="coding-crcls fbtn">Generate</button>
+                        <button id="cpy" class="coding-crcls fbtn">Copy</button>
                     </div><br>
                     <div>
-                        <p id="output" class="no-m coding-crcls nfullw">
+                        <p id="output" class="no-m output nfullw">
                             Commands will generate here... or else hehehe
                         </p>
                     </div>

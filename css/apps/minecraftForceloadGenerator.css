@@ -4,16 +4,26 @@ input[type=text] {
 }
 
 .output {
-    background-color: indianred;
-}
-
-.coding-crcls {
     margin: 0px !important;
     background-color: whitesmoke;
     color: royalblue;
     box-sizing: content-box !important;
     display: inline-block;
-    padding-top:10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+
+.fbtn {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    background-color: sandybrown;
+    color: black;
+    box-sizing: content-box !important;
+    display: inline-block;
+    padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 10px;
     padding-left: 10px;
