@@ -5,7 +5,7 @@ input[type=text] {
 
 .output {
     margin: 0px !important;
-    background-color: whitesmoke;
+    background-color: white;
     color: royalblue;
     box-sizing: content-box !important;
     display: inline-block;
@@ -17,17 +17,18 @@ input[type=text] {
 .fbtn {
     margin-left: 20px !important;
     margin-right: 20px !important;
-    background-color: lightgray;
+    background-color: white;
     color: black;
     box-sizing: content-box !important;
     display: inline-block;
     padding: 3px 3px 3px 3px;
-    border-radius: 1px;
+    border-radius: 2px;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 22px;
     font-family: "Book Antiqua";
     border: none;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .fbtn:hover {
