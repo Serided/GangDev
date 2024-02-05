@@ -110,6 +110,7 @@ $fader = file_get_contents("../../html/pageFader.html");
         <h2>Projects</h2>
         <p class="fullw">
           <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
+          <a href="/php/apps/minecraftForceloadGenerator.php" target="_blank">Minecraft Forceload Generator</a><br>
           <a href="/php/jens/minecraft.php" target="_blank">Minecraft</a><br>
           <a href="/php/games/basicCubeGame.html" target="_blank">The Bouncing Cube (Beta)</a><br>
           <a href="/php/games/basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>

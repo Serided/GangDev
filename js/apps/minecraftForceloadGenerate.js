@@ -176,9 +176,6 @@ function generateForceload() {
     // stored info as possible, [x1,x2],[z1,z2],[x3,x4],[z3,z4],[x,z]
     let c = [[], [], [], []]
 
-    let type = String(document.getElementById("typ").checked.value)
-    console.log(type)
-
     // get inputs
     if(document.getElementById("sYN").checked) {
         var s = "/"
@@ -186,6 +183,31 @@ function generateForceload() {
     else {
         var s = ""
     }
+
+    if(document.getElementById("lO").checked) {
+        var l = "execute in overworld run "
+    }
+    else if(document.getElementById("lE").checked) {
+        var l = "execute in the_end run "
+    }
+    else if(document.getElementById("lN").checked) {
+        var l = "execute in the_nether run "
+    }
+    else {
+        var l = ""
+    }
+
+    if(document.getElementById("tR").checked) {
+        var t = "remove "
+    }
+    else if(document.getElementById("tQ").checked) {
+        var t = "query "
+    }
+    else {
+        var t = "add "
+    }
+
+    let m = String(s + l + "forceload " + t)
 
     // organize inputs
     c[0].push(Number(document.getElementById("x1").value), Number(document.getElementById("x2").value))
@@ -213,12 +235,11 @@ function generateForceload() {
                 let z6 = z3
                 for (let i = 0; i < Math.floor(z / mBL); i++) { // for every time that z goes into the max block limit 4096 run a cycle of max length commands
                     z6 += mBL;
-                    commands.push(s + "forceload add " + x3 + " " + z5 + " " + (x4 - 1) + " " + (z6 - 1));
+                    commands.push(m + x3 + " " + z5 + " " + (x4 - 1) + " " + (z6 - 1));
                     z5 += mBL;
-                    console.log("4096 fits into the width")
                 }
                 z6 += (((z / mBL) - Math.floor(z / mBL)) * mBL);
-                commands.push(s + "forceload add " + x3 + " " + z5 + " " + (x4 - 1) + " " + (z6 - 1));
+                commands.push(m + x3 + " " + z5 + " " + (x4 - 1) + " " + (z6 - 1));
                 x3 += cW
             }
         } else {
@@ -228,18 +249,18 @@ function generateForceload() {
                 z4 = z3 + cW
                 for (let i = 0; i < Math.floor(x / mBL); i++) {
                     x6 += mBL;
-                    commands.push(s + "forceload add " + x5 + " " + z3 + " " + (x6 - 1) + " " + (z4 - 1));
+                    commands.push(m + x5 + " " + z3 + " " + (x6 - 1) + " " + (z4 - 1));
                     x5 += mBL;
                 }
                 x6 += (((x / mBL) - Math.floor(x / mBL)) * mBL);
-                commands.push(s + "forceload add " + x5 + " " + z3 + " " + (x6 - 1) + " " + (z4 - 1));
+                commands.push(m + x5 + " " + z3 + " " + (x6 - 1) + " " + (z4 - 1));
                 z3 += cW;
             }
         }
     }
     // generate the commands for small areas
     else {
-        commands.push(s + "forceload add " + x3 + " " + z3 + " " + x4 + " " + z4)
+        commands.push(m + x3 + " " + z3 + " " + x4 + " " + z4)
     }
 
     output.innerHTML = commands.join(`<br>`);

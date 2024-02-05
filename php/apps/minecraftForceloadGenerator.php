@@ -34,7 +34,7 @@ $fader = file_get_contents("../../html/pageFader.html");
             <section class="fullw">
                 <h2>Generator</h2>
                 <p class="fullw">
-                    <input type="checkbox" id="sYN"> Add /
+                    <input type="checkbox" id="sYN"> Forward Slash ( / )
                     <br>
 
                     <div>
