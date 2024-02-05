@@ -187,7 +187,7 @@ function generateForceload() {
     c[1].push(Number(document.getElementById("z1").value), Number(document.getElementById("z2").value))
     c.sort()
 
-    console.log(coords)
+    console.log(c)
 
     // organize inputs
     if(x1 < x2) {
