@@ -65,9 +65,9 @@ $fader = file_get_contents("../../html/pageFader.html");
                     <button id="cpy">Copy commands to clipboard</button><br>
                     <!-- <button id="btn">Press to generate commands for removing forceloads</button> -->
 
-                    <div class="nfullw">
-                        <p class="output">
-                            Commands should generate here.
+                    <div>
+                        <p id="output" class="no-m nfullw">
+                            Commands will generate here... or else hehehe
                         </p>
                     </div>
                 </p>
