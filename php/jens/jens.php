@@ -52,7 +52,7 @@ $fader = file_get_contents("../../html/pageFader.html");
       </div>
       <div>
         <p class="coding-crcls">
-          450+ hours of<br>
+          560+ hours of<br>
           <b style="font-size:30px; margin:0">MC Code</b>
         </p>
         <p class="no-m nfullw coding-crcls">
@@ -60,7 +60,7 @@ $fader = file_get_contents("../../html/pageFader.html");
           <b style="font-size:30px; margin:0">Python</b>
         </p>
         <p class="no-m nfullw coding-crcls">
-          100+ hours of<br>
+          110+ hours of<br>
           <b style="font-size:30px; margin:0">HTML</b>
         </p>
         <p class="no-m nfullw coding-crcls">
@@ -68,18 +68,20 @@ $fader = file_get_contents("../../html/pageFader.html");
           <b style="font-size:30px; margin:0">CSS</b>
         </p>
         <p class="no-m nfullw coding-crcls">
-          30+ hours of<br>
+          40+ hours of<br>
           <b style="font-size:30px; margin:0">JS</b>
         </p>
         <p class="no-m nfullw coding-crcls">
           30+ hours of<br>
           <b style="font-size:30px; margin:0">Ruby</b>
+        </p>
+        <p class="no-m nfullw coding-crcls">
+          20+ hours of<br>
+          <b style="font-size:30px; margin:0">PHP</b>
+        </p>
         <p class="no-m nfullw coding-crcls">
           5+ hours of<br>
           <b style="font-size:30px; margin:0">Kotlin</b>
-        <p class="no-m nfullw coding-crcls">
-          5+ hours of<br>
-          <b style="font-size:30px; margin:0">PHP</b>
         </p>
       </div>
       <div>

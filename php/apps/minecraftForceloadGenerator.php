@@ -22,10 +22,12 @@ $fader = file_get_contents("../../html/pageFader.html");
 
         <div class="fullw sect">
             <section>
-                <h2>What the actwaw fweek is dis??</h2>
+                <h2>Functionality</h2>
                 <p>
-                    Jens didn't want to manually type out every force load command for a <b>4000 x 4000</b>
-                    so he coded something to do it for him.
+                    Because Minecraft restricts the user to a max "/forceload" area of <b>65536 blocks</b>,
+                    it can be a pain to manually figure out each command if you are wanting to load a large area.
+                    Using a ton of <b>math</b> and <b>JavaScript</b>, I managed to make a generator to create these commands for you,
+                    only requiring two sets of <b>XZ</b> coordinates.
                 </p>
             </section>
         </div>
