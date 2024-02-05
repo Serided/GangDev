@@ -192,8 +192,8 @@ function generateForceload() {
     console.log(c)
 
     var x3 = Math.floor(c[0][0] / cW) * cW;
-    var z3 = Math.floor(c[0][1] / cW) * cW;
-    var x4 = (Math.ceil((c[1][0]+ 1) / cW) * cW) - 1;
+    var z3 = Math.floor(c[1][0] / cW) * cW;
+    var x4 = (Math.ceil((c[0][1]+ 1) / cW) * cW) - 1;
     var z4 = (Math.ceil((c[1][1] + 1) / cW) * cW) - 1;
 
     // set lengths of the sides of designated chunks
