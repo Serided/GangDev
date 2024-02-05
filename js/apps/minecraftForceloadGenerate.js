@@ -176,7 +176,7 @@ function generateForceload() {
     // stored info as possible, [x1,x2],[z1,z2],[x3,x4],[z3,z4],[x,z]
     let c = [[], [], [], []]
 
-    // get inputs
+    // get format inputs to form a command
     if(document.getElementById("sYN").checked) {
         var s = "/"
     }
@@ -209,7 +209,7 @@ function generateForceload() {
 
     let m = String(s + l + "forceload " + t)
 
-    // organize inputs
+    // organize coord inputs
     c[0].push(Number(document.getElementById("x1").value), Number(document.getElementById("x2").value))
     c[1].push(Number(document.getElementById("z1").value), Number(document.getElementById("z2").value))
     c[0].sort()

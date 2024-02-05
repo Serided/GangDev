@@ -34,11 +34,12 @@ $fader = file_get_contents("../../html/pageFader.html");
             <section class="fullw">
                 <h2>Generator</h2>
                 <p class="fullw">
-                    <input type="checkbox" id="sYN"> Forward Slash ( / )
-                    <br>
+                    <div>
+                        <input type="checkbox" id="sYN"> Forward Slash ( / )
+                    </div><br>
 
                     <div>
-                    <b>Execute in:</b>
+                        <b>Execute in:</b>
                         <label><input type="radio" id="lC" name="location" checked> Current location</label>
                         <label><input type="radio" id="lO" name="location"> Overworld</label>
                         <label><input type="radio" id="lE" name="location"> End</label>
@@ -50,8 +51,7 @@ $fader = file_get_contents("../../html/pageFader.html");
                         <label><input type="radio" id="tA" name="type" value="add" checked> Add</label>
                         <label><input type="radio" id="tR" name="type" value="remove"> Remove</label>
                         <label><input type="radio" id="tQ" name="type" value="query"> Query</label>
-                    </div>
-                    <br>
+                    </div><br>
 
                     <div>
                         <b>/forceload add</b>
@@ -65,7 +65,7 @@ $fader = file_get_contents("../../html/pageFader.html");
                     <button id="cpy">Copy commands to clipboard</button>
                     <!-- <button id="btn">Press to generate commands for removing forceloads</button> -->
                 </p>
-                <p id="output">
+                <p id="output" class="output">
                     Commands should generate here.
                 </p>
                 <script src="/js/apps/minecraftForceloadGenerate.js"></script>
