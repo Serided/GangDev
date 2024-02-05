@@ -183,34 +183,18 @@ function generateForceload() {
         var s = ""
     }
 
+    // organize inputs
     c[0].push(Number(document.getElementById("x1").value), Number(document.getElementById("x2").value))
     c[1].push(Number(document.getElementById("z1").value), Number(document.getElementById("z2").value))
-    c.sort()
+    c[0].sort()
+    c[1].sort()
 
     console.log(c)
 
-    // organize inputs
-    if(x1 < x2) {
-        var x3 = Math.floor(x1 / cW) * cW;
-        var x4 = (Math.ceil((x2 + 1) / cW) * cW) - 1;
-    }
-    else {
-        var x4 = Math.floor(x1 / cW) * cW;
-        var x3 = (Math.ceil((x2 + 1) / cW) * cW) - 1;
-    }
-    if(z1 < z2) {
-        var z3 = Math.floor(z1 / cW) * cW;
-        var z4 = (Math.ceil((z2 + 1) / cW) * cW) - 1;
-    }
-    else {
-        var z4 = Math.floor(z1 / cW) * cW;
-        var z3 = (Math.ceil((z2 + 1) / cW) * cW) - 1;
-    }
-
-    x3 = Math.floor(x3 / cW) * cW;
-    z3 = Math.floor(z3 / cW) * cW;
-    x4 = (Math.ceil((x4 + 1) / cW) * cW) - 1;
-    z4 = (Math.ceil((z4 + 1) / cW) * cW) - 1;
+    var x3 = Math.floor(c[0][0] / cW) * cW;
+    var z3 = Math.floor(c[0][1] / cW) * cW;
+    var x4 = (Math.ceil((c[1][0]+ 1) / cW) * cW) - 1;
+    var z4 = (Math.ceil((c[1][1] + 1) / cW) * cW) - 1;
 
     // set lengths of the sides of designated chunks
     var x = (Math.abs(x4 - x3) + 1)
