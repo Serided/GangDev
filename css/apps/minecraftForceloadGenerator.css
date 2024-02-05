@@ -11,20 +11,20 @@ input[type=text] {
     display: inline-block;
     padding: 10px 10px 10px 10px;
     border-radius: 5px;
-    border: solid black 2px;
+    border: solid black 1px;
 }
 
 .fbtn {
-    margin-left: 15px !important;
-    margin-right: 15px !important;
-    background-color: #FBAD77;
+    margin-left: 30px !important;
+    margin-right: 30px !important;
+    background-color: #888888;
     color: black;
     box-sizing: content-box !important;
     display: inline-block;
     padding: 10px 10px 10px 10px;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 21px;
+    font-size: 17px;
     font-family: "Book Antiqua";
     border: none;
     cursor: pointer;
