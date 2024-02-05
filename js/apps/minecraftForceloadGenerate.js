@@ -152,7 +152,7 @@ if (z === cW) {
 
  */
 
-let btn = document.getElementById('btn');
+let gen = document.getElementById('get');
 let cpy = document.getElementById('cpy');
 
 let output = document.getElementById('output');
@@ -271,5 +271,5 @@ function copyTextFunction() {
     navigator.clipboard.writeText(copyText.value)
 }
 
-btn.addEventListener('click', generateForceload);
+gen.addEventListener('click', generateForceload);
 cpy.addEventListener('click', copyTextFunction);
