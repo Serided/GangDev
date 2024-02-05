@@ -185,6 +185,8 @@ function generateForceload() {
 
     coords[0].push(Number(document.getElementById("x1").value), Number(document.getElementById("x2").value))
     coords[1].push(Number(document.getElementById("z1").value), Number(document.getElementById("z2").value))
+    coords[0].sort()
+    coords[1].sort()
 
     console.log(coords)
 
