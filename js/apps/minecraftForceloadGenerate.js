@@ -173,7 +173,11 @@ mCL = 1
 function generateForceload() {
     // set an empty array for commands and coords
     let commands = [];
-    let c = [[], []]
+    // stored info as possible, [x1,x2],[z1,z2],[x3,x4],[z3,z4],[x,z]
+    let c = [[], [], [], []]
+
+    let type = String(document.getElementById("typ").checked.value)
+    console.log(type)
 
     // get inputs
     if(document.getElementById("sYN").checked) {
@@ -235,8 +239,6 @@ function generateForceload() {
     }
     // generate the commands for small areas
     else {
-        x4 += (((x / mBL) - Math.floor(x / mBL)) * mBL);
-        z4 += (((z / mBL) - Math.floor(z / mBL)) * mBL);
         commands.push(s + "forceload add " + x3 + " " + z3 + " " + (x4 - 1) + " " + (z4 - 1))
     }
 

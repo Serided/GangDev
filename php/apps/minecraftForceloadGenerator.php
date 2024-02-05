@@ -38,9 +38,9 @@ $fader = file_get_contents("../../html/pageFader.html");
 
                     <div>
                         Type:
-                        <input type="radio" id="loca" name="location" checked> forceload add
-                        <input type="radio" id="loca" name="location"> forceload remove
-                        <input type="radio" id="loca" name="location"> forceload query
+                        <input type="radio" id="typ" name="type" value="add" checked> forceload add
+                        <input type="radio" id="typ" name="type" value="remove"> forceload remove
+                        <input type="radio" id="typ" name="type" value="query"> forceload query
                     </div>
 
                     <div>
