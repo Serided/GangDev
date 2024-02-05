@@ -173,7 +173,7 @@ mCL = 1
 function generateForceload() {
     // set an empty array for commands and coords
     let commands = [];
-    let coords = [[], []]
+    let c = [[], []]
 
     // get inputs
     if(document.getElementById("sYN").checked) {
@@ -183,10 +183,9 @@ function generateForceload() {
         var s = ""
     }
 
-    coords[0].push(Number(document.getElementById("x1").value), Number(document.getElementById("x2").value))
-    coords[1].push(Number(document.getElementById("z1").value), Number(document.getElementById("z2").value))
-    coords[0].sort()
-    coords[1].sort()
+    c[0].push(Number(document.getElementById("x1").value), Number(document.getElementById("x2").value))
+    c[1].push(Number(document.getElementById("z1").value), Number(document.getElementById("z2").value))
+    c.sort()
 
     console.log(coords)
 
