@@ -193,16 +193,16 @@ function generateForceload() {
         var x4 = (Math.ceil((x2 + 1) / cW) * cW) - 1;
     }
     else {
-        var x4 = Math.floor(x1 / cW) * cW;
-        var x3 = (Math.ceil((x2 + 1) / cW) * cW) - 1;
+        var x4 = Math.floor(x2 / cW) * cW;
+        var x3 = (Math.ceil((x1 + 1) / cW) * cW) - 1;
     }
     if(z1 < z2) {
         var z3 = Math.floor(z1 / cW) * cW;
         var z4 = (Math.ceil((z2 + 1) / cW) * cW) - 1;
     }
     else {
-        var z4 = Math.floor(z1 / cW) * cW;
-        var z3 = (Math.ceil((z2 + 1) / cW) * cW) - 1;
+        var z4 = Math.floor(z2 / cW) * cW;
+        var z3 = (Math.ceil((z1 + 1) / cW) * cW) - 1;
     }
 
     // set lengths of the sides of designated chunks
