@@ -61,7 +61,7 @@ $fader = file_get_contents("../../html/pageFader.html");
                         <input type="text" id="z2" placeholder="z2">
                     </div><br>
                     <div>
-                        <button id="btn">Generate</button><br>
+                        <button id="btn">Generate</button><br><br>
                         <button id="cpy">Copy commands to clipboard</button>
                     </div><br>
                     <div>

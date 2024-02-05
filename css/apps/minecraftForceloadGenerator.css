@@ -8,9 +8,9 @@ input[type=text] {
 }
 
 .coding-crcls {
-    margin: 20px !important;
+    margin: 0px !important;
     background-color: whitesmoke;
-    color: darkkhaki;
+    color: cornflowerblue;
     box-sizing: content-box !important;
     display: inline-block;
     padding-top:10px;
