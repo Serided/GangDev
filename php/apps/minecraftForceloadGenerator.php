@@ -33,14 +33,23 @@ $fader = file_get_contents("../../html/pageFader.html");
             <section class="fullw">
                 <h2>Generator</h2>
                 <p class="fullw">
-                    <input type="checkbox" id="sYN"> Forwards Slash
+                    <input type="checkbox" id="sYN"> Add /
                     <br>
 
-                    Execute in:
-                    <input type="radio" id="loca" name="location" checked> Current location
-                    <input type="radio" id="loca" name="location"> Overworld
-                    <input type="radio" id="loca" name="location"> End
-                    <input type="radio" id="loca" name="location"> Nether
+                    <div>
+                        Type:
+                        <input type="radio" id="loca" name="location" checked> forceload add
+                        <input type="radio" id="loca" name="location"> forceload remove
+                        <input type="radio" id="loca" name="location"> forceload query
+                    </div>
+
+                    <div>
+                        Execute in:
+                        <input type="radio" id="loca" name="location" checked> Current location
+                        <input type="radio" id="loca" name="location"> Overworld
+                        <input type="radio" id="loca" name="location"> End
+                        <input type="radio" id="loca" name="location"> Nether
+                    </div>
                     <br>
 
                     /forceload add

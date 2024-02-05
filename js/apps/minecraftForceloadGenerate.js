@@ -171,8 +171,9 @@ cW = 16
 mCL = 1
 
 function generateForceload() {
-    // set an empty array for commands
+    // set an empty array for commands and coords
     let commands = [];
+    let coords = [[], []]
 
     // get inputs
     if(document.getElementById("sYN").checked) {
@@ -182,10 +183,10 @@ function generateForceload() {
         var s = ""
     }
 
-    var x1 = Number(document.getElementById("x1").value);
-    var z1 = Number(document.getElementById("z1").value);
-    var x2 = Number(document.getElementById("x2").value);
-    var z2 = Number(document.getElementById("z2").value);
+    coords[0].push(Number(document.getElementById("x1").value), Number(document.getElementById("x2").value))
+    coords[1].push(Number(document.getElementById("z1").value), Number(document.getElementById("z2").value))
+
+    console.log(coords)
 
     // organize inputs
     if(x1 < x2) {
@@ -204,6 +205,11 @@ function generateForceload() {
         var z4 = Math.floor(z1 / cW) * cW;
         var z3 = (Math.ceil((z2 + 1) / cW) * cW) - 1;
     }
+
+    x3 = Math.floor(x3 / cW) * cW;
+    z3 = Math.floor(z3 / cW) * cW;
+    x4 = (Math.ceil((x4 + 1) / cW) * cW) - 1;
+    z4 = (Math.ceil((z4 + 1) / cW) * cW) - 1;
 
     // set lengths of the sides of designated chunks
     var x = (Math.abs(x4 - x3) + 1)
