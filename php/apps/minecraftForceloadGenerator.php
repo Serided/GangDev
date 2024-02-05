@@ -37,18 +37,18 @@ $fader = file_get_contents("../../html/pageFader.html");
                     <br>
 
                     <div>
-                        Type:
-                        <input type="radio" id="typ" name="type" value="add" checked> forceload add
-                        <input type="radio" id="typ" name="type" value="remove"> forceload remove
-                        <input type="radio" id="typ" name="type" value="query"> forceload query
+                        Execute in:<br>
+                        <label><input type="radio" id="lC" name="location" checked> Current location</label><br>
+                        <label><input type="radio" id="lO" name="location"> Overworld</label><br>
+                        <label><input type="radio" id="lE" name="location"> End</label><br>
+                        <label><input type="radio" id="lN" name="location"> Nether</label><br>
                     </div>
 
                     <div>
-                        Execute in:
-                        <input type="radio" id="loca" name="location" checked> Current location
-                        <input type="radio" id="loca" name="location"> Overworld
-                        <input type="radio" id="loca" name="location"> End
-                        <input type="radio" id="loca" name="location"> Nether
+                        Type:<br>
+                        <label><input type="radio" id="tA" name="type" value="add" checked> Add</label><br>
+                        <label><input type="radio" id="tR" name="type" value="remove"> Remove</label><br>
+                        <label><input type="radio" id="tQ" name="type" value="query"> Query</label><br>
                     </div>
                     <br>
 

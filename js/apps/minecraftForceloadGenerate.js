@@ -239,7 +239,7 @@ function generateForceload() {
     }
     // generate the commands for small areas
     else {
-        commands.push(s + "forceload add " + x3 + " " + z3 + " " + (x4 - 1) + " " + (z4 - 1))
+        commands.push(s + "forceload add " + x3 + " " + z3 + " " + x4 + " " + z4)
     }
 
     output.innerHTML = commands.join(`<br>`);
