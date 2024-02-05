@@ -60,13 +60,12 @@ $fader = file_get_contents("../../html/pageFader.html");
                         <input type="text" id="x2" placeholder="x2">
                         <input type="text" id="z2" placeholder="z2">
                     </div><br>
-
-                    <button id="btn">Press to generate commands for adding forceloads</button><br>
-                    <button id="cpy">Copy commands to clipboard</button><br>
-                    <!-- <button id="btn">Press to generate commands for removing forceloads</button> -->
-
                     <div>
-                        <p id="output" class="no-m nfullw">
+                        <button id="btn">Generate</button><br>
+                        <button id="cpy">Copy commands to clipboard</button>
+                    </div><br>
+                    <div>
+                        <p id="output" class="no-m coding-crcls nfullw">
                             Commands will generate here... or else hehehe
                         </p>
                     </div>
