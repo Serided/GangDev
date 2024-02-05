@@ -8,6 +8,8 @@ $fader = file_get_contents("../../html/pageFader.html");
     <head>
         <meta charset="UTF-8">
         <title>Jens Be Gettin' Buff</title>
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/jens/jens.css">
         <link rel="stylesheet" href="/css/jens/jensGettinBuff.css">
         <script src="/js/script.js"></script>
     </head>

@@ -9,6 +9,7 @@ $fader = file_get_contents("../../html/pageFader.html");
         <meta charset="UTF-8">
         <title>Jens Be Gaming</title>
         <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/jens/jens.css">
         <script src="/js/script.js"></script>
     </head>
     <body class="jens-gaming fullw">

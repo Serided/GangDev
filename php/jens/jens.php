@@ -9,6 +9,7 @@ $fader = file_get_contents("../../html/pageFader.html");
     <meta charset="UTF-8">
     <title>Jens</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/jens/jens.css">
     <script src="/js/script.js"></script>
   </head>
   <body class="main-p fullw">
@@ -25,7 +26,9 @@ $fader = file_get_contents("../../html/pageFader.html");
         <p>
           Hello! My full name is Jens Hansen.<br>
           The superior gamer, I've been popping off in all of your favorite video games since you were a wee kid.<br>
-          My current video games are Fortnite, Minecraft, League of Legends, and Valorant.<br>
+          My current video games are Fortnite,
+          <a href="/php/jens/minecraft.php" class="hidden-link">Minecraft</a>,
+          League of Legends, and Valorant.<br>
           Recently, I have been getting into Factorio and Satisfactory.<br>
           Favorite food has <u>GOT</u> to be donuts. Those rings of perfection are my go-to for anything: meals, snacking, and wedding luncheons.<br>
           Favorite general activities are coding,
@@ -111,7 +114,6 @@ $fader = file_get_contents("../../html/pageFader.html");
         <p class="fullw">
           <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
           <a href="/php/apps/minecraftForceloadGenerator.php" target="_blank">Minecraft Forceload Generator</a><br>
-          <a href="/php/jens/minecraft.php" target="_blank">Minecraft</a><br>
           <a href="/php/games/basicCubeGame.html" target="_blank">The Bouncing Cube (Beta)</a><br>
           <a href="/php/games/basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>
           <a href="/php/games/basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a><br>
