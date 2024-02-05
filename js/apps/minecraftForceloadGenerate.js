@@ -252,8 +252,6 @@ function generateForceload() {
 
 function copyTextFunction() {
     var copyText = String(document.getElementById("output"));
-    copyText.select();
-    copyText.setSelectionRange(0,9999999999999999999999999999999)
     navigator.clipboard.writeText(copyText.value)
 }
 
