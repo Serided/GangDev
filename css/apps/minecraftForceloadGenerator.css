@@ -11,7 +11,8 @@ input[type=text] {
     display: inline-block;
     padding: 10px 10px 10px 10px;
     border-radius: 5px;
-    border: black 20px !important;
+    border: black;
+    border-width: 20px;
 }
 
 .fbtn {
