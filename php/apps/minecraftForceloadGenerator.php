@@ -68,7 +68,7 @@ $fader = file_get_contents("../../html/pageFader.html");
                     </div><br>
                     <div>
                         <p id="output" class="no-m output nfullw">
-                            Commands will generate here... or else hehehe
+                            Commands will generate here.
                         </p>
                     </div>
                 </p>
