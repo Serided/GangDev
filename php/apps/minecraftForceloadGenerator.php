@@ -9,6 +9,7 @@ $fader = file_get_contents("../../html/pageFader.html");
         <meta charset="UTF-8">
         <title>Jens</title>
         <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/apps/minecraftForceloadGenerator.css">
         <script src="/js/script.js"></script>
     </head>
     <body class="main-p fullw">
@@ -35,29 +36,31 @@ $fader = file_get_contents("../../html/pageFader.html");
                 <p class="fullw">
                     <input type="checkbox" id="sYN"> Add /
                     <br>
-                    <section style="column-count: 2">
-                        <div>
-                            Execute in:<br>
-                            <label><input type="radio" id="lC" name="location" checked> Current location</label><br>
-                            <label><input type="radio" id="lO" name="location"> Overworld</label><br>
-                            <label><input type="radio" id="lE" name="location"> End</label><br>
-                            <label><input type="radio" id="lN" name="location"> Nether</label><br>
-                        </div>
 
-                        <div>
-                            Type:<br>
-                            <label><input type="radio" id="tA" name="type" value="add" checked> Add</label><br>
-                            <label><input type="radio" id="tR" name="type" value="remove"> Remove</label><br>
-                            <label><input type="radio" id="tQ" name="type" value="query"> Query</label><br>
-                        </div>
-                    </section>
+                    <div>
+                    <b>Execute in:</b>
+                        <label><input type="radio" id="lC" name="location" checked> Current location</label>
+                        <label><input type="radio" id="lO" name="location"> Overworld</label>
+                        <label><input type="radio" id="lE" name="location"> End</label>
+                        <label><input type="radio" id="lN" name="location"> Nether</label>
+                    </div>
+
+                    <div>
+                        <b>Type:</b>
+                        <label><input type="radio" id="tA" name="type" value="add" checked> Add</label>
+                        <label><input type="radio" id="tR" name="type" value="remove"> Remove</label>
+                        <label><input type="radio" id="tQ" name="type" value="query"> Query</label>
+                    </div>
                     <br>
 
-                    /forceload add
-                    <input type="text" id="x1" placeholder="x1">
-                    <input type="text" id="z1" placeholder="z1">
-                    <input type="text" id="x2" placeholder="x2">
-                    <input type="text" id="z2" placeholder="z2"><br>
+                    <div>
+                        <b>/forceload add</b>
+                        <input type="text" id="x1" placeholder="x1">
+                        <input type="text" id="z1" placeholder="z1">
+                        <input type="text" id="x2" placeholder="x2">
+                        <input type="text" id="z2" placeholder="z2">
+                    </div><br>
+
                     <button id="btn">Press to generate commands for adding forceloads</button><br>
                     <button id="cpy">Copy commands to clipboard</button>
                     <!-- <button id="btn">Press to generate commands for removing forceloads</button> -->

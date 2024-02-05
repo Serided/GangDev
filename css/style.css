@@ -190,24 +190,6 @@ p {
   cursor: pointer;
 }
 
-.roastbtn {
-  font-family: "Book Antiqua";
-  text-decoration: none;
-  background-color: yellow;
-  padding: 20px;
-  border-radius: 10px;
-  margin-top: 10px;
-  margin-bottom: 0px;
-  font-size: 40px;
-  border: none;
-  cursor: pointer;
-}
-
-.roastbtntext {
-  text-decoration: none;
-  color: black;
-}
-
 /* How to decorate the text */
 .btn-text {
   text-decoration: none;
@@ -254,7 +236,6 @@ p {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .btn-text:hover {color: aqua;}
-.roastbtntext:hover {color: red;}
 
 /* Animations between pages */
 .animate-in {
