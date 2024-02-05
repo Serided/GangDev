@@ -35,21 +35,22 @@ $fader = file_get_contents("../../html/pageFader.html");
                 <p class="fullw">
                     <input type="checkbox" id="sYN"> Add /
                     <br>
+                    <section style="column-count: 2">
+                        <div>
+                            Execute in:<br>
+                            <label><input type="radio" id="lC" name="location" checked> Current location</label><br>
+                            <label><input type="radio" id="lO" name="location"> Overworld</label><br>
+                            <label><input type="radio" id="lE" name="location"> End</label><br>
+                            <label><input type="radio" id="lN" name="location"> Nether</label><br>
+                        </div>
 
-                    <div>
-                        Execute in:<br>
-                        <label><input type="radio" id="lC" name="location" checked> Current location</label><br>
-                        <label><input type="radio" id="lO" name="location"> Overworld</label><br>
-                        <label><input type="radio" id="lE" name="location"> End</label><br>
-                        <label><input type="radio" id="lN" name="location"> Nether</label><br>
-                    </div>
-
-                    <div>
-                        Type:<br>
-                        <label><input type="radio" id="tA" name="type" value="add" checked> Add</label><br>
-                        <label><input type="radio" id="tR" name="type" value="remove"> Remove</label><br>
-                        <label><input type="radio" id="tQ" name="type" value="query"> Query</label><br>
-                    </div>
+                        <div>
+                            Type:<br>
+                            <label><input type="radio" id="tA" name="type" value="add" checked> Add</label><br>
+                            <label><input type="radio" id="tR" name="type" value="remove"> Remove</label><br>
+                            <label><input type="radio" id="tQ" name="type" value="query"> Query</label><br>
+                        </div>
+                    </section>
                     <br>
 
                     /forceload add
