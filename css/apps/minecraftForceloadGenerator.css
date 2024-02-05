@@ -1,6 +1,7 @@
 input[type=text] {
     width: 10%;
     box-sizing: border-box;
+    border: solid gray 1px;
 }
 
 .output {
@@ -11,7 +12,7 @@ input[type=text] {
     display: inline-block;
     padding: 10px 10px 10px 10px;
     border-radius: 5px;
-    border: solid black 1px;
+    border: solid gray 1px;
 }
 
 .fbtn {
@@ -21,14 +22,14 @@ input[type=text] {
     color: black;
     box-sizing: content-box !important;
     display: inline-block;
-    padding: 3px 3px 3px 3px;
+    padding: 4px 4px 4px 4px;
     border-radius: 2px;
     text-decoration: none;
     font-size: 22px;
     font-family: "Book Antiqua";
-    border: none;
     cursor: pointer;
     font-weight: bold;
+    border: solid black 1px;
 }
 
 .fbtn:hover {
