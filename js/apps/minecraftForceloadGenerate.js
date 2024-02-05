@@ -244,6 +244,8 @@ function generateForceload() {
     }
     // generate the commands for small areas
     else {
+        x4 += (((x / mBL) - Math.floor(x / mBL)) * mBL);
+        z4 += (((z / mBL) - Math.floor(z / mBL)) * mBL);
         commands.push(s + "forceload add " + x3 + " " + z3 + " " + (x4 - 1) + " " + (z4 - 1))
     }
 
