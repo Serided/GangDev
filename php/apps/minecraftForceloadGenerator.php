@@ -33,13 +33,21 @@ $fader = file_get_contents("../../html/pageFader.html");
             <section class="fullw">
                 <h2>Generator</h2>
                 <p class="fullw">
-                    <input type="checkbox" id="sYN">
-                    <label for="sYN">Forward Slash</label><br>
+                    <input type="checkbox" id="sYN"> Forwards Slash
+                    <br>
+
+                    Execute in:
+                    <input type="radio" id="loca" name="location"> Current location
+                    <input type="radio" id="loca" name="location"> Overworld
+                    <input type="radio" id="loca" name="location"> End
+                    <input type="radio" id="loca" name="location"> Nether
+                    <br>
+
                     /forceload add
                     <input type="text" id="x1" placeholder="x1">
-                    <input type="text" id="z1">
-                    <input type="text" id="x2">
-                    <input type="text" id="z2"><br>
+                    <input type="text" id="z1" placeholder="z1">
+                    <input type="text" id="x2" placeholder="x2">
+                    <input type="text" id="z2" placeholder="z2"><br>
                     <button id="btn">Press to generate commands for adding forceloads</button><br>
                     <button id="cpy">Copy commands to clipboard</button>
                     <!-- <button id="btn">Press to generate commands for removing forceloads</button> -->
