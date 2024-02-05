@@ -37,7 +37,7 @@ $fader = file_get_contents("../../html/pageFader.html");
                     <br>
 
                     Execute in:
-                    <input type="radio" id="loca" name="location"> Current location
+                    <input type="radio" id="loca" name="location" checked> Current location
                     <input type="radio" id="loca" name="location"> Overworld
                     <input type="radio" id="loca" name="location"> End
                     <input type="radio" id="loca" name="location"> Nether
