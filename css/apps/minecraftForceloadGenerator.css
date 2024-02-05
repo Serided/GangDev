@@ -15,16 +15,17 @@ input[type=text] {
 }
 
 .fbtn {
-    margin-left: 10px !important;
-    margin-right: 10px !important;
-    background-color: sandybrown;
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+    background-color: #FBAD77;
     color: black;
     box-sizing: content-box !important;
     display: inline-block;
     padding: 10px 10px 10px 10px;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 21px;
+    font-family: "Book Antiqua";
     border: none;
     cursor: pointer;
 }

@@ -152,7 +152,7 @@ if (z === cW) {
 
  */
 
-let gen = document.getElementById('get');
+let gen = document.getElementById('gen');
 let cpy = document.getElementById('cpy');
 
 let output = document.getElementById('output');
