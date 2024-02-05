@@ -1,7 +1,7 @@
 <?php
 $navbar = file_get_contents ("../html/navBar.html");
-$copyright = file_get_contents("../../html/copyright.html");
-$fader = file_get_contents("../../html/pageFader.html");
+$copyright = file_get_contents("../html/copyright.html");
+$fader = file_get_contents("../html/pageFader.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">

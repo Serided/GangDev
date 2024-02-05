@@ -1,7 +1,7 @@
 <?php
 $navbar = file_get_contents ("../html/navBar.html");
-$copyright = file_get_contents("../../html/copyright.html");
-$fader = file_get_contents("../../html/pageFader.html");
+$copyright = file_get_contents("../html/copyright.html");
+$fader = file_get_contents("../html/pageFader.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
@@ -28,7 +28,7 @@ $fader = file_get_contents("../../html/pageFader.html");
 					Used to generate mass forceload commands, snapping to biggest chunk area possible, enabling for big
 					Minecraft construction projects.<br>
 					<br>
-					<b>Takes in two sets of coordinates</b>
+					<b>Takes in two sets of xz coordinates</b>
 				</p>
 			</section>
 		</div>
