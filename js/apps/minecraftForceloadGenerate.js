@@ -267,7 +267,7 @@ function generateForceload() {
 }
 
 async function copyEvent() {
-    let text = document.querySelector("#output").value;
+    let text = String(document.querySelector("#output").value);
     await navigator.clipboard.writeText(text)
 }
 
