@@ -62,7 +62,7 @@ $fader = file_get_contents("../../html/pageFader.html");
                     </div><br>
                     <div>
                         <button id="gen" class="coding-crcls fbtn">Generate</button>
-                        <button id="cpy" class="coding-crcls fbtn">Copy</button>
+                        <!-- <button id="cpy" class="coding-crcls fbtn">Copy</button> -->
                     </div><br>
                     <div>
                         <p id="output" class="no-m output nfullw">

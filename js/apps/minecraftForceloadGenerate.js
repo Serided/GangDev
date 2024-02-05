@@ -266,10 +266,12 @@ function generateForceload() {
     output.innerHTML = commands.join(`<br>`);
 }
 
+/*
 async function copyEvent() {
     let text = String(document.querySelector("#output").value);
     await navigator.clipboard.writeText(text)
 }
+*/
 
 gen.addEventListener('click', generateForceload);
-cpy.addEventListener('click', copyEvent);
+// cpy.addEventListener('click', copyEvent);
