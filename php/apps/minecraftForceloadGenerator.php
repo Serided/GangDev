@@ -65,7 +65,7 @@ $fader = file_get_contents("../../html/pageFader.html");
                     <button id="cpy">Copy commands to clipboard</button>
                     <!-- <button id="btn">Press to generate commands for removing forceloads</button> -->
                 </p>
-                <p id="output" class="output">
+                <p id="output" class="output nfullw">
                     Commands should generate here.
                 </p>
                 <script src="/js/apps/minecraftForceloadGenerate.js"></script>
