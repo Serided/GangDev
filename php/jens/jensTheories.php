@@ -1,5 +1,4 @@
 <?php
-$navbar = file_get_contents ("../../html/navBar.html");
 $copyright = file_get_contents("../../html/copyright.html");
 $fader = file_get_contents("../../html/pageFader.html");
 ?>
@@ -10,9 +9,35 @@ $fader = file_get_contents("../../html/pageFader.html");
         <title>Jens Be Theorizing</title>
         <link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="/css/jens/jens.css">
+        <link rel="stylesheet" href="/css/jens/jensTheories.css">
         <script src="/js/script.js"></script>
     </head>
-    <body class="jens-theorizing fullw">
+    <body class="main-p-theory fullw">
         <?= $fader ?>
+
+        <div class="fullw spacing">
+            <div class="navbar-theory sect-theory">
+                <p class="txt">
+                    I've been looking for answers my whole life.
+                </p>
+
+                <button class="btn-theory btn-text" id="time">Time</button>
+                <button class="btn-theory btn-text" id="space">Space</button>
+                <button class="btn-theory btn-text" id="god">God</button>
+                <button class="btn-theory btn-text" id="morality">Morality</button>
+
+                <p class="txt">
+                    Here is my knowledge.
+                </p>
+            </div>
+        </div>
+
+        <div class="fullw sect-theory spacing">
+            <p id="output" class="txt">Answer</p>
+        </div>
+
+        <script src="/js/jens/theories.js"></script>
+
+        <?= $copyright ?>
     </body>
 </html>

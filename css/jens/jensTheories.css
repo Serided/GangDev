@@ -1,0 +1,46 @@
+.main-p-theory {
+
+    background-image: url("/img/jens/stock_space_image.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    background-color: whitesmoke;
+    text-align: center;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+navbar-theory {
+    position: fixed;
+    margin: 20px 10%;
+    text-align: center;
+    overflow-wrap: anywhere;
+    display: block;
+}
+
+.btn-theory {
+    font-family: "Arial";
+    /* background-color: rgba(251,127,77,.85); */
+    background-color: gray;
+    border-radius: 2px;
+    /* background-color: transparent; */
+    text-decoration: none;
+    margin: 20px 20px;
+    font-size: 40px;
+    border: none;
+    cursor: pointer;
+}
+
+.sect-theory {
+    background-color: dimgray;
+    display: inline-block;
+    margin: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+
+.txt {
+    color: white;
+    font-family: Arial;
+}

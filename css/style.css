@@ -13,14 +13,12 @@ h1 {
 
 section h2 {
   font-size: 25px;
-  margin-top: 20px;
-  margin-bottom: 0;
+  margin: 20px auto 0 auto;
 }
 
 h3 {
   font-size: 20px;
-  margin-top: 20px;
-  margin-bottom: 0;
+  margin: 20px auto 0 auto;
 }
 
 /* Body sizing */
@@ -68,8 +66,7 @@ p {
 }
 
 .no-m {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 0 auto;
 }
 
 .line {
@@ -105,8 +102,7 @@ p {
   border-radius: 4px;
   /* background-color: transparent; */
   text-decoration: none;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: auto 20px;
   font-size: 40px;
   border: none;
   cursor: pointer;

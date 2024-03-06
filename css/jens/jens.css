@@ -11,19 +11,6 @@
     overflow-wrap: anywhere;
 }
 
-.jens-theorizing {
-
-    background-image: url("/img/jens/stock_space_image.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-
-    background-color: whitesmoke;
-    text-align: center;
-    margin: 0;
-    overflow-wrap: anywhere;
-}
-
 .jens-gaming {
 
     background-image: url("/img/jens/bros_cracked_at_fortnite_my_guy.png");
@@ -43,11 +30,8 @@
     color: #01DCFA;
     box-sizing: content-box !important;
     display: inline-block;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-right: 10px;
-    padding-left: 10px;
-    border-radius: 5px;
+    padding: 20px 10px;
+    border-radius: 3px;
 }
 
 .exp-crcls {
@@ -56,9 +40,6 @@
     color: rgba(255, 207, 75, 0.747);
     box-sizing: content-box !important;
     display: inline-block;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding: 20px 10px;
     border-radius: 5px;
 }
