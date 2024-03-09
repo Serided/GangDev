@@ -1,7 +1,39 @@
 html {
-  font-family: "Book Antiqua";
+  font-family: "Fredoka", serif;
 }
 
+.madimi-one-regular {
+  font-family: "Madimi One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.m-plus-rounded-1c-bold {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.silkscreen-regular {
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.silkscreen-bold {
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.fredoka-custom {
+            font-family: "Fredoka", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 300; /* 300 700 */
+            font-style: normal;
+            font-variation-settings:
+                    "wdth" 100;
+          }
 
 /* Set up margins for headers */
 
@@ -96,7 +128,7 @@ p {
 
 /* Dropdown Buttons */
 .btn {
-  font-family: "Book Antiqua";
+  font-family: "Fredoka", serif;
   /* background-color: rgba(251,127,77,.85); */
   background-color: gray;
   border-radius: 4px;
@@ -109,7 +141,7 @@ p {
 }
 
 .gamebtn {
-  font-family: "Book Antiqua";
+  font-family: "Fredoka", serif;
   text-decoration: none;
   background-color: gray;
   padding-left: 4px;

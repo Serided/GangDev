@@ -1,16 +1,16 @@
 <?php
 $copyright = file_get_contents("../../html/copyright.html");
 $fader = file_get_contents("../../html/pageFader.html");
+$head = file_get_contents("../../html/repetitive.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
     <head>
         <meta charset="UTF-8">
         <title>Jens Be Theorizing</title>
-        <link rel="stylesheet" href="/css/style.css">
+	    <?= $head ?>
         <link rel="stylesheet" href="/css/jens/jens.css">
         <link rel="stylesheet" href="/css/jens/jensTheories.css">
-        <script src="/js/script.js"></script>
     </head>
     <body class="main-p-theory fullw">
         <?= $fader ?>

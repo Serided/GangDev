@@ -1,16 +1,17 @@
 <?php
 $fader = file_get_contents("../../html/pageFader.html");
+$head = file_get_contents("../../html/repetitive.html");
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Basic Fighter Game (Beta)</title>
+  <?= $head ?>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/games/basicFighterGame.css">
-  <link rel="stylesheet" href="/css/style.css">
   <style>
     * {
       box-sizing: border-box;

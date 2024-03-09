@@ -1,13 +1,14 @@
 <?php
 $fader = file_get_contents("../../html/pageFader.html");
+$head = file_get_contents("../../html/repetitive.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" onclick="jump()" onkeypress="jump()">
 <head>
   <meta charset="UTF-8">
   <title>Basic Cube Game (Alpha)</title>
+  <?= $head ?>
   <link rel="stylesheet" href="/css/games/basicCubeGame.css">
-  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <?= $fader ?>
