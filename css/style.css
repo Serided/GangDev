@@ -138,6 +138,8 @@ p {
   font-size: 40px;
   border: none;
   cursor: pointer;
+  height: 50px;
+  width: 200px;
 }
 
 .gamebtn {
@@ -204,11 +206,27 @@ p {
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #ddd;}
 
+
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
+
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.btn-text:hover {color: aqua;}
+.dropdown:hover .btn-text{
+  /* color: aqua; */
+  font-weight: 700;
+}
+
+.btn:hover .btn-text{
+  /* color: aqua; */
+  font-weight: 700;
+}
+
+a:hover{
+  /* color: aqua; */
+  font-weight: 700;
+}
+
 
 /* Animations between pages */
 .animate-in {
