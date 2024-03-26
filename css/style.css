@@ -119,6 +119,11 @@ p {
   margin-right: 10%;
 }
 
+.fullw p {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 20px 20px;
+}
 
 .nfullw {
   box-sizing: content-box !important;

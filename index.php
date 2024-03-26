@@ -7,7 +7,7 @@ $head = file_get_contents("html/repetitive.html");
 <!DOCTYPE html>
 <html lang="en" class="fullw">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="description" content="Home">
     <title>Home</title>
     <?= $head ?>
   </head>
@@ -19,7 +19,7 @@ $head = file_get_contents("html/repetitive.html");
       Home
     </h1>
 
-    <div class="fullw-l sect">
+    <div class="fullw sect">
       <section class="fullw">
         <h2 style="color:red">
           <b>Note:</b>
@@ -30,7 +30,7 @@ $head = file_get_contents("html/repetitive.html");
       </section>
     </div>
 
-    <div class="fullw-r sect spacing">
+    <div class="fullw sect spacing">
       <section class="fullw">
         <h2>General Information</h2>
         <p class="fullw">
@@ -42,7 +42,7 @@ $head = file_get_contents("html/repetitive.html");
       </section>
     </div>
 
-    <div class="fullw-l sect spacing" id="about">
+    <div class="fullw sect spacing" id="about">
       <section class="fullw">
         <h2>About</h2>
         <p class="fullw">
@@ -55,7 +55,7 @@ $head = file_get_contents("html/repetitive.html");
       </section>
     </div>
 
-    <div class="fullw-r sect spacing" id="contact">
+    <div class="fullw sect spacing" id="contact">
       <section class="fullw">
         <h2>Contact</h2>
         <p>
@@ -64,7 +64,7 @@ $head = file_get_contents("html/repetitive.html");
       </section>
     </div>
 
-    <div class="fullw-l sect spacing" id="games">
+    <div class="fullw sect spacing" id="games">
       <section class="fullw">
         <h2>Games</h2>
         <p class="fullw">

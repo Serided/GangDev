@@ -120,7 +120,7 @@ $head = file_get_contents("../../html/repetitive.html");
           <a href="/php/games/basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>
           <a href="/php/games/basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a><br>
           <a href="/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
-          <a href="/php/games/testMultiplayerGame.php" target="_blank">Test Multiplayer Game (Alpha)</a><br>
+          <a href="/php/games/testMultiplayerChat/testMultiplayerChat.php" target="_blank">Test Multiplayer Game (Alpha)</a><br>
 
         </p>
       </section>

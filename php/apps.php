@@ -33,6 +33,17 @@ $head = file_get_contents("../html/repetitive.html");
 			</section>
 		</div>
 
+        <div class="fullw sect spacing">
+            <section class="fullw">
+                <h2>
+                    <a href="/php/games/testMultiplayerChat/testMultiplayerChat.php" target="_blank">Test Multiplayer Chat (Alpha)</a>
+                </h2>
+                <p class="fullw">
+                    The first official multiplayer app created by GangDev to allow users to interact on the web.
+                </p>
+            </section>
+        </div>
+
 		<div class="fullw sect spacing">
 			<section class="fullw">
 				<h2>
