@@ -62,10 +62,16 @@ else {
 		</div>
 		<div id="chatbox">
 			<?php
-			if(file_exists("../../../tmp/testMultiplayerChatLog.html") && filesize("../../../tmp/testMultiplayerChatLog.html") > 0){
-				$contents = file_get_contents("../../../tmp/testMultiplayerChatLog.html");
+            $filename = "../../../tmp/testMultiplayerChatLog.html";
+			if(file_exists($filename) && filesize($filename) > 0){
+				$contents = file_get_contents($filename);
 				echo $contents;
 			}
+            else {
+                $defaultMsg = "<div class='msgln'><span class='chat-time'>".date("g:i A")."</span> <b class='user-name'>Server</b> I just reset the chat.<br></div>";
+                file_put_contents($filename, $defaultMsg);
+                echo $defaultMsg;
+            }
 			?>
 		</div>
 		<form name="message" action="">
