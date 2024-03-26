@@ -4,7 +4,7 @@ if(isset($_GET['logout'])){
 
 	// logout message
 	$logout_message = "<div class='msgln'><span class='left-info'>User <b class='user-name-left'>". $_SESSION['name'] ."</b> has left the chat session.</span><br></div>";
-	file_put_contents("log.php", $logout_message, FILE_APPEND | LOCK_EX);
+	file_put_contents("../../../tmp/testMultiplayerChatLog.php", $logout_message, FILE_APPEND | LOCK_EX);
 
 	session_destroy();
 	header("Location: testMultiplayerChat.php"); //Redirect the user
@@ -15,7 +15,7 @@ if(isset($_POST['enter'])){
 
         // logon message
         $logon_message = "<div class='msgln'><span class='join-info'>User <b class='user-name-join'>". $_SESSION['name'] ."</b> has joined the chat session.</span><br></div>";
-        file_put_contents("log.php", $logon_message, FILE_APPEND | LOCK_EX);
+        file_put_contents("../../../tmp/testMultiplayerChatLog.php", $logon_message, FILE_APPEND | LOCK_EX);
 	}
 	else{
 		echo '<span class="error">Please type in a name</span>';
@@ -24,22 +24,22 @@ if(isset($_POST['enter'])){
 function loginForm(){
 	echo
 		'<div id="loginform"> 
-    <p>Please enter your name to continue!</p> 
-    <form action="testMultiplayerChat.php" method="post"> 
-    <label for="name">Name &mdash;</label> 
-    <input type="text" name="name" id="name" maxlength="25"/> 
-    <input type="submit" name="enter" id="enter" value="Enter" /> 
-    </form> 
-    </div>';
+        <p>Please enter your name to continue!</p> 
+        <form action="testMultiplayerChat.php" method="post"> 
+        <label for="name">Name &mdash;</label> 
+        <input type="text" name="name" id="name" maxlength="25"/> 
+        <input type="submit" name="enter" id="enter" value="Enter" /> 
+        </form> 
+        </div>';
 }
 ?>
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Test Multiplayer Game</title>
-		<meta charset="UTF-8" name="description" content="Test Multiplayer Game" />
-		<link rel="stylesheet" href="/css/games/testMultiplayerChat.css" />
+		<title>Test Multiplayer Chat</title>
+		<meta charset="UTF-8" name="description" content="Test Multiplayer Chat"/>
+		<link rel="stylesheet" href="/css/apps/testMultiplayerChat.css"/>
 	</head>
 <body>
 <?php
@@ -55,8 +55,8 @@ else {
 		</div>
 		<div id="chatbox">
 			<?php
-			if(file_exists("log.php") && filesize("log.php") > 0){
-				$contents = file_get_contents("log.php");
+			if(file_exists("../../../tmp/testMultiplayerChatLog.php") && filesize("../../../tmp/testMultiplayerChatLog.php") > 0){
+				$contents = file_get_contents("../../../tmp/testMultiplayerChatLog.php");
 				echo $contents;
 			}
 			?>
@@ -67,7 +67,7 @@ else {
 		</form>
 	</div>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/js/games/testMultiplayerChat/script.js"></script>
+	<script type="text/javascript" src="/js/apps/testMultiplayerChat/script.js"></script>
 	</body>
 	</html>
 	<?php
