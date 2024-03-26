@@ -4,7 +4,7 @@ if(isset($_GET['logout'])){
 
 	// logout message
 	$logout_message = "<div class='msgln'><span class='left-info'>User <b class='user-name-left'>". $_SESSION['name'] ."</b> has left the chat session.</span><br></div>";
-	file_put_contents("../../../tmp/testMultiplayerChatLog.php", $logout_message, FILE_APPEND | LOCK_EX);
+	file_put_contents("../../../tmp/testMultiplayerChatLog.html", $logout_message, FILE_APPEND | LOCK_EX);
 
 	session_destroy();
 	header("Location: testMultiplayerChat.php"); //Redirect the user
@@ -15,7 +15,7 @@ if(isset($_POST['enter'])){
 
         // logon message
         $logon_message = "<div class='msgln'><span class='join-info'>User <b class='user-name-join'>". $_SESSION['name'] ."</b> has joined the chat session.</span><br></div>";
-        file_put_contents("../../../tmp/testMultiplayerChatLog.php", $logon_message, FILE_APPEND | LOCK_EX);
+        file_put_contents("../../../tmp/testMultiplayerChatLog.html", $logon_message, FILE_APPEND | LOCK_EX);
 	}
 	else{
 		echo '<span class="error">Please type in a name</span>';
@@ -55,8 +55,8 @@ else {
 		</div>
 		<div id="chatbox">
 			<?php
-			if(file_exists("../../../tmp/testMultiplayerChatLog.php") && filesize("../../../tmp/testMultiplayerChatLog.php") > 0){
-				$contents = file_get_contents("../../../tmp/testMultiplayerChatLog.php");
+			if(file_exists("../../../tmp/testMultiplayerChatLog.html") && filesize("../../../tmp/testMultiplayerChatLog.html") > 0){
+				$contents = file_get_contents("../../../tmp/testMultiplayerChatLog.html");
 				echo $contents;
 			}
 			?>
