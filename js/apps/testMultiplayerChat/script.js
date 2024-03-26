@@ -20,7 +20,7 @@ $(document).ready(function () {
             }
         });
     }
-    setInterval (loadLog, 2500);
+    setInterval (loadLog, 1000);
     $("#exit").click(function () {
         var exit = confirm("Are you sure you want to end the session?");
         if (exit == true) {

@@ -33,13 +33,20 @@ function loginForm(){
         </div>';
 }
 ?>
-	<!DOCTYPE html>
+<?php
+$navbar = file_get_contents ("../../../html/navBar.html");
+$copyright = file_get_contents("../../../html/copyright.html");
+$fader = file_get_contents("../../../html/pageFader.html");
+$head = file_get_contents("../../../html/repetitive.html");
+?>
+<!DOCTYPE html>
 	<html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<title>Test Multiplayer Chat</title>
 		<meta charset="UTF-8" name="description" content="Test Multiplayer Chat"/>
 		<link rel="stylesheet" href="/css/apps/testMultiplayerChat.css"/>
+        <?= $head ?>
 	</head>
 <body>
 <?php
