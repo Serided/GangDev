@@ -27,13 +27,13 @@ html {
 }
 
 .fredoka-custom {
-            font-family: "Fredoka", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 300; /* 300 700 */
-            font-style: normal;
-            font-variation-settings:
-                    "wdth" 100;
-          }
+  font-family: "Fredoka", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300; /* 300 700 */
+  font-style: normal;
+  font-variation-settings:
+          "wdth" 100;
+}
 
 /* Set up margins for headers */
 
@@ -144,15 +144,6 @@ p {
   cursor: pointer;
   height: 50px;
   width: 200px;
-}
-
-.line {
-  width: 100%;
-  height: 8px;
-  background: white;
-  margin: 8px auto;
-  border-radius: 2px;
-  opacity: 100%;
 }
 
 /* How to decorate the text */
