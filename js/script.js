@@ -2,6 +2,8 @@
 //  document.body.classList.add("animate-out");
 //});
 
+//document.getElementById('filler').style.height = document.getElementById('navbar').style.height;
+
 function fadeInPage() {
   if (!window.AnimationEvent) { return; }
   var fader = document.getElementById('fader');

@@ -15,7 +15,7 @@ $head = file_get_contents("html/repetitive.html");
     <?= $fader ?>
     <?= $navbar ?>
     
-    <h1 class="fullw">
+    <h1>
       Home
     </h1>
 

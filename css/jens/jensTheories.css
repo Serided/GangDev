@@ -1,6 +1,6 @@
 .main-p-theory {
 
-    background-image: url("/img/jens/stock_space_image.jpg");
+    background-image: url("/files/img/jens/stock_space_image.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -42,5 +42,5 @@ navbar-theory {
 
 .txt {
     color: white;
-    font-family: Arial;
+    font-family: "Arial";
 }

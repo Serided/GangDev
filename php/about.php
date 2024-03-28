@@ -43,11 +43,6 @@ $head = file_get_contents("../html/repetitive.html");
                 He's playing Minecraft... one sec.
             </p>
 
-            <!-- <h3>Kate</h3>
-            <p class="fullw" style="margin:0; color: pink">
-                Doing something healthy and not in front of her computer...
-            </p> -->
-
             <h3>John</h3>
             <p class="fullw" style="margin-top:0; margin-bottom:20px; color: blue">
                 Pwning noobs either irl or online... I really don't know.

@@ -1,73 +1,62 @@
-<div class="navbar fullw" id="navbar">
-    <div class="line"></div>
+<div class="hNavbar">
+    <label class="hamburger">
+        <input type="checkbox">
+    </label>
+    <aside class="sidebar one">
+        <nav>
+            <a href="/index.php"><button class="hamburger-btn btn-text one">Home</button></a>
+            <input type="radio" id="about" name="menu">
+            <label for="about" class="hamburger-btn btn-text one">About</label>
+            <aside class="sidebar two">
+                <nav>
+                    <a href="/php/about.php" class="btn-text"><button class="hamburger-btn btn-text two">Company</button></a>
+                    <a href="/php/jens/jens.php"><button class="hamburger-btn btn-text two">Jens</button></a>
+                    <a href="/php/isaac/isaac.php"><button class="hamburger-btn btn-text two">Isaac</button></a>
+                </nav>
+            </aside>
 
-    <button class="btn">
-        <a href="/index.php" class="btn-text">Home</a>
-    </button>
+            <input type="radio" id="contact" name="menu">
+            <label for="contact" class="hamburger-btn btn-text one">Contact</label>
+            <aside class="sidebar two">
+                <nav>
+                    <a href="/php/contact.php" class="btn-text"><button class="hamburger-btn btn-text two">Company</button></a>
+                    <a href="/php/jens/jens.php"><button class="hamburger-btn btn-text two">Jens</button></a>
+                    <a href="/php/isaac/isaac.php"><button class="hamburger-btn btn-text two">Isaac</button></a>
+                </nav>
+            </aside>
 
-    <div class="dropdown">
-        <button class="btn">
-            <a href="/php/about.php" class="btn-text">About</a>
-        </button>
+            <input type="radio" id="services" name="menu">
+            <label for="services" class="hamburger-btn btn-text one">Services</label>
+            <aside class="sidebar two">
+                <nav>
+                    <a href="/php/services.php"><button class="hamburger-btn btn-text two">PC Building</button></a>
+                    <a href="/php/services.php"><button class="hamburger-btn btn-text two">John's Lemonade</button></a>
+                    <a href="/php/services.php"><button class="hamburger-btn btn-text two">Minecraft Coding and 'Adminning'</button></a>
+                    <a href="/php/services.php" class="btn-text"><button class="hamburger-btn btn-text two">More...</button></a>
+                </nav>
+            </aside>
 
-        <div class="dropdown-content">
-            <a href="/php/jens/jens.php">Jens</a>
-            <a href="/php/jorgen/jorgen.php">Jorgen</a>
-            <a href="/php/isaac/isaac.php">Isaac</a>
-            <a href="/php/john/john.php">John</a>
-        </div>
-    </div>
+            <input type="radio" id="apps" name="menu">
+            <label for="apps" class="hamburger-btn btn-text one">Apps</label>
+            <aside class="sidebar two">
+                <nav>
+                    <a href="/php/apps/minecraftForceloadGenerator.php"><button class="hamburger-btn btn-text two">Minecraft Forceload Generator</button></a>
+                    <a href="/php/apps/testMultiplayerChat/testMultiplayerChat.php" target="_blank"><button class="hamburger-btn btn-text two">Test Multiplayer Chat (Alpha)</button></a>
+                    <a href="/php/apps.php" class="btn-text"><button class="hamburger-btn btn-text two">More...</button></a>
+                </nav>
+            </aside>
 
-    <div class="dropdown">
-        <button class="btn">
-            <a href="/php/contact.php" class="btn-text">Contact</a>
-        </button>
-
-        <div class="dropdown-content">
-            <a href="/php/jens/jens.php">Jens</a>
-            <a href="/php/jorgen/jorgen.php">Jorgen</a>
-            <a href="/php/isaac/isaac.php">Isaac</a>
-            <a href="/php/john/john.php">John</a>
-        </div>
-    </div>
-
-    <div class="dropdown">
-        <button class="btn">
-            <a href="/php/services.php" class="btn-text">Services</a>
-        </button>
-
-        <div class="dropdown-content">
-            <a href="/php/services.php">PC Building</a>
-            <a href="/php/services.php">John's Lemonade</a>
-            <a href="/php/services.php">Minecraft Coding and 'Adminning'</a>
-        </div>
-    </div>
-
-    <div class="dropdown">
-        <button class="btn">
-            <a href="/php/apps.php" class="btn-text">Apps</a>
-        </button>
-
-        <div class="dropdown-content">
-            <a href="/php/apps/minecraftForceloadGenerator.php">Minecraft Forceload Generator</a>
-            <a href="/php/apps/testMultiplayerChat/testMultiplayerChat.php" target="_blank">Test Multiplayer Chat (Alpha)</a>
-        </div>
-    </div>
-
-    <div class="dropdown">
-        <button class="btn">
-            <a href="/php/games.php" class="btn-text">Games</a>
-        </button>
-
-        <div class="dropdown-content">
-            <a href="/php/games/basicCubeGame.php" target="_blank">The Bouncing Cube (Alpha)</a>
-            <a href="/php/games/basicFighterGame.php" target="_blank">Fighting Game (Beta)</a>
-            <a href="/php/games/basicPlatformerGame.php" target="_blank">Platformer Game (Alpha)</a>
-            <a href="/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a>
-        </div>
-    </div>
-
-    <div class="line"></div>
+            <input type="radio" id="games" name="menu">
+            <label for="games" class="hamburger-btn btn-text one">Games</label>
+            <aside class="sidebar two">
+                <nav>
+                    <a href="/php/games/basicCubeGame.php" target="_blank"><button class="hamburger-btn btn-text two">The Bouncing Cube (Alpha)</button></a>
+                    <a href="/php/games/basicFighterGame.php" target="_blank"><button class="hamburger-btn btn-text two">Fighting Game (Beta)</button></a>
+                    <a href="/php/games/basicPlatformerGame.php" target="_blank"><button class="hamburger-btn btn-text two">Platformer Game (Alpha)</button></a>
+                    <a href="/php/games/theBigOne.html" target="_blank"><button class="hamburger-btn btn-text two">The Big One (Alpha)</button></a>
+                    <a href="/php/games.php" class="btn-text"><button class="hamburger-btn btn-text two">More...</button></a>
+                </nav>
+            </aside>
+        </nav>
+    </aside>
 </div>
-
-<div class="filler fullw" id="spacer"></div>

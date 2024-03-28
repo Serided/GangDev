@@ -51,7 +51,7 @@ $head = file_get_contents("../../html/repetitive.html");
         </section>
       </div>
       <div>
-        <p class="coding-crcls">
+        <p class="nfullw no-m coding-crcls">
           560+ hours of<br>
           <b style="font-size:30px; margin:0">MC Code</b>
         </p>
@@ -85,7 +85,7 @@ $head = file_get_contents("../../html/repetitive.html");
         </p>
       </div>
       <div>
-        <p class="exp-crcls">
+        <p class="nfullw no-m exp-crcls">
           60+ hours of<br>
           <b style="font-size:30px; margin:0">PC Assembly</b>
         </p>
