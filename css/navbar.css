@@ -13,8 +13,6 @@
 }
 
 .hamburger {
-    --x-width: calc(var(--hamburger-height) * 1.41421356237);
-
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -37,6 +35,7 @@
     --animation-time: 200ms ease-in-out;
     --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
     --button-width: 19rem;
+    --x-width: calc(var(--hamburger-height) * 1.41421356237);
 }
 
 .hamburger:has(input:checked) {
@@ -113,7 +112,7 @@
     left: 0 !important;
 }
 
-nav input {
+nav input[name=menu] {
     display: none;
 }
 
@@ -160,71 +159,3 @@ nav input:checked + .hamburger-btn + .sidebar.two {
     translate: 0;
     opacity: 100%;
 }
-
-
-
-/*
-
-.arrow {
-    --x-width: calc(var(--hamburger-height) * 1.41421356237);
-
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: var(--hamburger-gap);
-    width: max-content;
-    position: fixed;
-    top: var(--hamburger-margin);
-    left: calc(var(--button-width) - (4 * var(--hamburger-margin)) + 1px);
-    z-index: 99999;
-    cursor: pointer;
-}
-
-:root {
-    --bar-width: 50px;
-    --bar-height: 10px;
-    --hamburger-gap: 5px;
-    --foreground: #333;
-    --background: white;
-    --hamburger-margin: 8px;
-    --animation-time: 200ms ease-in-out;
-    --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
-    --button-width: 19rem;
-}
-
-.arrow::before,
-.arrow::after,
-.arrow input {
-    content: "";
-    width: var(--bar-width);
-    height: var(--bar-height);
-    background-color: var(--foreground);
-    border-radius: 4px;
-    transform-origin: left center;
-    transition: opacity var(--animation-time), width var(--animation-time), rotate var(--animation-time), translate var(--animation-time), background-color var(--animation-time);
-} */
-
-/*
-
-.arrow input {
-    appearance: none;
-    padding: 0;
-    margin: 0;
-    outline: none;
-    pointer-events: none;
-}
-
-.arrow::before {
-    rotate: 45deg;
-    width: var(--x-width);
-    translate: 0 calc(var(--bar-height) / -2)
-}
-.arrow::after {
-    rotate: -45deg;
-    width: var(--x-width);
-    translate: 0 calc(var(--bar-height) / 2)
-}
-
-.arrow {
-}
-*/
