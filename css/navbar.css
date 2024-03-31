@@ -46,6 +46,7 @@
 .hamburger::before,
 .hamburger::after,
 .hamburger input {
+    opacity: 90%;
     content: "";
     width: var(--bar-width);
     height: var(--bar-height);
