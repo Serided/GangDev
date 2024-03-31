@@ -50,7 +50,7 @@ var checkDead = setInterval(function (){
     enemy.style.display = "none";
     if(alert("Thou lost.")) {}
     else {
-      window.location.reload();
+      /*window.location.reload();*/
     }
     dead = true;
     /*popup.classList.add("openpopup");
