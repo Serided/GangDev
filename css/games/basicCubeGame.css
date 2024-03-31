@@ -1,50 +1,81 @@
-*{
+* {
   padding: 0;
-  margin:auto;
+  margin: auto;
+}
+
+:root {
+  --game-width: 50vh;
+  --game-height: 30vh;
+  --game-border: .5vh;
+
+  --extra-width: calc((100% - var(--game-width)) / 2);
+  --extra-height: calc(100% - var(--game-height));
+
+  --spacing: 0.1vh;
+  --border-spacing: calc(var(--game-border) + var(--spacing));
+
+  --character-height: 6vh;
+  --character-width: 3vh;
+  --character-left: calc(var(--extra-width) + var(--border-spacing));
+  --character-bottom: calc(var(--extra-height) + var(--border-spacing));
+
+  --enemy-height: 2.5vh;
+  --enemy-width: 2.5vh;
+  --enemy-right: calc(var(--extra-width) + var(--border-spacing));
+  --enemy-bottom: calc(var(--extra-height) + var(--border-spacing));
+
+  --enemy-start: calc(var(--extra-width) - var(--spacing) - var(--enemy-width));
+  --enemy-finish: calc(var(--extra-width) + var(--game-width) + var(--spacing));
+
+  --jump-spacing: 2vh;
+  --jump-time: 500ms;
+  --character-jump: calc(var(--character-bottom) + var(--enemy-height) + var(--jump-spacing));
 }
 
 #game{
-  width: 500px;
-  height: 200px;
-  border: 4px solid black;
+  width: var(--game-width);
+  height: var(--game-height);
+  border: var(--game-border) solid black;
 }
 
 #character{
-  width: 20px;
-  height: 50px;
+  margin: 0;
+  width: var(--character-width);
+  height: var(--character-height);
   background-color: blue;
-  position: relative;
-  /* left: 10px; */
-  right: 240px;
-  top: 150px;
+  position: absolute;
+  left: var(--character-left);
+  bottom: var(--character-bottom);
 }
 
-.animate {
-  animation: jump 500ms;
-}
-
-@keyframes jump {
-  0%{top: 150px;}
-  30%{top: 100px;}
-  70%{top: 100px;}
-  100%{top: 150px;}
-}
-
-#block{
-  width: 20px;
-  height: 20px;
+#enemy {
+  margin: 0;
+  width: var(--enemy-width);
+  height: var(--enemy-height);
   background-color: red;
-  position: relative;
-  top: 130px;
-  left: 240px;
+  position: absolute;
+  right: var(--enemy-right);
+  bottom: var(--enemy-bottom);
   animation: block 1s infinite linear;
 }
 
-@keyframes block {
-  0%{left: 250px;}
-  100%{left: -250px;}
+.animate {
+  animation: jump var(--jump-time);
 }
 
+@keyframes jump {
+  0%{bottom: var(--character-bottom);}
+  30%{bottom: var(--character-jump);}
+  70%{bottom: var(--character-jump);}
+  100%{bottom: var(--character-bottom);}
+}
+
+@keyframes block {
+  0%{right: var(--enemy-start);}
+  100%{right: var(--enemy-finish);}
+}
+
+/*
 .scoreboard {
   padding: 4px;
   background-color: bisque;
@@ -122,4 +153,9 @@
 #submit2, #submit3 {
   grid-column: 1;
   grid-row: 2;
+}
+*/
+.timer {
+  text-align: center;
+  margin: 10px;
 }
