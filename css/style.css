@@ -1,3 +1,7 @@
+:root {
+
+}
+
 html {
   font-family: "Fredoka", serif;
 }
@@ -31,37 +35,37 @@ html {
   font-optical-sizing: auto;
   font-weight: 300; /* 300 700 */
   font-style: normal;
-  font-variation-settings:
-          "wdth" 100;
+  font-variation-settings: "wdth" 100;
 }
 
 /* Set up margins for headers */
 
 h1 {
-  letter-spacing: 2px;
+  letter-spacing: 0.2vh;
   font-size: 7.3vh;
   padding: 1vh;
   margin: 0;
 }
 
 section h2 {
-  font-size: 25px;
-  margin: 20px auto 0 auto;
+  font-size: 4.2vh;
+  margin: 1vh auto 0 auto;
 }
 
 h3 {
-  font-size: 20px;
-  margin: 20px auto 0 auto;
+  font-size: 3vh;
+  margin: 1vh auto 0 auto;
 }
 
 /* Body sizing */
 p {
-  font-size: 20px;
+  font-size: 2.5vh;
+  margin: 0;
 }
 
 /* To space the sections */
 .spacing {
-  margin-top: 80px !important;
+  margin-top: 8vh !important;
 }
 
 /* Format of each individual section on a page */
@@ -69,19 +73,15 @@ p {
   background-color: #FEF9D0;
   display: inline-block;
   margin: 0;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0 1vh 2vh 0 rgba(0,0,0,0.2);
+  padding: 1vh;
 }
 
 .cpy-w {
   background-color: #FBAD77;
   display: inline-block;
   margin: 0;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.filler {
-  height: 100px;
-  background-color: transparent;
+  box-shadow: 0 1vh 2vh 0 rgba(0,0,0,0.2);
 }
 
 /* Settings for main pages */
@@ -122,28 +122,12 @@ p {
 .fullw p {
   box-sizing: border-box;
   width: 100%;
-  padding: 20px 20px;
+  padding: 2vh;
 }
 
 .nfullw {
   box-sizing: content-box !important;
   width: auto !important;
-}
-
-/* Dropdown Buttons */
-.btn {
-  font-family: "Fredoka", serif;
-  /* background-color: rgba(251,127,77,.85); */
-  background-color: gray;
-  border-radius: 4px;
-  /* background-color: transparent; */
-  text-decoration: none;
-  margin: 2px 20px;
-  font-size: 40px;
-  border: none;
-  cursor: pointer;
-  height: 50px;
-  width: 200px;
 }
 
 /* How to decorate the text */

@@ -48,3 +48,24 @@
     border-radius: 2px;
     opacity: 100%;
 }
+
+.filler {
+    height: 100px;
+    background-color: transparent;
+}
+
+/* Dropdown Buttons */
+.btn {
+    font-family: "Fredoka", serif;
+    /* background-color: rgba(251,127,77,.85); */
+    background-color: gray;
+    border-radius: 4px;
+    /* background-color: transparent; */
+    text-decoration: none;
+    margin: 2px 20px;
+    font-size: 40px;
+    border: none;
+    cursor: pointer;
+    height: 50px;
+    width: 200px;
+}

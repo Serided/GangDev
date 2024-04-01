@@ -8,7 +8,7 @@ $(document).ready(function () {
     function loadLog() {
         var oldscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height before the request
         $.ajax({
-            url: "/tmp/testMultiplayerChatLog.html",
+            url: "/tmp/universalChatLog.html",
             cache: false,
             success: function (html) {
                 $("#chatbox").html(html); //Insert chat log into the #chatbox div
@@ -24,7 +24,7 @@ $(document).ready(function () {
     $("#exit").click(function () {
         var exit = confirm("Are you sure you want to end the session?");
         if (exit == true) {
-            window.location = "testMultiplayerChat.php?logout=true";
+            window.location = "universalChat.php?logout=true";
         }
     });
 });

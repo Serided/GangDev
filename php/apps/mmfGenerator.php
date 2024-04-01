@@ -10,22 +10,22 @@ $head = file_get_contents("../../html/repetitive.html");
         <meta charset="UTF-8">
         <title>Jens</title>
 	    <?= $head ?>
-        <link rel="stylesheet" href="/css/apps/minecraftForceloadGenerator.css">
+        <link rel="stylesheet" href="/css/apps/mmfGenerator.css">
     </head>
     <body class="main-p fullw">
         <?= $fader ?>
         <?= $navbar ?>
 
         <h1>
-            Minecraft Mass ForceLoad Generator
+            MMF Generator
         </h1>
 
         <div class="fullw sect">
             <section>
                 <h2>Functionality</h2>
                 <p>
-                    Because Minecraft restricts the user to a max "/forceload" area of <b>65536 blocks</b>,
-                    it can be a pain to manually figure out each command if you are wanting to load a large area.
+                    The MMF Generator, or Minecraft Mass Forceload Generator, was created because Minecraft restricts the user to a max "/forceload" area of <b>65536 blocks</b>.<br>
+                    It can be a pain to manually figure out each command if you are wanting to load a large area.<br>
                     Using a ton of <b>math</b> and <b>JavaScript</b>, I managed to make a generator to create these commands for you,
                     only requiring two sets of <b>XZ</b> coordinates.
                 </p>
@@ -72,7 +72,7 @@ $head = file_get_contents("../../html/repetitive.html");
                         </p>
                     </div>
                 </p>
-                <script src="/js/apps/minecraftForceloadGenerate.js"></script>
+                <script src="/js/apps/mmfGenerator/mmfGenerator.js"></script>
             </section>
         </div>
 

@@ -44,26 +44,30 @@ $head = file_get_contents("../html/repetitive.html");
                 </p>
             </section>
         </div>
-
+        <!--
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
                     <a href="/php/games/basicPlatformerGame.php" target="_blank">Platformer Game (Alpha)</a>
                 </h2>
                 <p class="fullw">
-                    Currently unplayable, the next stupendous production in this line of phenomenal games.
+                    Currently unplayable, the next stupendous production in this line of phenomenal games.<br>
+                    <br>
+                    <b>UNKNOWN</b>
                 </p>
             </section>
         </div>
-
+        -->
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
                     <a href="/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a>
                 </h2>
                 <p class="fullw">
-                    Currently unplayable, going to be a scrolling left to right adventure game. First co-op project of Jens and
-                    the new member of GangDev, Isaac.
+                    Currently just a cube, going to be a scrolling left to right adventure game. First co-op project of Jens and
+                    the new member of GangDev, Isaac.<br>
+                    <br>
+                    <b>To play, press W to make the cube jump.</b>
                 </p>
             </section>
         </div>

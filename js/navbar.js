@@ -6,10 +6,10 @@ var appsBtn = document.getElementById("apps")
 var gamesBtn = document.getElementById("games")
 
 function uncheckAll() {
-    if(!hamburgerBtn.checked && (aboutBtn.checked === true || contactBtn.checked === true || servicesBtn.checked === true || appsBtn.checked === true || gamesBtn.checked === true)) {
+    if(!hamburgerBtn.checked && (aboutBtn.checked === true || contactBtn.checked === true || /*servicesBtn.checked === true ||*/ appsBtn.checked === true || gamesBtn.checked === true)) {
         aboutBtn.checked = false;
         contactBtn.checked = false;
-        servicesBtn.checked = false;
+        // servicesBtn.checked = false;
         appsBtn.checked = false;
         gamesBtn.checked = false;
         hamburgerBtn.checked = true;

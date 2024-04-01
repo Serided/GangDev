@@ -1,3 +1,11 @@
+:root {
+    --hexagon-width: 1vh;
+    --hexagon-height: 0.57735026919vh;
+    --hexagon-scaling: 15;
+    --hexagon-border: 0.3vh;
+    --hexagon-margin-side: 1vh;
+}
+
 .jens-gettin-buff {
     background-image: url("/files/img/jens/the_cave_three.jpg");
     background-repeat: no-repeat;
@@ -21,23 +29,97 @@
     margin: 0;
     overflow-wrap: anywhere;
 }
-
+/*
 .coding-crcls {
-    margin: 20px !important;
+    margin: 2vh 1vh !important;
     background-color: darkred;
     color: #01DCFA;
     box-sizing: content-box !important;
     display: inline-block;
-    padding: 20px 10px;
-    border-radius: 3px;
+    padding: 2vh 1vh;
+    border-radius: 0.5vh;
 }
 
 .exp-crcls {
-    margin: 20px !important;
+    margin: 2vh 1vh !important;
     background-color: darkblue;
     color: rgba(255, 207, 75, 0.747);
     box-sizing: content-box !important;
     display: inline-block;
-    padding: 20px 10px;
-    border-radius: 5px;
+    padding: 2vh 1vh;
+    border-radius: 0.5vh;
+}
+*/
+.hexagon {
+    width: calc(var(--hexagon-width) * var(--hexagon-scaling));
+    height: calc(var(--hexagon-height) * var(--hexagon-scaling));
+    background-color: black;
+    border-radius: var(--hexagon-border);
+    position: relative;
+    transform: translate(-50%, -50%);
+    display: inline-block !important;
+    z-index: 2;
+    margin: calc((var(--hexagon-height) * var(--hexagon-scaling)) / 3) var(--hexagon-margin-side);
+}
+
+.hexagon:before, .hexagon:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    border-radius: var(--hexagon-border);
+    position: absolute;
+}
+
+.hexagon:before {
+    transform: translate(-50%) rotate(60deg);
+}
+
+.hexagon:after {
+    transform: translate(-50%) rotate(-60deg);
+}
+
+.hexagon p {
+    --font-size-p: calc(var(--hexagon-scaling) * .1vh);
+
+    z-index: 3;
+    position: absolute;
+    color: white;
+    padding: calc(var(--hexagon-scaling) * 0.05) calc(var(--hexagon-scaling) * 0.05);
+    font-size: calc(var(--hexagon-scaling) * .12vh);
+    line-height: calc(var(--font-size-p) + 0.5vh);
+    max-height: calc(var(--hexagon-height) * var(--hexagon-scaling));
+}
+
+.hexagon p b{
+    --font-size-b: calc(var(--hexagon-scaling) * .15vh);
+
+    z-index: 3;
+    color: white;
+    font-size: var(--font-size-b);
+}
+
+.coding-exp.hexagon, .coding-exp.hexagon:before, .coding-exp.hexagon:after {
+    background-color: mediumseagreen !important;
+}
+
+.other-exp.hexagon, .other-exp.hexagon:before, .other-exp.hexagon:after {
+    background-color: steelblue !important;
+}
+
+.exp-sect {
+    padding: calc((var(--hexagon-width) * var(--hexagon-scaling)) / 1.6) 0 0 calc((var(--hexagon-width) * var(--hexagon-scaling)) / 2 + var(--hamburger-margin) * 4);
+    display: inline-block;
+}
+
+.first {
+        margin-left: calc((var(--hexagon-width) * var(--hexagon-scaling)) + 3.8 * var(--hexagon-margin-side));
+}
+
+.last {
+    margin-right: calc((var(--hexagon-width) * var(--hexagon-scaling)) + 3.8 * var(--hexagon-margin-side));
+}
+
+.caption {
+    padding-bottom: 0 !important;
 }

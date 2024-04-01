@@ -8,25 +8,24 @@ $head = file_get_contents("../../html/repetitive.html");
 <html lang="en" class="fullw">
   <head>
   <meta charset="UTF-8">
-    <title>Jens Be Roastin'</title>
+    <title>Roast Generator</title>
     <?= $head ?>
     <link rel="stylesheet" href="/css/jens/jens.css">
-    <link rel="stylesheet" href="/css/jens/jensRoastin.css">
+    <link rel="stylesheet" href="/css/apps/roastGenerator.css">
   </head>
   <body class="main-p fullw">
     <?= $fader ?>
     <?= $navbar ?>
 
     <h1>
-      Best Roasts Around
+      Roast Generator
     </h1>
 
     <div class="fullw sect">
       <section>
         <h2>Purpose?</h2>
         <p>
-          You better believe that I'd rather have a generated insult than waste valuable seconds of my time thinking one up.
-          Time is money, and I'm saving up for a heck ton of VBucks right now.
+          If you ever need a clean way of crushing someone's soul in your meaty hands, you now have that.
         </p>
       </section>
     </div>
@@ -36,15 +35,15 @@ $head = file_get_contents("../../html/repetitive.html");
         <section>
           <h2>
             <button id="btn" class="roastbtn roastbtntext" style="font-size: 15px">
-              Push me to <br> <b style="font-size: 25px">Insult Yourself</b>
+              Push me to <br> <b style="font-size: 25px">Roast Yourself</b>
             </button>
           </h2>
           <div>
             <p style="margin-top: 1px; font-size: 15px">
-              Or <b id="timer" style="font-size: 18px">15</b> seconds until it insults you, for you.
+              Or <b id="timer" style="font-size: 18px">15</b> seconds until it roasts you, for you.
             </p>
             <p id="output" style="color: red; font-size: 25px">
-              Insult should generate here, and if it doesn't, it just doesn't like you. Rest in pepperonis!
+              Roast generates here.
             </p>
           </div>
           <script src="/js/jens/roast.js"></script>

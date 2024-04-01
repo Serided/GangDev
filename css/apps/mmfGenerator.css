@@ -1,36 +1,45 @@
+html {
+    font-size: 2vh;
+}
+
 input[type=text] {
-    width: 10%;
+    width: 15vh;
+    height: 2.3vh;
     box-sizing: border-box;
     border: solid gray 1px;
     font-family: "Fredoka", serif;
 }
 
+input {
+    height: 1.5vh;
+}
+
 .output {
-    margin: 0px !important;
+    margin: 0 !important;
     background-color: white;
     color: royalblue;
     box-sizing: content-box !important;
     display: inline-block;
-    padding: 10px 10px 10px 10px;
-    border-radius: 5px;
-    border: solid gray 1px;
+    padding: 1vh;
+    border-radius: .5vh;
+    border: solid gray .3vh;
 }
 
 .fbtn {
-    margin-left: 20px !important;
-    margin-right: 20px !important;
+    margin-left: 2vh !important;
+    margin-right: 2vh !important;
     background-color: white;
     color: black;
     box-sizing: content-box !important;
     display: inline-block;
-    padding: 4px 4px 4px 4px;
-    border-radius: 2px;
+    padding: 1vh;
+    border-radius: .5vh;
     text-decoration: none;
     font-size: 22px;
     font-family: "Fredoka", serif;
     cursor: pointer;
     font-weight: bold;
-    border: solid black 1px;
+    border: solid black .3vh;
 }
 
 .fbtn:hover {
