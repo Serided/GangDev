@@ -35,7 +35,7 @@ $head = file_get_contents("html/repetitive.html");
                 <h2>Overview</h2>
                 <p class="fullw">
                     GangDev is a leading company in the field of game, app, and web development,<br>
-                    founded by visionary entrepreneur Jens Hansen.<br>
+                    founded by visionary entrepreneur <b>Jens Hansen</b>.<br>
                     With a strong commitment to innovation, creativity, and excellence,<br>
                     GangDev has established itself as a trusted partner for individuals and businesses<br>
                     seeking cutting-edge solutions in the digital realm.

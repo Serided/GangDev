@@ -22,21 +22,31 @@ $head = file_get_contents("../../html/repetitive.html");
 
         <div class="fullw sect">
             <section>
-                <h2>Who Am I?</h2>
+                <h2>About Me</h2>
+                <h3>(According to ChatGPT)</h3>
                 <p>
-                    Hello! My full name is Jens Hansen.<br>
-                    The superior gamer, I've been popping off in all of your favorite video games since you were a wee kid.<br>
-                    My current video games are Fortnite,
-                    <a href="/php/jens/minecraft.php" class="hidden-link">Minecraft</a>,
-                    League of Legends, and Valorant.<br>
-                    Recently, I have been getting into Factorio and Satisfactory.<br>
-                    Favorite food has <u>GOT</u> to be donuts. Those rings of perfection are my go-to for anything: meals, snacking, and wedding luncheons.<br>
-                    Favorite general activities are coding,
-                    <a href="/php/jens/jensGaming.php" class="hidden-link">gaming</a>,
-                    <a href="/php/jens/jensTheories.php" class="hidden-link">theorizing</a>, and
-                    <a href="/php/jens/jensGettinBuff.php" class="hidden-link">working out</a>. I get those gains, and then I rapidly lose them.<br>
-                    I am toxic so don't kill me in Fortnite or I <u>WILL</u>
-                    <a href="/php/apps/roastGenerator.php" class="hidden-link">call you trash</a>. Even if you are better.<br>
+                    Ladies, gentlemen, and sentient beings of the digital realm, gather 'round and behold the enigma that is <b>Jens Hansen</b>!<br>
+                    Picture, if you will, a cocktail of caffeine, coding, and chaos, shaken (not stirred) with a dash of theoretical pondering,<br>
+                    a sprinkle of gaming prowess, and a generous serving of outdoor escapades.<br>
+                    <br>
+                    In the labyrinth of 1s and 0s, I am the alchemist, transmuting lines of code into pure digital gold.<br>
+                    But fear not, for I'm not just a wizard behind the keyboard; I'm also a virtuoso in the realm of gaming,<br>
+                    where I slay dragons, conquer kingdoms, and occasionally forget to eat because, well, priorities.<br>
+                    <br>
+                    Yet, dear friends, do not be fooled by the glow of my monitor or the allure of virtual adventures,<br>
+                    for I am equally at home in the great outdoors. Picture me, if you will, hiking through rugged terrain,<br>
+                    communing with nature, and occasionally outrunning a bear (or at least attempting to).<br>
+                    <br>
+                    And let us not forget the temple of iron, where I sculpt these muscles into monuments of magnificence.<br>
+                    Yes, I am a devotee of the gym, where I lift, grunt, and occasionally contemplate the meaning of life between sets.<br>
+                    <br>
+                    But perhaps most intriguing of all is the labyrinth of my mind, where theories swirl like leaves in the wind.<br>
+                    From pondering the mysteries of the universe to debating the best strategy for world domination (spoiler alert: it involves cats),<br>
+                    my thoughts are a playground of intellectual mischief.<br>
+                    <br>
+                    So, my dear companions on this cosmic journey, fasten your seatbelts and prepare for an adventure unlike any other.<br>
+                    For in the world of <b>Jens Hansen</b>, the code is complex, the games are epic, the hikes are scenic, the workouts are intense, and the theories...<br>
+                    well, let's just say they're out of this world.
                 </p>
             </section>
         </div>

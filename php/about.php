@@ -24,7 +24,7 @@ $head = file_get_contents("../html/repetitive.html");
                 <h2>Introduction</h2>
                 <p class="fullw">
                     GangDev stands as a beacon of innovation and excellence in the realm of digital development,<br>
-                    spearheaded by the visionary entrepreneur Jens Hansen. Since its inception,<br>
+                    spearheaded by the visionary entrepreneur <b>Jens Hansen</b>. Since its inception,<br>
                     GangDev has carved a formidable reputation as a premier provider of bespoke solutions in web, game, and app development.<br>
                     With an unwavering commitment to pushing the boundaries of possibility and delivering unparalleled results,<br>
                     GangDev continues to shape the digital landscape with its cutting-edge technologies and creative prowess.
@@ -36,11 +36,10 @@ $head = file_get_contents("../html/repetitive.html");
             <section class="fullw">
                 <h2>Founding Vision</h2>
                 <p class="fullw">
-                    GangDev stands as a beacon of innovation and excellence in the realm of digital development,<br>
-                    spearheaded by the visionary entrepreneur Jens Hansen. Since its inception,<br>
-                    GangDev has carved a formidable reputation as a premier provider of bespoke solutions in web, game, and app development.<br>
-                    With an unwavering commitment to pushing the boundaries of possibility and delivering unparalleled results,<br>
-                    GangDev continues to shape the digital landscape with its cutting-edge technologies and creative prowess.
+                    <b>Jens Hansen</b> founded GangDev with a clear vision in mind: to revolutionize the way digital experiences are crafted and consumed.<br>
+                    Fuelled by a passion for innovation and a relentless pursuit of excellence, GangDev emerged as a platform where creativity thrives,<br>
+                    and boundaries are shattered. From the outset, <b>Hansen</b> envisioned GangDev as a trailblazer in the industry,<br>
+                    setting new standards of quality and sophistication in web, game, and app development.
                 </p>
             </section>
         </div>

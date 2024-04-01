@@ -1,7 +1,7 @@
 var hamburgerBtn = document.getElementById("hamburger")
 var aboutBtn = document.getElementById("about")
 var contactBtn = document.getElementById("contact")
-var servicesBtn = document.getElementById("services")
+//var servicesBtn = document.getElementById("services")
 var appsBtn = document.getElementById("apps")
 var gamesBtn = document.getElementById("games")
 
