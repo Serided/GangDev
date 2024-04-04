@@ -10,7 +10,16 @@
         </form>
         <div id="messages"></div>
         <script>
-            const webSocket = new WebSocket("ws://localhost:10001/");
+            var testing = false;
+
+            if(testing) {
+                var whichServer = "localhost";
+            }
+            else {
+                var whichServer = "gangdev.co";
+            }
+
+            const webSocket = new WebSocket("ws://" + whichServer + ":10001/");
             webSocket.onmessage = (event) => {
                 console.log(event);
                 document.getElementById("messages").innerHTML += "Message from server: " + event.data + "<br>";
