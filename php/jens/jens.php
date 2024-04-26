@@ -191,7 +191,11 @@ $head = file_get_contents("../../html/repetitive.html");
                 <h2>Projects</h2>
                 <p class="fullw">
                     <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
-                    <a href="/php/apps/mmfGenerator.php" target="_blank">Minecraft Forceload Generator</a><br>
+                    <a href="/php/mods/minecraft_resource_packs.php" target="_blank">Minecraft (Resource Packs)</a><br>
+                    <a href="/php/mods/minecraft_data_packs.php" target="_blank">Minecraft (Data Packs)</a><br>
+                    <a href="/php/apps/roastGenerator.php" target="_blank">Roast Generator</a><br>
+                    <a href="/php/apps/mmfGenerator.php" target="_blank">MMF Generator</a><br>
+                    <a href="/php/apps/universalChat/universalChat.php" target="_blank">Universal Chat</a><br>
                     <a href="/php/games/basicCubeGame.html" target="_blank">The Bouncing Cube (Beta)</a><br>
                     <a href="/php/games/basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>
                     <a href="/php/games/basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a><br>

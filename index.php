@@ -57,6 +57,16 @@ $head = file_get_contents("html/repetitive.html");
             </section>
         </div>
 
+        <div class="fullw sect spacing" id="mods">
+            <section class="fullw">
+            <h2>Mods</h2>
+                <p class="fullw">
+                    <a href="/php/mods/minecraft_resource_packs.php">Minecraft (Resource Packs)</a><br>
+                    <a href="/php/mods/minecraft_data_packs.php">Minecraft (Data Packs)</a><br>
+                </p>
+            </section>
+        </div>
+
         <div class="fullw sect spacing" id="apps">
             <section class="fullw">
             <h2>Apps</h2>
