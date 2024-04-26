@@ -6,14 +6,14 @@
 }
 
 .comparison-blocks-img {
-    height: 16vh;
+    width: 60%;
     border: gray .4vh solid;
     border-radius: 1vh;
     margin: 1vh;
 }
 
 .comparison-items-img {
-    height: 30vh;
+    width: 30%;
     border: gray .4vh solid;
     border-radius: 1vh;
     margin: 1vh;
