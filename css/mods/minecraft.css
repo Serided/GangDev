@@ -1,0 +1,28 @@
+.crafting-img {
+    height: 8vh;
+    border: gray .4vh solid;
+    border-radius: 1vh;
+    margin: 1vh .3vh;
+}
+
+.comparison-blocks-img {
+    height: 16vh;
+    border: gray .4vh solid;
+    border-radius: 1vh;
+    margin: 1vh;
+}
+
+.comparison-items-img {
+    height: 30vh;
+    border: gray .4vh solid;
+    border-radius: 1vh;
+    margin: 1vh;
+}
+
+summary {
+    font-size: 2.5vh;
+}
+
+summary + p {
+    font-size: 2vh;
+}
