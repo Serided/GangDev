@@ -28,7 +28,7 @@
                     This is <u>THE</u> Unofficial In-N-Out Datapack (for version 1.20.5). Its main functionality is listed below.
                     <br>
                     <br>
-                    <b style="color:red">Note: Attached photos are with the Unoffical In-N-Out Resource Pack installed.</b>
+                    <b style="color:red">Note: Attached photos are with the Unofficial In-N-Out Resource Pack installed.</b>
                     <br>
                     <br>
                     Changes:
