@@ -1,0 +1,198 @@
+:root {
+
+}
+
+html {
+  font-family: "Fredoka", serif;
+}
+
+.madimi-one-regular {
+  font-family: "Madimi One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.m-plus-rounded-1c-bold {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.silkscreen-regular {
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.silkscreen-bold {
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.fredoka-custom {
+  font-family: "Fredoka", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300; /* 300 700 */
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+/* Set up margins for headers */
+
+h1 {
+  letter-spacing: 0.2vh;
+  font-size: 7.3vh;
+  padding: 1vh;
+  margin: 0;
+}
+
+section h2 {
+  font-size: 4.2vh;
+  margin: 1vh auto 0 auto;
+}
+
+h3 {
+  font-size: 3vh;
+  margin: 1vh auto 0 auto;
+}
+
+/* Body sizing */
+p {
+  font-size: 2.5vh;
+  margin: 0;
+}
+
+/* To space the sections */
+.spacing {
+  margin-top: 8vh !important;
+}
+
+/* Format of each individual section on a page */
+.sect {
+  background-color: #FEF9D0;
+  display: inline-block;
+  margin: 0;
+  box-shadow: 0 1vh 2vh 0 rgba(0,0,0,0.2);
+  padding: 1vh;
+}
+
+.cpy-w {
+  background-color: #FBAD77;
+  display: inline-block;
+  margin: 0;
+  box-shadow: 0 1vh 2vh 0 rgba(0,0,0,0.2);
+}
+
+/* Settings for main pages */
+.main-p {
+  background-image: url("/main/files/img/valley_portrait_2.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  
+  background-color: whitesmoke;
+  text-align: center;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.no-m {
+  margin: 0 auto !important;
+}
+
+/* Make the sections snap to the sides of the page */
+.fullw {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.fullw-r {
+  box-sizing: border-box;
+  width: 90%;
+  margin-left: 10%;
+}
+
+.fullw-l {
+  box-sizing: border-box;
+  width: 90%;
+  margin-right: 10%;
+}
+
+.fullw p {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 2vh;
+}
+
+.nfullw {
+  box-sizing: content-box !important;
+  width: auto !important;
+}
+
+/* How to decorate the text */
+.btn-text {
+  text-decoration: none;
+  color: white;
+}
+
+.hidden-link {
+  color:inherit;
+  text-decoration:inherit;
+  cursor: text;
+}
+
+.btn:hover .btn-text{
+  /* color: aqua; */
+  font-weight: 700;
+}
+
+a:hover{
+  /* color: aqua; */
+  font-weight: 700;
+}
+
+/* Animations between pages */
+.animate-in {
+  -webkit-animation: fade-in .5s ease-in;
+  animation: fade-in .5s ease-in;
+}
+
+.animate-out {
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+  opacity: 0;
+}
+
+#fader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  pointer-events: none;
+  background: white;
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes fade-out {
+  from {opacity: 1}
+  to {opacity: 0}
+}
+
+@keyframes fade-in {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
+#fader.fade-out {
+  opacity: 0;
+  animation-name: fade-out;
+}
+
+#fader.fade-in {
+  opacity: 1;
+  animation-name: fade-in;
+}

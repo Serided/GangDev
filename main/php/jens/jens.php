@@ -1,0 +1,210 @@
+<?php
+$navbar = file_get_contents ("../../html/navBar.html");
+$copyright = file_get_contents("../../html/copyright.html");
+$fader = file_get_contents("../../html/pageFader.html");
+$head = file_get_contents("../../html/repetitive.html");
+?>
+<!DOCTYPE html>
+<html lang="en" class="fullw">
+    <head>
+        <meta charset="UTF-8">
+        <title>Jens</title>
+        <?= $head ?>
+        <link rel="stylesheet" href="/main/css/jens/jens.css">
+    </head>
+    <body class="main-p fullw">
+        <?= $fader ?>
+        <?= $navbar ?>
+
+        <h1>
+            Jens
+        </h1>
+
+        <div class="fullw sect">
+            <section>
+                <h2>About Me</h2>
+                <h3>(According to ChatGPT)</h3>
+                <p>
+                    Ladies, gentlemen, and sentient beings of the digital realm, gather 'round and behold the enigma that is <b>Jens Hansen</b>!<br>
+                    Picture, if you will, a cocktail of caffeine, coding, and chaos, shaken (not stirred) with a dash of theoretical pondering,<br>
+                    a sprinkle of gaming prowess, and a generous serving of outdoor escapades.<br>
+                    <br>
+                    In the labyrinth of 1s and 0s, I am the alchemist, transmuting lines of code into pure digital gold.<br>
+                    But fear not, for I'm not just a wizard behind the keyboard; I'm also a virtuoso in the realm of gaming,<br>
+                    where I slay dragons, conquer kingdoms, and occasionally forget to eat because, well, priorities.<br>
+                    <br>
+                    Yet, dear friends, do not be fooled by the glow of my monitor or the allure of virtual adventures,<br>
+                    for I am equally at home in the great outdoors. Picture me, if you will, hiking through rugged terrain,<br>
+                    communing with nature, and occasionally outrunning a bear (or at least attempting to).<br>
+                    <br>
+                    And let us not forget the temple of iron, where I sculpt these muscles into monuments of magnificence.<br>
+                    Yes, I am a devotee of the gym, where I lift, grunt, and occasionally contemplate the meaning of life between sets.<br>
+                    <br>
+                    But perhaps most intriguing of all is the labyrinth of my mind, where theories swirl like leaves in the wind.<br>
+                    From pondering the mysteries of the universe to debating the best strategy for world domination (spoiler alert: it involves cats),<br>
+                    my thoughts are a playground of intellectual mischief.<br>
+                    <br>
+                    So, my dear companions on this cosmic journey, fasten your seatbelts and prepare for an adventure unlike any other.<br>
+                    For in the world of <b>Jens Hansen</b>, the code is complex, the games are epic, the hikes are scenic, the workouts are intense, and the theories...<br>
+                    well, let's just say they're out of this world.
+                </p>
+            </section>
+        </div>
+
+        <div class="fullw sect spacing">
+            <div>
+                <section>
+                    <h2>Expertise</h2>
+                    <p class="caption">
+                        I have a vast array of experience in computer science.
+                    </p>
+                </section>
+            </div>
+            <!--
+            <div>
+                <p class="nfullw no-m coding-crcls">
+                    560+ hours of<br>
+                    <b style="font-size:30px; margin:0">MC Code</b>
+                </p>
+                <p class="no-m nfullw coding-crcls">
+                    110+ hours of<br>
+                    <b style="font-size:30px; margin:0">Python</b>
+                </p>
+                <p class="no-m nfullw coding-crcls">
+                    110+ hours of<br>
+                    <b style="font-size:30px; margin:0">HTML</b>
+                </p>
+                <p class="no-m nfullw coding-crcls">
+                    65+ hours of<br>
+                    <b style="font-size:30px; margin:0">CSS</b>
+                </p>
+                <p class="no-m nfullw coding-crcls">
+                    40+ hours of<br>
+                    <b style="font-size:30px; margin:0">JS</b>
+                </p>
+                <p class="no-m nfullw coding-crcls">
+                    30+ hours of<br>
+                    <b style="font-size:30px; margin:0">Ruby</b>
+                </p>
+                <p class="no-m nfullw coding-crcls">
+                    20+ hours of<br>
+                    <b style="font-size:30px; margin:0">PHP</b>
+                </p>
+                <p class="no-m nfullw coding-crcls">
+                    5+ hours of<br>
+                    <b style="font-size:30px; margin:0">Kotlin</b>
+                </p>
+            </div>
+            <div>
+                <p class="nfullw no-m exp-crcls">
+                    60+ hours of<br>
+                    <b style="font-size:30px; margin:0">PC Assembly</b>
+                </p>
+                <p class="no-m nfullw exp-crcls">
+                    10+ hours of<br>
+                    <b style="font-size:30px; margin:0">PC Building</b>
+                </p>
+            </div>
+            -->
+            <div class="exp-sect">
+                <div class="hexagon coding-exp">
+                    <p>
+                        <b><u>MC Function</u></b><br>
+                        Over eight years of experience.
+                    </p>
+                </div>
+                <div class="hexagon coding-exp">
+                    <p>
+                        <b><u>Python</u></b><br>
+                        Two years of experience.
+                    </p>
+                </div>
+                <div class="hexagon coding-exp">
+                    <p>
+                        <b><u>HTML</u></b><br>
+                        Three years of experience.
+                    </p>
+                </div><br>
+                <div class="hexagon coding-exp">
+                    <p>
+                        <b><u>PHP</u></b><br>
+                        Two years of experience.
+                    </p>
+                </div>
+                <div class="hexagon coding-exp">
+                    <p>
+                        <b><u>CSS</u></b><br>
+                        Three years of experience.
+                    </p>
+                </div><br>
+                <div class="hexagon coding-exp">
+                    <p>
+                        <b><u>JS</u></b><br>
+                        Three years of experience.
+                    </p>
+                </div>
+                <div class="hexagon coding-exp">
+                    <p>
+                        <b><u>Ruby</u></b><br>
+                        One year of experience.
+                    </p>
+                </div>
+                <div class="hexagon coding-exp">
+                    <p>
+                        <b><u>Kotlin</u></b><br>
+                        One year of experience.
+                    </p>
+                </div>
+                <!--
+                <div class="hexagon other-exp">
+                    <p>
+                        <b><u>PC Assembly</u></b><br>
+                        Sixty hours of assembling PCs.
+                    </p>
+                </div>
+                <div class="hexagon other-exp">
+                    <p>
+                        <b><u>PC Building</u></b><br>
+                        Ten hours of building PCs.
+                    </p>
+                </div>
+                -->
+            </div>
+        </div>
+
+
+        <div class="fullw sect spacing">
+            <section class="fullw">
+                <h2>My Links</h2>
+                    <p class="fullw">
+                    <a href="https://www.instagram.com/ser1ded/" target="_blank">Instagram</a><br>
+                    <a href="https://scandinalienballer.wixsite.com/jenshansenportfolio" target="_blank">Digital Media Portfolio</a><br>
+                    <a href="https://www.youtube.com/channel/UC_SfGASnIXAkrVwugpZ9eLg" target="_blank">YouTube</a><br>
+                    <a href="https://github.com/Serided" target="_blank">GitHub</a><br>
+                    <a href="https://stackoverflow.com/users/20779197/serided" target="_blank">Stack Overflow</a>
+                </p>
+            </section>
+        </div>
+
+        <div class="fullw sect spacing">
+            <section class="fullw">
+                <h2>Projects</h2>
+                <p class="fullw">
+                    <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
+                    <a href="/main/php/mods/minecraft_resource_packs.php" target="_blank">Minecraft (Resource Packs)</a><br>
+                    <a href="/main/php/mods/minecraft_data_packs.php" target="_blank">Minecraft (Data Packs)</a><br>
+                    <a href="/main/php/apps/roastGenerator.php" target="_blank">Roast Generator</a><br>
+                    <a href="/main/php/apps/mmfGenerator.php" target="_blank">MMF Generator</a><br>
+                    <a href="/main/php/apps/universalChat/universalChat.php" target="_blank">Universal Chat</a><br>
+                    <a href="/main/php/games/basicCubeGame.html" target="_blank">The Bouncing Cube (Beta)</a><br>
+                    <a href="/main/php/games/basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>
+                    <a href="/main/php/games/basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a><br>
+                    <a href="/main/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
+                    <a href="/main/php/games/testMultiplayerChat/testMultiplayerChat.php" target="_blank">Test Multiplayer Game (Alpha)</a><br>
+                </p>
+            </section>
+        </div>
+
+        <?= $copyright ?>
+    </body>
+</html>
