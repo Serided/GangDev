@@ -10,7 +10,7 @@ $head = file_get_contents("../../html/repetitive.html");
         <meta charset="UTF-8">
         <title>Jens Be Gaming</title>
 	    <?= $head ?>
-        <link rel="stylesheet" href="/main/css/jens/jens.css">
+        <link rel="stylesheet" href="/css/jens/jens.css">
     </head>
     <body class="jens-gaming fullw">
     <?= $fader ?>

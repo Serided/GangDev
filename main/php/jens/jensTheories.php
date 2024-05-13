@@ -9,8 +9,8 @@ $head = file_get_contents("../../html/repetitive.html");
         <meta charset="UTF-8">
         <title>Jens Be Theorizing</title>
 	    <?= $head ?>
-        <link rel="stylesheet" href="/main/css/jens/jens.css">
-        <link rel="stylesheet" href="/main/css/jens/jensTheories.css">
+        <link rel="stylesheet" href="/css/jens/jens.css">
+        <link rel="stylesheet" href="/css/jens/jensTheories.css">
     </head>
     <body class="main-p-theory fullw">
         <?= $fader ?>
@@ -36,7 +36,7 @@ $head = file_get_contents("../../html/repetitive.html");
             <p id="output" class="txt">Answer</p>
         </div>
 
-        <script src="/main/js/jens/theories.js"></script>
+        <script src="/js/jens/theories.js"></script>
 
         <?= $copyright ?>
     </body>

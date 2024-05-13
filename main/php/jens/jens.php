@@ -10,7 +10,7 @@ $head = file_get_contents("../../html/repetitive.html");
         <meta charset="UTF-8">
         <title>Jens</title>
         <?= $head ?>
-        <link rel="stylesheet" href="/main/css/jens/jens.css">
+        <link rel="stylesheet" href="/css/jens/jens.css">
     </head>
     <body class="main-p fullw">
         <?= $fader ?>
@@ -191,16 +191,16 @@ $head = file_get_contents("../../html/repetitive.html");
                 <h2>Projects</h2>
                 <p class="fullw">
                     <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
-                    <a href="/main/php/mods/minecraft_resource_packs.php" target="_blank">Minecraft (Resource Packs)</a><br>
-                    <a href="/main/php/mods/minecraft_data_packs.php" target="_blank">Minecraft (Data Packs)</a><br>
-                    <a href="/main/php/apps/roastGenerator.php" target="_blank">Roast Generator</a><br>
-                    <a href="/main/php/apps/mmfGenerator.php" target="_blank">MMF Generator</a><br>
-                    <a href="/main/php/apps/universalChat/universalChat.php" target="_blank">Universal Chat</a><br>
-                    <a href="/main/php/games/basicCubeGame.html" target="_blank">The Bouncing Cube (Beta)</a><br>
-                    <a href="/main/php/games/basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>
-                    <a href="/main/php/games/basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a><br>
-                    <a href="/main/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
-                    <a href="/main/php/games/testMultiplayerChat/testMultiplayerChat.php" target="_blank">Test Multiplayer Game (Alpha)</a><br>
+                    <a href="/php/mods/minecraft_resource_packs.php" target="_blank">Minecraft (Resource Packs)</a><br>
+                    <a href="/php/mods/minecraft_data_packs.php" target="_blank">Minecraft (Data Packs)</a><br>
+                    <a href="/php/apps/roastGenerator.php" target="_blank">Roast Generator</a><br>
+                    <a href="/php/apps/mmfGenerator.php" target="_blank">MMF Generator</a><br>
+                    <a href="/php/apps/universalChat/universalChat.php" target="_blank">Universal Chat</a><br>
+                    <a href="/php/games/basicCubeGame.html" target="_blank">The Bouncing Cube (Beta)</a><br>
+                    <a href="/php/games/basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>
+                    <a href="/php/games/basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a><br>
+                    <a href="/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
+                    <a href="/php/games/testMultiplayerChat/testMultiplayerChat.php" target="_blank">Test Multiplayer Game (Alpha)</a><br>
                 </p>
             </section>
         </div>

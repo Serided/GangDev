@@ -32,7 +32,7 @@ $head = file_get_contents("../../html/repetitive.html");
             <section class="fullw">
                 <h2>Resource Packs</h2>
                 <p class="fullw">
-                    FortCraft Resource Pack <a href="/main/files/minecraft/FortCraftResourcePack.zip" target="_blank" download="FortCraftResourcePack">(Download)</a><br>
+                    FortCraft Resource Pack <a href="/files/minecraft/FortCraftResourcePack.zip" target="_blank" download="FortCraftResourcePack">(Download)</a><br>
                 </p>
             </section>
         </div>

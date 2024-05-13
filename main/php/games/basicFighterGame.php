@@ -11,7 +11,7 @@ $head = file_get_contents("../../html/repetitive.html");
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/main/css/games/basicFighterGame.css">
+  <link rel="stylesheet" href="/css/games/basicFighterGame.css">
   <style>
     * {
       box-sizing: border-box;
@@ -36,7 +36,7 @@ $head = file_get_contents("../../html/repetitive.html");
         <div id="timer" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%"></div>
         <div style="display: flex; align-items: center; justify-content: center">
           <button class="gamebtn" style="margin: 10px">
-            <a href="/main/index.php" class="btn-text" style="text-align: center">Home</a>
+            <a href="/index.php" class="btn-text" style="text-align: center">Home</a>
           </button>
         </div>
       </div>
@@ -50,8 +50,8 @@ $head = file_get_contents("../../html/repetitive.html");
     <canvas></canvas>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js" integrity="sha512-gmwBmiTVER57N3jYS3LinA9eb8aHrJua5iQD7yqYCKa5x6Jjc7VDVaEA0je0Lu0bP9j7tEjV3+1qUm6loO99Kw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="/main/js/games/basicFighterGame/utilities.js"></script>
-  <script src="/main/js/games/basicFighterGame/classes.js"></script>
-  <script src="/main/js/games/basicFighterGame/script.js"></script>
+  <script src="/js/games/basicFighterGame/utilities.js"></script>
+  <script src="/js/games/basicFighterGame/classes.js"></script>
+  <script src="/js/games/basicFighterGame/script.js"></script>
 </body>
 </html>

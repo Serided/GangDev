@@ -46,7 +46,7 @@ $head = file_get_contents("../../html/repetitive.html");
               Roast generates here.
             </p>
           </div>
-          <script src="/main/js/jens/roast.js"></script>
+          <script src="/js/jens/roast.js"></script>
         </section>
       </div>
     </div>

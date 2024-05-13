@@ -10,7 +10,7 @@ $head = file_get_contents("../../html/repetitive.html");
         <meta charset="UTF-8">
         <title>Jens</title>
 	    <?= $head ?>
-        <link rel="stylesheet" href="/main/css/apps/mmfGenerator.css">
+        <link rel="stylesheet" href="/css/apps/mmfGenerator.css">
     </head>
     <body class="main-p fullw">
         <?= $fader ?>
@@ -72,7 +72,7 @@ $head = file_get_contents("../../html/repetitive.html");
                         </p>
                     </div>
                 </p>
-                <script src="/main/js/apps/mmfGenerator/mmfGenerator.js"></script>
+                <script src="/js/apps/mmfGenerator/mmfGenerator.js"></script>
             </section>
         </div>
 

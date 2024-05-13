@@ -45,7 +45,7 @@ $head = file_get_contents("../../../html/repetitive.html");
 		<meta charset="utf-8" />
 		<title>Universal Chat</title>
 		<meta charset="UTF-8" name="description" content="Universal Chat"/>
-		<link rel="stylesheet" href="/main/css/apps/universalChat.css"/>
+		<link rel="stylesheet" href="/css/apps/universalChat.css"/>
         <?= $head ?>
 	</head>
     <body>
@@ -82,7 +82,7 @@ $head = file_get_contents("../../../html/repetitive.html");
                 </form>
             </div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script type="text/javascript" src="/main/js/apps/universalChat/script.js"></script>
+        <script type="text/javascript" src="/js/apps/universalChat/script.js"></script>
         </body>
 	</html>
 	<?php

@@ -22,7 +22,7 @@ $head = file_get_contents("../html/repetitive.html");
 		<div class="fullw sect">
 			<section class="fullw">
 				<h2>
-					<a href="/main/php/apps/roastGenerator.php">Roast Generator</a>
+					<a href="/php/apps/roastGenerator.php">Roast Generator</a>
 				</h2>
 				<p class="fullw">
 					A terribly effective way to satisfy your urge for carnage and slaughter, this app can both automatically
@@ -36,7 +36,7 @@ $head = file_get_contents("../html/repetitive.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="/main/php/apps/mmfGenerator.php">MMF Generator</a>
+                    <a href="/php/apps/mmfGenerator.php">MMF Generator</a>
                 </h2>
                 <p class="fullw">
                     The MMF Generator, also known as the Minecraft Mass Forceload Generator, is used to generate mass forceload commands. <br>
@@ -50,7 +50,7 @@ $head = file_get_contents("../html/repetitive.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="/main/php/apps/universalChat/universalChat.php" target="_blank">Universal Chat</a>
+                    <a href="/php/apps/universalChat/universalChat.php" target="_blank">Universal Chat</a>
                 </h2>
                 <p class="fullw">
                     The first official multiplayer app created by GangDev to allow users to interact on the web.<br>

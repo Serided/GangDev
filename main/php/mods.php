@@ -22,7 +22,7 @@ $head = file_get_contents("../html/repetitive.html");
 		<div class="fullw sect">
 			<section class="fullw">
 				<h2>
-					<a href="/main/php/mods/minecraft_resource_packs.php">Minecraft (Resource Packs)</a>
+					<a href="/php/mods/minecraft_resource_packs.php">Minecraft (Resource Packs)</a>
                 </h2>
 				<p class="fullw">
                     The majority of art expertise in GangDev comes from creating Resource Packs for Minecraft, and this is
@@ -36,7 +36,7 @@ $head = file_get_contents("../html/repetitive.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="/main/php/mods/minecraft_data_packs.php">Minecraft (Data Packs)</a>
+                    <a href="/php/mods/minecraft_data_packs.php">Minecraft (Data Packs)</a>
                 </h2>
                 <p class="fullw">
                     The majority of coding experience in GangDev originates in MCFunction, Minecraft's built-in coding

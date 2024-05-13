@@ -61,8 +61,8 @@ $head = file_get_contents("html/repetitive.html");
             <section class="fullw">
             <h2>Mods</h2>
                 <p class="fullw">
-                    <a href="/main/php/mods/minecraft_resource_packs.php">Minecraft (Resource Packs)</a><br>
-                    <a href="/main/php/mods/minecraft_data_packs.php">Minecraft (Data Packs)</a><br>
+                    <a href="/php/mods/minecraft_resource_packs.php">Minecraft (Resource Packs)</a><br>
+                    <a href="/php/mods/minecraft_data_packs.php">Minecraft (Data Packs)</a><br>
                 </p>
             </section>
         </div>
@@ -71,9 +71,9 @@ $head = file_get_contents("html/repetitive.html");
             <section class="fullw">
             <h2>Apps</h2>
                 <p class="fullw">
-                    <a href="/main/php/apps/roastGenerator.php">Roast Generator</a><br>
-                    <a href="/main/php/apps/mmfGenerator.php">MMF Generator</a><br>
-                    <a href="/main/php/apps/universalChat/universalChat.php" target="_blank">Universal Chat</a><br>
+                    <a href="/php/apps/roastGenerator.php">Roast Generator</a><br>
+                    <a href="/php/apps/mmfGenerator.php">MMF Generator</a><br>
+                    <a href="/php/apps/universalChat/universalChat.php" target="_blank">Universal Chat</a><br>
                 </p>
             </section>
         </div>
@@ -82,10 +82,10 @@ $head = file_get_contents("html/repetitive.html");
             <section class="fullw">
                 <h2>Games</h2>
                 <p class="fullw">
-                    <a href="/main/php/games/basicCubeGame.php">The Bouncing Cube (Alpha)</a><br>
-                    <a href="/main/php/games/basicFighterGame.php">Fighting Game (Beta)</a><br>
-                    <!-- <a href="/main/php/games/basicPlatformerGame.php">Platformer Game (Alpha)</a><br> -->
-                    <a href="/main/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
+                    <a href="/php/games/basicCubeGame.php">The Bouncing Cube (Alpha)</a><br>
+                    <a href="/php/games/basicFighterGame.php">Fighting Game (Beta)</a><br>
+                    <!-- <a href="/php/games/basicPlatformerGame.php">Platformer Game (Alpha)</a><br> -->
+                    <a href="/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
                 </p>
             </section>
         </div>

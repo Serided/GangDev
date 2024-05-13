@@ -10,8 +10,8 @@ $head = file_get_contents("../html/repetitive.html");
         <meta charset="UTF-8">
         <title>Services</title>
 	    <?= $head ?>
-        <link rel="stylesheet" href="/main/css/style.css">
-        <script src="/main/js/script.js"></script>
+        <link rel="stylesheet" href="/css/style.css">
+        <script src="/js/script.js"></script>
     </head>
     <body class="main-p fullw">
         <?= $fader ?>

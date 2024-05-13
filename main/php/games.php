@@ -22,7 +22,7 @@ $head = file_get_contents("../html/repetitive.html");
         <div class="fullw sect">
             <section class="fullw">
                 <h2>
-                    <a href="/main/php/games/basicCubeGame.php" target="_blank">The Bouncing Cube (Alpha)</a>
+                    <a href="/php/games/basicCubeGame.php" target="_blank">The Bouncing Cube (Alpha)</a>
                 </h2>
                 <p class="fullw">
                     An incredibly produced knock-off of the dinosaur game, it'll blow you away with it's stunning art and riveting game play.<br>
@@ -35,7 +35,7 @@ $head = file_get_contents("../html/repetitive.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="/main/php/games/basicFighterGame.php" target="_blank">Fighting Game (Beta)</a>
+                    <a href="/php/games/basicFighterGame.php" target="_blank">Fighting Game (Beta)</a>
                 </h2>
                 <p class="fullw">
                     A piece of art, this game showcases some of the most unique game play and graphical art you have ever seen.<br>
@@ -48,7 +48,7 @@ $head = file_get_contents("../html/repetitive.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="/main/php/games/basicPlatformerGame.php" target="_blank">Platformer Game (Alpha)</a>
+                    <a href="/php/games/basicPlatformerGame.php" target="_blank">Platformer Game (Alpha)</a>
                 </h2>
                 <p class="fullw">
                     Currently unplayable, the next stupendous production in this line of phenomenal games.<br>
@@ -61,7 +61,7 @@ $head = file_get_contents("../html/repetitive.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="/main/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a>
+                    <a href="/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a>
                 </h2>
                 <p class="fullw">
                     Currently just a cube, going to be a scrolling left to right adventure game. First co-op project of Jens and

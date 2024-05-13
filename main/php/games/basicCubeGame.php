@@ -10,7 +10,7 @@ $head = file_get_contents("../../html/repetitive.html");
   <meta charset="UTF-8">
   <title>Basic Cube Game (Alpha)</title>
   <?= $head ?>
-  <link rel="stylesheet" href="/main/css/games/basicCubeGame.css">
+  <link rel="stylesheet" href="/css/games/basicCubeGame.css">
 </head>
 <body>
     <?= $fader ?>
@@ -54,5 +54,5 @@ $head = file_get_contents("../../html/repetitive.html");
     </div>
     -->
     </body>
-    <script src="/main/js/games/basicCubeGame/script.js"></script>
+    <script src="/js/games/basicCubeGame/script.js"></script>
 </html>

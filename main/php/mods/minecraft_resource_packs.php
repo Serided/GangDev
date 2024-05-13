@@ -23,7 +23,7 @@
         <div class="fullw sect">
             <section class="fullw">
                 <h2>
-                    <a href="/main/files/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack [1.20.5]</a>
+                    <a href="/files/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack [1.20.5]</a>
                 </h2>
                 <p class="fullw">
                     This is <u>THE</u> Unofficial In-N-Out Resource Pack (for version 1.20.5). Its main functionality is listed below.
@@ -41,9 +41,9 @@
                         </p>
                     </details>
                     <br>
-                    <img src="/main/files/minecraft/pics/blocks_without_rp_pic.webp" class="comparison-blocks-img">
+                    <img src="/files/minecraft/pics/blocks_without_rp_pic.webp" class="comparison-blocks-img">
                     <br>
-                    <img src="/main/files/minecraft/pics/blocks_with_rp_pic.webp" class="comparison-blocks-img">
+                    <img src="/files/minecraft/pics/blocks_with_rp_pic.webp" class="comparison-blocks-img">
                     <br>
                     <br>
                     <details>
@@ -61,8 +61,8 @@
                         </p>
                     </details>
                     <br>
-                    <img src="/main/files/minecraft/pics/items_without_rp_pic.webp" class="comparison-items-img">
-                    <img src="/main/files/minecraft/pics/items_with_rp_pic.webp" class="comparison-items-img">
+                    <img src="/files/minecraft/pics/items_without_rp_pic.webp" class="comparison-items-img">
+                    <img src="/files/minecraft/pics/items_with_rp_pic.webp" class="comparison-items-img">
                     <br>
                     <br>
                     <details>
@@ -84,7 +84,7 @@
                     </details>
                     <br>
                     <br>
-                    <b style="font-size: 2.5vh">Meant to be paired with <a href="/main/files/minecraft/Unofficial_In-N-Out_Datapack_1.20.5.zip">The Unofficial In-N-Out Data Pack (1.20.5)</a></b>
+                    <b style="font-size: 2.5vh">Meant to be paired with <a href="/files/minecraft/Unofficial_In-N-Out_Datapack_1.20.5.zip">The Unofficial In-N-Out Data Pack (1.20.5)</a></b>
                 </p>
             </section>
         </div>
@@ -92,7 +92,7 @@
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="/main/files/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.6_lvl_1.zip">The Unofficial In-N-Out Resource Pack (Level 1) [1.20.6]</a>
+                    <a href="/files/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.6_lvl_1.zip">The Unofficial In-N-Out Resource Pack (Level 1) [1.20.6]</a>
                 </h2>
                 <p class="fullw">
                     This is <u>THE</u> Unofficial In-N-Out Resource Pack (for version 1.20.6), level 1. Its main functionality is listed below.
@@ -110,9 +110,9 @@
                     </p>
                 </details>
                 <br>
-                <img src="/main/files/minecraft/pics/blocks_without_rp_pic.webp" class="comparison-blocks-img">
+                <img src="/files/minecraft/pics/blocks_without_rp_pic.webp" class="comparison-blocks-img">
                 <br>
-                <img src="/main/files/minecraft/pics/blocks_with_rp_pic.webp" class="comparison-blocks-img">
+                <img src="/files/minecraft/pics/blocks_with_rp_pic.webp" class="comparison-blocks-img">
                 <br>
                 <br>
                 <details>
@@ -130,8 +130,8 @@
                     </p>
                 </details>
                 <br>
-                <img src="/main/files/minecraft/pics/items_without_rp_pic.webp" class="comparison-items-img">
-                <img src="/main/files/minecraft/pics/items_with_rp_pic.webp" class="comparison-items-img">
+                <img src="/files/minecraft/pics/items_without_rp_pic.webp" class="comparison-items-img">
+                <img src="/files/minecraft/pics/items_with_rp_pic.webp" class="comparison-items-img">
                 <br>
                 <br>
                 <details>
@@ -153,7 +153,7 @@
                 </details>
                 <br>
                 <br>
-                <b style="font-size: 2.5vh">Meant to be paired with <a href="/main/files/minecraft/Unofficial_In-N-Out_Datapack_1.20.5.zip">The Unofficial In-N-Out Data Pack (1.20.5)</a></b>
+                <b style="font-size: 2.5vh">Meant to be paired with <a href="/files/minecraft/Unofficial_In-N-Out_Datapack_1.20.5.zip">The Unofficial In-N-Out Data Pack (1.20.5)</a></b>
                 </p>
             </section>
         </div>

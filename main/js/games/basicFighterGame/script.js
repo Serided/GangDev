@@ -13,7 +13,7 @@ const background = new Sprite({
     x:0,
     y:0
   },
-  imageSrc: '/main/files/img/bfgame/background-resized.png'
+  imageSrc: '/files/img/bfgame/background-resized.png'
 })
 
 const shop = new Sprite({
@@ -21,7 +21,7 @@ const shop = new Sprite({
     x: 620,
     y: 161
   },
-  imageSrc: '/main/files/img/bfgame/shop.png',
+  imageSrc: '/files/img/bfgame/shop.png',
   scale: 2.5,
   frames: 6,
   framesHold: 7
@@ -43,7 +43,7 @@ const player1 = new Fighter({
     health: 50,
     dead: 0
   },
-  imageSrc: '/main/files/img/bfgame/samuraiMack/Idle.png',
+  imageSrc: '/files/img/bfgame/samuraiMack/Idle.png',
   frames: 8,
   scale: 2.5,
   offset: {
@@ -52,37 +52,37 @@ const player1 = new Fighter({
   },
   sprites: {
     idle: {
-      imageSrc: '/main/files/img/bfgame/samuraiMack/Idle.png',
+      imageSrc: '/files/img/bfgame/samuraiMack/Idle.png',
       frames: 8,
       framesHold: 7,
     },
     run: {
-      imageSrc: '/main/files/img/bfgame/samuraiMack/Run.png',
+      imageSrc: '/files/img/bfgame/samuraiMack/Run.png',
       frames: 8,
       framesHold: 5,
     },
     jump: {
-      imageSrc: '/main/files/img/bfgame/samuraiMack/Jump.png',
+      imageSrc: '/files/img/bfgame/samuraiMack/Jump.png',
       frames: 2,
       framesHold: 7,
     },
     fall: {
-      imageSrc: '/main/files/img/bfgame/samuraiMack/Fall.png',
+      imageSrc: '/files/img/bfgame/samuraiMack/Fall.png',
       frames: 2,
       framesHold: 7,
     },
     attack1: {
-      imageSrc: '/main/files/img/bfgame/samuraiMack/Attack1.png',
+      imageSrc: '/files/img/bfgame/samuraiMack/Attack1.png',
       frames: 6,
       framesHold: 7,
     },
     takeHit: {
-      imageSrc: '/main/files/img/bfgame/samuraiMack/Take Hit - white silhouette.png',
+      imageSrc: '/files/img/bfgame/samuraiMack/Take Hit - white silhouette.png',
       frames: 4,
       framesHold: 7,
     },
     death: {
-      imageSrc: '/main/files/img/bfgame/samuraiMack/Death.png',
+      imageSrc: '/files/img/bfgame/samuraiMack/Death.png',
       frames: 6,
       framesHold: 10,
     },
@@ -114,7 +114,7 @@ const player2 = new Fighter({
     dead: 0
   },
   color: 'green',
-  imageSrc: '/main/files/img/bfgame/kenji/Idle.png',
+  imageSrc: '/files/img/bfgame/kenji/Idle.png',
   frames: 4,
   scale: 2.5,
   offset: {
@@ -123,37 +123,37 @@ const player2 = new Fighter({
   },
   sprites: {
     idle: {
-      imageSrc: '/main/files/img/bfgame/kenji/Idle.png',
+      imageSrc: '/files/img/bfgame/kenji/Idle.png',
       frames: 4,
       framesHold: 7,
     },
     run: {
-      imageSrc: '/main/files/img/bfgame/kenji/Run.png',
+      imageSrc: '/files/img/bfgame/kenji/Run.png',
       frames: 8,
       framesHold: 5,
     },
     jump: {
-      imageSrc: '/main/files/img/bfgame/kenji/Jump.png',
+      imageSrc: '/files/img/bfgame/kenji/Jump.png',
       frames: 2,
       framesHold: 7,
     },
     fall: {
-      imageSrc: '/main/files/img/bfgame/kenji/Fall.png',
+      imageSrc: '/files/img/bfgame/kenji/Fall.png',
       frames: 2,
       framesHold: 7,
     },
     attack1: {
-      imageSrc: '/main/files/img/bfgame/kenji/Attack1.png',
+      imageSrc: '/files/img/bfgame/kenji/Attack1.png',
       frames: 4,
       framesHold: 6,
     },
     takeHit: {
       frames: 3,
       framesHold: 6,
-      imageSrc: '/main/files/img/bfgame/kenji/Take hit.png'
+      imageSrc: '/files/img/bfgame/kenji/Take hit.png'
     },
     death: {
-      imageSrc: '/main/files/img/bfgame/kenji/Death.png',
+      imageSrc: '/files/img/bfgame/kenji/Death.png',
       frames: 7,
       framesHold: 10,
     },

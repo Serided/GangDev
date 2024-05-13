@@ -35,7 +35,7 @@ $head = file_get_contents("../../html/repetitive.html");
                         Games
                     </h2>
                     <p class="fullw">
-                        <a href="/main/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
+                        <a href="/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
                     </p>
                 </section>
             </div>
