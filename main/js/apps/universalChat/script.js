@@ -8,7 +8,7 @@ $(document).ready(function () {
     function loadLog() {
         var oldscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height before the request
         $.ajax({
-            url: "/main/tmp/universalChatLog.html",
+            url: "../../../tmp/universalChatLog.html",
             cache: false,
             success: function (html) {
                 $("#chatbox").html(html); //Insert chat log into the #chatbox div
