@@ -1,9 +1,10 @@
 :root {
-
+  --universal-spacing: 1vh;
 }
 
 html {
   font-family: "Fredoka", serif;
+  box-sizing: border-box;
 }
 
 .madimi-one-regular {
@@ -40,3 +41,50 @@ html {
 
 /* main code stuff */
 
+.home {
+  background-color: hotpink;
+  background-image: url("/files/evening-valley.webp");
+  align-content: center;
+  text-align: center;
+  margin: 0;
+}
+
+.section-0 {
+  padding: var(--universal-spacing);
+  width: 100%;
+  height: 50vh;
+  margin: 0;
+  background-color: rgba(251, 251, 251, 0.0);
+}
+
+.section-1 {
+  padding: var(--universal-spacing);
+  width: 100%;
+  height: 50vh;
+  margin: 0;
+  background-color: rgba(251, 251, 251, 0.2);
+}
+
+.section-2 {
+  padding: var(--universal-spacing);
+  width: 100%;
+  height: 50vh;
+  margin: 0;
+  background-color: rgba(251, 251, 251, 0.4);
+}
+
+.section-3 {
+  padding: var(--universal-spacing);
+  width: 100%;
+  height: 50vh;
+  margin: 0;
+  background-color: rgba(251, 251, 251, 0.6);
+}
+
+.section-4 {
+  padding: var(--universal-spacing);
+  width: 100%;
+  height: 50vh;
+  margin: 0;
+  background-color: rgba(251, 251, 251, 0.8);
+}
