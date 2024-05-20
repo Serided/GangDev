@@ -65,6 +65,11 @@ a:hover {
     font-weight: bold;
 }
 
+#loginform form {
+    width: 58vh;
+    height: 8vh;
+}
+
 .error {
     color: #ff0000;
     font-weight: 500;
