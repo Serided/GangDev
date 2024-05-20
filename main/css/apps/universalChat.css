@@ -48,7 +48,7 @@ a:hover {
     padding-bottom: 2vh;
     background: #eee;
     width: 60vh;
-    max-width: 100%;
+    max-width: 60vh;
     border: 0.4vh solid #212121;
     border-radius: var(--border-radius);
 }
