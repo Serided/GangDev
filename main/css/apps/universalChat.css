@@ -66,6 +66,9 @@ a:hover {
 }
 
 #loginform form {
+    padding: var(--large-padding);
+    font-size: 2.7vh;
+    font-weight: bold;
     width: 58vh;
     height: 8vh;
 }
