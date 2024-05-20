@@ -1,4 +1,16 @@
-<?php?>
-<h1>
-	hi
-</h1>
+<?php
+$head = file_get_contents("html/repetitive.html");
+?>
+<!DOCTYPE html>
+<html lang="en" class="fullw">
+    <head>
+        <meta charset="UTF-8" name="description" content="Home">
+        <title>Home</title>
+        <?= $head ?>
+    </head>
+    <body>
+        <h1>
+            ur silly Hayleeeeeee
+        </h1>
+    </body>
+</html>
