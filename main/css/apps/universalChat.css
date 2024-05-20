@@ -47,8 +47,9 @@ a:hover {
     margin: 0 auto;
     padding-bottom: 2vh;
     background: #eee;
+    height: 20vh;
     width: 60vh;
-    max-width: 60vh;
+    max-width: 100%;
     border: 0.4vh solid #212121;
     border-radius: var(--border-radius);
 }
