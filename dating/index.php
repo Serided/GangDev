@@ -10,19 +10,19 @@ $head = file_get_contents("html/repetitive.html");
     </head>
     <body class="home">
         <div class="section-0">
-            <h1>Haley a funny dude</h1>
+            <h1>pizza</h1>
         </div>
         <div class="section-1">
-            <h1>Haylee a qt</h1>
+            <h1>pie</h1>
         </div>
         <div class="section-2">
-            <h1>Haylee a silly billy</h1>
+            <h1>ur</h1>
         </div>
         <div class="section-3">
-            <h1>Haylee a qween girly pop slay bawss</h1>
+            <h1>moms</h1>
         </div>
         <div class="section-4">
-            <h1>Haylee a massive W</h1>
+            <h1>high</h1>
         </div>
     </body>
 </html>
