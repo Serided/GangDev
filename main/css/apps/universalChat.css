@@ -101,7 +101,7 @@ a:hover {
     padding: 1vh 1vw;
     background: #fff;
     width: 86vw;
-    height: calc(70vh - 5vw);
+    height: calc(72vh - 7vw);
     border: 0.2vw solid #a7a7a7;
     overflow: auto;
     border-radius: var(--border-radius);
@@ -151,7 +151,7 @@ a#exit {
 }
 
 #exit, #submitmsg, p.welcome, #usermsg {
-    font-size: 1.9vw;
+    font-size: 2.5vw;
 }
 
 .msgln {
