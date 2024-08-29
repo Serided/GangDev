@@ -24,7 +24,7 @@ form {
 }
 
 form label {
-    font-size: 2vw;
+    font-size: 4vw;
     font-weight: bold;
 }
 
@@ -46,7 +46,7 @@ a:hover {
 }
 
 #loginform {
-    margin: 0 auto;
+    margin: 5vh auto;
     padding-bottom: 2vw;
     padding-top: 1vw;
     background: #eee;
@@ -58,7 +58,7 @@ a:hover {
 
 #loginform p {
     padding: var(--large-padding);
-    font-size: 1.4vw;
+    font-size: 3vw;
     font-weight: bold;
 }
 
@@ -69,21 +69,21 @@ a:hover {
     padding: var(--small-padding);
     font-weight: bold;
     border-radius: var(--border-radius);
-    font-size: 1.5vw;
+    font-size: 4vw;
 }
 
 #wrapper {
-    margin: 5vh auto;
+    margin: 10vh auto;
     padding-bottom: 2vh;
     background: #eee;
     width: 90vw;
-    height: 90vh;
+    height: 80vh;
     border: 0.2vw solid #212121;
     border-radius: var(--border-radius);
 }
 
 #name {
-    font-size: 1.6vw;
+    font-size: 3vw;
 }
 
 .error {
@@ -101,7 +101,7 @@ a:hover {
     padding: 1vh 1vw;
     background: #fff;
     width: 86vw;
-    height: calc(80vh - 5vw);
+    height: calc(70vh - 5vw);
     border: 0.2vw solid #a7a7a7;
     overflow: auto;
     border-radius: var(--border-radius);
