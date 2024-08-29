@@ -1,9 +1,17 @@
 $(document).ready(function () {
     $("#submitmsg").click(function () {
         var clientmsg = $("#usermsg").val();
-        $.post("post.php", { text: clientmsg });
-        $("#usermsg").val("");
-        return false;
+        // add profanity filter by breaking sentances into words and replacing swearwords with asterisks
+        if (clientmsg === "/clear") {
+            $.post("clear.php");
+            $("#usermsg").val("");
+            return false;
+        }
+        else {
+            $.post("post.php", { text: clientmsg });
+            $("#usermsg").val("");
+            return false;
+        }
     });
     function loadLog() {
         var oldscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height before the request

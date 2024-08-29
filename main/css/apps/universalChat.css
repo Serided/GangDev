@@ -82,17 +82,13 @@ a:hover {
     border-radius: var(--border-radius);
 }
 
-#name {
-    font-size: 3vw;
-}
-
 .error {
     color: #ff0000;
     font-weight: 500;
     position: absolute;
-    left: 43.5vw;
-    top: calc(10.5vh + 1.5vw);
-    font-size: 1.2vw;
+    left: 41vw;
+    top: calc(10vh + 2.8vw);
+    font-size: 2vw;
 }
 
 #chatbox {
@@ -150,7 +146,7 @@ a#exit {
     margin: auto 0 auto 1vw;
 }
 
-#exit, #submitmsg, p.welcome, #usermsg {
+#exit, #submitmsg, p.welcome, #usermsg, #name {
     font-size: 2.5vw;
 }
 
