@@ -77,7 +77,7 @@ a:hover {
     margin: 0 auto;
     padding-bottom: 2vh;
     background: #eee;
-    width: 30vw;
+    width: 90vw;
     max-width: 100%;
     border: 0.2vw solid #212121;
     border-radius: var(--border-radius);
@@ -101,7 +101,8 @@ a:hover {
     margin: 0 auto;
     padding: 1vh 1vw;
     background: #fff;
-    width: 26vw;
+    width: 86vw;
+    height: 69vh;
     border: 0.2vw solid #a7a7a7;
     overflow: auto;
     border-radius: var(--border-radius);
