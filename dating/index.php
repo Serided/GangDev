@@ -8,21 +8,9 @@ $head = file_get_contents("html/repetitive.html");
         <title>Home</title>
         <?= $head ?>
     </head>
-    <body class="home">
-        <div class="section-0">
-            <h1>pizza</h1>
-        </div>
-        <div class="section-1">
-            <h1>pie</h1>
-        </div>
-        <div class="section-2">
-            <h1>ur</h1>
-        </div>
-        <div class="section-3">
-            <h1>moms</h1>
-        </div>
-        <div class="section-4">
-            <h1>high</h1>
+    <body>
+        <div class="subject">
+            <img src="/files/black.webp">
         </div>
     </body>
 </html>

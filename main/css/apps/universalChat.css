@@ -5,14 +5,14 @@
 }
 
 :root {
-    --border-radius: 0.6vh;
-    --small-padding: 0.5vh 1vh;
-    --medium-padding: 0.3vh 0.5vh;
-    --large-padding: 2vh 4vh;
+    --border-radius: 0.6vw;
+    --small-padding: 0.5vh 1vw;
+    --medium-padding: 0.3vh 0.5vw;
+    --large-padding: 2vh 2vw;
 }
 
 body {
-    margin: 1vh auto;
+    margin: 5vh auto;
     font-family: "Fredoka", serif;
     font-weight: 300;
 }
@@ -20,17 +20,21 @@ body {
 form {
     padding: var(--large-padding);
     display: flex;
-    gap: 1vh;
+    gap: 0.9vw;
     justify-content: center;
 }
 
 form label {
-    font-size: 3vh;
+    font-size: 2vw;
     font-weight: bold;
 }
 
 input {
     font-family: "Fredoka", serif;
+}
+
+input:hover {
+    text-decoration: underline;
 }
 
 a {
@@ -42,71 +46,85 @@ a:hover {
     text-decoration: underline;
 }
 
-#wrapper,
 #loginform {
     margin: 0 auto;
-    padding-bottom: 2vh;
+    padding-bottom: 2vw;
+    padding-top: 1vw;
     background: #eee;
-    height: 20vh;
-    width: 60vh;
-    max-width: 100%;
-    border: 0.4vh solid #212121;
+    width: 40vw;
+    border: 0.2vw solid #212121;
     border-radius: var(--border-radius);
-}
-
-#loginform {
-    padding-top: 1vh;
     text-align: center;
 }
 
 #loginform p {
     padding: var(--large-padding);
-    font-size: 2.7vh;
+    font-size: 1.4vw;
     font-weight: bold;
 }
 
+#enter{
+    background: #ff9800;
+    border: 0.2vw solid #e65100;
+    color: white;
+    padding: var(--small-padding);
+    font-weight: bold;
+    border-radius: var(--border-radius);
+    font-size: 1.5vw;
+}
+
+#wrapper {
+    margin: 0 auto;
+    padding-bottom: 2vh;
+    background: #eee;
+    width: 30vw;
+    max-width: 100%;
+    border: 0.2vw solid #212121;
+    border-radius: var(--border-radius);
+}
+
 #name {
-    font-size: 2.7vh;
+    font-size: 1.6vw;
 }
 
 .error {
     color: #ff0000;
     font-weight: 500;
     position: absolute;
-    left: 45%;
-    top: 16vh;
+    left: 43.5vw;
+    top: calc(10.5vh + 1.5vw);
+    font-size: 1.2vw;
 }
 
 #chatbox {
     text-align: left;
-    margin: 0 auto 0.5vh auto;
-    padding: 1vh;
+    margin: 0 auto;
+    padding: 1vh 1vw;
     background: #fff;
-    height: 50vh;
-    width: 54vh;
-    border: 0.2vh solid #a7a7a7;
+    width: 26vw;
+    border: 0.2vw solid #a7a7a7;
     overflow: auto;
     border-radius: var(--border-radius);
-    border-bottom: 0.4vh solid #a7a7a7;
+    font-size: 1vw;
 }
 
 #usermsg {
     flex: 1;
     border-radius: var(--border-radius);
-    border: 0.3vh solid #ff9800;
-    padding: 0.3vh 0.5vh;
+    border: 0.2vw solid #ff9800;
+    padding: 0.3vh 0.5vw;
     box-sizing: border-box;
 }
 
 #name {
     border-radius: var(--border-radius);
-    border: 0.3vh solid #ff9800;
-    padding: 0.3vh 0.5vh;
+    border: 0.3vw solid #ff9800;
+    padding: 0.3vw 0.5vw;
 }
 
-#submitmsg, #enter{
+#submitmsg {
     background: #ff9800;
-    border: 0.3vh solid #e65100;
+    border: 0.2vw solid #e65100;
     color: white;
     padding: var(--small-padding);
     font-weight: bold;
@@ -114,12 +132,13 @@ a:hover {
 }
 
 #menu {
-    padding: var(--large-padding);
+    padding: 2vh 2vw;
     display: flex;
 }
 
 #menu p.welcome {
     flex: 1;
+    margin: auto 1vw auto 0;
 }
 
 a#exit {
@@ -128,6 +147,11 @@ a#exit {
     padding: var(--small-padding);
     border-radius: var(--border-radius);
     font-weight: bold;
+    margin: auto 0 auto 1vw;
+}
+
+#exit, #submitmsg, p.welcome {
+    font-size: 1.5vw;
 }
 
 .msgln {
@@ -155,7 +179,7 @@ a#exit {
     padding: var(--medium-padding);
     font-size: 90%;
     border-radius: var(--border-radius);
-    margin: 0 0.5vh 0 0;
+    margin: 0 0.5vw 0 0;
 }
 
 .msgln b.user-name, .msgln b.user-name-join {
@@ -165,7 +189,7 @@ a#exit {
     padding: var(--medium-padding);
     font-size: 90%;
     border-radius: var(--border-radius);
-    margin: 0 0.5vh 0 0;
+    margin: 0 0.5vw 0 0;
 }
 
 .msgln b.user-name-left {
