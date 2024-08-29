@@ -105,7 +105,7 @@ a:hover {
     border: 0.2vw solid #a7a7a7;
     overflow: auto;
     border-radius: var(--border-radius);
-    font-size: 2vw;
+    font-size: 2.1vw;
 }
 
 #usermsg {
