@@ -3,12 +3,12 @@ $(document).ready(function () {
         var clientmsg = $("#usermsg").val();
         // add profanity filter by breaking sentances into words and replacing swearwords with asterisks
         if (clientmsg === "/clear") {
-            $.post("clear.php");
+            $.post("php/clear.php");
             $("#usermsg").val("");
             return false;
         }
         else {
-            $.post("post.php", { text: clientmsg });
+            $.post("php/post.php", { text: clientmsg });
             $("#usermsg").val("");
             return false;
         }
@@ -16,7 +16,7 @@ $(document).ready(function () {
     function loadLog() {
         var oldscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height before the request
         $.ajax({
-            url: "/tmp/universalChatLog.html",
+            url: "tmp/universalChatLog.html",
             cache: false,
             success: function (html) {
                 $("#chatbox").html(html); //Insert chat log into the #chatbox div
@@ -32,7 +32,7 @@ $(document).ready(function () {
     $("#exit").click(function () {
         var exit = confirm("Are you sure you want to end the session?");
         if (exit == true) {
-            window.location = "universalChat.php?logout=true";
+            window.location = "index.php?logout=true";
         }
     });
 });

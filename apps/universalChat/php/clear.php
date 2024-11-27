@@ -2,7 +2,7 @@
 session_start();
 
 if(isset($_SESSION['name'])){
-		$file_path = "../../../tmp/universalChatLog.html";
+		$file_path = "../tmp/universalChatLog.html";
 		$file_handle = fopen($file_path, "w");
 		$text_message = "<div class='msgln'><span class='chat-time'>" . date("g:i A") . "</span> <b class='user-name'>Server</b> I just reset the chat.<br></div>";
 		fwrite($file_handle, "");

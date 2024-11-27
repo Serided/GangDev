@@ -7,7 +7,7 @@
 }
 
 .jens-gettin-buff {
-    background-image: url("/files/img/jens/the_cave_three.jpg");
+    background-image: url("https://shared.gangdev.co/files/img/jens/the_cave_three.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -19,7 +19,7 @@
 }
 
 .jens-gaming {
-    background-image: url("/files/img/jens/bros_cracked_at_fortnite_my_guy.png");
+    background-image: url("https://shared.gangdev.co/files/img/jens/bros_cracked_at_fortnite_my_guy.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;

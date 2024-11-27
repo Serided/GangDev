@@ -1,7 +1,7 @@
 <?php
-$navbar = file_get_contents ("../../const/html/navBar.html");
-$footer = file_get_contents("../../const/html/footer.html");
-$head = file_get_contents("../../const/html/repetitive.html");
+$navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
+$footer = file_get_contents("https://shared.gangdev.co/html/footer.html");
+$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
@@ -189,16 +189,16 @@ $head = file_get_contents("../../const/html/repetitive.html");
                 <h2>Projects</h2>
                 <p class="fullw">
                     <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
-                    <a href="/php/mods/minecraft_resource_packs.php" target="_blank">Minecraft (Resource Packs)</a><br>
-                    <a href="/php/mods/minecraft_data_packs.php" target="_blank">Minecraft (Data Packs)</a><br>
-                    <a href="/php/apps/roastGenerator.php" target="_blank">Roast Generator</a><br>
-                    <a href="/php/apps/mmfGenerator.php" target="_blank">MMF Generator</a><br>
-                    <a href="/php/apps/universalChat/universalChat.php" target="_blank">Universal Chat</a><br>
-                    <a href="/php/games/basicCubeGame.html" target="_blank">The Bouncing Cube (Beta)</a><br>
-                    <a href="/php/games/basicFighterGame.html" target="_blank">Fighting Game (Beta)</a><br>
-                    <a href="/php/games/basicPlatformerGame.html" target="_blank">Platformer Game (Alpha)</a><br>
-                    <a href="/php/games/theBigOne.html" target="_blank">The Big One (Alpha)</a><br>
-                    <a href="/php/games/testMultiplayerChat/testMultiplayerChat.php" target="_blank">Test Multiplayer Game (Alpha)</a><br>
+                    <a href="https://mods.gangdev.co/minecraft/resource_packs" target="_blank">Minecraft (Resource Packs)</a><br>
+                    <a href="https://mods.gangdev.co/minecraft/data_packs" target="_blank">Minecraft (Data Packs)</a><br>
+                    <a href="https://apps.gangdev.co/roastGenerator" target="_blank">Roast Generator</a><br>
+                    <a href="https://apps.gangdev.co/mmfGenerator" target="_blank">MMF Generator</a><br>
+                    <a href="https://apps.gangdev.co/universalChat" target="_blank">Universal Chat</a><br>
+                    <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube (Beta)</a><br>
+                    <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game (Beta)</a><br>
+                    <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a><br>
+                    <a href="https://gaming.gangdev.co/theBigOne" target="_blank">The Big One (Alpha)</a><br>
+                    <a href="https://gaming.gangdev.co/websockets/testMultiplayerChat" target="_blank">Test Multiplayer Game (Alpha)</a><br>
                 </p>
             </section>
         </div>

@@ -1,8 +1,7 @@
 <?php
-$navbar = file_get_contents ("../../html/navBar.html");
-$copyright = file_get_contents("../../html/copyright.html");
-$fader = file_get_contents("../../html/pageFader.html");
-$head = file_get_contents("../../html/repetitive.html");
+$navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
+$copyright = file_get_contents("https://shared.gangdev.co/html/copyright.html");
+$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
@@ -10,11 +9,9 @@ $head = file_get_contents("../../html/repetitive.html");
   <meta charset="UTF-8">
     <title>Roast Generator</title>
     <?= $head ?>
-    <link rel="stylesheet" href="/css/jens/jens.css">
-    <link rel="stylesheet" href="/css/apps/roastGenerator.css">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body class="main-p fullw">
-    <?= $fader ?>
     <?= $navbar ?>
 
     <h1>
@@ -46,7 +43,7 @@ $head = file_get_contents("../../html/repetitive.html");
               Roast generates here.
             </p>
           </div>
-          <script src="/js/jens/roast.js"></script>
+          <script src="script.js"></script>
         </section>
       </div>
     </div>

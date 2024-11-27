@@ -1,8 +1,7 @@
 <?php
-$navbar = file_get_contents ("../../html/navBar.html");
-$copyright = file_get_contents("../../html/copyright.html");
-$fader = file_get_contents("../../html/pageFader.html");
-$head = file_get_contents("../../html/repetitive.html");
+$navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
+$copyright = file_get_contents("https://shared.gangdev.co/html/copyright.html");
+$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" onclick="jump()" onkeypress="jump()">
@@ -10,10 +9,9 @@ $head = file_get_contents("../../html/repetitive.html");
   <meta charset="UTF-8">
   <title>Basic Cube Game (Alpha)</title>
   <?= $head ?>
-  <link rel="stylesheet" href="/css/games/basicCubeGame.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?= $fader ?>
     <?= $navbar ?>
 
     <div id="game"></div>
@@ -54,5 +52,5 @@ $head = file_get_contents("../../html/repetitive.html");
     </div>
     -->
     </body>
-    <script src="/js/games/basicCubeGame/script.js"></script>
+    <script src="script.js"></script>
 </html>

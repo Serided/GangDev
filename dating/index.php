@@ -1,5 +1,5 @@
 <?php
-$head = file_get_contents("../const/html/repetitive.html");
+$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +24,6 @@ $head = file_get_contents("../const/html/repetitive.html");
                 <button class="btn" type="button" hidden="hidden" id="match"></button>
             </div>
         </div>
-        <script type="text/javascript" src="/js/dating.js"></script>
+        <script type="text/javascript" src="script.js"></script>
     </body>
 </html>

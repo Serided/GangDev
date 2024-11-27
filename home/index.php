@@ -59,8 +59,8 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
             <section class="fullw">
             <h2>Mods</h2>
                 <p class="fullw">
-                    <a href="https://mods.gangdev.co/minecraft/php/">Minecraft (Resource Packs)</a><br>
-                    <a href="https://mods.gangdev.co/minecraft/php/">Minecraft (Data Packs)</a><br>
+                    <a href="https://mods.gangdev.co/minecraft/php/resource_packs">Minecraft (Resource Packs)</a><br>
+                    <a href="https://mods.gangdev.co/minecraft/php/data_packs">Minecraft (Data Packs)</a><br>
                 </p>
             </section>
         </div>

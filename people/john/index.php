@@ -1,8 +1,7 @@
 <?php
-$navbar = file_get_contents ("../../html/navBar.html");
-$copyright = file_get_contents("../../html/copyright.html");
-$fader = file_get_contents("../../html/pageFader.html");
-$head = file_get_contents("../../html/repetitive.html");
+$navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
+$copyright = file_get_contents("https://shared.gangdev.co/html/copyright.html");
+$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
@@ -12,7 +11,6 @@ $head = file_get_contents("../../html/repetitive.html");
     <?= $head ?>
   </head>
   <body class="main-p fullw">
-    <?= $fader ?>
     <?= $navbar ?>
 
     <h1>

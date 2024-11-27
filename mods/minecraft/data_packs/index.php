@@ -1,8 +1,7 @@
 <?php
-    $navbar = file_get_contents ("../../html/navBar.html");
-    $copyright = file_get_contents("../../html/copyright.html");
-    $fader = file_get_contents("../../html/pageFader.html");
-    $head = file_get_contents("../../html/repetitive.html");
+    $navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
+    $copyright = file_get_contents("https://shared.gangdev.co/html/copyright.html");
+    $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 ?>
 <!DOCTYPE html>
     <html lang="en" class="fullw">
@@ -10,10 +9,9 @@
         <meta charset="UTF-8">
         <title>Minecraft (Data Packs)</title>
         <?= $head ?>
-        <link rel="stylesheet" href="/css/mods/minecraft.css">
+        <link rel="stylesheet" href="../style.css">
     </head>
     <body class="main-p fullw">
-        <?= $fader ?>
         <?= $navbar ?>
 
         <h1>
@@ -23,7 +21,7 @@
         <div class="fullw sect">
             <section class="fullw">
                 <h2>
-                    <a href="/files/minecraft/Unofficial_In-N-Out_Datapack_1.20.5.zip">The Unofficial In-N-Out Data Pack [1.20.5]</a>
+                    <a href="https://shared.gangdev.co/files/minecraft/Unofficial_In-N-Out_Datapack_1.20.5.zip">The Unofficial In-N-Out Data Pack [1.20.5]</a>
                 </h2>
                 <p class="fullw">
                     This is <u>THE</u> Unofficial In-N-Out Data Pack (for version 1.20.5). Its main functionality is listed below.
@@ -41,14 +39,14 @@
                         </p>
                     </details>
                     <br>
-                    <img src="/files/minecraft/pics/toasted_bun_pic.webp" class="crafting-img">
-                    <img src="/files/minecraft/pics/cheese_pic.webp" class="crafting-img">
-                    <img src="/files/minecraft/pics/flying_dutchman_pic_2.webp" class="crafting-img">
-                    <img src="/files/minecraft/pics/flying_dutchman_pic.webp" class="crafting-img">
-                    <img src="/files/minecraft/pics/3x3_pic.webp" class="crafting-img">
-                    <img src="/files/minecraft/pics/4x4_animal_style_pic.webp" class="crafting-img">
-                    <img src="/files/minecraft/pics/diced_potato_pic.webp" class="crafting-img">
-                    <img src="/files/minecraft/pics/packaged_french_fries_pic.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/toasted_bun_pic.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/cheese_pic.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/flying_dutchman_pic_2.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/flying_dutchman_pic.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/3x3_pic.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/4x4_animal_style_pic.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/diced_potato_pic.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/packaged_french_fries_pic.webp" class="crafting-img">
                     <br>
                     <br>
                     <details>
@@ -62,13 +60,13 @@
                         </p>
                     </details>
                     <br>
-                    <img src="/files/minecraft/pics/fermented_spider_eye_pic.webp" class="crafting-img" >
-                    <img src="/files/minecraft/pics/cookie_pic.webp" class="crafting-img">
-                    <img src="/files/minecraft/pics/golden_carrot_pic.webp" class="crafting-img">
-                    <img src="/files/minecraft/pics/cake_pic.webp" class="crafting-img">
-                    <img src="/files/minecraft/pics/golden_apple_pic.webp" class="crafting-img">
-                    <img src="/files/minecraft/pics/paper_and_baked_potato_pic.webp" class="crafting-img">
-                    <img src="/files/minecraft/pics/paper_and_baked_potato_pic_2.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/fermented_spider_eye_pic.webp" class="crafting-img" >
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/cookie_pic.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/golden_carrot_pic.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/cake_pic.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/golden_apple_pic.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/paper_and_baked_potato_pic.webp" class="crafting-img">
+                    <img src="https://shared.gangdev.co/files/minecraft/pics/paper_and_baked_potato_pic_2.webp" class="crafting-img">
                     <br>
                     <br>
                     <details>
@@ -102,7 +100,7 @@
                     </details>
                     <br>
                     <br>
-                    <b style="font-size: 2.5vh">Meant to be paired with <a href="/files/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack (1.20.5)</a></b>
+                    <b style="font-size: 2.5vh">Meant to be paired with <a href="https://shared.gangdev.co/files/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack (1.20.5)</a></b>
                 </p>
             </section>
         </div>
@@ -110,7 +108,7 @@
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="/files/minecraft/Unofficial_In-N-Out_Data_Pack_1.20.6_lvl_1.zip">The Unofficial In-N-Out Data Pack (Level 1) [1.20.6]</a>
+                    <a href="https://shared.gangdev.co/files/minecraft/Unofficial_In-N-Out_Data_Pack_1.20.6_lvl_1.zip">The Unofficial In-N-Out Data Pack (Level 1) [1.20.6]</a>
                 </h2>
                 <p class="fullw">
                     This is <u>THE</u> Unofficial In-N-Out Data Pack (for version 1.20.5). Its main functionality is listed below.
@@ -128,14 +126,14 @@
                     </p>
                 </details>
                 <br>
-                <img src="/files/minecraft/pics/toasted_bun_pic.webp" class="crafting-img">
-                <img src="/files/minecraft/pics/cheese_pic.webp" class="crafting-img">
-                <img src="/files/minecraft/pics/flying_dutchman_pic_2.webp" class="crafting-img">
-                <img src="/files/minecraft/pics/flying_dutchman_pic.webp" class="crafting-img">
-                <img src="/files/minecraft/pics/3x3_pic.webp" class="crafting-img">
-                <img src="/files/minecraft/pics/4x4_animal_style_pic.webp" class="crafting-img">
-                <img src="/files/minecraft/pics/diced_potato_pic.webp" class="crafting-img">
-                <img src="/files/minecraft/pics/packaged_french_fries_pic.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/toasted_bun_pic.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/cheese_pic.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/flying_dutchman_pic_2.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/flying_dutchman_pic.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/3x3_pic.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/4x4_animal_style_pic.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/diced_potato_pic.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/packaged_french_fries_pic.webp" class="crafting-img">
                 <br>
                 <br>
                 <details>
@@ -149,13 +147,13 @@
                     </p>
                 </details>
                 <br>
-                <img src="/files/minecraft/pics/fermented_spider_eye_pic.webp" class="crafting-img" >
-                <img src="/files/minecraft/pics/cookie_pic.webp" class="crafting-img">
-                <img src="/files/minecraft/pics/golden_carrot_pic.webp" class="crafting-img">
-                <img src="/files/minecraft/pics/cake_pic.webp" class="crafting-img">
-                <img src="/files/minecraft/pics/golden_apple_pic.webp" class="crafting-img">
-                <img src="/files/minecraft/pics/paper_and_baked_potato_pic.webp" class="crafting-img">
-                <img src="/files/minecraft/pics/paper_and_baked_potato_pic_2.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/fermented_spider_eye_pic.webp" class="crafting-img" >
+                <img src="https://shared.gangdev.co/files/minecraft/pics/cookie_pic.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/golden_carrot_pic.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/cake_pic.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/golden_apple_pic.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/paper_and_baked_potato_pic.webp" class="crafting-img">
+                <img src="https://shared.gangdev.co/files/minecraft/pics/paper_and_baked_potato_pic_2.webp" class="crafting-img">
                 <br>
                 <br>
                 <details>
@@ -189,7 +187,7 @@
                 </details>
                 <br>
                 <br>
-                <b style="font-size: 2.5vh">Meant to be paired with <a href="/files/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack (1.20.5)</a></b>
+                <b style="font-size: 2.5vh">Meant to be paired with <a href="https://shared.gangdev.co/files/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack (1.20.5)</a></b>
                 </p>
             </section>
         </div>

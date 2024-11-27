@@ -1,5 +1,4 @@
 <?php
-$fader = file_get_contents("../../html/pageFader.html");
 $head = file_get_contents("../../html/repetitive.html");
 ?>
 <!DOCTYPE html>
@@ -10,7 +9,6 @@ $head = file_get_contents("../../html/repetitive.html");
   <?= $head ?>
 </head>
 <body>
-    <?= $fader ?>
 
 </body>
 </html>
