@@ -9,8 +9,8 @@ $head = file_get_contents("/shared/html/repetitive.html");
         <meta charset="UTF-8" name="description" content="Home">
         <title>Home</title>
         <?= $head ?>
-        <link rel="stylesheet" href="/shared/css/style.css">
-        <link rel="stylesheet" href="/shared/css/navbar.css">
+        <link rel="stylesheet" href="/main/sharedhared/css/style.css">
+        <link rel="stylesheet" href="/main/sharedhared/css/navbar.css">
     </head>
     <body class="main-p fullw">
         <?= $navbar ?>

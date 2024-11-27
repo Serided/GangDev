@@ -20,7 +20,7 @@ $head = file_get_contents("../const/html/repetitive.html");
 		<div class="fullw sect">
 			<section class="fullw">
 				<h2>
-					<a href="minecraft/resource_packs/">Minecraft (Resource Packs)</a>
+					<a href="minecraft/resource_packs">Minecraft (Resource Packs)</a>
                 </h2>
 				<p class="fullw">
                     The majority of art expertise in GangDev comes from creating Resource Packs for Minecraft, and this is
