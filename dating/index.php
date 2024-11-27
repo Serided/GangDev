@@ -1,5 +1,5 @@
 <?php
-$head = file_get_contents("html/repetitive.html");
+$head = file_get_contents("../const/html/repetitive.html");
 ?>
 <!DOCTYPE html>
 <html lang="en">
