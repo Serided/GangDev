@@ -1,7 +1,7 @@
 <?php
-$navbar = file_get_contents ("../const/html/navBar.html");
-$footer = file_get_contents("../const/html/footer.html");
-$head = file_get_contents("../const/html/repetitive.html");
+$navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
+$footer = file_get_contents("https://shared.gangdev.co/html/footer.html");
+$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
@@ -9,6 +9,8 @@ $head = file_get_contents("../const/html/repetitive.html");
         <meta charset="UTF-8" name="description" content="Home">
         <title>Home</title>
         <?= $head ?>
+        <link rel="stylesheet" href="/shared/css/style.css">
+        <link rel="stylesheet" href="/shared/css/navbar.css">
     </head>
     <body class="main-p fullw">
         <?= $navbar ?>

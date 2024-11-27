@@ -19,7 +19,7 @@
                 var whichServer = "gangdev.co";
             }
 
-            const webSocket = new WebSocket("ws://" + whichServer + ":10001/");
+            shared webSocket = new WebSocket("ws://" + whichServer + ":10001/");
             webSocket.onmessage = (event) => {
                 console.log(event);
                 document.getElementById("messages").innerHTML += "Message from server: " + event.data + "<br>";
