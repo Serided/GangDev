@@ -1,7 +1,6 @@
 <?php
     $navbar = file_get_contents ("../../html/navBar.html");
     $copyright = file_get_contents("../../html/copyright.html");
-    $fader = file_get_contents("../../html/pageFader.html");
     $head = file_get_contents("../../html/repetitive.html");
 ?>
 <!DOCTYPE html>
@@ -13,7 +12,6 @@
         <link rel="stylesheet" href="/css/mods/minecraft.css">
     </head>
     <body class="main-p fullw">
-        <?= $fader ?>
         <?= $navbar ?>
 
         <h1>

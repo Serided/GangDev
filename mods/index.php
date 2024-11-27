@@ -1,6 +1,6 @@
 <?php
 $navbar = file_get_contents ("../const/html/navBar.html");
-$footer = file_get_contents("../const/tml/footer.html");
+$footer = file_get_contents("../const/html/footer.html");
 $head = file_get_contents("../const/html/repetitive.html");
 ?>
 <!DOCTYPE html>
