@@ -86,7 +86,7 @@ p {
 
 /* Settings for main pages */
 .main-p {
-  background-image: url("/files/img/valley_portrait_2.jpg");
+  background-image: url("/shared/files/img/valley_portrait_2.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
