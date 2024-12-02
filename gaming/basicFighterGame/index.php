@@ -11,12 +11,6 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Press Start 2P', cursive;
-    }
-  </style>
 </head>
 <body>
   <!-- first container -->

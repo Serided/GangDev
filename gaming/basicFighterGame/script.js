@@ -5,8 +5,8 @@ canvas.width = 1024
 canvas.height = 576
 c.fillRect(0, 0, canvas.width, canvas.height)
 
-const gravity = .7
-const jumph = -13
+const gravity = .29
+const jumph = -11
 
 const background = new Sprite({
   position: {
@@ -24,7 +24,7 @@ const shop = new Sprite({
   imageSrc: 'https://shared.gangdev.co/files/img/bfgame/shop.png',
   scale: 2.5,
   frames: 6,
-  framesHold: 7
+  framesHold: 19
 })
 
 const player1 = new Fighter({
@@ -38,7 +38,7 @@ const player1 = new Fighter({
   },
   stats: {
     pdamage: 1,
-    pspeed: 5,
+    pspeed: 3,
     maxHealth: 50,
     health: 50,
     dead: 0
@@ -54,37 +54,37 @@ const player1 = new Fighter({
     idle: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/samuraiMack/Idle.png',
       frames: 8,
-      framesHold: 7,
+      framesHold: 19,
     },
     run: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/samuraiMack/Run.png',
       frames: 8,
-      framesHold: 5,
+      framesHold: 17,
     },
     jump: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/samuraiMack/Jump.png',
       frames: 2,
-      framesHold: 7,
+      framesHold: 19,
     },
     fall: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/samuraiMack/Fall.png',
       frames: 2,
-      framesHold: 7,
+      framesHold: 19,
     },
     attack1: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/samuraiMack/Attack1.png',
       frames: 6,
-      framesHold: 7,
+      framesHold: 19,
     },
     takeHit: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/samuraiMack/Take Hit - white silhouette.png',
       frames: 4,
-      framesHold: 7,
+      framesHold: 19,
     },
     death: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/samuraiMack/Death.png',
       frames: 6,
-      framesHold: 10,
+      framesHold: 23,
     },
   },
   attackBox: {
@@ -108,7 +108,7 @@ const player2 = new Fighter({
   },
   stats: {
     pdamage: 1,
-    pspeed: 7,
+    pspeed: 4,
     maxHealth: 25,
     health: 25,
     dead: 0
@@ -125,37 +125,37 @@ const player2 = new Fighter({
     idle: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/kenji/Idle.png',
       frames: 4,
-      framesHold: 7,
+      framesHold: 19,
     },
     run: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/kenji/Run.png',
       frames: 8,
-      framesHold: 5,
+      framesHold: 17,
     },
     jump: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/kenji/Jump.png',
       frames: 2,
-      framesHold: 7,
+      framesHold: 19,
     },
     fall: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/kenji/Fall.png',
       frames: 2,
-      framesHold: 7,
+      framesHold: 19,
     },
     attack1: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/kenji/Attack1.png',
       frames: 4,
-      framesHold: 6,
+      framesHold: 18,
     },
     takeHit: {
       frames: 3,
-      framesHold: 6,
+      framesHold: 18,
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/kenji/Take hit.png'
     },
     death: {
       imageSrc: 'https://shared.gangdev.co/files/img/bfgame/kenji/Death.png',
       frames: 7,
-      framesHold: 10,
+      framesHold: 23,
     },
   },
   attackBox: {
@@ -270,7 +270,7 @@ window.addEventListener('keydown', (event) => {
       case 'w':
         player1.velocity.y = jumph
         break
-      case ' ':
+      case 's':
         player1.attack()
         break
     }

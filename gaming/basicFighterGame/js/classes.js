@@ -1,5 +1,5 @@
 class Sprite {
-  constructor({position, imageSrc, scale = 1, frames = 1, offset = {x: 0, y: 0}, framesHold = 7}) {
+  constructor({position, imageSrc, scale = 1, frames = 1, offset = {x: 0, y: 0}, framesHold = 19}) {
     this.position = position
     this.width = 50
     this.height = 150
