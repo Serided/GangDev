@@ -1,105 +1,73 @@
-const canvas = document.getElementById("game")
-const ctx = canvas.getContext("2d");
+const gameEngine = (() => {
+    // array to track game objects
+    const objects = [];
+    let lastUpdateTime = 0;
+    let gameLoopId = null; // variable to store the game loop ID
 
-// character properties
-let character = {
-    x: 0,
-    y: canvas.height - 40,
-    width: 40,
-    height: 40,
-    color: "red",
-    velocityY: 0,
-    gravity: 0.01,
-    jumpStrength: -10,
-    isOnGround: true
-};
+    // start the game loop
+    function start(canvas) {
+        const ctx = canvas.getContext("2d");
 
-const keys = {
-    a: false,
-    d: false,
-    w: false
-};
+        function gameLoop(timestamp) {
+            const deltaTime = (timestamp - lastUpdateTime) / 1000; // seconds since last frame
+            lastUpdateTime = timestamp;
 
-function update() {
-    // gravity
-    if (!character.isOnGround) {
-        character.velocityY += character.gravity
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // clear the canvas
+            update(deltaTime); // update all objects
+            draw(ctx); // draw all objects
+
+            gameLoopId = requestAnimationFrame(gameLoop); // request next frame
+        }
+
+        gameLoopId = requestAnimationFrame(gameLoop) // kick off the loop
     }
 
-    // position
-    character.y += character.velocityY;
-
-    // ground collision
-    if (character.y >= canvas.height - character.height) {
-        character.y = canvas.height - character.height;
-        character.velocityY = 0;
-        character.isOnGround = true;
-    } else {
-        character.isOnGround = false;
+    // add new game object
+    function addObject(object) {
+        if (object.update && object.draw) {
+            objects.push(object);
+        } else {
+            console.error("Object must have `update` and `draw` methods.");
+        }
     }
 
-    // horizontal movement
-    if (keys.a) {
-        character.x -= 5;
-    }
-    if (keys.d) {
-        character.x += 5;
-    }
-
-    character.x = Math.max(0, Math.min(canvas.width - character.width, character.x));
-}
-
-function draw() {
-    // clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-    // draw character
-    ctx.fillStyle = character.color;
-    ctx.fillRect(character.x, character.y, character.width, character.height);
-}
-
-function gameLoop() {
-    update();
-    draw();
-    requestAnimationFrame(gameLoop);
-}
-
-document.addEventListener("keydown", (event) => {
-    if (event.key === "A") keys.a = true;
-    if (event.key === "D") keys.d = true;
-    if (event.key === "W" && character.isOnGround) {
-        character.velocityY = character.jumpStrength;
-        character.isOnGround = false;
-    }
-})
-
-document.addEventListener("keyup", (event) => {
-    if (event.key === "A") keys.a = false;
-    if (event.key === "D") keys.d = false;
-})
-
-function getGravity() {
-    let gValue = document.getElementById("gInput").value;
-
-    if (isNaN(gValue) || gValue === "") {
-        gValue = 10;
-    } else {
-        gValue = parseFloat(gValue)
+    // remove game object
+    function removeObject(object) {
+        const index = objects.indexOf(object);
+        if (index > -1) {
+            objects.splice(index, 1);
+        }
     }
 
-    document.getElementById("gResult").textContent = `Gravity = ${gValue}`
-}
-
-function getSpeed() {
-    let sValue = document.getElementById("sInput").value;
-
-    if (isNaN(sValue) || sValue === "") {
-        sValue = 1;
-    } else {
-        sValue = parseFloat(sValue)
+    // universal update function
+    function update(deltaTime) {
+        objects.forEach((obj) => {
+            if (obj === ball) {
+                obj.update(deltaTime, paddle);
+            } else {
+                obj.update(deltaTime);
+            }
+        });
     }
 
-    document.getElementById("sResult").textContent = `Speed = ${sValue}`
-}
+    // universal draw function
+    function draw(ctx) {
+        objects.forEach((obj) => obj.draw(ctx));
+    }
 
-gameLoop()
+    // stop the game loop
+    function stop() {
+        if (gameLoopId) {
+            cancelAnimationFrame(gameLoopId);
+            gameLoopId = null;
+        }
+    }
+
+    // public API
+    return {
+        addObject,
+        removeObject,
+        start,
+        stop
+    };
+})();

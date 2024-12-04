@@ -196,9 +196,10 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                     <a href="https://apps.gangdev.co/universalChat" target="_blank">Universal Chat</a><br>
                     <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube (Beta)</a><br>
                     <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game (Beta)</a><br>
-                    <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a><br>
+                    <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Ultimate Pong (Beta)</a><br>
+                    <!-- <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a><br>
                     <a href="https://gaming.gangdev.co/theBigOne" target="_blank">The Big One (Alpha)</a><br>
-                    <a href="https://gaming.gangdev.co/websockets/testMultiplayerChat" target="_blank">Test Multiplayer Game (Alpha)</a><br>
+                    <a href="https://gaming.gangdev.co/websockets/testMultiplayerChat" target="_blank">Test Multiplayer Game (Alpha)</a><br> -->
                 </p>
             </section>
         </div>
