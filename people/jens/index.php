@@ -189,12 +189,14 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                 <h2>Projects</h2>
                 <p class="fullw">
                     <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
-                    <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine (Alpha)</a><br>
 
+                    <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine (Alpha)</a><br>
                     <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube (Alpha)</a><br>
-                    <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a><br>
                     <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Ultimate Pong (Alpha)</a><br>
+                    <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a><br>
                     <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game (Beta)</a><br>
+                    <!-- <a href="https://gaming.gangdev.co/theBigOne" target="_blank">The Big One (Alpha)</a><br> -->
+                    <!-- <a href="https://gaming.gangdev.co/websockets/testMultiplayerChat" target="_blank">Test Multiplayer Game (Alpha)</a><br> -->
 
                     <a href="https://apps.gangdev.co/roastGenerator" target="_blank">Roast Generator</a><br>
                     <a href="https://apps.gangdev.co/mmfGenerator" target="_blank">MMF Generator</a><br>
@@ -202,8 +204,6 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 
                     <a href="https://mods.gangdev.co/minecraft/resource_packs" target="_blank">Minecraft (Resource Packs)</a><br>
                     <a href="https://mods.gangdev.co/minecraft/data_packs" target="_blank">Minecraft (Data Packs)</a><br>
-                    <a href="https://gaming.gangdev.co/theBigOne" target="_blank">The Big One (Alpha)</a><br>
-                    <a href="https://gaming.gangdev.co/websockets/testMultiplayerChat" target="_blank">Test Multiplayer Game (Alpha)</a><br> -->
                 </p>
             </section>
         </div>
