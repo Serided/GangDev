@@ -1,0 +1,71 @@
+:root {
+    --width: 87px;
+    --height: 21px;
+    --spacing: 10px;
+}
+
+body {
+    margin: 0;
+}
+
+canvas {
+    height: 100vh;
+    width: 100vw;
+    background-color: lightgray;
+    display: block;
+}
+
+#engineInputs {
+    position: fixed;
+}
+
+#loadFile {
+    position: fixed;
+    left: var(--spacing);
+    top: var(--spacing);
+    width: 200px;
+    height: var(--height);
+}
+
+#exportButton {
+    position: fixed;
+    right: var(--spacing);
+    bottom: var(--spacing);
+    width: var(--width);
+    height: var(--height);
+}
+
+#clearButton {
+    position: fixed;
+    right: var(--spacing);
+    top: var(--spacing);
+    width: var(--width);
+    height: var(--height);
+}
+
+.title {
+    position: fixed;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    top: 50%;
+    z-index: 1000;
+    background-color: gray;
+    color: white;
+    padding: 7px;
+    border-radius: 5px;
+    font-size: 20px;
+    opacity: 0.3;
+    pointer-events: none;
+    user-select: none;
+}
+
+.hidden {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.visible {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}

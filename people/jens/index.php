@@ -177,7 +177,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                     <p class="fullw">
                     <a href="https://www.instagram.com/ser1ded/" target="_blank">Instagram</a><br>
                     <a href="https://scandinalienballer.wixsite.com/jenshansenportfolio" target="_blank">Digital Media Portfolio</a><br>
-                    <a href="https://www.youtube.com/channel/UC_SfGASnIXAkrVwugpZ9eLg" target="_blank">YouTube</a><br>
+                    <a href="https://www.youtube.com/@serided" target="_blank">YouTube</a><br>
                     <a href="https://github.com/Serided" target="_blank">GitHub</a><br>
                     <a href="https://stackoverflow.com/users/20779197/serided" target="_blank">Stack Overflow</a>
                 </p>
@@ -189,15 +189,19 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                 <h2>Projects</h2>
                 <p class="fullw">
                     <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
-                    <a href="https://mods.gangdev.co/minecraft/resource_packs" target="_blank">Minecraft (Resource Packs)</a><br>
-                    <a href="https://mods.gangdev.co/minecraft/data_packs" target="_blank">Minecraft (Data Packs)</a><br>
+                    <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine (Alpha)</a><br>
+
+                    <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube (Alpha)</a><br>
+                    <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a><br>
+                    <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Ultimate Pong (Alpha)</a><br>
+                    <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game (Beta)</a><br>
+
                     <a href="https://apps.gangdev.co/roastGenerator" target="_blank">Roast Generator</a><br>
                     <a href="https://apps.gangdev.co/mmfGenerator" target="_blank">MMF Generator</a><br>
                     <a href="https://apps.gangdev.co/universalChat" target="_blank">Universal Chat</a><br>
-                    <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube (Beta)</a><br>
-                    <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game (Beta)</a><br>
-                    <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Ultimate Pong (Beta)</a><br>
-                    <!-- <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a><br>
+
+                    <a href="https://mods.gangdev.co/minecraft/resource_packs" target="_blank">Minecraft (Resource Packs)</a><br>
+                    <a href="https://mods.gangdev.co/minecraft/data_packs" target="_blank">Minecraft (Data Packs)</a><br>
                     <a href="https://gaming.gangdev.co/theBigOne" target="_blank">The Big One (Alpha)</a><br>
                     <a href="https://gaming.gangdev.co/websockets/testMultiplayerChat" target="_blank">Test Multiplayer Game (Alpha)</a><br> -->
                 </p>

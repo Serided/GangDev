@@ -1,4 +1,7 @@
-const Tools = (() => {
+import { gameEngine } from "/gameEngine/script.js";
+import {  } from "/gameEngine/js/classes.js";
+
+export const Tools = (() => {
     const keys = {}; // track key states
     let mouse = { x: 0, y: 0, isDown: false }; // track mouse state
     const mouseCallbacks = [];
@@ -87,6 +90,6 @@ const Tools = (() => {
         addKeyPressListener,
         isKeyPressed,
         getMouseState,
-        cleanupListeners
+        cleanupListeners,
     }
 })();
