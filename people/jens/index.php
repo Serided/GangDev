@@ -203,7 +203,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                     <a href="https://apps.gangdev.co/universalChat" target="_blank">Universal Chat</a><br>
 
                     <a href="https://mods.gangdev.co/minecraft/resource_packs" target="_blank">Minecraft (Resource Packs)</a><br>
-                    <a href="https://mods.gangdev.co/minecraft/data_packs" target="_blank">Minecraft (Data Packs)</a><br>
+                    <a href="https://mods.gangdev.co/minecraft/data_packs" target="_blank">Minecraft (Data Packs)</a>
                 </p>
             </section>
         </div>
