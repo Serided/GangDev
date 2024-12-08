@@ -8,6 +8,8 @@ const player = new Player(gameEngine.canvas.width / 2, gameEngine.canvas.height 
 const base = new Platform(0, gameEngine.canvas.height - 20, gameEngine.canvas.width, 20)
 gameEngine.addObject(base)
 
+gameEngine.generatedPlatformsInArea(-gameEngine.canvas.width, gameEngine.canvas.width, -gameEngine.canvas.height, gameEngine.canvas.height)
+
 gameEngine.loadPlatforms('json/platforms.json').then(() => {
     gameEngine.start()
     gameEngine.addObject(player)

@@ -12,8 +12,6 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
     <body>
         <div id="engineInputs" class="visible">
             <p class="title">
-                Left-click-drag to place<br><br>
-                Right-click-drag to remove<br><br>
                 Press 'Tab' to toggle overlay
             </p>
             <input type="file" id="loadFile" accept=".json">

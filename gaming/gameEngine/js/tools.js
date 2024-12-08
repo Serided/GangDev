@@ -82,6 +82,24 @@ export const Tools = (() => {
         canvas.removeEventListener("mouseup", mouseUpHandler);
     }
 
+    // random seed
+    const seededRandom = (() => {
+        let seed = 0;
+        return {
+            setSeed(s) {
+                seed = s;
+            },
+            random() {
+                const m = 2 ** 31 - 1;
+                const a = 1103515245;
+                const c = 12345;
+
+                seed = (a * seed + c) % m;
+                return seed / m;
+            },
+        };
+    });
+
     // return public API
     return {
         setupKeyboardListeners,
@@ -91,5 +109,6 @@ export const Tools = (() => {
         isKeyPressed,
         getMouseState,
         cleanupListeners,
+        seededRandom
     }
 })();

@@ -27,6 +27,7 @@ export const gameEngine = (() => {
 
             ctx.clearRect(0, 0, canvas.width, canvas.height); // clear the canvas
             update(deltaTime); // update all objects
+            cleanupPlatforms();
             draw(ctx); // draw all objects
 
             gameLoopId = requestAnimationFrame(gameLoop); // request next frame
@@ -92,6 +93,64 @@ export const gameEngine = (() => {
         })
     }
 
+    // generate platforms using seed
+    function generatedPlatformsInArea(xStart, xEnd, yStart, yEnd) {
+        const density = 1.0; // chance of platform per unit area
+        const minGap = 0;
+        const cluster = {x: xStart, y: yStart, min: 1, max: 10, spacing: 300};
+        console.log("generating")
+
+        while (cluster.x < xEnd) {
+            const clusterWidth = Tools.seededRandom().random() * (xEnd - cluster.x) * 0.5;
+            const clusterHeight = Tools.seededRandom().random() * (yEnd - cluster.y) * 0.5;
+
+            let platformsInCluster = Math.floor(Tools.seededRandom().random() * (cluster.max - cluster.min + 1)) + cluster.min;
+            console.log(Tools.seededRandom().random());
+
+            for (let i = 0; i < platformsInCluster; i++) {
+                if (Tools.seededRandom().random() < density) {
+                    const width = 100 + Tools.seededRandom().random() * 20;
+                    const height = 20 + Tools.seededRandom().random() * 20;
+
+                    let xPos = cluster.x + Tools.seededRandom().random() * clusterWidth;
+                    let yPos = cluster.y + Tools.seededRandom().random() * clusterHeight;
+
+                    while (objects.some(platform => {
+                        return (
+                            xPos < platform.x + platform.width + minGap &&
+                            xPos + width > platform.x - minGap &&
+                            yPos < platform.y + platform.height + minGap &&
+                            yPos + height > platform.y - minGap
+                        );
+                    })) {
+                        xPos = cluster.x + Tools.seededRandom().random() * clusterWidth;
+                        yPos = cluster.y + Tools.seededRandom().random() * clusterHeight;
+                    }
+
+                    const platform = new Platform(xPos, yPos, width, height, 0, "yellow");
+                    gameEngine.addObject(platform);
+                }
+            }
+
+            cluster.x += clusterWidth + cluster.spacing;
+            cluster.y += clusterHeight + cluster.spacing
+        }
+    }
+
+    function cleanupPlatforms() {
+        gameEngine.objects = gameEngine.objects.filter(obj => {
+            if (obj.isPlatform) {
+                const isVisible =
+                    obj.x + obj.width > 0 &&
+                    obj.x < gameEngine.canvas.width &&
+                    obj.y + obj.height > 0 &&
+                    obj.y < gameEngine.canvas.height;
+                return isVisible || obj.dynamic;
+            }
+            return true;
+        });
+    }
+
     // stop the game loop
     function stop() {
         if (gameLoopId) {
@@ -143,6 +202,8 @@ export const gameEngine = (() => {
         detectCollisions,
         createCanvas,
         loadPlatforms,
+        generatedPlatformsInArea,
+        cleanupPlatforms,
         canvas, objects
     };
 })();

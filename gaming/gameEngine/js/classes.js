@@ -12,6 +12,8 @@ export class Player {
         this.speedX = 0;
         this.speedY = 0;
         this.isOnGround = false;
+        this.lastGeneratedX = 0;
+        this.lastGeneratedY = 0;
     }
 
     update(deltaTime) {
@@ -53,6 +55,17 @@ export class Player {
 
         // collision
         gameEngine.detectCollisions(this, gameEngine.objects);
+
+        // infinite scrolling
+        const threshhold = 500;
+        if (this.x > this.lastGeneratedX + threshhold) {
+            gameEngine.generatedPlatformsInArea(this.lastGeneratedX + threshhold, this.lastGeneratedX + threshhold * 2, this.y - gameEngine.canvas.height, this.y + gameEngine.canvas.height);
+            this.lastGeneratedX += threshhold;
+        }
+        if (this.y > this.lastGeneratedY + threshhold) {
+            gameEngine.generatedPlatformsInArea(this.x - gameEngine.canvas.width, this.x + gameEngine.canvas.height, this.lastGeneratedY + threshhold, this.lastGeneratedY + threshhold * 2);
+            this.lastGeneratedY += threshhold;
+        }
     }
 
     draw(ctx) {

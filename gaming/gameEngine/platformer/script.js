@@ -131,8 +131,7 @@ gameEngine.canvas.addEventListener("mouseup", () => {
 // disable context menu from right click
 gameEngine.canvas.addEventListener("contextmenu", (e) => e.preventDefault());
 
-// export platforms to json
-exportButton.addEventListener("click", () => {
+function exportPlatforms() {
     const json = JSON.stringify(platforms, null, 2);
     const blob = new Blob([json], {type: "application/json"});
 
@@ -146,6 +145,11 @@ exportButton.addEventListener("click", () => {
     URL.revokeObjectURL(a.href);
 
     console.log("Exported Platforms:", json);
+}
+
+// export platforms to json
+exportButton.addEventListener("click", () => {
+    exportPlatforms()
 });
 
 // load platforms from json
@@ -179,7 +183,7 @@ clearButton.addEventListener("click", () => {
     redrawPlatforms();
 });
 
-// undo
+// key combinations for undo and export
 document.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.key === "z") {
         if (undoStack.length > 0) {
@@ -196,6 +200,10 @@ document.addEventListener("keydown", (e) => {
 
             redrawPlatforms();
         }
+    }
+    if (e.ctrlKey && e.key === "s") {
+        e.preventDefault()
+        exportPlatforms()
     }
 })
 

@@ -1,180 +1,180 @@
 [
   {
-    "x": 370,
-    "y": 260,
-    "width": 460,
-    "height": 140,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 980,
-    "y": 530,
-    "width": 90,
-    "height": 70,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 1200,
-    "y": 660,
-    "width": 150,
-    "height": 50,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 1450,
-    "y": 730,
-    "width": 80,
-    "height": -20,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 1670,
-    "y": 660,
-    "width": 70,
-    "height": -240,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 500,
-    "y": 520,
-    "width": 350,
-    "height": 200,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 620,
-    "y": 770,
-    "width": 160,
-    "height": 70,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 860,
-    "y": 850,
-    "width": 130,
-    "height": 10,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 1160,
-    "y": 880,
-    "width": 120,
-    "height": 30,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 1020,
-    "y": 410,
-    "width": 510,
-    "height": 50,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 1000,
-    "y": 790,
-    "width": 170,
-    "height": 20,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 200,
-    "y": 520,
-    "width": 180,
-    "height": 50,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 170,
-    "y": 650,
+    "x": 160,
+    "y": 760,
     "width": 260,
-    "height": 130,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 500,
-    "y": 80,
-    "width": 130,
-    "height": 60,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 730,
-    "y": 110,
-    "width": 130,
-    "height": 30,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 960,
-    "y": 130,
-    "width": 100,
-    "height": 10,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 1180,
-    "y": 160,
-    "width": 100,
-    "height": 30,
-    "angle": 0,
-    "color": "yellow",
-    "isPlatform": true
-  },
-  {
-    "x": 970,
-    "y": 260,
-    "width": 740,
     "height": 50,
     "angle": 0,
     "color": "yellow",
     "isPlatform": true
   },
   {
-    "x": 140,
-    "y": 160,
-    "width": 110,
+    "x": 870,
+    "y": 810,
+    "width": 180,
     "height": 40,
     "angle": 0,
     "color": "yellow",
     "isPlatform": true
   },
   {
-    "x": 170,
-    "y": 190,
-    "width": 50,
+    "x": 710,
+    "y": 760,
+    "width": 60,
+    "height": 10,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 620,
+    "y": 750,
+    "width": 40,
     "height": 20,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 520,
+    "y": 750,
+    "width": 50,
+    "height": 10,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 150,
+    "y": 650,
+    "width": 60,
+    "height": 10,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 240,
+    "y": 500,
+    "width": 620,
+    "height": 30,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 1190,
+    "y": 410,
+    "width": 120,
+    "height": 80,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 1450,
+    "y": 250,
+    "width": 200,
+    "height": 70,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 1790,
+    "y": 390,
+    "width": 20,
+    "height": 130,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 1550,
+    "y": 570,
+    "width": 100,
+    "height": 120,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 1580,
+    "y": 750,
+    "width": -10,
+    "height": 30,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 1400,
+    "y": 790,
+    "width": 130,
+    "height": 100,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 470,
+    "y": 270,
+    "width": 170,
+    "height": 60,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 950,
+    "y": 320,
+    "width": 30,
+    "height": 70,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 150,
+    "y": 130,
+    "width": 160,
+    "height": 90,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 770,
+    "y": 230,
+    "width": 540,
+    "height": 40,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 80,
+    "y": 520,
+    "width": 50,
+    "height": 30,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 540,
+    "y": 130,
+    "width": 100,
+    "height": 30,
+    "angle": 0,
+    "color": "yellow",
+    "isPlatform": true
+  },
+  {
+    "x": 610,
+    "y": 400,
+    "width": 60,
+    "height": 10,
     "angle": 0,
     "color": "yellow",
     "isPlatform": true
