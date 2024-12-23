@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/img/favicon/favicon2-modified.png" sizes="32x32" type="image/x-icon">
     <!-- Open Graph Meta Tags for rich preview -->
-    <meta property="og:title" content="OnlyFansies - Exclusive Content">
+    <meta property="og:title" content="OnlyFansies - Exclusive Jens">
     <meta property="og:description" content="Join OnlyFansies for exclusive content of hot man.">
-    <meta property="og:image" content="/img/favicon/favicon2"> <!-- Replace with your image -->
+    <meta property="og:image" content="/img/favicon/favicon2.png"> <!-- Replace with your image -->
     <meta property="og:url" content="https://www.onlyfansies.com"> <!-- Replace with your URL -->
     <meta property="og:type" content="website">
 </head>
