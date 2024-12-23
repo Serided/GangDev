@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONLYFANSIES</title>
+    <title>OnlyFansies</title>
     <!-- Link to Google Font - Nunito Sans (clean, modern, sans-serif) -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap" rel="stylesheet">
     <!-- Link to external style.css -->
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/img/favicon/favicon2-modified.png" sizes="32x32" type="image/x-icon">
 </head>
 <body>
 <header>
@@ -19,7 +20,7 @@
     </section>
 </main>
 <footer>
-    <p>© 2024 ONLYFANSIES, All Rights Reserved</p>
+    <p>© 2024 OnlyFansies, All Rights Reserved</p>
 </footer>
 
 <!-- Link to external JavaScript file -->
