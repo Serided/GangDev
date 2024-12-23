@@ -12,13 +12,13 @@
     <!-- Open Graph Meta Tags for rich preview -->
     <meta property="og:title" content="OnlyFansies - Exclusive Jens">
     <meta property="og:description" content="Join OnlyFansies for exclusive content of hot man.">
-    <meta property="og:image" content="/img/favicon/favicon2.png"> <!-- Replace with your image -->
-    <meta property="og:url" content="https://www.onlyfansies.com"> <!-- Replace with your URL -->
+    <meta property="og:image" content="/img/favicon/favicon2.png">
+    <meta property="og:url" content="https://www.onlyfansies.com">
     <meta property="og:type" content="website">
 </head>
 <body>
 <header>
-    <h1>OnlyFansies</h1> <!-- Only capitalize O and F -->
+    <h1>OnlyFansies</h1>
 </header>
 <main>
     <section id="gallery">

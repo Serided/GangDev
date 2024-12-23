@@ -4,7 +4,8 @@
 const imageFiles = [
     "picture1.webp",
     "picture2.webp",
-    "picture3.webp"
+    "picture3.webp",
+    "picture4.webp"
 ];
 
 const gallery = document.getElementById("gallery");
