@@ -14,8 +14,9 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
     <body class="main-p fullw">
         <?= $navbar ?>
 
-        <h1>
+        <h1 class="title">
             Jens
+            <a href="php/vivienne.php" class="vivienne">&nbsp+ Vivienne</a>
         </h1>
 
         <div class="fullw sect">
@@ -55,55 +56,10 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                     <h2>Expertise</h2>
                     <p class="caption">
                         I have a vast array of experience in computer science.
+                        <h3 style="color: red"> WARNING: THE FORMAT IS A <u>LITTLE GOOFY</u> IMMA MAKE IT LOOK GOOD ASAP.</h3>
                     </p>
                 </section>
             </div>
-            <!--
-            <div>
-                <p class="nfullw no-m coding-crcls">
-                    560+ hours of<br>
-                    <b style="font-size:30px; margin:0">MC Code</b>
-                </p>
-                <p class="no-m nfullw coding-crcls">
-                    110+ hours of<br>
-                    <b style="font-size:30px; margin:0">Python</b>
-                </p>
-                <p class="no-m nfullw coding-crcls">
-                    110+ hours of<br>
-                    <b style="font-size:30px; margin:0">HTML</b>
-                </p>
-                <p class="no-m nfullw coding-crcls">
-                    65+ hours of<br>
-                    <b style="font-size:30px; margin:0">CSS</b>
-                </p>
-                <p class="no-m nfullw coding-crcls">
-                    40+ hours of<br>
-                    <b style="font-size:30px; margin:0">JS</b>
-                </p>
-                <p class="no-m nfullw coding-crcls">
-                    30+ hours of<br>
-                    <b style="font-size:30px; margin:0">Ruby</b>
-                </p>
-                <p class="no-m nfullw coding-crcls">
-                    20+ hours of<br>
-                    <b style="font-size:30px; margin:0">PHP</b>
-                </p>
-                <p class="no-m nfullw coding-crcls">
-                    5+ hours of<br>
-                    <b style="font-size:30px; margin:0">Kotlin</b>
-                </p>
-            </div>
-            <div>
-                <p class="nfullw no-m exp-crcls">
-                    60+ hours of<br>
-                    <b style="font-size:30px; margin:0">PC Assembly</b>
-                </p>
-                <p class="no-m nfullw exp-crcls">
-                    10+ hours of<br>
-                    <b style="font-size:30px; margin:0">PC Building</b>
-                </p>
-            </div>
-            -->
             <div class="exp-sect">
                 <div class="hexagon coding-exp">
                     <p>

@@ -1,9 +1,9 @@
 :root {
-    --hexagon-width: 1vh;
-    --hexagon-height: 0.57735026919vh;
     --hexagon-scaling: 15;
+    --hexagon-width: calc(var(--hexagon-scaling) * 1vh);
+    --hexagon-height: calc(var(--hexagon-scaling) * 0.57735026919vh);
     --hexagon-border: 0.3vh;
-    --hexagon-margin-side: 1vh;
+    --hexagon-margin-side: clamp(0.5vh, 2vw, 1vh);
 }
 
 .jens-gettin-buff {
@@ -19,7 +19,7 @@
 }
 
 .jens-gaming {
-    background-image: url("https://shared.gangdev.co/files/img/jens/bros_cracked_at_fortnite_my_guy.png");
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.5) 70%), url("/jens/files/img/background2.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -29,37 +29,17 @@
     margin: 0;
     overflow-wrap: anywhere;
 }
-/*
-.coding-crcls {
-    margin: 2vh 1vh !important;
-    background-color: darkred;
-    color: #01DCFA;
-    box-sizing: content-box !important;
-    display: inline-block;
-    padding: 2vh 1vh;
-    border-radius: 0.5vh;
-}
 
-.exp-crcls {
-    margin: 2vh 1vh !important;
-    background-color: darkblue;
-    color: rgba(255, 207, 75, 0.747);
-    box-sizing: content-box !important;
-    display: inline-block;
-    padding: 2vh 1vh;
-    border-radius: 0.5vh;
-}
-*/
 .hexagon {
-    width: calc(var(--hexagon-width) * var(--hexagon-scaling));
-    height: calc(var(--hexagon-height) * var(--hexagon-scaling));
+    width: var(--hexagon-width);
+    height: var(--hexagon-height);
     background-color: black;
     border-radius: var(--hexagon-border);
     position: relative;
     transform: translate(-50%, -50%);
     display: inline-block !important;
     z-index: 2;
-    margin: calc((var(--hexagon-height) * var(--hexagon-scaling)) / 3) var(--hexagon-margin-side);
+    margin: calc(var(--hexagon-height) / 3) var(--hexagon-margin-side);
 }
 
 .hexagon:before, .hexagon:after {
@@ -88,7 +68,7 @@
     padding: calc(var(--hexagon-scaling) * 0.05) calc(var(--hexagon-scaling) * 0.05);
     font-size: calc(var(--hexagon-scaling) * .12vh);
     line-height: calc(var(--font-size-p) + 0.5vh);
-    max-height: calc(var(--hexagon-height) * var(--hexagon-scaling));
+    max-height: var(--hexagon-height);
 }
 
 .hexagon p b{
@@ -108,18 +88,37 @@
 }
 
 .exp-sect {
-    padding: calc((var(--hexagon-width) * var(--hexagon-scaling)) / 1.6) 0 0 calc((var(--hexagon-width) * var(--hexagon-scaling)) / 2 + var(--hamburger-margin) * 4);
-    display: inline-block;
+    padding: calc(var(--hexagon-width) / 1.6) 0 0 calc(var(--hexagon-width) / 2 + var(--hamburger-margin) * 4);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1vh;
+    justify-content: center;
 }
 
 .first {
-        margin-left: calc((var(--hexagon-width) * var(--hexagon-scaling)) + 3.8 * var(--hexagon-margin-side));
+        margin-left: calc(var(--hexagon-width) + 3.8 * var(--hexagon-margin-side));
 }
 
 .last {
-    margin-right: calc((var(--hexagon-width) * var(--hexagon-scaling)) + 3.8 * var(--hexagon-margin-side));
+    margin-right: calc(var(--hexagon-width) + 3.8 * var(--hexagon-margin-side));
 }
 
 .caption {
     padding-bottom: 0 !important;
+}
+
+.vivienne {
+    opacity: 0;
+    position: absolute;
+    white-space: nowrap;
+    transform: translateX(-50%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    font-size: inherit;
+    color: pink;
+    text-decoration: none;
+}
+
+.title:hover .vivienne {
+    opacity: 1;
+    transform: translateX(0);
 }

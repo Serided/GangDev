@@ -1,0 +1,23 @@
+.main-p-vivienne {
+    background-image: url("../files/img/vivienne/vivienne_background.webp");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    background-color: whitesmoke;
+    text-align: center;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.cutie {
+    width: 30vw;
+    height: 30vw;
+    border: 0.3vw pink solid;
+    border-radius: 20%;
+}
+
+.ily {
+    color: pink;
+    text-shadow: black 2px 2px;
+}
