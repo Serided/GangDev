@@ -80,7 +80,7 @@ function comboHeart(heart) {
     size -= 0.175;
     spawnRate = Math.max(500, spawnRate * 0.98);
     updateComboTracker()
-    addAttribute();
+    if (combo >= 9) addAttribute();
     heartSpawning = false;
     spawnHeart();
 }
