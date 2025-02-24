@@ -47,19 +47,6 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="basicFighterGame" target="_blank">Fighting Game (Beta)</a>
-                </h2>
-                <p class="fullw">
-                    A piece of art, this game showcases some of the most unique game play and graphical art you have ever seen.<br>
-                    <br>
-                    <b>To play, player on the left uses the W, A, S and D keys and the player on the right uses the arrow keys.</b>
-                </p>
-            </section>
-        </div>
-        <!--
-        <div class="fullw sect spacing">
-            <section class="fullw">
-                <h2>
                     <a href="/php/games/basicPlatformerGame.php" target="_blank">Platformer Game (Alpha)</a>
                 </h2>
                 <p class="fullw">
@@ -73,17 +60,29 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="theBigOne" target="_blank">The Big One (Alpha)</a>
+                    <a href="https://gaming.gangdev.co:10001" target="_blank">First Multiplayer Game (Alpha) [Online]</a>
                 </h2>
                 <p class="fullw">
-                    Currently just a cube, going to be a scrolling left to right adventure game. First co-op project of Jens and
-                    the new member of GangDev, Isaac.<br>
+                    First real experience and project with websockets. Just a basic chat app currently<br>
                     <br>
-                    <b>To play, press W to make the cube jump.</b>
+                    <b>To play, type and send a message goofy.</b>
                 </p>
             </section>
         </div>
-        -->
+
+        <div class="fullw sect spacing">
+            <section class="fullw">
+                <h2>
+                    <a href="basicFighterGame" target="_blank">Fighting Game (Beta)</a>
+                </h2>
+                <p class="fullw">
+                    A piece of art, this game showcases some of the most unique game play and graphical art you have ever seen.<br>
+                    <br>
+                    <b>To play, player on the left uses the W, A, S and D keys and the player on the right uses the arrow keys.</b>
+                </p>
+            </section>
+        </div>
+
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2 style="color:red">
