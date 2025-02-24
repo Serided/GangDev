@@ -4,6 +4,7 @@ var clientPort = 6001;
 const express = require("express");
 const fs = require("fs");
 const https = require("https");
+const http = require("http");
 const { WebSocketServer } = require("ws");
 
 const app = express();
