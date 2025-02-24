@@ -11,15 +11,9 @@
         <div id="messages"></div>
         <script>
             var testing = false;
+            var whichServer = testing ? "localhost" : "gaming.gangdev.co";
 
-            if(testing) {
-                var whichServer = "localhost";
-            }
-            else {
-                var whichServer = "gangdev.co";
-            }
-
-            shared webSocket = new WebSocket("ws://" + whichServer + ":10001/");
+            var webSocket = new WebSocket("wss://" + whichServer + ":10001/");
             webSocket.onmessage = (event) => {
                 console.log(event);
                 document.getElementById("messages").innerHTML += "Message from server: " + event.data + "<br>";
