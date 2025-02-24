@@ -17,6 +17,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
             <input type="file" id="loadFile" accept=".json">
             <button id="exportButton">Export</button>
             <button id="clearButton">Clear</button>
+            <button id="colorButton">Color</button>
         </div>
 
         <canvas id="game"></canvas>

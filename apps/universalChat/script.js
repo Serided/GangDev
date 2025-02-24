@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $("#submitmsg").click(function () {
         var clientmsg = $("#usermsg").val();
-        // add profanity filter by breaking sentances into words and replacing swearwords with asterisks
+        // add profanity filter by breaking sentences into words and replacing swearwords with asterisks
         if (clientmsg === "/clear") {
             $.post("php/clear.php");
             $("#usermsg").val("");

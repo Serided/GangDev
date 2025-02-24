@@ -178,5 +178,23 @@
     "angle": 0,
     "color": "yellow",
     "isPlatform": true
+  },
+  {
+    "x": 1010,
+    "y": 610,
+    "width": 100,
+    "height": 50,
+    "angle": 0,
+    "color": "green",
+    "isPlatform": true
+  },
+  {
+    "x": 910,
+    "y": 50,
+    "width": 120,
+    "height": 60,
+    "angle": 0,
+    "color": "blue",
+    "isPlatform": true
   }
 ]

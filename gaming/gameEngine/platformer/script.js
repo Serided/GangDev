@@ -2,9 +2,17 @@ import { gameEngine } from '/gameEngine/script.js';
 import { Tools } from '/gameEngine/js/tools.js';
 import { Platform } from '/gameEngine/js/classes.js';
 
+const cursor = document.createElement("div")
+cursor.classList.add("cursor");
+document.body.appendChild(cursor);
+
 const exportButton = document.getElementById("exportButton");
 const loadFile = document.getElementById("loadFile");
 const clearButton = document.getElementById("clearButton");
+const colorButton = document.getElementById("colorButton");
+
+let cycle = 0;
+let color = "Yellow";
 
 const ctx = gameEngine.canvas.getContext("2d");
 
@@ -47,6 +55,8 @@ function drawPreviewBox(startX, startY, mouse, color) {
 
 Tools.addMouseMoveListener((mouse) => {
     const { x, y } = mouse;
+    cursor.style.left = `${x}px`;
+    cursor.style.top = `${y}px`;
 
     if (isDrawing) {
         redrawPlatforms();
@@ -92,7 +102,7 @@ gameEngine.canvas.addEventListener("mouseup", () => {
         }
 
         if (width !== 0 && height !== 0) { // build platform in green box
-            const platform = new Platform(startX, startY, width, height, 0, "yellow");
+            const platform = new Platform(startX, startY, width, height, 0, color);
             platforms.push(platform);
             undoStack.push({ action: "add", platform });
         }
@@ -147,6 +157,34 @@ function exportPlatforms() {
     console.log("Exported Platforms:", json);
 }
 
+function manageColor() {
+    colorButton.innerHTML = color;
+    colorButton.style.color = `${color}`;
+    cursor.style.backgroundColor = `${color}`;
+    if (color === "Transparent") {
+        color = "Gray"
+        colorButton.innerHTML = "Color";
+        colorButton.style.color = `Black`;
+    }
+}
+
+function cycleColors() {
+    if (cycle === 0) {
+        color = "Yellow";
+    } else if (cycle === 1) {
+        color = "Red";
+    } else if (cycle === 2) {
+        color = "Lime";
+    } else if (cycle === 3) {
+        color = "Aqua";
+    } else if (cycle === 4) {
+        color = "Transparent";
+        cycle = -1;
+    }
+    manageColor();
+    cycle++;
+}
+
 // export platforms to json
 exportButton.addEventListener("click", () => {
     exportPlatforms()
@@ -183,28 +221,33 @@ clearButton.addEventListener("click", () => {
     redrawPlatforms();
 });
 
+colorButton.addEventListener("click", cycleColors)
+
 // key combinations for undo and export
 document.addEventListener("keydown", (e) => {
-    if (e.ctrlKey && e.key === "z") {
-        if (undoStack.length > 0) {
-            const lastAction = undoStack.pop();
-            if (lastAction.action === "add") { // undo add
-                platforms.pop();
-            } else if (lastAction.action === "delete") { // restore delete
-                platforms.push(lastAction.platform);
-            } else if (lastAction.action === "multi-delete") { // restore multi--delete
-                platforms.push(...lastAction.platformsDeleted)
-            } else if (lastAction.action === "clear") { // restore clear
-                platforms = [...lastAction.platformsCleared]
-            }
+    if (e.ctrlKey) {
+        e.preventDefault() // prevent ctrl key actions
+        if (e.key === "z") {
+            if (undoStack.length > 0) {
+                const lastAction = undoStack.pop();
+                if (lastAction.action === "add") { // undo add
+                    platforms.pop();
+                } else if (lastAction.action === "delete") { // restore delete
+                    platforms.push(lastAction.platform);
+                } else if (lastAction.action === "multi-delete") { // restore multi--delete
+                    platforms.push(...lastAction.platformsDeleted);
+                } else if (lastAction.action === "clear") { // restore clear
+                    platforms = [...lastAction.platformsCleared];
+                }
 
-            redrawPlatforms();
+                redrawPlatforms();
+            }
         }
+        if (e.key === "s") exportPlatforms();
+        if (e.key === "c") {};
+        if (e.key === "v") {};
     }
-    if (e.ctrlKey && e.key === "s") {
-        e.preventDefault()
-        exportPlatforms()
-    }
+    if (e.key === " ") cycleColors();
 })
 
 window.addEventListener("resize", redrawPlatforms);
@@ -215,17 +258,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let isButtonVisible = true;
 
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Tab') {
-            event.preventDefault();
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+            e.preventDefault();
 
             isButtonVisible = !isButtonVisible;
             if (isButtonVisible) {
-                engineInputs.classList.add('visible')
-                engineInputs.classList.remove('hidden')
+                engineInputs.classList.add('visible');
+                engineInputs.classList.remove('hidden');
             } else {
-                engineInputs.classList.add('hidden')
-                engineInputs.classList.remove('visible')
+                engineInputs.classList.add('hidden');
+                engineInputs.classList.remove('visible');
             }
         }
     })

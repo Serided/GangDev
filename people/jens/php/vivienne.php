@@ -7,7 +7,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 <html lang="en" class="fullw">
 	<head>
 		<meta charset="UTF-8">
-		<title>Jens</title>
+		<title>Vivienne</title>
 		<?= $head ?>
 		<link rel="stylesheet" href="../style.css">
 		<link rel="stylesheet" href="../css/vivienne.css">
