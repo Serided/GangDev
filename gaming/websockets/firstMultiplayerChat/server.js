@@ -17,7 +17,7 @@ const server = https.createServer(credentials, app);
 
 app.use(express.static(__dirname));
 app.get("/", (req, res) => { res.sendFile("index.html", {root: __dirname}) });
-server.listen(15001, () => console.log(`HTTPS server running on ${15001}`));
+server.listen(10001, () => console.log(`HTTPS server running on ${10001}`));
 
 const sockserver = new WebSocketServer({ server });
 
