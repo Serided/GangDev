@@ -2,14 +2,24 @@ var serverPort = 6000;
 var clientPort = 6001;
 
 const express = require("express");
+const fs = require("fs");
+const https = require("https");
+const { WebSocketServer } = require("ws");
+
 const app = express();
+
+const privateKey = fs.readFileSync("/etc/letsencrypt/live/gaming.gangdev.co/privkey.pem", "utf8");
+const certificate = fs.readFileSync("/etc/letsencrypt/live/gaming.gangdev.co/cert.pem", "utf8");
+const ca = fs.readFileSync("/etc/letsencrypt/live/gaming.gangdev.co/chain.pem", "utf8");
+
+const credentials = { key: privateKey, cert: certificate, ca: ca };
+const server = https.createServer(credentials, app);
 
 app.use(express.static(__dirname));
 app.get("/", (req, res) => { res.sendFile("index.html", {root: __dirname}) });
-app.listen(15001, () => console.log(`Listening on ${15001}`));
+server.listen(15001, () => console.log(`HTTPS Server running on ${15001}`));
 
-const { WebSocketServer } = require("ws");
-const sockserver = new WebSocketServer({ port: 10001 });
+const sockserver = new WebSocketServer({ server });
 
 sockserver.on("connection", (ws) => {
     console.log("New client connected!");
