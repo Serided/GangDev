@@ -21,7 +21,7 @@ const httpServer = http.createServer((req, res) => {
     res.end();
 });
 
-httpServer.listen(10001, () => console.log('HTTP server redirecting to HTTPS on port 10001'))
+httpServer.listen(80, () => console.log('HTTP server redirecting to HTTPS on port 80'))
 
 app.use(express.static(__dirname));
 app.get("/", (req, res) => { res.sendFile("index.html", {root: __dirname}) });
