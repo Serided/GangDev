@@ -2,9 +2,11 @@ var serverPort = 6000;
 var clientPort = 6001;
 
 const express = require("express");
-const webserver = express()
-    .use((req, res) => res.sendFile("/index.html", { root: __dirname }))
-    .listen(15001, () => console.log(`Listening on ${15001}`));
+const app = express();
+
+app.use(express.static(__dirname));
+app.get("/", (req, res) => { res.sendFile("index.html", {root: __dirname}) });
+app.listen(15001, () => console.log(`Listening on ${15001}`));
 
 const { WebSocketServer } = require("ws");
 const sockserver = new WebSocketServer({ port: 10001 });
