@@ -12,7 +12,7 @@ const clearButton = document.getElementById("clearButton");
 const colorButton = document.getElementById("colorButton");
 
 let cycle = 0;
-let color = "Yellow";
+let color = "Gray";
 
 const ctx = gameEngine.canvas.getContext("2d");
 
