@@ -15,9 +15,16 @@ const ca = fs.readFileSync("/etc/letsencrypt/live/gaming.gangdev.co/chain.pem", 
 const credentials = { key: privateKey, cert: certificate, ca: ca };
 const server = https.createServer(credentials, app);
 
+const httpServer = http.createServer((req, res) => {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+});
+
+httpServer.listen(80, () => console.log('HTTP server redirecting to HTTPS on port 80'))
+
 app.use(express.static(__dirname));
 app.get("/", (req, res) => { res.sendFile("index.html", {root: __dirname}) });
-server.listen(10001, () => console.log(`HTTPS server running on ${10001}`));
+server.listen(10001, () => console.log(`HTTPS server running on 10001`));
 
 const sockserver = new WebSocketServer({ server });
 
