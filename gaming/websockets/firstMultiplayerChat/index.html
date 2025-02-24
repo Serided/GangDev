@@ -13,7 +13,7 @@
             var testing = false;
             var whichServer = testing ? "localhost" : "gaming.gangdev.co";
 
-            var webSocket = new WebSocket("wss://" + whichServer + ":10001/");
+            var webSocket = new WebSocket("ws://" + whichServer + ":10001/");
             webSocket.onmessage = (event) => {
                 console.log(event);
                 document.getElementById("messages").innerHTML += "Message from server: " + event.data + "<br>";
