@@ -36,10 +36,6 @@ sockserver.on("connection", (ws) => {
         console.log("client has disconnected!")
         clientCount--;
         broadcastClientCount();
-        if (clientCount === 0) {
-            console.log("no clients connected. stopping server...");
-            sockserver.close();
-        }
     });
     ws.on("message", (data) => {
         sockserver.clients.forEach((client) => {

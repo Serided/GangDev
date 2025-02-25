@@ -27,12 +27,3 @@ function sendMessage(event) {
 };
 
 document.getElementById("input-form").addEventListener("submit", sendMessage);
-
-function reconnectWebSocket() {
-    webSocket = new WebSocket("wss://" + whichServer + "/game1");
-};
-
-webSocket.onerror = function (error) {
-    console.log("websocket error: ", error);
-    reconnectWebSocket()
-};
