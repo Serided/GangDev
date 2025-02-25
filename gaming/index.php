@@ -47,7 +47,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="/php/games/basicPlatformerGame.php" target="_blank">Platformer Game (Alpha)</a>
+                    <a href="basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a>
                 </h2>
                 <p class="fullw">
                     Currently unplayable, the next stupendous production in this line of phenomenal games.<br>
@@ -60,7 +60,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
-                    <a href="https://gaming.gangdev.co:10001" target="_blank">First Multiplayer Game (Alpha) [Online]</a>
+                    <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game (Alpha) [Online]</a>
                 </h2>
                 <p class="fullw">
                     First real experience and project with websockets. Just a basic chat app currently<br>
