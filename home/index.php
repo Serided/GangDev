@@ -84,9 +84,8 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                     <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube (Alpha)</a><br>
                     <a href="https://gaming.gangdev.co/ultimatePong" target="_blank">Ultimate Pong (Alpha)</a><br>
                     <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a><br>
+                    <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game (Alpha) [Online]</a><br>
                     <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game (Beta)</a><br>
-                    <!-- <a href="https://gaming.gangdev.co/theBigOne" target="_blank">The Big One (Alpha)</a><br> -->
-                    <!-- <a href="http://gaming.gangdev.co:15001" target="_blank">First Multiplayer Game (Alpha) [Offline]</a><br> -->
                 </p>
             </section>
         </div>

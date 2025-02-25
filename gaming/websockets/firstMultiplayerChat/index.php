@@ -1,6 +1,14 @@
+<?php
+$navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
+$footer = file_get_contents("https://shared.gangdev.co/html/footer.html");
+$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
+?>
 <html>
     <head>
-        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8" name="description" content="Game 1">
+        <title>Game 1</title>
+	    <?= $head ?>
+        <link rel="stylesheet" href="/websockets/firstMultiplayerChat/style.css">
     </head>
     <body>
         <form id="input-form">
