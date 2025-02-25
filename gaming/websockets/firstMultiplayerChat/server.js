@@ -1,18 +1,8 @@
 const express = require("express");
-const fs = require("fs");
-const https = require("https");
 const http = require("http");  // Ensure you're using http for WebSocket server
 const { WebSocketServer } = require("ws");
 
 const app = express();
-
-// SSL certificate paths
-const privateKey = fs.readFileSync("/etc/letsencrypt/live/gaming.gangdev.co/privkey.pem", "utf8");
-const certificate = fs.readFileSync("/etc/letsencrypt/live/gaming.gangdev.co/cert.pem", "utf8");
-const ca = fs.readFileSync("/etc/letsencrypt/live/gaming.gangdev.co/chain.pem", "utf8");
-
-const credentials = { key: privateKey, cert: certificate, ca: ca };
-
 
 const server = http.createServer(app); // Use HTTP server to handle WebSocket connections
 
@@ -33,7 +23,7 @@ sockserver.on("connection", (ws) => {
 
 
     ws.on("close", () => {
-        console.log("client has disconnected!")
+        console.log("client has disconnected! clients connected: ", clientCount)
         clientCount--;
         broadcastClientCount();
     });

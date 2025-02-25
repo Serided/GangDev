@@ -6,12 +6,12 @@ var webSocket = new WebSocket("wss://" + whichServer + "/game1");
 var clientCountElement = document.getElementById("clientCount");
 
 webSocket.onmessage = (event) => {
-    console.log(event);
-    document.getElementById("messages").innerHTML += "Message from server: " + event.data + "<br>";
-
     const data = JSON.parse(event.data);
     if (data.type === "clientCount") {
         clientCountElement.innerHTML = `Clients connected: ${data.count}`;
+    } else {
+        console.log(event);
+        document.getElementById("messages").innerHTML += "Message from server: " + event.data + "<br>";
     }
 };
 
@@ -24,6 +24,6 @@ function sendMessage(event) {
     webSocket.send(inputMessage.value);
     inputMessage.value = "";
     event.preventDefault();
-};
+}
 
 document.getElementById("input-form").addEventListener("submit", sendMessage);
