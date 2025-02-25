@@ -13,8 +13,10 @@ const ca = fs.readFileSync("/etc/letsencrypt/live/gaming.gangdev.co/chain.pem", 
 
 const credentials = { key: privateKey, cert: certificate, ca: ca };
 
-// Create the HTTP server that will handle the WebSocket traffic
+
 const server = http.createServer(app); // Use HTTP server to handle WebSocket connections
+
+let clientCount = 0;
 
 // Set up express to serve static files and handle routing
 app.use(express.static(__dirname));
@@ -24,10 +26,21 @@ app.get("/", (req, res) => { res.sendFile("index.html", {root: __dirname}) });
 const sockserver = new WebSocketServer({ server });
 
 sockserver.on("connection", (ws) => {
-    console.log("New client connected!");
+    console.log("new client connected!");
+    clientCount++;
+    broadcastClientCount();
     ws.send("connection established");
 
-    ws.on("close", () => console.log("Client has disconnected!"));
+
+    ws.on("close", () => {
+        console.log("client has disconnected!")
+        clientCount--;
+        broadcastClientCount();
+        if (clientCount === 0) {
+            console.log("no clients connected. stopping server...");
+            sockserver.close();
+        }
+    });
     ws.on("message", (data) => {
         sockserver.clients.forEach((client) => {
             console.log(`distributing message: ${data}`);
@@ -36,9 +49,15 @@ sockserver.on("connection", (ws) => {
     });
 
     ws.onerror = function () {
-        console.log("WebSocket error");
+        console.log("websocket error");
     };
 });
 
+function broadcastClientCount() {
+    sockserver.clients.forEach((client) => {
+        client.send(JSON.stringify({ type: "clientCount", count: clientCount }));
+    });
+}
+
 // Start the HTTP server (Apache is handling SSL termination)
-server.listen(10001, () => console.log("WebSocket server running on port 10001"));
+server.listen(10001, () => console.log("websocket server running on port 10001"));
