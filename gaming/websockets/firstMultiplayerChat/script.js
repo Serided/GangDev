@@ -7,8 +7,8 @@ var clientCountElement = document.getElementById("clientCount");
 
 webSocket.onmessage = (event) => {
     const data = JSON.parse(event.data);
-    if (data.type === "clientCount") {
-        clientCountElement.innerHTML = `Clients connected: ${data.count}`;
+    if (event.data.startsWith("client count:")) {
+        clientCountElement.innerHTML = `Clients connected: ${event.data}`;
     } else {
         console.log(event);
         document.getElementById("messages").innerHTML += "Message from server: " + event.data + "<br>";

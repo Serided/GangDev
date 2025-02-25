@@ -19,18 +19,19 @@ sockserver.on("connection", (ws) => {
     console.log("new client connected!");
     clientCount++;
     broadcastClientCount();
-    ws.send("connection established");
 
+    ws.send("Connection established!");
 
     ws.on("close", () => {
-        console.log("client has disconnected! clients connected: ", clientCount)
         clientCount--;
+        console.log("client has disconnected! clients connected: ", clientCount)
         broadcastClientCount();
     });
+
     ws.on("message", (data) => {
         sockserver.clients.forEach((client) => {
             console.log(`distributing message: ${data}`);
-            client.send(`${data}`);  // Send message to all clients
+            client.send(data);  // Send message to all clients
         });
     });
 
@@ -41,7 +42,7 @@ sockserver.on("connection", (ws) => {
 
 function broadcastClientCount() {
     sockserver.clients.forEach((client) => {
-        client.send(JSON.stringify({ type: "clientCount", count: clientCount }));
+        client.send(`client count: ${clientCount}`);
     });
 }
 
