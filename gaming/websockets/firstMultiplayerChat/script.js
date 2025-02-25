@@ -5,20 +5,16 @@ var webSocket = new WebSocket("wss://" + whichServer + "/game1");
 
 var clientCountElement = document.getElementById("clientCount");
 
-webSocket.onmessage = (event) => {
-    let data;
-    try {
-        data = JSON.parse(event.data)
-    } catch (e) {
-        data = event.data
-    }
+webSocket.onmessage = async (event) => {
+    let data = event.data instanceof Blob ? await event.data.text() : event.data;
 
-    if (typeof data === 'string' && data.startsWith("client count:")) {
-        clientCountElement.innerHTML = `Clients connected: ${event.data}`;
-    } else {
-        console.log(event);
-        document.getElementById("messages").innerHTML += "Message from server: " + event.data + "<br>";
+    if (data.startsWith("{")) {
+        JSON.parse(data);
+        if (data.type === "clientCount") {
+            clientCountElement.innerHTML = `clients connected: ${data.count}`;
+        }
     }
+    document.getElementById("messages").innerHTML += "message from server: " + data + "<br>";
 };
 
 webSocket.addEventListener("open", () => {
