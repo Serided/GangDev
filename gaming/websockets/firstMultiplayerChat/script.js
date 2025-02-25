@@ -17,7 +17,6 @@ webSocket.onmessage = async (event) => {
 
         if (parsedData.type === "clientCount") {
             clientCountElement.innerHTML = `clients connected: ${parsedData.count}`
-            return;
         }
     } catch (e) {
         document.getElementById("messages").innerHTML += "message from server: " + data + "<br>";
