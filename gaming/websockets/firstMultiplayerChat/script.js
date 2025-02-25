@@ -5,21 +5,11 @@ var webSocket = new WebSocket("wss://" + whichServer + "/game1");
 
 let clientCountElement = document.getElementById("clientCount");
 
-webSocket.onmessage = async (event) => {
-    let data = event.data;
-
-    if (data instanceof Blob) {
-        data = await data.text();
-    }
-
-    try {
-        const parsedData = JSON.parse(data);
-
-        if (parsedData.type === "clientCount") {
-            clientCountElement.innerHTML = `clients connected: ${parsedData.count}`
-        }
-    } catch (e) {
-        document.getElementById("messages").innerHTML += "message from server: " + data + "<br>";
+webSocket.onmessage = (event) => {
+    if (event.data.type === "cC") {
+        clientCountElement.innerHTML = "client count: " + event.data.message
+    } else  if (event.data.type === "msg") {
+        document.getElementById("messages").innerHTML += "message from server: " + event.data.message + "<br>";
     }
 };
 
