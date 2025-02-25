@@ -16,15 +16,15 @@ app.get("/", (req, res) => { res.sendFile("index.html", {root: __dirname}) });
 const sockserver = new WebSocketServer({ server });
 
 sockserver.on("connection", (ws) => {
-    console.log("new client connected!");
     clientCount++;
+    console.log("client connected - clients: ", clientCount)
     broadcastClientCount();
 
     ws.send("connection established!");
 
     ws.on("close", () => {
         clientCount--;
-        console.log("client has disconnected! clients connected: ", clientCount)
+        console.log("client disconnected - clients: ", clientCount)
         broadcastClientCount();
     });
 

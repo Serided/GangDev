@@ -12,6 +12,7 @@ webSocket.onmessage = async (event) => {
         JSON.parse(data);
         if (data.type === "clientCount") {
             clientCountElement.innerHTML = `clients connected: ${data.count}`;
+            return;
         }
     }
     document.getElementById("messages").innerHTML += "message from server: " + data + "<br>";
@@ -22,7 +23,7 @@ webSocket.addEventListener("open", () => {
 });
 
 function sendMessage(event) {
-    var inputMessage = document.getElementById("message");
+    let inputMessage = document.getElementById("message");
     if (inputMessage.value !== "")
         webSocket.send(inputMessage.value);
         inputMessage.value = "";
