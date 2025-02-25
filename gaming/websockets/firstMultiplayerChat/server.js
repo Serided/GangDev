@@ -10,7 +10,7 @@ let clientCount = 0;
 
 // Set up express to serve static files and handle routing
 app.use(express.static(__dirname));
-app.get("/", (req, res) => { res.sendFile("index.php", {root: __dirname}) });
+app.get("/", (req, res) => { res.sendFile("index.html", {root: __dirname}) });
 
 // WebSocket server attached to HTTP server (to match reverse proxy)
 const sockserver = new WebSocketServer({ server });
