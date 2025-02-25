@@ -1,7 +1,7 @@
 var testing = false;
 var whichServer = testing ? "localhost" : "gaming.gangdev.co";
 
-var webSocket = new WebSocket("wss://" + whichServer + "/game1");
+var webSocket = new WebSocket("ws://" + whichServer + "/game1");
 webSocket.onmessage = (event) => {
     console.log(event);
     document.getElementById("messages").innerHTML += "Message from server: " + event.data + "<br>";
