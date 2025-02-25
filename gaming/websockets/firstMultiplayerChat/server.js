@@ -14,7 +14,7 @@ const ca = fs.readFileSync("/etc/letsencrypt/live/gaming.gangdev.co/chain.pem", 
 const credentials = { key: privateKey, cert: certificate, ca: ca };
 
 // Create the HTTP server that will handle the WebSocket traffic
-const server = http.createServer(app); // Use HTTP server to handle WebSocket connections
+const server = https.createServer(credentials, app); // Use HTTP server to handle WebSocket connections
 
 // Set up express to serve static files and handle routing
 app.use(express.static(__dirname));
