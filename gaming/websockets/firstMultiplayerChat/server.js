@@ -17,7 +17,7 @@ const credentials = { key: privateKey, cert: certificate, ca: ca };
 const server = http.createServer(app); // Use HTTP server to handle WebSocket connections
 
 // Set up express to serve static files and handle routing
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + '/websockets/firstMultiplayerChat'));
 app.get("/", (req, res) => { res.sendFile("index.html", {root: __dirname}) });
 
 // WebSocket server attached to HTTP server (to match reverse proxy)
