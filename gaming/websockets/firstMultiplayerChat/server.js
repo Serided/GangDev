@@ -20,7 +20,7 @@ sockserver.on("connection", (ws) => {
     clientCount++;
     broadcastClientCount();
 
-    ws.send("Connection established!");
+    ws.send("connection established!");
 
     ws.on("close", () => {
         clientCount--;

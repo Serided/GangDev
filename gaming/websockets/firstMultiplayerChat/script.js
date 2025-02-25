@@ -18,14 +18,15 @@ webSocket.onmessage = async (event) => {
 };
 
 webSocket.addEventListener("open", () => {
-    console.log("We are connected");
+    console.log("we are connected");
 });
 
 function sendMessage(event) {
     var inputMessage = document.getElementById("message");
-    webSocket.send(inputMessage.value);
-    inputMessage.value = "";
-    event.preventDefault();
+    if (inputMessage.value !== "")
+        webSocket.send(inputMessage.value);
+        inputMessage.value = "";
+        event.preventDefault();
 }
 
 document.getElementById("input-form").addEventListener("submit", sendMessage);
