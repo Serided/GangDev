@@ -6,7 +6,6 @@ var webSocket = new WebSocket("wss://" + whichServer + "/game1");
 var clientCountElement = document.getElementById("clientCount");
 
 webSocket.onmessage = (event) => {
-    const data = JSON.parse(event.data);
     if (event.data.startsWith("client count:")) {
         clientCountElement.innerHTML = `Clients connected: ${event.data}`;
     } else {
