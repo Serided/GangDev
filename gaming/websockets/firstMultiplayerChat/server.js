@@ -31,7 +31,7 @@ sockserver.on("connection", (ws) => {
     ws.on("message", (data) => {
         sockserver.clients.forEach((client) => {
             console.log(`distributing message: ${data}`);
-            client.send(JSON.stringify({ type: "msg", text: `${data}`}));  // Send message to all clients
+            client.send(data);  // Send message to all clients
         });
     });
 
@@ -42,7 +42,7 @@ sockserver.on("connection", (ws) => {
 
 function broadcastClientCount() {
     sockserver.clients.forEach((client) => {
-        client.send(JSON.stringify({ type: "cC", text: `${clientCount}`}));  // Send message to all clients
+        client.send(`client count: ${clientCount}`);
     });
 }
 

@@ -56,7 +56,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                 </p>
             </section>
         </div>
-
+        <!--
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>
@@ -69,7 +69,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                 </p>
             </section>
         </div>
-
+        -->
         <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>

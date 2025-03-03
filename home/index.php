@@ -16,7 +16,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <h1>
             Home
         </h1>
-        <!--
+
         <div class="fullw sect">
             <section class="fullw">
                 <h2 style="color:red">
@@ -27,8 +27,8 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                 </p>
             </section>
         </div>
-        -->
-        <div class="fullw sect">
+
+        <div class="fullw sect spacing">
             <section class="fullw">
                 <h2>Overview</h2>
                 <p class="fullw">
@@ -84,7 +84,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                     <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube (Alpha)</a><br>
                     <a href="https://gaming.gangdev.co/ultimatePong" target="_blank">Ultimate Pong (Alpha)</a><br>
                     <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a><br>
-                    <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game (Alpha) [Online]</a><br>
+                    <!-- <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game (Alpha) [Online]</a><br> -->
                     <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game (Beta)</a><br>
                 </p>
             </section>
