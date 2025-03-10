@@ -46,7 +46,7 @@ gatewayServer.on("connection", (ws) => {
     });
 });
 
-server.listen(parseInt(p), "localhost", () => {
+server.listen(p, "localhost", () => {
     console.log(`Gateway running on port ${p}`);
     console.log("Available games:", Object.keys(games).join(", "));
 });
