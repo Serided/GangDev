@@ -1,10 +1,10 @@
-const WebSocket = require("ws");
-const http = require("http");
+const wbSkt = require("ws");
+const htp = require("http");
 
 // Setup HTTP server with WebSocket server
-const PORT = 10000;
-const server = http.createServer();
-const gatewayServer = new WebSocket.Server({ server });
+const prt = 10000;
+const srvr = htp.createServer();
+const gatewayServer = new wbSkt.Server({ srvr });
 
 // Define games and their ports
 const games = {
@@ -46,7 +46,7 @@ gatewayServer.on("connection", (ws) => {
     });
 });
 
-server.listen(PORT, () => {
-    console.log(`Gateway running on port ${PORT}`);
+server.listen(prt, () => {
+    console.log(`Gateway running on port ${prt}`);
     console.log("Available games:", Object.keys(games).join(", "));
 });
