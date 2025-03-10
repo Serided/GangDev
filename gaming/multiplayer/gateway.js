@@ -1,7 +1,7 @@
 const WebSocket = require("ws");
 
 // setup websocket server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 const gatewayServer = new WebSocket.Server({ port: PORT });
 
 console.log(`Gateway running on ws://localhost:${PORT} (or ws://gaming.gangdev.co in production);`);
