@@ -23,7 +23,7 @@ gatewayServer.on("connection", (ws) => {
         try {
             const data = JSON.parse(message);
             if (data.game && games[data.game]) {
-                ws.send(JSON.stringify({ redirect: `wss://${process.env.DOMAIN || "localhost"}:${games[data.game].path}` }));
+                ws.send(JSON.stringify({ redirect: `wss://${process.env.DOMAIN || "localhost"}${games[data.game].path}` }));
             } else {
                 ws.send(JSON.stringify({ error: "Invalid game requested." }));
             }
