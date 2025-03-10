@@ -1,21 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game 1</title>
-    <script src="game.js" defer></script> <!-- Loads WebSocket client -->
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        #messages { border: 1px solid #ddd; padding: 10px; margin-top: 10px; height: 200px; overflow-y: auto; }
-    </style>
+    <title>WebSocket Test</title>
 </head>
 <body>
-<h1>Welcome to Game 1</h1>
-<p>WebSocket Status: <span id="status">Not Connected</span></p>
+<h1>WebSocket Test</h1>
+<div id="status">Connecting...</div>
+<div id="messages"></div>
 
-<div id="messages">
-    <p><i>Waiting for messages...</i></p>
-</div>
+<script>
+    const ws = new WebSocket('wss://gaming.gangdev.co/game1');
+
+    ws.onopen = function() {
+        document.getElementById('status').textContent = 'Connected!';
+        console.log('Connected!');
+        ws.send('Hello Server!');
+    };
+
+    ws.onmessage = function(event) {
+        console.log('Message from server: ' + event.data);
+        const messagesEl = document.getElementById('messages');
+        const p = document.createElement('p');
+        p.textContent = event.data;
+        messagesEl.appendChild(p);
+    };
+
+    ws.onerror = function(error) {
+        console.error('WebSocket Error:', error);
+        document.getElementById('status').textContent = 'Error!';
+    };
+
+    ws.onclose = function() {
+        document.getElementById('status').textContent = 'Disconnected!';
+        console.log('Disconnected!');
+    };
+</script>
 </body>
 </html>

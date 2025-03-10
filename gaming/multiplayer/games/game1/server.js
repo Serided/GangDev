@@ -1,8 +1,8 @@
 const WebSocket = require('ws');
-const http = require('http');
 
-const server = http.createServer();
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ port: 10001 });
+
+console.log('WebSocket server listening on port 10001');
 
 wss.on('connection', (ws) => {
     console.log('Client connected to test server');
