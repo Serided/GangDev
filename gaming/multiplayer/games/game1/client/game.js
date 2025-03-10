@@ -35,7 +35,16 @@ serverHttp.on("upgrade", (request, socket, head) => {
     }
 });
 
-// This server does not need to listen on a specific port
-serverHttp.listen(10000, () => {
-    console.log(`${info.name} WebSocket server running on wss://gaming.gangdev.co${info.path}`);
+serverHttp.on("upgrade", (request, socket, head) => {
+    console.log("Received upgrade request:", request.headers);
+
+    if (request.url === info.path) { // Match the path `/game1`
+        console.log(`Upgrading WebSocket connection for ${info.name}`);
+        server.handleUpgrade(request, socket, head, (ws) => {
+            server.emit("connection", ws, request);
+        });
+    } else {
+        console.log(`Invalid upgrade request for ${request.url}`);
+        socket.destroy();
+    }
 });
