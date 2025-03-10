@@ -1,0 +1,15 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+#gameArea {
+    border: 2px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+}
