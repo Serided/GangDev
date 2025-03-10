@@ -4,7 +4,7 @@ const WebSocket = require("ws");
 const PORT = process.env.PORT || 10000;
 const gatewayServer = new WebSocket.Server({ port: PORT });
 
-console.log(`Gateway running on ws://localhost:${PORT} (or ws://gaming.gangdev.co in production);`);
+console.log(`Gateway running on wss://localhost:${PORT} (or wss://gaming.gangdev.co in production);`);
 
 // define games and their ports
 const games = {
@@ -23,7 +23,7 @@ gatewayServer.on("connection", (ws) => {
         try {
             const data = JSON.parse(message);
             if (data.game && games[data.game]) {
-                ws.send(JSON.stringify({ redirect: `ws://${process.env.DOMAIN || "localhost"}:${games[data.game].port}` }));
+                ws.send(JSON.stringify({ redirect: `wss://${process.env.DOMAIN || "localhost"}:${games[data.game].port}` }));
             } else {
                 ws.send(JSON.stringify({ error: "Invalid game requested." }));
             }
