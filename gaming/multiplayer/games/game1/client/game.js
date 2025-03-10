@@ -1,38 +1,52 @@
-const ws = new WebSocket("wss://gaming.gangdev.co/game1");  // Connect to Game1 server
+// First connect to the gateway
+const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 
-ws.onopen = () => {
-    console.log("✅ Connected to Game1 WebSocket server!");
-    ws.send("Hello from the client!");
-    updateStatus("Connected ✅");
+gatewaySocket.onopen = () => {
+    console.log("Connected to gateway");
+    // Request game connection
+    gatewaySocket.send(JSON.stringify({ game: "game1" }));
 };
 
-ws.onmessage = (event) => {
-    console.log("📩 Message from server:", event.data);
-    appendMessage(event.data);
-};
+gatewaySocket.onmessage = (event) => {
+    try {
+        const data = JSON.parse(event.data);
+        console.log("Gateway response:", data);
 
-ws.onerror = (error) => {
-    console.error("❌ WebSocket error:", error);
-    updateStatus("Error ❌");
-};
+        if (data.redirect) {
+            // Close gateway connection
+            gatewaySocket.close();
 
-ws.onclose = () => {
-    console.log("🔌 Disconnected from Game1 WebSocket server.");
-    updateStatus("Disconnected 🔌");
-};
-
-// Helper function to update connection status in the UI
-function updateStatus(status) {
-    const statusEl = document.getElementById("status");
-    if (statusEl) statusEl.innerText = status;
-}
-
-// Helper function to append messages to a chatbox (for debugging)
-function appendMessage(message) {
-    const messagesEl = document.getElementById("messages");
-    if (messagesEl) {
-        const msg = document.createElement("p");
-        msg.textContent = message;
-        messagesEl.appendChild(msg);
+            // Connect to game server
+            connectToGame(data.redirect, data.game);
+        } else if (data.error) {
+            console.error("Gateway error:", data.error);
+        }
+    } catch (err) {
+        console.error("Error parsing gateway message:", err);
     }
+};
+
+function connectToGame(gameUrl, gameName) {
+    const gameSocket = new WebSocket(gameUrl);
+
+    gameSocket.onopen = () => {
+        console.log(`✅ Connected to ${gameName} server!`);
+        gameSocket.send("Hello from client!");
+        updateStatus(`Connected to ${gameName} ✅`);
+    };
+
+    gameSocket.onmessage = (event) => {
+        console.log("📩 Message from server:", event.data);
+        appendMessage(event.data);
+    };
+
+    gameSocket.onerror = (error) => {
+        console.error("❌ WebSocket error:", error);
+        updateStatus("Error ❌");
+    };
+
+    gameSocket.onclose = () => {
+        console.log(`🔌 Disconnected from ${gameName} server.`);
+        updateStatus("Disconnected 🔌");
+    };
 }

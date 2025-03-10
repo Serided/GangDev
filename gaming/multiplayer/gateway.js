@@ -1,34 +1,42 @@
 const WebSocket = require("ws");
+const http = require("http");
 
-// Setup websocket server on a different port than game servers
+// Setup HTTP server with WebSocket server
 const PORT = 10000;
-const gatewayServer = new WebSocket.Server({ port: PORT });
+const server = http.createServer();
+const gatewayServer = new WebSocket.Server({ server });
 
-console.log(`Gateway running on port ${PORT}`);
-
-// Define games and their paths/ports
+// Define games and their ports
 const games = {
     game1: { path: "/game1", port: 10001 },
     game2: { path: "/game2", port: 10002 },
-    // Add other games
+    game3: { path: "/game3", port: 10003 },
+    game4: { path: "/game4", port: 10004 },
+    game5: { path: "/game5", port: 10005 }
 };
 
-// Handle incoming websocket connections
 gatewayServer.on("connection", (ws) => {
     console.log("New client connected to gateway.");
 
     ws.on("message", (message) => {
         try {
             const data = JSON.parse(message);
+            console.log("Gateway received:", data);
+
             if (data.game && games[data.game]) {
                 const domain = process.env.DOMAIN || "gaming.gangdev.co";
+                const gameInfo = games[data.game];
                 ws.send(JSON.stringify({
-                    redirect: `wss://${domain}${games[data.game].path}`
+                    redirect: `wss://${domain}${gameInfo.path}`,
+                    game: data.game
                 }));
+                console.log(`Redirecting client to ${gameInfo.path}`);
             } else {
                 ws.send(JSON.stringify({ error: "Invalid game requested." }));
+                console.log("Invalid game requested:", data.game);
             }
         } catch (err) {
+            console.error("Error processing message:", err);
             ws.send(JSON.stringify({ error: "Invalid message format." }));
         }
     });
@@ -36,4 +44,9 @@ gatewayServer.on("connection", (ws) => {
     ws.on("close", () => {
         console.log("Client disconnected from gateway.");
     });
+});
+
+server.listen(PORT, () => {
+    console.log(`Gateway running on port ${PORT}`);
+    console.log("Available games:", Object.keys(games).join(", "));
 });
