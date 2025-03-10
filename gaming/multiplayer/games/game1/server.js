@@ -1,7 +1,7 @@
 const WebSocket = require('ws');
-const https = require('https');
+const http = require('http');
 
-const server = https.createServer();
+const server = http.createServer();
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
