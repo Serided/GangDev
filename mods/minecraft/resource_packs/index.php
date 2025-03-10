@@ -1,7 +1,7 @@
 <?php
-    $navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
-    $copyright = file_get_contents("https://shared.gangdev.co/html/copyright.html");
-    $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
+$navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
+$footer = file_get_contents("https://shared.gangdev.co/html/footer.html");
+$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 ?>
 <!DOCTYPE html>
     <html lang="en" class="fullw">
@@ -180,6 +180,6 @@
             </section>
         </div>
 
-        <?= $copyright ?>
+        <?= $footer ?>
     </body>
 </html>
