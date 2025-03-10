@@ -1,5 +1,5 @@
 // Establish the WebSocket connection to the gateway server
-const ws = new WebSocket("ws://localhost:10000");  // Connect to the gateway
+const ws = new WebSocket("ws://gaming.gangdev.co:10000");  // Connect to the gateway
 
 ws.onopen = () => {
     console.log("Connected to Gateway!");
