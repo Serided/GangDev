@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game 1</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="game.js" defer></script> <!-- Loads WebSocket client -->
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #messages { border: 1px solid #ddd; padding: 10px; margin-top: 10px; height: 200px; overflow-y: auto; }
+    </style>
 </head>
 <body>
 <h1>Welcome to Game 1</h1>
-<div id="gameArea">
-    <!-- Game content will be here -->
+<p>WebSocket Status: <span id="status">Not Connected</span></p>
+
+<div id="messages">
+    <p><i>Waiting for messages...</i></p>
 </div>
-<script src="game.js"></script>
 </body>
 </html>

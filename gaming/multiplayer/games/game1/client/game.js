@@ -1,50 +1,38 @@
-const WebSocket = require("ws");
+const ws = new WebSocket("wss://gaming.gangdev.co/game1");  // Connect to Game1 server
 
-const info = {
-    name: "game1",
-    path: "/game1" // This path must match Apache's proxy path
+ws.onopen = () => {
+    console.log("✅ Connected to Game1 WebSocket server!");
+    ws.send("Hello from the client!");
+    updateStatus("Connected ✅");
 };
 
-const server = new WebSocket.Server({ noServer: true }); // Do not bind to a specific port
+ws.onmessage = (event) => {
+    console.log("📩 Message from server:", event.data);
+    appendMessage(event.data);
+};
 
-server.on("connection", (ws) => {
-    console.log(`Player connected to ${info.name}`);
+ws.onerror = (error) => {
+    console.error("❌ WebSocket error:", error);
+    updateStatus("Error ❌");
+};
 
-    ws.on("message", (msg) => {
-        console.log(`Received: ${msg}`);
-        ws.send(`Echo from ${info.name}: ${msg}`);
-    });
+ws.onclose = () => {
+    console.log("🔌 Disconnected from Game1 WebSocket server.");
+    updateStatus("Disconnected 🔌");
+};
 
-    ws.on("close", () => {
-        console.log(`Player disconnected from ${info.name}`);
-    });
-});
+// Helper function to update connection status in the UI
+function updateStatus(status) {
+    const statusEl = document.getElementById("status");
+    if (statusEl) statusEl.innerText = status;
+}
 
-// Handle WebSocket upgrade requests forwarded by Apache
-const http = require("http");
-const serverHttp = http.createServer();
-
-// Handle WebSocket upgrade requests forwarded by Apache
-serverHttp.on("upgrade", (request, socket, head) => {
-    if (request.url === info.path) { // Match the path `/game1`
-        server.handleUpgrade(request, socket, head, (ws) => {
-            server.emit("connection", ws, request);
-        });
-    } else {
-        socket.destroy();
+// Helper function to append messages to a chatbox (for debugging)
+function appendMessage(message) {
+    const messagesEl = document.getElementById("messages");
+    if (messagesEl) {
+        const msg = document.createElement("p");
+        msg.textContent = message;
+        messagesEl.appendChild(msg);
     }
-});
-
-serverHttp.on("upgrade", (request, socket, head) => {
-    console.log("Received upgrade request:", request.headers);
-
-    if (request.url === info.path) { // Match the path `/game1`
-        console.log(`Upgrading WebSocket connection for ${info.name}`);
-        server.handleUpgrade(request, socket, head, (ws) => {
-            server.emit("connection", ws, request);
-        });
-    } else {
-        console.log(`Invalid upgrade request for ${request.url}`);
-        socket.destroy();
-    }
-});
+}
