@@ -1,8 +1,8 @@
 const WebSocket = require('ws');
+const https = require('https');
 
-const wss = new WebSocket.Server({ port: 10001 });
-
-console.log('WebSocket server listening on port 10001');
+const server = https.createServer();
+const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
     console.log('Client connected to test server');
