@@ -46,7 +46,7 @@ gatewayServer.on("connection", (ws) => {
     });
 });
 
-server.listen(prt, () => {
+srvr.listen(prt, () => {
     console.log(`Gateway running on port ${prt}`);
     console.log("Available games:", Object.keys(games).join(", "));
 });
