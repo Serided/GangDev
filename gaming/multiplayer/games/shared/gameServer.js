@@ -6,13 +6,21 @@ const fs = require('fs');
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
         // serve static files (HTML, CSS, JS) from the game's client folder
-        let filePath = path.join(clientPath, req.url === '/' ? 'index.html' : req.url);
+        let requestedFile = req.url === '/' ? 'index.html' : req.url;
+        let filePath = path.join(clientPath, requestedFile);
+
+        console.log(`[${name}] Request for: ${req.url}, serving file: ${filePath}`);
+
+        // ensure requested file is inside the client directory
+        if (!filePath.startsWith(clientPath)) {
+            console.error(`[${name}] 403 Forbidden: ${filePath}`);
+            res.writeHead(403, { 'Content-Type': 'text/plain' });
+            res.end('403 Forbidden');
+            return;
+        }
 
         // get file extension
         const ext = path.extname(filePath);
-        let contentType = 'text/html';
-
-        // map file extensions to content types
         const mimeTypes = {
             '.html': 'text/html',
             '.css': 'text/css',
@@ -23,15 +31,15 @@ function createGameServer(port, name, clientPath) {
             '.svg': 'image/svg+xml'
         };
 
-        if (mimeTypes[ext]) {
-            contentType = mimeTypes[ext];
-        }
+        const contentType = mimeTypes[ext] || 'application/octet-stream';
 
         fs.readFile(filePath, (err, data) => {
             if (err) {
+                console.error(`[${name}] 404 Not Found: ${filePath}`);
                 res.writeHead(404, { 'Content-Type': 'text/plain' });
                 res.end('404 Not Found');
             } else {
+                console.log(`[${name}] 200 OK: ${filePath}`);
                 res.writeHead(200, { 'Content-Type': contentType });
                 res.end(data);
             }
@@ -42,7 +50,6 @@ function createGameServer(port, name, clientPath) {
 
     wss.on('connection', (ws) => {
         console.log(`Client connected to ${name} server`);
-
         ws.send(`Welcome to ${name} server`);
 
         ws.on('message', (msg) => {

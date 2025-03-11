@@ -1,15 +1,12 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    padding: 20px;
 }
 
-h1 {
-    color: #333;
-}
-
-#gameArea {
-    border: 2px solid #ccc;
-    padding: 20px;
-    margin-top: 20px;
+#messages {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 10px;
+    height: 200px;
+    overflow-y: auto;
 }
