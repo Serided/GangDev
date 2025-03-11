@@ -7,7 +7,7 @@ gatewaySocket.onopen = () => {
     const loginData = JSON.stringify({
         type: "signin",
         username: "user1",   // Change this dynamically with an input field
-        password: "password1" // Replace with user input
+        password: "hashed_password_1" // Replace with user input
     });
 
     gatewaySocket.send(loginData);
@@ -30,6 +30,3 @@ gatewaySocket.onmessage = (event) => {
 };
 
 console.log(localStorage.getItem("userToken"));
-
-const bcrypt = require('bcrypt');
-bcrypt.hash("MySecurePassword", 10, (err, hash) => console.log(hash));
