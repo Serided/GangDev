@@ -4,14 +4,13 @@ const http = require('http');
 const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('WebSocket server running\n');
-});
-
-const wss = new WebSocket.Server({ server });
+});const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
-    console.log('Client connected to game1 server');
+    console.log('Client connected to test server');
 
-    ws.send('Connected to game1 server');
+    // Send a welcome message
+    ws.send('Connected to test server');
 
     ws.on('message', (message) => {
         console.log('Received:', message.toString());
@@ -25,5 +24,5 @@ wss.on('connection', (ws) => {
 
 // Listen on IPv4 explicitly
 server.listen(10001, '127.0.0.1', () => {
-    console.log('Game1 WebSocket server running on port 10001 (IPv4)');
+    console.log('Test WebSocket server running on port 10001 (IPv4 and IPv6)');
 });
