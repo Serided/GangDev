@@ -1,4 +1,4 @@
-require('dotenv').config({ path: path.join(__dirname, '..', '..', '.env') });  // Load environment variables
+require('dotenv').config();
 const WebSocket = require('ws');
 const http = require('http');
 const path = require('path');
