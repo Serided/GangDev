@@ -70,7 +70,7 @@ function createGameServer(port, name, clientPath) {
         });
     });
 
-    server.listen(port, '127.0.0.1', () => {
+    server.listen(port, '127.0.0.1', () => { //
         console.log(`${name} WebSocket server running on port ${port} (IPv4)`);
     });
 
