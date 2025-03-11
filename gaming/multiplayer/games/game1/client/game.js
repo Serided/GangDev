@@ -9,7 +9,7 @@ gatewaySocket.onopen = () => {
     gatewaySocket.send(JSON.stringify({ game: "game1" }));
 };
 
-// Handle messages from the gateway
+// Handle messages from the gateway (single listener)
 gatewaySocket.onmessage = (event) => {
     try {
         console.log("Raw gateway response:", event.data); // Debugging raw response
@@ -69,7 +69,7 @@ function login() {
     }
 
     const loginData = JSON.stringify({
-        type: "signin",
+        type: "signin", // Make sure the type is correct
         username,
         password
     });
@@ -78,7 +78,7 @@ function login() {
     gatewaySocket.send(loginData);
 }
 
-// Handle login responses from WebSocket
+// Handle login responses from WebSocket (token and errors)
 gatewaySocket.onmessage = (event) => {
     try {
         console.log("Raw server response:", event.data);

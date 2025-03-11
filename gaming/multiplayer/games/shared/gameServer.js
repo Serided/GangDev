@@ -83,14 +83,20 @@ function createGameServer(port, name, clientPath) {
             console.log(`[${name}] Received: `, msg.toString());
 
             // Parse the incoming message
-            const data = JSON.parse(msg);
-            console.log('Parsed data:', data);
+            let data;
+            try {
+                data = JSON.parse(msg);  // This should parse the login message
+                console.log('Parsed data:', data);
+            } catch (err) {
+                console.error('Error parsing message:', err);
+                ws.send(JSON.stringify({ error: 'Invalid message format' }));
+                return;
+            }
 
             if (data.type === 'signin') {
                 const { username, password } = data;
 
                 try {
-                    // Fetch user by username or email
                     const result = await pgClient.query('SELECT * FROM users WHERE username = $1 OR email = $1', [username]);
 
                     if (result.rows.length === 0) {
@@ -99,27 +105,21 @@ function createGameServer(port, name, clientPath) {
                     }
 
                     const user = result.rows[0];
+                    const passwordMatch = await bcrypt.compare(password, user.password);
 
-                    // Check if the password matches
-                    const passwordsMatch = await bcrypt.compare(password, user.password);
-                    if (!passwordsMatch) {
+                    if (passwordMatch) {
+                        const token = generateToken();
+                        await pgClient.query('INSERT INTO session_tokens (user_id, token) VALUES ($1, $2)', [user.id, token]);
+
+                        ws.send(JSON.stringify({ message: 'Logged in', token: token }));
+                    } else {
                         ws.send(JSON.stringify({ error: 'Invalid password' }));
-                        return;
                     }
-
-                    // generate a session token
-                    const token = generateToken();
-
-                    // store token in database
-                    await pgClient.query('INSERT INTO session_tokens (user_id, token) VALUES ($1, $2)', [user.id, token]);
-
-                    ws.send(JSON.stringify({ message: 'Logged in ', token: token }));
                 } catch (err) {
                     console.error('Database error:', err);
                     ws.send(JSON.stringify({ error: 'Internal Server Error' }));
                 }
             } else {
-                // Handle other messages
                 ws.send(JSON.stringify({ error: 'Unknown message type' }));
             }
         });
