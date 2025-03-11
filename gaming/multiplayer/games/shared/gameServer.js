@@ -32,7 +32,7 @@ function createGameServer(port, name, clientPath) {
                 res.writeHead(404, { 'Content-Type': 'text/plain' });
                 res.end('404 Not Found');
             } else {
-                red.writeHead(200, { 'Content-Type': contentType });
+                res.writeHead(200, { 'Content-Type': contentType });
                 res.end(data);
             }
         });
