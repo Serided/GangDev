@@ -15,9 +15,8 @@ gatewaySocket.onmessage = (event) => {
         const data = JSON.parse(event.data);
 
         if (data.redirect) {
-            // Close the gateway connection and use the provided URL to connect to the game server
             gatewaySocket.close();
-            connectToGame(data.redirect);  // Use the provided game server URL to connect
+            connectToGame(data.redirect, data.game);
         } else if (data.error) {
             updateStatus(`Error: ${data.error}`);
         }
@@ -27,16 +26,14 @@ gatewaySocket.onmessage = (event) => {
     }
 };
 
-// Handle the game server connection
-function connectToGame(gameUrl) {
+// Handle game connection
+function connectToGame(gameUrl, gameName) {
     const gameSocket = new WebSocket(gameUrl);
 
     gameSocket.onopen = () => {
-        console.log("Connected to game server!");
-        updateStatus("Connected to game server!");
-
-        // Send an initial message to the game server
+        console.log(`Connected to ${gameName} server!`);
         gameSocket.send("Hello from client!");
+        updateStatus(`Connected to ${gameName}`);
     };
 
     gameSocket.onmessage = (event) => {
@@ -50,9 +47,30 @@ function connectToGame(gameUrl) {
     };
 
     gameSocket.onclose = () => {
-        console.log("Disconnected from game server.");
+        console.log(`Disconnected from ${gameName} server.`);
         updateStatus("Disconnected");
     };
+
+    // Handle cube movement
+    let cubePosition = { x: 250, y: 250 };
+
+    // Update the cube position based on keyboard input
+    document.addEventListener("keydown", (event) => {
+        const moveSpeed = 10;
+
+        if (event.key === "ArrowUp") {
+            cubePosition.y -= moveSpeed;
+        } else if (event.key === "ArrowDown") {
+            cubePosition.y += moveSpeed;
+        } else if (event.key === "ArrowLeft") {
+            cubePosition.x -= moveSpeed;
+        } else if (event.key === "ArrowRight") {
+            cubePosition.x += moveSpeed;
+        }
+
+        // Send updated position to the server
+        gameSocket.send(JSON.stringify({ type: 'move', position: cubePosition }));
+    });
 }
 
 // Update status text
@@ -68,3 +86,6 @@ function appendMessage(msg) {
     messageElement.textContent = msg;
     messagesElement.appendChild(messageElement);
 }
+
+// Check stored login token
+console.log(localStorage.getItem("userToken"));

@@ -45,49 +45,20 @@ function createGameServer(port, name, clientPath) {
         });
     });
 
-    // Set up WebSocket server to handle real-time communication
+    // Set up WebSocket server to handle real-time communication (but not game-specific logic)
     const wss = new WebSocket.Server({ server });
-
-    const clients = {};
 
     wss.on('connection', (ws) => {
         console.log(`[${name}] New client connected`);
 
-        // Generate a unique client ID
-        const clientId = `client_${Date.now()}`;
-        clients[clientId] = { id: clientId, x: Math.random() * 500, y: Math.random() * 500 };
-
-        // Send the client their own cube information
-        ws.send(JSON.stringify({ type: 'init', clientId, cube: clients[clientId] }));
-
-        // Handle incoming messages from the client
+        // Handle incoming messages (but not game-specific logic)
         ws.on('message', (msg) => {
             console.log(`[${name}] Received message:`, msg.toString());
-
-            let data;
-            try {
-                data = JSON.parse(msg);
-            } catch (err) {
-                console.error(`[${name}] Error parsing message:`, err);
-                ws.send(JSON.stringify({ error: 'Invalid message format' }));
-                return;
-            }
-
-            // Update client position if move message is received
-            if (data.type === 'move' && clients[clientId]) {
-                clients[clientId] = { ...clients[clientId], ...data.position };
-            }
-
-            // Broadcast the updated client list to all connected clients
-            for (let id in clients) {
-                ws.send(JSON.stringify({ type: 'update', clients }));
-            }
+            // Currently, no game-specific logic in this file
         });
 
-        // Handle client disconnection
         ws.on('close', () => {
-            console.log(`[${name}] Client ${clientId} disconnected`);
-            delete clients[clientId]; // Clean up the client data
+            console.log(`[${name}] Client disconnected`);
         });
     });
 
