@@ -92,7 +92,6 @@ function createGameServer(port, name, clientPath) {
                 try {
                     // Fetch user by username or email
                     const result = await pgClient.query('SELECT * FROM users WHERE username = $1 OR email = $1', [username]);
-                    console.log('User query result:', result.rows);
 
                     if (result.rows.length === 0) {
                         ws.send(JSON.stringify({ error: 'Invalid username or email' }));
@@ -100,18 +99,21 @@ function createGameServer(port, name, clientPath) {
                     }
 
                     const user = result.rows[0];
+
                     // Check if the password matches
-                    bcrypt.compare(password, user.password, (err, isMatch) => {
-                        if (err) {
-                            console.error('Error comparing passwords:', err);
-                            ws.send(JSON.stringify({ error: 'Internal server error' }));
-                        } else if (isMatch) {
-                            const token = generateToken();  // Generate session token
-                            ws.send(JSON.stringify({ message: 'Logged in', token }));
-                        } else {
-                            ws.send(JSON.stringify({ error: 'Invalid password' }));
-                        }
-                    });
+                    const passwordsMatch = await bcrypt.compare(password, user.password);
+                    if (!passwordsMatch) {
+                        ws.send(JSON.stringify({ error: 'Invalid password' }));
+                        return;
+                    }
+
+                    // generate a session token
+                    const token = generateToken();
+
+                    // store token in database
+                    await pgClient.query('INSERT INTO session_tokens (user_id, token) VALUES ($1, $2)', [user.id, token]);
+
+                    ws.send(JSON.stringify({ message: 'Logged in ', token: token }));
                 } catch (err) {
                     console.error('Database error:', err);
                     ws.send(JSON.stringify({ error: 'Internal Server Error' }));

@@ -1,65 +1,35 @@
-// First connect to the gateway
 const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 
 gatewaySocket.onopen = () => {
     console.log("Connected to gateway");
-    updateStatus("Connected to gateway")
-    // Request game connection
-    gatewaySocket.send(JSON.stringify({ game: "game1" }));
+
+    // Send login request
+    const loginData = JSON.stringify({
+        type: "signin",
+        username: "user1",   // Change this dynamically with an input field
+        password: "password1" // Replace with user input
+    });
+
+    gatewaySocket.send(loginData);
 };
 
 gatewaySocket.onmessage = (event) => {
     try {
         const data = JSON.parse(event.data);
-        console.log("Gateway response:", data);
+        console.log("Server Response:", data);
 
-        if (data.redirect) {
-            // Close gateway connection
-            gatewaySocket.close();
-
-            // Connect to game server
-            connectToGame(data.redirect, data.game);
-        } else if (data.error) {
-            console.error("Gateway error:", data.error);
+        if (data.token) {
+            console.log(`✅ Login successful! Token: ${data.token}`);
+            localStorage.setItem("userToken", data.token); // Store token for future use
+        } else {
+            console.error("❌ Login failed:", data.error);
         }
     } catch (err) {
-        console.error("Error parsing gateway message:", err);
+        console.error("Error parsing server response:", err);
     }
 };
 
-function connectToGame(gameUrl, gameName) {
-    const gameSocket = new WebSocket(gameUrl);
+console.log(localStorage.getItem("userToken"));
 
-    gameSocket.onopen = () => {
-        console.log(`✅ Connected to ${gameName} server!`);
-        gameSocket.send("Hello from client!");
-        updateStatus(`Connected to ${gameName} ✅`);
-    };
-
-    gameSocket.onmessage = (event) => {
-        console.log("📩 Message from server:", event.data);
-        appendMessage(event.data);
-    };
-
-    gameSocket.onerror = (error) => {
-        console.error("❌ WebSocket error:", error);
-        updateStatus("Error ❌");
-    };
-
-    gameSocket.onclose = () => {
-        console.log(`🔌 Disconnected from ${gameName} server.`);
-        updateStatus("Disconnected 🔌");
-    };
-}
-
-function updateStatus(status) {
-    const statusElement = document.getElementById("status");
-    statusElement.textContent = status;
-}
-
-function appendMessage(msg) {
-    const messagesElement = document.getElementById("messages");
-    const messageElement = document.createElement("p");
-    messageElement.textContent = msg;
-    messagesElement.appendChild(messageElement);
-}
+const bcrypt = require('bcrypt');
+bcrypt.hash("MySecurePassword", 10, (err, hash) => console.log(hash));
