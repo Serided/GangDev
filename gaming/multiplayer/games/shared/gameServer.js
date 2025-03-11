@@ -2,35 +2,10 @@ const WebSocket = require('ws');
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
-const { Client } = require('pg');
-
-// PostgreSQL Client Setup
-const pgClient = new Client({
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT,
-});
-
-pgClient.connect()
-    .then(() => {
-        console.log('PostgreSQL connection successful');
-    })
-    .catch((err) => {
-        console.error('PostgreSQL connection error:', err);
-    });
 
 function createGameServer(port, name, clientPath) {
+    // Create HTTP server to serve static files (HTML, CSS, JS)
     const server = http.createServer((req, res) => {
-        if (!clientPath) {
-            console.error(`[${name}] ERROR: clientPath is undefined!`);
-            res.writeHead(500, { 'Content-Type': 'text/plain' });
-            res.end(`500 Internal Server Error: clientPath is undefined!`);
-            return;
-        }
-
-        // Serve static files (HTML, CSS, JS) from the game's client folder
         let requestedFile = req.url === '/' ? 'index.html' : req.url;
         let filePath = path.join(clientPath, requestedFile);
 
@@ -44,7 +19,6 @@ function createGameServer(port, name, clientPath) {
             return;
         }
 
-        // Get file extension
         const ext = path.extname(filePath);
         const mimeTypes = {
             '.html': 'text/html',
@@ -71,57 +45,55 @@ function createGameServer(port, name, clientPath) {
         });
     });
 
+    // Set up WebSocket server to handle real-time communication
     const wss = new WebSocket.Server({ server });
 
-    wss.on('connection', (ws) => {
-        console.log(`Client connected to ${name} server`);
-        ws.send(`Welcome to ${name} server`);
+    const clients = {};
 
-        // Authentication middleware: Validate session token
-        ws.on('message', async (msg) => {
-            console.log(`[${name}] Received: `, msg.toString());
+    wss.on('connection', (ws) => {
+        console.log(`[${name}] New client connected`);
+
+        // Generate a unique client ID
+        const clientId = `client_${Date.now()}`;
+        clients[clientId] = { id: clientId, x: Math.random() * 500, y: Math.random() * 500 };
+
+        // Send the client their own cube information
+        ws.send(JSON.stringify({ type: 'init', clientId, cube: clients[clientId] }));
+
+        // Handle incoming messages from the client
+        ws.on('message', (msg) => {
+            console.log(`[${name}] Received message:`, msg.toString());
 
             let data;
             try {
-                data = JSON.parse(msg);  // Try to parse the incoming message
-                console.log(`[${name}] Parsed data:`, data);
+                data = JSON.parse(msg);
             } catch (err) {
                 console.error(`[${name}] Error parsing message:`, err);
                 ws.send(JSON.stringify({ error: 'Invalid message format' }));
                 return;
             }
 
-            // Check for a valid session token
-            if (data.token) {
-                try {
-                    const result = await pgClient.query('SELECT * FROM session_tokens WHERE token = $1', [data.token]);
-
-                    if (result.rows.length === 0) {
-                        ws.send(JSON.stringify({ error: 'Invalid session token' }));
-                        return;
-                    }
-                    console.log('Session token validated successfully!');
-                } catch (err) {
-                    console.error('Database error:', err);
-                    ws.send(JSON.stringify({ error: 'Internal Server Error' }));
-                    return;
-                }
-            } else {
-                ws.send(JSON.stringify({ error: 'No token provided' }));
-                return;
+            // Update client position if move message is received
+            if (data.type === 'move' && clients[clientId]) {
+                clients[clientId] = { ...clients[clientId], ...data.position };
             }
 
-            // Handle other game messages (if any)
-            ws.send(`[${name}] Echo: ${msg}`);
+            // Broadcast the updated client list to all connected clients
+            for (let id in clients) {
+                ws.send(JSON.stringify({ type: 'update', clients }));
+            }
         });
 
+        // Handle client disconnection
         ws.on('close', () => {
-            console.log(`Client disconnected from ${name} server`);
+            console.log(`[${name}] Client ${clientId} disconnected`);
+            delete clients[clientId]; // Clean up the client data
         });
     });
 
+    // Start the HTTP server
     server.listen(port, '127.0.0.1', () => {
-        console.log(`${name} WebSocket server running on port ${port} (IPv4)`);
+        console.log(`[${name}] WebSocket server running on port ${port}`);
     });
 
     return wss;
