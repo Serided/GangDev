@@ -21,7 +21,7 @@ gatewayServer.on("connection", (ws) => {
     ws.on("message", (message) => {
         try {
             // Parse the message to JSON
-            const data = JSON.parse(message.toString());
+            const data = JSON.parse(message.toString()); // ensure its parsed
             console.log("Gateway received:", data);
 
             if (data.game && games[data.game]) {
@@ -37,8 +37,8 @@ gatewayServer.on("connection", (ws) => {
                 console.log("Invalid game requested:", data.game);
             }
         } catch (err) {
-            console.error("Error processing message:", err);
             ws.send(JSON.stringify({ error: "Invalid message format." }));
+            console.error("Error processing message:", err);
         }
     });
 

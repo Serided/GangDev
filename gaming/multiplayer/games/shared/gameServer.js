@@ -10,26 +10,13 @@ function createGameServer(port, name, clientPath) {
         if (!resolvedPath.startsWith(clientPath)) {
             console.error(`[${name}] 403 Forbidden: ${resolvedPath}`);
             res.writeHead(403, { 'Content-Type': 'text/plain' });
-            res.end('403 Forbidden');
-            return;
+            return res.end('403 Forbidden');
         }
 
-        // serve static files (HTML, CSS, JS) from the game's client folder
         let requestedFile = req.url === '/' ? 'index.html' : req.url;
         let filePath = path.join(clientPath, requestedFile);
 
-        console.log(`[${name}] Request for: ${req.url}, serving file: ${filePath}`);
-
-        // ensure requested file is inside the client directory
-        if (!filePath.startsWith(clientPath)) {
-            console.error(`[${name}] 403 Forbidden: ${filePath}`);
-            res.writeHead(403, { 'Content-Type': 'text/plain' });
-            res.end('403 Forbidden');
-            return;
-        }
-
-        // get file extension
-        const ext = path.extname(filePath);
+        const ext = path.extname(filePath); // get file extension
         const mimeTypes = {
             '.html': 'text/html',
             '.css': 'text/css',
@@ -46,12 +33,10 @@ function createGameServer(port, name, clientPath) {
             if (err) {
                 console.error(`[${name}] 404 Not Found: ${filePath}`);
                 res.writeHead(404, { 'Content-Type': 'text/plain' });
-                res.end('404 Not Found');
-            } else {
-                console.log(`[${name}] 200 OK: ${filePath}`);
-                res.writeHead(200, { 'Content-Type': contentType });
-                res.end(data);
+                return res.end('404 Not Found');
             }
+            res.writeHead(200, { 'Content-Type': contentType });
+            res.end(data);
         });
     });
 
