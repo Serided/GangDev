@@ -1,4 +1,7 @@
 require('dotenv').config();
+console.log("PG_USER:", process.env.PG_USER);
+console.log("PG_DATABASE:", process.env.PG_DATABASE);
+
 const WebSocket = require('ws');
 const http = require('http');
 const path = require('path');
