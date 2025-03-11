@@ -68,6 +68,7 @@ function login() {
         password
     });
 
+    console.log(`Sending login data: ${loginData}`);
     gatewaySocket.send(loginData);
 }
 

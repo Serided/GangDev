@@ -87,40 +87,40 @@ function createGameServer(port, name, clientPath) {
             try {
                 data = JSON.parse(msg);  // This should parse the login message
                 console.log('Parsed data:', data);
+
+                if (data.type === 'signin') {
+                    const { username, password } = data;
+
+                    try {
+                        const result = await pgClient.query('SELECT * FROM users WHERE username = $1 OR email = $1', [username]);
+
+                        if (result.rows.length === 0) {
+                            ws.send(JSON.stringify({ error: 'Invalid username or email' }));
+                            return;
+                        }
+
+                        const user = result.rows[0];
+                        const passwordMatch = await bcrypt.compare(password, user.password);
+
+                        if (passwordMatch) {
+                            const token = generateToken();
+                            await pgClient.query('INSERT INTO session_tokens (user_id, token) VALUES ($1, $2)', [user.id, token]);
+
+                            ws.send(JSON.stringify({ message: 'Logged in', token: token }));
+                        } else {
+                            ws.send(JSON.stringify({ error: 'Invalid password' }));
+                        }
+                    } catch (err) {
+                        console.error('Database error:', err);
+                        ws.send(JSON.stringify({ error: 'Internal Server Error' }));
+                    }
+                } else {
+                    ws.send(JSON.stringify({ error: 'Unknown message type' }));
+                }
             } catch (err) {
                 console.error('Error parsing message:', err);
-                ws.send(JSON.stringify({ error: 'Invalid message format' }));
+                ws.send(JSON.stringify({error: 'Invalid message format'}));
                 return;
-            }
-
-            if (data.type === 'signin') {
-                const { username, password } = data;
-
-                try {
-                    const result = await pgClient.query('SELECT * FROM users WHERE username = $1 OR email = $1', [username]);
-
-                    if (result.rows.length === 0) {
-                        ws.send(JSON.stringify({ error: 'Invalid username or email' }));
-                        return;
-                    }
-
-                    const user = result.rows[0];
-                    const passwordMatch = await bcrypt.compare(password, user.password);
-
-                    if (passwordMatch) {
-                        const token = generateToken();
-                        await pgClient.query('INSERT INTO session_tokens (user_id, token) VALUES ($1, $2)', [user.id, token]);
-
-                        ws.send(JSON.stringify({ message: 'Logged in', token: token }));
-                    } else {
-                        ws.send(JSON.stringify({ error: 'Invalid password' }));
-                    }
-                } catch (err) {
-                    console.error('Database error:', err);
-                    ws.send(JSON.stringify({ error: 'Internal Server Error' }));
-                }
-            } else {
-                ws.send(JSON.stringify({ error: 'Unknown message type' }));
             }
         });
 
