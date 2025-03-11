@@ -1,4 +1,3 @@
-require('dotenv').config({ path: path.join(__dirname, '..', '..', '.env') });  // Load environment variables
 const WebSocket = require('ws');
 const http = require('http');
 const path = require('path');
@@ -9,11 +8,11 @@ const crypto = require('crypto');
 
 // PostgreSQL Client Setup
 const pgClient = new Client({
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT,
+    user: 'your_db_user',
+    host: 'localhost',
+    database: 'gaming_db',
+    password: 'your_db_password',
+    port: 5432,
 });
 
 pgClient.connect()
