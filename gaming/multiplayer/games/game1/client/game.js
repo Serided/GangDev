@@ -7,7 +7,6 @@ gatewaySocket.onopen = () => {
 
     const payload = JSON.stringify({ game: "game1" });
     console.log("Sending message to gateway:", payload); // NEW: Log the actual message
-
     gatewaySocket.send(payload);
 };
 
@@ -17,11 +16,8 @@ gatewaySocket.onmessage = (event) => {
         console.log("Gateway response:", data);
 
         if (data.redirect) {
-            // Close gateway connection
-            gatewaySocket.close();
-
-            // Connect to game server
-            connectToGame(data.redirect, data.game);
+            gatewaySocket.close(); // close gateway connection
+            connectToGame(data.redirect, data.game); // connect to game
         } else if (data.error) {
             console.error("Gateway error:", data.error);
         }
@@ -33,11 +29,9 @@ gatewaySocket.onmessage = (event) => {
 function connectToGame(gameUrl, gameName) {
     console.log(`Connecting to game server: ${gameUrl}`); // Debug log
 
-    // Ensure the URL is formatted correctly
-    if (!gameUrl.startsWith("wss://")) {
+    if (!gameUrl.startsWith("wss://")) { // ensure url formatted properly
         gameUrl = `wss://${window.location.host}${gameUrl}`;
     }
-
     const gameSocket = new WebSocket(gameUrl);
 
     gameSocket.onopen = () => {
