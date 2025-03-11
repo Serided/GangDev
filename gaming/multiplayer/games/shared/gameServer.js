@@ -5,6 +5,13 @@ const fs = require('fs');
 
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
+        if (!clientPath) {
+            console.error(`[${name}] ERROR: clientPath is undefined!`);
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end(`500 Internal Server Error: clientPath is undefined!`);
+            return;
+        }
+
         // serve static files (HTML, CSS, JS) from the game's client folder
         let requestedFile = req.url === '/' ? 'index.html' : req.url;
         let filePath = path.join(clientPath, requestedFile);
