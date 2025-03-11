@@ -9,22 +9,19 @@ const gatewayServer = new wbSkt.Server({ server });
 // Define games and their ports
 const games = {
     game1: { path: "/game1", port: 10001 },
+    game2: { path: "/game2", port: 10002 },
+    game3: { path: "/game3", port: 10003 },
+    game4: { path: "/game4", port: 10004 },
+    game5: { path: "/game5", port: 10005 },
 };
 
 gatewayServer.on("connection", (ws) => {
     console.log("New client connected to gateway.");
 
     ws.on("message", (message) => {
-        message = message.toString(); // Force WebSocket messages to string
-
         try {
-            // Check if the message is a valid JSON string
-            if (typeof message !== 'string' || (message[0] !== '{' && message[0] !== '[')) {
-                throw new Error('Invalid JSON format');
-            }
-
             // Parse the message to JSON
-            const data = JSON.parse(message);
+            const data = JSON.parse(message.toString());
             console.log("Gateway received:", data);
 
             if (data.game && games[data.game]) {
