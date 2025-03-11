@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Game 1</title>
-        <script src="/multiplayer/games/game1/client/game.js" defer></script> <!-- Loads WebSocket client -->
-        <link rel="stylesheet" href="/multiplayer/games/game1/client/style.css">
-    </head>
-    <body>
-        <h1>Welcome to Game 1</h1>
-        <p>WebSocket Status: <span id="status">Not Connected</span></p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game 1</title>
 
-        <div id="messages">
-            <p><i>Waiting for messages...</i></p>
-        </div>
-    </body>
+    <script src="/multiplayer/games/game1/client/game.js" defer></script> <!-- Loads WebSocket client -->
+    <link rel="stylesheet" href="/multiplayer/games/game1/client/style.css">
+</head>
+<body>
+
+<h1>Welcome to Game 1</h1>
+
+<!-- Login Form -->
+<div class="login-container">
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+</div>
+
+<p>WebSocket Status: <span id="status">Not Connected</span></p>
+
+<!-- Messages Container -->
+<div id="messages">
+    <p><i>Waiting for messages...</i></p>
+</div>
+
+</body>
 </html>
