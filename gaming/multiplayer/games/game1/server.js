@@ -21,6 +21,6 @@ wss.on('connection', (ws) => {
 });
 
 // Listen on IPv4 explicitly
-server.listen(10001, 'localhost', () => {
+server.listen(10001, '127.0.0.1', () => {
     console.log('Test WebSocket server running on port 10001 (IPv4 and IPv6)');
 });

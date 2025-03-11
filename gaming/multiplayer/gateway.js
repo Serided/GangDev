@@ -52,7 +52,7 @@ gatewayServer.on("connection", (ws) => {
     });
 });
 
-server.listen(p, "localhost", () => {
+server.listen(p, "127.0.0.1", () => {
     console.log(`Gateway running on port ${p}`);
     console.log("Available games:", Object.keys(games).join(", "));
 });
