@@ -30,8 +30,15 @@ gatewaySocket.onmessage = (event) => {
     }
 };
 
-function connectToGame(gamePath, gameName) {
-    const gameSocket = new WebSocket(`wss://${window.location.host}${gamePath}`);
+function connectToGame(gameUrl, gameName) {
+    console.log(`Connecting to game server: ${gameUrl}`); // Debug log
+
+    // Ensure the URL is formatted correctly
+    if (!gameUrl.startsWith("wss://")) {
+        gameUrl = `wss://${window.location.host}${gameUrl}`;
+    }
+
+    const gameSocket = new WebSocket(gameUrl);
 
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName} server!`);
