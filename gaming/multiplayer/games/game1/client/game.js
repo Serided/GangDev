@@ -27,8 +27,8 @@ gatewaySocket.onmessage = (event) => {
     }
 };
 
-function connectToGame(gameUrl, gameName) {
-    const gameSocket = new WebSocket(gameUrl);
+function connectToGame(gamePath, gameName) {
+    const gameSocket = new WebSocket(`wss://${window.location.host}${gamePath}`);
 
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName} server!`);
@@ -37,13 +37,13 @@ function connectToGame(gameUrl, gameName) {
     };
 
     gameSocket.onmessage = (event) => {
-        console.log("📩 Message from server:", event.data);
+        console.log("Message from server:", event.data);
         appendMessage(event.data);
     };
 
-    gameSocket.onerror = (error) => {
-        console.error("WebSocket error:", error);
-        updateStatus("Error");
+    gameSocket.onerror = (event) => {
+        console.error("WebSocket error:", event);
+        updateStatus("Game server connection failed. Check if the server is running.");
     };
 
     gameSocket.onclose = () => {
