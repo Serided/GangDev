@@ -15,6 +15,8 @@ gatewayServer.on("connection", (ws) => {
     console.log("New client connected to gateway.");
 
     ws.on("message", (message) => {
+        message = message.toString(); // Force WebSocket messages to string
+
         try {
             // Check if the message is a valid JSON string
             if (typeof message !== 'string' || (message[0] !== '{' && message[0] !== '[')) {

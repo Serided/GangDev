@@ -3,9 +3,12 @@ const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 
 gatewaySocket.onopen = () => {
     console.log("Connected to gateway");
-    updateStatus("Connected to gateway")
-    // Request game connection
-    gatewaySocket.send(JSON.stringify({ game: "game1" }));
+    updateStatus("Connected to gateway");
+
+    const payload = JSON.stringify({ game: "game1" });
+    console.log("Sending message to gateway:", payload); // NEW: Log the actual message
+
+    gatewaySocket.send(payload);
 };
 
 gatewaySocket.onmessage = (event) => {
