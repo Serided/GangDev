@@ -3,19 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game 1</title>
-    <script src="game.js" defer></script> <!-- Loads WebSocket client -->
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        #messages { border: 1px solid #ddd; padding: 10px; margin-top: 10px; height: 200px; overflow-y: auto; }
-    </style>
+    <title>Game 2 - Multiplayer Game</title>
+
+    <script src="/multiplayer/games/game2/client/game.js" defer></script> <!-- Loads WebSocket client -->
+    <link rel="stylesheet" href="/multiplayer/games/game2/client/style.css"> <!-- Link to your CSS -->
 </head>
 <body>
+
 <h1>Welcome to Game 2</h1>
+
 <p>WebSocket Status: <span id="status">Not Connected</span></p>
 
+<!-- Messages Container -->
 <div id="messages">
     <p><i>Waiting for messages...</i></p>
 </div>
+
+<!-- Game Canvas -->
+<div id="gameContainer">
+    <canvas id="gameCanvas" width="500" height="500"></canvas> <!-- Canvas for the game -->
+</div>
+
 </body>
 </html>
