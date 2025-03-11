@@ -3,7 +3,7 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 
-function createGameServer(port, name) {
+function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
         // serve static files (HTML, CSS, JS) from the game's client folder
         let filePath = path.join(clientPath, req.url === '/' ? 'index.html' : req.url);
