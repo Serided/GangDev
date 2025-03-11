@@ -20,6 +20,12 @@ gatewayServer.on("connection", (ws) => {
 
     ws.on("message", (message) => {
         try {
+            // Check if the message is a valid JSON string
+            if (typeof message !== 'string' || (message[0] !== '{' && message[0] !== '[')) {
+                throw new Error('Invalid JSON format');
+            }
+
+            // Parse the message to JSON
             const data = JSON.parse(message);
             console.log("Gateway received:", data);
 
