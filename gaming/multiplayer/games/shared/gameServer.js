@@ -4,14 +4,21 @@ const path = require('path');
 const fs = require('fs');
 
 function createGameServer(port, name, clientPath) {
-    // Create HTTP server to serve static files (HTML, CSS, JS)
     const server = http.createServer((req, res) => {
+        if (!clientPath) {
+            console.error(`[${name}] ERROR: clientPath is undefined!`);
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end(`500 Internal Server Error: clientPath is undefined!`);
+            return;
+        }
+
+        // serve static files (HTML, CSS, JS) from the game's client folder
         let requestedFile = req.url === '/' ? 'index.html' : req.url;
         let filePath = path.join(clientPath, requestedFile);
 
         console.log(`[${name}] Request for: ${req.url}, serving file: ${filePath}`);
 
-        // Ensure requested file is inside the client directory
+        // ensure requested file is inside the client directory
         if (!filePath.startsWith(clientPath)) {
             console.error(`[${name}] 403 Forbidden: ${filePath}`);
             res.writeHead(403, { 'Content-Type': 'text/plain' });
@@ -19,6 +26,7 @@ function createGameServer(port, name, clientPath) {
             return;
         }
 
+        // get file extension
         const ext = path.extname(filePath);
         const mimeTypes = {
             '.html': 'text/html',
@@ -45,26 +53,24 @@ function createGameServer(port, name, clientPath) {
         });
     });
 
-    // Set up WebSocket server to handle real-time communication (but not game-specific logic)
     const wss = new WebSocket.Server({ server });
 
     wss.on('connection', (ws) => {
-        console.log(`[${name}] New client connected`);
+        console.log(`Client connected to ${name} server`);
+        ws.send(`Welcome to ${name} server`);
 
-        // Handle incoming messages (but not game-specific logic)
         ws.on('message', (msg) => {
-            console.log(`[${name}] Received message:`, msg.toString());
-            // Currently, no game-specific logic in this file
+            console.log(`[${name}] Received: `, msg.toString());
+            ws.send(`[${name}] Echo: ${msg}`);
         });
 
         ws.on('close', () => {
-            console.log(`[${name}] Client disconnected`);
+            console.log(`Client disconnected from ${name} server`);
         });
     });
 
-    // Start the HTTP server
     server.listen(port, '127.0.0.1', () => {
-        console.log(`[${name}] WebSocket server running on port ${port}`);
+        console.log(`${name} WebSocket server running on port ${port} (IPv4)`);
     });
 
     return wss;
