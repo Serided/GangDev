@@ -5,10 +5,12 @@ const fs = require('fs');
 
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
-        if (!clientPath) {
-            console.error(`[${name}] ERROR: clientPath is undefined!`);
-            res.writeHead(500, { 'Content-Type': 'text/plain' });
-            res.end(`500 Internal Server Error: clientPath is undefined!`);
+        let resolvedPath = path.resolve(clientPath, "." + req.url);
+
+        if (!resolvedPath.startsWith(clientPath)) {
+            console.error(`[${name}] 403 Forbidden: ${resolvedPath}`);
+            res.writeHead(403, { 'Content-Type': 'text/plain' });
+            res.end('403 Forbidden');
             return;
         }
 
