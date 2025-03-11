@@ -28,26 +28,25 @@ pgClient.connect()
         console.error('PostgreSQL connection error:', err);
     });
 
+// Function to generate session token
 function generateToken() {
     return crypto.randomBytes(16).toString('hex'); // 16-byte token
 }
 
+// Create Game Server
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
-        // Serve static files (HTML, CSS, JS) from the game's client folder
         let requestedFile = req.url === '/' ? 'index.html' : req.url;
         let filePath = path.join(clientPath, requestedFile);
 
         console.log(`[${name}] Request for: ${req.url}, serving file: ${filePath}`);
 
-        // Ensure requested file is inside the client directory
         if (!filePath.startsWith(clientPath)) {
             res.writeHead(403, { 'Content-Type': 'text/plain' });
             res.end('403 Forbidden');
             return;
         }
 
-        // Get file extension
         const ext = path.extname(filePath);
         const mimeTypes = {
             '.html': 'text/html',
@@ -80,47 +79,49 @@ function createGameServer(port, name, clientPath) {
         console.log(`Client connected to ${name} server`);
 
         ws.on('message', async (msg) => {
-            console.log(`[${name}] Received: `, msg.toString());
+            console.log(`[${name}] Received raw message:`, msg.toString());  // Log the raw message for debugging
 
-            // Parse the incoming message
             let data;
             try {
-                data = JSON.parse(msg);  // This should parse the login message
-                console.log('Parsed data:', data);
-
-                if (data.type === 'signin') {
-                    const { username, password } = data;
-
-                    try {
-                        const result = await pgClient.query('SELECT * FROM users WHERE username = $1 OR email = $1', [username]);
-
-                        if (result.rows.length === 0) {
-                            ws.send(JSON.stringify({ error: 'Invalid username or email' }));
-                            return;
-                        }
-
-                        const user = result.rows[0];
-                        const passwordMatch = await bcrypt.compare(password, user.password);
-
-                        if (passwordMatch) {
-                            const token = generateToken();
-                            await pgClient.query('INSERT INTO session_tokens (user_id, token) VALUES ($1, $2)', [user.id, token]);
-
-                            ws.send(JSON.stringify({ message: 'Logged in', token: token }));
-                        } else {
-                            ws.send(JSON.stringify({ error: 'Invalid password' }));
-                        }
-                    } catch (err) {
-                        console.error('Database error:', err);
-                        ws.send(JSON.stringify({ error: 'Internal Server Error' }));
-                    }
-                } else {
-                    ws.send(JSON.stringify({ error: 'Unknown message type' }));
-                }
+                data = JSON.parse(msg);  // Attempt to parse the incoming message
+                console.log(`[${name}] Parsed data:`, data);  // Log the parsed data for debugging
             } catch (err) {
-                console.error('Error parsing message:', err);
-                ws.send(JSON.stringify({error: 'Invalid message format'}));
+                console.error(`[${name}] Error parsing message:`, err);
+                ws.send(JSON.stringify({ error: 'Invalid message format' }));
                 return;
+            }
+
+            if (data.type === 'signin') {
+                const { username, password } = data;
+
+                try {
+                    // Fetch user from the database by username or email
+                    const result = await pgClient.query('SELECT * FROM users WHERE username = $1 OR email = $1', [username]);
+
+                    if (result.rows.length === 0) {
+                        ws.send(JSON.stringify({ error: 'Invalid username or email' }));
+                        return;
+                    }
+
+                    const user = result.rows[0];
+
+                    // Compare hashed password
+                    const passwordMatch = await bcrypt.compare(password, user.password);
+
+                    if (passwordMatch) {
+                        const token = generateToken();
+                        await pgClient.query('INSERT INTO session_tokens (user_id, token) VALUES ($1, $2)', [user.id, token]);
+
+                        ws.send(JSON.stringify({ message: 'Logged in', token: token }));
+                    } else {
+                        ws.send(JSON.stringify({ error: 'Invalid password' }));
+                    }
+                } catch (err) {
+                    console.error('Database error:', err);
+                    ws.send(JSON.stringify({ error: 'Internal Server Error' }));
+                }
+            } else {
+                ws.send(JSON.stringify({ error: 'Unknown message type' }));
             }
         });
 
