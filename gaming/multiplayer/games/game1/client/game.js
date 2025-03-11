@@ -15,8 +15,9 @@ gatewaySocket.onmessage = (event) => {
         const data = JSON.parse(event.data);
 
         if (data.redirect) {
+            // Close the gateway connection and use the provided URL to connect to the game server
             gatewaySocket.close();
-            connectToGame(data.redirect, data.game);
+            connectToGame(data.redirect);  // Use the provided game server URL to connect
         } else if (data.error) {
             updateStatus(`Error: ${data.error}`);
         }
@@ -26,14 +27,16 @@ gatewaySocket.onmessage = (event) => {
     }
 };
 
-// Handle game connection
-function connectToGame(gameUrl, gameName) {
+// Handle the game server connection
+function connectToGame(gameUrl) {
     const gameSocket = new WebSocket(gameUrl);
 
     gameSocket.onopen = () => {
-        console.log(`Connected to ${gameName} server!`);
+        console.log("Connected to game server!");
+        updateStatus("Connected to game server!");
+
+        // Send an initial message to the game server
         gameSocket.send("Hello from client!");
-        updateStatus(`Connected to ${gameName}`);
     };
 
     gameSocket.onmessage = (event) => {
@@ -47,47 +50,10 @@ function connectToGame(gameUrl, gameName) {
     };
 
     gameSocket.onclose = () => {
-        console.log(`Disconnected from ${gameName} server.`);
+        console.log("Disconnected from game server.");
         updateStatus("Disconnected");
     };
 }
-
-// Handle login submission
-function login() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    if (!username || !password) {
-        updateStatus("Enter username and password");
-        return;
-    }
-
-    const loginData = JSON.stringify({
-        type: "signin",
-        username,
-        password
-    });
-
-    console.log(`Sending login data: ${loginData}`);
-    gatewaySocket.send(loginData);
-}
-
-// Handle login responses from WebSocket
-gatewaySocket.onmessage = (event) => {
-    try {
-        const data = JSON.parse(event.data);
-
-        if (data.token) {
-            localStorage.setItem("userToken", data.token);
-            updateStatus("Logged in successfully!");
-        } else {
-            updateStatus(`Login failed: ${data.error}`);
-        }
-    } catch (err) {
-        console.error("Error parsing server response:", err);
-        updateStatus("Error");
-    }
-};
 
 // Update status text
 function updateStatus(status) {
@@ -102,6 +68,3 @@ function appendMessage(msg) {
     messageElement.textContent = msg;
     messagesElement.appendChild(messageElement);
 }
-
-// Check stored login token
-console.log(localStorage.getItem("userToken"));
