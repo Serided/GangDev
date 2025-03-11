@@ -5,11 +5,10 @@ const fs = require('fs');
 
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
-        let normalizedPath = path.normalize(filePath);
-        if (!normalizedPath.startsWith(clientPath)) {
-            console.error(`[${name}] 403 Forbidden: ${filePath}`);
-            res.writeHead(403, { 'Content-Type': 'text/plain' });
-            res.end('403 Forbidden');
+        if (!clientPath) {
+            console.error(`[${name}] ERROR: clientPath is undefined!`);
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end(`500 Internal Server Error: clientPath is undefined!`);
             return;
         }
 
@@ -70,7 +69,7 @@ function createGameServer(port, name, clientPath) {
         });
     });
 
-    server.listen(port, '127.0.0.1', () => { //
+    server.listen(port, '127.0.0.1', () => {
         console.log(`${name} WebSocket server running on port ${port} (IPv4)`);
     });
 
