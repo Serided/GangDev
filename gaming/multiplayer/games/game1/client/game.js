@@ -9,26 +9,20 @@ gatewaySocket.onopen = () => {
     gatewaySocket.send(JSON.stringify({ game: "game1" }));
 };
 
-// Handle messages from the gateway (single listener)
+// Handle messages from the gateway
 gatewaySocket.onmessage = (event) => {
     try {
-        console.log("Raw gateway response:", event.data); // Debugging raw response
         const data = JSON.parse(event.data);
-        console.log("Parsed Gateway Response:", data);
 
         if (data.redirect) {
-            // Close gateway connection
             gatewaySocket.close();
-
-            // Connect to the game server
             connectToGame(data.redirect, data.game);
         } else if (data.error) {
-            console.error("Gateway error:", data.error);
-            updateStatus(`Gateway Error ❌`);
+            updateStatus(`Error: ${data.error}`);
         }
     } catch (err) {
         console.error("Error parsing gateway message:", err);
-        updateStatus("Error ❌");
+        updateStatus("Error");
     }
 };
 
@@ -37,24 +31,24 @@ function connectToGame(gameUrl, gameName) {
     const gameSocket = new WebSocket(gameUrl);
 
     gameSocket.onopen = () => {
-        console.log(`✅ Connected to ${gameName} server!`);
+        console.log(`Connected to ${gameName} server!`);
         gameSocket.send("Hello from client!");
-        updateStatus(`Connected to ${gameName} ✅`);
+        updateStatus(`Connected to ${gameName}`);
     };
 
     gameSocket.onmessage = (event) => {
-        console.log("📩 Message from server:", event.data);
+        console.log("Message from server:", event.data);
         appendMessage(event.data);
     };
 
     gameSocket.onerror = (error) => {
-        console.error("❌ WebSocket error:", error);
-        updateStatus("Error ❌");
+        console.error("WebSocket error:", error);
+        updateStatus("Error");
     };
 
     gameSocket.onclose = () => {
-        console.log(`🔌 Disconnected from ${gameName} server.`);
-        updateStatus("Disconnected 🔌");
+        console.log(`Disconnected from ${gameName} server.`);
+        updateStatus("Disconnected");
     };
 }
 
@@ -64,38 +58,33 @@ function login() {
     const password = document.getElementById("password").value;
 
     if (!username || !password) {
-        updateStatus("⚠️ Enter username and password");
+        updateStatus("Enter username and password");
         return;
     }
 
     const loginData = JSON.stringify({
-        type: "signin", // Make sure the type is correct
+        type: "signin",
         username,
         password
     });
 
-    console.log("🔄 Sending login request:", loginData);
     gatewaySocket.send(loginData);
 }
 
-// Handle login responses from WebSocket (token and errors)
+// Handle login responses from WebSocket
 gatewaySocket.onmessage = (event) => {
     try {
-        console.log("Raw server response:", event.data);
         const data = JSON.parse(event.data);
-        console.log("Parsed Server Response:", data);
 
         if (data.token) {
-            console.log(`✅ Login successful! Token: ${data.token}`);
             localStorage.setItem("userToken", data.token);
-            updateStatus("✅ Logged in!");
+            updateStatus("Logged in successfully!");
         } else {
-            console.error("❌ Login failed:", data.error);
-            updateStatus(`❌ ${data.error}`);
+            updateStatus(`Login failed: ${data.error}`);
         }
     } catch (err) {
         console.error("Error parsing server response:", err);
-        updateStatus("Error ❌");
+        updateStatus("Error");
     }
 };
 
@@ -114,4 +103,4 @@ function appendMessage(msg) {
 }
 
 // Check stored login token
-console.log("Stored Token:", localStorage.getItem("userToken"));
+console.log(localStorage.getItem("userToken"));
