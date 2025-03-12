@@ -104,16 +104,18 @@ form input {
     padding: calc(var(--scaling) * 0.5);
     background: gray;
     border-radius: calc(var(--scaling) * 0.5);
-    transform: translate(-50%, 0);
+    transform: translate(-50%, 100%);
     white-space: nowrap;
     transition: all 0.8s ease;
+    display: none;
 }
 
 .tooltip:hover .tooltipText {
+    display: inline-block;
     visibility: visible;
     opacity: 0.8;
 }
 
 .create:hover {
-    transform: scale(1.05) translate(-48%, 100%);
+    transform: scale(1.05) translateX(-48%);
 }
