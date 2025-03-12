@@ -116,7 +116,7 @@ chatInput.addEventListener("keypress", (event) => {
 });
 
 function sendMessage() {
-    const message = JSON.stringify({ type: 'message', message: chatInput.value.trim()});
+    const message = { type: 'message', message: chatInput.value.trim()};
     if (message) {
         console.log("Sending message:", message);
         activeSocket.send(message);
