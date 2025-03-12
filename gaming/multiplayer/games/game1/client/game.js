@@ -23,7 +23,7 @@ gatewaySocket.onmessage = (event) => {
         } else if (data.error) {
             console.error("Gateway error:", data.error);
         } else if (data.message) {
-            appendMessage(data.message.toString());
+            appendMessage(data.message);
         }
     } catch (err) {
         console.error("Error parsing gateway message:", err);
@@ -47,6 +47,11 @@ function connectToGame(gameUrl, gameName) {
 
     gameSocket.onmessage = (event) => {
         console.log("Message from server:", event.data);
+        let message = event.data;
+
+        if (message instanceof Blob) { // if blob convert to string
+            message = message.text();
+        }
         appendMessage(event.data);
     };
 
@@ -105,6 +110,7 @@ function sendMessage() {
     const message = chatInput.value.trim();
     if (message) {
         console.log("Sending message:", message);
+        appendMessage(message);
         activeSocket.send(JSON.stringify({message: message}));
         chatInput.value = ""; // clear input after sending
     }
