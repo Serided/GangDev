@@ -50,7 +50,7 @@ function createGameServer(port, name, clientPath) {
 
         //broadcastPlayerCount(wss);
 
-        ws.send(`Welcome to ${name}!`);
+        ws.send({ type: 'chatMessage', data: `Welcome to ${name}!`});
 
         ws.on('message', (msg) => {
             console.log(`[${name}] Received: `, msg.toString());
