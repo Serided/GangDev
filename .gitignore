@@ -1,3 +1,2 @@
 /apps/universalChat/tmp/
-/websockets/firstMultiplayerChat/yarn.lock
-/websockets/firstMultiplayerChat/package-lock.json
+/shared/login/.env
