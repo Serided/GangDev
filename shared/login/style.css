@@ -1,0 +1,114 @@
+:root {
+    --scaling: 1.5vh;
+}
+
+/* phone */
+@media screen and (max-width: 768px) {
+    :root {
+        --scaling: 2vw;
+    }
+}
+
+/* phone portrait */
+@media screen and (max-width: 480px) {
+    :root {
+        --scaling: 2.5vw;
+    }
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+h1 {
+    font-size: calc(var(--scaling) * 6) !important;
+    padding: 0 !important;
+}
+
+h2 {
+    font-size: calc(var(--scaling) * 3) !important;
+    padding: 0 !important;
+}
+
+hr {
+    width: calc(var(--scaling) * 20);
+    height: calc(var(--scaling) * 1);
+    margin: calc(var(--scaling) * 1) 0 calc(var(--scaling) * 3) 0;
+    background: black;
+    border: none;
+    border-radius: calc(var(--scaling) * 0.35);
+}
+
+.loginContainer {
+    justify-items: center;
+    display: inline-block;
+    background: #5ac8e3;
+    border-radius: calc(var(--scaling) * 0.35);
+    padding: calc(var(--scaling) * 5);
+}
+
+form label {
+    font-size: calc(var(--scaling) * 2);
+}
+form input {
+    margin-top: calc(var(--scaling) * 0.5);
+    border-radius: calc(var(--scaling) * 0.35);
+    border: none;
+    height: calc(var(--scaling) * 3);
+    font-size: calc(var(--scaling) * 2);
+    background: whitesmoke;
+}
+
+.forgot {
+    font-size: calc(var(--scaling) * 1);
+    margin-bottom: calc(var(--scaling) * 2);
+    padding-left: calc(var(--scaling) * 0.1);
+    cursor: pointer;
+}
+
+.create {
+    font-size: calc(var(--scaling) * 2) !important;
+    padding: calc(var(--scaling) * 0.6);
+    text-decoration: none;
+    position: absolute;
+    transform: translateX(-50%);
+    background: gray;
+    color: white;
+    border-radius: calc(var(--scaling) * 1);
+    box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) dimgray;
+}
+
+.tooltip {
+    font-size: calc(var(--scaling) * 1.5);
+    transform: translate(-50%, -50%);
+    right: calc(var(--scaling) * 1);
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.tooltipText {
+    opacity: 0;
+    font-weight: normal;
+    position: absolute;
+    font-size: calc(var(--scaling) * 1.5);
+    padding: calc(var(--scaling) * 0.5);
+    background: gray;
+    border-radius: calc(var(--scaling) * 0.5);
+    transform: translate(-50%, 100%);
+    white-space: nowrap;
+    transition: all 0.8s ease;
+}
+
+.tooltip:hover .tooltipText {
+    visibility: visible;
+    opacity: 0.8;
+}
