@@ -28,7 +28,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 a {
@@ -73,8 +73,8 @@ form input {
     border: none;
     height: calc(var(--scaling) * 3);
     font-size: calc(var(--scaling) * 2);
-    background: whitesmoke;
     justify-items: left;
+    background: whitesmoke;
     transition: all 0.2s ease;
 }
 
@@ -149,6 +149,9 @@ form input {
     font-size: calc(var(--scaling) * 1);
 }
 .terms {
+    font-size: calc(var(--scaling) * 0.9);
+}
+.privacy {
     font-size: calc(var(--scaling) * 0.9);
 }
 .subscribe {

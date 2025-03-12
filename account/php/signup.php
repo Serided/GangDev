@@ -42,7 +42,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                     </span>
                 </span>
                 <br>
-                <input type="text" id="email" name="email" required><br><br>
+                <input type="email" id="email" name="email" required><br><br>
 
                 <label for="password">Password: </label>
                 <span class="tooltip">ⓘ
@@ -51,7 +51,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                     </span>
                 </span>
                 <br>
-                <input type="text" id="password" name="password" required>
+                <input type="password" id="password" name="password" required>
                 <div></div>
 
                 <button type="submit" class="submit">Ya</button>
@@ -59,7 +59,12 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                     <label class="customCheckbox">
                         <input type="checkbox" id="terms" name="terms" required>
                         <span class="checkmark"></span>
-                        <label for="checkbox" class="terms">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/tos.php" target="_blank">Terms Of Service</a>.</label>
+                        <label for="terms" class="terms">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/tos.php" target="_blank">Terms Of Service</a>.</label>
+                    </label><br>
+                    <label class="customCheckbox">
+                        <input type="checkbox" id="privacy" name="privacy" required>
+                        <span class="checkmark"></span>
+                        <label for="privacy" class="privacy">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/pp.php" target="_blank">Privacy Policy</a>.</label>
                     </label><br>
                     <label class="customCheckbox">
                         <input type="checkbox" id="subscribe" name="subscribe">
