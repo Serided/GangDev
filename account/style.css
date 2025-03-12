@@ -106,7 +106,7 @@ form input {
     border-radius: calc(var(--scaling) * 0.5);
     transform: translate(-50%, 0) scale(0);
     white-space: nowrap;
-    transition: all 0.8s ease;
+    transition: all 0.4s ease;
 }
 
 .tooltip:hover .tooltipText {
