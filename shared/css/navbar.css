@@ -157,5 +157,6 @@ nav input:checked + .hamburger-btn + .sidebar.two {
 
 #login {
     bottom: 0.5vh;
+    left: 0.5vh;
     position: absolute;
 }
