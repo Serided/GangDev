@@ -76,6 +76,33 @@ function connectToGame(gameUrl, gameName) {
     };
 }
 
+
+const chatButton = document.getElementById("chatButton");
+const chatPanel = document.getElementById("chatPanel");
+const sendButton = document.getElementById("sendButton");
+const chatInput = document.getElementById("chatInput");
+
+
+chatButton.addEventListener("click", (event) => {
+    if (chatPanel.style.right === "0vw") {
+        chatPanel.style.right = "-30vw";
+    } else {
+        chatPanel.style.right = "0vw";
+    }
+});
+sendButton.addEventListener("click", sendMessage);
+chatInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+});
+window.addEventListener("resize", (event) => {
+    const gameCanvas = document.getElementById("gameCanvas");
+    gameCanvas.width = window.innerWidth;
+    gameCanvas.height = window.innerHeight;
+});
+
+
 function updateStatus(status) {
     const statusElement = document.getElementById("status");
 
@@ -85,36 +112,15 @@ function updateStatus(status) {
 
 function updatePlayerCount(count) {
     const playerCountElement = document.getElementById("playerCount");
-    playerCountElement.textContent = count;
+    playerCountElement.textContent = count.toString();
 }
 
 function appendMessage(msg) {
     const messagesElement = document.getElementById("messages");
     const messageElement = document.createElement("p");
-    messageElement.textContent = msg;
+    messageElement.textContent = msg.toString();
     messagesElement.appendChild(messageElement);
 }
-
-const chatButton = document.getElementById("chatButton");
-const chatPanel = document.getElementById("chatPanel");
-
-chatButton.addEventListener("click", (event) => {
-    if (chatPanel.style.right === "0vw") {
-        chatPanel.style.right = "-30vw";
-    } else {
-        chatPanel.style.right = "0vw";
-    }
-});
-
-const sendButton = document.getElementById("sendButton");
-const chatInput = document.getElementById("chatInput");
-
-sendButton.addEventListener("click", sendMessage);
-chatInput.addEventListener("keypress", (event) => {
-    if (event.key === "Enter") {
-        sendMessage();
-    }
-});
 
 function sendData(type, data) {
     if (activeSocket && activeSocket.readyState === WebSocket.OPEN) {
@@ -132,9 +138,3 @@ function sendMessage() {
         chatInput.value = ""; // clear input after sending
     }
 }
-
-window.addEventListener("resize", (event) => {
-    const gameCanvas = document.getElementById("gameCanvas");
-    gameCanvas.width = window.innerWidth;
-    gameCanvas.height = window.innerHeight;
-})
