@@ -9,7 +9,7 @@ loginForm.addEventListener('submit', (e) => {
 
     const payload = JSON.stringify({
         username: username,
-        game: `https://game.gangdev.co/game1`,
+        game: redirectUrl
     });
 
     console.log("Sending data to gateway:", payload);
@@ -24,7 +24,7 @@ loginForm.addEventListener('submit', (e) => {
         console.log("Gateway response:", data);
 
         if (data.redirect) {
-            window.location.href = `${data.redirect}?username=${username}`; // redirect to game
+            window.location.href = `https://gaming.gangdev.co/game1?username=${username}`; // redirect to game
         } else if (data.error) {
             alert(`Error: ${data.error}`);
         }
