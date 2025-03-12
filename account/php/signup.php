@@ -30,7 +30,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <label for="username">Username: </label>
         <span class="tooltip">ⓘ
             <span class="tooltipText">
-                A unique identifier for you (and it helps you login faster).
+                A unique identifier for you (and it helps you sign in faster).
             </span>
         </span>
         <br>
