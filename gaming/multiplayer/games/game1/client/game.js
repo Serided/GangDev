@@ -51,6 +51,7 @@ function connectToGame(gameUrl, gameName) {
         let data;
         if (event.data instanceof Blob) {
             data = JSON.parse(await event.data.text());
+            console.log("its a blob");
         } else {
             data = JSON.parse(event.data);
         }
