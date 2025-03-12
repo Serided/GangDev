@@ -22,6 +22,8 @@ gatewaySocket.onmessage = (event) => {
             connectToGame(data.redirect, data.game); // connect to game
         } else if (data.error) {
             console.error("Gateway error:", data.error);
+        } else if (data.message) {
+            appendMessage(data.message);
         }
     } catch (err) {
         console.error("Error parsing gateway message:", err);

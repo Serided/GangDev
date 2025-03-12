@@ -53,6 +53,7 @@ function createGameServer(port, name, clientPath) {
                 if (client !== ws && client.readyState === WebSocket.OPEN) {
                     client.send(msg); // Send the message to other clients
                 }
+            });
         });
 
         ws.on('close', () => {
