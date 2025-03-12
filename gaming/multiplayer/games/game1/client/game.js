@@ -71,7 +71,6 @@ function connectToGame(gameUrl, gameName) {
 
     gameSocket.onclose = () => {
         console.log(`Disconnected from ${gameName} server.`);
-        sendData('chatMessage', 'Player disconnected.');
         updateStatus(false);
     };
 }
@@ -124,7 +123,7 @@ function appendMessage(msg) {
 
 function sendData(type, data) {
     if (activeSocket && activeSocket.readyState === WebSocket.OPEN) {
-        const message = { type: type, data: data }
+        const message = JSON.stringify({ type: type, data: data });
         console.log("Sending data:", message);
         activeSocket.send(message);
     } else {
@@ -133,8 +132,9 @@ function sendData(type, data) {
 }
 
 function sendMessage() {
-    if (chatInput.value.trim()) {
-        sendData('chatMessage', chatInput.value.trim())
+    const message = chatInput.value.trim();
+    if (message) {
+        sendData('chatMessage', message)
         chatInput.value = ""; // clear input after sending
     }
 }

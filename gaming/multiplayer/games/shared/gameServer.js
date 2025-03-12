@@ -64,6 +64,7 @@ function createGameServer(port, name, clientPath) {
             playerCount--;
             console.log(`Client disconnected from ${name} server`);
             broadcastPlayerCount(wss);
+            distributeData(JSON.stringify({ type: 'chatMessage', data: 'Player disconnected.' }));
         });
     });
 
