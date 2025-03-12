@@ -30,9 +30,9 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 
     <div class="fullw sect spacing">
         <section class="fullw">
-            <h2>Overview</h2>
+            <h2>Sign In</h2>
             <p class="fullw">
-                ZE POTEENTEEL SUR
+                <a href="php/signin.php">Sign In Page</a>
             </p>
         </section>
     </div>

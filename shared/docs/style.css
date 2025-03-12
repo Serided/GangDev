@@ -1,0 +1,62 @@
+:root {
+    --scaling: 1.5vh;
+}
+
+/* phone */
+@media screen and (max-width: 768px) {
+    :root {
+        --scaling: 2vw;
+    }
+}
+
+/* phone portrait */
+@media screen and (max-width: 480px) {
+    :root {
+        --scaling: 2.5vw;
+    }
+}
+
+* {
+    margin: 0;
+    justify-items: center;
+    user-select: none;
+}
+
+body {
+    background-color: whitesmoke;
+    display: inline-block;
+    justify-items: center;
+    padding: calc(var(--scaling) * 5);
+    font-family: 'Fredoka', sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+    color: #333;
+}
+
+.doc {
+    display: inline-block;
+    justify-items: center;
+    text-align: center;
+    border: calc(var(--scaling) * 0.1) gray solid;
+    background-color: whitesmoke;
+    box-shadow: 0 0 calc(var(--scaling) * 1) gray;
+    border-radius: calc(var(--scaling) * 1);
+    padding: calc(var(--scaling) * 3);
+}
+
+h1 {
+    margin: calc(var(--scaling) * 1) 0;
+    font-size: calc(var(--scaling) * 5);
+}
+h2 {
+    margin: calc(var(--scaling) * 1) 0;
+    font-size: calc(var(--scaling) * 4);
+}
+h3 {
+    margin: calc(var(--scaling) * 1) 0;
+    font-size: calc(var(--scaling) * 3);
+}
+p {
+    margin: calc(var(--scaling) * 1) 0;
+    font-size: calc(var(--scaling) * 2);
+}

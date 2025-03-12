@@ -8,27 +8,26 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign In</title>
-        <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
         <link href="../style.css" rel="stylesheet" >
         <?= $head ?>
     </head>
     <body>
         <div class="loginContainer">
             <h1>Sign In</h1>
-            <hr>
+            <hr class="marginBoost">
 
-            <form action="../login.php">
+            <form action="/submit" method="post">
                 <label for="username">Username: </label><br>
                 <input type="text" id="username" name="username" required><br>
-                <a class="forgot">forgot username?</a><br><br>
+                <div class="forgot margin"><a href="forgot.php">forgot username?</a></div>
 
                 <label for="password">Password: </label><br>
                 <input type="text" id="password" name="password" required><br>
-                <a class="forgot">forgot password?</a><br><br>
-            </form>
+                <div class="forgot"><a href="forgot.php">forgot password?</a></div>
 
-            <h2>or</h2><br>
-            <a href="signup.php" class="create">Create A New Account</a>
+                <button type="submit" class="submit">Ya</button>
+            </form>
+            <div class="create"><a href="signup.php"> - Create A New Account - </a></div>
         </div>
     </body>
 </html>

@@ -8,7 +8,6 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign Up</title>
-        <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
         <link href="../style.css" rel="stylesheet" >
         <?= $head ?>
     </head>
@@ -17,7 +16,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
             <h1>Sign Up</h1>
             <hr>
 
-            <form action="">
+            <form action="/submit" method="post">
                 <label for="displayname">Display Name: </label>
                 <span class="tooltip">ⓘ
                     <span class="tooltipText">
@@ -52,7 +51,22 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                     </span>
                 </span>
                 <br>
-                <input type="text" id="password" name="password" required><br>
+                <input type="text" id="password" name="password" required>
+                <div></div>
+
+                <button type="submit" class="submit">Ya</button>
+                <div class="checkboxes">
+                    <label class="customCheckbox">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <span class="checkmark"></span>
+                        <label for="checkbox" class="terms">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/tos.php" target="_blank">Terms Of Service</a>.</label>
+                    </label><br>
+                    <label class="customCheckbox">
+                        <input type="checkbox" id="subscribe" name="subscribe">
+                        <span class="checkmark"></span>
+                        <label for="subscribe" class="subscribe">I want emails updates on company news and promotions.</label>
+                    </label><br>
+                </div>
             </form>
         </div>
     </body>
