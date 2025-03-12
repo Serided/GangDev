@@ -27,6 +27,14 @@ gatewayServer.on("connection", (ws) => {
             if (data.game && games[data.game]) {
                 const domain = process.env.DOMAIN || "gaming.gangdev.co";
                 const gameInfo = games[data.game];
+
+                if (!data.username) {
+                    ws.send(JSON.stringify({
+                        redirect: `https://${domain}/multiplayer/signin?redirect=${encodeURIComponent(gameInfo.path)}`
+                    }));
+                    return;
+                }
+
                 ws.send(JSON.stringify({
                     redirect: `wss://${domain}${gameInfo.path}`,
                     game: data.game
