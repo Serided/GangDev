@@ -40,8 +40,9 @@ gatewayServer.on("connection", (ws) => {
                 }
             } else {
                 const domain = process.env.DOMAIN || "gaming.gangdev.co";
+                const gamePath = data.game ? games[data.game].path : "";
                 ws.send(JSON.stringify({
-                    redirect: `https://${domain}/multiplayer/signin?redirect=${encodeURIComponent(data.game)}`,
+                    redirect: `https://${domain}/multiplayer/signin?redirect=${encodeURIComponent(gamePath)}`,
                 }))
             }
         } catch (err) {
