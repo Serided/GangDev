@@ -9,7 +9,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign In</title>
         <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../style.css">
+        <link href="../style.css" rel="stylesheet" >
         <?= $head ?>
     </head>
     <body>

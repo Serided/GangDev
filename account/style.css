@@ -107,6 +107,7 @@ form input {
     transform: translate(-50%, 100%);
     white-space: nowrap;
     transition: all 0.8s ease;
+    pointer-events: none;
 }
 
 .tooltip:hover .tooltipText {
