@@ -47,7 +47,12 @@ function connectToGame(gameUrl, gameName) {
 
     gameSocket.onmessage = (event) => {
         console.log("Message from server:", event.data);
-        let data = JSON.parse((event.data).text());
+        let data = event.data;
+
+        if (data instanceof Blob) {
+            data = data.text();
+        }
+        data = JSON.parse(data);
 
         if (data.type === 'message') {
             appendMessage(data.message);
