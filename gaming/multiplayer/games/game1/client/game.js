@@ -3,7 +3,7 @@ const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 
 gatewaySocket.onopen = () => {
     console.log("Connected to gateway");
-    updateStatus("Connected to gateway");
+    updateStatus(true);
 
     const payload = JSON.stringify({ game: "game1" });
     console.log("Sending message to gateway:", payload); // NEW: Log the actual message
@@ -37,7 +37,7 @@ function connectToGame(gameUrl, gameName) {
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName} server!`);
         gameSocket.send("Hello from client!");
-        updateStatus(`Connected to ${gameName}`);
+        updateStatus(true);
     };
 
     gameSocket.onmessage = (event) => {
@@ -47,18 +47,25 @@ function connectToGame(gameUrl, gameName) {
 
     gameSocket.onerror = (event) => {
         console.error("WebSocket error:", event);
-        updateStatus("Game server connection failed. Check if the server is running.");
+        updateStatus(false);
     };
 
     gameSocket.onclose = () => {
         console.log(`Disconnected from ${gameName} server.`);
-        updateStatus("Disconnected");
+        updateStatus(false);
     };
 }
 
 function updateStatus(status) {
     const statusElement = document.getElementById("status");
-    statusElement.textContent = status;
+
+    if (status) {
+        statusElement.style.color = 'green';
+        statusElement.textContent = "Online";
+    } else {
+        statusElement.style.color = 'red';
+        statusElement.textContent = 'Offline';
+    }
 }
 
 function appendMessage(msg) {
@@ -67,3 +74,39 @@ function appendMessage(msg) {
     messageElement.textContent = msg;
     messagesElement.appendChild(messageElement);
 }
+
+const chatButton = document.getElementById("chatButton");
+const chatPanel = document.getElementById("chatPanel");
+
+chatButton.addEventListener("click", (event) => {
+    if (chatPanel.style.right === "0vw") {
+        chatPanel.style.right = "-30vw";
+    } else {
+        chatPanel.style.right = "0vw";
+    }
+});
+
+const sendButton = document.getElementById("sendButton");
+const chatInput = document.getElementById("chatInput");
+
+sendButton.addEventListener("click", sendMessage);
+chatInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+});
+
+function sendMessage() {
+    const message = chatInput.value.trim();
+    if (message) {
+        console.log("Sending message:", message);
+        gatewaySocket.send(JSON.stringify({message: message}));
+        chatInput.value = ""; // clear input after sending
+    }
+}
+
+window.addEventListener("resize", (event) => {
+    const gameCanvas = document.getElementById("gameCanvas");
+    gameCanvas.width = window.innerWidth;
+    gameCanvas.height = window.innerHeight;
+})

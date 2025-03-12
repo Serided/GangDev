@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game 1 - Multiplayer Cube Game</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Crust</title>
 
-    <script src="/multiplayer/games/game1/client/game.js" defer></script> <!-- Loads WebSocket client -->
-    <link rel="stylesheet" href="/multiplayer/games/game1/client/style.css"> <!-- Link to your CSS -->
-</head>
-<body>
+        <script src="/multiplayer/games/game1/client/game.js" defer></script> <!-- Loads WebSocket client -->
+        <link rel="stylesheet" href="/multiplayer/games/game1/client/style.css"> <!-- Link to your CSS -->
+        <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <canvas id="gameCanvas"></canvas>
 
-<h1>Welcome to Game 1</h1>
+        <div class="header">
+            <h1>Crust</h1>
+            <p>Status: <span id="status">Offline</span></p>
+        </div>
 
-<p>WebSocket Status: <span id="status">Not Connected</span></p>
+        <div id="chatButton">
+            <div class="chatBubble">
+                <span>...</span>
+            </div>
+        </div>
 
-<!-- Messages Container -->
-<div id="messages">
-    <p><i>Waiting for messages...</i></p>
-</div>
+        <div id="chatPanel">
+            <div id="messages"></div>
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button id="sendButton">Send</button>
+        </div>
 
-<!-- Game Canvas -->
-<div id="gameContainer">
-    <canvas id="gameCanvas" width="500" height="500"></canvas> <!-- Canvas for the game -->
-</div>
-
-</body>
+        <div id="leftMenu"></div>
+    </body>
 </html>
