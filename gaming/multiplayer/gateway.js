@@ -24,28 +24,17 @@ gatewayServer.on("connection", (ws) => {
             const data = JSON.parse(message.toString()); // ensure its parsed
             console.log("Gateway received:", data);
 
-            if (data.username) {
-                if (data.game && games[data.game]) {
-                    const domain = process.env.DOMAIN || "gaming.gangdev.co";
-                    const gameInfo = games[data.game];
-
-                    // Redirect to the game with the username in the URL
-                    ws.send(JSON.stringify({
-                        redirect: `wss://${domain}${gameInfo.path}?username=${data.username}`,
-                        game: data.game
-                    }));
-                    console.log(`Redirecting client to ${gameInfo.path}`);
-                } else {
-                    ws.send(JSON.stringify({ error: "Invalid game requested." }));
-                    console.log("Invalid game requested:", data.game);
-                }
-            } else {
-                // Redirect the user to the sign-in page if no username is provided
+            if (data.game && games[data.game]) {
                 const domain = process.env.DOMAIN || "gaming.gangdev.co";
-                const gamePath = data.game ? games[data.game].path : "";
+                const gameInfo = games[data.game];
                 ws.send(JSON.stringify({
-                    redirect: `https://${domain}/multiplayer/signin?redirect=${encodeURIComponent(gamePath)}`
+                    redirect: `wss://${domain}${gameInfo.path}`,
+                    game: data.game
                 }));
+                console.log(`Redirecting client to ${gameInfo.path}`);
+            } else {
+                ws.send(JSON.stringify({ error: "Invalid game requested." }));
+                console.log("Invalid game requested:", data.game);
             }
         } catch (err) {
             ws.send(JSON.stringify({ error: "Invalid message format." }));

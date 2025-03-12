@@ -1,8 +1,5 @@
 let activeSocket = null;
 
-const urlParams = new URLSearchParams(window.location.search);
-username = urlParams.get("username");
-
 const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 
 gatewaySocket.onopen = () => {
@@ -20,11 +17,8 @@ gatewaySocket.onmessage = (event) => {
         console.log("Gateway response:", data);
 
         if (data.redirect) {
-            if (!username) window.location.href = `/multiplayer/signin?redirect=${encodeURIComponent(data.redirect)}`;
-            else {
-                gatewaySocket.close(); // close gateway connection
-                connectToGame(data.redirect, data.game); // connect to game
-            }
+            gatewaySocket.close(); // close gateway connection
+            connectToGame(data.redirect, data.game); // connect to game
         } else if (data.error) {
             console.error("Gateway error:", data.error);
         } else if (data.message) {

@@ -19,6 +19,8 @@ loginForm.addEventListener('submit', (e) => {
         gatewaySocket.send(payload);
     };
 
+    redirect
+
     gatewaySocket.onmessage = (e) => {
         const data = JSON.parse(e.data);
         console.log("Gateway response:", data);
