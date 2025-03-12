@@ -64,8 +64,22 @@ function createGameServer(port, name, clientPath) {
 
         ws.on('close', () => {
             console.log(`Client disconnected from ${name} server`);
+            broadcastPlayerCount(wss);
         });
     });
+
+    function broadcastPlayerCount(wss) {
+        const playerCountMessage = JSON.stringify({
+            type: 'playerCount',
+            count: playerCount
+        });
+
+        wss.clients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(playerCountMessage);
+            }
+        })
+    }
 
     server.listen(port, '127.0.0.1', () => {
         console.log(`${name} WebSocket server running on port ${port} (IPv4)`);

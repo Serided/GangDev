@@ -57,7 +57,12 @@ function connectToGame(gameUrl, gameName) {
                 appendMessage(message);
             })
         } else {
-            appendMessage(message);
+            const data = JSON.parse(message.data);
+            if (data.type === 'playerCount') {
+                updatePlayerCount(data.count);
+            } else {
+                appendMessage(message);
+            }
         }
     };
 
@@ -83,6 +88,11 @@ function updateStatus(status) {
         statusElement.style.color = 'red';
         statusElement.textContent = 'Offline';
     }
+}
+
+function updatePlayerCount(count) {
+    const playerCountElement = document.getElementById("playerCount");
+    playerCountElement.textContent = count;
 }
 
 function appendMessage(msg) {
