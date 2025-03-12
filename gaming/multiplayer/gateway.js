@@ -29,6 +29,7 @@ gatewayServer.on("connection", (ws) => {
                     const domain = process.env.DOMAIN || "gaming.gangdev.co";
                     const gameInfo = games[data.game];
 
+                    // Redirect to the game with the username in the URL
                     ws.send(JSON.stringify({
                         redirect: `wss://${domain}${gameInfo.path}?username=${data.username}`,
                         game: data.game
@@ -39,11 +40,12 @@ gatewayServer.on("connection", (ws) => {
                     console.log("Invalid game requested:", data.game);
                 }
             } else {
+                // Redirect the user to the sign-in page if no username is provided
                 const domain = process.env.DOMAIN || "gaming.gangdev.co";
                 const gamePath = data.game ? games[data.game].path : "";
                 ws.send(JSON.stringify({
-                    redirect: `https://${domain}/multiplayer/signin?redirect=${encodeURIComponent(gamePath)}`,
-                }))
+                    redirect: `https://${domain}/multiplayer/signin?redirect=${encodeURIComponent(gamePath)}`
+                }));
             }
         } catch (err) {
             ws.send(JSON.stringify({ error: "Invalid message format." }));

@@ -19,11 +19,12 @@ gatewaySocket.onmessage = (event) => {
         const data = JSON.parse(event.data);
         console.log("Gateway response:", data);
 
-        if (!username && data.redirect) {
-            window.location.href = `/multiplayer/signin?redirect=${encodeURIComponent(data.redirect)}`;
-        } else if (data.redirect) {
-            gatewaySocket.close(); // close gateway connection
-            connectToGame(data.redirect, data.game); // connect to game
+        if (data.redirect) {
+            if (!username) window.location.href = `/multiplayer/signin?redirect=${encodeURIComponent(data.redirect)}`;
+            else {
+                gatewaySocket.close(); // close gateway connection
+                connectToGame(data.redirect, data.game); // connect to game
+            }
         } else if (data.error) {
             console.error("Gateway error:", data.error);
         } else if (data.message) {
