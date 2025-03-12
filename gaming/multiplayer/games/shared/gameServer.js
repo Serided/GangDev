@@ -42,16 +42,18 @@ function createGameServer(port, name, clientPath) {
 
     const wss = new WebSocket.Server({ server });
 
+    let playerCount = 0;
+
     wss.on('connection', (ws) => {
-        console.log(`Client connected to ${name} server`);
+        playerCount++;
+        console.log(`Client connected to ${name}. Player count: ${playerCount}`);
+
+        //broadcastPlayerCount(wss);
+
         ws.send(`Welcome to ${name}!`);
 
         ws.on('message', (msg) => {
             console.log(`[${name}] Received: `, msg.toString());
-
-            if (msg instanceof Buffer) { // check if message is blob or other binary format
-                msg = msg.toString();
-            }
 
             wss.clients.forEach(client => { // Broadcast the message to all connected clients
                 if (client.readyState === WebSocket.OPEN) {

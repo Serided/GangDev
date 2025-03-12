@@ -34,11 +34,18 @@ body {
 }
 .header h1 {
     font-size: 5vw;
-    height: 4.5vw;
+    height: 4.3vw;
 }
-.header p {
+.status {
+    font-size: 1vw;
+    height: 1vw;
+}
+.players {
     font-size: 1vw;
     height: 0.5vw;
+}
+.players span {
+    color: green;
 }
 
 .menuButton {
