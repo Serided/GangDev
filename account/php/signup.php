@@ -52,7 +52,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                     </span>
                 </span>
                 <br>
-                <input type="text" id="password" name="password" required><br><br>
+                <input type="text" id="password" name="password" required><br>
             </form>
         </div>
     </body>
