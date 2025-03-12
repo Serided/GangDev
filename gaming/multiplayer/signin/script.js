@@ -9,7 +9,7 @@ loginForm.addEventListener('submit', (e) => {
 
     const payload = JSON.stringify({
         username: username,
-        game: redirectUrl
+        game: `https://game.gangdev.co/game1`,
     });
 
     console.log("Sending data to gateway:", payload);
