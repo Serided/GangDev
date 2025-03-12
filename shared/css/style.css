@@ -53,7 +53,7 @@ html {
 /* Set up margins for headers */
 
 h1 {
-  letter-spacing: calc(var(--scaling) * 1);
+  letter-spacing: 0.15vw;
   font-size: 4vw;
   padding: 1vh 1vw;
   margin: 0;
