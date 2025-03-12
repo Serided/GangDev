@@ -80,10 +80,11 @@ form input {
     text-decoration: none;
     position: absolute;
     transform: translateX(-50%);
-    background: gray;
+    background: darkgray;
     color: white;
     border-radius: calc(var(--scaling) * 1);
-    box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) dimgray;
+    box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) gray;
+    transition: all 0.3s ease;
 }
 
 .tooltip {
@@ -111,4 +112,8 @@ form input {
 .tooltip:hover .tooltipText {
     visibility: visible;
     opacity: 0.8;
+}
+
+.create:hover {
+    transform: scale(1.05) translateX(-48%);
 }
