@@ -54,12 +54,7 @@ function createGameServer(port, name, clientPath) {
 
         ws.on('message', (msg) => {
             console.log(`[${name}] Received: `, msg.toString());
-
-            wss.clients.forEach(client => { // Broadcast the message to all connected clients
-                if (client.readyState === WebSocket.OPEN) {
-                    client.send(msg); // Send the message to other clients
-                }
-            });
+            distributeData(msg);
         });
 
         ws.on('close', () => {
@@ -68,17 +63,17 @@ function createGameServer(port, name, clientPath) {
         });
     });
 
-    function broadcastPlayerCount(wss) {
-        const playerCountMessage = JSON.stringify({
-            type: 'playerCount',
-            count: playerCount
-        });
-
+    function distributeData(data) {
         wss.clients.forEach(client => {
             if (client.readyState === WebSocket.OPEN) {
-                client.send(playerCountMessage);
+                client.send(data);
             }
         })
+    }
+
+    function broadcastPlayerCount(wss) {
+        const playerCount = { type: 'playerCount', data: playerCount };
+        distributeData(playerCount);
     }
 
     server.listen(port, '127.0.0.1', () => {

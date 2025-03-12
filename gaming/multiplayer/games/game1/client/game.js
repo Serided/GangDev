@@ -41,7 +41,7 @@ function connectToGame(gameUrl, gameName) {
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName} server!`);
         activeSocket = gameSocket;
-        activeSocket.send("Player connected!");
+        sendData('chatMessage', 'Player connected!')
         updateStatus(true);
     };
 
@@ -70,7 +70,7 @@ function connectToGame(gameUrl, gameName) {
 
     gameSocket.onclose = () => {
         console.log(`Disconnected from ${gameName} server.`);
-        gameSocket.send("Player disconnected.");
+        sendData('chatMessage', 'Player disconnected.');
         updateStatus(false);
     };
 }
@@ -120,11 +120,15 @@ chatInput.addEventListener("keypress", (event) => {
     }
 });
 
+function sendData(type, data) {
+    const message = { type: type, data: data }
+    console.log("Sending data:", message);
+    activeSocket.send(message);
+}
+
 function sendMessage() {
-    const message = { type: 'message', message: chatInput.value.trim()};
-    if (message) {
-        console.log("Sending message:", message);
-        activeSocket.send(message);
+    if (chatInput.value.trim()) {
+        sendData('chatMessage', chatInput.value.trim())
         chatInput.value = ""; // clear input after sending
     }
 }
