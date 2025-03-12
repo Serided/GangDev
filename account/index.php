@@ -4,11 +4,11 @@
 <html lang="en" class="fullw">
     <head>
         <meta charset="UTF-8" name="description" content="Home">
-        <title>test</title>
+        <title>Account</title>
     </head>
     <body class="main-p fullw">
         <h1>
-            test
+            Account
         </h1>
     </body>
 </html>
