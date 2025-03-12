@@ -1,3 +1,5 @@
+let activeSocket = null;
+
 // First connect to the gateway
 const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 
@@ -27,7 +29,7 @@ gatewaySocket.onmessage = (event) => {
 };
 
 function connectToGame(gameUrl, gameName) {
-    console.log(`Connecting to game server: ${gameUrl}`); // Debug log
+    console.log(`Connecting to game server: ${gameUrl}`);
 
     if (!gameUrl.startsWith("wss://")) { // ensure url formatted properly
         gameUrl = `wss://${window.location.host}${gameUrl}`;
@@ -36,6 +38,7 @@ function connectToGame(gameUrl, gameName) {
 
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName} server!`);
+        activeSocket = gameSocket;
         gameSocket.send("Hello from client!");
         updateStatus(true);
     };
@@ -100,7 +103,7 @@ function sendMessage() {
     const message = chatInput.value.trim();
     if (message) {
         console.log("Sending message:", message);
-        gatewaySocket.send(JSON.stringify({message: message}));
+        activeSocket.send(JSON.stringify({message: message}));
         chatInput.value = ""; // clear input after sending
     }
 }
