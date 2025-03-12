@@ -47,21 +47,14 @@ function connectToGame(gameUrl, gameName) {
 
     gameSocket.onmessage = (event) => {
         console.log("Message from server:", event.data);
-        let message = JSON.parse(event.data);
+        let data = JSON.parse(event.data.text());
 
-        if (message instanceof Blob) { // if blob convert to string
-            message.text().then((text) => {
-                console.log("Message converted from Blob:", text);
-                appendMessage(text);
-            }).catch((err) => {
-                appendMessage(message);
-            })
+        if (data.type === 'message') {
+            appendMessage(data.message);
+        } else if (data.type === 'playerCount') {
+            updatePlayerCount(data.count);
         } else {
-            if (message.type === 'playerCount') {
-                updatePlayerCount(message.count);
-            } else {
-                appendMessage(message);
-            }
+            console.error("Invalid data:", data);
         }
     };
 
@@ -123,7 +116,7 @@ chatInput.addEventListener("keypress", (event) => {
 });
 
 function sendMessage() {
-    const message = chatInput.value.trim();
+    const message = JSON.stringify({ type: 'message', message: chatInput.value.trim()});
     if (message) {
         console.log("Sending message:", message);
         activeSocket.send(message);
