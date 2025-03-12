@@ -110,7 +110,7 @@ function updateStatus(status) {
 }
 
 function updatePlayerCount(count) {
-    const playerCountElement = document.getElementById("playerCount");
+    const playerCountElement = document.getElementById("players");
     playerCountElement.textContent = count.toString();
 }
 
