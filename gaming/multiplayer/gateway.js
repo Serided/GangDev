@@ -30,7 +30,7 @@ gatewayServer.on("connection", (ws) => {
 
                 if (!data.username) {
                     ws.send(JSON.stringify({
-                        redirect: `https://${domain}/multiplayer/signin?redirect=${encodeURIComponent(gameInfo.path)}`
+                        redirect: `https://${domain}/signin?redirect=${encodeURIComponent(gameInfo.path)}`
                     }));
                     return;
                 }

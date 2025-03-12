@@ -17,7 +17,7 @@ gatewaySocket.onmessage = (event) => {
         console.log("Gateway response:", data);
 
         if (!username && data.redirect) {
-            window.location.href = `/multiplayer/signin?redirect=${encodeURIComponent(data.redirect)}`;
+            window.location.href = `/signin?redirect=${encodeURIComponent(data.redirect)}`;
         } else if (data.redirect) {
             gatewaySocket.close(); // close gateway connection
             connectToGame(data.redirect, data.game); // connect to game
