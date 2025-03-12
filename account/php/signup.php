@@ -18,14 +18,14 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
             <hr>
 
             <form action="">
-                <label for="username">Display Name: </label>
+                <label for="displayname">Display Name: </label>
                 <span class="tooltip">ⓘ
                     <span class="tooltipText">
                         The name other players will know you by.
                     </span>
                 </span>
                 <br>
-                <input type="text" id="username" name="username" required><br>
+                <input type="text" id="displayname" name="displayname" required><br>
 
                 <label for="username">Username: </label>
                 <span class="tooltip">ⓘ
