@@ -44,7 +44,7 @@ function createGameServer(port, name, clientPath) {
 
     wss.on('connection', (ws) => {
         console.log(`Client connected to ${name} server`);
-        ws.send(`Welcome to ${name} server`);
+        ws.send(`Welcome to ${name}!`);
 
         ws.on('message', (msg) => {
             console.log(`[${name}] Received: `, msg.toString());

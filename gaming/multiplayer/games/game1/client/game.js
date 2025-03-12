@@ -41,7 +41,7 @@ function connectToGame(gameUrl, gameName) {
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName} server!`);
         activeSocket = gameSocket;
-        gameSocket.send("Hello from client!");
+        activeSocket.send("Player connected!");
         updateStatus(true);
     };
 
@@ -68,6 +68,7 @@ function connectToGame(gameUrl, gameName) {
 
     gameSocket.onclose = () => {
         console.log(`Disconnected from ${gameName} server.`);
+        gameSocket.send("Player disconnected.");
         updateStatus(false);
     };
 }
