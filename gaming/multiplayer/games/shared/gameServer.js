@@ -54,7 +54,7 @@ function createGameServer(port, name, clientPath) {
             }
 
             wss.clients.forEach(client => { // Broadcast the message to all connected clients
-                if (client !== ws && client.readyState === WebSocket.OPEN) {
+                if (client.readyState === WebSocket.OPEN) {
                     client.send(msg); // Send the message to other clients
                 }
             });

@@ -56,8 +56,9 @@ function connectToGame(gameUrl, gameName) {
             }).catch((err) => {
                 appendMessage(message);
             })
+        } else {
+            appendMessage(message);
         }
-        appendMessage(event.data);
     };
 
     gameSocket.onerror = (event) => {
@@ -115,8 +116,7 @@ function sendMessage() {
     const message = chatInput.value.trim();
     if (message) {
         console.log("Sending message:", message);
-        appendMessage(message);
-        activeSocket.send(JSON.stringify({message: message}));
+        activeSocket.send(message);
         chatInput.value = ""; // clear input after sending
     }
 }
