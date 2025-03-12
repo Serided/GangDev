@@ -45,19 +45,20 @@ function connectToGame(gameUrl, gameName) {
         updateStatus(true);
     };
 
-    gameSocket.onmessage = (event) => {
+    gameSocket.onmessage = async (event) => {
         console.log("Message from server:", event.data);
-        let data = event.data;
 
-        if (data instanceof Blob) {
-            data = data.text();
+        let data;
+        if (event.data instanceof Blob) {
+            data = JSON.parse(await event.data.text());
+        } else {
+            data = JSON.parse(event.data);
         }
-        data = JSON.parse(data);
 
-        if (data.type === 'message') {
-            appendMessage(data.message);
+        if (data.type === 'chatMessage') {
+            appendMessage(data.data);
         } else if (data.type === 'playerCount') {
-            updatePlayerCount(data.count);
+            updatePlayerCount(data.data);
         } else {
             console.error("Invalid data:", data);
         }
@@ -78,13 +79,8 @@ function connectToGame(gameUrl, gameName) {
 function updateStatus(status) {
     const statusElement = document.getElementById("status");
 
-    if (status) {
-        statusElement.style.color = 'green';
-        statusElement.textContent = "Online";
-    } else {
-        statusElement.style.color = 'red';
-        statusElement.textContent = 'Offline';
-    }
+    statusElement.style.color = status ? 'green' : 'red';
+    statusElement.textContent = status ? "Online" : "Offline";
 }
 
 function updatePlayerCount(count) {
@@ -121,9 +117,13 @@ chatInput.addEventListener("keypress", (event) => {
 });
 
 function sendData(type, data) {
-    const message = { type: type, data: data }
-    console.log("Sending data:", message);
-    activeSocket.send(message);
+    if (activeSocket && activeSocket.readyState === WebSocket.OPEN) {
+        const message = { type: type, data: data }
+        console.log("Sending data:", message);
+        activeSocket.send(message);
+    } else {
+        console.warn("Cannot send data. Websocket closed.")
+    }
 }
 
 function sendMessage() {

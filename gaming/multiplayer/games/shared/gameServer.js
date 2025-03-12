@@ -48,16 +48,20 @@ function createGameServer(port, name, clientPath) {
         playerCount++;
         console.log(`Client connected to ${name}. Player count: ${playerCount}`);
 
-        //broadcastPlayerCount(wss);
+        broadcastPlayerCount(wss);
 
-        ws.send({ type: 'chatMessage', data: `Welcome to ${name}!`});
+        ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!`}));
 
         ws.on('message', (msg) => {
+            if (msg instanceof Buffer) {
+                msg = msg.toString();
+            }
             console.log(`[${name}] Received: `, msg.toString());
             distributeData(msg);
         });
 
         ws.on('close', () => {
+            playerCount--;
             console.log(`Client disconnected from ${name} server`);
             broadcastPlayerCount(wss);
         });
@@ -72,8 +76,7 @@ function createGameServer(port, name, clientPath) {
     }
 
     function broadcastPlayerCount(wss) {
-        const playerCount = { type: 'playerCount', data: playerCount };
-        distributeData(playerCount);
+        distributeData(JSON.stringify({ type: 'playerCount', data: playerCount }));
     }
 
     server.listen(port, '127.0.0.1', () => {
