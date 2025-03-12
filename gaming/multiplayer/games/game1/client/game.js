@@ -23,7 +23,7 @@ gatewaySocket.onmessage = (event) => {
         } else if (data.error) {
             console.error("Gateway error:", data.error);
         } else if (data.message) {
-            appendMessage(data.message);
+            appendMessage(data.message.toString());
         }
     } catch (err) {
         console.error("Error parsing gateway message:", err);
