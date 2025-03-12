@@ -50,7 +50,12 @@ function connectToGame(gameUrl, gameName) {
         let message = event.data;
 
         if (message instanceof Blob) { // if blob convert to string
-            message = message.text();
+            message.text().then((text) => {
+                console.log("Message converted from Blob:", text);
+                appendMessage(text);
+            }).catch((err) => {
+                appendMessage(message);
+            })
         }
         appendMessage(event.data);
     };
