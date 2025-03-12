@@ -56,12 +56,18 @@ function connectToGame(gameUrl, gameName) {
             data = JSON.parse(event.data);
         }
 
-        if (data.type === 'chatMessage') {
-            appendMessage(data.data);
-        } else if (data.type === 'playerCount') {
-            updatePlayerCount(data.data);
-        } else {
-            console.error("Invalid data:", data);
+        switch (data.type) {
+            case "chatMessage": {
+                appendMessage(data.data);
+                break;
+            }
+            case "playerCount": {
+                updatePlayerCount(data.data);
+                break;
+            }
+            default: {
+                console.error("Invalid data:", data);
+            }
         }
     };
 
@@ -125,8 +131,9 @@ function appendMessage(msg) {
 function sendData(type, data) {
     if (activeSocket && activeSocket.readyState === WebSocket.OPEN) {
         const message = JSON.stringify({ type: type, data: data });
+        const blob = new Blob([message], { type: 'application/json' });
         console.log("Sending data:", message);
-        activeSocket.send(message);
+        activeSocket.send(blob);
     } else {
         console.warn("Cannot send data. Websocket closed.")
     }

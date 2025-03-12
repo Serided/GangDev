@@ -64,11 +64,12 @@ function createGameServer(port, name, clientPath) {
             playerCount--;
             console.log(`Client disconnected from ${name} server`);
             broadcastPlayerCount(wss);
-            distributeData(JSON.stringify({ type: 'chatMessage', data: 'Player disconnected.' }));
+            distributeData({ type: 'chatMessage', data: 'Player disconnected.' }, true);
         });
     });
 
-    function distributeData(data) {
+    function distributeData(data, server = false) {
+        if (server) data = new Blob([JSON.stringify(data)], {type: 'application/json'});
         wss.clients.forEach(client => {
             if (client.readyState === WebSocket.OPEN) {
                 client.send(data);
@@ -77,7 +78,7 @@ function createGameServer(port, name, clientPath) {
     }
 
     function broadcastPlayerCount(wss) {
-        distributeData(JSON.stringify({ type: 'playerCount', data: playerCount }));
+        distributeData({ type: 'playerCount', data: playerCount }, true);
     }
 
     server.listen(port, '127.0.0.1', () => {
