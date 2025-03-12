@@ -1,5 +1,8 @@
 let activeSocket = null;
 
+const urlParams = new URLSearchParams(window.location.search);
+username = urlParams.get("username");
+
 const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 
 gatewaySocket.onopen = () => {
@@ -147,6 +150,3 @@ function sendMessage() {
         chatInput.value = ""; // clear input after sending
     }
 }
-
-const urlParams = new URLSearchParams(window.location.search);
-username = urlParams.get("username");
