@@ -137,23 +137,23 @@ nav input[name=menu] {
     margin: 0;
     border-radius: .5vh;
     justify-items: center;
-    background-image: url("https://shared.gangdev.co/files/img/dating/shh.webp");
+    background-image: none;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
 }
 div.profile p {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    font-size: 1vh;
+    bottom: -.5vh;
+    left: -.5vh;
+    font-size: 1.5vh;
     padding: .1vh;
     background-color: white;
     color: black;
     text-align: center;
     overflow: hidden;
     border-radius: .5vh;
-    width: calc(var(--hamburger-height) + 1.4vh);
+    width: calc(var(--hamburger-height) + 1.4vh + 1vh);
 }
 
 .hamburger-btn {
@@ -188,7 +188,7 @@ div.profile p {
 }
 .account-btn:hover {
     font-weight: 700;
-    transform: scale(1.01);
+    transform: scale(1.1);
 }
 
 nav input:checked + .hamburger-btn {
