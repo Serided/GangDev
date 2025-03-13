@@ -113,13 +113,13 @@ nav input[name=menu] {
     opacity: 95%;
 }
 
-.account-btn { /* so itll damn commit*/
+.account-btn {
     height: calc(var(--hamburger-height) + 1.4vh);
     width: calc(var(--hamburger-height) + 1.4vh);
     font-family: "Fredoka", serif;
     border-radius: .5vh;
     text-decoration: none;
-    margin: .3vh 0 .3vh calc(var(--button-width) - (var(--hamburger-height) + .8vh));
+    margin: .3vh 0 .3vh calc(var(--button-width) - (var(--hamburger-height) + .6vh));
     border: none;
     cursor: pointer;
     padding: .5vh .5vh;
