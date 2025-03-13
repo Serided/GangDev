@@ -125,6 +125,7 @@ nav input[name=menu] {
     padding: .5vh .5vh;
     width: var(--button-width);
     display: inline-block;
+    transition: all 0.2s ease;
 }
 
 .hamburger-btn.one {
@@ -144,6 +145,7 @@ nav input[name=menu] {
 
 .hamburger-btn:hover {
     font-weight: 700;
+    transform: scale(1.01);
 }
 
 nav input:checked + .hamburger-btn {
