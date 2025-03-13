@@ -146,7 +146,7 @@ div.profile p {
     background-color: white;
     color: black;
     text-align: center;
-    overflow: scroll;
+    overflow: hidden;
     border-radius: .5vh;
 }
 
