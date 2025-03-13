@@ -1,3 +1,16 @@
+:root {
+    --bar-width: 8vh;
+    --bar-height: 1.5vh;
+    --hamburger-gap: 1vh;
+    --foreground: #333;
+    --background: white;
+    --hamburger-margin: 2vh;
+    --animation-time: 200ms ease-in-out;
+    --hamburger-height: calc((var(--bar-height) * 3) + (var(--hamburger-gap) * 2));
+    --button-width: 38vh;
+    --x-width: calc(var(--hamburger-height) * 1.41421356237);
+}
+
 *, *::after, *::before {
     box-sizing: border-box;
 }
@@ -22,19 +35,6 @@
     left: var(--hamburger-margin);
     z-index: 99999;
     cursor: pointer;
-}
-
-:root {
-    --bar-width: 8vh;
-    --bar-height: 1.5vh;
-    --hamburger-gap: 1vh;
-    --foreground: #333;
-    --background: white;
-    --hamburger-margin: 2vh;
-    --animation-time: 200ms ease-in-out;
-    --hamburger-height: calc((var(--bar-height) * 3) + (var(--hamburger-gap) * 2));
-    --button-width: 38vh;
-    --x-width: calc(var(--hamburger-height) * 1.41421356237);
 }
 
 .hamburger:has(input:checked) {
@@ -114,7 +114,8 @@ nav input[name=menu] {
 }
 
 .account-btn {
-    height: calc(var(--hamburger-height) + var(--hamburger-margin));
+    height: calc(var(--hamburger-height));
+    width: calc(var(--hamburger-height));
     font-family: "Fredoka", serif;
     border-radius: .5vh;
     text-decoration: none;
@@ -127,7 +128,6 @@ nav input[name=menu] {
     background-color: gray;
     font-size: 6vh;
     font-weight: 400;
-    width: var(--button-width);
     text-align: left;
     position: absolute;
     right: 1vh;
