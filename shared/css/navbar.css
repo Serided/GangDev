@@ -137,15 +137,18 @@ nav input[name=menu] {
     margin: 0;
     border-radius: .5vh;
 }
-.profile img {
+div.profile img {
     width: 100%;
     height: 100%;
     margin: 0;
 }
-.name {
+div.profile p {
     position: absolute;
     bottom: 0.5vh;
     font-size: 1vh;
+    padding: .1vh;
+    background-color: white;
+    color: black;
 }
 
 .hamburger-btn {
