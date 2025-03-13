@@ -136,7 +136,7 @@ nav input[name=menu] {
     height: 100%;
     margin: 0;
     border-radius: .5vh;
-    justify-content: center;
+    justify-items: center;
 }
 div.profile p {
     position: absolute;
