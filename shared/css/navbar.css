@@ -113,6 +113,24 @@ nav input[name=menu] {
     opacity: 95%;
 }
 
+.account-btn {
+    height: calc((var(--hamburger-height) + var(--hamburger-margin) + 1vh));
+    font-family: "Fredoka", serif;
+    border-radius: .5vh;
+    text-decoration: none;
+    margin: .5vh 0;
+    border: none;
+    cursor: pointer;
+    padding: .5vh .5vh;
+    display: inline-block;
+    transition: all var(--animation-time) ease;
+    background-color: gray;
+    font-size: 6vh;
+    font-weight: 400;
+    width: var(--button-width);
+    text-align: left;
+}
+
 .hamburger-btn {
     font-family: "Fredoka", serif;
     border-radius: .5vh;
@@ -130,14 +148,12 @@ nav input[name=menu] {
     background-color: gray;
     font-size: 6vh;
     font-weight: 400;
-    width: var(--button-width);
     text-align: left;
 }
 
 .hamburger-btn.two {
     background-color: darkgray;
     font-size: 4vh;
-    width: var(--button-width);
     text-align: center;
 }
 
