@@ -114,7 +114,7 @@ nav input[name=menu] {
 }
 
 .account-btn {
-    height: calc((var(--hamburger-height) + var(--hamburger-margin) + 1vh));
+    height: calc(var(--hamburger-height) + var(--hamburger-margin));
     font-family: "Fredoka", serif;
     border-radius: .5vh;
     text-decoration: none;
@@ -129,6 +129,8 @@ nav input[name=menu] {
     font-weight: 400;
     width: var(--button-width);
     text-align: left;
+    position: absolute;
+    right: 1vh;
 }
 
 .hamburger-btn {
@@ -158,6 +160,10 @@ nav input[name=menu] {
 }
 
 .hamburger-btn:hover {
+    font-weight: 700;
+    transform: scale(1.01);
+}
+.account-btn:hover {
     font-weight: 700;
     transform: scale(1.01);
 }
