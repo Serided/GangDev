@@ -119,7 +119,7 @@ nav input[name=menu] {
     font-family: "Fredoka", serif;
     border-radius: .5vh;
     text-decoration: none;
-    margin: .3vh 0 .3vh calc(var(--button-width) - (var(--hamburger-height) + .7vh));
+    margin: .3vh .3vh .3vh calc(var(--button-width) - (var(--hamburger-height) + 1vh));
     border: none;
     cursor: pointer;
     padding: .5vh .5vh;
