@@ -131,13 +131,21 @@ nav input[name=menu] {
     position: relative;
     right: 1vh;
 }
-
 .profile {
     width: 100%;
     height: 100%;
     margin: 0;
-    background-color: darkgray;
     border-radius: .5vh;
+}
+.profile img {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+.name {
+    position: absolute;
+    bottom: 0.5vh;
+    font-size: 1vh;
 }
 
 .hamburger-btn {
