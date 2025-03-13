@@ -79,9 +79,6 @@
     opacity: 0;
     width: 0;
 }
-.hamburger:hover, .hamburger:hover::before, .hamburger:hover::after {
-    transform: scale(1.01);
-}
 
 .sidebar {
     transition: translate var(--animation-time), opacity var(--animation-time);
