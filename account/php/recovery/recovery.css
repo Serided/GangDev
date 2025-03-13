@@ -1,0 +1,61 @@
+:root {
+    --scaling: 1.5vh;
+}
+
+/* phone */
+@media screen and (max-width: 768px) {
+    :root {
+        --scaling: 2vw;
+    }
+}
+
+/* phone portrait */
+@media screen and (max-width: 480px) {
+    :root {
+        --scaling: 2.5vw;
+    }
+}
+
+* {
+    margin: 0;
+    font-family: "Fredoka", serif;
+    user-select: none;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+h1 {
+    font-size: calc(var(--scaling) * 4) !important;
+    padding: 0 !important;
+}
+h2 {
+    font-size: calc(var(--scaling) * 2) !important;
+    padding: 0 !important;
+    height: calc(var(--scaling) * 1.2);
+}
+
+p {
+    
+}
+
+form label {
+    font-size: calc(var(--scaling) * 2);
+}
+
+.recoveryContainer {
+    color: whitesmoke;
+    background: #e35a6b;
+    display: inline-block;
+    padding: calc(var(--scaling) * 3);
+}

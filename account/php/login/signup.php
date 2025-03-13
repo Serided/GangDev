@@ -8,7 +8,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign Up</title>
-        <link href="../style.css" rel="stylesheet" >
+        <link href="login.css" rel="stylesheet" >
         <?= $head ?>
     </head>
     <body>

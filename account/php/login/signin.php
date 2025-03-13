@@ -8,7 +8,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign In</title>
-        <link href="../style.css" rel="stylesheet" >
+        <link href="login.css" rel="stylesheet" >
         <?= $head ?>
     </head>
     <body>
@@ -19,11 +19,11 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
             <form action="/submit" method="post">
                 <label for="username">Username: </label><br>
                 <input type="text" id="username" name="username" required><br>
-                <div class="forgot margin"><a href="forgot.php">forgot username?</a></div>
+                <div class="forgot margin"><a href="../recovery/username.php">forgot username?</a></div>
 
                 <label for="password">Password: </label><br>
                 <input type="text" id="password" name="password" required><br>
-                <div class="forgot"><a href="forgot.php">forgot password?</a></div>
+                <div class="forgot"><a href="../recovery/password.php">forgot password?</a></div>
 
                 <button type="submit" class="submit">Ya</button>
             </form>

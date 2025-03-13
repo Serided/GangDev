@@ -154,9 +154,3 @@ nav input:checked + .hamburger-btn + .sidebar.two {
     translate: 0;
     opacity: 100%;
 }
-
-#login {
-    bottom: 0.5vh;
-    left: 1vh;
-    position: absolute;
-}

@@ -32,7 +32,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <section class="fullw">
             <h2>Sign In</h2>
             <p class="fullw">
-                <a href="php/signin.php">Sign In Page</a>
+                <a href="php/login/signin.php">Sign In Page</a>
             </p>
         </section>
     </div>
