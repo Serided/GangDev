@@ -149,7 +149,7 @@ div.profile p {
     padding: .1vh;
     background-color: white;
     color: black;
-    width: 100%;
+    width: 100% !important;
 }
 
 .hamburger-btn {
