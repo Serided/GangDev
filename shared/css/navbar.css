@@ -114,12 +114,12 @@ nav input[name=menu] {
 }
 
 .account-btn {
-    height: calc(var(--hamburger-height) + .8vh);
-    width: calc(var(--hamburger-height) + .8vh);
+    height: calc(var(--hamburger-height) + 1vh);
+    width: calc(var(--hamburger-height) + 1vh);
     font-family: "Fredoka", serif;
     border-radius: .5vh;
     text-decoration: none;
-    margin: .5vh 0 .5vh calc(var(--button-width) - var(--hamburger-height) - 0.1vh);
+    margin: .3vh 0 .3vh calc(var(--button-width) - var(--hamburger-height) - 0.2vh);
     border: none;
     cursor: pointer;
     padding: .5vh .5vh;
