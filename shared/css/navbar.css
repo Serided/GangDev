@@ -137,6 +137,10 @@ nav input[name=menu] {
     margin: 0;
     border-radius: .5vh;
     justify-items: center;
+    background-image: url("https://shared.gangdev.co/files/img/dating/shh.webp");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 div.profile p {
     position: absolute;
