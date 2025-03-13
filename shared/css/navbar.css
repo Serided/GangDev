@@ -142,14 +142,14 @@ div.profile img {
     height: 100%;
     margin: 0;
 }
-div.profile p {
+div.profile img + p {
     position: absolute;
     bottom: 0.5vh;
     font-size: 1vh;
     padding: .1vh;
     background-color: white;
     color: black;
-    width: calc(var(--hamburger-height) - .1vh);
+    width: 100%;
 }
 
 .hamburger-btn {
