@@ -114,8 +114,8 @@ nav input[name=menu] {
 }
 
 .account-btn {
-    height: calc(var(--hamburger-height) + 1.25vh);
-    width: calc(var(--hamburger-height) + 1.25vh);
+    height: calc(var(--hamburger-height) + 1.4vh);
+    width: calc(var(--hamburger-height) + 1.4vh);
     font-family: "Fredoka", serif;
     border-radius: .5vh;
     text-decoration: none;
