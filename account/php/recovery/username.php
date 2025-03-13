@@ -17,11 +17,11 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 				<h2>Recover</h2>
 				<h1>Username</h1>
 			</div>
-			<p>
+			<p class="mTop">
 				We will send you the username associated with your email.
 			</p>
-			<form action="/submit" method="post">
-				<label for="email">Email: </label><br>
+			<form action="/submit" method="post" class="mTop">
+				<label for="email">Email: </label>
 				<input type="email" id="email" name="email" required>
 				<button type="submit" class="submit">Ya</button>
 			</form>

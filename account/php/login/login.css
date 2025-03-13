@@ -60,6 +60,7 @@ hr {
     align-content: center;
     display: inline-block;
     background: #5ac8e3;
+    box-shadow: 0 0 calc(var(--scaling) * 1) gray;
     border-radius: calc(var(--scaling) * 0.35);
     padding: calc(var(--scaling) * 3) calc(var(--scaling) * 5) calc(var(--scaling) * 0.8) calc(var(--scaling) * 5);
 }

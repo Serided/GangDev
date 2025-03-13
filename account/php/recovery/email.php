@@ -5,31 +5,26 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Recovery</title>
-	<link href="../style.css" rel="stylesheet" >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recovery</title>
+    <link href="recovery.css" rel="stylesheet" >
 	<?= $head ?>
 </head>
 <body>
-<div class="loginContainer">
-	<h1>Recovery</h1>
-	<hr>
-
-	<form>
-		<label for="username">Username: </label><br>
-		<input type="text" id="username" name="username" required><br>
-		<a class="forgot">forgot username?</a><br><br>
-	</form>
-
-	<form>
-		<label for="password">Password: </label><br>
-		<input type="text" id="password" name="password" required><br>
-		<a class="forgot">forgot password?</a><br><br>
-	</form>
-
-	<h2>or</h2><br>
-	<a href="signup.php" class="create">Create A New Account</a>
+<div class="recoveryContainer">
+    <div>
+        <h2>Recover</h2>
+        <h1>Email</h1>
+    </div>
+    <p class="mTop">
+        Little sus bro reach out to me.
+    </p>
+    <form action="/submit" method="post" class="mTop">
+        <label for="email">hehe: </label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit" class="submit">Ya</button>
+    </form>
 </div>
 </body>
 </html>
