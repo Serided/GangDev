@@ -124,7 +124,7 @@ nav input[name=menu] {
     padding: .75vh;
     display: inline-block;
     transition: all var(--animation-time) ease;
-    background-color: white;
+    background-color: gray;
     font-size: 6vh;
     font-weight: 400;
     text-align: left;
