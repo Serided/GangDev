@@ -84,7 +84,7 @@
     transition: translate var(--animation-time), opacity var(--animation-time);
     translate: -100%;
     opacity: 0;
-    padding: calc(var(--hamburger-height) + var(--hamburger-margin) + 1vh) 1vh 1vh 1vh;
+    padding: 1vh;
     position: fixed !important;
     color: var(--background);
     width: 40vh;
