@@ -70,16 +70,17 @@
     width: var(--x-width);
     translate: 0 calc(var(--bar-height) / -2)
 }
-
 .hamburger:has(input:checked)::after {
     rotate: -45deg;
     width: var(--x-width);
     translate: 0 calc(var(--bar-height) / 2)
 }
-
 .hamburger input[id=hamburger]:checked {
     opacity: 0;
     width: 0;
+}
+.hamburger:hover, .hamburger:hover::before, .hamburger:hover::after {
+    transform: scale(1.01);
 }
 
 .sidebar {
@@ -125,7 +126,7 @@ nav input[name=menu] {
     padding: .5vh .5vh;
     width: var(--button-width);
     display: inline-block;
-    transition: all 0.2s ease;
+    transition: all var(--animation-time) ease;
 }
 
 .hamburger-btn.one {
