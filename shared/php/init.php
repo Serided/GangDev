@@ -2,6 +2,10 @@
 if (session_status() == PHP_SESSION_NONE) session_start();
 
 $displayname = isset($_SESSION['displayname']) ? $_SESSION['displayname'] : 'Account';
+$userIconUrl = '';
+if (isset($_SESSION['user_id'])) {
+	$userIconUrl = "https://gangdev.co/user" . $_SESSION['user_id'] . "icon/user-icon.jpg";
+}
 
 ob_start();
 include '/var/www/gangdev/shared/php/navBar.php';

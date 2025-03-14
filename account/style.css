@@ -33,9 +33,6 @@ h2 b {
     padding: calc(var(--scaling) * 0.5);
     border-radius: calc(var(--scaling) * 1);
     background-color: gray;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
 }
 #iDisplay {
     width: 100%;
@@ -45,7 +42,6 @@ h2 b {
     background-color: darkgray;
     background-image: none;
     background-repeat: no-repeat;
-    background-attachment: fixed;
     background-size: cover;
     transition: all 0.3s ease;
 }

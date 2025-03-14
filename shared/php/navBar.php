@@ -11,7 +11,7 @@ $displayname = isset($_SESSION['displayname']) ? $_SESSION['displayname'] : 'Acc
         <nav>
             <input type="radio" id="account" name="menu">
             <label for="account" class="account-btn btn-text">
-                <div class="profile">
+                <div class="profile" style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');">
                     <p class="name"><?= $displayname ?></p>
                 </div>
             </label>

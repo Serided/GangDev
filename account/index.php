@@ -22,7 +22,7 @@
         <section class="fullw">
             <?php if (isset($_SESSION["user_id"])): ?>
                 <div class="icon">
-                    <div id="iDisplay"></div>
+                    <div id="iDisplay" style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');"></div>
                 </div>
                 <input type="file" id="iconFile" accept="image/*" style="display: none;">
 
