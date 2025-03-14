@@ -1,4 +1,13 @@
 <?php
+session_set_cookie_params([
+	'lifetime' => 7 * 24 * 60 * 60, // 7 days
+	'path'     => '/',
+	'domain'   => '.gangdev.co', // Note the leading dot
+	'secure'   => false,         // For testing; set to true on HTTPS
+	'httponly' => true,
+	'samesite' => 'Lax'
+]);
+
 if (session_status() == PHP_SESSION_NONE) session_start();
 
 if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberme"])) {
