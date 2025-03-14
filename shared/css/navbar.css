@@ -99,7 +99,7 @@
 }
 .sidebar.two {
     padding: calc(var(--hamburger-height) + var(--hamburger-margin) + 1vh) 1vh 1vh 1vh;
-    z-index: 99991;
+    z-index: 99992;
     background-color: dimgray;
 }
 
