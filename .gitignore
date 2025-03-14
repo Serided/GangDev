@@ -1,2 +1,3 @@
 /apps/universalChat/tmp/
 /account/.env
+/account/php/vendor/
