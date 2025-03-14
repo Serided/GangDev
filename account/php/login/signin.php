@@ -16,7 +16,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
             <h1>Sign In</h1>
             <hr class="marginBoost">
 
-            <form action="/submit" method="post">
+            <form method="post">
                 <label for="username">Username: </label><br>
                 <input type="text" id="username" name="username" required><br>
                 <div class="forgot margin"><a href="../recovery/username.php">forgot username?</a></div>
