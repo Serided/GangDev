@@ -2,7 +2,9 @@
 require_once '/var/www/gangdev/shared/php/init.php';
 require_once "../db.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$error = '';
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$username = trim($_POST["username"]);
 	$password = trim($_POST["password"]);
 
@@ -19,17 +21,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$folder = '/var/www/gangdev/user/' . $user["id"];
 		if (!file_exists($folder)) {
 			mkdir($folder, 0755, true);
+		}
+		if (!file_exists($folder . '/icon')) {
 			mkdir($folder . '/icon', 0755, true);
-			mkdir($folder . '/data', 0755, true);
-		} if (!file_exists($folder . '/icon')) {
-			mkdir($folder . '/icon', 0755, true);
-		} if (!file_exists($folder . '/data')) {
+		}
+		if (!file_exists($folder . '/data')) {
 			mkdir($folder . '/data', 0755, true);
 		}
 
 		header("Location: https://account.gangdev.co");
 		exit();
 	} else {
+		// Optionally, log an error here for debugging
+		error_log("Failed login attempt for user: " . $username);
 		header("Location: signin.php?error=1");
 		exit();
 	}
@@ -37,3 +41,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	header("Location: signin.php");
 	exit();
 }
+?>

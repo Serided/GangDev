@@ -2,8 +2,8 @@
 session_set_cookie_params([
 	'lifetime' => 7 * 24 * 60 * 60, // 7 days
 	'path'     => '/',
-	'domain'   => '.gangdev.co',      // Ensure this covers all subdomains if needed
-	'secure'   => true,               // Only over HTTPS
+	'domain'   => '.gangdev.co',
+	'secure'   => true,
 	'httponly' => true,
 	'samesite' => 'Lax'
 ]);
