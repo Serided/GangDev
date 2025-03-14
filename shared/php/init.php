@@ -3,11 +3,11 @@ session_set_cookie_params([
 	'lifetime' => 7 * 24 * 60 * 60, // 7 days
 	'path'     => '/',
 	'domain'   => '.gangdev.co',
-	'secure'   => false,
+	'secure'   => true,
 	'httponly' => true,
 	'samesite' => 'Lax'
 ]);
-if (session_status() == PHP_SESSION_NONE) session_start();
+session_start();
 
 $displayname = isset($_SESSION['displayname']) ? $_SESSION['displayname'] : 'Account';
 $userIconUrl = '';
@@ -28,3 +28,5 @@ include '/var/www/gangdev/shared/php/repetitive.php';
 $head = ob_get_clean();
 
 error_log('Session content: ' . print_r($_SESSION, true)); // Check your Apache error log for this output.
+
+session_start();
