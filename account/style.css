@@ -2,10 +2,6 @@
     --scaling: 1vh;
 }
 
-body {
-    user-select: all;
-}
-
 h2 {
     margin: calc(var(--scaling) * 2) calc(var(--scaling) * 1) !important;
     font-size: calc(var(--scaling) * 1);
