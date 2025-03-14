@@ -33,9 +33,9 @@
                     <div class="icon">
                         <div class="iDisplay"></div>
                     </div>
-                    <a href="php/login/signout.php">Sign Out</a>
+                    <a href="php/login/signout.php" class="sign">Sign Out</a>
                 <?php else: ?>
-                    <a href="php/login/signin.php">Sign In</a>
+                    <a href="php/login/signin.php" class="sign">Sign In</a>
                 <?php endif; ?>
             </p>
         </section>
