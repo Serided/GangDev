@@ -15,6 +15,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION["displayname"] = $user["displayname"];
 		$_SESSION["username"] = $user["username"];
 		$_SESSION["email"] = $user["email"];
+
+		$folder = '/var/www/gangdev/user/' . $user["id"];
+		if (!file_exists($folder)) {
+			mkdir($folder, 0755, true);
+			mkdir($folder . '/icon', 0755, true);
+			mkdir($folder . '/data', 0755, true);
+		} if (!file_exists($folder . '/icon')) {
+			mkdir($folder . '/icon', 0755, true);
+		} if (!file_exists($folder . '/data')) {
+			mkdir($folder . '/data', 0755, true);
+		}
+
 		header("Location: https://account.gangdev.co");
 		exit();
 	} else {

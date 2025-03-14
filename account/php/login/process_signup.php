@@ -34,6 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION["displayname"] = $displayname;
 		$_SESSION["username"] = $username;
 		$_SESSION["email"] = $email;
+
+		$folder = '/var/www/gangdev/user/' . $_SESSION["user_id"];
+		if (!file_exists($folder)) {
+			mkdir($folder, 0755, true);
+			mkdir($folder . '/icon', 0755, true);
+			mkdir($folder . '/data', 0755, true);
+		}
+
 		header("Location: https://account.gangdev.co");
 		exit();
 	} else {
