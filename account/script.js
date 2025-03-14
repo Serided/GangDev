@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === 'success') {
-                                iDisplay.style.backgroundImage = `url(${data.url})`;
+                                const newIconUrl = data.url + '?v=' + new Date().getTime();
+                                iDisplay.style.backgroundImage = `url(${newIconUrl})`;
                             } else {
                                 alert("Error uploading icon: " + data.message);
                             }
