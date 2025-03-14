@@ -1,8 +1,5 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-	session_start();
-}
-session_start();
+if (session_status() == PHP_SESSION_NONE) session_start();
 $error = '';
 if (isset($_GET["error"]) && $_GET["error"] == 1) {
     $error = "Invalid login credentials.";

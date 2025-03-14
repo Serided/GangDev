@@ -1,7 +1,5 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-	session_start();
-}
+if (session_status() == PHP_SESSION_NONE) session_start();
 $copyright = file_get_contents("../../html/copyright.html");
 $fader = file_get_contents("../../html/pageFader.html");
 $head = file_get_contents("../../html/repetitive.html");

@@ -1,7 +1,5 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-	session_start();
-}
+if (session_status() == PHP_SESSION_NONE) session_start();
 $navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
 $copyright = file_get_contents("https://shared.gangdev.co/html/copyright.html");
 $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");

@@ -1,8 +1,5 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-	session_start();
-}
-session_start();
+if (session_status() == PHP_SESSION_NONE) session_start();
 $error = '';
 if (isset($_GET['error'])) {
     if ($_GET['error'] == 1) {
