@@ -15,13 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if ($user && password_verify($password, $user["password"])) {
 		$_SESSION["user_id"] = $user["id"];
 		$_SESSION["username"] = $user["username"];
-		header("Location: ../index.php");
+		header("Location: ../../index.php");
 		exit();
 	} else {
-		header("Location: login/signin.php?error=1");
+		header("Location: signin.php?error=1");
 		exit();
 	}
 } else {
-	header("Location: login/signin.php");
+	header("Location: signin.php");
 	exit();
 }

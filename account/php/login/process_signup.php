@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if ($stmt->execute([$displayname, $username, $email, $hashed_password])) {
 		$_SESSION["user_id"] = $pdo->lastInsertId();
 		$_SESSION["username"] = $username;
-		header("Location: ../index.php");
+		header("Location: ../../index.php");
 		exit();
 	} else {
 		header("Location: signup.php?error=4");
