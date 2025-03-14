@@ -1,4 +1,18 @@
-<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
+<?php
+require_once '/var/www/gangdev/shared/php/init.php';
+$error = '';
+if (isset($_GET['error'])) {
+	if ($_GET['error'] == 1) {
+		$error = "All fields are required.";
+	} elseif ($_GET['error'] == 2) {
+		$error = "Passwords do not match.";
+	} elseif ($_GET['error'] == 3) {
+		$error = "An account with that email already exists.";
+	} elseif ($_GET['error'] == 4) {
+		$error = "An error occurred. Pleast try again.";
+	}
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>

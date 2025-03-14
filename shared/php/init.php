@@ -1,7 +1,6 @@
 <?php
 if (session_status() == PHP_SESSION_NONE) session_start();
 
-// init.php (after session_start())
 if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberme"])) {
 	require_once "../db.php"; // or adjust path accordingly
 

@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$email = trim($_POST["email"]);
 	$password = trim($_POST["password"]);
 	$confirm_password = trim($_POST["confirm_password"]);
-	$rememberMe = isset($_POST["rememberme"]);
+	$rememberme = isset($_POST["rememberme"]);
 
 	if (empty($displayname) || empty($username) || empty($email) || empty($password) || empty($confirm_password)) { // check for empty fields
 		header("Location: signup.php?error=1");
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			mkdir($folder . '/data', 0755, true);
 		}
 
-		if ($rememberMe) {
+		if ($rememberme) {
 			$token = bin2hex(random_bytes(16));  // 32-character token
 			$expiry = date('Y-m-d H:i:s', time() + (30 * 24 * 60 * 60));  // 30 days from now
 
