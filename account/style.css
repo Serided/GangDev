@@ -3,9 +3,10 @@
 }
 
 h2 {
-    margin: calc(var(--scaling) * 2) calc(var(--scaling) * 1);
+    margin: calc(var(--scaling) * 2) calc(var(--scaling) * 1) !important;
     font-size: calc(var(--scaling) * 1);
     font-weight: normal;
+    width: initial !important;
 }
 h2 b {
     color: white;
