@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION["displayname"] = $displayname;
 		$_SESSION["username"] = $username;
 		$_SESSION["email"] = $email;
-		header("Location: ../../index.php");
+		header("Location: https://account.gangdev.co");
 		exit();
 	} else {
 		header("Location: signup.php?error=4");

@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION["displayname"] = $user["displayname"];
 		$_SESSION["username"] = $user["username"];
 		$_SESSION["email"] = $user["email"];
-		header("Location: ../../index.php");
+		header("Location: https://account.gangdev.co");
 		exit();
 	} else {
 		header("Location: signin.php?error=1");
