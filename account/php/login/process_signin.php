@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$username = trim($_POST["username"]);
 	$password = trim($_POST["password"]);
 
-	$stmt = $pdo->prepare("SELECT id, username, password FROM users WHERE username = ?");
+	$stmt = $pdo->prepare("SELECT id, displayname, username, email, password FROM users WHERE username = ?");
 	$stmt->execute([$username]);
 	$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
