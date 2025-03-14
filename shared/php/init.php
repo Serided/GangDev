@@ -1,4 +1,12 @@
 <?php
+session_set_cookie_params([
+	'lifetime' => 7 * 24 * 60 * 60, // 7 days
+	'path'     => '/',
+	'domain'   => '.gangdev.co',      // Ensure this covers all subdomains if needed
+	'secure'   => true,               // Only over HTTPS
+	'httponly' => true,
+	'samesite' => 'Lax'
+]);
 if (session_status() == PHP_SESSION_NONE) session_start();
 
 $displayname = isset($_SESSION['displayname']) ? $_SESSION['displayname'] : 'Account';
