@@ -1,5 +1,4 @@
 <?php
-require_once '/var/www/gangdev/shared/php/init.php';
 if(isset($_GET['logout'])){
 
 	// logout message
@@ -33,11 +32,7 @@ function loginForm(){
         </div>';
 }
 ?>
-<?php
-$navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
-$copyright = file_get_contents("https://shared.gangdev.co/html/copyright.html");
-$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
-?>
+<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
 	<html lang="en">
 	<head>
