@@ -4,6 +4,7 @@
     <head>
         <meta charset="UTF-8" name="description" content="Home">
         <title>Account</title>
+        <link rel="stylesheet" href="style.css">
         <?= $head ?>
     </head>
     <body class="main-p fullw">
@@ -19,16 +20,23 @@
                 <b>Note:</b>
             </h2>
             <p class="fullw">
-                This page is about to get an overhaul. Everything here is a little out dated and not nearly funny enough, so it's gotta go.
+                In development.
             </p>
         </section>
     </div>
 
     <div class="fullw sect spacing">
         <section class="fullw">
-            <h2>Sign In</h2>
+            <h2>Information</h2>
             <p class="fullw">
-                <a href="php/login/signin.php">Sign In Page</a>
+	            <?php if (isset($_SESSION["user_id"])): ?>
+                    <div class="icon">
+                        <div class="iDisplay"></div>
+                    </div>
+                    <a href="php/login/signout.php">Sign Out</a>
+                <?php else: ?>
+                    <a href="php/login/signin.php">Sign In</a>
+                <?php endif; ?>
             </p>
         </section>
     </div>
