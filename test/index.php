@@ -1,4 +1,7 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
 $navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
 $footer = file_get_contents("https://shared.gangdev.co/html/footer.html");
 $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
