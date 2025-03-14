@@ -24,6 +24,7 @@ h2 b {
     background: darkgray;
     user-select: text;
     justify-items: center;
+    width: max-content !important;
 }
 
 .icon {
