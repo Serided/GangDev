@@ -5,6 +5,8 @@
         <meta charset="UTF-8" name="description" content="Home">
         <title>Account</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" integrity="sha512-..." crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" integrity="sha512-..." crossorigin="anonymous"></script>
         <?= $head ?>
     </head>
     <body class="main-p fullw">
@@ -20,12 +22,15 @@
                 <div class="icon">
                     <div class="iDisplay"></div>
                 </div>
+                <input type="file" id="iconFile" accept="image/*" style="display: none;">
+
                 <div class="info">
                     <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
                     <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
                     <h2>Email: <b><?php echo htmlspecialchars($_SESSION['email']) ?></b></h2>
                     <h2>AND MORE TO COME...</h2>
                 </div>
+
                 <a href="php/login/signout.php" class="sign">Sign Out</a>
             <?php else: ?>
                 <a href="php/login/signin.php" class="sign">Sign In</a>
@@ -33,6 +38,8 @@
             <p style="color: red" class="account"><b>Note: </b>In development</p>
         </section>
     </div>
+
+    <script src="script.js"></script>
 
     <?= $footer ?>
     </body>
