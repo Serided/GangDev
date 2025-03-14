@@ -57,7 +57,6 @@
     box-shadow: 0 0 0 1px var(--foreground);*/
     transition: opacity var(--animation-time), width var(--animation-time), rotate var(--animation-time), translate var(--animation-time), background-color var(--animation-time);
 }
-
 .hamburger input {
     appearance: none;
     padding: 0;
@@ -94,12 +93,10 @@
     top: 0 !important;
     left: 0 !important;
 }
-
 .sidebar.one {
     z-index: 99990;
     background-color: var(--foreground);
 }
-
 .sidebar.two {
     padding: calc(var(--hamburger-height) + var(--hamburger-margin) + 1vh) 1vh 1vh 1vh;
     z-index: 99991;
@@ -170,14 +167,12 @@ div.profile p {
     display: inline-block;
     transition: all var(--animation-time) ease;
 }
-
 .hamburger-btn.one {
     background-color: gray;
     font-size: 6vh;
     font-weight: 400;
     text-align: left;
 }
-
 .hamburger-btn.two {
     background-color: darkgray;
     font-size: 4vh;
@@ -196,8 +191,15 @@ div.profile p {
 nav input:checked + .hamburger-btn {
     font-weight: 700;
 }
-
 nav input:checked + .hamburger-btn + .sidebar.two {
+    translate: 0;
+    opacity: 100%;
+}
+
+nav input:checked + .account-btn {
+    font-weight: 700;
+}
+nav input:checked + .account-btn + .sidebar.two {
     translate: 0;
     opacity: 100%;
 }
