@@ -31,7 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$stmt = $pdo->prepare("INSERT INTO users (displayname, username, email, password) VALUES (?, ?, ?, ?)");
 	if ($stmt->execute([$displayname, $username, $email, $hashed_password])) {
 		$_SESSION["user_id"] = $pdo->lastInsertId();
+		$_SESSION["displayname"] = $displayname;
 		$_SESSION["username"] = $username;
+		$_SESSION["email"] = $email;
 		header("Location: ../../index.php");
 		exit();
 	} else {
