@@ -31,15 +31,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		if ($rememberme) {
 			$token = bin2hex(random_bytes(16));
 			$expiry = date("Y-m-d H:i:s", time() + (30 * 24 * 60 * 60)); // 30 days
-
-			$stmt = $pdo->prepare("INSERT INTO user_remember_tokens (user_id, token, expires_at) VALUES (?, ?)");
+			// Corrected query with 3 placeholders
+			$stmt = $pdo->prepare("INSERT INTO user_remember_tokens (user_id, token, expires_at) VALUES (?, ?, ?)");
 			$stmt->execute([$user["id"], $token, $expiry]);
+
+			// Set persistent cookie for 30 days
+			setcookie('rememberme', $token, time() + (30 * 24 * 60 * 60), '/', '.gangdev.co', false, true);
 		}
 
 		header("Location: https://account.gangdev.co");
 		exit();
 	} else {
-		// Optionally, log an error here for debugging
 		error_log("Failed login attempt for user: " . $username);
 		header("Location: signin.php?error=1");
 		exit();
