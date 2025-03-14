@@ -31,6 +31,7 @@
 }
 
 .sign {
+    display: inline-block;
     text-decoration: none;
     cursor: pointer;
     background: darkgray;
@@ -45,6 +46,7 @@
 
 .iDisplay:hover {
     background: #333;
+    opacity: .7;
 }
 .sign:hover {
     transform: scale(1.05);
