@@ -3,13 +3,12 @@
 }
 
 .aSect {
-    align-items: center;
 }
 
 .icon {
     width: calc(var(--scaling) * 8);
     height: calc(var(--scaling) * 8);
-    margin: 0;
+    margin: 0 auto;
     padding: calc(var(--scaling) * 0.5);
     border-radius: calc(var(--scaling) * 1);
     background-color: gray;
