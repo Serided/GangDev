@@ -2,6 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) session_start();
 
 if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberme"])) {
+	error_log("Remember me cookie found: " . $_COOKIE["rememberme"]);
 	require_once "/var/www/gangdev/account/php/db.php"; // or adjust path accordingly
 
 	$token = $_COOKIE["rememberme"];
