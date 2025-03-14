@@ -38,6 +38,9 @@ if (!file_exists($ifolder)) {
 }
 
 $destination = $ifolder . '/user-icon.jpg';
+if (file_exists($destination)) {
+	unlink($destination);
+}
 if (move_uploaded_file($file['tmp_name'], $destination)) {
 	$iconUrl = 'https://gangdev.co/user/' . $userId . '/icon/user-icon.jpg';
 	echo json_encode(["status" => "success", "url" => $iconUrl]);
