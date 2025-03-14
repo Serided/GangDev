@@ -65,6 +65,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             if (data.status === 'success') {
                                 const newIconUrl = data.url + '?v=' + new Date().getTime();
                                 iDisplay.style.backgroundImage = `url(${newIconUrl})`;
+
+                                const navbarProfile = document.querySelector('.hNavbar .profile');
+                                if (navbarProfile) {
+                                    navbarProfile.style.backgroundImage = `url(${newIconUrl})`;
+                                }
                             } else {
                                 alert("Error uploading icon: " + data.message);
                             }
