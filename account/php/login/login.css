@@ -5,14 +5,14 @@
 /* phone */
 @media screen and (max-width: 768px) {
     :root {
-        --scaling: 2vw;
+        --scaling: 2.5vw;
     }
 }
 
 /* phone portrait */
 @media screen and (max-width: 480px) {
     :root {
-        --scaling: 2.5vw;
+        --scaling: 3vw;
     }
 }
 
@@ -40,6 +40,9 @@ h1 {
     font-size: calc(var(--scaling) * 4) !important;
     padding: 0 !important;
 }
+h1.signup {
+    font-size: calc(var(--scaling) * 3) !important;
+}
 
 h2 {
     font-size: calc(var(--scaling) * 2) !important;
@@ -54,6 +57,9 @@ hr {
     border: none;
     border-radius: calc(var(--scaling) * 0.35);
 }
+hr.signup {
+    width: calc(var(--scaling) * 25);
+}
 
 .loginContainer {
     justify-items: center;
@@ -63,6 +69,9 @@ hr {
     box-shadow: 0 0 calc(var(--scaling) * 1) gray;
     border-radius: calc(var(--scaling) * 0.35);
     padding: calc(var(--scaling) * 3) calc(var(--scaling) * 5) calc(var(--scaling) * 0.8) calc(var(--scaling) * 5);
+}
+.loginContainer.signup {
+    padding: calc(var(--scaling) * 2) calc(var(--scaling) * 3) calc(var(--scaling) * 0.8) calc(var(--scaling) * 3) !important;
 }
 
 form label {
@@ -77,6 +86,11 @@ form input {
     justify-items: left;
     background: whitesmoke;
     transition: all 0.2s ease;
+}
+form input.signup {
+    height: calc(var(--scaling) * 2.2);
+    width: calc(var(--scaling) * 25);
+    font-size: calc(var(--scaling) * 2);
 }
 
 .forgot {

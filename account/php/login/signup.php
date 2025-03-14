@@ -24,9 +24,9 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <?= $head ?>
     </head>
     <body>
-        <div class="loginContainer">
-            <h1>Create Account</h1>
-            <hr>
+        <div class="loginContainer signup">
+            <h1 class="signup">Create Account</h1>
+            <hr class="signup">
 
             <?php if ($error): ?>
                 <p style="color: red;"><?= htmlspecialchars($error) ?></p>
@@ -39,7 +39,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                         The name other players will know you by.
                     </span>
                 </span><br>
-                <input type="text" id="displayname" name="displayname" required><br><br>
+                <input type="text" id="displayname" name="displayname" class="signup" required><br><br>
 
                 <label for="username">Username:</label>
                 <span class="tooltip">ⓘ
@@ -47,7 +47,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                         A unique identifier for you (and it helps you sign in faster).
                     </span>
                 </span><br>
-                <input type="text" id="username" name="username" required><br><br>
+                <input type="text" id="username" name="username" class="signup" required><br><br>
 
                 <label for="email">Email:</label>
                 <span class="tooltip">ⓘ
@@ -55,7 +55,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                         How we store your account.
                     </span>
                 </span><br>
-                <input type="email" id="email" name="email" required><br><br>
+                <input type="email" id="email" name="email" class="signup" required><br><br>
 
                 <label for="password">Password:</label>
                 <span class="tooltip">ⓘ
@@ -63,7 +63,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                         The main thing making your data yours.
                     </span>
                 </span><br>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" class="signup" required><br><br>
 
                 <label for="password">Confirm Password:</label>
                 <span class="tooltip">ⓘ
@@ -71,12 +71,12 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
                         The main thing making your data yours.
                     </span>
                 </span><br>
-                <input type="password" id="confirm_password" name="confirm_password" required>
+                <input type="password" id="confirm_password" name="confirm_password" class="signup" required>
                 <div></div>
 
                 <div></div>
 
-                <button type="submit" class="submit">Ya</button>
+                <button type="submit" class="submit signup">Ya</button>
 
                 <div class="checkboxes">
                     <label class="customCheckbox">
