@@ -64,7 +64,6 @@ h2 b {
     z-index: 1000;
     overflow: auto; /* In case content overflows */
 }
-
 #cropContent {
     background: #fff;
     padding: 20px;
@@ -73,6 +72,20 @@ h2 b {
     max-height: 90vh; /* 90% of viewport height */
     overflow: auto;   /* Add scroll if needed */
     text-align: center;
+}
+#cropConfirm {
+    position: absolute;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    background: darkgray;
+    color: white;
+    font-weight: bold;
+    border-radius: calc(var(--scaling) * 1);
+    font-size: calc(var(--scaling) * 1.5);
+    padding: calc(var(--scaling) * .75);
+    margin: calc(var(--scaling) * 1) auto !important;
+    transition: all 0.3s ease;
 }
 
 .sign {
