@@ -35,12 +35,16 @@
     background: darkgray;
     color: white;
     font-weight: bold;
-    border-radius: calc(var(--scaling) * 2);
-    font-size: calc(var(--scaling) * 2);
-    padding: calc(var(--scaling) * 1);
+    border-radius: calc(var(--scaling) * 1);
+    font-size: calc(var(--scaling) * 1.5);
+    padding: calc(var(--scaling) * .75);
+    margin: calc(var(--scaling) * 2) auto;
     transition: all 0.3s ease;
 }
 
+.iDisplay:hover {
+    background: #333;
+}
 .sign:hover {
     transform: scale(1.05);
 }
