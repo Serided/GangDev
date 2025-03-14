@@ -19,10 +19,12 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <div class="loginContainer">
             <h1>Sign In</h1>
             <hr class="marginBoost">
+
             <?php if ($error): ?>
                 <p style="color: red"><?= htmlspecialchars($error) ?></p>
             <?php endif; ?>
-            <form method="post" action="../process_signin.php">
+
+            <form method="post" action="process_signin.php">
                 <label for="username">Username: </label><br>
                 <input type="text" id="username" name="username" required><br>
                 <div class="forgot margin"><a href="../recovery/username.php">forgot username?</a></div>

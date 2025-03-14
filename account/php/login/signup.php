@@ -1,5 +1,17 @@
 <?php
 session_start();
+$error = '';
+if (isset($_GET['error'])) {
+    if ($_GET['error'] == 1) {
+        $error = "All fields are required.";
+    } elseif ($_GET['error'] == 2) {
+        $error = "Passwords do not match.";
+    } elseif ($_GET['error'] == 3) {
+        $error = "An account with that email already exists.";
+    } elseif ($_GET['error'] == 4) {
+        $error = "An error occurred. Pleast try again.";
+    }
+}
 $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 ?>
 <!DOCTYPE html>
@@ -13,59 +25,72 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
     </head>
     <body>
         <div class="loginContainer">
-            <h1>Sign Up</h1>
+            <h1>Create Account</h1>
             <hr>
 
-            <form action="/submit" method="post">
-                <label for="displayname">Display Name: </label>
+            <?php if ($error): ?>
+                <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+            <?php endif; ?>
+
+            <form method="post" action="process_signup.php">
+                <label for="displayname">Display Name:</label>
                 <span class="tooltip">ⓘ
                     <span class="tooltipText">
                         The name other players will know you by.
                     </span>
-                </span>
-                <br>
+                </span><br>
                 <input type="text" id="displayname" name="displayname" required><br><br>
 
-                <label for="username">Username: </label>
+                <label for="username">Username:</label>
                 <span class="tooltip">ⓘ
                     <span class="tooltipText">
                         A unique identifier for you (and it helps you sign in faster).
                     </span>
-                </span>
-                <br>
+                </span><br>
                 <input type="text" id="username" name="username" required><br><br>
 
-                <label for="email">Email: </label>
+                <label for="email">Email:</label>
                 <span class="tooltip">ⓘ
                     <span class="tooltipText">
                         How we store your account.
                     </span>
-                </span>
-                <br>
+                </span><br>
                 <input type="email" id="email" name="email" required><br><br>
 
-                <label for="password">Password: </label>
+                <label for="password">Password:</label>
                 <span class="tooltip">ⓘ
                     <span class="tooltipText">
                         The main thing making your data yours.
                     </span>
-                </span>
-                <br>
+                </span><br>
                 <input type="password" id="password" name="password" required>
+
+                <label for="password">Confirm Password:</label>
+                <span class="tooltip">ⓘ
+                    <span class="tooltipText">
+                        The main thing making your data yours.
+                    </span>
+                </span><br>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+                <div></div>
+
                 <div></div>
 
                 <button type="submit" class="submit">Ya</button>
+
                 <div class="checkboxes">
                     <label class="customCheckbox">
                         <input type="checkbox" id="terms" name="terms" required>
                         <span class="checkmark"></span>
                         <label for="terms" class="terms">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/tos.php" target="_blank">Terms Of Service</a>.</label>
                     </label><br>
+
                     <label class="customCheckbox">
                         <input type="checkbox" id="privacy" name="privacy" required>
                         <span class="checkmark"></span>
                         <label for="privacy" class="privacy">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/pp.php" target="_blank">Privacy Policy</a>.</label>
                     </label><br>
+
                     <label class="customCheckbox">
                         <input type="checkbox" id="subscribe" name="subscribe">
                         <span class="checkmark"></span>
