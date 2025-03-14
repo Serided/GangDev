@@ -14,20 +14,8 @@
         Account
     </h1>
 
-    <div class="fullw sect">
+    <div class="fullw sect aSect">
         <section class="fullw">
-            <h2 style="color:red">
-                <b>Note:</b>
-            </h2>
-            <p class="fullw">
-                In development.
-            </p>
-        </section>
-    </div>
-
-    <div class="fullw sect spacing aSect">
-        <section class="fullw">
-            <h2>Information</h2>
             <?php if (isset($_SESSION["user_id"])): ?>
                 <div class="icon">
                     <div class="iDisplay"></div>
@@ -36,6 +24,7 @@
             <?php else: ?>
                 <a href="php/login/signin.php" class="sign">Sign In</a>
             <?php endif; ?>
+            <p style="color: red"><b>Note: </b>In development</p>
         </section>
     </div>
 
