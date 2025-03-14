@@ -62,21 +62,21 @@ h2 b {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    overflow: auto; /* In case content overflows */
+    overflow: auto;
     margin: 0;
 }
 #cropContent {
     background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    max-width: 90vw;  /* 90% of viewport width */
-    max-height: 90vh; /* 90% of viewport height */
-    overflow: auto;   /* Add scroll if needed */
+    padding: calc(var(--scaling) * 3);
+    border-radius: calc(var(--scaling) * 1);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: auto;
     text-align: center;
 }
 #cropConfirm {
-    position: fixed;
-    display: inline-block;
+    bottom: 5vh;
+    font-family: "Fredoka", serif;
     text-decoration: none;
     cursor: pointer;
     background: darkgray;
