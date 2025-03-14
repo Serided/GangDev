@@ -7,7 +7,7 @@ h2 {
     font-size: calc(var(--scaling) * 1);
     font-weight: normal;
     text-align: center;
-    width: auto !important;
+    width: max-content !important;
 }
 h2 b {
     color: white;
