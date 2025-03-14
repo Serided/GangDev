@@ -15,25 +15,24 @@ $displayname = isset($_SESSION['displayname']) ? $_SESSION['displayname'] : 'Acc
                     <p class="name"><?= $displayname ?></p>
                 </div>
             </label>
-            <aside class="sidebar two">
-                <nav>
-                    <a href="https://account.gangdev.co/php/login/signin.php" class="btn-text"><button class="hamburger-btn btn-text two">Sign In</button></a>
-                </nav>
-            </aside>
+            <?php if (isset($_SESSION["user_id"])): ?> <!-- change account tab content -->
+                <aside class="sidebar two">
+                    <nav>
+                        <a href="http://account.gangdev.co" class="btn-text"><button class="hamburger-btn btn-text two">Account</button></a>
+                        <a href="#" class="btn-text"><button class="hamburger-btn btn-text two">Leaderboard</button></a>
+                        <a href="https://account.gangdev.co/php/login/signout.php" class="btn-text"><button class="hamburger-btn btn-text two">Sign Out</button></a>
+                    </nav>
+                </aside>
+            <?php else: ?>
+                <aside class="sidebar two">
+                    <nav>
+                        <a href="https://account.gangdev.co/php/login/signin.php" class="btn-text"><button class="hamburger-btn btn-text two">Sign In</button></a>
+                    </nav>
+                </aside>
+            <?php endif; ?>
 
             <a href="https://gangdev.co/"><button class="hamburger-btn btn-text one">Home</button></a>
-            <!--
-            <input type="radio" id="services" name="menu">
-            <label for="services" class="hamburger-btn btn-text one">Services</label>
-            <aside class="sidebar two">
-                <nav>
-                    <a href="/php/services.php"><button class="hamburger-btn btn-text two">PC Building</button></a>
-                    <a href="/php/services.php"><button class="hamburger-btn btn-text two">John's Lemonade</button></a>
-                    <a href="/php/services.php"><button class="hamburger-btn btn-text two">Minecraft Coding and 'Adminning'</button></a>
-                    <a href="/php/services.php" class="btn-text"><button class="hamburger-btn btn-text two">More...</button></a>
-                </nav>
-            </aside>
-           -->
+
             <input type="radio" id="mods" name="menu">
             <label for="mods" class="hamburger-btn btn-text one">Mods</label>
             <aside class="sidebar two">
