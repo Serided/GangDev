@@ -12,7 +12,7 @@ if (isset($_GET['error'])) {
         $error = "An error occurred. Pleast try again.";
     }
 }
-$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
+require_once '/var/www/gangdev/shared/php/init.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

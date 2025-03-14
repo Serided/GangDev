@@ -1,9 +1,4 @@
-<?php
-if (session_status() == PHP_SESSION_NONE) session_start();
-$navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
-$footer = file_get_contents("https://shared.gangdev.co/html/footer.html");
-$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
-?>
+<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
     <head>
@@ -95,7 +90,7 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
             <section class="fullw">
                 <h2>Contact</h2>
                 <p>
-                    <a href="mailto:scandinalien.work@gmail.com">Email Jens (scandinalien.work@gmail.com)</a>
+                    <a href="mailto:jens.hansen@gangdev.co">Email Jens (scandinalien.work@gmail.com)</a>
                 </p>
             </section>
         </div>

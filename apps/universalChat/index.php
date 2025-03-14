@@ -1,5 +1,5 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) session_start();
+require_once '/var/www/gangdev/shared/php/init.php';
 if(isset($_GET['logout'])){
 
 	// logout message

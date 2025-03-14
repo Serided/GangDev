@@ -1,10 +1,4 @@
-<?php
-if (session_status() == PHP_SESSION_NONE) session_start();
-$navbar = file_get_contents ("../../html/navBar.html");
-$copyright = file_get_contents("../../html/copyright.html");
-$fader = file_get_contents("../../html/pageFader.html");
-$head = file_get_contents("../../html/repetitive.html");
-?>
+<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
     <head>

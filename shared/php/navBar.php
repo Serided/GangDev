@@ -1,3 +1,7 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) session_start();
+$displayname = isset($_SESSION['displayname']) ? $_SESSION['displayname'] : 'Account';
+?>
 <div class="hNavbar">
     <link rel="stylesheet" href="https://shared.gangdev.co/css/navbar.css">
     <label class="hamburger">
@@ -8,7 +12,7 @@
             <input type="radio" id="account" name="menu">
             <label for="account" class="account-btn btn-text">
                 <div class="profile" style="background-color: darkgray;">
-                    <p class="name">Account</p>
+                    <p class="name"><?= $displayname ?></p>
                 </div>
             </label>
             <aside class="sidebar two">
@@ -84,5 +88,5 @@
             </aside>
         </nav>
     </aside>
-    <script src="https://shared.gangdev.co/js/navbar.js"></script>
+    <script src="https://gangdev.co/shared/js/navbar.js"></script>
 </div>

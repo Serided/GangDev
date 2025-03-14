@@ -1,7 +1,5 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-	session_start();
-}
+require_once '/var/www/gangdev/shared/php/init.php';
 require_once "../db.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

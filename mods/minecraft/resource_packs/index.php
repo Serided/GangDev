@@ -1,9 +1,4 @@
-<?php
-if (session_status() == PHP_SESSION_NONE) session_start();
-$navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
-$footer = file_get_contents("https://shared.gangdev.co/html/footer.html");
-$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
-?>
+<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
     <html lang="en" class="fullw">
     <head>

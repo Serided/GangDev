@@ -1,11 +1,4 @@
-<?php
-if (session_status() == PHP_SESSION_NONE) session_start();
-$error = '';
-if (isset($_GET["error"]) && $_GET["error"] == 1) {
-    $error = "Invalid login credentials.";
-}
-$head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
-?>
+<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>

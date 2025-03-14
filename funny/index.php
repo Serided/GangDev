@@ -1,6 +1,4 @@
-<?php
-if (session_status() == PHP_SESSION_NONE) session_start();
-?>
+<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <h1>
 	hi
 </h1>
