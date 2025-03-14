@@ -5,8 +5,8 @@
         <meta charset="UTF-8" name="description" content="Home">
         <title>Account</title>
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" integrity="sha512-..." crossorigin="anonymous" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" integrity="sha512-..." crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
         <?= $head ?>
     </head>
     <body class="main-p fullw">
@@ -20,7 +20,7 @@
         <section class="fullw">
             <?php if (isset($_SESSION["user_id"])): ?>
                 <div class="icon">
-                    <div class="iDisplay"></div>
+                    <div id="iDisplay"></div>
                 </div>
                 <input type="file" id="iconFile" accept="image/*" style="display: none;">
 

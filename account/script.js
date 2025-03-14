@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         iconFile.click();
     });
 
-    iconFile.addEventListener('click', function(e) {
+    iconFile.addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (!file) return;
 
@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const reader = new FileReader();
         reader.onload = function(event) {
+            // Create an image element for cropping
             const image = document.createElement('img');
             image.src = event.target.result;
             image.id = "cropperImage";
@@ -33,16 +34,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 cropBoxResizable: true
             });
 
+            // Create a confirm button to finish cropping
             const confirmButton = document.createElement('button');
             confirmButton.textContent = "Confirm";
-            confirmButton.id = "sign";
+            confirmButton.id = "cropConfirm";
             document.body.appendChild(confirmButton);
 
             confirmButton.addEventListener('click', function() {
+                // Get cropped canvas with desired dimensions (e.g., 150x150)
                 const croppedCanvas = cropper.getCroppedCanvas({
-                    width:150,
+                    width: 150,
                     height: 150
                 });
+                // Convert the canvas to Blob and send via AJAX
                 croppedCanvas.toBlob(function(blob) {
                     const formData = new FormData();
                     formData.append('icon', blob, 'icon.jpg');
@@ -54,16 +58,18 @@ document.addEventListener('DOMContentLoaded', function() {
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === 'success') {
-                                iDisplay.style.backgroundImage = `url(${data})`;
+                                // Assuming your response JSON contains data.url as the new image URL
+                                iDisplay.style.backgroundImage = `url(${data.url})`;
                             } else {
                                 alert("Error uploading icon: " + data.message);
                             }
                         })
-                        .catch (error => {
+                        .catch(error => {
                             console.error('Error:', error);
                         });
                 }, 'image/jpeg', 0.9);
 
+                // Clean up the cropping UI
                 cropper.destroy();
                 image.remove();
                 confirmButton.remove();
