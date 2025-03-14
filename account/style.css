@@ -3,7 +3,7 @@
 }
 
 h2 {
-    margin: calc(var(--scaling) * 2) calc(var(--scaling) * 1) !important;
+    margin: calc(var(--scaling) * 2) auto !important;
     font-size: calc(var(--scaling) * 1);
     font-weight: normal;
     width: fit-content !important;
