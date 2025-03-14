@@ -25,7 +25,7 @@
         </section>
     </div>
 
-    <div class="fullw sect spacing">
+    <div class="fullw sect spacing aSect">
         <section class="fullw">
             <h2>Information</h2>
             <p class="fullw">

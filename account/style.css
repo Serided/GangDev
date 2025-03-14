@@ -2,12 +2,16 @@
     --scaling: 1vh;
 }
 
+.aSect {
+    justify-content: center;
+}
+
 .icon {
-    width: calc(var(--scaling) * 6);
-    height: calc(var(--scaling) * 6);
+    width: calc(var(--scaling) * 8);
+    height: calc(var(--scaling) * 8);
     margin: 0;
-    padding: calc(var(--scaling) * 1);
-    border-radius: calc(var(--scaling) * 2);
+    padding: calc(var(--scaling) * 0.5);
+    border-radius: calc(var(--scaling) * 1);
     background-color: gray;
     background-image: none;
     background-repeat: no-repeat;
@@ -30,7 +34,14 @@
     text-decoration: none;
     cursor: pointer;
     background: darkgray;
+    color: white;
+    font-weight: bold;
     border-radius: calc(var(--scaling) * 2);
-    font-size: calc(var(--scaling) * 3);
+    font-size: calc(var(--scaling) * 2);
     padding: calc(var(--scaling) * 1);
+    transition: all 0.3s ease;
+}
+
+.sign:hover {
+    transform: scale(1.05);
 }
