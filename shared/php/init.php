@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) session_start();
 
 if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberme"])) {
-	require_once "../db.php"; // or adjust path accordingly
+	require_once "/var/www/gangdev/account/php"; // or adjust path accordingly
 
 	$token = $_COOKIE["rememberme"];
 	$stmt = $pdo->prepare("SELECT user_id, expires_at FROM user_remember_tokens WHERE token = ?");
