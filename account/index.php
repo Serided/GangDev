@@ -28,16 +28,14 @@
     <div class="fullw sect spacing aSect">
         <section class="fullw">
             <h2>Information</h2>
-            <p class="fullw">
-	            <?php if (isset($_SESSION["user_id"])): ?>
-                    <div class="icon">
-                        <div class="iDisplay"></div>
-                    </div>
-                    <a href="php/login/signout.php" class="sign">Sign Out</a>
-                <?php else: ?>
-                    <a href="php/login/signin.php" class="sign">Sign In</a>
-                <?php endif; ?>
-            </p>
+            <?php if (isset($_SESSION["user_id"])): ?>
+                <div class="icon">
+                    <div class="iDisplay"></div>
+                </div>
+                <a href="php/login/signout.php" class="sign">Sign Out</a>
+            <?php else: ?>
+                <a href="php/login/signin.php" class="sign">Sign In</a>
+            <?php endif; ?>
         </section>
     </div>
 
