@@ -22,7 +22,7 @@ h2 b {
     padding: calc(var(--scaling) * 1);
     border-radius: calc(var(--scaling) * 1);
     background: darkgray;
-    user-select: text;
+    user-select: all;
     justify-items: center;
     width: max-content !important;
 }
