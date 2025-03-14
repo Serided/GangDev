@@ -1,4 +1,5 @@
 <?php
+require_once 'https://shared.gangdev.co/php/init.php';
 $copyright = file_get_contents("../../html/copyright.html");
 $fader = file_get_contents("../../html/pageFader.html");
 $head = file_get_contents("../../html/repetitive.html");

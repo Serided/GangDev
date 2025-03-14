@@ -1,4 +1,5 @@
 <?php
+require_once 'https://shared.gangdev.co/php/init.php';
 $navbar = file_get_contents ("../../html/navBar.html");
 $copyright = file_get_contents("../../html/copyright.html");
 $fader = file_get_contents("../../html/pageFader.html");

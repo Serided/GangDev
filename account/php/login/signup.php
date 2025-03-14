@@ -1,4 +1,5 @@
 <?php
+require_once 'https://shared.gangdev.co/php/init.php';
 session_start();
 $error = '';
 if (isset($_GET['error'])) {

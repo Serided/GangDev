@@ -1,4 +1,5 @@
 <?php
+require_once 'https://shared.gangdev.co/php/init.php';
 $navbar = file_get_contents ("https://shared.gangdev.co/html/navBar.html");
 $copyright = file_get_contents("https://shared.gangdev.co/html/copyright.html");
 $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");

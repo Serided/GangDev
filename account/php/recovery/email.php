@@ -1,4 +1,5 @@
 <?php
+require_once 'https://shared.gangdev.co/php/init.php';
 session_start();
 $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 ?>

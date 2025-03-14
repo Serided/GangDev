@@ -1,4 +1,5 @@
 <?php
+require_once 'https://shared.gangdev.co/php/init.php';
 if (session_status() === PHP_SESSION_NONE) {
 	session_start();
 }

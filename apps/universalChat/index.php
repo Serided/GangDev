@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once 'https://shared.gangdev.co/php/init.php';
 if(isset($_GET['logout'])){
 
 	// logout message

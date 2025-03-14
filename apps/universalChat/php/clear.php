@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once 'https://shared.gangdev.co/php/init.php';
 
 if(isset($_SESSION['name'])){
 		$file_path = "../tmp/universalChatLog.html";

@@ -1,3 +1,6 @@
+<?php
+require_once 'https://shared.gangdev.co/php/init.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
