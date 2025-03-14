@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     iconFile.addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (!file) return;
-        if (file.size > 2 * 1024 * 1024) {
-            alert('Image is too large. Please choose an image under 2MB.');
+        if (file.size > 3 * 1024 * 1024) { // 3MB limit
+            alert('Image is too large. Please choose an image under 3MB.');
             return;
         }
 

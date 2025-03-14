@@ -20,7 +20,7 @@ if ($finfo->file($file['tmp_name']) != "image/jpeg") {
 	exit();
 }
 
-$maxFileSize = 2 * 1024 * 1024; // 2MB limit
+$maxFileSize = 3 * 1024 * 1024; // 3MB limit
 if ($file['size'] > $maxFileSize) {
 	echo json_encode(["status" => "error", "message" => "File is too big."]);
 	exit();
