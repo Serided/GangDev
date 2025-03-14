@@ -163,6 +163,9 @@ form input.signup {
 .customCheckbox {
     font-size: calc(var(--scaling) * 1);
 }
+.rememberme {
+    font-size: calc(var(--scaling) * 0.9);
+}
 .terms {
     font-size: calc(var(--scaling) * 0.9);
 }

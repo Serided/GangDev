@@ -78,7 +78,13 @@ require_once '/var/www/gangdev/shared/php/init.php';
 
                 <button type="submit" class="submit signup">Ya</button>
 
-                <div class="checkboxes">
+                <div>
+                    <label class="customCheckbox">
+                        <input type="checkbox" id="rememberme" name="rememberme">
+                        <span class="checkmark"></span>
+                        <label for="rememberme" class="rememberme">Remember me</label>
+                    </label><br>
+
                     <label class="customCheckbox">
                         <input type="checkbox" id="terms" name="terms" required>
                         <span class="checkmark"></span>

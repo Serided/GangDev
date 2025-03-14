@@ -28,6 +28,13 @@
 
                 <button type="submit" class="submit">Ya</button>
             </form>
+            <div>
+                <label class="customCheckbox">
+                    <input type="checkbox" id="rememberme" name="rememberme">
+                    <span class="checkmark"></span>
+                    <label for="rememberme" class="rememberme">Remember me</label>
+                </label><br>
+            </div>
             <div class="create"><a href="signup.php"> - Create A New Account - </a></div>
         </div>
     </body>
