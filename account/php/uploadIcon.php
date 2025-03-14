@@ -2,12 +2,12 @@
 if (session_status() == PHP_SESSION_NONE) session_start();
 header('Content-type: application/json');
 
-if (isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])) {
 	echo json_encode(["status" => "error", "message" => "User not logged in."]);
 	exit();
 }
 
-if (isset($_FILES['icon'])) {
+if (!isset($_FILES['icon'])) {
 	echo json_encode(["status" => "error", "message" => "No file uploaded."]);
 	exit();
 }

@@ -63,6 +63,7 @@ h2 b {
     justify-content: center;
     z-index: 1000;
     overflow: auto; /* In case content overflows */
+    margin: 0;
 }
 #cropContent {
     background: #fff;
@@ -74,7 +75,7 @@ h2 b {
     text-align: center;
 }
 #cropConfirm {
-    position: absolute;
+    position: fixed;
     display: inline-block;
     text-decoration: none;
     cursor: pointer;
