@@ -5,6 +5,10 @@
 h2 {
     margin: calc(var(--scaling) * 1) auto;
     font-size: calc(var(--scaling) * 1);
+    font-weight: normal;
+}
+h2 b {
+    color: #5ac8e3;
 }
 
 .aSect {

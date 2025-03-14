@@ -21,9 +21,9 @@
                     <div class="iDisplay"></div>
                 </div>
                 <div class="info">
-                    <h2>Display Name: <?php $displayname ?></h2>
-                    <h2>Username: <?php $username ?></h2>
-                    <h2>Email: <?php $email ?></h2>
+                    <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
+                    <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
+                    <h2>Email: <b><?php echo htmlspecialchars($_SESSION['email']) ?></b></h2>
                     <h2>AND MORE TO COME...</h2>
                 </div>
                 <a href="php/login/signout.php" class="sign">Sign Out</a>
