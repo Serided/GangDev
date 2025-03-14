@@ -33,7 +33,6 @@ h2 b {
     padding: calc(var(--scaling) * 0.5);
     border-radius: calc(var(--scaling) * 1);
     background-color: gray;
-    background-image: none;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -75,6 +74,7 @@ h2 b {
     text-align: center;
 }
 #cropConfirm {
+    position: absolute;
     bottom: 5vh;
     font-family: "Fredoka", serif;
     text-decoration: none;
@@ -103,7 +103,7 @@ h2 b {
     transition: all 0.3s ease;
 }
 
-.iDisplay:hover {
+#iDisplay:hover {
     background: #333;
     opacity: .7;
 }
