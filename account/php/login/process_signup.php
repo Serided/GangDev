@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$email = trim($_POST["email"]);
 	$password = trim($_POST["password"]);
 	$confirm_password = trim($_POST["confirm_password"]);
-	$rememberme = isset($_POST["rememberme"]);
+	$rememberMe = isset($_POST["rememberme"]);
 
 	if (empty($displayname) || empty($username) || empty($email) || empty($password) || empty($confirm_password)) { // check for empty fields
 		header("Location: signup.php?error=1");

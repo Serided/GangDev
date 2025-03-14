@@ -7,7 +7,7 @@ $error = '';
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$username = trim($_POST["username"]);
 	$password = trim($_POST["password"]);
-	$rememberme = isset($_POST["rememberme"]);
+	$rememberMe = isset($_POST["rememberme"]);
 
 	$stmt = $pdo->prepare("SELECT id, displayname, username, email, password FROM users WHERE username = ?");
 	$stmt->execute([$username]);
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			mkdir($folder . '/data', 0755, true);
 		}
 
-		if ($rememberme) {
+		if ($rememberMe) {
 			$token = bin2hex(random_bytes(16));
 			$expiry = date("Y-m-d H:i:s", time() + (30 * 24 * 60 * 60)); // 30 days
 
