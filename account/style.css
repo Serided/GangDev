@@ -3,7 +3,7 @@
 }
 
 .aSect {
-    justify-items: center;
+    align-items: center;
 }
 
 .icon {
@@ -22,7 +22,6 @@
     width: 100%;
     height: 100%;
     margin: 0;
-    justify-self: center;
     border-radius: calc(var(--scaling) * 0.7);
     background-color: darkgray;
     background-image: none;
