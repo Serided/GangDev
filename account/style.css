@@ -3,7 +3,7 @@
 }
 
 h2 {
-    display: inline-block;
+    display: block;
     margin: calc(var(--scaling) * 2) calc(var(--scaling) * 1) !important;
     font-size: calc(var(--scaling) * 1);
     font-weight: normal;
