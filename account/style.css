@@ -2,6 +2,10 @@
     --scaling: 1vh;
 }
 
+body {
+    user-select: all;
+}
+
 h2 {
     margin: calc(var(--scaling) * 2) calc(var(--scaling) * 1) !important;
     font-size: calc(var(--scaling) * 1);
@@ -22,7 +26,6 @@ h2 b {
     padding: calc(var(--scaling) * 1);
     border-radius: calc(var(--scaling) * 1);
     background: darkgray;
-    user-select: all !important;
     justify-items: center;
     width: max-content !important;
 }
