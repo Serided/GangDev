@@ -2,8 +2,20 @@
     --scaling: 1vh;
 }
 
+h2 {
+    margin: calc(var(--scaling) * 1) auto;
+    font-size: calc(var(--scaling) * 1);
+}
+
 .aSect {
     padding: calc(var(--scaling) * 1);
+}
+
+.info {
+    margin: calc(var(--scaling) * 1) auto;
+    padding: calc(var(--scaling) * 1);
+    border-radius: calc(var(--scaling) * 1);
+    background: darkgray;
 }
 
 .icon {
