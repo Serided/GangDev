@@ -1,5 +1,9 @@
 <?php
 session_start();
+$error = '';
+if (isset($_GET["error"]) && $_GET["error"] == 1) {
+    $error = "Invalid login credentials.";
+}
 $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
 ?>
 <!DOCTYPE html>
@@ -15,14 +19,16 @@ $head = file_get_contents("https://shared.gangdev.co/html/repetitive.html");
         <div class="loginContainer">
             <h1>Sign In</h1>
             <hr class="marginBoost">
-
-            <form method="post">
+            <?php if ($error): ?>
+                <p style="color: red"><?= htmlspecialchars($error) ?></p>
+            <?php endif; ?>
+            <form method="post" action="../process_signin.php">
                 <label for="username">Username: </label><br>
                 <input type="text" id="username" name="username" required><br>
                 <div class="forgot margin"><a href="../recovery/username.php">forgot username?</a></div>
 
                 <label for="password">Password: </label><br>
-                <input type="text" id="password" name="password" required><br>
+                <input type="password" id="password" name="password" required><br>
                 <div class="forgot"><a href="../recovery/password.php">forgot password?</a></div>
 
                 <button type="submit" class="submit">Ya</button>

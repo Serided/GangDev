@@ -1,5 +1,7 @@
 <?php
-// session_start(); add to base php instead
+if (session_status() === PHP_SESSION_NONE) {
+	session_start();
+}
 require_once "db.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -16,10 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		header("Location: ../index.php");
 		exit();
 	} else {
-		echo "Invalid login credentials.";
+		header("Location: login/signin.php?error=1");
+		exit();
 	}
 } else {
-	header("Location: php/signin.php");
+	header("Location: login/signin.php");
 	exit();
 }
-?>
