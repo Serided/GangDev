@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const iDisplay = document.getElementById("iDisplay");
     const iconFile = document.getElementById('iconFile');
-    const cropModal = document.getElementById('cropModal');
-    const cropContent = document.getElementById('cropContent');
+    const cropModal = document.getElementById('cropModal');  // modal container
+    const cropContent = document.getElementById('cropContent');  // content inside modal
     let cropper;
 
     iDisplay.addEventListener('click', function() {
@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     iconFile.addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (!file) return;
-
         if (file.size > 2 * 1024 * 1024) {
             alert('Image is too large. Please choose an image under 2MB.');
             return;
@@ -20,16 +19,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const reader = new FileReader();
         reader.onload = function(event) {
-            // Clear previous content if any
+            // Clear any existing content in the modal
             cropContent.innerHTML = '';
 
-            // Create an image element for cropping
+            // Create the image for cropping
             const image = document.createElement('img');
             image.src = event.target.result;
             image.id = "cropperImage";
             cropContent.appendChild(image);
 
-            // Create a confirm button and append it
+            // Create confirm button and add it to modal
             const confirmButton = document.createElement('button');
             confirmButton.textContent = "Confirm";
             confirmButton.id = "cropConfirm";
@@ -68,7 +67,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             } else {
                                 alert("Error uploading icon: " + data.message);
                             }
-                            // Hide the modal after processing
                             cropModal.style.display = 'none';
                         })
                         .catch(error => {

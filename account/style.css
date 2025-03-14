@@ -51,6 +51,30 @@ h2 b {
     transition: all 0.3s ease;
 }
 
+#cropModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    overflow: auto; /* In case content overflows */
+}
+
+#cropContent {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 90vw;  /* 90% of viewport width */
+    max-height: 90vh; /* 90% of viewport height */
+    overflow: auto;   /* Add scroll if needed */
+    text-align: center;
+}
+
 .sign {
     display: inline-block;
     text-decoration: none;

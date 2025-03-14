@@ -12,9 +12,7 @@
     <body class="main-p fullw">
     <?= $navbar ?>
 
-    <div id="cropModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;">
-        <div id="cropContent" style="background:#fff; padding:20px; border-radius:5px; text-align:center;"></div>
-    </div>
+    <div id="cropModal" style="display:none;"><div id="cropContent"></div></div>
 
     <h1>
         Account
