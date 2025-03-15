@@ -19,7 +19,9 @@
                     <b>Note:</b>
                 </h2>
                 <p class="fullw">
-                    This page is about to get an overhaul. Everything here is a little out dated and not nearly funny enough, so it's gotta go.
+                    This page is about to get an overhaul. Everything here is a little out dated and not nearly funny enough, so it's gotta go.<br>
+                    ALSO NOTE THE SIGNIN AND SIGNUP PAGES WORK but they are UGLY i tried fixing sum stuff didnt work very well but im goin on a date tonight
+                    so i wont be able to update it for a sec.
                 </p>
             </section>
         </div>
