@@ -103,6 +103,7 @@ form input.signup {
     position: relative;
     display: flex;
     align-items: center;
+    text-align: left;
 }
 
 .passwordContainer input {
