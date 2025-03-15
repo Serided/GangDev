@@ -3,7 +3,7 @@ session_set_cookie_params([
 	'lifetime' => 7 * 24 * 60 * 60, // 7 days
 	'path'     => '/',
 	'domain'   => '.gangdev.co', // Note the leading dot
-	'secure'   => false,         // For testing; set to true on HTTPS
+	'secure'   => true,         // For testing; set to true on HTTPS
 	'httponly' => true,
 	'samesite' => 'Lax'
 ]);

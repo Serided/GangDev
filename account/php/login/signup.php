@@ -63,16 +63,21 @@ require_once '/var/www/gangdev/shared/php/init.php';
                         The main thing making your data yours.
                     </span>
                 </span><br>
-                <input type="password" id="password" name="password" class="signup" required><br><br>
+                <div>
+                    <input type="password" id="password" name="password" class="signup" required><br><br>
+                    <span class="togglePassword" onclick="togglePassword('password')">👁️</span>
+                </div>
 
-                <label for="password">Confirm Password:</label>
+                <label for="confirmPassword">Confirm Password:</label>
                 <span class="tooltip">ⓘ
                     <span class="tooltipText">
                         The main thing making your data yours.
                     </span>
                 </span><br>
-                <input type="password" id="confirm_password" name="confirm_password" class="signup" required>
-                <div></div>
+                <div>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="signup" required><br><br>
+                    <span class="togglePassword" onclick="togglePassword('confirmPassword')">👁️</span>
+                </div>
 
                 <div></div>
 
@@ -105,5 +110,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                 </div>
             </form>
         </div>
+
+        <script src="login.js"></script>
     </body>
 </html>
