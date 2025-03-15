@@ -18,6 +18,7 @@
 
 * {
     margin: 0;
+    justify-items: center;
     font-family: "Fredoka", serif;
     user-select: none;
 }
@@ -63,6 +64,8 @@ hr.signup {
 }
 
 .loginContainer {
+    justify-items: center;
+    align-content: center;
     display: inline-block;
     background: #5ac8e3;
     box-shadow: 0 0 calc(var(--scaling) * 1) gray;
@@ -74,52 +77,38 @@ hr.signup {
     padding: calc(var(--scaling) * 2) calc(var(--scaling) * 3) calc(var(--scaling) * 0.8) calc(var(--scaling) * 3) !important;
 }
 
-/* Keep labels aligned to the left */
 form label {
     font-size: calc(var(--scaling) * 2);
-    display: inline-block;
-    text-align: left;
-    width: 100%;
 }
 
-/* Input fields - ALL will scroll sideways if text is too long */
 form input {
     border-radius: calc(var(--scaling) * 0.35);
     padding-left: calc(var(--scaling) * 0.35);
     border: none;
     height: calc(var(--scaling) * 3);
     font-size: calc(var(--scaling) * 2);
+    justify-items: left;
     background: whitesmoke;
     transition: all 0.2s ease;
-
-    /* Make inputs scroll horizontally */
-    overflow-x: auto;
-    white-space: nowrap;
-    display: block;
-    width: 100%;
-    text-overflow: ellipsis;
 }
 
-/* Ensuring all fields, including sign-up inputs, have horizontal scrolling */
 form input.signup {
     height: calc(var(--scaling) * 2.2);
     width: calc(var(--scaling) * 25);
     font-size: calc(var(--scaling) * 2);
 }
 
-/* Password fields */
+/* Password Container */
 .passwordContainer {
     position: relative;
     display: flex;
     align-items: center;
-    width: 100%;
+    text-align: left;
 }
 
 .passwordContainer input {
     width: 100%;
     padding-right: 30px; /* Space for toggle icon */
-    overflow-x: auto; /* Allows scrolling */
-    white-space: nowrap;
 }
 
 /* Toggle Password Button */
@@ -137,7 +126,6 @@ form input.signup {
     opacity: 0.7;
 }
 
-/* Forgot links */
 .forgot {
     padding-left: calc(var(--scaling) * 13.5);
 }
@@ -148,7 +136,14 @@ form input.signup {
     color: black;
 }
 
-/* Button styles */
+.margin {
+    margin-bottom: calc(var(--scaling) * 1) !important;
+}
+
+.marginBoost {
+    margin-bottom: calc(var(--scaling) * 2.5) !important;
+}
+
 .submit {
     font-size: calc(var(--scaling) * 2) !important;
     padding: calc(var(--scaling) * 0.4);
@@ -164,16 +159,6 @@ form input.signup {
     transition: all 0.2s ease;
 }
 
-.submit:hover {
-    transform: scale(1.05);
-    font-weight: bold;
-}
-
-form input:hover {
-    transform: scale(1.01);
-}
-
-/* Create Account Link */
 .create {
     margin: calc(var(--scaling) * 1) 0;
     transition: all 0.3s ease;
@@ -186,7 +171,6 @@ form input:hover {
     border-radius: calc(var(--scaling) * 1);
 }
 
-/* Tooltip styles */
 .tooltip {
     font-size: calc(var(--scaling) * 1.5);
     transform: translate(-50%, -50%);
@@ -212,4 +196,13 @@ form input:hover {
 .tooltip:hover .tooltipText {
     transform: translate(-50%, 100%) scale(1);
     opacity: 0.8;
+}
+
+.submit:hover {
+    transform: scale(1.05);
+    font-weight: bold;
+}
+
+form input:hover {
+    transform: scale(1.01);
 }
