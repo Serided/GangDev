@@ -66,7 +66,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                 <div class="passwordContainer">
                     <input type="password" id="password" name="password" class="signup" required><br><br>
                     <span class="togglePassword" onclick="togglePassword('password')">👁️</span>
-                </div>
+                </div><br>
 
                 <label for="confirmPassword">Confirm Password:</label>
                 <span class="tooltip">ⓘ

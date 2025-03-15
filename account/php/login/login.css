@@ -77,10 +77,14 @@ hr.signup {
     padding: calc(var(--scaling) * 2) calc(var(--scaling) * 3) calc(var(--scaling) * 0.8) calc(var(--scaling) * 3) !important;
 }
 
+/* Ensure labels are aligned to the left */
 form label {
     font-size: calc(var(--scaling) * 2);
+    display: block;
+    text-align: left;
 }
 
+/* Input fields allow scrolling if content overflows */
 form input {
     border-radius: calc(var(--scaling) * 0.35);
     padding-left: calc(var(--scaling) * 0.35);
@@ -90,6 +94,8 @@ form input {
     justify-items: left;
     background: whitesmoke;
     transition: all 0.2s ease;
+    overflow-x: auto; /* Allows side scrolling */
+    white-space: nowrap; /* Prevents text from wrapping */
 }
 
 form input.signup {
@@ -104,11 +110,14 @@ form input.signup {
     display: flex;
     align-items: center;
     text-align: left;
+    width: 100%;
 }
 
 .passwordContainer input {
     width: 100%;
     padding-right: 30px; /* Space for toggle icon */
+    overflow-x: auto; /* Allows scrolling when input text is long */
+    white-space: nowrap; /* Prevents wrapping */
 }
 
 /* Toggle Password Button */
