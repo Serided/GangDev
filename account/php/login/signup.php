@@ -40,7 +40,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                             The name other players will know you by.
                         </span>
                     </span><br>
-                    <input type="text" id="displayname" name="displayname" class="signup" required>
+                    <input type="text" id="displayname" name="displayname" class="signup" required><br>
                 </div>
 
                 <div>
@@ -50,7 +50,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                             A unique identifier for you (and it helps you sign in faster).
                         </span>
                     </span><br>
-                    <input type="text" id="username" name="username" class="signup" required>
+                    <input type="text" id="username" name="username" class="signup" required><br>
                 </div>
 
                 <div>
@@ -60,7 +60,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                             How we store your account.
                         </span>
                     </span><br>
-                    <input type="email" id="email" name="email" class="signup" required>
+                    <input type="email" id="email" name="email" class="signup" required><br>
                 </div>
 
                 <div>
@@ -73,7 +73,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                             </span>
                         </span>
                     </div>
-                    <input type="password" id="password" name="password" class="signup" required>
+                    <input type="password" id="password" name="password" class="signup" required><br>
                 </div>
 
                 <div>
@@ -83,7 +83,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                             The main thing making your data yours.
                         </span>
                     </span><br>
-                    <input type="password" id="confirmPassword" name="confirmPassword" class="signup" required>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="signup" required><br>
                 </div>
 
                 <div class="centeredDiv">
