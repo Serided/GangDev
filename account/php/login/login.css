@@ -96,7 +96,7 @@ form label {
     width: calc(var(--scaling) * 24);
 }
 .inputContainer.signup input {
-    height: calc(var(--scaling) * 2.2);
+    height: calc(var(--scaling) * 2.4);
     font-size: calc(var(--scaling) * 2);
 }
 
@@ -115,7 +115,7 @@ form label {
 }
 
 .marginBoost {
-    margin-bottom: calc(var(--scaling) * 2.5) !important;
+    margin-bottom: calc(var(--scaling) * 2.2) !important;
 }
 
 .create {
