@@ -140,7 +140,7 @@ form input.signup {
     border-radius: calc(var(--scaling) * 0.5);
     transform: translate(-100%, 0) scale(0);
     white-space: nowrap;
-    transition: translate 0.3s ease, scale 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 #togglePassword {
