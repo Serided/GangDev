@@ -54,5 +54,7 @@ if (isset($_GET['error'])) {
             </div>
             <div class="create"><a href="signup.php"> - Create A New Account - </a></div>
         </div>
+
+        <script src="login.js"></script>
     </body>
 </html>
