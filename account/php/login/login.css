@@ -163,9 +163,13 @@ form input.signup {
 .togglePassword {
     position: relative;
     opacity: 0.8;
-    font-size: calc(var(--scaling) * 1.6);
+    font-size: calc(var(--scaling) * 1);
     color: white;
-    padding: calc(var(--scaling) * 0.2);
+}
+
+.leftAligned {
+    text-align: left;
+    width: 100%;
 }
 
 .labelRow {
