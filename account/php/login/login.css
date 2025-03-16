@@ -124,11 +124,10 @@ form input.signup {
 
 .tooltip {
     font-size: calc(var(--scaling) * 1.5);
-    transform: translate(-50%, -50%);
-    right: calc(var(--scaling) * 1);
     font-weight: bold;
     color: white;
     cursor: pointer;
+    padding: 0 calc(var(--scaling) * 0.5);
 }
 
 .tooltipText {
@@ -139,7 +138,7 @@ form input.signup {
     padding: calc(var(--scaling) * 0.5);
     background: gray;
     border-radius: calc(var(--scaling) * 0.5);
-    transform: translate(-50%, 0) scale(0);
+    transform: translate(-100%, 0) scale(0);
     white-space: nowrap;
     transition: all 0.4s ease;
 }

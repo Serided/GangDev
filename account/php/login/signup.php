@@ -33,37 +33,37 @@ require_once '/var/www/gangdev/shared/php/init.php';
             <?php endif; ?>
 
             <form method="post" action="process_signup.php">
-                <div>
+                <div class="margin">
                     <label for="displayname">Display Name:</label>
                     <span class="tooltip">ⓘ
                         <span class="tooltipText">
                             The name other players will know you by.
                         </span>
                     </span><br>
-                    <input type="text" id="displayname" name="displayname" class="signup" required><br>
+                    <input type="text" id="displayname" name="displayname" class="signup" required>
                 </div>
 
-                <div>
+                <div class="margin">
                     <label for="username">Username:</label>
                     <span class="tooltip">ⓘ
                         <span class="tooltipText">
                             A unique identifier for you (and it helps you sign in faster).
                         </span>
                     </span><br>
-                    <input type="text" id="username" name="username" class="signup" required><br>
+                    <input type="text" id="username" name="username" class="signup" required>
                 </div>
 
-                <div>
+                <div class="margin">
                     <label for="email">Email:</label>
                     <span class="tooltip">ⓘ
                         <span class="tooltipText">
                             How we store your account.
                         </span>
                     </span><br>
-                    <input type="email" id="email" name="email" class="signup" required><br>
+                    <input type="email" id="email" name="email" class="signup" required>
                 </div>
 
-                <div>
+                <div class="margin">
                     <div class="labelRow">
                         <label for="password">Password:</label>
                         <span id="togglePassword" onclick="togglePassword('password')">[Show]</span>
@@ -73,17 +73,17 @@ require_once '/var/www/gangdev/shared/php/init.php';
                             </span>
                         </span>
                     </div>
-                    <input type="password" id="password" name="password" class="signup" required><br>
+                    <input type="password" id="password" name="password" class="signup" required>
                 </div>
 
-                <div>
+                <div class="margin">
                     <label for="confirmPassword">Confirm Password:</label>
                     <span class="tooltip">ⓘ
                         <span class="tooltipText">
                             The main thing making your data yours.
                         </span>
                     </span><br>
-                    <input type="password" id="confirmPassword" name="confirmPassword" class="signup" required><br>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="signup" required>
                 </div>
 
                 <div class="centeredDiv">
