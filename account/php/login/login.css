@@ -76,23 +76,31 @@ hr.signup {
 form label {
     font-size: calc(var(--scaling) * 2);
 }
-form input {
-    border-radius: calc(var(--scaling) * 0.35);
-    padding-left: calc(var(--scaling) * 0.35);
-    border: none;
-    height: calc(var(--scaling) * 3);
-    font-size: calc(var(--scaling) * 2);
-    justify-items: left;
-    background: whitesmoke;
-    transition: all 0.2s ease;
-    overflow-x: auto;
-    white-space: nowrap;
-    box-sizing: border-box;
-}
-form input.signup {
+input.signup {
     height: calc(var(--scaling) * 2.2);
     width: calc(var(--scaling) * 25);
     font-size: calc(var(--scaling) * 2);
+}
+
+.inputContainer {
+    width: calc(var(--scaling) * 25);
+    overflow-x: auto;
+    white-space: nowrap;
+    box-sizing: border-box;
+    justify-items: left;
+    text-align: left;
+    background: whitesmoke;
+    border-radius: calc(var(--scaling) * 0.35);
+    padding-left: calc(var(--scaling) * 0.35);
+    height: calc(var(--scaling) * 3);
+    transition: all 0.2s ease;
+}
+
+.inputContainer input {
+    min-width: 100%;
+    border: none;
+    font-size: calc(var(--scaling) * 2);
+    background: none;
 }
 
 .forgot {
@@ -237,7 +245,7 @@ form input.signup {
     opacity: 0.8;
 }
 
-form input:hover {
+.inputContainer:hover {
     transform: scale(1.01);
 }
 

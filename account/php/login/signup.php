@@ -42,7 +42,9 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <input type="text" id="displayname" name="displayname" class="signup" required>
+                    <div class="inputContainer">
+                        <input type="text" id="displayname" name="displayname" class="signup" required>
+                    </div>
                 </div>
 
                 <div class="margin">
