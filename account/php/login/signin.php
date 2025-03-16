@@ -31,10 +31,7 @@ if (isset($_GET['error'])) {
                 <div class="forgot margin"><a href="../recovery/username.php">forgot username?</a></div>
 
                 <label for="password">Password: </label><br>
-                <div>
-                    <input type="password" id="password" name="password" required><br>
-                    <span class="togglePassword" onclick="togglePassword('password')">[Show]</span>
-                </div>
+                <input type="password" id="password" name="password" required><br>
                 <div class="forgot"><a href="../recovery/password.php">forgot password?</a></div>
 
                 <button type="submit" class="submit">Ya</button>
@@ -48,7 +45,5 @@ if (isset($_GET['error'])) {
             </div>
             <div class="create"><a href="signup.php"> - Create A New Account - </a></div>
         </div>
-
-        <script src="login.js"></script>
     </body>
 </html>
