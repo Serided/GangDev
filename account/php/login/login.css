@@ -164,8 +164,7 @@ form input.signup {
     opacity: 0.8;
     font-size: calc(var(--scaling) * 1.8);
     color: white;
-    height: calc(var(--scaling) * 2);
-    align-items: center;
+    padding: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.8;
 }
 
 .customCheckbox {

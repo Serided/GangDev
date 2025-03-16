@@ -33,7 +33,7 @@ if (isset($_GET['error'])) {
                 </div>
 
                 <div>
-                    <label for="password">Password: &nbsp
+                    <label for="password">Password:
                         <span class="togglePassword" onclick="togglePassword('password')">[Show]</span>
                     </label><br>
                     <input type="password" id="password" name="password" required>
