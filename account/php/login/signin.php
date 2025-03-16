@@ -32,7 +32,7 @@ if (isset($_GET['error'])) {
                     <div class="forgot margin"><a href="../recovery/username.php">forgot username?</a></div>
                 </div>
 
-                <div class="infoSect">
+                <div>
                     <label for="password">Password: &nbsp
                         <span class="togglePassword" onclick="togglePassword('password')">[Show]</span>
                     </label><br>

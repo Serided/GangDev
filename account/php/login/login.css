@@ -138,10 +138,6 @@ form input.signup {
     border-radius: calc(var(--scaling) * 1);
 }
 
-.infoSect {
-    display: inline-block;
-}
-
 .tooltip {
     font-size: calc(var(--scaling) * 1.5);
     transform: translate(-50%, -50%);
@@ -164,12 +160,10 @@ form input.signup {
     transition: all 0.4s ease;
 }
 
-.pwField {
-    position: relative;
-}
-
 .togglePassword {
-    position: absolute;
+    opacity: 0.8;
+    font-size: calc(var(--scaling) * 1.8);
+    color: white;
 }
 
 .customCheckbox {
