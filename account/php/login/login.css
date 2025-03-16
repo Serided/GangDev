@@ -161,10 +161,11 @@ form input.signup {
 }
 
 .togglePassword {
+    position: relative;
     opacity: 0.8;
     font-size: calc(var(--scaling) * 1.6);
     color: white;
-    height: calc(var(--scaling) * 3);
+    height: calc(var(--scaling) * 2);
     display: inline-flex;
     align-items: center;
 }
