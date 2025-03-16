@@ -1,5 +1,10 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
+
+$displayname = isset($_SESSION['signup_form']['displayname']) ? $_SESSION['signup_form']['displayname'] : '';
+$username = isset($_SESSION['signup_form']['username']) ? $_SESSION['signup_form']['username'] : '';
+$email = isset($_SESSION['signup_form']['email']) ? $_SESSION['signup_form']['email'] : '';
+
 $error = '';
 if (isset($_GET['error'])) {
     if ($_GET['error'] == 1) {
