@@ -98,26 +98,13 @@ form input.signup {
     font-size: calc(var(--scaling) * 2);
 }
 
-/* Password Container */
-.passwordContainer {
-    position: relative;
-    display: flex;
-    align-items: center;
-    text-align: left;
-}
-
-.passwordContainer input {
-    width: 100%;
-    padding-right: 30px; /* Space for toggle icon */
-}
-
 /* Toggle Password Button */
 .togglePassword {
     position: absolute;
-    right: 10px;
+    right: calc(var(--scaling) * -1);
     cursor: pointer;
     user-select: none;
-    font-size: 1.2em;
+    font-size: calc(var(--scaling));
     color: black;
     transition: opacity 0.2s ease;
 }
