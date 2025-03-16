@@ -171,6 +171,7 @@ form input.signup {
     font-weight: bold;
     color: white;
     cursor: pointer;
+    position: absolute;
 }
 
 .tooltipText {
