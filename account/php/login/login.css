@@ -77,6 +77,7 @@ form label {
     font-size: calc(var(--scaling) * 2);
 }
 .inputContainer {
+    box-sizing: border-box;
     width: calc(var(--scaling) * 15);
     padding: calc(var(--scaling) * 0.35);
     justify-items: left;
