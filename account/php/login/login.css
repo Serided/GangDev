@@ -164,7 +164,7 @@ form input.signup {
     opacity: 0.8;
     font-size: calc(var(--scaling) * 1.6);
     color: white;
-    height: calc(var(--scaling) * 2);
+    height: calc(var(--scaling) * 3);
     display: inline-flex;
     align-items: center;
 }
