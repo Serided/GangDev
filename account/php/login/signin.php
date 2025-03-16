@@ -33,7 +33,7 @@ if (isset($_GET['error'])) {
                 <label for="password">Password: </label><br>
                 <div>
                     <input type="password" id="password" name="password" required><br>
-                    <span class="togglePassword" onclick="togglePassword('password')">👁️</span>
+                    <span class="togglePassword" onclick="togglePassword('password')">[Show]</span>
                 </div>
                 <div class="forgot"><a href="../recovery/password.php">forgot password?</a></div>
 

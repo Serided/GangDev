@@ -98,6 +98,10 @@ form input.signup {
     font-size: calc(var(--scaling) * 2);
 }
 
+.passwordContainer {
+    position: relative;
+}
+
 /* Toggle Password Button */
 .togglePassword {
     position: absolute;
