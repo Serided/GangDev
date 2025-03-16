@@ -73,6 +73,14 @@ hr.signup {
     padding: calc(var(--scaling) * 2) calc(var(--scaling) * 3) calc(var(--scaling) * 0.8) calc(var(--scaling) * 3) !important;
 }
 
+.margin {
+    margin-bottom: calc(var(--scaling) * 1) !important;
+}
+
+.marginBoost {
+    margin-bottom: calc(var(--scaling) * 2.2) !important;
+}
+
 form label {
     font-size: calc(var(--scaling) * 2);
 }
@@ -96,8 +104,8 @@ form label {
     width: calc(var(--scaling) * 24);
 }
 .inputContainer.signup input {
-    height: calc(var(--scaling) * 2.4);
-    font-size: calc(var(--scaling) * 2);
+    height: calc(var(--scaling) * 2.6);
+    font-size: calc(var(--scaling) * 1.8);
 }
 
 .forgot {
@@ -108,14 +116,6 @@ form label {
     font-size: calc(var(--scaling) * 1);
     cursor: pointer;
     color: black;
-}
-
-.margin {
-    margin-bottom: calc(var(--scaling) * 1.3) !important;
-}
-
-.marginBoost {
-    margin-bottom: calc(var(--scaling) * 2.2) !important;
 }
 
 .create {
