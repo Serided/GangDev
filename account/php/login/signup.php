@@ -66,7 +66,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                 <div class="margin">
                     <div class="labelRow">
                         <label for="password">Password:</label>
-                        <span id="togglePassword" onclick="togglePassword('password')">[Show]</span>
+                        <span id="togglePassword" onclick="togglePassword()">[Show]</span>
                         <span class="tooltip">ⓘ
                             <span class="tooltipText">
                                 The main thing making your data yours.

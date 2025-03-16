@@ -6,10 +6,10 @@ function togglePassword() {
     if (passwordField.type === "password") {
         passwordField.type = "text";
         confirmPasswordField.type = "text";
-        togglePasswordBtn.innerHTML = "[Hide]"; // Change to hide icon
+        togglePasswordBtn.innerHTML = "[Hide]";
     } else {
         passwordField.type = "password";
         confirmPasswordField.type = "password";
-        togglePasswordBtn.innerHTML = "[Show]"; // Change to show icon
+        togglePasswordBtn.innerHTML = "[Show]";
     }
 }

@@ -127,7 +127,7 @@ form input.signup {
     font-weight: bold;
     color: white;
     cursor: pointer;
-    padding: 0 calc(var(--scaling) * 0.5);
+    padding: 0 calc(var(--scaling) * 0.3);
 }
 
 .tooltipText {
@@ -149,6 +149,7 @@ form input.signup {
     font-size: calc(var(--scaling) * 1.6);
     color: white;
     transition: all 0.2s ease;
+    padding: 0 calc(var(--scaling) * 0.3);
 }
 
 .labelRow {
