@@ -90,7 +90,7 @@ if (isset($_GET['error'])) {
                     </div>
                 </div>
 
-                <div>
+                <div class="margin">
                     <div class="labelRow">
                         <label for="confirmPassword">Confirm Password:</label>
                         <span class="tooltip">ⓘ
@@ -105,7 +105,7 @@ if (isset($_GET['error'])) {
                 </div>
 
                 <div class="centeredDiv">
-                    <button type="submit" class="submit">Ya</button>
+                    <button type="submit" class="submit signup">Ya</button>
                 </div>
 
                 <div>

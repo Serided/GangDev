@@ -76,18 +76,11 @@ hr.signup {
 form label {
     font-size: calc(var(--scaling) * 2);
 }
-.inputContainer.signup {
-    height: calc(var(--scaling) * 2.2);
-    width: calc(var(--scaling) * 25);
-    font-size: calc(var(--scaling) * 2);
-}
-
 .inputContainer {
-    width: calc(var(--scaling) * 25);
+    width: calc(var(--scaling) * 15);
     justify-items: left;
     text-align: left;
 }
-
 .inputContainer input {
     border-radius: calc(var(--scaling) * 0.35);
     padding-left: calc(var(--scaling) * 0.35);
@@ -97,6 +90,11 @@ form label {
     background: whitesmoke;
     border: none;
     transition: all 0.2s ease;
+}
+.inputContainer.signup {
+    height: calc(var(--scaling) * 2.2);
+    width: calc(var(--scaling) * 24);
+    font-size: calc(var(--scaling) * 2);
 }
 
 .forgot {
@@ -110,7 +108,7 @@ form label {
 }
 
 .margin {
-    margin-bottom: calc(var(--scaling) * 1) !important;
+    margin-bottom: calc(var(--scaling) * 1.2) !important;
 }
 
 .marginBoost {
@@ -184,6 +182,9 @@ form label {
     border-radius: calc(var(--scaling) * 1);
     box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) gray;
     transition: all 0.2s ease;
+}
+.submit.signup {
+    margin: calc(var(--scaling) * 1) auto;
 }
 
 .customCheckbox {
