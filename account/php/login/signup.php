@@ -65,7 +65,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                 </span><br>
                 <div>
                     <input type="password" id="password" name="password" class="signup" required><br><br>
-                    <span class="togglePassword" onclick="togglePassword('password')">👁️</span>
+                    <span class="togglePassword" onclick="togglePassword('password')">[Show]</span>
                 </div><br>
 
                 <label for="confirmPassword">Confirm Password:</label>
@@ -76,7 +76,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                 </span><br>
                 <div>
                     <input type="password" id="confirmPassword" name="confirmPassword" class="signup" required><br><br>
-                    <span class="togglePassword" onclick="togglePassword('confirmPassword')">👁️</span>
+                    <span class="togglePassword" onclick="togglePassword('confirmPassword')">[Show]</span>
                 </div>
 
                 <div></div>
