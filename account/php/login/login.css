@@ -85,6 +85,9 @@ form input {
     justify-items: left;
     background: whitesmoke;
     transition: all 0.2s ease;
+    overflow-x: auto;
+    white-space: nowrap;
+    box-sizing: border-box;
 }
 form input.signup {
     height: calc(var(--scaling) * 2.2);
