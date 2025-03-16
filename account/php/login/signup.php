@@ -38,24 +38,30 @@ require_once '/var/www/gangdev/shared/php/init.php';
                     <span class="tooltipText">
                         The name other players will know you by.
                     </span>
-                </span><br>
-                <input type="text" id="displayname" name="displayname" class="signup" required><br><br>
+                </span>
+                <div>
+                    <input type="text" id="displayname" name="displayname" class="signup" required>
+                </div>
 
                 <label for="username">Username:</label>
                 <span class="tooltip">ⓘ
                     <span class="tooltipText">
                         A unique identifier for you (and it helps you sign in faster).
                     </span>
-                </span><br>
-                <input type="text" id="username" name="username" class="signup" required><br><br>
+                </span>
+                <div>
+                    <input type="text" id="username" name="username" class="signup" required>
+                </div>
 
                 <label for="email">Email:</label>
                 <span class="tooltip">ⓘ
                     <span class="tooltipText">
                         How we store your account.
                     </span>
-                </span><br>
-                <input type="email" id="email" name="email" class="signup" required><br><br>
+                </span>
+                <div>
+                    <input type="email" id="email" name="email" class="signup" required>
+                </div>
 
                 <label for="password">Password:</label>
                 <span class="tooltip">ⓘ
@@ -66,7 +72,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                 <div class="passwordContainer">
                     <input type="password" id="password" name="password" class="signup" required>
                     <span class="togglePassword" onclick="togglePassword('password')">[Show]</span>
-                </div><br>
+                </div>
 
                 <label for="confirmPassword">Confirm Password:</label>
                 <span class="tooltip">ⓘ
@@ -79,35 +85,40 @@ require_once '/var/www/gangdev/shared/php/init.php';
                     <span class="togglePassword" onclick="togglePassword('confirmPassword')">[Show]</span>
                 </div>
 
-                <div></div>
-                <div></div>
-
                 <button type="submit" class="submit signup">Ya</button>
 
                 <div>
-                    <label class="customCheckbox">
-                        <input type="checkbox" id="rememberme" name="rememberme">
-                        <span class="checkmark"></span>
-                        <label for="rememberme" class="rememberme">Remember me</label>
-                    </label><br>
+                    <div>
+                        <label class="customCheckbox">
+                            <input type="checkbox" id="rememberme" name="rememberme">
+                            <span class="checkmark"></span>
+                            <label for="rememberme" class="rememberme">Remember me</label>
+                        </label>
+                    </div>
 
-                    <label class="customCheckbox">
-                        <input type="checkbox" id="terms" name="terms" required>
-                        <span class="checkmark"></span>
-                        <label for="terms" class="terms">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/tos.php" target="_blank">Terms Of Service</a>.</label>
-                    </label><br>
+                    <div>
+                        <label class="customCheckbox">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <span class="checkmark"></span>
+                            <label for="terms" class="terms">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/tos.php" target="_blank">Terms Of Service</a>.</label>
+                        </label>
+                    </div>
 
-                    <label class="customCheckbox">
-                        <input type="checkbox" id="privacy" name="privacy" required>
-                        <span class="checkmark"></span>
-                        <label for="privacy" class="privacy">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/pp.php" target="_blank">Privacy Policy</a>.</label>
-                    </label><br>
+                    <div>
+                        <label class="customCheckbox">
+                            <input type="checkbox" id="privacy" name="privacy" required>
+                            <span class="checkmark"></span>
+                            <label for="privacy" class="privacy">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/pp.php" target="_blank">Privacy Policy</a>.</label>
+                        </label>
+                    </div>
 
-                    <label class="customCheckbox">
-                        <input type="checkbox" id="subscribe" name="subscribe">
-                        <span class="checkmark"></span>
-                        <label for="subscribe" class="subscribe">I want emails updates on company news and promotions.</label>
-                    </label><br>
+                    <div>
+                        <label class="customCheckbox">
+                            <input type="checkbox" id="subscribe" name="subscribe">
+                            <span class="checkmark"></span>
+                            <label for="subscribe" class="subscribe">I want emails updates on company news and promotions.</label>
+                        </label>
+                    </div>
                 </div>
             </form>
         </div>
