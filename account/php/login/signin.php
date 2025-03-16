@@ -26,13 +26,18 @@ if (isset($_GET['error'])) {
             <?php endif; ?>
 
             <form method="post" action="process_signin.php">
-                <label for="username">Username: </label><br>
-                <input type="text" id="username" name="username" required><br>
-                <div class="forgot margin"><a href="../recovery/username.php">forgot username?</a></div>
+                <div>
+                    <label for="username">Username: </label><br>
+                    <input type="text" id="username" name="username" required><br>
+                    <div class="forgot margin"><a href="../recovery/username.php">forgot username?</a></div>
+                </div>
 
-                <label for="password">Password: </label><br>
-                <input type="password" id="password" name="password" required><br>
-                <div class="forgot"><a href="../recovery/password.php">forgot password?</a></div>
+                <div class="infoSect">
+                    <label for="password">Password: </label><br>
+                    <input type="password" id="password" name="password" required>
+                    <span class="togglePassword" onclick="togglePassword('password')">[Show]</span>
+                    <div class="forgot"><a href="../recovery/password.php">forgot password?</a></div>
+                </div>
 
                 <button type="submit" class="submit">Ya</button>
             </form>

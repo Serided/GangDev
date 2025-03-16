@@ -76,7 +76,6 @@ hr.signup {
 
 form label {
     font-size: calc(var(--scaling) * 2);
-    position: absolute;
 }
 form input {
     border-radius: calc(var(--scaling) * 0.35);
@@ -137,6 +136,10 @@ form input.signup {
     text-decoration: none;
     color: black;
     border-radius: calc(var(--scaling) * 1);
+}
+
+.infoSect {
+    display: inline-block;
 }
 
 .tooltip {
