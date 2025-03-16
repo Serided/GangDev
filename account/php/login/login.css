@@ -78,12 +78,12 @@ form label {
 }
 .inputContainer {
     width: calc(var(--scaling) * 15);
+    padding: calc(var(--scaling) * 0.35);
     justify-items: left;
     text-align: left;
 }
 .inputContainer input {
     border-radius: calc(var(--scaling) * 0.35);
-    padding: calc(var(--scaling) * 0.35);
     height: calc(var(--scaling) * 3);
     min-width: 100%;
     font-size: calc(var(--scaling) * 2);
