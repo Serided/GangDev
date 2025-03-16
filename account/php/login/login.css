@@ -168,6 +168,10 @@ form input.signup {
     padding: calc(var(--scaling) * 0.2);
 }
 
+.lbl {
+    text-align: left;
+}
+
 .customCheckbox {
     font-size: calc(var(--scaling) * 1);
 }
