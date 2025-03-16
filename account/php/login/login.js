@@ -13,3 +13,22 @@ function togglePassword() {
         togglePasswordBtn.innerHTML = "[Show]";
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // List of form fields you want to persist
+    const fields = ['displayname', 'username', 'email'];
+
+    // Prepopulate each field with stored data (if any)
+    fields.forEach(function(fieldId) {
+        const field = document.getElementById(fieldId);
+        if (field && sessionStorage.getItem(fieldId)) {
+            field.value = sessionStorage.getItem(fieldId);
+        }
+        // Save the value on each input event
+        if (field) {
+            field.addEventListener('input', function() {
+                sessionStorage.setItem(fieldId, field.value);
+            });
+        }
+    });
+});

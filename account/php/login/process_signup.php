@@ -11,13 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$rememberme = isset($_POST["rememberme"]);
 
 	if (empty($displayname) || empty($username) || empty($email) || empty($password) || empty($confirm_password)) { // check for empty fields
-		$_SESSION['signup_form'] = $_POST;
 		header("Location: signup.php?error=1");
 		exit();
 	}
 
 	if ($password != $confirm_password) { // check if passwords match
-		$_SESSION['signup_form'] = $_POST;
 		header("Location: signup.php?error=2");
 		exit();
 	}
@@ -25,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
 	$stmt->execute([$email]);
 	if ($stmt->fetch(PDO::FETCH_ASSOC)) {
-		$_SESSION['signup_form'] = $_POST;
 		header("Location: signup.php?error=3");
 		exit();
 	}
@@ -60,7 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		header("Location: https://account.gangdev.co");
 		exit();
 	} else {
-		$_SESSION['signup_form'] = $_POST;
 		header("Location: signup.php?error=4");
 		exit();
 	}
