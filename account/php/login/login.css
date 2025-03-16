@@ -83,7 +83,7 @@ form label {
 }
 .inputContainer input {
     border-radius: calc(var(--scaling) * 0.35);
-    padding-left: calc(var(--scaling) * 0.35);
+    padding: calc(var(--scaling) * 0.35);
     height: calc(var(--scaling) * 3);
     min-width: 100%;
     font-size: calc(var(--scaling) * 2);
@@ -108,7 +108,7 @@ form label {
 }
 
 .margin {
-    margin-bottom: calc(var(--scaling) * 1.2) !important;
+    margin-bottom: calc(var(--scaling) * 1.3) !important;
 }
 
 .marginBoost {
