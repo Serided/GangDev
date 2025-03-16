@@ -89,14 +89,14 @@ input.signup {
 }
 
 .inputContainer input {
-    min-width: 100%;
-    border: none;
     border-radius: calc(var(--scaling) * 0.35);
-    font-size: calc(var(--scaling) * 2);
-    background: whitesmoke;
-    transition: all 0.2s ease;
     padding-left: calc(var(--scaling) * 0.35);
     height: calc(var(--scaling) * 3);
+    min-width: 100%;
+    font-size: calc(var(--scaling) * 2);
+    background: whitesmoke;
+    border: none;
+    transition: all 0.2s ease;
 }
 
 .forgot {

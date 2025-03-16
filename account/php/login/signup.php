@@ -56,7 +56,9 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <input type="text" id="username" name="username" class="signup" required>
+                    <div class="inputContainer">
+                        <input type="text" id="username" name="username" class="signup" required>
+                    </div>
                 </div>
 
                 <div class="margin">
@@ -68,7 +70,9 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <input type="email" id="email" name="email" class="signup" required>
+                    <div class="inputContainer">
+                        <input type="email" id="email" name="email" class="signup" required>
+                    </div>
                 </div>
 
                 <div class="margin">
@@ -81,7 +85,9 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <input type="password" id="password" name="password" class="signup" required>
+                    <div class="inputContainer">
+                        <input type="password" id="password" name="password" class="signup" required>
+                    </div>
                 </div>
 
                 <div>
@@ -93,7 +99,9 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <input type="password" id="confirmPassword" name="confirmPassword" class="signup" required>
+                    <div class="inputContainer">
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="signup" required>
+                    </div>
                 </div>
 
                 <div class="centeredDiv">
