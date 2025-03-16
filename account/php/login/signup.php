@@ -1,9 +1,9 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
 
-$displayname = isset($_SESSION['signup_form']['displayname']) ? $_SESSION['signup_form']['displayname'] : '';
-$username = isset($_SESSION['signup_form']['username']) ? $_SESSION['signup_form']['username'] : '';
-$email = isset($_SESSION['signup_form']['email']) ? $_SESSION['signup_form']['email'] : '';
+$displayname = $_SESSION['signup_form']['displayname'] ?? '';
+$username = $_SESSION['signup_form']['username'] ?? '';
+$email = $_SESSION['signup_form']['email'] ?? '';
 
 $error = '';
 if (isset($_GET['error'])) {
@@ -46,7 +46,7 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <input type="text" id="displayname" name="displayname" class="signup" required>
+                    <input type="text" id="displayname" name="displayname" class="signup" required value="<?= htmlspecialchars($displayname) ?>">
                 </div>
 
                 <div class="margin">
@@ -58,7 +58,7 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <input type="text" id="username" name="username" class="signup" required>
+                    <input type="text" id="username" name="username" class="signup" required value="<?= htmlspecialchars($username) ?>">
                 </div>
 
                 <div class="margin">
@@ -70,7 +70,7 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <input type="email" id="email" name="email" class="signup" required>
+                    <input type="email" id="email" name="email" class="signup" required value="<?= htmlspecialchars($email) ?>">
                 </div>
 
                 <div class="margin">
