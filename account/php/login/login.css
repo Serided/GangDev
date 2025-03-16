@@ -84,13 +84,8 @@ input.signup {
 
 .inputContainer {
     width: calc(var(--scaling) * 25);
-    border-radius: calc(var(--scaling) * 0.35);
-    padding-left: calc(var(--scaling) * 0.35);
-    height: calc(var(--scaling) * 3);
     justify-items: left;
     text-align: left;
-    background: whitesmoke;
-    transition: all 0.2s ease;
 }
 
 .inputContainer input {
@@ -98,7 +93,10 @@ input.signup {
     border: none;
     border-radius: calc(var(--scaling) * 0.35);
     font-size: calc(var(--scaling) * 2);
-    background: none;
+    background: whitesmoke;
+    transition: all 0.2s ease;
+    padding-left: calc(var(--scaling) * 0.35);
+    height: calc(var(--scaling) * 3);
 }
 
 .forgot {
@@ -243,7 +241,7 @@ input.signup {
     opacity: 0.8;
 }
 
-.inputContainer:hover {
+.inputContainer input:hover {
     transform: scale(1.01);
 }
 
