@@ -76,7 +76,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                     <input type="password" id="password" name="password" class="signup" required>
                 </div>
 
-                <div class="margin">
+                <div>
                     <label for="confirmPassword">Confirm Password:</label>
                     <span class="tooltip">ⓘ
                         <span class="tooltipText">
