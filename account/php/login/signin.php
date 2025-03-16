@@ -41,7 +41,7 @@ if (isset($_GET['error'])) {
                     <div class="forgot"><a href="../recovery/password.php">forgot password?</a></div>
                 </div>
 
-                <div style="justify-content: center;">
+                <div style="justify-items: center;">
                     <button type="submit" class="submit">Ya</button>
                 </div>
             </form>
