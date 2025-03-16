@@ -166,7 +166,13 @@ form input.signup {
     font-size: calc(var(--scaling) * 1.6);
     color: white;
     padding: calc(var(--scaling) * 0.2);
-    box-sizing: border-box !important;
+}
+
+.labelRow {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--scaling) * 0.2);
+    justify-content: flex-start;
 }
 
 .customCheckbox {
