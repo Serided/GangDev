@@ -76,7 +76,7 @@ hr.signup {
 form label {
     font-size: calc(var(--scaling) * 2);
 }
-input.signup {
+.inputContainer.signup {
     height: calc(var(--scaling) * 2.2);
     width: calc(var(--scaling) * 25);
     font-size: calc(var(--scaling) * 2);

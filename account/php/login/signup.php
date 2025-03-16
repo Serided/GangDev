@@ -42,7 +42,7 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <div class="inputContainer">
+                    <div class="inputContainer signup">
                         <input type="text" id="displayname" name="displayname" class="signup" required>
                     </div>
                 </div>
@@ -56,7 +56,7 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <div class="inputContainer">
+                    <div class="inputContainer signup">
                         <input type="text" id="username" name="username" class="signup" required>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <div class="inputContainer">
+                    <div class="inputContainer signup">
                         <input type="email" id="email" name="email" class="signup" required>
                     </div>
                 </div>
@@ -85,7 +85,7 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <div class="inputContainer">
+                    <div class="inputContainer signup">
                         <input type="password" id="password" name="password" class="signup" required>
                     </div>
                 </div>
@@ -99,7 +99,7 @@ if (isset($_GET['error'])) {
                             </span>
                         </span>
                     </div>
-                    <div class="inputContainer">
+                    <div class="inputContainer signup">
                         <input type="password" id="confirmPassword" name="confirmPassword" class="signup" required>
                     </div>
                 </div>
