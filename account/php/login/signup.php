@@ -34,32 +34,38 @@ require_once '/var/www/gangdev/shared/php/init.php';
 
             <form method="post" action="process_signup.php">
                 <div class="margin">
-                    <label for="displayname">Display Name:</label>
-                    <span class="tooltip">ⓘ
-                        <span class="tooltipText">
-                            The name other players will know you by.
+                    <div class="labelRow">
+                        <label for="displayname">Display Name:</label>
+                        <span class="tooltip">ⓘ
+                            <span class="tooltipText">
+                                The name other players will know you by.
+                            </span>
                         </span>
-                    </span><br>
+                    </div>
                     <input type="text" id="displayname" name="displayname" class="signup" required>
                 </div>
 
                 <div class="margin">
-                    <label for="username">Username:</label>
-                    <span class="tooltip">ⓘ
-                        <span class="tooltipText">
-                            A unique identifier for you (and it helps you sign in faster).
+                    <div class="labelRow">
+                        <label for="username">Username:</label>
+                        <span class="tooltip">ⓘ
+                            <span class="tooltipText">
+                                A unique identifier for you (and it helps you sign in faster).
+                            </span>
                         </span>
-                    </span><br>
+                    </div>
                     <input type="text" id="username" name="username" class="signup" required>
                 </div>
 
                 <div class="margin">
-                    <label for="email">Email:</label>
-                    <span class="tooltip">ⓘ
-                        <span class="tooltipText">
-                            How we store your account.
+                    <div class="labelRow">
+                        <label for="email">Email:</label>
+                        <span class="tooltip">ⓘ
+                            <span class="tooltipText">
+                                How we store your account.
+                            </span>
                         </span>
-                    </span><br>
+                    </div>
                     <input type="email" id="email" name="email" class="signup" required>
                 </div>
 
@@ -77,12 +83,14 @@ require_once '/var/www/gangdev/shared/php/init.php';
                 </div>
 
                 <div>
-                    <label for="confirmPassword">Confirm Password:</label>
-                    <span class="tooltip">ⓘ
-                        <span class="tooltipText">
-                            The main thing making your data yours.
+                    <div class="labelRow">
+                        <label for="confirmPassword">Confirm Password:</label>
+                        <span class="tooltip">ⓘ
+                            <span class="tooltipText">
+                                The main thing making your data yours.
+                            </span>
                         </span>
-                    </span><br>
+                    </div>
                     <input type="password" id="confirmPassword" name="confirmPassword" class="signup" required>
                 </div>
 
