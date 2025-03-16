@@ -29,7 +29,6 @@ body {
     align-items: center;
     width: 100vw;
     min-height: 100vh;
-    box-sizing: border-box;
 }
 
 a {
@@ -167,6 +166,7 @@ form input.signup {
     font-size: calc(var(--scaling) * 1.6);
     color: white;
     padding: calc(var(--scaling) * 0.2);
+    box-sizing: border-box !important;
 }
 
 .customCheckbox {
