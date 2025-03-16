@@ -161,7 +161,7 @@ form input.signup {
 .submit {
     font-size: calc(var(--scaling) * 2) !important;
     padding: calc(var(--scaling) * 0.4);
-    margin: calc(var(--scaling) * 2) auto !important;
+    margin: calc(var(--scaling) * 2) auto;
     width: calc(var(--scaling) * 5);
     height: calc(var(--scaling) * 4);
     background: darkgray;

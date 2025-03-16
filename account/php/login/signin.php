@@ -32,7 +32,7 @@ if (isset($_GET['error'])) {
                     <div class="forgot margin"><a href="../recovery/username.php">forgot username?</a></div>
                 </div>
 
-                <div class="leftAligned">
+                <div>
                     <div class="labelRow">
                         <label for="password">Password:</label>
                         <span class="togglePassword" onclick="togglePassword('password')">[Show]</span>
@@ -41,7 +41,7 @@ if (isset($_GET['error'])) {
                     <div class="forgot"><a href="../recovery/password.php">forgot password?</a></div>
                 </div>
 
-                <div>
+                <div style="justify-content: center;">
                     <button type="submit" class="submit">Ya</button>
                 </div>
             </form>
