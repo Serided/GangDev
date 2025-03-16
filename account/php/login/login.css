@@ -84,21 +84,19 @@ input.signup {
 
 .inputContainer {
     width: calc(var(--scaling) * 25);
-    overflow-x: auto;
-    white-space: nowrap;
-    box-sizing: border-box;
-    justify-items: left;
-    text-align: left;
-    background: whitesmoke;
     border-radius: calc(var(--scaling) * 0.35);
     padding-left: calc(var(--scaling) * 0.35);
     height: calc(var(--scaling) * 3);
+    justify-items: left;
+    text-align: left;
+    background: whitesmoke;
     transition: all 0.2s ease;
 }
 
 .inputContainer input {
     min-width: 100%;
     border: none;
+    border-radius: calc(var(--scaling) * 0.35);
     font-size: calc(var(--scaling) * 2);
     background: none;
 }
