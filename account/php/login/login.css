@@ -110,21 +110,6 @@ form input.signup {
     margin-bottom: calc(var(--scaling) * 2.5) !important;
 }
 
-.submit {
-    font-size: calc(var(--scaling) * 2) !important;
-    padding: calc(var(--scaling) * 0.4);
-    margin: calc(var(--scaling) * 2) 0;
-    width: calc(var(--scaling) * 5);
-    height: calc(var(--scaling) * 4);
-    background: darkgray;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: calc(var(--scaling) * 1);
-    box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) gray;
-    transition: all 0.2s ease;
-}
-
 .create {
     margin: calc(var(--scaling) * 1) 0;
     transition: all 0.3s ease;
@@ -162,13 +147,8 @@ form input.signup {
 .togglePassword {
     position: relative;
     opacity: 0.8;
-    font-size: calc(var(--scaling) * 1);
+    font-size: calc(var(--scaling) * 1.6);
     color: white;
-}
-
-.leftAligned {
-    text-align: left;
-    width: 100%;
 }
 
 .labelRow {
@@ -176,6 +156,21 @@ form input.signup {
     align-items: center;
     gap: calc(var(--scaling) * 0.2);
     justify-content: flex-start;
+}
+
+.submit {
+    font-size: calc(var(--scaling) * 2) !important;
+    padding: calc(var(--scaling) * 0.4);
+    margin: calc(var(--scaling) * 2) auto;
+    width: calc(var(--scaling) * 5);
+    height: calc(var(--scaling) * 4);
+    background: darkgray;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: calc(var(--scaling) * 1);
+    box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) gray;
+    transition: all 0.2s ease;
 }
 
 .customCheckbox {
