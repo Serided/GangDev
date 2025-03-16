@@ -149,7 +149,7 @@ form input.signup {
     font-size: calc(var(--scaling) * 1.6);
     color: white;
     transition: all 0.2s ease;
-    padding: calc(var(--scaling) * 0.3) calc(var(--scaling) * 0.3) 0 calc(var(--scaling) * 0.3);
+    padding: 0 calc(var(--scaling) * 0.3);
 }
 
 .labelRow {
