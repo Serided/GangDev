@@ -98,6 +98,13 @@ form input.signup {
     font-size: calc(var(--scaling) * 2);
 }
 
+label {
+    text-align: left;
+    justify-items: left;
+    justify-content: left;
+    justify-self: left;
+}
+
 .passwordContainer {
     position: relative;
 }
