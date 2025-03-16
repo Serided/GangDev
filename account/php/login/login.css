@@ -79,6 +79,8 @@ hr.signup {
 
 form label {
     font-size: calc(var(--scaling) * 2);
+    display: block;
+    text-align: left;
 }
 
 form input {
@@ -96,13 +98,6 @@ form input.signup {
     height: calc(var(--scaling) * 2.2);
     width: calc(var(--scaling) * 25);
     font-size: calc(var(--scaling) * 2);
-}
-
-label {
-    text-align: left;
-    justify-items: left;
-    justify-content: left;
-    justify-self: left;
 }
 
 .passwordContainer {
