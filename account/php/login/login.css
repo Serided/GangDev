@@ -158,6 +158,11 @@ form input.signup {
     justify-content: flex-start;
 }
 
+.centeredDiv {
+    display: flex;
+    justify-content: center;
+}
+
 .submit {
     font-size: calc(var(--scaling) * 2) !important;
     padding: calc(var(--scaling) * 0.4);
