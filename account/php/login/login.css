@@ -86,7 +86,6 @@ form label {
 .inputContainer input {
     border-radius: calc(var(--scaling) * 0.35);
     height: calc(var(--scaling) * 3);
-    min-width: 100%;
     font-size: calc(var(--scaling) * 2);
     background: whitesmoke;
     border: none;
