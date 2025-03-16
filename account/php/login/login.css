@@ -162,9 +162,9 @@ form input.signup {
 
 .togglePassword {
     opacity: 0.8;
-    font-size: calc(var(--scaling) * 1.8);
+    font-size: calc(var(--scaling) * 1.6);
     color: white;
-    padding: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.8;
+    padding: calc(var(--scaling) * 0.2) calc(var(--scaling) * 0.8);
 }
 
 .customCheckbox {
