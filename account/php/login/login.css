@@ -77,15 +77,16 @@ form label {
     font-size: calc(var(--scaling) * 2);
 }
 .inputContainer {
-    box-sizing: border-box;
     width: calc(var(--scaling) * 15);
-    padding: calc(var(--scaling) * 0.35);
     justify-items: left;
     text-align: left;
 }
 .inputContainer input {
+    box-sizing: border-box;
     border-radius: calc(var(--scaling) * 0.35);
+    padding: calc(var(--scaling) * 0.35);
     height: calc(var(--scaling) * 3);
+    min-width: 100%;
     font-size: calc(var(--scaling) * 2);
     background: whitesmoke;
     border: none;
