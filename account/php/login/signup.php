@@ -43,7 +43,7 @@ if (isset($_GET['error'])) {
                         </span>
                     </div>
                     <div class="inputContainer signup">
-                        <input type="text" id="displayname" name="displayname" class="signup" required>
+                        <input type="text" id="displayname" name="displayname" required>
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@ if (isset($_GET['error'])) {
                         </span>
                     </div>
                     <div class="inputContainer signup">
-                        <input type="text" id="username" name="username" class="signup" required>
+                        <input type="text" id="username" name="username" required>
                     </div>
                 </div>
 
@@ -71,7 +71,7 @@ if (isset($_GET['error'])) {
                         </span>
                     </div>
                     <div class="inputContainer signup">
-                        <input type="email" id="email" name="email" class="signup" required>
+                        <input type="email" id="email" name="email" required>
                     </div>
                 </div>
 
@@ -86,7 +86,7 @@ if (isset($_GET['error'])) {
                         </span>
                     </div>
                     <div class="inputContainer signup">
-                        <input type="password" id="password" name="password" class="signup" required>
+                        <input type="password" id="password" name="password" required>
                     </div>
                 </div>
 
@@ -100,7 +100,7 @@ if (isset($_GET['error'])) {
                         </span>
                     </div>
                     <div class="inputContainer signup">
-                        <input type="password" id="confirmPassword" name="confirmPassword" class="signup" required>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
                     </div>
                 </div>
 

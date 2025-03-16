@@ -92,8 +92,10 @@ form label {
     transition: all 0.2s ease;
 }
 .inputContainer.signup {
-    height: calc(var(--scaling) * 2.2);
     width: calc(var(--scaling) * 24);
+}
+.inputContainer.signup input {
+    height: calc(var(--scaling) * 2.2);
     font-size: calc(var(--scaling) * 2);
 }
 
