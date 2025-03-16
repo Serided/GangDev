@@ -1,12 +1,12 @@
     function togglePassword(fieldId) {
     var passwordField = document.getElementById(fieldId);
-    var toggleIcon = passwordField.nextElementSibling;
+    let togglePassword = document.getElementById('togglePassword');
 
     if (passwordField.type === "password") {
         passwordField.type = "text";
-        toggleIcon.innerHTML = "[Hide]"; // Change to hide icon
+        togglePassword.innerHTML = "[Hide]"; // Change to hide icon
     } else {
         passwordField.type = "password";
-        toggleIcon.innerHTML = "[Show]"; // Change to show icon
+        togglePassword.innerHTML = "[Show]"; // Change to show icon
     }
 }

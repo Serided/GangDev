@@ -144,11 +144,12 @@ form input.signup {
     transition: all 0.4s ease;
 }
 
-.togglePassword {
+#togglePassword {
     position: relative;
     opacity: 0.8;
     font-size: calc(var(--scaling) * 1.6);
     color: white;
+    transition: all 0.2s ease;
 }
 
 .labelRow {
@@ -232,11 +233,15 @@ form input.signup {
     opacity: 0.8;
 }
 
+form input:hover {
+    transform: scale(1.01);
+}
+
+#togglePassword:hover {
+    opacity: 0.6;
+}
+
 .submit:hover {
     transform: scale(1.05);
     font-weight: bold;
-}
-
-form input:hover {
-    transform: scale(1.01);
 }
