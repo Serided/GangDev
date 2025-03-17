@@ -68,7 +68,7 @@ p {
 }
 
 .inputContainer {
-    width: calc(var(--scaling) * 27);
+    width: calc(var(--scaling) * 28);
     justify-items: left;
     text-align: left;
 }
