@@ -5,14 +5,19 @@ function togglePassword() {
 
     if (passwordField.type === "password") {
         passwordField.type = "text";
-        confirmPasswordField.type = "text";
+        if (confirmPasswordField) {
+            confirmPasswordField.type = "text";
+        }
         togglePasswordBtn.innerHTML = "[Hide]";
     } else {
         passwordField.type = "password";
-        confirmPasswordField.type = "password";
+        if (confirmPasswordField) {
+            confirmPasswordField.type = "password";
+        }
         togglePasswordBtn.innerHTML = "[Show]";
     }
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
     // List of form fields you want to persist
