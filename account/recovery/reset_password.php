@@ -42,21 +42,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['token'])) {
 					<h2>Reset</h2>
 					<h1>Password</h1>
 				</div>
-				<div class="centeredDiv">
 					<form action="reset_password.php" method="post" class="mTop">
-						<div>
-							<label for="newPassword">New Password: </label>
-							<input type="password" id="newPassword" name="newPassword" required>
+						<div class="centeredDiv">
+							<div>
+								<label for="newPassword">New Password: </label>
+								<input type="password" id="newPassword" name="newPassword" required>
+							</div>
+							<div>
+								<label for="confirmPassword">Confirm Password: </label>
+								<input type="password" id="confirmPassword" name="confirmPassword" required>
+							</div>
 						</div>
-						<div>
-							<label for="confirmPassword">Confirm Password: </label>
-							<input type="password" id="confirmPassword" name="confirmPassword" required>
-						</div>
-						<div>
+						<div class="centeredDiv">
 							<button type="submit" class="submit">Ya</button>
 						</div>
 					</form>
-				</div>
 			</div>
 		</body>
 	</html>

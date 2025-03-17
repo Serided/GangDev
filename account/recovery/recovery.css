@@ -106,3 +106,7 @@ form input:hover {
     display: flex;
     justify-content: center;
 }
+
+.margin {
+    margin: calc(var(--scaling) * 1) 0;
+}
