@@ -75,7 +75,6 @@ form input {
     border-radius: calc(var(--scaling) * 0.35);
     padding: calc(var(--scaling) * 3);
     width: calc(var(--scaling) * 35);
-    height: calc(var(--scaling) * 22);
 }
 
 .submit {
