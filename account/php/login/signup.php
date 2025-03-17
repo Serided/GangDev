@@ -79,17 +79,6 @@ if (isset($_GET['error'])) {
                     </div>
                     <div class="margin">
                         <div class="labelRow">
-                            <label for="confirmEmail">Confirm Email:</label>
-                        </div>
-                        <div class="inputContainer signup">
-                            <input type="email" id="confirmEmail" name="confirmEmail" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="doubleRow">
-                    <div class="margin">
-                        <div class="labelRow">
                             <label for="password">Password:</label>
                             <span id="togglePassword" onclick="togglePassword()">[Show]</span>
                             <span class="tooltip">ⓘ
@@ -100,6 +89,17 @@ if (isset($_GET['error'])) {
                         </div>
                         <div class="inputContainer signup">
                             <input type="password" id="password" name="password" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doubleRow">
+                    <div class="margin">
+                        <div class="labelRow">
+                            <label for="confirmEmail">Confirm Email:</label>
+                        </div>
+                        <div class="inputContainer signup">
+                            <input type="email" id="confirmEmail" name="confirmEmail" required>
                         </div>
                     </div>
                     <div class="margin">
