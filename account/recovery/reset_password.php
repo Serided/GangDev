@@ -29,25 +29,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['token'])) {
 	?>
 	<!DOCTYPE html>
 	<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Reset Password</title>
-		<link href="recovery.css" rel="stylesheet">
-	</head>
-	<body>
-	<div class="resetContainer">
-		<h2>Reset Your Password</h2>
-		<form action="reset_password.php" method="post">
-			<input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
-			<label for="new_password">New Password:</label>
-			<input type="password" id="new_password" name="new_password" required>
-			<label for="confirm_password">Confirm Password:</label>
-			<input type="password" id="confirm_password" name="confirm_password" required>
-			<button type="submit">Reset Password</button>
-		</form>
-	</div>
-	</body>
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>Reset Password</title>
+			<link href="recovery.css" rel="stylesheet">
+		</head>
+		<body>
+			<div class="recoveryContainer">
+				<div>
+					<h2>Reset</h2>
+					<h1>Password</h1>
+				</div>
+				<div class="centeredDiv">
+					<form action="reset_password.php" method="post" class="mTop">
+						<label for="newPassword">New Password: </label>
+						<input type="password" id="newPassword" name="newPassword" required>
+						<label for="confirmPassword">Confirm Password: </label>
+						<input type="password" id="confirmPassword" name="confirmPassword" required>
+						<button type="submit" class="submit">Ya</button>
+					</form>
+				</div>
+			</div>
+		</body>
 	</html>
 	<?php
 	exit();
@@ -56,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['token'])) {
 // If the request is POST, process the password reset.
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
 	$token = trim($_POST['token']);
-	$newPassword = trim($_POST['new_password']);
-	$confirmPassword = trim($_POST['confirm_password']);
+	$newPassword = trim($_POST['newPassword']);
+	$confirmPassword = trim($_POST['confirmPassword']);
 
 	// Check if the passwords match.
 	if ($newPassword !== $confirmPassword) {

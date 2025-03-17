@@ -101,3 +101,8 @@ form input {
 form input:hover {
     transform: scale(1.01);
 }
+
+.centeredDiv {
+    display: flex;
+    justify-content: center;
+}
