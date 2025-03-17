@@ -199,7 +199,7 @@ form label {
 .customCheckbox {
     font-size: calc(var(--scaling) * 1);
 }
-.rememberme {
+.rememberMe {
     font-size: calc(var(--scaling) * 0.9);
 }
 .terms {
