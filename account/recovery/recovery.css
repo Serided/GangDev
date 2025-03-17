@@ -80,7 +80,7 @@ form input {
 
 .submit {
     font-size: calc(var(--scaling) * 2.4) !important;
-    padding: 0 calc(var(--scaling) * 0.6);
+    padding: calc(var(--scaling) * 0.2) calc(var(--scaling) * 1);
     margin: 0 calc(var(--scaling) * 0.5);
     background: darkgray;
     color: white;
