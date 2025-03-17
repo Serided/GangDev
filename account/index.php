@@ -33,7 +33,7 @@ if ($user && $user['deletion_requested_at']) {
     </h1>
 
     <?php if ($remainingSeconds > 0): ?>
-        <div class="fullw sect">
+        <div class="fullw sect aSect">
             <section class="fullw">
                 <h2 class="fullw" style="color:red">
                     Your account is scheduled for deletion in <span id="timeRemaining"></span>.
@@ -43,10 +43,6 @@ if ($user && $user['deletion_requested_at']) {
         <form action="delete/cancel_delete.php" method="post">
             <button type="submit" class="cancel-button">Cancel Deletion</button>
         </form>
-        <script>
-            var remainingSeconds = <?php echo $remainingSeconds; ?>;
-            startCountdown(remainingSeconds, 'timeRemaining');
-        </script>
         <div class="fullw sect spacing aSect">
     <?php else: ?>
         <div class="fullw sect aSect">
@@ -75,7 +71,14 @@ if ($user && $user['deletion_requested_at']) {
         </section>
     </div>
 
+
     <script src="script.js"></script>
+    <?php if ($remainingSeconds > 0): ?>
+        <script>
+            let remainingSeconds = <?php echo $remainingSeconds; ?>;
+            startCountdown(remainingSeconds, 'timeRemaining');
+        </script>
+    <?php endif; ?>
 
     <?= $footer ?>
     </body>
