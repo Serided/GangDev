@@ -2,6 +2,10 @@
     --scaling: 1vh;
 }
 
+html {
+    font-family: "Fredoka", serif;
+}
+
 h2 {
     margin: calc(var(--scaling) * 2) calc(var(--scaling) * 1) !important;
     font-size: calc(var(--scaling) * 1);
@@ -107,8 +111,6 @@ h2 b {
     font-size: calc(var(--scaling) * 2) !important;
     padding: calc(var(--scaling) * 0.4);
     margin: calc(var(--scaling) * 2) auto;
-    width: calc(var(--scaling) * 5);
-    height: calc(var(--scaling) * 4);
     background: darkgray;
     color: white;
     border: none;
