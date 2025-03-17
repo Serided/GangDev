@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['token'])) {
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<title>Reset Password</title>
 			<link href="recovery.css" rel="stylesheet">
+			<?= $head ?>
 		</head>
 		<body>
 			<div class="recoveryContainer">
@@ -43,11 +44,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['token'])) {
 				</div>
 				<div class="centeredDiv">
 					<form action="reset_password.php" method="post" class="mTop">
-						<label for="newPassword">New Password: </label>
-						<input type="password" id="newPassword" name="newPassword" required>
-						<label for="confirmPassword">Confirm Password: </label>
-						<input type="password" id="confirmPassword" name="confirmPassword" required>
-						<button type="submit" class="submit">Ya</button>
+						<div>
+							<label for="newPassword">New Password: </label>
+							<input type="password" id="newPassword" name="newPassword" required>
+						</div>
+						<div>
+							<label for="confirmPassword">Confirm Password: </label>
+							<input type="password" id="confirmPassword" name="confirmPassword" required>
+						</div>
+						<div>
+							<button type="submit" class="submit">Ya</button>
+						</div>
 					</form>
 				</div>
 			</div>
