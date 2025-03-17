@@ -13,11 +13,11 @@
             <h2>Are you</h2>
             <h1>SURE?</h1>
             <p class="mTop">
-                To confirm, type '<b>I want to delete my account.</b>' below.
+                To confirm, type '<b>I want to delete my account.</b>' in the input box below.
             </p>
             <form action="process_delete.php" method="post" class="mTop">
                 <div class="inputContainer">
-                    <input type="text" id="delete" name="delete" required>
+                    <input type="text" id="delete" name="delete" placeholder="I want to delete my account." required>
                 </div>
             </form>
             <button type="submit" class="submit mTop">:( Ya ):</button>
