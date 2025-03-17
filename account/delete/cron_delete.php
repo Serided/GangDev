@@ -20,7 +20,7 @@ function deleteDirectory($dir) {
 	return rmdir($dir);
 }
 
-$stmt = $pdo->prepare("SELECT id FROM users WHERE deletion_requested_at IS NOT NULL AND deletion_requested_at + interval '60 seconds' < now()");
+$stmt = $pdo->prepare("SELECT id FROM users WHERE deletion_requested_at IS NOT NULL AND deletion_requested_at + interval '30 days' < now()");
 $stmt->execute();
 
 $usersToDelete = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -87,3 +87,24 @@ document.addEventListener('DOMContentLoaded', function() {
         reader.readAsDataURL(file);
     });
 });
+
+function startCountdown(remaining, elementId) {
+    let display = document.getElementById(elementId);
+
+    function updateCountdown() {
+        if (remaining < 0) {
+            display.textContent = "0 seconds";
+            return;
+        }
+        let days = Math.floor(remaining / (24 * 3600));
+        let hours = Math.floor((remaining % (24 * 3600)) / 3600);
+        let minutes = Math.floor((remaining % 3600) / 60);
+        let seconds = remaining % 60;
+        display.textContent = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+        remaining--;
+    }
+
+    // Initialize and update every second
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
