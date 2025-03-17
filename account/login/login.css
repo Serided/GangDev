@@ -179,7 +179,7 @@ form label {
 
 .submit {
     font-size: calc(var(--scaling) * 2) !important;
-    padding: calc(var(--scaling) * 1) calc(var(--scaling) * 1.3);
+    padding: calc(var(--scaling) * 1) calc(var(--scaling) * 1.4);
     margin: calc(var(--scaling) * 2) auto;
     background: darkgray;
     color: white;
