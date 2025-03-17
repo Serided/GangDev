@@ -13,7 +13,8 @@
             <h2>Are you</h2>
             <h1>SURE?</h1>
             <p class="mTop">
-                (It is permanent. You will have 30 days to change your mind.)<br>
+                IT IS PERMANENT, and because of this,<br>
+                <u>You will have 30 days to change your mind.</u><br>
                 If so, type '<b>I want to delete my account.</b>' below.
             </p>
             <form action="process_delete.php" method="post" class="mTop">
