@@ -10,14 +10,16 @@
 </head>
 <body>
 <div class="deleteContainer">
-    <div>
-        <h2>Are you</h2>
-        <h1>SURE?</h1>
+    <div class="centeredDiv">
+        <div>
+            <h2>Are you</h2>
+            <h1>SURE?</h1>
+        </div>
     </div>
     <div class="centeredDiv">
         <div>
             <p class="mTop">
-                To confirm, type 'I want to delete my account.' down below.
+                To confirm, type '<i>I want to delete my account.</i>' down below.
             </p>
             <form action="process_delete.php" method="post" class="mTop">
                 <input type="text" id="delete" name="delete" required>
