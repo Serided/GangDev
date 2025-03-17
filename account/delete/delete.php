@@ -19,7 +19,7 @@
             </p>
             <form action="process_delete.php" method="post" class="mTop">
                 <div class="inputContainer">
-                    <input type="text" id="delete" name="delete" placeholder="but u dont actually wanna, right??" required>
+                    <input type="text" id="delete" name="delete" placeholder="but u dont actually, right??" required>
                 </div>
             </form>
             <button type="submit" class="submit mTop">:( Ya ):</button>
