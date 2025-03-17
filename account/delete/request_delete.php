@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$requiredText = "I want to delete my account.";
 
 	if ($deleteText !== $requiredText) {
-		echo "The text you entered does not match the required phrase.";
+		header("Location: delete.php?error=1");
 		exit();
 	}
 
@@ -29,10 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
               </script>";
 		exit();
 	} else {
-		echo "There was an error scheduling account deletion.";
+		header("Location: delete.php?error=2");
 		exit();
 	}
 } else {
-	echo "Invalid request.";
+	header("Location: delete.php?error=3");
 }
 ?>
