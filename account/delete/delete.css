@@ -36,33 +36,19 @@ a {
 }
 
 h1 {
-    font-size: calc(var(--scaling) * 4) !important;
+    font-size: calc(var(--scaling) * 6) !important;
     padding: 0 !important;
-    height: calc(var(--scaling) * 3.8);
+    height: calc(var(--scaling) * 5.8);
 }
 h2 {
     font-size: calc(var(--scaling) * 3) !important;
     padding: 0 !important;
-    height: calc(var(--scaling) * 1.2);
+    height: calc(var(--scaling) * 2.2);
 }
 
 p {
     font-size: calc(var(--scaling) * 1.5) !important;
     text-align: center;
-}
-
-form label {
-    font-size: calc(var(--scaling) * 2);
-}
-form input {
-    border-radius: calc(var(--scaling) * 0.35);
-    padding-left: calc(var(--scaling) * 0.35);
-    border: none;
-    height: calc(var(--scaling) * 3);
-    font-size: calc(var(--scaling) * 1.6);
-    justify-items: left;
-    background: whitesmoke;
-    transition: all 0.2s ease;
 }
 
 .mTop {
@@ -82,7 +68,7 @@ form input {
 }
 
 .inputContainer {
-    width: calc(var(--scaling) * 15);
+    width: calc(var(--scaling) * 24);
     justify-items: left;
     text-align: left;
 }
