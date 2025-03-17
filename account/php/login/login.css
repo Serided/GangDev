@@ -115,7 +115,7 @@ form label {
 }
 
 .forgot {
-    padding-left: calc(var(--scaling) * 13.5);
+    padding-left: calc(var(--scaling) * 14);
 }
 
 .forgot a {
