@@ -68,6 +68,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$_SESSION['last_recovery'] = time();
 
 			echo "An email with your username has been sent to " . htmlspecialchars($email) . ".";
+			echo "<br><br>You will be redirected shortly.";
+			echo "<script>
+        setTimeout(function() {
+            window.location.href = 'https://account.gangdev.co/login/signin.php';
+        }, 5000); // 5000ms = 5 seconds
+      </script>";
 		} catch (Exception $e) {
 			error_log("Mailer Error: " . $mail->ErrorInfo);
 			echo "There was an error sending the email. Please try again later.";

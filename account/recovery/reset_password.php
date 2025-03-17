@@ -104,6 +104,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
 		$stmt->execute([$token]);
 
 		echo "Your password has been reset successfully. You can now log in with your new password.";
+		echo "<br><br>You will be redirected shortly.";
+		echo "<script>
+        setTimeout(function() {
+            window.location.href = 'https://account.gangdev.co/login/signin.php';
+        }, 5000); // 5000ms = 5 seconds
+      </script>";
 	} else {
 		echo "There was an error updating your password. Please try again.";
 	}
