@@ -17,6 +17,10 @@ h2 b {
     padding: calc(var(--scaling) * 1);
 }
 
+.deleteHeader {
+    justify-items: center;
+}
+
 .info {
     margin: calc(var(--scaling) * 1) auto;
     padding: calc(var(--scaling) * 1);
