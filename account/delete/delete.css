@@ -63,7 +63,7 @@ p {
     border-radius: calc(var(--scaling) * 0.35);
     padding: calc(var(--scaling) * 3);
     width: calc(var(--scaling) * 35);
-    height: calc(var(--scaling) * 25);
+    height: calc(var(--scaling) * 26);
     justify-items: center;
 }
 
