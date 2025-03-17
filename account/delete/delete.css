@@ -65,6 +65,11 @@ p {
     justify-items: center;
 }
 
+.error {
+    color: yellow;
+    margin-top: calc(var(--scaling) * 1);
+}
+
 .inputContainer {
     width: calc(var(--scaling) * 27);
     justify-items: left;

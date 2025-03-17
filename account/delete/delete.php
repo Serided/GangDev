@@ -26,7 +26,7 @@ if (isset($_GET['error'])) {
             <h1>SURE?</h1>
 
 	        <?php if ($error): ?>
-              <p style="color: red"><?= htmlspecialchars($error) ?></p>
+              <p class="error"><?= htmlspecialchars($error) ?></p>
 	        <?php endif; ?>
 
             <p class="mTop">
