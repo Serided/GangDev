@@ -9,12 +9,13 @@
 	<?= $head ?>
 </head>
 <body>
-<div class="deleteContainer">
-    <div class="centeredDiv">
+<div class="deleteContainer centeredDiv">
+    <div>
+        <div></div>
         <h2>Are you</h2>
         <h1>SURE?</h1>
     </div>
-    <div class="centeredDiv">
+    <div>
         <p class="mTop">
             To confirm, type 'I want to delete my account.' down below.
         </p>
