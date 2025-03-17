@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$mail->Username   = $smtpUsername;
 			$mail->Password   = $smtpPassword;
 
-			$mail->setFrom('noreply@gangdev.co', 'GangDev Support');
+			$mail->setFrom('company@gangdev.co', 'GangDev');
 			$mail->addAddress($email, $username);
 
 			$mail->isHTML(true);
