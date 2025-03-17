@@ -14,18 +14,16 @@ session_set_cookie_params([
 
 if (session_status() == PHP_SESSION_NONE) session_start();
 
-if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberme"])) {
-	error_log("Remember me cookie found: " . $_COOKIE["rememberme"]);
+if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberMe"])) {
+	error_log("Remember me cookie found: " . $_COOKIE["rememberMe"]);
 	require_once "/var/www/gangdev/account/php/db.php"; // or adjust path accordingly
 
-	$token = $_COOKIE["rememberme"];
+	$token = $_COOKIE["rememberMe"];
 	$stmt = $pdo->prepare("SELECT user_id, expires_at FROM user_remember_tokens WHERE token = ?");
 	$stmt->execute([$token]);
 	$tokenData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-	// Check token validity and expiration
 	if ($tokenData && strtotime($tokenData['expires_at']) > time()) {
-		// Token is valid, fetch the user info
 		$stmt = $pdo->prepare("SELECT id, displayname, username, email FROM users WHERE id = ?");
 		$stmt->execute([$tokenData['user_id']]);
 		$user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -35,15 +33,15 @@ if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberme"])) {
 			$_SESSION["displayname"] = $user["displayname"];
 			$_SESSION["username"] = $user["username"];
 			$_SESSION["email"] = $user["email"];
+			$_SESSION["verified"] = $user["verified"];
 
-			// Optionally, refresh the token's expiration
 			$newExpiry = date('Y-m-d H:i:s', time() + (30 * 24 * 60 * 60));
 			$stmt = $pdo->prepare("UPDATE user_remember_tokens SET expires_at = ? WHERE token = ?");
 			$stmt->execute([$newExpiry, $token]);
 		}
 	} else {
 		// Token is invalid or expired, clear the cookie
-		setcookie('rememberme', '', time() - 3600, '/', '.gangdev.co');
+		setcookie('rememberMe', '', time() - 3600, '/', '.gangdev.co');
 	}
 }
 

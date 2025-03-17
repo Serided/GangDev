@@ -13,12 +13,13 @@ if (isset($_GET['token'])) {
 	if ($pendingUser) {
 		// check if token expired
 		if (strtotime($pendingUser['token_expires']) >= time()) {
-			$stmt = $pdo->prepare("INSERT INTO users (displayname, username, email, password) VALUES (?, ?, ?, ?)");
+			$stmt = $pdo->prepare("INSERT INTO users (displayname, username, email, password, verified) VALUES (?, ?, ?, ?, ?)");
 			if ($stmt->execute([$pendingUser['displayname'], $pendingUser['username'], $pendingUser['email'], $pendingUser['password']])) {
 				$_SESSION["user_id"] = $pdo->lastInsertId();
 				$_SESSION["displayname"] = $pendingUser['displayname'];
 				$_SESSION["username"] = $pendingUser['username'];
 				$_SESSION["email"] = $pendingUser['email'];
+				$_SESSION["verified"] = true;
 
 				$folder = '/var/www/gangdev/user/' . $_SESSION["user_id"];
 				if (!file_exists($folder)) {
