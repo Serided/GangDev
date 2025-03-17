@@ -6,24 +6,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$displayname = trim($_POST["displayname"]);
 	$username = trim($_POST["username"]);
 	$email = trim($_POST["email"]);
+	$confirmEmail = trim($_POST["confirmEmail"]);
 	$password = trim($_POST["password"]);
 	$confirmPassword = trim($_POST["confirmPassword"]);
-	$rememberme = isset($_POST["rememberme"]);
+	$rememberMe = isset($_POST["rememberMe"]);
 
 	if (empty($displayname) || empty($username) || empty($email) || empty($password) || empty($confirmPassword)) { // check for empty fields
 		header("Location: signup.php?error=1");
 		exit();
 	}
 
-	if ($password != $confirmPassword) { // check if passwords match
+	if ($email != $confirmEmail) { // check if passwords match
 		header("Location: signup.php?error=2");
+		exit();
+	}
+	if ($password != $confirmPassword) { // check if passwords match
+		header("Location: signup.php?error=3");
 		exit();
 	}
 
 	$stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
 	$stmt->execute([$email]);
 	if ($stmt->fetch(PDO::FETCH_ASSOC)) {
-		header("Location: signup.php?error=3");
+		header("Location: signup.php?error=4");
 		exit();
 	}
 
@@ -43,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			mkdir($folder . '/data', 0755, true);
 		}
 
-		if ($rememberme) {
+		if ($rememberMe) {
 			$token = bin2hex(random_bytes(16));  // 32-character token
 			$expiry = date('Y-m-d H:i:s', time() + (30 * 24 * 60 * 60));  // 30 days from now
 
@@ -51,13 +56,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$stmt->execute([$user["id"], $token, $expiry]);
 
 			// Set a persistent cookie for 30 days
-			setcookie('rememberme', $token, time() + (30 * 24 * 60 * 60), '/', '.gangdev.co', false, true);
+			setcookie('rememberMe', $token, time() + (30 * 24 * 60 * 60), '/', '.gangdev.co', false, true);
 		}
 
 		header("Location: https://account.gangdev.co");
 		exit();
 	} else {
-		header("Location: signup.php?error=4");
+		header("Location: signup.php?error=5");
 		exit();
 	}
 } else {

@@ -6,10 +6,12 @@ if (isset($_GET['error'])) {
     if ($_GET['error'] == 1) {
         $error = "All fields are required.";
     } elseif ($_GET['error'] == 2) {
-        $error = "Passwords do not match.";
+	    $error = "Emails do not match.";
     } elseif ($_GET['error'] == 3) {
-        $error = "An account with that email already exists.";
+        $error = "Passwords do not match.";
     } elseif ($_GET['error'] == 4) {
+        $error = "An account with that email already exists.";
+    } elseif ($_GET['error'] == 5) {
         $error = "An error occurred. Pleast try again.";
     }
 }
@@ -119,9 +121,9 @@ if (isset($_GET['error'])) {
                 <div class="centeredDiv">
                     <div>
                         <label class="customCheckbox">
-                            <input type="checkbox" id="rememberme" name="rememberme">
+                            <input type="checkbox" id="rememberMe" name="rememberMe">
                             <span class="checkmark"></span>
-                            <label for="rememberme" class="rememberme">Remember me</label>
+                            <label for="rememberMe" class="rememberMe">Remember me</label>
                         </label><br>
 
                         <label class="customCheckbox">
