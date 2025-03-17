@@ -174,7 +174,7 @@ form label {
 }
 
 .centeredDiv {
-    display: inline-flex;
+    display: flex;
     justify-content: center;
 }
 

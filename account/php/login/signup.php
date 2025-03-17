@@ -116,30 +116,32 @@ if (isset($_GET['error'])) {
                     <button type="submit" class="submit signup">Ya</button>
                 </div>
 
-                <div>
-                    <label class="customCheckbox">
-                        <input type="checkbox" id="rememberme" name="rememberme">
-                        <span class="checkmark"></span>
-                        <label for="rememberme" class="rememberme">Remember me</label>
-                    </label><br>
+                <div class="centeredDiv">
+                    <div>
+                        <label class="customCheckbox">
+                            <input type="checkbox" id="rememberme" name="rememberme">
+                            <span class="checkmark"></span>
+                            <label for="rememberme" class="rememberme">Remember me</label>
+                        </label><br>
 
-                    <label class="customCheckbox">
-                        <input type="checkbox" id="terms" name="terms" required>
-                        <span class="checkmark"></span>
-                        <label for="terms" class="terms">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/tos.php" target="_blank">Terms Of Service</a>.</label>
-                    </label><br>
+                        <label class="customCheckbox">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <span class="checkmark"></span>
+                            <label for="terms" class="terms">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/tos.php" target="_blank">Terms Of Service</a>.</label>
+                        </label><br>
 
-                    <label class="customCheckbox">
-                        <input type="checkbox" id="privacy" name="privacy" required>
-                        <span class="checkmark"></span>
-                        <label for="privacy" class="privacy">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/pp.php" target="_blank">Privacy Policy</a>.</label>
-                    </label><br>
+                        <label class="customCheckbox">
+                            <input type="checkbox" id="privacy" name="privacy" required>
+                            <span class="checkmark"></span>
+                            <label for="privacy" class="privacy">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/pp.php" target="_blank">Privacy Policy</a>.</label>
+                        </label><br>
 
-                    <label class="customCheckbox">
-                        <input type="checkbox" id="subscribe" name="subscribe">
-                        <span class="checkmark"></span>
-                        <label for="subscribe" class="subscribe">I want emails updates on company news and promotions.</label>
-                    </label><br>
+                        <label class="customCheckbox">
+                            <input type="checkbox" id="subscribe" name="subscribe">
+                            <span class="checkmark"></span>
+                            <label for="subscribe" class="subscribe">I want emails updates on company news and promotions.</label>
+                        </label><br>
+                    </div>
                 </div>
 
                 <div class="create"><a href="signup.php"> - Create A New Account - </a></div>
