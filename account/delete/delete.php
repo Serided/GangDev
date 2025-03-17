@@ -16,7 +16,9 @@
                 To confirm, type '<b>I want to delete my account.</b>' below.
             </p>
             <form action="process_delete.php" method="post" class="mTop">
-                <input type="text" id="delete" name="delete" required>
+                <div class="inputContainer">
+                    <input type="text" id="delete" name="delete" required>
+                </div>
             </form>
             <button type="submit" class="submit mTop">:( Ya ):</button>
         </div>

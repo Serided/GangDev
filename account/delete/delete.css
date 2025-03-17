@@ -41,13 +41,14 @@ h1 {
     height: calc(var(--scaling) * 3.8);
 }
 h2 {
-    font-size: calc(var(--scaling) * 2) !important;
+    font-size: calc(var(--scaling) * 3) !important;
     padding: 0 !important;
     height: calc(var(--scaling) * 1.2);
 }
 
 p {
     font-size: calc(var(--scaling) * 1.5) !important;
+    text-align: center;
 }
 
 form label {
@@ -65,7 +66,7 @@ form input {
 }
 
 .mTop {
-    margin: calc(var(--scaling) * 1.5) 0 0 0 !important;
+    margin-top: calc(var(--scaling) * 1.5) !important;
 }
 
 .deleteContainer {
@@ -78,6 +79,23 @@ form input {
     width: calc(var(--scaling) * 35);
     height: calc(var(--scaling) * 22);
     justify-items: center;
+}
+
+.inputContainer {
+    width: calc(var(--scaling) * 15);
+    justify-items: left;
+    text-align: left;
+}
+.inputContainer input {
+    box-sizing: border-box;
+    border-radius: calc(var(--scaling) * 0.35);
+    padding: calc(var(--scaling) * 0.35);
+    height: calc(var(--scaling) * 3);
+    min-width: 100%;
+    font-size: calc(var(--scaling) * 2);
+    background: whitesmoke;
+    border: none;
+    transition: all 0.2s ease;
 }
 
 .submit {
@@ -95,20 +113,7 @@ form input {
     transition: all 0.2s ease;
 }
 
-.inputDiv {
-    margin: calc(var(--scaling) * 1);
-}
-
-.centeredDiv {
-    display: flex;
-    justify-content: center;
-}
-
-.margin {
-    margin: calc(var(--scaling) * 1) 0;
-}
-
-form input:hover {
+input:hover {
     transform: scale(1.01);
 }
 
