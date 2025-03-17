@@ -80,11 +80,11 @@ form input {
 }
 
 .submit {
-    font-size: calc(var(--scaling) * 1.6) !important;
+    font-size: calc(var(--scaling) * 2.4) !important;
     padding: calc(var(--scaling) * 0.2);
     margin: 0 calc(var(--scaling) * 0.5);
-    width: calc(var(--scaling) * 4);
-    height: calc(var(--scaling) * 3);
+    width: calc(var(--scaling) * 6);
+    height: calc(var(--scaling) * 4.5);
     background: darkgray;
     color: white;
     border: none;
@@ -92,14 +92,6 @@ form input {
     border-radius: calc(var(--scaling) * 1);
     box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) gray;
     transition: all 0.2s ease;
-}
-.submit:hover {
-    transform: scale(1.05);
-    font-weight: bold;
-}
-
-form input:hover {
-    transform: scale(1.01);
 }
 
 .inputDiv {
@@ -113,4 +105,13 @@ form input:hover {
 
 .margin {
     margin: calc(var(--scaling) * 1) 0;
+}
+
+form input:hover {
+    transform: scale(1.01);
+}
+
+.submit:hover {
+    transform: scale(1.05);
+    font-weight: bold;
 }

@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['token'])) {
 								<input type="password" id="confirmPassword" name="confirmPassword" required>
 							</div>
 						</div>
-						<div class="centeredDiv">
+						<div class="centeredDiv mTop">
 							<button type="submit" class="submit">Ya</button>
 						</div>
 					</form>
