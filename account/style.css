@@ -2,10 +2,6 @@
     --scaling: 1vh;
 }
 
-html {
-    font-family: "Fredoka", serif;
-}
-
 h2 {
     margin: calc(var(--scaling) * 2) calc(var(--scaling) * 1) !important;
     font-size: calc(var(--scaling) * 1);
@@ -109,7 +105,8 @@ h2 b {
 
 .button {
     font-size: calc(var(--scaling) * 2) !important;
-    padding: calc(var(--scaling) * 0.4);
+    font-family: "Fredoka", serif;
+    padding: calc(var(--scaling) * 0.6);
     margin: calc(var(--scaling) * 2) auto;
     background: darkgray;
     color: white;
