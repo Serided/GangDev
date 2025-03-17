@@ -81,6 +81,12 @@ hr.signup {
     margin-bottom: calc(var(--scaling) * 2.2) !important;
 }
 
+.doubleRow {
+    display: flex;
+    justify-content: space-between;
+    gap: calc(var(--scaling) * 2);
+}
+
 form label {
     font-size: calc(var(--scaling) * 2);
 }
