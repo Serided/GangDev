@@ -144,7 +144,7 @@ if (isset($_GET['error'])) {
                     </div>
                 </div>
 
-                <div class="create"><a href="signup.php"> - Create A New Account - </a></div>
+                <div class="create centeredDiv"><a href="signin.php"> - Sign In - </a></div>
             </form>
         </div>
 
