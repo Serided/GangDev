@@ -9,6 +9,7 @@
         <?= $head ?>
     </head>
     <body>
+        <?= $navbar ?>
         <div class="recoveryContainer">
             <div>
                 <h2>Recover</h2>

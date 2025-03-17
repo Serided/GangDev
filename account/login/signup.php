@@ -26,6 +26,8 @@ if (isset($_GET['error'])) {
         <?= $head ?>
     </head>
     <body>
+        <?= $navbar ?>
+
         <div class="loginContainer signup">
             <h1 class="signup">Create Account</h1>
             <hr class="signup">

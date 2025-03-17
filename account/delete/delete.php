@@ -21,6 +21,8 @@ if (isset($_GET['error'])) {
 	    <?= $head ?>
     </head>
     <body>
+        <?= $navbar ?>
+
         <div class="deleteContainer">
             <h2>Are you</h2>
             <h1>SURE?</h1>
