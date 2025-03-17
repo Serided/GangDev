@@ -44,11 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['token'])) {
 				</div>
 					<form action="reset_password.php" method="post" class="mTop">
 						<div class="centeredDiv">
-							<div>
+							<div class="inputDiv">
 								<label for="newPassword">New Password: </label>
 								<input type="password" id="newPassword" name="newPassword" required>
 							</div>
-							<div>
+							<div class="inputDiv">
 								<label for="confirmPassword">Confirm Password: </label>
 								<input type="password" id="confirmPassword" name="confirmPassword" required>
 							</div>

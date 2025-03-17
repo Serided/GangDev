@@ -102,6 +102,10 @@ form input:hover {
     transform: scale(1.01);
 }
 
+.inputDiv {
+    margin: calc(var(--scaling) * 1);
+}
+
 .centeredDiv {
     display: flex;
     justify-content: center;
