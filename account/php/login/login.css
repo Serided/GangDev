@@ -85,6 +85,7 @@ hr.signup {
     display: flex;
     justify-content: space-between;
     gap: calc(var(--scaling) * 2);
+    box-sizing: border-box;
 }
 
 form label {
@@ -107,7 +108,7 @@ form label {
     transition: all 0.2s ease;
 }
 .inputContainer.signup {
-    width: calc(var(--scaling) * 18);
+    width: calc(var(--scaling) * 24);
 }
 .inputContainer.signup input {
     height: calc(var(--scaling) * 2.6);
