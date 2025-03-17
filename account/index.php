@@ -33,6 +33,7 @@
                     <h2>AND MORE TO COME...</h2>
                 </div>
 
+                <a href="delete/delete.php" class="sign">Delete Account</a>
                 <a href="login/signout.php" class="sign">Sign Out</a>
             <?php else: ?>
                 <a href="login/signin.php" class="sign">Sign In</a>

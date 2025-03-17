@@ -68,9 +68,9 @@ form input {
     margin: calc(var(--scaling) * 1.5) 0 0 0 !important;
 }
 
-.recoveryContainer {
+.deleteContainer {
     color: whitesmoke;
-    background: #e39b5a;
+    background: #d9534f;
     box-shadow: 0 0 calc(var(--scaling) * 1) gray;
     display: inline-block;
     border-radius: calc(var(--scaling) * 0.35);
@@ -83,7 +83,7 @@ form input {
     font-size: calc(var(--scaling) * 2.4) !important;
     padding: calc(var(--scaling) * 0.2);
     margin: 0 calc(var(--scaling) * 0.5);
-    width: calc(var(--scaling) * 6);
+    width: calc(var(--scaling) * 9);
     height: calc(var(--scaling) * 4.5);
     background: darkgray;
     color: white;

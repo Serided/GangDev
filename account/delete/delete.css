@@ -1,0 +1,117 @@
+:root {
+    --scaling: 1.5vh;
+}
+
+/* phone */
+@media screen and (max-width: 768px) {
+    :root {
+        --scaling: 2vw;
+    }
+}
+
+/* phone portrait */
+@media screen and (max-width: 480px) {
+    :root {
+        --scaling: 2.5vw;
+    }
+}
+
+* {
+    margin: 0;
+    font-family: "Fredoka", serif;
+    user-select: none;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+h1 {
+    font-size: calc(var(--scaling) * 4) !important;
+    padding: 0 !important;
+    height: calc(var(--scaling) * 3.8);
+}
+h2 {
+    font-size: calc(var(--scaling) * 2) !important;
+    padding: 0 !important;
+    height: calc(var(--scaling) * 1.2);
+}
+
+p {
+    font-size: calc(var(--scaling) * 1.5) !important;
+}
+
+form label {
+    font-size: calc(var(--scaling) * 2);
+}
+form input {
+    border-radius: calc(var(--scaling) * 0.35);
+    padding-left: calc(var(--scaling) * 0.35);
+    border: none;
+    height: calc(var(--scaling) * 3);
+    font-size: calc(var(--scaling) * 1.6);
+    justify-items: left;
+    background: whitesmoke;
+    transition: all 0.2s ease;
+}
+
+.mTop {
+    margin: calc(var(--scaling) * 1.5) 0 0 0 !important;
+}
+
+.recoveryContainer {
+    color: whitesmoke;
+    background: #e39b5a;
+    box-shadow: 0 0 calc(var(--scaling) * 1) gray;
+    display: inline-block;
+    border-radius: calc(var(--scaling) * 0.35);
+    padding: calc(var(--scaling) * 3);
+    width: calc(var(--scaling) * 35);
+    height: calc(var(--scaling) * 22);
+}
+
+.submit {
+    font-size: calc(var(--scaling) * 2.4) !important;
+    padding: calc(var(--scaling) * 0.2);
+    margin: 0 calc(var(--scaling) * 0.5);
+    width: calc(var(--scaling) * 6);
+    height: calc(var(--scaling) * 4.5);
+    background: darkgray;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: calc(var(--scaling) * 1);
+    box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) gray;
+    transition: all 0.2s ease;
+}
+
+.inputDiv {
+    margin: calc(var(--scaling) * 1);
+}
+
+.centeredDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.margin {
+    margin: calc(var(--scaling) * 1) 0;
+}
+
+form input:hover {
+    transform: scale(1.01);
+}
+
+.submit:hover {
+    transform: scale(1.05);
+    font-weight: bold;
+}
