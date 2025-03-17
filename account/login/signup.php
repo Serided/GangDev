@@ -123,19 +123,19 @@ if (isset($_GET['error'])) {
                         <label class="customCheckbox">
                             <input type="checkbox" id="terms" name="terms" required>
                             <span class="checkmark"></span>
-                            <label for="terms" class="terms">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/tos.php" target="_blank">Terms Of Service</a>.</label>
+                            <label for="terms" class="chex">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/tos.php" target="_blank">Terms Of Service</a>.</label>
                         </label><br>
 
                         <label class="customCheckbox">
                             <input type="checkbox" id="privacy" name="privacy" required>
                             <span class="checkmark"></span>
-                            <label for="privacy" class="privacy">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/pp.php" target="_blank">Privacy Policy</a>.</label>
+                            <label for="privacy" class="chex">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/pp.php" target="_blank">Privacy Policy</a>.</label>
                         </label><br>
 
                         <label class="customCheckbox">
                             <input type="checkbox" id="subscribe" name="subscribe">
                             <span class="checkmark"></span>
-                            <label for="subscribe" class="subscribe">I want emails updates on company news and promotions.</label>
+                            <label for="subscribe" class="chex">I want emails updates on company news and promotions.</label>
                         </label><br>
                     </div>
                 </div>

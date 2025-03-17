@@ -163,6 +163,7 @@ form label {
     color: white;
     transition: all 0.2s ease;
     padding: 0 calc(var(--scaling) * 0.3);
+    user-select: none;
 }
 
 .labelRow {
@@ -196,17 +197,9 @@ form label {
 .customCheckbox {
     font-size: calc(var(--scaling) * 1);
 }
-.rememberMe {
+.chex {
     font-size: calc(var(--scaling) * 0.9);
-}
-.terms {
-    font-size: calc(var(--scaling) * 0.9);
-}
-.privacy {
-    font-size: calc(var(--scaling) * 0.9);
-}
-.subscribe {
-    font-size: calc(var(--scaling) * 0.9);
+    user-select: none;
 }
 .customCheckbox input{
     opacity: 0;
