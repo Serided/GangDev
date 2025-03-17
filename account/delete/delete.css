@@ -39,11 +39,14 @@ h1 {
     font-size: calc(var(--scaling) * 6) !important;
     padding: 0 !important;
     height: calc(var(--scaling) * 5.8);
+    z-index: 5;
+    color: darkgray;
 }
 h2 {
     font-size: calc(var(--scaling) * 3) !important;
     padding: 0 !important;
-    height: calc(var(--scaling) * 2.2);
+    height: calc(var(--scaling) * 1.8);
+    z-index: 4;
 }
 
 p {
