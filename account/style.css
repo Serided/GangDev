@@ -107,7 +107,7 @@ h2 b {
     font-size: calc(var(--scaling) * 2) !important;
     font-family: "Fredoka", serif;
     padding: calc(var(--scaling) * 0.6);
-    margin: calc(var(--scaling) * 2) auto;
+    margin: calc(var(--scaling) * 1) auto;
     background: darkgray;
     color: white;
     border: none;

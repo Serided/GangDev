@@ -40,7 +40,7 @@ if ($user && $user['deletion_requested_at']) {
                         <i>Your account is scheduled for deletion in <b style="color: darkred"><span id="timeRemaining"></span></b>.</i>
                     </h2>
                     <form action="delete/cancel_delete.php" method="post">
-                        <button type="submit" class="button">Cancel Deletion</button>
+                        <button type="submit" class="button">Stawp it :(</button>
                     </form>
                 </div>
             </section>
