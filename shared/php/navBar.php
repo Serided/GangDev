@@ -20,13 +20,13 @@ $displayname = isset($_SESSION['displayname']) ? $_SESSION['displayname'] : 'Acc
                     <nav>
                         <a href="http://account.gangdev.co" class="btn-text"><button class="hamburger-btn btn-text two">Account</button></a>
                         <a href="#" class="btn-text"><button class="hamburger-btn btn-text two">Leaderboard</button></a>
-                        <a href="https://account.gangdev.co/php/login/signout.php" class="btn-text"><button class="hamburger-btn btn-text two">Sign Out</button></a>
+                        <a href="https://account.gangdev.co/login/signout.php" class="btn-text"><button class="hamburger-btn btn-text two">Sign Out</button></a>
                     </nav>
                 </aside>
             <?php else: ?>
                 <aside class="sidebar two">
                     <nav>
-                        <a href="https://account.gangdev.co/php/login/signin.php" class="btn-text"><button class="hamburger-btn btn-text two">Sign In</button></a>
+                        <a href="https://account.gangdev.co/login/signin.php" class="btn-text"><button class="hamburger-btn btn-text two">Sign In</button></a>
                     </nav>
                 </aside>
             <?php endif; ?>
