@@ -35,12 +35,14 @@ if ($user && $user['deletion_requested_at']) {
     <?php if ($remainingSeconds > 0): ?>
         <div class="fullw sect aSect">
             <section class="fullw">
-                <h2 class="fullw" style="color:red;"><b></b>
-                    <i>Your account is scheduled for deletion in <b style="color: darkred"><span id="timeRemaining"></span></b>.</i>
-                </h2>
-                <form action="delete/cancel_delete.php" method="post">
-                    <button type="submit" class="cancel-button">Cancel Deletion</button>
-                </form>
+                <div>
+                    <h2 class="fullw" style="color:red;"><b></b>
+                        <i>Your account is scheduled for deletion in <b style="color: darkred"><span id="timeRemaining"></span></b>.</i>
+                    </h2>
+                    <form action="delete/cancel_delete.php" method="post">
+                        <button type="submit" class="cancel-button">Cancel Deletion</button>
+                    </form>
+                </div>
             </section>
         </div>
         <div class="fullw sect spacing aSect">
