@@ -13,7 +13,8 @@
             <h2>Are you</h2>
             <h1>SURE?</h1>
             <p class="mTop">
-                To confirm, type '<b>I want to delete my account.</b>' in the input box below.
+                (It is permanent. You will have 30 days to change your mind.)<br>
+                If so, type '<b>I want to delete my account.</b>' below.
             </p>
             <form action="process_delete.php" method="post" class="mTop">
                 <div class="inputContainer">
