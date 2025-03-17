@@ -14,7 +14,7 @@ if (isset($_GET['token'])) {
 		// check if token expired
 		if (strtotime($pendingUser['token_expires']) >= time()) {
 			$stmt = $pdo->prepare("INSERT INTO users (displayname, username, email, password) VALUES (?, ?, ?, ?)");
-			if (stmt->execute([$pendingUser['displayname'], $pendingUser['username'], $pendingUser['email'], $pendingUser['password']])) {
+			if ($stmt->execute([$pendingUser['displayname'], $pendingUser['username'], $pendingUser['email'], $pendingUser['password']])) {
 				$_SESSION["user_id"] = $pdo->lastInsertId();
 				$_SESSION["displayname"] = $pendingUser['displayname'];
 				$_SESSION["username"] = $pendingUser['username'];
@@ -27,7 +27,7 @@ if (isset($_GET['token'])) {
 					mkdir($folder . '/data', 0755, true);
 				}
 
-				if ($rememberMe) {
+				/*if ($rememberMe) {
 					$token = bin2hex(random_bytes(16));  // 32-character token
 					$expiry = date('Y-m-d H:i:s', time() + (30 * 24 * 60 * 60));  // 30 days from now
 
@@ -36,7 +36,7 @@ if (isset($_GET['token'])) {
 
 					// Set a persistent cookie for 30 days
 					setcookie('rememberMe', $token, time() + (30 * 24 * 60 * 60), '/', '.gangdev.co', false, true);
-				}
+				}*/
 
 				$stmt = $pdo->prepare("DELETE FROM pending_users WHERE id = ?");
 				$stmt->execute([$pendingUser['id']]);
