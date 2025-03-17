@@ -89,9 +89,7 @@ p {
 
 .submit {
     font-size: calc(var(--scaling) * 2.4) !important;
-    padding: calc(var(--scaling) * 0.2);
-    width: calc(var(--scaling) * 9);
-    height: calc(var(--scaling) * 4.5);
+    padding: calc(var(--scaling) * 1) calc(var(--scaling) * 1.4);
     background: darkgray;
     color: white;
     border: none;
