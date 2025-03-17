@@ -52,9 +52,9 @@ if (isset($_GET['error'])) {
 
             <div>
                 <label class="customCheckbox">
-                    <input type="checkbox" id="rememberme" name="rememberme">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
                     <span class="checkmark"></span>
-                    <label for="rememberme" class="rememberme">Remember me</label>
+                    <label for="rememberMe" class="rememberMe">Remember me</label>
                 </label><br>
             </div>
 

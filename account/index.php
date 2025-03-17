@@ -33,9 +33,9 @@
                     <h2>AND MORE TO COME...</h2>
                 </div>
 
-                <a href="php/login/signout.php" class="sign">Sign Out</a>
+                <a href="login/signout.php" class="sign">Sign Out</a>
             <?php else: ?>
-                <a href="php/login/signin.php" class="sign">Sign In</a>
+                <a href="login/signin.php" class="sign">Sign In</a>
             <?php endif; ?>
             <p style="color: red" class="account"><b>Note: </b>In development</p>
         </section>
