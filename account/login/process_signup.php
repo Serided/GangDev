@@ -1,6 +1,6 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
-require_once "/var/www/gangdev/account/php/db.php";
+require_once '/var/www/gangdev/account/php/db.php';
 require '/var/www/gangdev/account/php/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -24,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$confirmEmail = trim($_POST["confirmEmail"]);
 	$password = trim($_POST["password"]);
 	$confirmPassword = trim($_POST["confirmPassword"]);
-	$rememberMe = isset($_POST["rememberMe"]);
 
 	// check for errors in their entry
 	if (empty($displayname) || empty($username) || empty($email) || empty($confirmEmail) || empty($password) || empty($confirmPassword)) { // check for empty fields
@@ -56,10 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$stmt = $pdo->prepare("INSERT INTO pending_users (displayname, username, email, password, verification_token, token_expires) VALUES (?, ?, ?, ?, ?, ?)");
 	if ($stmt->execute([$displayname, $username, $email, $hashed_password, $verification_token, $token_expires])) {
 		$verify_url = "https://account.gangdev.co/login/verify.php?token=" . $verification_token;
-
-		$subject = "Verify your email address";
-		$message = "Hello $displayname, \n\nThank you for signing up! Please click the link below to verify your email address and complete your account creation: \n\n" . $verify_url . "\n\nIf you did not sign up, please ignore this email.";
-		$headers = "From: noreply@gangdev.co";
 
 		$mail = new PHPMailer(true);
 		try {

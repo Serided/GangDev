@@ -17,7 +17,7 @@
 			<p class="mTop">
 				We will send you the username associated with your email.
 			</p>
-			<form action="/submit" method="post" class="mTop">
+			<form action="recover_username.php" method="post" class="mTop">
 				<label for="email">Email: </label>
 				<input type="email" id="email" name="email" required>
 				<button type="submit" class="submit">Ya</button>

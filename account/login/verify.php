@@ -1,6 +1,6 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
-require_once "/var/www/gangdev/account/php/db.php";
+require_once '/var/www/gangdev/account/php/db.php';
 
 if (isset($_GET['token'])) {
 	$token = $_GET['token'];
@@ -27,17 +27,6 @@ if (isset($_GET['token'])) {
 					mkdir($folder . '/icon', 0755, true);
 					mkdir($folder . '/data', 0755, true);
 				}
-
-				/*if ($rememberMe) {
-					$token = bin2hex(random_bytes(16));  // 32-character token
-					$expiry = date('Y-m-d H:i:s', time() + (30 * 24 * 60 * 60));  // 30 days from now
-
-					$stmt = $pdo->prepare("INSERT INTO user_remember_tokens (user_id, token, expires_at) VALUES (?, ?, ?)");
-					$stmt->execute([$_SESSION['user_id'], $token, $expiry]);
-
-					// Set a persistent cookie for 30 days
-					setcookie('rememberMe', $token, time() + (30 * 24 * 60 * 60), '/', '.gangdev.co', false, true);
-				}*/
 
 				$stmt = $pdo->prepare("DELETE FROM pending_users WHERE id = ?");
 				$stmt->execute([$pendingUser['id']]);

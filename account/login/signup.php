@@ -121,12 +121,6 @@ if (isset($_GET['error'])) {
                 <div class="centeredDiv">
                     <div>
                         <label class="customCheckbox">
-                            <input type="checkbox" id="rememberMe" name="rememberMe">
-                            <span class="checkmark"></span>
-                            <label for="rememberMe" class="rememberMe">Remember me</label>
-                        </label><br>
-
-                        <label class="customCheckbox">
                             <input type="checkbox" id="terms" name="terms" required>
                             <span class="checkmark"></span>
                             <label for="terms" class="terms">By proceeding, you are agreeing to our <a href="https://shared.gangdev.co/docs/tos.php" target="_blank">Terms Of Service</a>.</label>
