@@ -2,15 +2,17 @@
 require_once '/var/www/gangdev/shared/php/init.php';
 require_once '/var/www/gangdev/account/php/db.php';
 
-$userId = $_SESSION['user_id'];
-$stmt = $pdo->prepare("SELECT deletion_requested_at FROM users WHERE id = ?");
-$stmt->execute([$userId]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
-
+$userId = $_SESSION['user_id'] ?? null;
 $remainingSeconds = 0;
-if ($user && $user['deletion_requested_at']) {
-	$deletionTime = strtotime($user['deletion_requested_at']) + (30 * 24 * 60 * 60); // 30 days later
-	$remainingSeconds = $deletionTime - time();
+if ($userId) {
+	$stmt = $pdo->prepare("SELECT deletion_requested_at FROM users WHERE id = ?");
+	$stmt->execute([$userId]);
+	$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+	if ($user && $user['deletion_requested_at']) {
+		$deletionTime = strtotime($user['deletion_requested_at']) + (30 * 24 * 60 * 60); // 30 days later
+		$remainingSeconds = $deletionTime - time();
+	}
 }
 ?>
 <!DOCTYPE html>
