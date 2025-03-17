@@ -74,7 +74,7 @@ hr.signup {
 }
 
 .margin {
-    margin: calc(var(--scaling) * 1.5) !important;
+    margin-bottom: calc(var(--scaling) * 1) !important;
 }
 
 .marginBoost {
@@ -84,6 +84,7 @@ hr.signup {
 .doubleRow {
     display: flex;
     justify-content: space-between;
+    gap: calc(var(--scaling) * 2);
 }
 
 form label {
