@@ -116,7 +116,7 @@ if (isset($_GET['error'])) {
                     <button type="submit" class="submit signup">Ya</button>
                 </div>
 
-                <div>
+                <div class="centeredDiv">
                     <label class="customCheckbox">
                         <input type="checkbox" id="rememberme" name="rememberme">
                         <span class="checkmark"></span>
@@ -141,6 +141,8 @@ if (isset($_GET['error'])) {
                         <label for="subscribe" class="subscribe">I want emails updates on company news and promotions.</label>
                     </label><br>
                 </div>
+
+                <div class="create"><a href="signup.php"> - Create A New Account - </a></div>
             </form>
         </div>
 

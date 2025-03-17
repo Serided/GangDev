@@ -49,6 +49,7 @@ if (isset($_GET['error'])) {
                     <button type="submit" class="submit">Ya</button>
                 </div>
             </form>
+
             <div>
                 <label class="customCheckbox">
                     <input type="checkbox" id="rememberme" name="rememberme">
@@ -56,6 +57,7 @@ if (isset($_GET['error'])) {
                     <label for="rememberme" class="rememberme">Remember me</label>
                 </label><br>
             </div>
+
             <div class="create"><a href="signup.php"> - Create A New Account - </a></div>
         </div>
 
