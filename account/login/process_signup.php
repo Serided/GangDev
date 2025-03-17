@@ -1,7 +1,7 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
 require_once "/var/www/gangdev/account/php/db.php";
-require 'vendor/autoload.php';
+require '/var/www/gangdev/account/php/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
