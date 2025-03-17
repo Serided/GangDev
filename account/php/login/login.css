@@ -84,7 +84,7 @@ hr.signup {
 .doubleRow {
     display: flex;
     justify-content: space-between;
-    gap: calc(var(--scaling) * 3);
+    gap: calc(var(--scaling) * 2);
     box-sizing: border-box;
 }
 
