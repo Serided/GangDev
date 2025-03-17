@@ -1,6 +1,6 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
-require_once "../db.php";
+require_once "/var/www/gangdev/account/php/db.php";
 require 'vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
