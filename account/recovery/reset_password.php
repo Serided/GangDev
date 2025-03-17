@@ -43,6 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['token'])) {
 					<h1>Password</h1>
 				</div>
 					<form action="reset_password.php" method="post" class="mTop">
+						<input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
+
 						<div class="centeredDiv">
 							<div class="inputDiv">
 								<label for="newPassword">New Password: </label>
