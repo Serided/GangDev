@@ -85,7 +85,6 @@ hr.signup {
     display: flex;
     justify-content: space-between;
     gap: calc(var(--scaling) * 2);
-    width: calc(var(--scaling) * 18);
 }
 
 form label {
