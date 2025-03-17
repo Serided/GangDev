@@ -21,8 +21,8 @@
                 <div class="inputContainer">
                     <input type="text" id="delete" name="delete" placeholder="but u dont actually, right??" required>
                 </div>
+                <button type="submit" class="submit mTop">:( Ya ):</button>
             </form>
-            <button type="submit" class="submit mTop">:( Ya ):</button>
         </div>
     </body>
 </html>
