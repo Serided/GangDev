@@ -13,11 +13,11 @@
             <h2>Are you</h2>
             <h1>SURE?</h1>
             <p class="mTop">
-                IT IS PERMANENT, and because of this,<br>
-                <u>You will have 30 days to change your mind.</u><br><br>
+                <b>IT IS PERMANENT</b>, and because of this,<br>
+                <i>You will have 30 days to change your mind.</i><br><br>
                 If so, type '<b>I want to delete my account.</b>' below.
             </p>
-            <form action="process_delete.php" method="post" class="mTop">
+            <form action="request_delete.php" method="post" class="mTop">
                 <div class="inputContainer">
                     <input type="text" id="delete" name="delete" placeholder="but u dont actually, right??" required>
                 </div>

@@ -1,4 +1,18 @@
-<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
+<?php
+require_once '/var/www/gangdev/shared/php/init.php';
+require_once '/var/www/gangdev/account/php/db.php';
+
+$userId = $_SESSION['user_id'];
+$stmt = $pdo->prepare("SELECT deletion_requested_at FROM users WHERE id = ?");
+$stmt->execute([$userId]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$remainingSeconds = 0;
+if ($user && $user['deletion_requested_at']) {
+	$deletionTime = strtotime($user['deletion_requested_at']) + (60); // 30 days later
+	$remainingSeconds = $deletionTime - time();
+}
+?>
 <!DOCTYPE html>
 <html lang="en" class="fullw">
     <head>
@@ -18,7 +32,37 @@
         Account
     </h1>
 
-    <div class="fullw sect aSect">
+    <?php if ($remainingSeconds > 0): ?>
+        <div class="countdown">
+            Your account is scheduled for deletion in
+            <span id="timeRemaining"></span>.
+        </div>
+        <form action="delete/cancel_delete.php" method="post">
+            <button type="submit" class="cancel-button">Cancel Deletion</button>
+        </form>
+        <script>
+            // Set up countdown timer (in seconds)
+            var remaining = <?php echo $remainingSeconds; ?>;
+            var display = document.getElementById('timeRemaining');
+
+            function updateCountdown() {
+                if (remaining < 0) {
+                    display.textContent = "0 seconds";
+                    return;
+                }
+                var days = Math.floor(remaining / (24 * 3600));
+                var hours = Math.floor((remaining % (24 * 3600)) / 3600);
+                var minutes = Math.floor((remaining % 3600) / 60);
+                var seconds = remaining % 60;
+                display.textContent = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+                remaining--;
+            }
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        </script>
+    <?php endif; ?>
+
+    <div class="fullw sect spacing aSect">
         <section class="fullw">
             <?php if (isset($_SESSION["user_id"])): ?>
                 <div class="icon">
