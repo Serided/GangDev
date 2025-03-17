@@ -36,11 +36,11 @@ if ($user && $user['deletion_requested_at']) {
         <div class="fullw sect aSect">
             <section class="fullw">
                 <div class="deleteHeader">
-                    <h2 class="fullw" style="color:red;"><b></b>
+                    <h2 class="fullw" style="color:red; margin-bottom: 0 !important;"><b></b>
                         <i>Your account is scheduled for deletion in <b style="color: darkred"><span id="timeRemaining"></span></b>.</i>
                     </h2>
                     <form action="delete/cancel_delete.php" method="post">
-                        <button type="submit" class="cancel-button">Cancel Deletion</button>
+                        <button type="submit" class="button">Cancel Deletion</button>
                     </form>
                 </div>
             </section>

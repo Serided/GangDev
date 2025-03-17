@@ -103,10 +103,29 @@ h2 b {
     transition: all 0.3s ease;
 }
 
+.button {
+    font-size: calc(var(--scaling) * 2) !important;
+    padding: calc(var(--scaling) * 0.4);
+    margin: calc(var(--scaling) * 2) auto;
+    width: calc(var(--scaling) * 5);
+    height: calc(var(--scaling) * 4);
+    background: darkgray;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: calc(var(--scaling) * 1);
+    box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) gray;
+    transition: all 0.2s ease;
+}
+
 #iDisplay:hover {
     background: #333;
     opacity: .7;
 }
 .sign:hover {
     transform: scale(1.05);
+}
+.button:hover {
+    transform: scale(1.05);
+    font-weight: bold;
 }
