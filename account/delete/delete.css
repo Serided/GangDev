@@ -77,6 +77,7 @@ form input {
     padding: calc(var(--scaling) * 3);
     width: calc(var(--scaling) * 35);
     height: calc(var(--scaling) * 22);
+    justify-content: center;
 }
 
 .submit {
