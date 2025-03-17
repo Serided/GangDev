@@ -18,7 +18,7 @@
             <form action="process_delete.php" method="post" class="mTop">
                 <input type="text" id="delete" name="delete" required>
             </form>
-            <button type="submit" class="submit">:( Ya ):</button>
+            <button type="submit" class="submit mTop">:( Ya ):</button>
         </div>
     </body>
 </html>
