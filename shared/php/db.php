@@ -1,7 +1,7 @@
 <?php
 use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(__DIR__ . "/account");
+$dotenv = Dotenv::createImmutable(__DIR__ . "/shared");
 $dotenv->load();
 
 try {
