@@ -16,7 +16,7 @@ if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
 
-require '../lib/composer/vendor/autoload.php';
+require __DIR__ . '/../lib/composer/vendor/autoload.php';
 require_once 'db.php';
 
 use Dotenv\Dotenv;
