@@ -3,10 +3,12 @@
 <link rel="stylesheet" href="https://shared.gangdev.co/css/style.css">
 
 <!-- favicon -->
-<link rel="apple-touch-icon" sizes="180x180" href="https://shared.gangdev.co/files/img/favicon/new/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://shared.gangdev.co/files/img/favicon/new/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://shared.gangdev.co/files/img/favicon/new/favicon-16x16.png">
-<link rel="manifest" href="https://shared.gangdev.co/files/img/favicon/new/site.webmanifest">
+<link rel="icon" type="image/png" href="https://gangdev.co/shared/files/img/favicon/new/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="https://gangdev.co/shared/files/img/favicon/new/favicon.svg" />
+<link rel="shortcut icon" href="https://gangdev.co/shared/files/img/favicon/new/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://gangdev.co/shared/files/img/favicon/new/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="GangDev" />
+<link rel="manifest" href="https://gangdev.co/shared/files/img/favicon/new/site.webmanifest" />
 
 <!-- banner -->
 <meta property="og:title" content="GangDev - Kings of Kode">
