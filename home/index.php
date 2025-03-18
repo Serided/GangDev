@@ -9,8 +9,6 @@
     <body class="main-p fullw">
         <?= $navbar ?>
 
-        <div class="parallax"></div>
-
         <h1>
             Home
         </h1>
