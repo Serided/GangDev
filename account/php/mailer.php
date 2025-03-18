@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;
 
 // Load environment variables from the parent directory
-$dotenv = Dotenv::createImmutable(__DIR__ . "/..");
+$dotenv = Dotenv::createImmutable('/var/www/gangdev/shared/');
 $dotenv->load();
 
 function sendMail($fromEmail, $fromName, $toEmail, $toName, $subject, $htmlBody, $altBody) {
