@@ -24,7 +24,7 @@ $dotenv->load();
 
 require_once 'db.php';
 
-define('ROOT_PATH', __DIR__);
+$rootPath = $_ENV['ROOT_PATH'];
 
 if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberMe"])) {
 	error_log("Remember me cookie found: " . $_COOKIE["rememberMe"]);

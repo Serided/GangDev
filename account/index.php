@@ -30,7 +30,7 @@ if ($userId) {
         <div id="cropModal" style="display:none;"><div id="cropContent"></div></div>
 
         <h1>
-            Account
+            Acount
         </h1>
 
         <?php if ($remainingSeconds > 0): ?>
