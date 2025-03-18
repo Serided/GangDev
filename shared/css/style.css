@@ -18,41 +18,7 @@ html, body {
   font-family: "Fredoka", serif;
 }
 
-.madimi-one-regular {
-  font-family: "Madimi One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-.m-plus-rounded-1c-bold {
-  font-family: "M PLUS Rounded 1c", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-.silkscreen-regular {
-  font-family: "Silkscreen", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-.silkscreen-bold {
-  font-family: "Silkscreen", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
-.fredoka-custom {
-  font-family: "Fredoka", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 300; /* 300 700 */
-  font-style: normal;
-  font-variation-settings: "wdth" 100;
-}
-.lacquer-regular {
-  font-family: "Lacquer", system-ui;
-  font-weight: 400;
-  font-style: normal;
-}
-
 /* Set up margins for headers */
-
 h1 {
   letter-spacing: 0.15vw;
   font-size: 4vw;
@@ -99,7 +65,7 @@ p {
 
 /* Settings for main pages */
 .main-p {
-  background-image: url("https://shared.gangdev.co/files/img/background/snowy_foggy_mountains_gangdev.jpg");
+  background-image: url("https://shared.gangdev.co/files/img/background/home_background_1.jpg");
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-position: center top;
@@ -127,23 +93,18 @@ p {
   box-sizing: border-box;
   width: 100%;
 }
-
+.fullw p {
+  padding: 2vh 2vw;
+}
 .fullw-r {
   box-sizing: border-box;
   width: 90%;
   margin-left: 10%;
 }
-
 .fullw-l {
   box-sizing: border-box;
   width: 90%;
   margin-right: 10%;
-}
-
-.fullw p {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 2vh 2vw;
 }
 
 .nfullw {
