@@ -8,7 +8,7 @@
     </head>
     <body class="main-p fullw">
         <?= $navbar ?>
-        <?= $warn ?>
+        <!--<?= $warn ?>-->
         <div class="mainSect">
             <h1>
                 Home
