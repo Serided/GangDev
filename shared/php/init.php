@@ -17,12 +17,12 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 require __DIR__ . '/../lib/composer/vendor/autoload.php';
-require_once 'db.php';
 
 use Dotenv\Dotenv;
-
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
+
+require_once 'db.php';
 
 define('ROOT_PATH', __DIR__);
 
