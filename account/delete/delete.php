@@ -6,7 +6,7 @@ if (isset($_GET['error'])) {
 		$error = "The text you entered does not match the required phrase.";
 	} elseif ($_GET['error'] == 2) {
         $error = "Error scheduling account deletion.";
-    } elseif ($_GET['error'] == 2) {
+    } elseif ($_GET['error'] == 3) {
         $error = "Invalid request.";
     }
 }
@@ -28,7 +28,7 @@ if (isset($_GET['error'])) {
             <h1>SURE?</h1>
 
 	        <?php if ($error): ?>
-              <p class="error"><?= htmlspecialchars($error) ?></p>
+                <p class="error"><?= htmlspecialchars($error) ?></p>
 	        <?php endif; ?>
 
             <p class="mTop">

@@ -12,10 +12,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 	if ($user && password_verify($password, $user["password"])) {
+		$sessionToken = bin2hex(random_bytes(16));
+
 		$_SESSION["user_id"] = $user["id"];
 		$_SESSION["displayname"] = $user["displayname"];
 		$_SESSION["username"] = $user["username"];
 		$_SESSION["email"] = $user["email"];
+		$_SESSION["session_token"] = $sessionToken;
+
+		$stmtToken = $pdo->prepare("UPDATE users SET current_session_token = ? WHERE id = ?");
+		$stmtToken->execute([$sessionToken, $user["id"]]);
 
 		$folder = '/var/www/gangdev/user/' . $user["id"];
 		if (!file_exists($folder)) {

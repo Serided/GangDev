@@ -1,6 +1,5 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
-
 $error = '';
 if (isset($_GET['error'])) {
     if ($_GET['error'] == 1) {
