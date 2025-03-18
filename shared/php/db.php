@@ -1,7 +1,7 @@
 <?php
 use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(__DIR__ . "/shared");
+$dotenv = Dotenv::createImmutable('/var/www/gangdev/shared/');
 $dotenv->load();
 
 try {
