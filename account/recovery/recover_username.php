@@ -2,11 +2,6 @@
 require_once '/var/www/gangdev/shared/php/init.php';
 require_once '/var/www/gangdev/account/php/mailer.php';
 
-use Dotenv\Dotenv;
-
-$dotenv = Dotenv::createImmutable(__DIR__ . "/..");
-$dotenv->load();
-
 // Define a timeout period in seconds (e.g., 5 minutes = 300 seconds)
 $timeout = 300;
 

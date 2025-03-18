@@ -6,11 +6,9 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . "/..");
 $dotenv->load();
 
-// If the request is GET and a token is provided, show the password reset form.
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['token'])) {
 	$token = trim($_GET['token']);
 
-	// Check if the token exists and hasn't expired.
 	$stmt = $pdo->prepare("SELECT email, expires_at FROM password_resets WHERE token = ?");
 	$stmt->execute([$token]);
 	$resetRequest = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -64,19 +62,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['token'])) {
 	exit();
 }
 
-// If the request is POST, process the password reset.
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
 	$token = trim($_POST['token']);
 	$newPassword = trim($_POST['newPassword']);
 	$confirmPassword = trim($_POST['confirmPassword']);
 
-	// Check if the passwords match.
 	if ($newPassword !== $confirmPassword) {
 		echo "Passwords do not match.";
 		exit();
 	}
 
-	// Look up the token in the password_resets table.
 	$stmt = $pdo->prepare("SELECT email, expires_at FROM password_resets WHERE token = ?");
 	$stmt->execute([$token]);
 	$resetRequest = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -91,13 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
 		exit();
 	}
 
-	// Hash the new password.
 	$hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
-	// Update the user's password in the users table based on the email from the reset request.
 	$stmt = $pdo->prepare("UPDATE users SET password = ? WHERE email = ?");
 	if ($stmt->execute([$hashedPassword, $resetRequest['email']])) {
-		// Delete the used token.
 		$stmt = $pdo->prepare("DELETE FROM password_resets WHERE token = ?");
 		$stmt->execute([$token]);
 
@@ -106,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
 		echo "<script>
         setTimeout(function() {
             window.location.href = 'https://account.gangdev.co/login/signin.php';
-        }, 5000); // 5000ms = 5 seconds
+        }, 5000);
       </script>";
 	} else {
 		echo "There was an error updating your password. Please try again.";
