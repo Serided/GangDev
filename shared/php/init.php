@@ -81,6 +81,9 @@ $footer = ob_get_clean();
 ob_start();
 include '/var/www/gangdev/shared/php/repetitive.php';
 $head = ob_get_clean();
+ob_start();
+include '/var/www/gangdev/shared/php/warning.php';
+$warn = ob_get_clean();
 
 error_log('Session content: ' . print_r($_SESSION, true));
 ?>

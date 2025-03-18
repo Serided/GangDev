@@ -8,23 +8,12 @@
     </head>
     <body class="main-p fullw">
         <?= $navbar ?>
+        <?= $warn ?>
         <div class="mainSect">
-
+            <h1>
+                Home
+            </h1>
         </div>
-        <h1>
-            Home
-        </h1>
-
-        <!--<div class="fullw sect">
-            <section class="fullw">
-                <h2 style="color:red">
-                    <b>Note:</b>
-                </h2>
-                <p class="fullw">
-                    This page is about to get an overhaul. Everything here is a little out dated and not nearly funny enough, so it's gotta go.
-                </p>
-            </section>
-        </div>-->
 
         <div class="fullw sect">
             <section class="fullw">
