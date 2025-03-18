@@ -3,7 +3,10 @@
 <link rel="stylesheet" href="https://shared.gangdev.co/css/style.css">
 
 <!-- favicon -->
-<link rel="icon" href="https://shared.gangdev.co/files/img/favicon/favicon.ico" sizes="16x16" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="https://shared.gangdev.co/files/img/favicon/new/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://shared.gangdev.co/files/img/favicon/new/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://shared.gangdev.co/files/img/favicon/new/favicon-16x16.png">
+<link rel="manifest" href="https://shared.gangdev.co/files/img/favicon/new/site.webmanifest">
 
 <!-- banner -->
 <meta property="og:title" content="GangDev - Kings of Kode">
