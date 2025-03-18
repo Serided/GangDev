@@ -16,8 +16,13 @@ if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
 
-require '/var/www/gangdev/shared/lib/composer/vendor/autoload.php';
-require_once '/var/www/gangdev/shared/php/db.php';
+require '/../lib/composer/vendor/autoload.php';
+require_once 'db.php';
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable('/..');
+$dotenv->load();
 
 define('ROOT_PATH', __DIR__);
 

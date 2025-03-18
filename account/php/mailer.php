@@ -1,14 +1,8 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-use Dotenv\Dotenv;
-
-// Load environment variables from the parent directory
-$dotenv = Dotenv::createImmutable('/var/www/gangdev/shared/');
-$dotenv->load();
 
 function sendMail($fromEmail, $fromName, $toEmail, $toName, $subject, $htmlBody, $altBody) {
-	// Get SMTP settings from environment variables
 	$smtpHost       = $_ENV['SMTP_HOST'];
 	$smtpUsername   = $_ENV['SMTP_USERNAME'];
 	$smtpPassword   = $_ENV['SMTP_PASSWORD'];
