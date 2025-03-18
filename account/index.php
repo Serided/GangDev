@@ -1,6 +1,5 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
-require_once '/var/www/gangdev/account/php/db.php';
 
 $userId = $_SESSION['user_id'] ?? null;
 $remainingSeconds = 0;

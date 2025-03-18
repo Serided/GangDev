@@ -16,7 +16,10 @@ if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
 
-require_once "/var/www/gangdev/account/php/db.php";
+require '/var/www/gangdev/account/shared/vendor/autoload.php';
+require_once "/var/www/gangdev/shared/php/db.php";
+
+define('ROOT_PATH', __DIR__);
 
 if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberMe"])) {
 	error_log("Remember me cookie found: " . $_COOKIE["rememberMe"]);

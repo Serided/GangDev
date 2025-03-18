@@ -1,6 +1,5 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
-require_once '/var/www/gangdev/account/php/db.php';
 
 function deleteDirectory($dir) {
 	if (!file_exists($dir)) {

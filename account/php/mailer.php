@@ -1,6 +1,4 @@
 <?php
-require_once '/var/www/gangdev/account/php/vendor/autoload.php';
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;

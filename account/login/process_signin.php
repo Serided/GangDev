@@ -1,6 +1,5 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
-require_once '/var/www/gangdev/account/php/db.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$username = trim($_POST["username"]);
