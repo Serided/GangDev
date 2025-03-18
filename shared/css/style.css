@@ -98,11 +98,11 @@ p {
 
 /* Settings for main pages */
 .main-p {
-  background-image: url("https://shared.gangdev.co/files/img/background/valley_portrait_2.jpg");
+  background-image: url("https://shared.gangdev.co/files/img/background/stucco_wall_background.jpg");
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  
+  background-size: 100% auto;
+  background-position: center top;
+
   background-color: whitesmoke;
   text-align: center;
   margin: 0;
