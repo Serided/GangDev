@@ -53,7 +53,7 @@ if (isset($_SESSION["user_id"], $_SESSION["session_token"])) {
 	$user = $stmt->fetch(PDO::FETCH_ASSOC);
 	if (!$user || $user["current_session_token"] !== $_SESSION["session_token"]) {
 		session_destroy();
-		header("Location: signin.php?message=session_expired");
+		header("Location: https://account.gangdev.co/login/signin.php?message=session_expired");
 		exit();
 	}
 }
