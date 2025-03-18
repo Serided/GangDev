@@ -16,7 +16,7 @@ if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
 
-require '/var/www/gangdev/account/shared/vendor/autoload.php';
+require '/var/www/gangdev/account/shared/composer/vendor/autoload.php';
 require_once "/var/www/gangdev/shared/php/db.php";
 
 define('ROOT_PATH', __DIR__);
