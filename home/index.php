@@ -8,7 +8,9 @@
     </head>
     <body class="main-p fullw">
         <?= $navbar ?>
+        <div class="mainSect">
 
+        </div>
         <h1>
             Home
         </h1>

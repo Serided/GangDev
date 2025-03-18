@@ -42,6 +42,15 @@ p {
   margin: 0;
 }
 
+.mainSect {
+  background-image: url("https://shared.gangdev.co/files/img/background/home_background_1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100vw;
+}
+
 /* To space the sections */
 .spacing {
   margin-top: 8vh !important;
@@ -74,14 +83,6 @@ p {
   text-align: center;
   margin: 0;
   overflow-wrap: anywhere;
-}
-
-.parallax {
-  background-image: url("https://shared.gangdev.co/files/img/background/stucco_wall_background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  height: 20vh;
 }
 
 .no-m {
