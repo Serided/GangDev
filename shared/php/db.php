@@ -1,6 +1,9 @@
 <?php
 use Dotenv\Dotenv;
 
+$dotenv = Dotenv::createImmutable(__DIR__ . "/account");
+$dotenv->load();
+
 try {
 	$pdo = new PDO(
 		"pgsql:host=" . $_ENV["DB_HOST"] . ";port=" . $_ENV["DB_PORT"] . ";dbname=" . $_ENV["DB_NAME"],
