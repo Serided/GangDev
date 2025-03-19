@@ -16,6 +16,7 @@
 <meta property="og:image" content="https://shared.gangdev.co/files/img/favicon/favicon.ico">
 <meta property="og:url" content="https://www.gangdev.co">
 <meta property="og:type" content="website">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- basic script -->
 <script src="https://shared.gangdev.co/js/script.js"></script>
