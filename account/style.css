@@ -39,6 +39,7 @@
     border-radius: calc(var(--scaling) * 0.7);
     background-color: darkgray;
     transition: all 0.3s ease;
+    border: gray solid calc(var(--scaling) * 0.2);
 }
 
 #cropModal {
