@@ -12,7 +12,7 @@ $displayname = isset($_SESSION['displayname']) ? $_SESSION['displayname'] : 'Acc
             <input type="radio" id="account" name="menu">
             <label for="account" class="account-btn btn-text">
                 <div class="profile" style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');">
-                    <p class="name"><?= $displayname ?></p>
+                    <p><?= htmlspecialchars($displayname) ?></p>
                 </div>
             </label>
             <?php if (isset($_SESSION["user_id"])): ?> <!-- change account tab content -->
