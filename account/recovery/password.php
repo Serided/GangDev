@@ -19,12 +19,14 @@
             <p class="mTop">
                 We will send you the password associated with your email.
             </p>
-            <form action="recover_password.php" method="post" class="mTop" style="display: flex;">
-                <label for="email">Email: </label><br>
-                <div class="inputContainer">
-                    <input type="email" id="email" name="email" required>
+            <form action="recover_password.php" method="post" class="mTop">
+                <label for="email">Email: </label>
+                <div style="display: flex;">
+                    <div class="inputContainer">
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <button type="submit" class="submit">Ya</button>
                 </div>
-                <button type="submit" class="submit">Ya</button>
             </form>
         </div>
     </body>
