@@ -1,13 +1,13 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
     <head>
         <meta charset="UTF-8" name="description" content="Home">
         <title>Home</title>
         <link rel="stylesheet" type="text/css" href="style.css"/>
         <?= $head ?>
     </head>
-    <body class="main-p fullw">
+    <body>
         <?= $navbar ?>
         <?= $warn ?>
 
