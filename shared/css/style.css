@@ -1,28 +1,28 @@
 /* phone */
 @media screen and (max-width: 480px) {
   :root {
-    --scaling: 8vw;
+    --scaling: 5vh;
   }
 }
 
 /* tablet */
 @media screen and (min-width: 481px) and (max-width: 768px) {
   :root {
-    --scaling: 2vw;
+    --scaling: 2vh;
   }
 }
 
 /* monitor */
 @media screen and (min-width: 769px) and (max-width: 1440px) {
   :root {
-    --scaling: 0.1vw;
+    --scaling: 3vh;
   }
 }
 
 /* tv or smth */
 @media screen and (min-width: 1441px) {
   :root {
-    --scaling: 2vw;
+    --scaling: 3vh;
   }
 }
 
