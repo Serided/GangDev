@@ -53,12 +53,12 @@ if ($userId) {
                 </h1>
             </div>
             <?php else: ?>
-            <div>
+            <div class="shimmer">
                 <div style="background-color: #00aff0"></div>
             </div>
             <div>
                 <h1 class="shimmer-txt">
-                    ^<br>this could be u
+                    ^<br>this could b u
                 </h1>
             </div>
             <?php endif; ?>
