@@ -1,21 +1,3 @@
-:root {
-    --scaling: 1.5vh;
-}
-
-/* phone */
-@media screen and (max-width: 768px) {
-    :root {
-        --scaling: 2.5vw;
-    }
-}
-
-/* phone portrait */
-@media screen and (max-width: 480px) {
-    :root {
-        --scaling: 3vw;
-    }
-}
-
 .sect.cont.home {
     background-image: url("https://shared.gangdev.co/files/img/background/home_background_1.jpg");
 }
