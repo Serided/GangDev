@@ -38,6 +38,7 @@ body {
     padding-left: calc(var(--scaling) * 0.17);
     border: none;
     height: calc(var(--scaling) * 1.5);
+    max-width: calc(var(--scaling) * 7);
     font-size: calc(var(--scaling) * 0.8);
     justify-items: left;
     background: whitesmoke;
