@@ -33,14 +33,20 @@ body {
 .recoveryContainer form label {
     font-size: calc(var(--scaling) * 1);
 }
-.recoveryContainer form input {
-    border-radius: calc(var(--scaling) * 0.17);
-    padding-left: calc(var(--scaling) * 0.17);
-    border: none;
-    height: calc(var(--scaling) * 1.5);
-    font-size: calc(var(--scaling) * 0.8);
+.inputContainer {
+    width: calc(var(--scaling) * 7.5);
     justify-items: left;
+    text-align: left;
+}
+.inputContainer input {
+    box-sizing: border-box;
+    border-radius: calc(var(--scaling) * 0.17);
+    padding: calc(var(--scaling) * 0.17);
+    height: calc(var(--scaling) * 1.5);
+    min-width: 100%;
+    font-size: calc(var(--scaling) * 0.8);
     background: whitesmoke;
+    border: none;
     transition: all 0.2s ease;
 }
 

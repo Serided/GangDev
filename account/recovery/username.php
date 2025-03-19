@@ -21,7 +21,9 @@
 			</p>
 			<form action="recover_username.php" method="post" class="mTop">
 				<label for="email">Email: </label>
-				<input type="email" id="email" name="email" required>
+                <div class="inputContainer">
+                    <input type="email" id="email" name="email" required>
+                </div>
 				<button type="submit" class="submit">Ya</button>
 			</form>
 		</div>
