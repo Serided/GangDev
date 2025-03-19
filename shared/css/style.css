@@ -196,26 +196,23 @@ a:hover{
   left: -5px;
   right: -5px;
   bottom: -5px;
-  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+  border-radius: 5px;
+  background: linear-gradient(90deg, transparent, white, transparent);
+  background-size: 200% 100%;
   opacity: 0;
   pointer-events: none;
   transition: opacity .3s ease;
 }
 .shimmer:hover::after {
+  opacity: 1;
   animation: shimmer 2s infinite;
 }
 @keyframes shimmer {
   0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  50% {
-    transform: translateX(50%);
-    opacity: .8;
+    background-position: 200% 0;
   }
   100% {
-    transform: translateX(100%);
-    opacity: 0;
+    background-position: -200% 0;
   }
 }
 
