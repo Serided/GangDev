@@ -87,7 +87,7 @@ html, body {
   background: gray;
 }
 .footer p {
-  font-size: calc(var(--scaling) * 1);
+  font-size: calc(var(--scaling) * 0.8);
   color: white
 }
 
