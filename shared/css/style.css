@@ -62,9 +62,10 @@ p {
   align-content: center;
 }
 .mainSect img {
-  width: 512px;
-  height: 512px;
+  width: calc(var(--scaling) * 20);
+  height: calc(var(--scaling) * 20);
   box-shadow: 0 0 calc(var(--scaling) * 0.5) whitesmoke;
+  border-radius: calc(var(--scaling) * 3);
 }
 .mainSect h {
   font-size: calc(var(--scaling) * 40);
