@@ -1,27 +1,9 @@
-* {
-    margin: 0;
-    font-family: "Fredoka", serif;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    min-height: 100vh;
-}
-
-a {
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-h1 {
+.deleteContainer h1 {
     font-size: calc(var(--scaling) * 3) !important;
     padding: 0 !important;
     height: calc(var(--scaling) * 2.9);
 }
-h2 {
+.deleteContainer h2 {
     font-size: calc(var(--scaling) * 1.5) !important;
     padding: 0 !important;
     height: calc(var(--scaling) * 1);
