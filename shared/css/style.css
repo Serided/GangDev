@@ -79,7 +79,7 @@ h1.shimmer-txt {
 h1.shimmer-txt:hover {
   color: transparent;
   transform: scale(1.01);
-  background: linear-gradient(90deg, black, white, black);
+  background: linear-gradient(90deg, black, black, white);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
