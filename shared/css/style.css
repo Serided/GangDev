@@ -132,16 +132,16 @@ h1.shimmer-txt:hover {
 }
 
 .sect.one {
-  background: #415A77;
+  background: whitesmoke;
 }
 .sect.two {
-  background: #778DA9;
+  background: #417fd4;
 }
 .sect.three {
   background: #A3B8D0;
 }
 .sect.four {
-  background: #C0D4E0;
+  background: darkgray;
 }
 
 /* To space the sections */
