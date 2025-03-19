@@ -22,14 +22,14 @@
 /* monitor */
 @media screen and (min-width: 769px) and (max-width: 1080px) {
   :root {
-    --scaling: 5vh;
+    --scaling: 4vh;
   }
 }
 
 /* big boi */
 @media screen and (min-width: 1081px) {
   :root {
-    --scaling: 5vh;
+    --scaling: 4vh;
   }
 }
 
