@@ -50,13 +50,13 @@ body {
 
 .submit {
     font-size: calc(var(--scaling) * 1);
-    padding: calc(var(--scaling) * 0.3) calc(var(--scaling) * 0.5);
+    padding: calc(var(--scaling) * 0.15) calc(var(--scaling) * 0.5);
     margin: 0 calc(var(--scaling) * 0.25);
     background: darkgray;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: calc(var(--scaling) * 0.3);
+    border-radius: calc(var(--scaling) * 0.17);
     box-shadow: calc(var(--scaling) * 0.05) calc(var(--scaling) * 0.1) gray;
     transition: all 0.2s ease;
 }
