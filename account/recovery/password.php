@@ -20,7 +20,7 @@
                 We will send you the password associated with your email.
             </p>
             <form action="recover_password.php" method="post" class="mTop" style="display: flex;">
-                <label for="email">Email: </label>
+                <label for="email">Email: </label><br>
                 <div class="inputContainer">
                     <input type="email" id="email" name="email" required>
                 </div>
