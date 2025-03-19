@@ -74,11 +74,11 @@ h1.shimmer-txt {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  transition: all .3s ease;
+  transition: scale .3s ease;
 }
 h1.shimmer-txt:hover {
   color: transparent;
-  transform: scale(1.05);
+  transform: scale(1.01);
   background: linear-gradient(90deg, black, white, black);
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -113,7 +113,6 @@ h1.shimmer-txt:hover {
   0% { background-position: 200% 0 }
   100% { background-position: -200% 0 }
 }
-
 .shimmer img {
   width: calc(var(--scaling) * 5);
   height: calc(var(--scaling) * 5);
@@ -125,9 +124,14 @@ h1.shimmer-txt:hover {
   transition: all 0.3s ease;
 }
 .shimmer img:hover {
-  transform: scale(1.05);
+  transform: scale(1.01);
 }
 
+.altSect {
+  margin: 0;
+  min-height: 100vh;
+  width: 100%;
+}
 
 /* To space the sections */
 .spacing {
