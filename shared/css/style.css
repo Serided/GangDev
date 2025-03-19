@@ -68,7 +68,7 @@ p {
   border-radius: calc(var(--scaling) * 1);
 }
 .mainSect h1 {
-  font-size: calc(var(--scaling) * 10);
+  font-size: calc(var(--scaling) * 2);
   font-weight: normal;
   letter-spacing: calc(var(--scaling) * 0.2);
 }
