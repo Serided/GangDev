@@ -75,7 +75,7 @@ h1.shimmer-txt {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  transition: scale .3s ease;
+  transition: all .3s ease;
 }
 h1.shimmer-txt:hover {
   color: transparent;
