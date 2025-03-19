@@ -54,11 +54,11 @@ html, body {
 }
 .sect.cont {
   min-height: 100vh;
-  padding: calc(var(--scaling) * 2);
+  padding: calc(var(--scaling) * 1.5);
 }
 .sect.altCont {
   min-height: 10vh;
-  padding: calc(var(--scaling) * 1);
+  padding: calc(var(--scaling) * 0.5);
 }
 .sect h1 {
   font-size: calc(var(--scaling) * 2);
@@ -84,6 +84,7 @@ html, body {
 }
 .footer {
   background: gray;
+  font-size: calc(var(--scaling) * 0.8);
 }
 .footer p {
   font-size: calc(var(--scaling) * 0.5);
