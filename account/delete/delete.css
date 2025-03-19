@@ -27,7 +27,7 @@ h2 {
     height: calc(var(--scaling) * 1);
 }
 
-p {
+.deleteContainer p {
     font-size: calc(var(--scaling) * 0.75) !important;
     text-align: center;
 }
