@@ -70,7 +70,7 @@ p {
 .mainSect h1 {
   font-size: calc(var(--scaling) * 2);
   font-weight: normal;
-  letter-spacing: calc(var(--scaling) * 0.2);
+  letter-spacing: calc(var(--scaling) * 0.1);
 }
 
 /* To space the sections */

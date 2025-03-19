@@ -12,7 +12,7 @@
         <div class="mainSect">
             <img src="https://gangdev.co/shared/files/img/favicon/new/web-app-manifest-512x512.png" alt="Logo">
             <h1>
-                Gang<b>DEV</b>
+                Gang<b>dev</b>
             </h1>
         </div>
 
