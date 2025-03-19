@@ -64,6 +64,7 @@ p {
 .mainSect h1 {
   font-size: calc(var(--scaling) * 2);
   font-weight: normal;
+  width: auto !important;
   letter-spacing: calc(var(--scaling) * 0.01);
 }
 .trademark {
