@@ -41,9 +41,6 @@
     margin: 0;
     border-radius: calc(var(--scaling) * 0.7);
     background-color: darkgray;
-    background-image: none;
-    background-repeat: no-repeat;
-    background-size: cover;
     transition: all 0.3s ease;
 }
 

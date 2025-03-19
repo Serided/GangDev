@@ -156,6 +156,8 @@ h1.shimmer-txt:hover {
   height: calc(var(--scaling) * 5);
   box-shadow: 0 0 calc(var(--scaling) * 0.5) whitesmoke;
   border-radius: calc(var(--scaling) * 1);
+  background-size: cover;
+  background-position: center;
   cursor: pointer;
   display: block;
   z-index: 2;
