@@ -27,14 +27,16 @@ html, body {
 }
 
 .warning {
+  position: fixed;
   background: #fff3cd;
   z-index: 5000;
+  padding: calc(var(--scaling) * 0.3) calc(var(--scaling) * 3);
 }
 .warning h2 {
-  font-size: calc(var(--scaling) * 1);
+  font-size: calc(var(--scaling) * 0.7);
 }
 .warning p {
-  font-size: calc(var(--scaling) * 0.7);
+  font-size: calc(var(--scaling) * 0.5);
   color: red;
 }
 
@@ -56,7 +58,7 @@ html, body {
 }
 .sect.altCont {
   min-height: 10vh;
-  padding: calc(var(--scaling) * 1) calc(var(--scaling) * 3);
+  padding: calc(var(--scaling) * 1);
 }
 .sect h1 {
   font-size: calc(var(--scaling) * 2);
