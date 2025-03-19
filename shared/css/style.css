@@ -158,6 +158,7 @@ h1.shimmer-txt:hover {
   border-radius: calc(var(--scaling) * 1);
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   cursor: pointer;
   display: block;
   z-index: 2;
