@@ -33,7 +33,7 @@ if ($userId) {
         <?php if ($remainingSeconds > 0): ?>
             <div class="sect altCont deleteWarning">
                 <h2>
-                    <i>Your account is scheduled for deletion in <b style="color: darkred"><span id="timeRemaining"></span></b>.</i>
+                    <i>Your account is scheduled for deletion in <b style="color: red"><span id="timeRemaining"></span></b>.</i>
                 </h2>
                 <form action="delete/cancel_delete.php" method="post">
                     <button type="submit" class="button cancelDelete">Stawp it :(</button>
