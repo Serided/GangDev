@@ -39,9 +39,10 @@ html, body {
 }
 .warning h2 {
   font-size: calc(var(--scaling) * 1);
-  height: calc(var(--scaling) * 0.5);;
+  height: calc(var(--scaling) * 0.8);;
 }
 .warning p {
+  text-align: center;
   font-size: calc(var(--scaling) * 0.7);
   color: red;
 }
@@ -58,6 +59,7 @@ html, body {
   justify-content: center;
   align-items: center;
   padding: calc(var(--scaling) * 2);
+  text-align: center;
 }
 .sect.home {
   background-image: url("https://shared.gangdev.co/files/img/background/home_background_1.jpg");
