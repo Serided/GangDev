@@ -8,14 +8,14 @@
 /* tablet */
 @media screen and (min-width: 481px) and (max-width: 768px) {
   :root {
-    --scaling: 4vw;
+    --scaling: 2vw;
   }
 }
 
 /* monitor */
 @media screen and (min-width: 769px) and (max-width: 1440px) {
   :root {
-    --scaling: 1vw;
+    --scaling: 0.1vw;
   }
 }
 
