@@ -110,9 +110,8 @@
 .button.cancelDelete {
     font-size: calc(var(--scaling) * 0.5) !important;
     padding: calc(var(--scaling) * 0.2);
-    margin: calc(var(--scaling) * 0.2) auto;
     border-radius: calc(var(--scaling) * 0.3);
-    box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) gray;
+    box-shadow: calc(var(--scaling) * 0.05) calc(var(--scaling) * 0.1) gray;
 }
 
 #iDisplay:hover {
