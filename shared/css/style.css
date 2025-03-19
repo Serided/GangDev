@@ -83,7 +83,7 @@ h1.shimmer-txt:hover {
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
-  animation: shimmer 3s infinite;
+  animation: shimmer 5s infinite;
 }
 .shimmer {
   position: relative;
@@ -107,7 +107,7 @@ h1.shimmer-txt:hover {
 }
 .shimmer:hover::after {
   opacity: .5;
-  animation: shimmer 2s infinite;
+  animation: shimmer 3s infinite;
 }
 @keyframes shimmer {
   0% { background-position: 200% 0 }
