@@ -1,24 +1,15 @@
-:root {
-    --scaling: 1vh;
+.sect.cont.account {
+    background-image: url("https://shared.gangdev.co/files/img/background/account_background_1.jpg");
 }
 
-h2 {
-    margin: calc(var(--scaling) * 2) calc(var(--scaling) * 1) !important;
-    font-size: calc(var(--scaling) * 1);
-    font-weight: normal;
-    text-align: center;
-    width: max-content !important;
+.deleteWarning {
+    position: fixed;
+    background: #fff3cd;
+    z-index: 5001;
+    padding: calc(var(--scaling) * 0.3) calc(var(--scaling) * 3) !important;
 }
-h2 b {
-    color: white;
-}
-
-.aSect {
-    padding: calc(var(--scaling) * 1);
-}
-
-.deleteHeader {
-    justify-items: center;
+.deleteWarning h2 {
+    font-size: calc(var(--scaling) * 0.7);
 }
 
 .info {
