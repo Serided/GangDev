@@ -1,4 +1,4 @@
-<div class="warning">
+<div class="sect altCont warning">
       <h2>
           <u>Warning</u>
       </h2>

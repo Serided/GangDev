@@ -10,7 +10,7 @@
         <?= $navbar ?>
         <?= $warn ?>
 
-        <div class="sect home" id="entry">
+        <div class="sect cont home" id="home">
             <div class="shimmer">
                 <img src="https://gangdev.co/shared/files/img/favicon/new/web-app-manifest-512x512.png" alt="Logo">
             </div>
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="sect two" id="overview">
+        <div class="sect cont two" id="overview">
             <h2>Overview</h2>
             <p class="fullw">
                 GangDev is a leading company in the field of game, app, and web development,<br>
@@ -32,7 +32,7 @@
             </p>
         </div>
 
-        <div class="sect three" id="about">
+        <div class="sect cont three" id="about">
             <h2>Mission Statement</h2>
             <p class="fullw">
                 At GangDev, our mission is to empower individuals and businesses<br>
@@ -44,7 +44,7 @@
             </p>
         </div>
 
-        <div class="sect four" id="mods">
+        <div class="sect cont four" id="mods">
             <h2>Mods</h2>
             <p class="fullw">
                 <a href="https://mods.gangdev.co/minecraft/php/resource_packs">Minecraft (Resource Packs)</a><br>
@@ -52,7 +52,7 @@
             </p>
         </div>
 
-        <div class="sect three" id="apps">
+        <div class="sect cont three" id="apps">
             <h2>Apps</h2>
             <p class="fullw">
                 <a href="https://apps.gangdev.co/roastGenerator/">Roast Generator</a><br>
@@ -61,7 +61,7 @@
             </p>
         </div>
 
-        <div class="sect two" id="games">
+        <div class="sect cont two" id="games">
             <h2>Games</h2>
             <p class="fullw">
                 <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine (Alpha)</a><br>
