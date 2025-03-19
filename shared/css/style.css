@@ -64,7 +64,6 @@ p {
 .mainSect h1 {
   font-size: calc(var(--scaling) * 2);
   font-weight: normal;
-  width: fit-content;
   letter-spacing: calc(var(--scaling) * 0.01);
 }
 .trademark {
@@ -85,6 +84,7 @@ h1.shimmer-txt:hover {
   animation: shimmer 3s infinite;
 }
 .shimmer {
+  position: relative;
   display: inline-block;
   z-index: 1;
 }
