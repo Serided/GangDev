@@ -4,6 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Apps</title>
+        <link rel="stylesheet" href="index.css">
         <?= $head ?>
 	</head>
 	<body class="main-p fullw">
