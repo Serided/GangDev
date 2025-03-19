@@ -12,22 +12,22 @@ body {
     display: inline-block;
     border-radius: calc(var(--scaling) * 0.17);
     padding: calc(var(--scaling) * 1.5);
-    width: calc(var(--scaling) * 17);
+    width: calc(var(--scaling) * 19);
 }
 
 .recoveryContainer h1 {
-    font-size: calc(var(--scaling) * 2) !important;
-    padding: 0 !important;
+    font-size: calc(var(--scaling) * 2);
+    padding: 0;
     height: calc(var(--scaling) * 1.9);
 }
 .recoveryContainer h2 {
-    font-size: calc(var(--scaling) * 1) !important;
-    padding: 0 !important;
+    font-size: calc(var(--scaling) * 1);
+    padding: 0;
     height: calc(var(--scaling) * 0.6);
 }
 
 .recoveryContainer p {
-    font-size: calc(var(--scaling) * 0.75) !important;
+    font-size: calc(var(--scaling) * 0.75);
 }
 
 .recoveryContainer form label {
@@ -45,11 +45,11 @@ body {
 }
 
 .mTop {
-    margin: calc(var(--scaling) * 0.75) 0 0 0 !important;
+    margin-top: calc(var(--scaling) * 0.75);
 }
 
 .submit {
-    font-size: calc(var(--scaling) * 1.2) !important;
+    font-size: calc(var(--scaling) * 1.2);
     padding: calc(var(--scaling) * 0.5) calc(var(--scaling) * 0.9);
     margin: 0 calc(var(--scaling) * 0.25);
     background: darkgray;
