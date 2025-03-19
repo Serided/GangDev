@@ -13,11 +13,9 @@
             <div class="shimmer">
                 <img src="https://gangdev.co/shared/files/img/favicon/new/web-app-manifest-512x512.png" alt="Logo">
             </div>
-            <div>
-                <h1 class="shimmer-txt">
-                    Gang<b>DEV</b><span class="trademark">&trade;</span>
-                </h1>
-            </div>
+            <h1 class="shimmer-txt">
+                Gang<b>DEV</b><span class="trademark">&trade;</span>
+            </h1>
         </div>
 
         <div class="fullw sect">
