@@ -1,7 +1,7 @@
 .sect.cont.about {
     background-image: url("https://shared.gangdev.co/files/img/background/about_background_1.jpg");
 }
-.sect.cont.account h1 {
+.sect.cont.about h1 {
     font-size: calc(var(--scaling) * 2);
     font-weight: normal;
     letter-spacing: calc(var(--scaling) * 0.01);
