@@ -138,17 +138,6 @@ h1.shimmer-txt:hover {
   width: 100%;
 }
 
-.shape-divider {
-  line-height: 0;
-  overflow: hidden;
-}
-
-.shape-divider svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 /* To space the sections */
 .spacing {
   margin-top: 8vh !important;
