@@ -1,4 +1,4 @@
-.sect.cont.account {
+.sect.cont.entry {
     background-image: url("https://shared.gangdev.co/files/img/background/account_background_1.jpg");
 }
 
@@ -12,13 +12,8 @@
     font-size: calc(var(--scaling) * 0.5);
 }
 
-.sect.cont.account div div {
+.sect.cont.entry div div {
     border: calc(var(--scaling) * 0.2) solid gray;
-}
-.sect.cont.account h1 {
-    font-size: calc(var(--scaling) * 2);
-    font-weight: normal;
-    letter-spacing: calc(var(--scaling) * 0.01);
 }
 
 .info {

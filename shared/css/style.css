@@ -79,16 +79,22 @@ html, body {
   padding: calc(var(--scaling) * 0.3);
 }
 
-.sect.one {
+.sect.cont.entry h1 {
+  font-size: calc(var(--scaling) * 2);
+  font-weight: normal;
+  letter-spacing: calc(var(--scaling) * 0.01);
+}
+
+.sect.cont.one {
   background: #99c6ff;
 }
-.sect.two {
+.sect.cont.two {
   background: #5c98e1;
 }
-.sect.three {
+.sect.cont.three {
   background: #75a3d6;
 }
-.sect.four {
+.sect.cont.four {
   background: #87aedd;
 }
 

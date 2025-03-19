@@ -41,7 +41,7 @@ if ($userId) {
             </div>
         <?php endif; ?>
 
-        <div class="sect cont account">
+        <div class="sect cont entry">
 	        <?php if (isset($_SESSION["user_id"])): ?>
             <div class="shimmer">
                 <div style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');"></div>

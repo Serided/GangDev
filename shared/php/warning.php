@@ -3,6 +3,6 @@
           <u>Warning</u>
       </h2>
       <p>
-          Formatting is a mess. Links work, most pages will be an eyesore.
+          Formatting is a mess. Links work, most pages will be an eyesore. Nice images tho.
       </p>
 </div>

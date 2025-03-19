@@ -11,7 +11,7 @@
         <?= $navbar ?>
         <?= $warn ?>
 
-        <div class="sect cont apps">
+        <div class="sect cont entry">
             <h1>
                 Apps
             </h1>
