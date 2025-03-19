@@ -82,12 +82,12 @@ html, body {
 .sect.four {
   background: #87aedd;
 }
+
 .footer {
   background: gray;
-  font-size: calc(var(--scaling) * 1);
 }
 .footer p {
-  font-size: calc(var(--scaling) * 0.5);
+  font-size: calc(var(--scaling) * 1);
   color: white
 }
 
