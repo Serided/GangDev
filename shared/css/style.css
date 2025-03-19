@@ -151,7 +151,7 @@ h1.shimmer-txt:hover {
   0% { background-position: 200% 0 }
   100% { background-position: -200% 0 }
 }
-.shimmer img {
+.shimmer div {
   width: calc(var(--scaling) * 5);
   height: calc(var(--scaling) * 5);
   box-shadow: 0 0 calc(var(--scaling) * 0.5) whitesmoke;
@@ -161,7 +161,7 @@ h1.shimmer-txt:hover {
   z-index: 2;
   transition: all 0.3s ease;
 }
-.shimmer img:hover {
+.shimmer div:hover {
   transform: scale(1.01);
 }
 

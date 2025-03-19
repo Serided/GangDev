@@ -2,6 +2,10 @@
     background-image: url("https://shared.gangdev.co/files/img/background/home_background_1.jpg");
 }
 
+.logo {
+    background-image: url("https://gangdev.co/shared/files/img/favicon/new/web-app-manifest-512x512.png");
+}
+
 .sect.cont.home h1 {
     font-size: calc(var(--scaling) * 2);
     font-weight: normal;

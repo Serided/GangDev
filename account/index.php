@@ -42,7 +42,7 @@ if ($userId) {
         <?php endif; ?>
 
         <div class="sect cont account">
-            <div class="icon">
+            <div class="shimmer">
                 <div id="iDisplay" style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');"></div>
             </div>
             <input type="file" id="iconFile" accept="image/*" style="display: none;">
