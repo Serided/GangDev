@@ -8,7 +8,7 @@
 /* phone */
 @media screen and (min-width: 241px) and (max-width: 480px) {
   :root {
-    --scaling: 7vh;
+    --scaling: 6vw;
   }
 }
 
