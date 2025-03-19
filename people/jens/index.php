@@ -1,6 +1,6 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" class="fullw">
+<html lang="en" >
     <head>
         <meta charset="UTF-8">
         <title>Jens</title>
@@ -124,9 +124,9 @@
 
 
         <div class="fullw sect spacing">
-            <section class="fullw">
+            <section >
                 <h2>My Links</h2>
-                    <p class="fullw">
+                    <p >
                     <a href="https://www.instagram.com/ser1ded/" target="_blank">Instagram</a><br>
                     <a href="https://scandinalienballer.wixsite.com/jenshansenportfolio" target="_blank">Digital Media Portfolio</a><br>
                     <a href="https://www.youtube.com/@serided" target="_blank">YouTube</a><br>
@@ -137,9 +137,9 @@
         </div>
 
         <div class="fullw sect spacing">
-            <section class="fullw">
+            <section >
                 <h2>Projects</h2>
-                <p class="fullw">
+                <p >
                     <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
 
                     <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine (Alpha)</a><br>

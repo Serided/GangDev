@@ -1,6 +1,6 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" class="fullw">
+<html lang="en" >
     <head>
         <meta charset="UTF-8" name="description" content="Home">
         <title>Home</title>
@@ -24,7 +24,7 @@
 
         <div class="sect cont two" id="overview">
             <h2>Overview</h2>
-            <p class="fullw">
+            <p >
                 GangDev is a leading company in the field of game, app, and web development,<br>
                 founded by visionary entrepreneur <b>Jens Hansen</b>.<br>
                 With a strong commitment to innovation, creativity, and excellence,<br>
@@ -35,7 +35,7 @@
 
         <div class="sect cont three" id="about">
             <h2>Mission Statement</h2>
-            <p class="fullw">
+            <p >
                 At GangDev, our mission is to empower individuals and businesses<br>
                 with transformative digital solutions that inspire, engage, and elevate.<br>
                 We are dedicated to harnessing the latest technologies and creative methodologies<br>
@@ -47,7 +47,7 @@
 
         <div class="sect cont four" id="mods">
             <h2>Mods</h2>
-            <p class="fullw">
+            <p >
                 <a href="https://mods.gangdev.co/minecraft/php/resource_packs">Minecraft (Resource Packs)</a><br>
                 <a href="https://mods.gangdev.co/minecraft/php/data_packs">Minecraft (Data Packs)</a><br>
             </p>
@@ -55,7 +55,7 @@
 
         <div class="sect cont three" id="apps">
             <h2>Apps</h2>
-            <p class="fullw">
+            <p >
                 <a href="https://apps.gangdev.co/roastGenerator/">Roast Generator</a><br>
                 <a href="https://apps.gangdev.co/mmfGenerator/">MMF Generator</a><br>
                 <a href="https://apps.gangdev.co/universalChat/" target="_blank">Universal Chat</a><br>
@@ -64,7 +64,7 @@
 
         <div class="sect cont two" id="games">
             <h2>Games</h2>
-            <p class="fullw">
+            <p >
                 <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine (Alpha)</a><br>
                 <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube (Alpha)</a><br>
                 <a href="https://gaming.gangdev.co/ultimatePong" target="_blank">Ultimate Pong (Alpha)</a><br>

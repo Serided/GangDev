@@ -1,6 +1,6 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" class="fullw">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Jens</title>
@@ -14,8 +14,7 @@
             MMF Generator
         </h1>
 
-        <div class="fullw sect">
-            <section>
+        <div class="">
                 <h2>Functionality</h2>
                 <p>
                     The MMF Generator, or Minecraft Mass Forceload Generator, was created because Minecraft restricts the user to a max "/forceload" area of <b>65536 blocks</b>.<br>
@@ -23,13 +22,11 @@
                     Using a ton of <b>math</b> and <b>JavaScript</b>, I managed to make a generator to create these commands for you,
                     only requiring two sets of <b>XZ</b> coordinates.
                 </p>
-            </section>
         </div>
 
         <div class="fullw sect spacing">
-            <section class="fullw">
                 <h2>Generator</h2>
-                <p class="fullw">
+                <p >
                     <div>
                         <input type="checkbox" id="sYN"> Forward Slash ( / )
                     </div><br>
@@ -67,7 +64,6 @@
                     </div>
                 </p>
                 <script src="script.js"></script>
-            </section>
         </div>
 
         <?= $footer ?>

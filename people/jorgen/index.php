@@ -1,6 +1,6 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" class="fullw">
+<html lang="en" >
   <head>
     <meta charset="UTF-8">
     <title>Jorgen</title>
@@ -14,9 +14,9 @@
     </h1>
 
     <div class="fullw sect">
-      <section class="fullw">
+      <section >
         <h2>About Me</h2>
-        <p class="fullw">
+        <p >
           As your friendly neighborhood Amongus, I find it my first priority to be amazing in every way, shape, and form.
           <br>
           The games I play include: Minecraft (username: scandinaliens), Albion (username: gailselt), League of Legends

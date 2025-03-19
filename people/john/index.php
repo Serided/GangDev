@@ -1,6 +1,6 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" class="fullw">
+<html lang="en" >
   <head>
     <meta charset="UTF-8">
     <title>John</title>
@@ -14,9 +14,9 @@
     </h1>
 
     <div class="fullw sect">
-      <section class="fullw">
+      <section >
         <h2>Heyo</h2>
-        <p class="fullw" style="color: #8b0000"> <!--hey jens you are very sus, in fact, you are an imposter.-->
+        <p  style="color: #8b0000"> <!--hey jens you are very sus, in fact, you are an imposter.-->
           I'm a interesting person (not really).
         </p>
       </section>

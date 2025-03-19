@@ -1,6 +1,6 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" class="fullw">
+<html lang="en" >
     <head>
         <meta charset="UTF-8">
         <title>Jens</title>
@@ -24,18 +24,18 @@
         </div>
 
         <div class="fullw sect spacing">
-            <section class="fullw">
+            <section >
                 <h2>Resource Packs</h2>
-                <p class="fullw">
+                <p >
                     FortCraft Resource Pack <a href="/files/minecraft/FortCraftResourcePack.zip" target="_blank" download="FortCraftResourcePack">(Download)</a><br>
                 </p>
             </section>
         </div>
 
         <div class="fullw sect spacing">
-            <section class="fullw">
+            <section >
                 <h2>Servers</h2>
-                <p class="fullw">
+                <p >
                     Nothing here for now.<br>
                 </p>
             </section>

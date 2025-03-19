@@ -1,6 +1,6 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" class="fullw">
+<html lang="en" >
     <head>
         <meta charset="UTF-8">
         <title>Isaac</title>
@@ -28,7 +28,7 @@
                     <h2>
                         Games
                     </h2>
-                    <p class="fullw">
+                    <p >
                         <a href="https://gaming.gangdev.co/theBigOne" target="_blank">The Big One (Alpha)</a><br>
                     </p>
                 </section>

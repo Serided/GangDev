@@ -1,6 +1,6 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-    <html lang="en" class="fullw">
+    <html lang="en" >
     <head>
         <meta charset="UTF-8">
         <title>Minecraft (Resource Packs)</title>
@@ -15,11 +15,11 @@
         </h1>
 
         <div class="fullw sect">
-            <section class="fullw">
+            <section >
                 <h2>
                     <a href="https://shared.gangdev.co/files/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack [1.20.5]</a>
                 </h2>
-                <p class="fullw">
+                <p >
                     This is <u>THE</u> Unofficial In-N-Out Resource Pack (for version 1.20.5). Its main functionality is listed below.
                     <br>
                     <br>
@@ -84,11 +84,11 @@
         </div>
 
         <div class="fullw sect spacing">
-            <section class="fullw">
+            <section >
                 <h2>
                     <a href="https://shared.gangdev.co/files/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.6_lvl_1.zip">The Unofficial In-N-Out Resource Pack (Level 1) [1.20.6]</a>
                 </h2>
-                <p class="fullw">
+                <p >
                     This is <u>THE</u> Unofficial In-N-Out Resource Pack (for version 1.20.6), level 1. Its main functionality is listed below.
                     <br>
                     <br>
@@ -153,11 +153,11 @@
         </div>
 
         <div class="fullw sect spacing">
-            <section class="fullw">
+            <section >
                 <h2>
                     <a href="">IN PROGRESS</a>
                 </h2>
-                <p class="fullw">
+                <p >
                     Coming soon...<br>
                     <br>
                     <b>UNKNOWN</b>
@@ -166,11 +166,11 @@
         </div>
 
         <div class="fullw sect spacing">
-            <section class="fullw">
+            <section >
                 <h2 style="color:red">
                     <b>Note:</b>
                 </h2>
-                <p class="fullw">
+                <p >
                     In development.
                 </p>
             </section>

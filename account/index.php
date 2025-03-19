@@ -15,7 +15,7 @@ if ($userId) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" class="fullw">
+<html lang="en">
     <head>
         <meta charset="UTF-8" name="description" content="Home">
         <title>Account</title>
