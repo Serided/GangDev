@@ -1,20 +1,20 @@
 @media screen and (max-width: 1080px) {
   :root {
-    --scaling: 1.5vh;
+    --scaling: 3vw;
   }
 }
 
 /* phone */
 @media screen and (max-width: 768px) {
   :root {
-    --scaling: 2.5vw;
+    --scaling: 3vw;
   }
 }
 
 /* phone portrait */
 @media screen and (max-width: 480px) {
   :root {
-    --scaling: 3vw;
+    --scaling: 10vw;
   }
 }
 
