@@ -12,6 +12,11 @@
     font-size: calc(var(--scaling) * 0.7);
 }
 
+.sect.cont.account h1 {
+    font-size: calc(var(--scaling) * 2);
+    letter-spacing: calc(var(--scaling) * 0.01);
+}
+
 .info {
     margin: calc(var(--scaling) * 1) auto;
     padding: calc(var(--scaling) * 1);
