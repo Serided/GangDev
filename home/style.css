@@ -20,6 +20,16 @@
     background-image: url("https://shared.gangdev.co/files/img/background/home_background_1.jpg");
 }
 
+.sect.cont.home h1 {
+    font-size: calc(var(--scaling) * 2);
+    font-weight: normal;
+    letter-spacing: calc(var(--scaling) * 0.01);
+}
+.trademark {
+    font-size: calc(var(--scaling) * 1);
+    vertical-align: super;
+}
+
 h1.shimmer-txt {
     color: black;
     position: relative;

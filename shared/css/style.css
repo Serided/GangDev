@@ -60,15 +60,6 @@ html, body {
   min-height: 10vh;
   padding: calc(var(--scaling) * 0.3);
 }
-.sect h1 {
-  font-size: calc(var(--scaling) * 2);
-  font-weight: normal;
-  letter-spacing: calc(var(--scaling) * 0.01);
-}
-.trademark {
-  font-size: calc(var(--scaling) * 1);
-  vertical-align: super;
-}
 
 .sect.one {
   background: #99c6ff;
