@@ -1,20 +1,28 @@
-@media screen and (max-width: 1080px) {
-  :root {
-    --scaling: 3vw;
-  }
-}
-
 /* phone */
-@media screen and (max-width: 768px) {
-  :root {
-    --scaling: 3vw;
-  }
-}
-
-/* phone portrait */
 @media screen and (max-width: 480px) {
   :root {
-    --scaling: 10vw;
+    --scaling: 5vw;
+  }
+}
+
+/* tablet */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  :root {
+    --scaling: 3.5vw;
+  }
+}
+
+/* monitor */
+@media screen and (min-width: 769px) and (max-width: 1080px) {
+  :root {
+    --scaling: 3vw;
+  }
+}
+
+/* tv or smth */
+@media screen and (min-width: 1081px) {
+  :root {
+    --scaling: 3vw;
   }
 }
 
