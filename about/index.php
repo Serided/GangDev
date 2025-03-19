@@ -4,6 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <title>About</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
 	    <?= $head ?>
     </head>
     <body class="main-p fullw">
