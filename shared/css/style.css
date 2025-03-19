@@ -1,28 +1,28 @@
 /* phone */
 @media screen and (max-width: 480px) {
   :root {
-    --scaling: 10vw;
+    --scaling: 8vw;
   }
 }
 
 /* tablet */
 @media screen and (min-width: 481px) and (max-width: 768px) {
   :root {
-    --scaling: 5vw;
+    --scaling: 4vw;
   }
 }
 
 /* monitor */
 @media screen and (min-width: 769px) and (max-width: 1080px) {
   :root {
-    --scaling: 2.5vw;
+    --scaling: 2vw;
   }
 }
 
 /* tv or smth */
 @media screen and (min-width: 1081px) {
   :root {
-    --scaling: 2.5vw;
+    --scaling: 2vw;
   }
 }
 
@@ -40,7 +40,7 @@ html, body {
   position: fixed;
   background: #fff3cd;
   z-index: 5000;
-  padding: calc(var(--scaling) * 0.3) calc(var(--scaling) * 3) !important;
+  padding: calc(var(--scaling) * 0.3) calc(var(--scaling) * 1) !important;
 }
 .warning h2 {
   font-size: calc(var(--scaling) * 0.7);
