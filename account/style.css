@@ -12,6 +12,9 @@
     font-size: calc(var(--scaling) * 0.5);
 }
 
+.sect.cont.account div div {
+    border: calc(var(--scaling) * 0.05) solid gray;
+}
 .sect.cont.account h1 {
     font-size: calc(var(--scaling) * 2);
     font-weight: normal;
@@ -25,21 +28,6 @@
     background: darkgray;
     justify-items: center;
     width: max-content !important;
-}
-
-.icon {
-    width: calc(var(--scaling) * 8);
-    height: calc(var(--scaling) * 8);
-    margin: calc(var(--scaling) * 1) auto;
-    padding: calc(var(--scaling) * 0.5);
-    border-radius: calc(var(--scaling) * 1);
-    background-color: gray;
-}
-#iDisplay {
-    border-radius: calc(var(--scaling) * 0.7);
-    background-color: darkgray;
-    transition: all 0.3s ease;
-    border: gray solid calc(var(--scaling) * 0.2);
 }
 
 #cropModal {
