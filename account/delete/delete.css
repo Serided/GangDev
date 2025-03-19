@@ -1,3 +1,10 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
 .deleteContainer h1 {
     font-size: calc(var(--scaling) * 3) !important;
     padding: 0 !important;
