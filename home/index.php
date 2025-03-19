@@ -74,7 +74,7 @@
             </p>
         </div>
 
-        <div class="sect one" id="contact">
+        <div class="sect cont one" id="contact">
             <!-- add a form -->
             <h2>Contact</h2>
             <p>

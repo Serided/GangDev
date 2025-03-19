@@ -81,7 +81,7 @@ calc(var(--scaling) * 1) calc(var(--scaling) * 3);
   background: #87aedd;
 }
 .footer {
-  color: gray;
+  background: gray;
 }
 .footer p {
   font-size: calc(var(--scaling) * 0.5);
