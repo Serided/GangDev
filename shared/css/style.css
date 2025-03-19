@@ -67,7 +67,7 @@ p {
     letter-spacing: calc(var(--scaling) * 0.01);
 }
 .trademark {
-    font-size: calc(var(--scaling) * 0.3);
+    font-size: calc(var(--scaling) * 1);
     vertical-align: super;
     color: gray;
 }
