@@ -6,23 +6,23 @@ body {
 }
 
 .deleteContainer h1 {
-    font-size: calc(var(--scaling) * 3) !important;
-    padding: 0 !important;
+    font-size: calc(var(--scaling) * 3);
+    padding: 0;
     height: calc(var(--scaling) * 2.9);
 }
 .deleteContainer h2 {
-    font-size: calc(var(--scaling) * 1.5) !important;
-    padding: 0 !important;
+    font-size: calc(var(--scaling) * 1.5);
+    padding: 0;
     height: calc(var(--scaling) * 1);
 }
 
 .deleteContainer p {
-    font-size: calc(var(--scaling) * 0.75) !important;
+    font-size: calc(var(--scaling) * 0.75);
     text-align: center;
 }
 
 .mTop {
-    margin-top: calc(var(--scaling) * 0.75) !important;
+    margin-top: calc(var(--scaling) * 0.75);
 }
 
 .deleteContainer {
@@ -59,7 +59,7 @@ body {
 }
 
 .submit {
-    font-size: calc(var(--scaling) * 1.2) !important;
+    font-size: calc(var(--scaling) * 1.2);
     padding: calc(var(--scaling) * 0.5) calc(var(--scaling) * 0.7);
     background: darkgray;
     color: white;
