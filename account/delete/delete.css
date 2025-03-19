@@ -17,67 +17,67 @@ a {
 }
 
 h1 {
-    font-size: calc(var(--scaling) * 6) !important;
-    padding: 0 !important;
-    height: calc(var(--scaling) * 5.8);
-}
-h2 {
     font-size: calc(var(--scaling) * 3) !important;
     padding: 0 !important;
-    height: calc(var(--scaling) * 2);
+    height: calc(var(--scaling) * 2.9);
+}
+h2 {
+    font-size: calc(var(--scaling) * 1.5) !important;
+    padding: 0 !important;
+    height: calc(var(--scaling) * 1);
 }
 
 p {
-    font-size: calc(var(--scaling) * 1.5) !important;
+    font-size: calc(var(--scaling) * 0.75) !important;
     text-align: center;
 }
 
 .mTop {
-    margin-top: calc(var(--scaling) * 1.5) !important;
+    margin-top: calc(var(--scaling) * 0.75) !important;
 }
 
 .deleteContainer {
     color: whitesmoke;
     background: #d9534f;
-    box-shadow: 0 0 calc(var(--scaling) * 1) gray;
+    box-shadow: 0 0 calc(var(--scaling) * 0.5) gray;
     display: inline-block;
-    border-radius: calc(var(--scaling) * 0.35);
-    padding: calc(var(--scaling) * 3);
-    width: calc(var(--scaling) * 35);
+    border-radius: calc(var(--scaling) * 0.17);
+    padding: calc(var(--scaling) * 1.5);
+    width: calc(var(--scaling) * 17);
     justify-items: center;
 }
 
 .error {
     color: yellow;
-    margin-top: calc(var(--scaling) * 1);
+    margin-top: calc(var(--scaling) * 0.5);
 }
 
 .inputContainer {
-    width: calc(var(--scaling) * 27);
+    width: calc(var(--scaling) * 13.5);
     justify-items: left;
     text-align: left;
 }
 .inputContainer input {
     box-sizing: border-box;
-    border-radius: calc(var(--scaling) * 0.35);
-    padding: calc(var(--scaling) * 0.35);
-    height: calc(var(--scaling) * 3);
+    border-radius: calc(var(--scaling) * 0.17);
+    padding: calc(var(--scaling) * 0.17);
+    height: calc(var(--scaling) * 1.5);
     min-width: 100%;
-    font-size: calc(var(--scaling) * 2);
+    font-size: calc(var(--scaling) * 1);
     background: whitesmoke;
     border: none;
     transition: all 0.2s ease;
 }
 
 .submit {
-    font-size: calc(var(--scaling) * 2.4) !important;
-    padding: calc(var(--scaling) * 1) calc(var(--scaling) * 1.4);
+    font-size: calc(var(--scaling) * 1.2) !important;
+    padding: calc(var(--scaling) * 0.5) calc(var(--scaling) * 0.7);
     background: darkgray;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: calc(var(--scaling) * 1);
-    box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) gray;
+    border-radius: calc(var(--scaling) * 0.5);
+    box-shadow: calc(var(--scaling) * 0.05) calc(var(--scaling) * 0.1) gray;
     transition: all 0.2s ease;
 }
 
