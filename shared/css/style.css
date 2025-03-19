@@ -30,7 +30,7 @@ html, body {
   position: fixed;
   background: #fff3cd;
   z-index: 5000;
-  padding: calc(var(--scaling) * 0.3) calc(var(--scaling) * 3);
+  padding: calc(var(--scaling) * 0.3) calc(var(--scaling) * 3) !important;
 }
 .warning h2 {
   font-size: calc(var(--scaling) * 0.7);
