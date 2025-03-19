@@ -202,7 +202,7 @@ a:hover{
   left: calc(var(--scaling) * -0.2);
   right: calc(var(--scaling) * -0.2);
   bottom: calc(var(--scaling) * -0.2);
-  border-radius: calc(var(--scaling) * 1);
+  border-radius: calc(var(--scaling) * 1.1);
   background: linear-gradient(90deg, transparent, white, transparent);
   background-size: 200% 100%;
   opacity: 0;
