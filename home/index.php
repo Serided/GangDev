@@ -11,7 +11,7 @@
         <!--<?= $warn ?>-->
         <div class="mainSect">
             <h1>
-                Home
+                Gang<b>DEV</b>
             </h1>
         </div>
 

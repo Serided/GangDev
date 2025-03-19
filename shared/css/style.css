@@ -1,17 +1,24 @@
 :root {
-  --scaling: 2vh;
+  --scaling: 1.5vh;
 }
 
+/* phone */
 @media screen and (max-width: 768px) {
   :root {
-    --scaling: 2vw;
+    --scaling: 2.5vw;
   }
 }
 
+/* phone portrait */
 @media screen and (max-width: 480px) {
   :root {
-    --scaling: 2vw;
+    --scaling: 3vw;
   }
+}
+
+* {
+  margin: 0;
+  font-family: "Fredoka", serif;
 }
 
 html, body {
@@ -51,6 +58,12 @@ p {
   margin: 0;
   height: 100vh;
   width: 100%;
+  justify-items: center;
+  align-items: center;
+}
+.mainSect h {
+  font-size: calc(var(--scaling) * 20);
+  font-weight: normal;
 }
 
 /* To space the sections */
