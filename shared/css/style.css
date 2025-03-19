@@ -61,8 +61,7 @@ p {
   align-content: center;
   padding: calc(var(--scaling) * 2);
 }
-.sect.one.home {
-  background: none;
+.sect.home {
   background-image: url("https://shared.gangdev.co/files/img/background/home_background_1.jpg");
 }
 .sect h1 {

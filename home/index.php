@@ -10,7 +10,7 @@
         <?= $navbar ?>
         <!--<?= $warn ?>-->
 
-        <div class="sect one home" id="entry">
+        <div class="sect home" id="entry">
             <div class="shimmer">
                 <img src="https://gangdev.co/shared/files/img/favicon/new/web-app-manifest-512x512.png" alt="Logo">
             </div>
