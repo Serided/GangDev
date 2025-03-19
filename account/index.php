@@ -26,6 +26,7 @@ if ($userId) {
     </head>
     <body>
         <?= $navbar ?>
+        <?= $warn ?>
 
         <div id="cropModal" style="display:none;"><div id="cropContent"></div></div>
 
@@ -35,7 +36,7 @@ if ($userId) {
                     <i>Your account is scheduled for deletion in <b style="color: darkred"><span id="timeRemaining"></span></b>.</i>
                 </h2>
                 <form action="delete/cancel_delete.php" method="post">
-                    <button type="submit" class="button">Stawp it :(</button>
+                    <button type="submit" class="button cancelDelete">Stawp it :(</button>
                 </form>
             </div>
         <?php endif; ?>

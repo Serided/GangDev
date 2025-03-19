@@ -100,17 +100,19 @@
 }
 
 .button {
-    font-size: calc(var(--scaling) * 2) !important;
     font-family: "Fredoka", serif;
-    padding: calc(var(--scaling) * 0.6);
-    margin: calc(var(--scaling) * 1) auto;
     background: darkgray;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: calc(var(--scaling) * 1);
-    box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) gray;
     transition: all 0.2s ease;
+}
+.button.cancelDelete {
+    font-size: calc(var(--scaling) * 0.5) !important;
+    padding: calc(var(--scaling) * 0.2);
+    margin: calc(var(--scaling) * 0.2) auto;
+    border-radius: calc(var(--scaling) * 0.3);
+    box-shadow: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2) gray;
 }
 
 #iDisplay:hover {
