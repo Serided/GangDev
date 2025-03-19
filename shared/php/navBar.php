@@ -1,6 +1,5 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
-$displayname = isset($_SESSION['displayname']) ? $_SESSION['displayname'] : 'Account';
 ?>
 <div class="hNavbar">
     <link rel="stylesheet" href="https://shared.gangdev.co/css/navbar.css">

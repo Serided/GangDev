@@ -40,8 +40,8 @@
 }
 
 html, body {
-  font-family: "Fredoka", serif;
   width: 100%;
+  max-width: 1440px;
 }
 
 .warning {
@@ -62,7 +62,6 @@ html, body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  margin: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
