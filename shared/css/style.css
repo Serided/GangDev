@@ -1,120 +1,125 @@
 :root {
-  --scaling: 1.5vh;
+    --scaling: 1.5vh;
 }
 
 /* phone */
 @media screen and (max-width: 768px) {
-  :root {
-    --scaling: 2.5vw;
-  }
+    :root {
+        --scaling: 2.5vw;
+    }
 }
 
 /* phone portrait */
 @media screen and (max-width: 480px) {
-  :root {
-    --scaling: 3vw;
-  }
+    :root {
+        --scaling: 3vw;
+    }
 }
 
 * {
-  margin: 0;
-  font-family: "Fredoka", serif;
+    margin: 0;
+    font-family: "Fredoka", serif;
 }
 
 html, body {
-  font-family: "Fredoka", serif;
-  width: 100vw;
+    font-family: "Fredoka", serif;
+    width: 100vw;
 }
 
 /* Set up margins for headers */
 h1 {
-  letter-spacing: 0.15vw;
-  font-size: 4vw;
-  padding: 1vh 1vw;
-  margin: 0;
+    letter-spacing: 0.15vw;
+    font-size: 4vw;
+    padding: 1vh 1vw;
+    margin: 0;
 }
 
 section h2 {
-  font-size: 2.4vw;
-  margin: 1vh auto 0 auto;
+    font-size: 2.4vw;
+    margin: 1vh auto 0 auto;
 }
 
 h3 {
-  font-size: 1.7vw;
-  margin: 1vh auto 0 auto;
+    font-size: 1.7vw;
+    margin: 1vh auto 0 auto;
 }
 
 /* Body sizing */
 p {
-  font-size: 1.5vw;
-  margin: 0;
+    font-size: 1.5vw;
+    margin: 0;
 }
 
 .mainSect {
-  background-image: url("https://shared.gangdev.co/files/img/background/home_background_1.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  margin: 0;
-  height: 100vh;
-  width: 100%;
-  justify-content: center;
-  align-content: center;
+    background-image: url("https://shared.gangdev.co/files/img/background/home_background_1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-content: center;
 }
 .mainSect h1 {
-  font-size: calc(var(--scaling) * 2);
-  font-weight: normal;
-  letter-spacing: calc(var(--scaling) * 0.01);
+    font-size: calc(var(--scaling) * 2);
+    font-weight: normal;
+    letter-spacing: calc(var(--scaling) * 0.01);
+}
+.trademark {
+    font-size: calc(var(--scaling) * 0.3);
+    vertical-align: super;
+    color: gray;
 }
 
 .shimmer {
-  position: relative;
-  display: inline-block;
-  z-index: 1;
+    position: relative;
+    display: inline-block;
+    z-index: 1;
 }
 .shimmer img {
-  width: calc(var(--scaling) * 5);
-  height: calc(var(--scaling) * 5);
-  box-shadow: 0 0 calc(var(--scaling) * 0.5) whitesmoke;
-  border-radius: calc(var(--scaling) * 1);
-  cursor: pointer;
-  display: block;
-  z-index: 2;
-  transition: all 0.3s ease;
+    width: calc(var(--scaling) * 5);
+    height: calc(var(--scaling) * 5);
+    box-shadow: 0 0 calc(var(--scaling) * 0.5) whitesmoke;
+    border-radius: calc(var(--scaling) * 1);
+    cursor: pointer;
+    display: block;
+    z-index: 2;
+    transition: all 0.3s ease;
 }
 
 /* To space the sections */
 .spacing {
-  margin-top: 8vh !important;
+    margin-top: 8vh !important;
 }
 
 /* Format of each individual section on a page */
 .sect {
-  background-color: #FEF9D0;
-  display: inline-block;
-  margin: 0;
-  box-shadow: 0 0.8vw 2vh 0 rgba(0,0,0,0.2);
-  padding: 1vh 1vw;
+    background-color: #FEF9D0;
+    display: inline-block;
+    margin: 0;
+    box-shadow: 0 0.8vw 2vh 0 rgba(0,0,0,0.2);
+    padding: 1vh 1vw;
 }
 
 .cpy-w {
-  background-color: #FBAD77;
-  display: inline-block;
-  margin: 0;
-  box-shadow: 0 0.8vw 2vh 0 rgba(0,0,0,0.2);
+    background-color: #FBAD77;
+    display: inline-block;
+    margin: 0;
+    box-shadow: 0 0.8vw 2vh 0 rgba(0,0,0,0.2);
 }
 
 /* Settings for main pages */
 .main-p {
-  background-image: url("https://shared.gangdev.co/files/img/background/home_background_1.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: center top;
+    background-image: url("https://shared.gangdev.co/files/img/background/home_background_1.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center top;
 
-  background-color: whitesmoke;
-  text-align: center;
-  margin: 0;
-  overflow-wrap: anywhere;
+    background-color: whitesmoke;
+    text-align: center;
+    margin: 0;
+    overflow-wrap: anywhere;
 }
 
 .no-m {
@@ -211,7 +216,7 @@ a:hover{
   transition: opacity .3s ease;
 }
 .shimmer:hover::after {
-  opacity: .8;
+  opacity: .5;
   animation: shimmer 2s infinite;
 }
 @keyframes shimmer {
