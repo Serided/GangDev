@@ -10,6 +10,7 @@
         <?= $navbar ?>
         <!--<?= $warn ?>-->
         <div class="mainSect">
+            <img src="https://gangdev.co/shared/files/img/favicon/web_app_manifest-512-512.png" alt="GangDev favicon">
             <h1>
                 Gang<b>DEV</b>
             </h1>
