@@ -56,7 +56,7 @@ body {
 
 .submit {
     font-size: calc(var(--scaling) * 1);
-    padding: calc(var(--scaling) * 0.14) calc(var(--scaling) * 0.5);
+    padding: calc(var(--scaling) * 0.125) calc(var(--scaling) * 0.5);
     margin: 0 calc(var(--scaling) * 0.25);
     background: darkgray;
     color: white;
