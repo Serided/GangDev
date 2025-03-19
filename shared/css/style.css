@@ -1,3 +1,21 @@
+:root {
+  --scaling: 100vh;
+}
+
+/* phone */
+@media screen and (max-width: 768px) {
+  :root {
+    --scaling: 2.5vw;
+  }
+}
+
+/* phone portrait */
+@media screen and (max-width: 480px) {
+  :root {
+    --scaling: 3vw;
+  }
+}
+
 * {
   margin: 0;
   font-family: "Fredoka", serif;
