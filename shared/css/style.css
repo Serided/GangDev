@@ -31,13 +31,14 @@ html, body {
   width: 100%;
   position: fixed;
   background: darkgray;
+  display: flex;
   align-content: center;
 }
 .warning h2 {
-
+  font-size: calc(var(--scaling) * 0.5);
 }
 .warning p {
-
+  font-size: calc(var(--scaling) * 0.2);
 }
 
 .sect {
@@ -47,6 +48,7 @@ html, body {
   margin: 0;
   height: 100vh;
   width: 100%;
+  display: flex;
   justify-content: center;
   align-content: center;
   padding: calc(var(--scaling) * 2);
@@ -141,6 +143,7 @@ h1.shimmer-txt:hover {
   margin: 0;
   height: 10vh;
   width: 100%;
+  display: flex;
   justify-content: center;
   align-content: center;
   padding: calc(var(--scaling) * 1);
