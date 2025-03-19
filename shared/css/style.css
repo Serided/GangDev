@@ -71,8 +71,6 @@ p {
   vertical-align: super;
 }
 h1.shimmer-txt {
-  position: relative;
-  display: inline-block;
   transition: all .3s ease;
 }
 h1.shimmer-txt:hover {
@@ -81,7 +79,7 @@ h1.shimmer-txt:hover {
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
-  animation: shimmer 2s infinite;
+  animation: shimmer 3s infinite;
 }
 .shimmer {
   position: relative;
