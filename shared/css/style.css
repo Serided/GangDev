@@ -71,6 +71,7 @@ p {
   vertical-align: super;
 }
 h1.shimmer-txt {
+  position: relative;
   cursor: pointer;
   transition: all .3s ease;
 }
