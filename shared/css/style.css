@@ -61,16 +61,23 @@ p {
   justify-content: center;
   align-content: center;
 }
-.mainSect img {
-  width: calc(var(--scaling) * 5);
-  height: calc(var(--scaling) * 5);
-  box-shadow: 0 0 calc(var(--scaling) * 0.5) whitesmoke;
-  border-radius: calc(var(--scaling) * 1);
-}
 .mainSect h1 {
   font-size: calc(var(--scaling) * 2);
   font-weight: normal;
   letter-spacing: calc(var(--scaling) * 0.01);
+}
+
+.shimmer {
+  position: relative;
+  display: inline-block;
+}
+.shimmer img {
+  width: calc(var(--scaling) * 5);
+  height: calc(var(--scaling) * 5);
+  box-shadow: 0 0 calc(var(--scaling) * 0.5) whitesmoke;
+  border-radius: calc(var(--scaling) * 1);
+  cursor: pointer;
+  display: block;
 }
 
 /* To space the sections */
@@ -180,6 +187,31 @@ a:hover{
   background: white;
   animation-duration: 300ms;
   animation-timing-function: ease-in-out;
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+.shimmer:hover::after {
+  opacity: 1;
+  animation: shimmer 2s infinite;
+}
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 @keyframes fade-out {

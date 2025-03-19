@@ -10,9 +10,11 @@
         <?= $navbar ?>
         <!--<?= $warn ?>-->
         <div class="mainSect">
-            <img src="https://gangdev.co/shared/files/img/favicon/new/web-app-manifest-512x512.png" alt="Logo">
+            <div class="shimmer">
+                <img src="https://gangdev.co/shared/files/img/favicon/new/web-app-manifest-512x512.png" alt="Logo">
+            </div>
             <h1>
-                Gang<b>dev</b>
+                Gang<b>DEV</b>&trade;
             </h1>
         </div>
 
