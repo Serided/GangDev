@@ -1,5 +1,12 @@
+/* UH yikes */
+@media screen and (max-width: 240px) {
+  :root {
+    --scaling: 6vw;
+  }
+}
+
 /* phone */
-@media screen and (max-width: 480px) {
+@media screen and (min-width: 241px) and (max-width: 480px) {
   :root {
     --scaling: 7vh;
   }
