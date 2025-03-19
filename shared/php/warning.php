@@ -1,6 +1,6 @@
 <div class="warning">
       <h2>
-          <b>Warning:</b>
+          <u>Warning</u>
       </h2>
       <p>
           Formatting is a mess. Links work, most pages will be an eyesore.
