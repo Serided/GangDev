@@ -1,11 +1,13 @@
-:root {
-  --scaling: 1.5vh;
+@media screen and (max-width: 1080px) {
+  :root {
+    --scaling: 1.5vh;
+  }
 }
 
 /* phone */
 @media screen and (max-width: 768px) {
   :root {
-    --scaling: 10vw;
+    --scaling: 2.5vw;
   }
 }
 
