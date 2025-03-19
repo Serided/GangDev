@@ -13,7 +13,7 @@
 }
 
 .sect.cont.account div div {
-    border: calc(var(--scaling) * 0.2) solid gray ridge;
+    border: calc(var(--scaling) * 0.2) solid gray dotted;
 }
 .sect.cont.account h1 {
     font-size: calc(var(--scaling) * 2);
