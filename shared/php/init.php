@@ -12,11 +12,9 @@ session_set_cookie_params([
 	'samesite' => 'Lax'
 ]);
 
-if (session_status() == PHP_SESSION_NONE) {
-	session_start();
-}
+if (session_status() == PHP_SESSION_NONE) session_start(); // start a session if need be
 
-require __DIR__ . '/../lib/composer/vendor/autoload.php';
+require __DIR__ . '/../lib/composer/vendor/autoload.php'; // load libraries
 
 use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
@@ -84,6 +82,12 @@ $head = ob_get_clean();
 ob_start();
 include '/var/www/gangdev/shared/php/warning.php';
 $warn = ob_get_clean();
+
+$backgrounds = glob("/var/www/gangdev/shared/img/backgrounds/*.jpg", GLOB_BRACE);
+$backgroundURLs = array_map(function($background) {
+	return "https://gangdev.co/" . $background;
+}, $backgrounds);
+$jsonBackgrounds = json_encode($backgroundURLs);
 
 error_log('Session content: ' . print_r($_SESSION, true));
 ?>

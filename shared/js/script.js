@@ -1,9 +1,3 @@
-//window.addEventListener("beforeunload", function () {
-//  document.body.classList.add("animate-out");
-//});
-
-//document.getElementById('filler').style.height = document.getElementById('navbar').style.height;
-
 function fadeInPage() {
   if (!window.AnimationEvent) { return; }
   var fader = document.getElementById('fader');
@@ -13,18 +7,18 @@ function fadeInPage() {
 document.addEventListener('DOMContentLoaded', function() {
   if (!window.AnimationEvent) { return }
 
-  var anchors = document.getElementsByTagName('a');
+  let anchors = document.getElementsByTagName('a');
 
-  for (var idx=0; idx<anchors.length; idx+=1) {
+  for (let idx=0; idx<anchors.length; idx+=1) {
     if (anchors[idx].hostname !== window.location.hostname) {
       continue;
     }
 
     anchors[idx].addEventListener('click', function(event) {
-      var fader = document.getElementById('fader'),
+      let fader = document.getElementById('fader'),
           anchor = event.currentTarget;
 
-      var listener = function() {
+      let listener = function() {
         window.location = anchor.href;
         fader.removeEventListener('animationend', listener);
       };
@@ -34,6 +28,26 @@ document.addEventListener('DOMContentLoaded', function() {
       fader.classList.add('fade-in');
     });
   }
+
+  // entry background images
+  if (typeof backgrounds === 'undefined' || !backgrounds.length) {
+    console.error('No backgrounds found.');
+    return;
+  }
+
+  let entryDiv = document.querySelector('.sect.cont.entry')
+  if (!entryDiv) {
+    console.error('Entry element not found.');
+    return;
+  }
+
+  function changeBackground() {
+    let randomIndex = Math.floor(Math.random() * backgrounds.length);
+    entryDev.style.backgroundImage = "url('" + backgrounds[randomIndex] + "')";
+  }
+
+  changeBackground();
+  setInterval(changeBackground, 5000);
 });
 
 window.addEventListener('pageshow', function (event) {
