@@ -92,12 +92,77 @@ html, body {
   background: #87aedd;
 }
 
+.sect.cont h2 {
+  font-size: calc(var(--scaling) * 1);
+}
+.sect.cont p {
+  font-size: calc(var(--scaling) * 0.8);
+}
+
 .footer {
   background: gray;
 }
 .footer p {
   font-size: calc(var(--scaling) * 0.8);
   color: white
+}
+
+h1.shimmer-txt {
+  color: black;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+h1.shimmer-txt:hover {
+  color: transparent;
+  transform: scale(1.01);
+  background: linear-gradient(90deg, black, white, black);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 5s infinite;
+}
+.shimmer {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--scaling) * -0.2);
+  left: calc(var(--scaling) * -0.2);
+  right: calc(var(--scaling) * -0.2);
+  bottom: calc(var(--scaling) * -0.2);
+  border-radius: calc(var(--scaling) * 1.1);
+  background: linear-gradient(90deg, transparent, white, transparent);
+  background-size: 200% 100%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+.shimmer:hover::after {
+  opacity: 0.5;
+  animation: shimmer 3s infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0 }
+  100% { background-position: -200% 0 }
+}
+.shimmer img {
+  width: calc(var(--scaling) * 5);
+  height: calc(var(--scaling) * 5);
+  box-shadow: 0 0 calc(var(--scaling) * 0.5) whitesmoke;
+  border-radius: calc(var(--scaling) * 1);
+  cursor: pointer;
+  display: block;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+.shimmer img:hover {
+  transform: scale(1.01);
 }
 
 /* How to decorate the text */

@@ -42,18 +42,19 @@ if ($userId) {
         <?php endif; ?>
 
         <div class="sect cont account">
-            <h1>
-                Account
-            </h1>
+            <div class="icon">
+                <div id="iDisplay" style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');"></div>
+            </div>
+            <input type="file" id="iconFile" accept="image/*" style="display: none;">
+            <div>
+                <h1 class="shimmer-txt">
+                    Welcome, <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b>!
+                </h1>
+            </div>
         </div>
 
         <div class="sect cont three">
             <?php if (isset($_SESSION["user_id"])): ?>
-                <div class="icon">
-                    <div id="iDisplay" style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');"></div>
-                </div>
-                <input type="file" id="iconFile" accept="image/*" style="display: none;">
-
                 <div class="info">
                     <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
                     <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
