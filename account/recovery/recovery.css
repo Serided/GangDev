@@ -49,14 +49,14 @@ body {
 }
 
 .submit {
-    font-size: calc(var(--scaling) * 1.2);
-    padding: calc(var(--scaling) * 0.5) calc(var(--scaling) * 0.9);
+    font-size: calc(var(--scaling) * 1);
+    padding: calc(var(--scaling) * 0.42) calc(var(--scaling) * 0.78);
     margin: 0 calc(var(--scaling) * 0.25);
     background: darkgray;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: calc(var(--scaling) * 0.5);
+    border-radius: calc(var(--scaling) * 0.4);
     box-shadow: calc(var(--scaling) * 0.05) calc(var(--scaling) * 0.1) gray;
     transition: all 0.2s ease;
 }
