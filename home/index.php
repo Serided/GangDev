@@ -52,7 +52,7 @@
             </p>
         </div>
 
-        <div class="sect two" id="apps">
+        <div class="sect three" id="apps">
             <h2>Apps</h2>
             <p class="fullw">
                 <a href="https://apps.gangdev.co/roastGenerator/">Roast Generator</a><br>
@@ -61,7 +61,7 @@
             </p>
         </div>
 
-        <div class="sect three" id="games">
+        <div class="sect two" id="games">
             <h2>Games</h2>
             <p class="fullw">
                 <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine (Alpha)</a><br>
@@ -73,7 +73,7 @@
             </p>
         </div>
 
-        <div class="sect four" id="contact">
+        <div class="sect one" id="contact">
             <!-- add a form -->
             <h2>Contact</h2>
             <p>
