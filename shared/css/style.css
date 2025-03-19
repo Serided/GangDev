@@ -1,28 +1,28 @@
 /* phone */
 @media screen and (max-width: 480px) {
   :root {
-    --scaling: 5vh;
+    --scaling: 6vh;
   }
 }
 
 /* tablet */
 @media screen and (min-width: 481px) and (max-width: 768px) {
   :root {
-    --scaling: 2vh;
+    --scaling: 3vh;
   }
 }
 
 /* monitor */
 @media screen and (min-width: 769px) and (max-width: 1080px) {
   :root {
-    --scaling: 3vh;
+    --scaling: 4vh;
   }
 }
 
 /* big boi */
 @media screen and (min-width: 1081px) {
   :root {
-    --scaling: 3vh;
+    --scaling: 4vh;
   }
 }
 
