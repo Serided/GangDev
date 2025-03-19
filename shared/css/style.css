@@ -26,28 +26,15 @@ html, body {
   width: 100vw;
 }
 
-/* Set up margins for headers */
-h1 {
-  letter-spacing: 0.15vw;
-  font-size: 4vw;
-  padding: 1vh 1vw;
-  margin: 0;
+.warning {
+  height: 10vh;
+  width: 100%;
 }
+.warning h2 {
 
-section h2 {
-  font-size: 2.4vw;
-  margin: 1vh auto 0 auto;
 }
+.warning p {
 
-h3 {
-  font-size: 1.7vw;
-  margin: 1vh auto 0 auto;
-}
-
-/* Body sizing */
-p {
-  font-size: 1.5vw;
-  margin: 0;
 }
 
 .sect {
