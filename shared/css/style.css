@@ -16,6 +16,7 @@
 
 html, body {
   font-family: "Fredoka", serif;
+  width: 100vw;
 }
 
 /* Set up margins for headers */
@@ -48,8 +49,8 @@ p {
   background-position: center;
   background-attachment: fixed;
   margin: 0;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
 /* To space the sections */
