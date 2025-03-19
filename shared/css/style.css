@@ -1,5 +1,5 @@
 :root {
-  --scaling: 100vh;
+  --scaling: 1.5vh;
 }
 
 /* phone */
@@ -12,7 +12,7 @@
 /* phone portrait */
 @media screen and (max-width: 480px) {
   :root {
-    --scaling: 3vw;
+    --scaling: 10vw;
   }
 }
 
