@@ -29,6 +29,9 @@ html, body {
 .warning {
   height: 10vh;
   width: 100%;
+  position: fixed;
+  background: darkgray;
+  align-content: center;
 }
 .warning h2 {
 
