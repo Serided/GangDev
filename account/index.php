@@ -42,8 +42,9 @@ if ($userId) {
         <?php endif; ?>
 
         <div class="sect cont account">
+	        <?php if (isset($_SESSION["user_id"])): ?>
             <div class="shimmer">
-                <div id="iDisplay" style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');"></div>
+                <div style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');"></div>
             </div>
             <input type="file" id="iconFile" accept="image/*" style="display: none;">
             <div>
@@ -51,6 +52,16 @@ if ($userId) {
                     Welcome, <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b>!
                 </h1>
             </div>
+            <?php else: ?>
+            <div>
+                <div style="background-color: #00aff0"></div>
+            </div>
+            <div>
+                <h1 class="shimmer-txt">
+                    ^<br>this could be u
+                </h1>
+            </div>
+            <?php endif; ?>
         </div>
 
         <div class="sect cont three">
