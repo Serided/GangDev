@@ -198,15 +198,16 @@ a:hover{
 .shimmer::after {
   content: "";
   position: absolute;
-  top: calc(var(--scaling) * 1);
-  left: calc(var(--scaling) * 1);
-  right: calc(var(--scaling) * 1);
-  bottom: calc(var(--scaling) * 1);
+  top: calc(var(--scaling) * -0.2);
+  left: calc(var(--scaling) * -0.2);
+  right: calc(var(--scaling) * -0.2);
+  bottom: calc(var(--scaling) * -0.2);
   border-radius: calc(var(--scaling) * 1);
   background: linear-gradient(90deg, transparent, white, transparent);
   background-size: 200% 100%;
   opacity: 0;
   pointer-events: none;
+  z-index: 1;
   transition: opacity .3s ease;
 }
 .shimmer:hover::after {
