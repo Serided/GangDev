@@ -69,3 +69,10 @@ h1.shimmer-txt:hover {
 .shimmer img:hover {
     transform: scale(1.01);
 }
+
+.sect.cont h2 {
+    font-size: calc(var(--scaling) * 1);
+}
+.sect.cont p {
+    font-size: calc(var(--scaling) * 0.8);
+}

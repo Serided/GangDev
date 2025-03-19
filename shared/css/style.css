@@ -45,7 +45,6 @@ html, body {
 }
 
 .warning {
-  box-sizing: border-box;
   position: fixed;
   background: #fff3cd;
   z-index: 5000;
