@@ -71,10 +71,12 @@ p {
   vertical-align: super;
 }
 h1.shimmer-txt {
+  cursor: pointer;
   transition: all .3s ease;
 }
 h1.shimmer-txt:hover {
   color: transparent;
+  transform: scale(1.05);
   background: linear-gradient(90deg, black, white, black);
   background-size: 200% auto;
   -webkit-background-clip: text;
