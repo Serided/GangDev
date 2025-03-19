@@ -13,14 +13,14 @@
 }
 
 /* monitor */
-@media screen and (min-width: 769px) and (max-width: 1440px) {
+@media screen and (min-width: 769px) and (max-width: 1080px) {
   :root {
     --scaling: 3vh;
   }
 }
 
-/* tv or smth */
-@media screen and (min-width: 1441px) {
+/* big boi */
+@media screen and (min-width: 1081px) {
   :root {
     --scaling: 3vh;
   }
