@@ -17,7 +17,7 @@
             </h1>
         </div>
 
-		<div class="sect cont">
+		<div class="sect cont two">
             <h2>
                 <a href="roastGenerator">Roast Generator</a>
             </h2>
@@ -29,7 +29,7 @@
             </p>
 		</div>
 
-        <div class="sect cont">
+        <div class="sect cont three">
             <h2>
                 <a href="mmfGenerator">MMF Generator</a>
             </h2>
@@ -41,7 +41,7 @@
             </p>
         </div>
 
-        <div class="sect cont">
+        <div class="sect cont four">
             <h2>
                 <a href="universalChat" target="_blank">Universal Chat</a>
             </h2>
@@ -52,7 +52,7 @@
             </p>
         </div>
 
-		<div class="sect cont">
+		<div class="sect cont three">
             <h2>
                 <a href="">IN PROGRESS</a>
             </h2>
