@@ -56,7 +56,7 @@ html, body {
 }
 .sect.altCont {
   min-height: 10vh;
-  padding: (var(--scaling) * 1) calc(var(--scaling) * 3);
+  padding: calc(var(--scaling) * 1) calc(var(--scaling) * 3);
 }
 .sect h1 {
   font-size: calc(var(--scaling) * 2);
