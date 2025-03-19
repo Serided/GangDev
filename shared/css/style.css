@@ -72,7 +72,7 @@ p {
 }
 h1.shimmer-txt {
   position: relative;
-  display: inline-block;
+  display: block;
   cursor: pointer;
   transition: all .3s ease;
 }
