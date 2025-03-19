@@ -5,14 +5,14 @@
 /* phone */
 @media screen and (max-width: 768px) {
   :root {
-    --scaling: 2.5vw;
+    --scaling: 10vw;
   }
 }
 
 /* phone portrait */
 @media screen and (max-width: 480px) {
   :root {
-    --scaling: 10vw;
+    --scaling: 3vw;
   }
 }
 
