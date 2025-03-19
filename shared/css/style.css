@@ -132,7 +132,7 @@ h1.shimmer-txt:hover {
 }
 
 .sect.one {
-  background: whitesmoke;
+  background: #99c6ff;
 }
 .sect.two {
   background: #5c98e1;
@@ -143,58 +143,21 @@ h1.shimmer-txt:hover {
 .sect.four {
   background: #87aedd;
 }
-
-/* To space the sections */
-.spacing {
-  margin-top: 8vh !important;
-}
-
-.cpy-w {
-  background-color: #FBAD77;
-  display: inline-block;
+.footer {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: gray;
   margin: 0;
-  box-shadow: 0 0.8vw 2vh 0 rgba(0,0,0,0.2);
-}
-
-/* Settings for main pages */
-.main-p {
-  background-image: url("https://shared.gangdev.co/files/img/background/home_background_1.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: center top;
-
-  background-color: whitesmoke;
-  text-align: center;
-  margin: 0;
-  overflow-wrap: anywhere;
-}
-
-.no-m {
-  margin: 0 auto !important;
-}
-
-/* Make the sections snap to the sides of the page */
-.fullw {
-  box-sizing: border-box;
+  height: 10vh;
   width: 100%;
+  justify-content: center;
+  align-content: center;
+  padding: calc(var(--scaling) * 1);
 }
-.fullw p {
-  padding: 2vh 2vw;
-}
-.fullw-r {
-  box-sizing: border-box;
-  width: 90%;
-  margin-left: 10%;
-}
-.fullw-l {
-  box-sizing: border-box;
-  width: 90%;
-  margin-right: 10%;
-}
-
-.nfullw {
-  box-sizing: content-box !important;
-  width: auto !important;
+.footer p {
+  font-size: calc(var(--scaling) * 0.5);
+  color: white
 }
 
 /* How to decorate the text */

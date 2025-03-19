@@ -1,5 +1,5 @@
-<div style="position: fixed; align-content: center">
-      <h2 style="color:red; margin: 0">
+<div style="position: fixed; align-content: center; bottom: var(--scaling);">
+      <h2 style="color:red; margin: 0;">
           <b>Note:</b>
       </h2>
       <p class="fullw">

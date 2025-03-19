@@ -8,7 +8,7 @@
     </head>
     <body class="main-p fullw">
         <?= $navbar ?>
-        <!--<?= $warn ?>-->
+        <?= $warn ?>
 
         <div class="sect home" id="entry">
             <div class="shimmer">
@@ -77,7 +77,7 @@
             <!-- add a form -->
             <h2>Contact</h2>
             <p>
-                <a href="mailto:jens.hansen@gangdev.co">Email Jens (scandinalien.work@gmail.com)</a>
+                <a href="mailto:company@gangdev.co">Email Us (company@gangdev.co)</a>
             </p>
         </div>
 
