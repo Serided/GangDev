@@ -4,6 +4,7 @@ require_once '/var/www/gangdev/shared/php/mailer.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	if (isset($_SESSION["user_id"])) {
+		$userid = $_SESSION["user_id"];
 		$name = $_SESSION["displayname"];
 		$email = $_SESSION["email"];
 		$message = trim($_POST["message"]);
@@ -13,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			exit;
 		}
 	} else {
+		$userid = null;
 		$name = strip_tags(trim($_POST["name"]));
 		$email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
 		$message = trim($_POST["message"]);
@@ -37,10 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$subject = "New Contact Form Message from $name";
 
 	$htmlBody = "<p>You have received a new message from your website contact form.</p>";
+	if ($userid) $htmlBody .= "<p><strong>ID:</strong> " . htmlspecialchars($userid) . "</p>";
 	$htmlBody .= "<p><strong>Name:</strong> " . htmlspecialchars($name) . "</p>";
-	if (!empty($email)) {
-		$htmlBody .= "<p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>";
-	}
+	if (!empty($email)) $htmlBody .= "<p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>";
 	$htmlBody .= "<p><strong>Message:</strong><br>" . nl2br(htmlspecialchars($message)) . "</p>";
 
 	$altBody = "You have received a new message from your website contact form.\n\n";
