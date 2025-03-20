@@ -14,7 +14,7 @@
         <div class="sect cont entry">
             <div class="bgWrapper"></div>
             <div class="shimmer">
-                <div style="background-image: url("https://gangdev.co/shared/")"></div>
+                <div style="background-image: url('https://gangdev.co/shared/files/img/jens/jens.icon')"></div>
             </div>
             <h1 class="shimmerText">
                 Jens
