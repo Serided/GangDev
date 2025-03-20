@@ -41,8 +41,9 @@
 }
 .timelineItem {
     justify-content: center;
+    align-items: center;
     width: 20%;
-    margin: 2%;
+    margin: 0 2%;
 }
 .timelineMarker {
     width: calc(var(--scaling) * 0.4);
