@@ -73,7 +73,7 @@
     font-size: calc(var(--scaling) * 2.5);
     height: calc(var(--scaling) * 2.5);
 }
-.sect.cont#contact h3 {
+.sect.cont#contact a {
     font-size: calc(var(--scaling) * 0.5);
     margin-bottom: calc(var(--scaling) * 0.75);
 }
