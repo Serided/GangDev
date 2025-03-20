@@ -52,6 +52,9 @@
 }
 .sect.cont#products .columns .sect .cont {
     width: 100%;
+}
+.sect.cont#products .columns .sect .cont .link {
+    width: 100%;
     font-size: calc(var(--scaling) * 0.9);
     line-height: calc(var(--scaling) * 0.9);
 }
