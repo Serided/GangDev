@@ -54,48 +54,6 @@
                             <li>Upheld strict food safety and cleanliness.</li>
                             <li>Excelled in problem‑solving under pressure.</li>
                         </ol>
-                        <ol>
-                            <li>Operated registers, drive‑thru, fry, and prep stations.</li>
-                            <li>Provided efficient service in high‑volume settings.</li>
-                            <li>Trained teammates to foster leadership.</li>
-                            <li>Upheld strict food safety and cleanliness.</li>
-                            <li>Excelled in problem‑solving under pressure.</li>
-                        </ol>
-                        <ol>
-                            <li>Operated registers, drive‑thru, fry, and prep stations.</li>
-                            <li>Provided efficient service in high‑volume settings.</li>
-                            <li>Trained teammates to foster leadership.</li>
-                            <li>Upheld strict food safety and cleanliness.</li>
-                            <li>Excelled in problem‑solving under pressure.</li>
-                        </ol>
-                        <ol>
-                            <li>Operated registers, drive‑thru, fry, and prep stations.</li>
-                            <li>Provided efficient service in high‑volume settings.</li>
-                            <li>Trained teammates to foster leadership.</li>
-                            <li>Upheld strict food safety and cleanliness.</li>
-                            <li>Excelled in problem‑solving under pressure.</li>
-                        </ol>
-                        <ol>
-                            <li>Operated registers, drive‑thru, fry, and prep stations.</li>
-                            <li>Provided efficient service in high‑volume settings.</li>
-                            <li>Trained teammates to foster leadership.</li>
-                            <li>Upheld strict food safety and cleanliness.</li>
-                            <li>Excelled in problem‑solving under pressure.</li>
-                        </ol>
-                        <ol>
-                            <li>Operated registers, drive‑thru, fry, and prep stations.</li>
-                            <li>Provided efficient service in high‑volume settings.</li>
-                            <li>Trained teammates to foster leadership.</li>
-                            <li>Upheld strict food safety and cleanliness.</li>
-                            <li>Excelled in problem‑solving under pressure.</li>
-                        </ol>
-                        <ol>
-                            <li>Operated registers, drive‑thru, fry, and prep stations.</li>
-                            <li>Provided efficient service in high‑volume settings.</li>
-                            <li>Trained teammates to foster leadership.</li>
-                            <li>Upheld strict food safety and cleanliness.</li>
-                            <li>Excelled in problem‑solving under pressure.</li>
-                        </ol>
                     </div>
                 </div>
                 <div class="timelineItem">

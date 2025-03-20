@@ -75,14 +75,17 @@
     font-size: calc(var(--scaling) * 0.5);
 }
 .timelineDetails {
-    text-align: left;
     opacity: 0;
     transition: opacity 0.3s ease;
     color: dimgray;
     font-size: calc(var(--scaling) * 0.5);
 }
+.timelineDetauls p {
+    text-align: center;
+}
 .timelineDetails ol {
-    padding-left: calc(var(--scaling) * 1);
+    text-align: left;
+    padding: calc(var(--scaling) * 1);
 }
 .timelineItem:hover {
     max-height: calc(var(--scaling) * 15);
