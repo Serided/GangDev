@@ -45,6 +45,8 @@ html, body {
 
 .warning {
   position: fixed;
+  width: 100%;
+  min-width: 100vw;
   background: #fff3cd;
   z-index: 5000;
   padding: calc(var(--scaling) * 0.3) calc(var(--scaling) * 1) !important;
@@ -104,8 +106,6 @@ html, body {
 .sect.cont.entry {
   position: relative;
   overflow: hidden;
-  width: 100%;
-  min-width: 100vw;
 }
 .sect.cont.entry h1 {
   font-size: calc(var(--scaling) * 2);
