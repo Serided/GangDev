@@ -83,7 +83,7 @@
         <div class="sect cont one" id="contact">
             <!-- add a form -->
             <h2>Contact</h2>
-            <h3>(company@gangdev.co)</h3>
+            <h3><a href="mailto:company@gangdev.co">(company@gangdev.co)</a></h3>
             <form action="process_contact.php" method="post">
                 <div class="details">
 	                <?php if (!isset($_SESSION["user_id"])): ?>
