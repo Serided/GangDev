@@ -12,7 +12,8 @@
         <?= $warn ?>
 
         <div class="sect cont entry">
-            <h1>
+            <div class="bgWrapper"></div>
+            <h1 class="shimmerText">
                 About
             </h1>
         </div>

@@ -64,49 +64,49 @@
                 <div class="hexagon coding-exp">
                     <p>
                         <b><u>MC Function</u></b><br>
-                        Over eight years of experience.
+                        8+ years
                     </p>
                 </div>
                 <div class="hexagon coding-exp">
                     <p>
                         <b><u>Python</u></b><br>
-                        Two years of experience.
+                        2 years
                     </p>
                 </div>
                 <div class="hexagon coding-exp">
                     <p>
                         <b><u>HTML</u></b><br>
-                        Three years of experience.
+                        4 years
                     </p>
                 </div><br>
                 <div class="hexagon coding-exp">
                     <p>
                         <b><u>PHP</u></b><br>
-                        Two years of experience.
+                        3 years
                     </p>
                 </div>
                 <div class="hexagon coding-exp">
                     <p>
                         <b><u>CSS</u></b><br>
-                        Three years of experience.
+                        4 years
                     </p>
                 </div><br>
                 <div class="hexagon coding-exp">
                     <p>
                         <b><u>JS</u></b><br>
-                        Three years of experience.
+                        4 years
                     </p>
                 </div>
                 <div class="hexagon coding-exp">
                     <p>
                         <b><u>Ruby</u></b><br>
-                        One year of experience.
+                        1 year
                     </p>
                 </div>
                 <div class="hexagon coding-exp">
                     <p>
                         <b><u>Kotlin</u></b><br>
-                        One year of experience.
+                        1 year
                     </p>
                 </div>
                 <!--
