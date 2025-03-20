@@ -16,12 +16,12 @@
 }
 .sect.cont#overview h2 {
     font-weight: normal;
-    font-size: calc(var(--scaling) * 2);
+    font-size: calc(var(--scaling) * 1.9);
     margin-bottom: calc(var(--scaling) * 1.5);
-    line-height: calc(var(--scaling) * 2);
+    line-height: calc(var(--scaling) * 2.1);
 }
 .sect.cont#overview h2 b {
-    font-size: calc(var(--scaling) * 2.2);
+    font-size: calc(var(--scaling) * 2.3);
     font-weight: bolder;
 }
 .sect.cont#overview hr {
