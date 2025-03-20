@@ -91,3 +91,9 @@ $jsonBackgrounds = json_encode($backgroundURLs);
 
 error_log('Session content: ' . print_r($_SESSION, true));
 ?>
+
+<script>
+    // This outputs the variable so it's available to your external JS files.
+    let backgrounds = <?php echo $jsonBackgrounds; ?>;
+    console.log("Backgrounds array from init.php:", backgrounds);
+</script>

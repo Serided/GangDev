@@ -19,7 +19,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- basic script -->
-<script src="https://shared.gangdev.co/js/script.js"></script>
+<script src="https://shared.gangdev.co/js/fader.js"></script>
 
 <!-- page fader -->
 <svg id="fader"></svg>
