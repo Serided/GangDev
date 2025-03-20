@@ -12,11 +12,16 @@
     vertical-align: super;
 }
 
-.sect.cont h2{
-    font-weight: normal;
-    font-size: calc(var(--scaling) * 2);
+.sect.cont#overview {
 }
-.sect.cont p {
-    font-weight: lighter;
+.sect.cont#overview h2 {
+    font-weight: bold;
+    font-size: calc(var(--scaling) * 2);
+    margin: calc(var(--scaling) * 1) 0;
+}
+
+.sect.cont#overview p {
+    width: 100%;
+    text-align: left;
     font-size: calc(var(--scaling) * 2);
 }

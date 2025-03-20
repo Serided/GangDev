@@ -29,7 +29,8 @@
                 At <b>GangDev</b>, we run this code like a <b>tight crew</b>—no loose ends, no weak links.
                 When a bug steps out of line, we take it out <i>real quick</i>. Our <b>AI? Smarter than your average snitch</b>.
                 Our <b>games? More addictive than a turf war</b> over high scores. And our <b>software?
-                Built so solid, it’s basically bulletproof</b>. We don’t just <i>commit</i> code; we <b>make power moves</b>.
+                Built so solid, it’s basically bulletproof</b>.<br><br>
+                We don’t just <i>commit</i> code; we <b>make power moves</b>.
                 We don’t just <i>refactor</i>; we <b>put sloppy scripts in their place</b>. So if you’re looking for <b>clean code,
                 big energy, and a dev gang that never sleeps</b>—welcome to <b>GangDev</b>, where we <b>deploy fast and commit for life</b>.
             </p>
