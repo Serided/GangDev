@@ -12,7 +12,7 @@
 
         <div class="sect cont entry" id="home">
             <div class="bgWrapper"></div>
-            <h1>
+            <h1 class="shimmerText">
                 Services
             </h1>
         </div>

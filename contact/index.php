@@ -12,7 +12,7 @@
 
         <div class="sect cont entry">
             <div class="bgWrapper"></div>
-            <h1>
+            <h1 class="shimmerText">
                 Contact
             </h1>
         </div>

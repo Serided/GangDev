@@ -10,7 +10,7 @@
     <body>
         <?= $navbar ?>
 
-        <h1>
+        <h1 class="shimmerText">
             Minecraft (Resource Packs)
         </h1>
 
