@@ -48,23 +48,23 @@
                 </div>
                 <div class="games">
                     <h2>Games</h2>
-                    <div>
-                        <div>
+                    <div class="sect">
+                        <div class="cont">
                             <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine<br>(Alpha)</a>
                         </div>
-                        <div>
+                        <div class="cont">
                             <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube<br>(Alpha)</a>
                         </div>
-                        <div>
+                        <div class="cont">
                             <a href="https://gaming.gangdev.co/ultimatePong" target="_blank">Ultimate Pong<br>(Alpha)</a>
                         </div>
-                        <div>
+                        <div class="cont">
                             <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game<br>(Alpha)</a>
                         </div>
-                        <div>
+                        <div class="cont">
                             <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game<br>(Alpha) <b>[Online]</b></a>
                         </div>
-                        <div>
+                        <div class="cont">
                             <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game<br>(Beta)</a>
                         </div>
                     </div>

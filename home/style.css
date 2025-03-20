@@ -35,10 +35,6 @@
 .sect.cont#products h2 {
     font-size: calc(var(--scaling) * 1.9);
 }
-.sect.cont#products p {
-    font-size: calc(var(--scaling) * 0.9);
-    line-height: calc(var(--scaling) * 0.9);
-}
 .sect.cont#products a {
     color: #F7CBA4;
 }
@@ -50,9 +46,14 @@
     height: 100%;
     display: flex;
 }
-.sect.cont#products .columns div {
+.sect.cont#products .columns .sect {
     width: 33.3333%;
     padding: calc(var(--scaling) * 2) calc(var(--scaling) * 0.75);
+}
+.sect.cont#products .columns .sect .cont {
+    width: 100%;
+    font-size: calc(var(--scaling) * 0.9);
+    line-height: calc(var(--scaling) * 0.9);
 }
 .sect.cont#products .columns .games {
     padding: calc(var(--scaling) * 0.75) auto;
