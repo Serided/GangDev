@@ -57,6 +57,30 @@ html, body {
   color: red;
 }
 
+.bgWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.background.visible {
+  opacity: 1;
+}
+
 .sect {
   background-size: cover;
   background-position: center;
@@ -77,6 +101,10 @@ html, body {
   padding: calc(var(--scaling) * 0.3);
 }
 
+.sect.cont.entry {
+  position: relative;
+  overflow: hidden;
+}
 .sect.cont.entry h1 {
   font-size: calc(var(--scaling) * 2);
   font-weight: normal;

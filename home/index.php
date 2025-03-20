@@ -12,6 +12,7 @@
         <?= $warn ?>
 
         <div class="sect cont entry" id="home">
+            <div class="bgWrapper"></div>
             <div class="shimmer">
                 <div class="logo"></div>
             </div>

@@ -10,12 +10,44 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
+    let bgWrapper = entryDiv.querySelector('.bgWrapper');
+    if (!entryDiv) {
+        console.error('bgWrapper not found.')
+        return;
+    }
+
     function changeBackground() {
         let randomIndex = Math.floor(Math.random() * backgrounds.length);
-        // Prepend the base path to the image file.
-        entryDiv.style.backgroundImage = "url('" + backgrounds[randomIndex] + "')";
+        let newBgURL = backgrounds[randomIndex];
+
+        let img = new Image();
+        img.src = newBgURL;
+        img.onload = function() {
+            let newBg = document.createElement('div');
+            newBg.className = 'background';
+            newBg.style.backgroundImage = "url('" + newBgURL + "')"
+
+            bgWrapper.appendChild(newBg);
+            newBg.offsetWidth;
+            newBg.classList.add('visible');
+
+            let oldBgs = bgWrapper.querySelectorAll('.background.visible');
+            if (oldBgs.length > 1) {
+                setTimeout(function() {
+                    oldBgs.forEach(function(bg, index) {
+                        if (index < oldBgs.length - 1) {
+                            bg.remove();
+                        }
+                    });
+                }, 1000);
+            }
+        };
+
+        img.onerror = function() {
+            console.error("Failed to load background image: " + newBgURL)
+        }
     }
 
     changeBackground();
-    setInterval(changeBackground, 5000);
+    setInterval(changeBackground, (3 * 1000));
 });
