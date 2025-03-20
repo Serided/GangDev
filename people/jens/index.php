@@ -17,7 +17,7 @@
                 <div style="background-image: url('https://gangdev.co/shared/files/img/jens/icon.webp')" class="jens"></div>
             </div>
             <p class="arrow">^</p>
-            <h1 class="title">
+            <h1 class="title shimmerText">
                 Jens
                 <a href="php/vivienne.php" class="vivienne">&nbsp+ Vivienne</a>
             </h1>
