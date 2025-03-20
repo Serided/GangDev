@@ -92,9 +92,14 @@
                 </div>
             </div>
             <p class="desc">
-                Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing
-                Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing
-                Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing
+                I'm a versatile developer specializing in web development, AI, and custom-built solutions with expertise
+                in PHP, HTML, CSS, JS, Rust, Python, and PostgreSQL. I prioritize efficiency and innovation, often creating
+                my own frameworks over relying on existing ones.<br><br>
+
+                With hands-on experience in cloud computing, DevOps, and server administration, I run my own infrastructure,
+                manage large-scale projects, and have contributed to collaborative and open-source development.
+                My biggest achievements include founding GangDev, developing large-scale Minecraft datapacks, and engineering
+                a high-performance web platform.
             </p>
         </div>
 
