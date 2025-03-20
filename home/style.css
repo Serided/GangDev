@@ -78,7 +78,7 @@
 }
 .sect.cont#contact label {
     font-size: calc(var(--scaling) * 1.2);
-    height: calc(var(--scaling) * 1);
+    height: calc(var(--scaling) * 0.65);
 }
 .sect.cont#contact .info {
     width: calc(var(--scaling) * 15);
@@ -99,5 +99,5 @@
     border: calc(var(--scaling) * 0.01) solid gray;
 }
 .sect.cont#contact button {
-    margin: calc(var(--scaling) * 0.2) auto;
+    margin: calc(var(--scaling) * 0.5) auto;
 }
