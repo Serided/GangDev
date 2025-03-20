@@ -71,7 +71,7 @@
 
 .sect.cont#contact h2 {
     font-size: calc(var(--scaling) * 2.5);
-    height: calc(var(--scaling) * 2.5);
+    height: calc(var(--scaling) * 2.6);
 }
 .sect.cont#contact a {
     font-size: calc(var(--scaling) * 0.5);
