@@ -16,6 +16,11 @@
     font-weight: bold;
 }
 
+.sect.cont#overview h2 {
+    font-size: calc(var(--scaling) * 3);
+    padding-bottom: calc(var(--scaling) * 5);
+}
+
 .timeline {
     width: 100%;
     position: absolute;
