@@ -73,26 +73,31 @@
     font-size: calc(var(--scaling) * 2.5);
     margin-bottom: calc(var(--scaling) * 0.75);
 }
-.sect.cont#contact form {
+.sect.cont#contact .details {
     justify-items: left;
 }
 .sect.cont#contact label {
     font-size: calc(var(--scaling) * 1.2);
+    height: calc(var(--scaling) * 1);
 }
 .sect.cont#contact .info {
     width: calc(var(--scaling) * 15);
+    margin-bottom: calc(var(--scaling) * 0.2)
 }
 .sect.cont#contact input {
     font-size: calc(var(--scaling) * 1);
     padding: calc(var(--scaling) * 0.2);
     width: 100%;
-    border-radius: calc(var(--scaling) * 0.1);
+    border-radius: calc(var(--scaling) * 0.05);
+    border: calc(var(--scaling) * 0.01) solid gray;
 }
 .sect.cont#contact textarea {
     resize: none;
     width: calc(var(--scaling) * 15);
     font-size: calc(var(--scaling) * 0.75);
-    border-radius: calc(var(--scaling) * 0.1);
+    border-radius: calc(var(--scaling) * 0.05);
+    border: calc(var(--scaling) * 0.01) solid gray;
 }
 .sect.cont#contact button {
+    margin: calc(var(--scaling) * 0.2) auto;
 }
