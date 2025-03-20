@@ -49,5 +49,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     changeBackground();
-    setInterval(changeBackground, (3 * 1000));
+    setInterval(changeBackground, (10 * 1000));
 });
