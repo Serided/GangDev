@@ -19,9 +19,16 @@
     font-size: calc(var(--scaling) * 2);
     margin: calc(var(--scaling) * 1) 0;
 }
+.sect.cont#overview h2 b {
+    font-weight: bolder;
+}
+.sect.cont#overview hr {
+    width: calc(var(--scaling) * 2);
+    color: darkgray;
+}
 
 .sect.cont#overview p {
     width: 100%;
     text-align: left;
-    font-size: calc(var(--scaling) * 2);
+    font-size: calc(var(--scaling) * 1);
 }
