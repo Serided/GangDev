@@ -1,25 +1,25 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-    <html lang="en" >
+    <html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Minecraft (Data Packs)</title>
         <?= $head ?>
         <link rel="stylesheet" href="../style.css">
     </head>
-    <body class="main-p fullw">
+    <body>
         <?= $navbar ?>
 
         <h1>
             Minecraft (Data Packs)
         </h1>
 
-        <div class="fullw sect">
-            <section >
+        <div class="sect">
+            
                 <h2>
                     <a href="https://shared.gangdev.co/files/minecraft/Unofficial_In-N-Out_Datapack_1.20.5.zip">The Unofficial In-N-Out Data Pack [1.20.5]</a>
                 </h2>
-                <p >
+                <p>
                     This is <u>THE</u> Unofficial In-N-Out Data Pack (for version 1.20.5). Its main functionality is listed below.
                     <br>
                     <br>
@@ -98,15 +98,15 @@
                     <br>
                     <b style="font-size: 2.5vh">Meant to be paired with <a href="https://shared.gangdev.co/files/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack (1.20.5)</a></b>
                 </p>
-            </section>
+            
         </div>
 
-        <div class="fullw sect spacing">
-            <section >
+        <div class="sect">
+            
                 <h2>
                     <a href="https://shared.gangdev.co/files/minecraft/Unofficial_In-N-Out_Data_Pack_1.20.6_lvl_1.zip">The Unofficial In-N-Out Data Pack (Level 1) [1.20.6]</a>
                 </h2>
-                <p >
+                <p>
                     This is <u>THE</u> Unofficial In-N-Out Data Pack (for version 1.20.5). Its main functionality is listed below.
                     <br>
                     <br>
@@ -185,31 +185,31 @@
                 <br>
                 <b style="font-size: 2.5vh">Meant to be paired with <a href="https://shared.gangdev.co/files/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack (1.20.5)</a></b>
                 </p>
-            </section>
+            
         </div>
 
-        <div class="fullw sect spacing">
-            <section >
+        <div class="sect">
+            
                 <h2>
                     <a href="">IN PROGRESS</a>
                 </h2>
-                <p >
+                <p>
                     Coming soon...<br>
                     <br>
                     <b>UNKNOWN</b>
                 </p>
-            </section>
+            
         </div>
 
-        <div class="fullw sect spacing">
-            <section >
+        <div class="sect">
+            
                 <h2 style="color:red">
                     <b>Note:</b>
                 </h2>
-                <p >
+                <p>
                     In development.
                 </p>
-            </section>
+            
         </div>
 
         <?= $footer ?>

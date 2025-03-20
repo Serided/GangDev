@@ -7,6 +7,7 @@
         <?= $head ?>
     </head>
     <body>
+        <p style="color: red">yikes looks like im slacking u'll have to come back later :(</p>
         <!--<div class="navbar">
             <a class="navbtn" href="">hi</a><br>
             <a class="navbtn" href="">hi</a><br>

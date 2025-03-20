@@ -1,6 +1,6 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<title>Vivienne</title>
@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="../style.css">
 		<link rel="stylesheet" href="../css/vivienne.css">
 	</head>
-	<body class="main-p-vivienne fullw">
+	<body class="main-p-vivienne">
         <div class="windowRef" id="windowRef"></div>
         <div class="values" id="values"></div>
 

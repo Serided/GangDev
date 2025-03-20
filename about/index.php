@@ -7,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="style.css">
 	    <?= $head ?>
     </head>
-    <body class="main-p fullw">
+    <body>
         <?= $navbar ?>
         <?= $warn ?>
 

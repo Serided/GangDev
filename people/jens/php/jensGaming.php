@@ -1,18 +1,18 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Jens Be Gaming</title>
 	    <?= $head ?>
         <link rel="stylesheet" href="../style.css">
     </head>
-    <body class="jens-gaming fullw">
+    <body class="jens-gaming">
         <h1>
             Pizza Test
         </h1>
 
-        <div class="fullw sect">
+        <div class="sect">
             <div class="video-wrapper">
                 <button id="left-arrow"><</button>
                 <div class="video-track">

@@ -5,12 +5,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>OnlyFansies</title>
-        <!-- Link to Google Font - Nunito Sans (clean, modern, sans-serif) -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap" rel="stylesheet">
-        <!-- Link to external style.css -->
         <link rel="stylesheet" href="style.css">
         <link rel="icon" href="/img/favicon/favicon2-modified.png" sizes="32x32" type="image/x-icon">
-        <!-- Open Graph Meta Tags for rich preview -->
         <meta property="og:title" content="OnlyFansies - Exclusive Jens">
         <meta property="og:description" content="Join OnlyFansies for exclusive content of hot man.">
         <meta property="og:image" content="/img/favicon/favicon2.png">
@@ -18,19 +15,12 @@
         <meta property="og:type" content="website">
     </head>
     <body>
-        <header>
-            <h1>OnlyFansies</h1>
-        </header>
-        <main>
-            <section id="gallery">
-                <!-- Images will be dynamically inserted by JavaScript -->
-            </section>
-        </main>
+        <h1>OnlyFansies</h1>
+        <section id="gallery"></section>
         <footer>
             <p>© 2025 OnlyFansies, All Rights Reserved</p>
         </footer>
 
-        <!-- Link to external JavaScript file -->
         <script src="script.js"></script>
     </body>
 </html>

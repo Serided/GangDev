@@ -1,6 +1,6 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Jens Be Theorizing</title>
@@ -8,10 +8,10 @@
         <link rel="stylesheet" href="/css/jens/jens.css">
         <link rel="stylesheet" href="/css/jens/jensTheories.css">
     </head>
-    <body class="main-p-theory fullw">
+    <body class="main-p-theory">
         <?= $fader ?>
 
-        <div class="fullw spacing">
+        <div class="spacing">
             <div class="navbar-theory sect-theory">
                 <p class="txt">
                     I've been looking for answers my whole life.
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="fullw sect-theory spacing">
+        <div class="sect-theory">
             <p id="output" class="txt">Answer</p>
         </div>
 

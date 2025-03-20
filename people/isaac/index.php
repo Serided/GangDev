@@ -1,37 +1,37 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Isaac</title>
 	    <?= $head ?>
     </head>
-    <body class="main-p fullw">
+    <body>
         <?= $navbar ?>
 
         <h1>
             Isaac
         </h1>
 
-        <div class="fullw sect">
-            <section>
+        <div class="sect">
+            
                 <h2>Isaac</h2>
                 <p>
                     More about me later u silly billy
                 </p>
-            </section>
+            
         </div>
 
-        <div class="fullw sect spacing">
+        <div class="sect">
             <div>
-                <section>
+                
                     <h2>
                         Games
                     </h2>
-                    <p >
+                    <p>
                         <a href="https://gaming.gangdev.co/theBigOne" target="_blank">The Big One (Alpha)</a><br>
                     </p>
-                </section>
+                
             </div>
         </div>
 

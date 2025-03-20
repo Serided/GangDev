@@ -1,31 +1,31 @@
 <?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
   <head>
   <meta charset="UTF-8">
     <title>Roast Generator</title>
     <?= $head ?>
     <link rel="stylesheet" href="style.css">
   </head>
-  <body class="main-p fullw">
+  <body>
     <?= $navbar ?>
 
     <h1>
       Roast Generator
     </h1>
 
-    <div class="fullw sect">
-      <section>
+    <div class="sect">
+      
         <h2>Purpose?</h2>
         <p>
           If you ever need a clean way of crushing someone's soul in your meaty hands, you now have that.
         </p>
-      </section>
+      
     </div>
 
-    <div class="fullw sect spacing">
+    <div class="sect">
       <div>
-        <section>
+        
           <h2>
             <button id="btn" class="roastbtn roastbtntext" style="font-size: 15px">
               Push me to <br> <b style="font-size: 25px">Roast Yourself</b>
@@ -40,7 +40,7 @@
             </p>
           </div>
           <script src="script.js"></script>
-        </section>
+        
       </div>
     </div>
 

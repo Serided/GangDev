@@ -7,14 +7,14 @@
 	    <?= $head ?>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body class="main-p fullw">
+    <body>
         <?= $navbar ?>
 
         <h1>
             MMF Generator
         </h1>
 
-        <div class="">
+        <div class="cont sect ">
                 <h2>Functionality</h2>
                 <p>
                     The MMF Generator, or Minecraft Mass Forceload Generator, was created because Minecraft restricts the user to a max "/forceload" area of <b>65536 blocks</b>.<br>
@@ -24,9 +24,9 @@
                 </p>
         </div>
 
-        <div class="fullw sect spacing">
+        <div class="sect">
                 <h2>Generator</h2>
-                <p >
+                <p>
                     <div>
                         <input type="checkbox" id="sYN"> Forward Slash ( / )
                     </div><br>

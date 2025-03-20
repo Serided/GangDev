@@ -7,11 +7,12 @@
         <link rel="stylesheet" href="style.css">
         <?= $head ?>
 	</head>
-	<body class="main-p fullw">
+	<body>
         <?= $navbar ?>
         <?= $warn ?>
 
         <div class="sect cont entry">
+            <div class="bgWrapper"></div>
             <h1>
                 Apps
             </h1>
