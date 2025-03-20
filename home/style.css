@@ -12,8 +12,6 @@
     vertical-align: super;
 }
 
-.sect.cont#overview {
-}
 .sect.cont#overview h2 {
     font-weight: normal;
     font-size: calc(var(--scaling) * 1.9);
@@ -32,6 +30,10 @@
     border: none;
     background: white;
     border-radius: calc(var(--scaling) * 0.1);
+}
+
+.sect.cont#products div {
+    display: flex;
 }
 
 .sect.cont#overview p {
