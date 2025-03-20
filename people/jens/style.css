@@ -1,5 +1,5 @@
 :root {
-    --hexagonSize: calc(var(--scaling))
+    --hexagonSize: calc(var(--scaling) * 5)
 }
 
 .shimmer div.jens {
@@ -13,6 +13,7 @@
     font-weight: bold;
 }
 
+/* About Me Section (also known as overview */
 .sect.cont#overview {
     justify-content: flex-start;
 }
@@ -20,7 +21,6 @@
     font-size: calc(var(--scaling) * 3);
     margin-bottom: calc(var(--scaling) * 5);
 }
-
 .timeline {
     width: 100%;
     position: absolute;
@@ -91,6 +91,7 @@
     opacity: 1;
 }
 
+/* Expertise Section */
 #expertise {
     padding: calc(var(--scaling) * 2);
 }
@@ -100,7 +101,7 @@
 }
 .expSect {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(calc(var(--scaling) * 5), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(var(--hexagonSize), 1fr));
     gap: calc(var(--scaling) * 0.5);
     justify-items: center;
     align-items: start;
@@ -109,11 +110,13 @@
     margin-top: calc(var(--scaling) * 0.5);
 }
 .hexagon {
-    width: calc(var(--scaling) * 5);
-    height: calc(var(--scaling) * 5);
+    width: var(--hexagonSize);
+    /* Use aspect-ratio to enforce proper hexagon proportions:
+       A regular hexagon has a height equal to width * 0.866 */
+    aspect-ratio: 1 / 0.866;
     background-color: #000;
-    /* Create hexagon shape with clip-path */
-    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    /* Define a regular hexagon shape using clip-path */
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     display: flex;
     align-items: center;
     justify-content: center;
