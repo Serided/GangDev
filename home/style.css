@@ -34,13 +34,13 @@
 
 .sect.cont#products h2 {
     font-size: calc(var(--scaling) * 2.2);
-    margin-bottom: calc(var(--scaling) * 1);
+    margin-bottom: calc(var(--scaling) * 0.5);
 }
 .sect.cont#products a {
     color: #F7CBA4;
 }
 .sect.cont#products a b {
-    color: lawngreen;
+    color: lightgreen;
 }
 .sect.cont#products .columns {
     width: 100%;
