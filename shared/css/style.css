@@ -36,7 +36,8 @@
 * {
   margin: 0;
   box-sizing: border-box;
-  font-family: "Fredoka", serif;
+  /*font-family: "Fredoka", serif;*/
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -139,7 +140,7 @@ body {
   color: white
 }
 
-h1.shimmer-txt {
+h1.shimmerText {
   color: black;
   position: relative;
   display: inline-block;
@@ -147,7 +148,7 @@ h1.shimmer-txt {
   transition: all 0.3s ease;
   text-align: center;
 }
-h1.shimmer-txt:hover {
+h1.shimmerText:hover {
   color: transparent;
   transform: scale(1.01);
   background: linear-gradient(90deg, black, white, black);

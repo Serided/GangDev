@@ -13,7 +13,10 @@
 
         <div class="sect cont entry">
             <div class="bgWrapper"></div>
-            <h1 class="title">
+            <div class="shimmer">
+                <div style="background-image: url("https://gangdev.co/shared/")"></div>
+            </div>
+            <h1 class="shimmerText">
                 Jens
                 <a href="php/vivienne.php" class="vivienne">&nbsp+ Vivienne</a>
             </h1>

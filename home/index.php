@@ -17,7 +17,7 @@
                 <div class="logo"></div>
             </div>
             <div>
-                <h1 class="shimmer-txt">
+                <h1 class="shimmerText">
                     Gang<b>DEV</b><span class="trademark">&trade;</span>
                 </h1>
             </div>

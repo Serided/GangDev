@@ -49,7 +49,7 @@ if ($userId) {
             </div>
             <input type="file" id="iconFile" accept="image/*" style="display: none;">
             <div>
-                <h1 class="shimmer-txt">
+                <h1 class="shimmerText">
                     Welcome, <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b>!
                 </h1>
             </div>
@@ -58,7 +58,7 @@ if ($userId) {
                 <div class="icon"></div>
             </div>
             <div>
-                <h1 class="shimmer-txt">
+                <h1 class="shimmerText">
                     ^<br>this could b u
                 </h1>
             </div>
