@@ -94,7 +94,7 @@
                     <div><textarea name="message" id="message" rows="5" maxlength="1000" required></textarea></div>
 	                <?php else: ?>
                     <label for="message">Message:</label><br>
-                    <div><textarea name="message" id="message" rows="5" maxlength="2500" required></textarea></div>
+                    <div><textarea name="message" id="message" rows="7" maxlength="2500" style="width: " required></textarea></div>
                     <?php endif; ?>
                 </div>
                 <div><button type="submit">Send</button></div>
