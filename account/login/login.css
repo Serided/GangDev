@@ -67,7 +67,7 @@ form label {
     font-size: calc(var(--scaling) * 1);
 }
 .inputContainer {
-    width: calc(var(--scaling) * 12);
+    width: calc(var(--scaling) * 10);
     justify-items: left;
     text-align: left;
 }
