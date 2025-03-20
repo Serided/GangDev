@@ -86,6 +86,7 @@ form label {
     width: calc(var(--scaling) * 10);
 }
 .inputContainer.signup input {
+    min-width: 100%;
     height: calc(var(--scaling) * 1.3);
     font-size: calc(var(--scaling) * 0.9);
 }
