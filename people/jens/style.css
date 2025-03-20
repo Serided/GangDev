@@ -25,12 +25,8 @@
 .timeline::before {
     content: "";
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 20%;
-    width: calc(var(--scaling) * 0.1);
+    width: 90%;
     background: #ccc;
-    transform: translateX(-50%);
 }
 .timelineItem {
     width: 50%;
@@ -45,7 +41,6 @@
     text-align: left;
 }
 .timelineMarker {
-    position: absolute;
     top: calc(var(--scaling) * 0.5);
     width: calc(var(--scaling) * 0.2);
     height: calc(var(--scaling) * 0.2);
