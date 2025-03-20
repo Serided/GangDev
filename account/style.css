@@ -48,7 +48,6 @@
 #cropConfirm {
     position: absolute;
     bottom: 5vh;
-    font-family: "Fredoka", serif;
     text-decoration: none;
     cursor: pointer;
     background: darkgray;
@@ -76,7 +75,6 @@
 }
 
 .button {
-    font-family: "Fredoka", serif;
     background: darkgray;
     color: white;
     border: none;

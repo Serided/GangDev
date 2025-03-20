@@ -7,7 +7,6 @@ input[type=text] {
     height: 2.3vh;
     box-sizing: border-box;
     border: solid gray 1px;
-    font-family: "Fredoka", serif;
 }
 
 input {
@@ -36,7 +35,6 @@ input {
     border-radius: .5vh;
     text-decoration: none;
     font-size: 22px;
-    font-family: "Fredoka", serif;
     cursor: pointer;
     font-weight: bold;
     border: solid black .3vh;

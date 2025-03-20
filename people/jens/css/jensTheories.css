@@ -20,7 +20,6 @@ navbar-theory {
 }
 
 .btn-theory {
-    font-family: "Arial";
     /* background-color: rgba(251,127,77,.85); */
     background-color: gray;
     border-radius: 2px;
@@ -42,5 +41,4 @@ navbar-theory {
 
 .txt {
     color: white;
-    font-family: "Arial", serif;
 }

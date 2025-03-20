@@ -15,7 +15,6 @@
     html {
       color: #888;
       display: table;
-      font-family: sans-serif;
       height: 100%;
       text-align: center;
       width: 100%;
