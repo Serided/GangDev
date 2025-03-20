@@ -17,7 +17,7 @@
 }
 
 .sect.cont#overview {
-    align-items: normal;
+    align-items: flex-start;
 }
 .sect.cont#overview h2 {
     font-size: calc(var(--scaling) * 3);
