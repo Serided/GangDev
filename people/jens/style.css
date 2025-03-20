@@ -20,13 +20,14 @@
     width: 100%;
     margin: calc(var(--scaling) * 1) auto;
     padding: calc(var(--scaling) * 1);
+    display: flex;
 }
 .timeline::before {
     content: "";
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 50%;
+    left: 20%;
     width: calc(var(--scaling) * 0.1);
     background: #ccc;
     transform: translateX(-50%);
@@ -49,7 +50,7 @@
     width: calc(var(--scaling) * 0.2);
     height: calc(var(--scaling) * 0.2);
     background: white;
-    border: calc(var(--scaling) * 0.1) solid #FF5722;
+    border: calc(var(--scaling) * 0.1) solidFF5722;
     border-radius: 50%;
     z-index: 1;
 }
