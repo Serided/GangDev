@@ -52,5 +52,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     changeBackground();
-    setInterval(changeBackground, (10 * 1000));
+    setInterval(changeBackground, (30 * 1000));
 });

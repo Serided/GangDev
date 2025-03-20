@@ -104,6 +104,7 @@ html, body {
 .sect.cont.entry {
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 .sect.cont.entry h1 {
   font-size: calc(var(--scaling) * 2);
