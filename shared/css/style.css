@@ -45,6 +45,11 @@ html, body {
 
 .warning {
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  box-sizing: border-box;
   background: #fff3cd;
   z-index: 5000;
   padding: calc(var(--scaling) * 0.3) calc(var(--scaling) * 1) !important;
