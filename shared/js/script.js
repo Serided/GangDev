@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    let defaultIndex = Math.floor(Math.random() * backgrounds.length);
-    entryDiv.style.backgroundImage = "url('" + backgrounds[defaultIndex] + "')"
+    //let defaultIndex = Math.floor(Math.random() * backgrounds.length);
+    //entryDiv.style.backgroundImage = "url('" + backgrounds[defaultIndex] + "')"
 
     function changeBackground() {
         let randomIndex = Math.floor(Math.random() * backgrounds.length);
