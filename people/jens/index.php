@@ -33,9 +33,9 @@
                     </div>
                     <div class="timelineDetails">
                         <p></p>
-                        <ol>
+                        <ul>
                             <li></li>
-                        </ol>
+                        </ul>
                     </div>
                 </div>
                 <div class="timelineItem">
@@ -47,13 +47,13 @@
                         <p>
                             At In‑N‑Out Burger, known for exceptional quality and service, I developed key skills:
                         </p>
-                        <ol>
+                        <ul>
                             <li>Operated registers, drive‑thru, fry, and prep stations.</li>
                             <li>Provided efficient service in high‑volume settings.</li>
                             <li>Trained teammates to foster leadership.</li>
                             <li>Upheld strict food safety and cleanliness.</li>
                             <li>Excelled in problem‑solving under pressure.</li>
-                        </ol>
+                        </ul>
                     </div>
                 </div>
                 <div class="timelineItem">
@@ -63,9 +63,9 @@
                     </div>
                     <div class="timelineDetails">
                         <p></p>
-                        <ol>
+                        <ul>
                             <li></li>
-                        </ol>
+                        </ul>
                     </div>
                 </div>
                 <div class="timelineItem">
@@ -75,6 +75,9 @@
                     </div>
                     <div class="timelineDetails">
                         <p></p>
+                        <ul>
+                            <li></li>
+                        </ul>
                     </div>
                 </div>
             </div>
