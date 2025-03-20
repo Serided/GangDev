@@ -107,8 +107,8 @@
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: calc(var(--scaling) * 0.1);
-    box-shadow: calc(var(--scaling) * 0.02) calc(var(--scaling) * 0.45) gray;
+    border-radius: calc(var(--scaling) * 0.2);
+    box-shadow: calc(var(--scaling) * 0.02) calc(var(--scaling) * 0.045) gray;
     transition: all 0.2s ease;
 }
 .sect.cont#contact button:hover {
