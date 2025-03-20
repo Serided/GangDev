@@ -6,28 +6,9 @@
     --hexagon-margin-side: clamp(0.5vh, 2vw, 1vh);
 }
 
-.jens-gettin-buff {
-    background-image: url("https://shared.gangdev.co/files/img/jens/the_cave_three.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-
-    background-color: whitesmoke;
-    text-align: center;
-    margin: 0;
-    overflow-wrap: anywhere;
-}
-
-.jens-gaming {
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.5) 70%), url("/jens/files/img/background2.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-
-    background-color: whitesmoke;
-    text-align: center;
-    margin: 0;
-    overflow-wrap: anywhere;
+.shimmer div.jens {
+    background-image: url('https://gangdev.co/shared/files/img/jens/icon.webp');
+    border: calc(var(--scaling) * 0.2) solid gray;
 }
 
 .hexagon {
