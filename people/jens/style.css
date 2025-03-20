@@ -65,7 +65,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: dimgray;
+    color: black;
 }
 .timelineBox h3 {
     font-size: calc(var(--scaling) * 1);
@@ -77,7 +77,7 @@
 .timelineDetails {
     opacity: 0;
     transition: opacity 0.3s ease;
-    color: gray;
+    color: dimgray;
     font-size: calc(var(--scaling) * 0.5);
 }
 .timelineItem:hover .timelineDetails {
