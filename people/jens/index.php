@@ -88,18 +88,17 @@
                             <li>Developing scalable, high-performance, and secure solutions.</li>
                             <li><strong>Building a brand and online presence, establishing GangDev in the tech industry.</strong></li>
                         </ul>
-
                     </div>
                 </div>
             </div>
+            <p>Testing</p>
         </div>
 
         <div class="sect cont three">
             <div>
                 <h2>Expertise</h2>
-                <p class="caption">
+                <p>
                     I have a vast array of experience in computer science.
-                    <h3 style="color: red"> WARNING: THE FORMAT IS A <u>LITTLE GOOFY</u> IMMA MAKE IT LOOK GOOD ASAP.</h3>
                 </p>
             </div>
             <div class="exp-sect">
