@@ -21,6 +21,7 @@
 }
 .sect.cont#overview h2 {
     font-size: calc(var(--scaling) * 3);
+    margin-bottom: calc(var(--scaling) * 5);
 }
 
 .timeline {
