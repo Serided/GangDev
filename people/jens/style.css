@@ -67,11 +67,11 @@
     color: black;
 }
 .timelineBox h3 {
-    font-size: calc(var(--scaling) * 0.5);
+    font-size: calc(var(--scaling) * 1);
     height: calc(var(--scaling) * 0.5);
 }
 .timelineBox p {
-    font-size: calc(var(--scaling) * 0.2);
+    font-size: calc(var(--scaling) * 0.5);
 }
 .timelineDetails {
     padding: calc(var(--scaling) * 0.5);

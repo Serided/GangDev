@@ -26,7 +26,7 @@
         <div class="sect cont two" id="overview">
             <h2>Snitches Get Stitches;<br><b>Merge Conflicts Get Fixes</b></h2>
             <hr>
-            <p>
+            <p class="desc">
                 At <b>GangDev</b>, we run this code like a <b>tight crew</b>—no loose ends, no weak links.
                 When a bug steps out of line, we take it out <i>real quick</i>. Our <b>AI? Smarter than your average snitch</b>.
                 Our <b>games? More addictive than a turf war</b> over high scores. And our <b>software?

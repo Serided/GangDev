@@ -132,7 +132,7 @@ body {
 .sect.cont h2 {
   font-size: calc(var(--scaling) * 1);
 }
-.sect.cont p {
+.sect.cont p.desc {
   font-size: calc(var(--scaling) * 0.8);
 }
 
