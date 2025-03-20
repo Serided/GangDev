@@ -12,7 +12,7 @@
 }
 
 .arrow {
-    font-size: calc(var(--scaling) * 2);
+    font-size: calc(var(--scaling) * 0.4);
     height: calc(var(--scaling) * 0.2);
     font-weight: bold;
 }
