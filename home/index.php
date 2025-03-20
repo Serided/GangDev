@@ -89,10 +89,10 @@
                     <div class="info"><input name="name" id="name" type="text" required></div>
                     <label for="email">Email:</label><br>
                     <div class="info"><input name="email" id="name" type="email" required></div>
+                    <label for="message"></label>
+                    <textarea name="message" id="name" rows="5" required></textarea>
                 </div>
-                <label for="message"></label>
-                <textarea name="message" id="name" rows="5" required></textarea>
-                <button type="submit">Send</button>
+                <div><button type="submit">Send</button></div>
             </form>
         </div>
 
