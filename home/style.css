@@ -71,7 +71,7 @@
 
 .sect.cont#contact h2 {
     font-size: calc(var(--scaling) * 2.5);
-    height: calc(var(--scaling) * 2.3);
+    height: calc(var(--scaling) * 2.5);
 }
 .sect.cont#contact h3 {
     font-size: calc(var(--scaling) * 1);
@@ -82,7 +82,6 @@
 }
 .sect.cont#contact label {
     font-size: calc(var(--scaling) * 0.8);
-    height: calc(var(--scaling) * 0.2);
 }
 .sect.cont#contact .info {
     width: calc(var(--scaling) * 15);
