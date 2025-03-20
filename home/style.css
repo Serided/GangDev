@@ -45,7 +45,7 @@
 }
 .sect.cont#products .columns div {
     width: 33.3333%;
-    padding: calc(var(--scaling) * 3) calc(var(--scaling) * 0.75);
+    padding: calc(var(--scaling) * 2) calc(var(--scaling) * 0.75);
 }
 .sect.cont#products .columns .games {
     padding: calc(var(--scaling) * 0.75) auto;
