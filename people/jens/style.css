@@ -58,7 +58,7 @@
     z-index: 1;
 }
 .timelineItem:hover {
-    max-height: calc(var(--scaling) * 70vh);
+    max-height: 70vh;
 }
 .timelineBox {
     display: flex;
@@ -80,6 +80,9 @@
     transition: opacity 0.3s ease;
     color: dimgray;
     font-size: calc(var(--scaling) * 0.5);
+}
+.timelineDetails {
+    padding-left: calc(var(--scaling) * 0.5);
 }
 .timelineItem:hover {
     max-height: calc(var(--scaling) * 15);
