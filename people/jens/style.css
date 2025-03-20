@@ -92,15 +92,11 @@
 }
 
 /* Expertise Section */
-#expertise {
-    padding: calc(var(--scaling) * 2);
-}
-#expertise h2 {
-    text-align: center;
-    margin-bottom: calc(var(--scaling) * 2);
+.sect.cont#expertise h2 {
+    font-size: calc(var(--scaling) * 2.5);
 }
 .expSect {
-    display: grid;
+    display: inline-grid;
     grid-template-columns: repeat(auto-fit, minmax(var(--hexagonSize), 1fr));
     gap: calc(var(--scaling) * 0.5);
     justify-items: center;
