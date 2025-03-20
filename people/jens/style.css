@@ -80,10 +80,7 @@
     color: dimgray;
     font-size: calc(var(--scaling) * 0.5);
 }
-.timelineDetauls p {
-    text-align: center;
-}
-.timelineDetails ol {
+.timelineDetails ul {
     font-style: italic;
     text-align: left;
     padding-left: calc(var(--scaling) * 1);
