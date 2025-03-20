@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // entry background images
   if (typeof backgrounds === 'undefined' || !backgrounds.length) {
-    console.error('No backgrounds found.');
+    console.error('No backgrounds found:', backgrounds);
     return;
   }
 
