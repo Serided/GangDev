@@ -40,7 +40,7 @@
     background: white;
 }
 .timelineItem {
-    max-width: 20%;
+    width: 20%;
     padding: calc(var(--scaling) * 1);
 }
 .timelineMarker {
