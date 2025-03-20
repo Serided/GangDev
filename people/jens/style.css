@@ -26,58 +26,52 @@
 .timeline {
     width: 100%;
     position: absolute;
-    margin-top: calc(var(--scaling) * 4);
+    top: calc(var(--scaling) * 4);
     padding: calc(var(--scaling) * 1);
-    justify-content: center;
     display: flex;
+    justify-content: center;
+    pointer-events: auto;
 }
 .timeline::before {
     content: "";
     position: absolute;
-    width: 90%;
+    top: 50%;
+    left: 5%;
+    right: 5%;
     height: calc(var(--scaling) * 0.3);
     border-radius: calc(var(--scaling) * 0.1);
     background: white;
+    z-index: 0;
 }
 .timelineItem {
     position: relative;
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-    width: 20%;
-    margin: 0 2%;
-}
-.timelineMarker {
-    width: calc(var(--scaling) * 0.4);
-    height: calc(var(--scaling) * 0.4);
-    background: white;
-    border: calc(var(--scaling) * 0.1) solid gray;
-    border-radius: 50%;
+    width: calc(var(--scaling) * 10);  /* example width */
+    margin: 0 calc(var(--scaling) * 0.5);
+    text-align: center;
+    background: #f9f9f9;
+    border-radius: calc(var(--scaling) * 0.2);
+    transition: height 0.3s ease;
+    height: calc(var(--scaling) * 4);  /* default height showing title/dates */
+    overflow: hidden;
     z-index: 1;
 }
-.timelineContent {
-    width: 100%;
-    top: 100%;
-    background: #f9f9f9;
-    padding: calc(var(--scaling) * 1);
-    border-radius: calc(var(--scaling) * 0.1);
-    position: absolute;
-    transition: background 0.3s ease;
+.timelineItem:hover {
+    height: calc(var(--scaling) * 12); /* expanded height; adjust as needed */
 }
-.tTitle {
-    font-size: calc(var(--scaling) * 0.75);
+.timelineBox {
+    height: calc(var(--scaling) * 4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-.tDescription {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    font-size: calc(var(--scaling) * 0.4);
+.timelineDetails {
+    padding: calc(var(--scaling) * 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
-.timelineItem:hover .description {
-    max-height: calc(var(--scaling) * 4);
-}
-.timelineItem:hover .timelineContent {
-    background: #e0e0e0;
+.timelineItem:hover .timelineDetails {
+    opacity: 1;
 }
 
 .hexagon {

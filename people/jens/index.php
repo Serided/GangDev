@@ -27,64 +27,55 @@
             <h2>About Me</h2>
             <div class="timeline">
                 <div class="timelineItem">
-                    <div class="timelineMarker"></div>
-                    <div class="timelineContent">
-                        <div>
-                            <h3>Customer Service</h3>
-                            <h3>Jun. 2022 - Aug. 2022</h3>
-                        </div>
-                        <div class="description">
-                            <p></p>
-                            <ol>
-                                <li></li>
-                            </ol>
-                        </div>
+                    <div class="timelineBox">
+                        <h3>Customer Service</h3>
+                        <p>Jun. 2022 - Aug. 2022</p>
+                    </div>
+                    <div class="timelineDetails">
+                        <p></p>
+                        <ol>
+                            <li></li>
+                        </ol>
                     </div>
                 </div>
                 <div class="timelineItem">
-                    <div class="timelineMarker"></div>
-                    <div class="timelineContent">
-                        <div class="tTitle">
-                            <h3>In-N-Out</h3>
-                            <h3>Nov. 2022 - May 2024</h3>
-                        </div>
-                        <div class="tDescription">
-                            <p>
-                                Known for their exceptional quality, fresh ingredients, and immaculate customer service,
-                                In-N-Out burger hired me and helped me develop and deliver high value skills:
-                            </p>
-                            <ol>
-                                <li>Operated multiple stations, including register, drive-thru, fry station, and food prep, ensuring speed and accuracy.</li>
-                                <li>Provided exceptional customer service in a high-volume, fast-paced environment.</li>
-                                <li>Developed leadership and teamwork skills, assisting in training and supporting coworkers.</li>
-                                <li>Maintained strict food safety and cleanliness standards while handling transactions with accuracy.</li>
-                                <li>Thrived under pressure, demonstrating problem-solving and multitasking abilities.</li>
-                            </ol>
-                        </div>
+                    <div class="timelineBox">
+                        <h3>In-N-Out</h3>
+                        <p>Nov. 2022 - May 2024</p>
+                    </div>
+                    <div class="timelineDetails">
+                        <p>
+                            Known for their exceptional quality, fresh ingredients, and immaculate customer service,
+                            In-N-Out burger hired me and helped me develop and deliver high value skills:
+                        </p>
+                        <ol>
+                            <li>Operated multiple stations, including register, drive-thru, fry station, and food prep, ensuring speed and accuracy.</li>
+                            <li>Provided exceptional customer service in a high-volume, fast-paced environment.</li>
+                            <li>Developed leadership and teamwork skills, assisting in training and supporting coworkers.</li>
+                            <li>Maintained strict food safety and cleanliness standards while handling transactions with accuracy.</li>
+                            <li>Thrived under pressure, demonstrating problem-solving and multitasking abilities.</li>
+                        </ol>
                     </div>
                 </div>
                 <div class="timelineItem">
-                    <div class="timelineMarker"></div>
-                    <div class="timelineContent">
-                        <div>
-                            <h3>Mechanic</h3>
-                            <h3>Jul. 2024 - Oct. 2024</h3>
-                        </div>
-                        <div class="description">
-                            <p></p>
-                            <ol>
-                                <li></li>
-                            </ol>
-                        </div>
+                    <div class="timelineBox">
+                        <h3>Mechanic</h3>
+                        <p>Jul. 2024 - Oct. 2024</p>
+                    </div>
+                    <div class="timelineDetails">
+                        <p></p>
+                        <ol>
+                            <li></li>
+                        </ol>
                     </div>
                 </div>
                 <div class="timelineItem">
-                    <div class="timelineMarker"></div>
-                    <div class="timelineContent">
+                    <div>
                         <h3>Startup</h3>
-                        <div>
-                            <p></p>
-                        </div>
+                        <p>Nov. 2024 - Present</p>
+                    </div>
+                    <div class="timelineDetails">
+                        <p></p>
                     </div>
                 </div>
             </div>
