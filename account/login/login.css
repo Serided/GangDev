@@ -92,6 +92,7 @@ form label {
 
 .forgot {
     width: 100%;
+    display: flex;
     justify-content: right;
 }
 
