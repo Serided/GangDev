@@ -28,6 +28,7 @@
     position: absolute;
     margin-top: calc(var(--scaling) * 4);
     padding: calc(var(--scaling) * 1);
+    justify-content: center;
     display: flex;
 }
 .timeline::before {
@@ -36,7 +37,7 @@
     width: 90%;
     height: calc(var(--scaling) * 0.3);
     border-radius: calc(var(--scaling) * 0.1);
-    background: #ccc;
+    background: white;
 }
 .timelineItem {
     max-width: 20%;
