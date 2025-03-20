@@ -84,7 +84,7 @@
             <!-- add a form -->
             <h2>Contact</h2>
             <a href="mailto:company@gangdev.co">(company@gangdev.co)</a>
-            <form action="https://account.gangdev.co/process_contact.php" method="post">
+            <form action="/shared/php/process_contact.php" method="post">
                 <div class="details">
 	                <?php if (!isset($_SESSION["user_id"])): ?>
                     <label for="email">Email:</label><br>
