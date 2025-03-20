@@ -40,6 +40,7 @@
     background: white;
 }
 .timelineItem {
+    justify-content: center;
     width: 20%;
     margin: 2%;
 }
@@ -52,8 +53,7 @@
     z-index: 1;
 }
 .timelineContent {
-    justify-content: center;
-    width: 20%;
+    width: inherit;
     background: #f9f9f9;
     padding: calc(var(--scaling) * 1);
     border-radius: calc(var(--scaling) * 0.1);
