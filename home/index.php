@@ -24,22 +24,14 @@
         </div>
 
         <div class="sect cont two" id="overview">
-            <h2>Overview</h2>
+            <h2>Snitches Get Stitches; Merge Conflicts Get Fixes</h2>
             <p>
-                GangDev is a leading company in the field of game, app, and web development,<br>
-                founded by visionary entrepreneur <b>Jens Hansen</b>.<br>
-                With a strong commitment to innovation, creativity, and excellence,<br>
-                GangDev has established itself as a trusted partner for individuals and businesses<br>
-                seeking cutting-edge solutions in the digital realm.
-            </p>
-            <h2>Mission Statement</h2>
-            <p>
-                At GangDev, our mission is to empower individuals and businesses<br>
-                with transformative digital solutions that inspire, engage, and elevate.<br>
-                We are dedicated to harnessing the latest technologies and creative methodologies<br>
-                to deliver immersive experiences that resonate with audiences worldwide.<br>
-                With a focus on innovation, collaboration, and client satisfaction,<br>
-                we strive to exceed expectations and drive success for our partners.
+                At <b>GangDev</b>, we run this code like a <b>tight crew</b>—no loose ends, no weak links.
+                When a bug steps out of line, we take it out <i>real quick</i>. Our <b>AI? Smarter than your average snitch</b>.
+                Our <b>games? More addictive than a turf war</b> over high scores. And our <b>software?
+                Built so solid, it’s basically bulletproof</b>. We don’t just <i>commit</i> code; we <b>make power moves</b>.
+                We don’t just <i>refactor</i>; we <b>put sloppy scripts in their place</b>. So if you’re looking for <b>clean code,
+                big energy, and a dev gang that never sleeps</b>—welcome to <b>GangDev</b>, where we <b>deploy fast and commit for life</b>.
             </p>
         </div>
 
