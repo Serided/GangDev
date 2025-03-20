@@ -95,14 +95,16 @@
                 With hands-on experience in <strong>cloud computing</strong>, <strong>DevOps</strong>,
                 and <strong>server administration</strong>, I run my own infrastructure, manage large-scale projects,
                 and have contributed to <i>collaborative open-source development</i>.<br><br>
-                My biggest achievements include founding <strong>GangDev</strong>—a company built on <i>work ethic,
-                    efficiency, and scalable solutions</i>—as well as engineering a high-performance web platform and
-                developing large-scale procedural game mechanics and optimizations to enhance scalability, AI behavior,
-                and in-game systems.<br><br>
+
+                My biggest achievements include founding <strong>GangDev</strong>—a company built on
+                <i>work ethic, efficiency, and scalable solutions</i>—as well as engineering a high-performance web
+                platform and developing large-scale procedural game mechanics and optimizations to <strong>enhance scalability,
+                AI behavior, and in-game systems</strong>.<br><br>
+
                 My goal is to scale <strong>GangDev</strong> into a trademarked, mid-sized development company
                 generating seven to eight figures annually through <i>innovative digital products</i>. Whether working
-                solo or with a team, I bring a <strong>problem-solving mindset, deep technical expertise</strong>,
-                and relentless drive to every project.
+                solo or with a team, I bring a <strong>problem-solving mindset, deep technical expertise,
+                and relentless drive to every project</strong>.
             </p>
         </div>
 
