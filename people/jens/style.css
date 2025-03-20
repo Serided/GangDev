@@ -45,18 +45,19 @@
 }
 .timelineItem {
     position: relative;
-    width: calc(var(--scaling) * 10);  /* example width */
+    width: calc(var(--scaling) * 10);
     margin: 0 calc(var(--scaling) * 0.5);
+    padding-bottom: calc(var(--scaling) * 0.5);
     text-align: center;
     background: #f9f9f9;
     border-radius: calc(var(--scaling) * 0.2);
     transition: height 0.3s ease;
-    height: calc(var(--scaling) * 2);  /* default height showing title/dates */
+    height: calc(var(--scaling) * 2);
     overflow: hidden;
     z-index: 1;
 }
 .timelineItem:hover {
-    height: calc(var(--scaling) * 12); /* expanded height; adjust as needed */
+    height: calc(var(--scaling) * 12);
 }
 .timelineBox {
     display: flex;
@@ -77,7 +78,6 @@
     transition: opacity 0.3s ease;
     color: gray;
     font-size: calc(var(--scaling) * 0.5);
-    padding: calc(var(--scaling) * 0.5);
 }
 .timelineItem:hover .timelineDetails {
     opacity: 1;
