@@ -35,7 +35,7 @@
 .timeline::before {
     content: "";
     position: absolute;
-    top: calc(var(--scaling) * 3);
+    top: calc(var(--scaling) * 1.5);
     left: 5%;
     right: 5%;
     height: calc(var(--scaling) * 0.3);
