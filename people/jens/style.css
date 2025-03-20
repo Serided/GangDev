@@ -51,7 +51,7 @@
     background: #f9f9f9;
     border-radius: calc(var(--scaling) * 0.2);
     transition: height 0.3s ease;
-    height: calc(var(--scaling) * 4);  /* default height showing title/dates */
+    height: calc(var(--scaling) * 1.2);  /* default height showing title/dates */
     overflow: hidden;
     z-index: 1;
 }
@@ -59,7 +59,7 @@
     height: calc(var(--scaling) * 12); /* expanded height; adjust as needed */
 }
 .timelineBox {
-    height: calc(var(--scaling) * 2.5);
+    height: calc(var(--scaling) * 1.2);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -78,10 +78,10 @@
     transition: opacity 0.3s ease;
     color: gray;
     font-size: calc(var(--scaling) * 0.5);
+    padding: calc(var(--scaling) * 0.5);
 }
 .timelineItem:hover .timelineDetails {
     opacity: 1;
-    padding: calc(var(--scaling) * 0.5);
 }
 
 .hexagon {
