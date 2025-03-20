@@ -8,8 +8,9 @@
     font-size: calc(var(--scaling) * 0.5);
 }
 
-.icon {
+.sect.cont.entry div div {
     border: calc(var(--scaling) * 0.2) solid gray;
+    background: darkgray;
 }
 
 .info {
