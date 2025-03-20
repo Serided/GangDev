@@ -17,13 +17,15 @@
 .sect.cont#overview h2 {
     font-weight: bold;
     font-size: calc(var(--scaling) * 2);
-    margin: calc(var(--scaling) * 1) 0;
+    margin-bottom: calc(var(--scaling) * 2);
 }
 .sect.cont#overview h2 b {
     font-weight: bolder;
 }
 .sect.cont#overview hr {
-    width: calc(var(--scaling) * 2);
+    width: calc(var(--scaling) * 20);
+    height: calc(var(--scaling) * 1);
+    margin-bottom: calc(var(--scaling) * 2);
     color: darkgray;
 }
 
