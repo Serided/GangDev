@@ -21,10 +21,12 @@
 			</p>
 			<form action="recover_username.php" method="post" class="mTop">
 				<label for="email">Email: </label>
-                <div class="inputContainer">
-                    <input type="email" id="email" name="email" required>
+                <div style="display: flex;">
+                    <div class="inputContainer">
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <button type="submit" class="submit">Ya</button>
                 </div>
-				<button type="submit" class="submit">Ya</button>
 			</form>
 		</div>
 	</body>
