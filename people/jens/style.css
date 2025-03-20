@@ -84,8 +84,9 @@
     text-align: center;
 }
 .timelineDetails ol {
+    font-style: italic;
     text-align: left;
-    padding: calc(var(--scaling) * 1);
+    padding-left: calc(var(--scaling) * 1);
 }
 .timelineItem:hover {
     max-height: calc(var(--scaling) * 15);
