@@ -87,6 +87,8 @@
             <form action="/shared/php/process_contact.php" method="post">
                 <div class="details">
 	                <?php if (!isset($_SESSION["user_id"])): ?>
+                    <label for="name">Name: *</label><br>
+                    <div class="info"><input name="name" id="name" type="text" required></div>
                     <label for="email">Email:</label><br>
                     <div class="info"><input name="email" id="email" type="email"></div>
                     <label for="message">Message: *</label><br>

@@ -1,3 +1,4 @@
+<!--
 <div class="sect altCont warning">
       <h2>
           <u>Warning</u>
@@ -6,3 +7,4 @@
           Formatting is a mess. Links work, most pages will be an eyesore. Nice images tho.
       </p>
 </div>
+-->
