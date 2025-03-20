@@ -92,7 +92,7 @@ form label {
 
 .forgot {
     width: 100%;
-    justify-content: left;
+    justify-items: left;
 }
 
 .forgot a {
