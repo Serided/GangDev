@@ -40,6 +40,7 @@
     background: white;
 }
 .timelineItem {
+    position: relative;
     justify-content: center;
     align-items: center;
     height: fit-content;
@@ -55,7 +56,8 @@
     z-index: 1;
 }
 .timelineContent {
-    width: inherit;
+    width: 100%;
+    top: 100%;
     background: #f9f9f9;
     padding: calc(var(--scaling) * 1);
     border-radius: calc(var(--scaling) * 0.1);
