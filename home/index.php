@@ -39,14 +39,14 @@
 
         <div class="sect cont three" id="products">
             <div class="columns">
-                <div>
+                <div class="mods">
                     <h2>Mods</h2>
                     <p>
                         <a href="https://mods.gangdev.co/minecraft/php/resource_packs">Minecraft (Resource Packs)</a><br>
                         <a href="https://mods.gangdev.co/minecraft/php/data_packs">Minecraft (Data Packs)</a><br>
                     </p>
                 </div>
-                <div>
+                <div class="games">
                     <h2>Games</h2>
                     <p>
                         <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine (Alpha)</a><br>
@@ -57,7 +57,7 @@
                         <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game (Beta)</a><br>
                     </p>
                 </div>
-                <div>
+                <div class="apps">
                     <h2>Apps</h2>
                     <p>
                         <a href="https://apps.gangdev.co/roastGenerator/">Roast Generator</a><br>

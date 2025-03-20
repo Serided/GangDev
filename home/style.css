@@ -23,7 +23,7 @@
     font-weight: bolder;
 }
 .sect.cont#overview hr {
-    width: calc(var(--scaling) * 25);
+    width: calc(var(--scaling) * 18);
     height: calc(var(--scaling) * 0.2);
     margin-bottom: calc(var(--scaling) * 1.5);
     color: darkgray;
@@ -45,6 +45,10 @@
 }
 .sect.cont#products .columns div {
     width: 33.3333%;
+    padding: calc(var(--scaling) * 0.5) calc(var(--scaling) * 0.1);
+}
+.sect.cont#products .columns .games {
+    padding: calc(var(--scaling) * 0.1) auto;
 }
 
 .sect.cont#overview p {
