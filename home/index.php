@@ -85,7 +85,7 @@
             <h2>Contact</h2>
             <form action="contact.php" method="post">
                 <div class="details">
-                    <label for="name">Name/Display Name:</label><br>
+                    <label for="name">Name:</label><br>
                     <div class="info"><input name="name" id="name" type="text" required></div>
                     <label for="email">Email:</label><br>
                     <div class="info"><input name="email" id="name" type="email" required></div>

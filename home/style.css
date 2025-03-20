@@ -23,7 +23,7 @@
     font-weight: bolder;
 }
 .sect.cont#overview hr {
-    width: calc(var(--scaling) * 18);
+    width: calc(var(--scaling) * 15);
     height: calc(var(--scaling) * 0.2);
     margin-bottom: calc(var(--scaling) * 1.5);
     color: darkgray;
@@ -99,5 +99,18 @@
     border: calc(var(--scaling) * 0.01) solid gray;
 }
 .sect.cont#contact button {
-    margin: calc(var(--scaling) * 0.5) auto;
+    font-size: calc(var(--scaling) * 1);
+    padding: calc(var(--scaling) * 0.5) calc(var(--scaling) * 0.7);
+    margin: calc(var(--scaling) * 1) auto;
+    background: darkgray;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: calc(var(--scaling) * 0.5);
+    box-shadow: calc(var(--scaling) * 0.05) calc(var(--scaling) * 0.1) gray;
+    transition: all 0.2s ease;
+}
+.sect.cont#contact button:hover {
+    transform: scale(1.05);
+    font-weight: bold;
 }
