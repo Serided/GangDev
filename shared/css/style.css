@@ -46,7 +46,7 @@ html, body {
 .warning {
   position: fixed;
   width: 100%;
-  min-width: 100vw;
+  min-width: 1440px;
   background: #fff3cd;
   z-index: 5000;
   padding: calc(var(--scaling) * 0.3) calc(var(--scaling) * 1) !important;
