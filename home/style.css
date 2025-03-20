@@ -70,8 +70,12 @@
 }
 
 .sect.cont#contact label {
+    font-size: calc(var(--scaling) * 0.9);
 }
 .sect.cont#contact input {
+}
+.sect.cont#contact textarea {
+    resize: none;
 }
 .sect.cont#contact button {
 }

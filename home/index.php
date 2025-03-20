@@ -83,20 +83,17 @@
         <div class="sect cont one" id="contact">
             <!-- add a form -->
             <h2>Contact</h2>
-            <div>
-                <form action="contact.php" method="post">
-                    <label for="name">Name/Display Name:</label>
-                    <input name="name" id="name" type="text" placeholder="> Name" required>
-                    <label for="email">Email:</label>
-                    <input name="email" id="name" type="email" placeholder="> Email" required>
-                    <label for="message"></label>
-                    <textarea name="message" id="name" rows="5" required>> Type your heart away...</textarea>
-                    <button type="submit">Send</button>
-                </form>
-            </div>
-            <p>
-                <a href="mailto:company@gangdev.co">Email Us (company@gangdev.co)</a>
-            </p>
+            <form action="contact.php" method="post">
+                <div class="details">
+                    <label for="name">Name/Display Name:</label><br>
+                    <div class="info"><input name="name" id="name" type="text" required></div>
+                    <label for="email">Email:</label><br>
+                    <div class="info"><input name="email" id="name" type="email" required></div>
+                </div>
+                <label for="message"></label>
+                <textarea name="message" id="name" rows="5" required></textarea>
+                <button type="submit">Send</button>
+            </form>
         </div>
 
         <?= $footer ?>
