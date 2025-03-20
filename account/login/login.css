@@ -40,7 +40,6 @@ hr.signup {
     justify-items: center;
     align-content: center;
     display: inline-block;
-    width: calc(var(--scaling) * 17);
     background: #5ac8e3;
     box-shadow: 0 0 calc(var(--scaling) * 0.5) gray;
     border-radius: calc(var(--scaling) * 0.17);
@@ -68,7 +67,7 @@ form label {
     font-size: calc(var(--scaling) * 1);
 }
 .inputContainer {
-    width: calc(var(--scaling) * 7.5);
+    width: calc(var(--scaling) * 12);
     justify-items: left;
     text-align: left;
 }
@@ -99,7 +98,6 @@ form label {
     font-size: calc(var(--scaling) * 0.5);
     cursor: pointer;
     color: black;
-    position: absolute;
 }
 
 .create {
