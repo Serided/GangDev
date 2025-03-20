@@ -40,6 +40,7 @@ hr.signup {
     justify-items: center;
     align-content: center;
     display: inline-block;
+    max-width: fit-content;
     background: #5ac8e3;
     box-shadow: 0 0 calc(var(--scaling) * 0.5) gray;
     border-radius: calc(var(--scaling) * 0.17);
