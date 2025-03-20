@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	}
 
 	$fromEmail = 'company@gangdev.co';
-	$fromName = 'GangDev Contact Form';
+	$fromName = 'GangDev';
 
 	$toEmail = 'company@gangdev.co';
 	$toName = 'GangDev';
