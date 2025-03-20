@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="timelineItem">
-                    <div>
+                    <div class="timelineBox">
                         <h3>Startup</h3>
                         <p>Nov. 2024 - Present</p>
                     </div>

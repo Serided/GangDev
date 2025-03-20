@@ -64,6 +64,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: black;
 }
 .timelineDetails {
     padding: calc(var(--scaling) * 0.5);
