@@ -89,7 +89,7 @@
                     <div class="info"><input name="name" id="name" type="text" required></div>
                     <label for="email">Email:</label><br>
                     <div class="info"><input name="email" id="name" type="email" required></div>
-                    <label for="message">Message:</label>
+                    <label for="message">Message:</label><br>
                     <textarea name="message" id="name" rows="5" required></textarea>
                 </div>
                 <div><button type="submit">Send</button></div>
