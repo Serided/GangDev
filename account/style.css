@@ -10,7 +10,7 @@
 
 .icon {
     border: calc(var(--scaling) * 0.2) solid gray;
-    background: darkgray;
+    background-color: darkgray
 }
 
 .info {

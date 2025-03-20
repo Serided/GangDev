@@ -55,7 +55,7 @@ if ($userId) {
             </div>
             <?php else: ?>
             <div class="shimmer">
-                <div style="background-color: darkgray"></div>
+                <div class="icon"></div>
             </div>
             <div>
                 <h1 class="shimmer-txt">
