@@ -91,14 +91,14 @@ form label {
 }
 
 .forgot {
-    width: 100%
+    width: 100%;
+    justify-content: left;
 }
 
 .forgot a {
     font-size: calc(var(--scaling) * 0.5);
     cursor: pointer;
     color: black;
-    right: 0;
 }
 
 .create {
