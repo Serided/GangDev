@@ -64,7 +64,7 @@ if (isset($_SESSION["user_id"], $_SESSION["session_token"])) {
 	}
 }
 
-$displayname = isset($_SESSION['displayname']) ? $_SESSION['displayname'] : 'Account';
+$displayname = $_SESSION['displayname'] ?? 'Account';
 $userIconUrl = '';
 if (isset($_SESSION['user_id'])) {
 	$userIconUrl = "https://gangdev.co/user/" . $_SESSION['user_id'] . "/icon/user-icon.jpg";
@@ -83,9 +83,9 @@ ob_start();
 include '/var/www/gangdev/shared/php/warning.php';
 $warn = ob_get_clean();
 
-$backgrounds = glob("/var/www/gangdev/shared/img/backgrounds/*.jpg", GLOB_BRACE);
+$backgrounds = glob("/var/www/gangdev/shared/files/img/background/*.jpg", GLOB_BRACE);
 $backgroundURLs = array_map(function($background) {
-	return "https://gangdev.co/" . $background;
+	return "https://gangdev.co/" . str_replace("/var/www/gangdev", "", $background);
 }, $backgrounds);
 $jsonBackgrounds = json_encode($backgroundURLs);
 
