@@ -68,7 +68,7 @@
 }
 .timelineBox h3 {
     font-size: calc(var(--scaling) * 1);
-    height: calc(var(--scaling) * 0.5);
+    height: calc(var(--scaling) * 1);
 }
 .timelineBox p {
     font-size: calc(var(--scaling) * 0.5);

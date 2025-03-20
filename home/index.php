@@ -41,7 +41,7 @@
             <div class="columns">
                 <div class="mods sect">
                     <h2>Mods</h2>
-                    <p>
+                    <p class="desc">
                         <a href="https://mods.gangdev.co/minecraft/php/resource_packs">- Minecraft (Resource Packs) -</a><br>
                         <a href="https://mods.gangdev.co/minecraft/php/data_packs">- Minecraft (Data Packs) -</a><br>
                     </p>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="apps sect">
                     <h2>Apps</h2>
-                    <p>
+                    <p class="desc">
                         <a href="https://apps.gangdev.co/roastGenerator/">- Roast Generator -</a><br>
                         <a href="https://apps.gangdev.co/mmfGenerator/">- MMF Generator -</a><br>
                         <a href="https://apps.gangdev.co/universalChat/" target="_blank">- Universal Chat -</a><br>
