@@ -40,6 +40,7 @@
     right: 5%;
     height: calc(var(--scaling) * 0.3);
     border-radius: calc(var(--scaling) * 0.1);
+    transform: translateY(-50%);
     background: white;
     z-index: 0;
 }
@@ -64,7 +65,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: black;
+    color: dimgray;
 }
 .timelineBox h3 {
     font-size: calc(var(--scaling) * 1);
