@@ -38,7 +38,7 @@
         </div>
 
         <div class="sect cont three" id="products">
-            <div>
+            <div class="columns">
                 <div>
                     <h2>Mods</h2>
                     <p>

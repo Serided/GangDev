@@ -32,7 +32,7 @@
     border-radius: calc(var(--scaling) * 0.1);
 }
 
-.sect.cont#products div {
+.sect.cont#products .columns {
     display: flex;
 }
 
