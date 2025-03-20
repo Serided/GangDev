@@ -41,7 +41,7 @@
 
 html, body {
   width: 100%;
-  min-width: 100vw;
+  min-width: 1440px;
 }
 
 .warning {
