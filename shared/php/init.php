@@ -83,7 +83,7 @@ ob_start();
 include '/var/www/gangdev/shared/php/warning.php';
 $warn = ob_get_clean();
 
-$backgrounds = glob("/var/www/gangdev/shared/files/img/background/*.jpg", GLOB_BRACE);
+$backgrounds = glob("/var/www/gangdev/shared/files/img/background/landscape/*.jpg", GLOB_BRACE);
 $backgroundURLs = array_map(function($background) {
 	return "https://gangdev.co/" . str_replace("/var/www/gangdev", "", $background);
 }, $backgrounds);
