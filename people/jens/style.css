@@ -27,6 +27,7 @@
     width: 100%;
     position: absolute;
     padding: calc(var(--scaling) * 1);
+    margin-top: calc(var(--scaling) * 4);
     display: flex;
     justify-content: center;
     pointer-events: auto;
