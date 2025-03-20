@@ -8,7 +8,7 @@
         <?= $head ?>
     </head>
     <body>
-        <div style="max-width: 1440px">
+        <div style="min-width: 1440px">
             <?= $navbar ?>
             <?= $warn ?>
 
