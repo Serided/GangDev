@@ -92,19 +92,18 @@
                 </div>
             </div>
             <p class="desc">
-                With hands-on experience in <strong>cloud computing</strong>, <strong>DevOps</strong>,
-                and <strong>server administration</strong>, I run my own infrastructure, manage large-scale projects,
-                and have contributed to <i>collaborative open-source development</i>.<br><br>
-
-                My biggest achievements include founding <strong>GangDev</strong>—a company built on
-                <i>work ethic, efficiency, and scalable solutions</i>—as well as engineering a high-performance web
-                platform and developing large-scale procedural game mechanics and optimizations to <strong>enhance scalability,
-                AI behavior, and in-game systems</strong>.<br><br>
-
-                My goal is to scale <strong>GangDev</strong> into a trademarked, mid-sized development company
-                generating seven to eight figures annually through <i>innovative digital products</i>. Whether working
-                solo or with a team, I bring a <strong>problem-solving mindset, deep technical expertise,
-                and relentless drive to every project</strong>.
+                With hands-on experience in <strong>cloud computing</strong>, <strong>DevOps</strong>, and
+                <strong>server administration</strong>, I manage my own infrastructure and lead large-scale projects,
+                all while actively contributing to <i>collaborative open-source development</i>—a journey that’s taught
+                me the true value of teamwork and shared innovation.<br><br>
+                One of my proudest achievements is founding <strong>GangDev</strong>, a company built on
+                <i>work ethic, efficiency, and scalable solutions</i>. I've engineered a high-performance web platform
+                and crafted procedural game mechanics that
+                <strong>boost scalability, refine AI behavior, and enhance in-game systems</strong>.<br><br>
+                My goal is to grow <strong>GangDev</strong> into a trademarked, mid-sized development company that
+                generates seven to eight figures annually through <i>innovative digital products</i>. Whether working
+                solo or as part of a team, I bring a
+                <strong>problem-solving mindset, deep technical expertise, and relentless drive</strong> to every project I tackle.
             </p>
         </div>
 
