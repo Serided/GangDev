@@ -18,9 +18,10 @@
     font-weight: normal;
     font-size: calc(var(--scaling) * 2);
     margin-bottom: calc(var(--scaling) * 1.5);
-    line-height: calc(var(--scaling) * 1.85);
+    line-height: calc(var(--scaling) * 1.9);
 }
 .sect.cont#overview h2 b {
+    font-size: calc(var(--scaling) * 2.2);
     font-weight: bolder;
 }
 .sect.cont#overview hr {
