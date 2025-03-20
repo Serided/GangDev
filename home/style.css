@@ -32,6 +32,12 @@
     border-radius: calc(var(--scaling) * 0.1);
 }
 
+.sect.cont#products h2 {
+    font-size: calc(var(--scaling) * 1.9);
+}
+.sect.cont#products p {
+    font-size: calc(var(--scaling) * 0.9);
+}
 .sect.cont#products .columns {
     width: 100%;
     height: 100%;
