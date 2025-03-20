@@ -26,9 +26,11 @@
     content: "";
     position: absolute;
     width: 90%;
+    height: calc(var(--scaling) * 1);
     background: #ccc;
 }
 .timelineItem {
+    posi
     width: 50%;
     padding: calc(var(--scaling) * 1);
 }
@@ -56,20 +58,21 @@
     left: calc(var(--scaling) * -0.1);
 }
 
-/* Timeline content box */
 .timelineContent {
     background: #f9f9f9;
     padding: calc(var(--scaling) * 1);
     border-radius: calc(var(--scaling) * 0.1);
-    position: relative;
+    position: absolute;
     transition: background 0.3s ease;
 }
-
-/* Hidden description that drops down on hover */
-.description {
+.tTitle {
+    font-size: calc(var(--scaling) * 0.75);
+}
+.tDescription {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
+    font-size: calc(var(--scaling) * 0.4);
 }
 .timelineItem:hover .description {
     max-height: calc(var(--scaling) * 4);

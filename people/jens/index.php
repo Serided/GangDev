@@ -44,11 +44,11 @@
                 <div class="timelineItem">
                     <div class="timelineMarker"></div>
                     <div class="timelineContent">
-                        <div>
+                        <div class="tTitle">
                             <h3>In-N-Out</h3>
                             <h2>Nov. 2022 - May 2024</h2>
                         </div>
-                        <div class="description">
+                        <div class="tDescription">
                             <p>
                                 Known for their exceptional quality, fresh ingredients, and immaculate customer service,
                                 In-N-Out burger hired me and helped me develop and deliver high value skills:
