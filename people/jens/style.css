@@ -31,16 +31,8 @@
     background: #ccc;
 }
 .timelineItem {
-    width: 20%;
+    max-width: 20%;
     padding: calc(var(--scaling) * 1);
-}
-.timelineItem:nth-child(odd) {
-    left: 0;
-    text-align: right;
-}
-.timelineItem:nth-child(even) {
-    left: 50%;
-    text-align: left;
 }
 .timelineMarker {
     top: calc(var(--scaling) * 0.5);
