@@ -36,7 +36,7 @@
     font-size: calc(var(--scaling) * 2.2);
     margin-bottom: calc(var(--scaling) * 0.5);
 }
-.sect.cont#products a {
+.sect.cont#products a:hover {
     color: #F7CBA4;
 }
 .sect.cont#products a b {
