@@ -132,6 +132,11 @@ body {
 .sect.cont h2 {
   font-size: calc(var(--scaling) * 1);
 }
+.sect.cont#overview p.desc {
+  font-size: calc(var(--scaling) * 1);
+  width: 100%;
+  text-align: left;
+}
 .sect.cont p.desc {
   font-size: calc(var(--scaling) * 0.8);
 }

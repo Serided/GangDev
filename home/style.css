@@ -31,11 +31,6 @@
     background: white;
     border-radius: calc(var(--scaling) * 0.1);
 }
-.sect.cont#overview p {
-    width: 100%;
-    text-align: left;
-    font-size: calc(var(--scaling) * 1);
-}
 
 .sect.cont#products h2 {
     font-size: calc(var(--scaling) * 2.2);
