@@ -35,7 +35,7 @@
 .timeline::before {
     content: "";
     position: absolute;
-    top: 50%;
+    top: calc(var(--scaling) * 1);
     left: 5%;
     right: 5%;
     height: calc(var(--scaling) * 0.3);
@@ -48,12 +48,12 @@
     position: relative;
     width: calc(var(--scaling) * 10);
     margin: 0 calc(var(--scaling) * 0.5);
-    padding: calc(var(--scaling) * 0.15);
+    padding: calc(var(--scaling) * 0.15) calc(var(--scaling) * 0.3);
     text-align: center;
     background: #f9f9f9;
     border-radius: calc(var(--scaling) * 0.2);
     transition: height 0.3s ease;
-    height: calc(var(--scaling) * 2);
+    max-height: calc(var(--scaling) * 2);
     overflow: hidden;
     z-index: 1;
 }
@@ -80,6 +80,9 @@
     transition: opacity 0.3s ease;
     color: dimgray;
     font-size: calc(var(--scaling) * 0.5);
+}
+.timelineItem:hover {
+    max-height: calc(var(--scaling) * 15);
 }
 .timelineItem:hover .timelineDetails {
     opacity: 1;
