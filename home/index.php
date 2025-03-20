@@ -42,39 +42,39 @@
                 <div class="mods sect">
                     <h2>Mods</h2>
                     <p>
-                        <a href="https://mods.gangdev.co/minecraft/php/resource_packs">Minecraft (Resource Packs)</a><br>
-                        <a href="https://mods.gangdev.co/minecraft/php/data_packs">Minecraft (Data Packs)</a><br>
+                        <a href="https://mods.gangdev.co/minecraft/php/resource_packs">- Minecraft (Resource Packs) -</a><br>
+                        <a href="https://mods.gangdev.co/minecraft/php/data_packs">- Minecraft (Data Packs) -</a><br>
                     </p>
                 </div>
                 <div class="games sect">
                     <h2>Games</h2>
                     <div class="cont">
                         <div class="link">
-                            <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine<br>(Alpha)</a>
+                            <a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine -<br>(Alpha)</a>
                         </div>
                         <div class="link">
-                            <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube<br>(Alpha)</a>
+                            <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">- The Bouncing Cube -<br>(Alpha)</a>
                         </div>
                         <div class="link">
-                            <a href="https://gaming.gangdev.co/ultimatePong" target="_blank">Ultimate Pong<br>(Alpha)</a>
+                            <a href="https://gaming.gangdev.co/ultimatePong" target="_blank">- Ultimate Pong -<br>(Alpha)</a>
                         </div>
                         <div class="link">
-                            <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game<br>(Alpha)</a>
+                            <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">- Platformer Game -<br>(Alpha)</a>
                         </div>
                         <div class="link">
-                            <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game<br>(Alpha) <b>[Online]</b></a>
+                            <a href="https://gaming.gangdev.co/game1" target="_blank">- First Multiplayer Game -<br>(Alpha) <b>[Online]</b></a>
                         </div>
                         <div class="link">
-                            <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game<br>(Beta)</a>
+                            <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">- Fighting Game -<br>(Beta)</a>
                         </div>
                     </div>
                 </div>
                 <div class="apps sect">
                     <h2>Apps</h2>
                     <p>
-                        <a href="https://apps.gangdev.co/roastGenerator/">Roast Generator</a><br>
-                        <a href="https://apps.gangdev.co/mmfGenerator/">MMF Generator</a><br>
-                        <a href="https://apps.gangdev.co/universalChat/" target="_blank">Universal Chat</a><br>
+                        <a href="https://apps.gangdev.co/roastGenerator/">- Roast Generator -</a><br>
+                        <a href="https://apps.gangdev.co/mmfGenerator/">- MMF Generator -</a><br>
+                        <a href="https://apps.gangdev.co/universalChat/" target="_blank">- Universal Chat -</a><br>
                     </p>
                 </div>
             </div>
