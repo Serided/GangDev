@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function changeBackground() {
         let randomIndex = Math.floor(Math.random() * backgrounds.length);
         // Prepend the base path to the image file.
-        entryDiv.style.backgroundImage = "url('https://gangdev.co/shared/files/img/background/" + backgrounds[randomIndex] + "')";
+        entryDiv.style.backgroundImage = "url('" + backgrounds[randomIndex] + "')";
     }
 
     changeBackground();
