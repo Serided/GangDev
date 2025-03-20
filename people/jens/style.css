@@ -81,7 +81,7 @@
     color: dimgray;
     font-size: calc(var(--scaling) * 0.5);
 }
-.timelineDetails {
+.timelineDetails ol {
     padding-left: calc(var(--scaling) * 0.5);
 }
 .timelineItem:hover {
