@@ -5,7 +5,8 @@ require_once '/var/www/gangdev/shared/php/mailer.php';
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	if (isset($_SESSION["user_id"])) {
 		$userid = $_SESSION["user_id"];
-		$name = $_SESSION["displayname"];
+		if (empty($name)) $name = $_SESSION["displayname"];
+		else $name = strip_tags(trim($_POST["name"]));
 		$email = $_SESSION["email"];
 		$message = trim($_POST["message"]);
 

@@ -86,13 +86,13 @@
             <form action="process_contact.php" method="post">
                 <div class="details">
 	                <?php if (!isset($_SESSION["user_id"])): ?>
-                    <label for="name">Name: *</label><br>
-                    <div class="info"><input name="name" id="name" type="text" required></div>
                     <label for="email">Email:</label><br>
                     <div class="info"><input name="email" id="email" type="email"></div>
                     <label for="message">Message: *</label><br>
                     <div><textarea name="message" id="message" rows="5" maxlength="1000" required></textarea></div>
 	                <?php else: ?>
+                    <label for="name">Name:</label><br>
+                    <div class="info"><input name="name" id="name" type="text"></div>
                     <label for="message">Message:</label><br>
                     <div><textarea name="message" id="message" rows="7" maxlength="2500" style="width: " required></textarea></div>
                     <?php endif; ?>
