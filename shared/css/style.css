@@ -15,21 +15,21 @@
 /* tablet */
 @media screen and (min-width: 481px) and (max-width: 768px) {
   :root {
-    --scaling: 4vh;
+    --scaling: 2vw;
   }
 }
 
 /* monitor */
 @media screen and (min-width: 769px) and (max-width: 1080px) {
   :root {
-    --scaling: 4vh;
+    --scaling: 2vw;
   }
 }
 
 /* big boi */
 @media screen and (min-width: 1081px) {
   :root {
-    --scaling: 4vh;
+    --scaling: 2vw;
   }
 }
 

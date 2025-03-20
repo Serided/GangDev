@@ -15,7 +15,7 @@
 .sect.cont#overview {
 }
 .sect.cont#overview h2 {
-    font-weight: bold;
+    font-weight: normal;
     font-size: calc(var(--scaling) * 2);
     margin-bottom: calc(var(--scaling) * 1.5);
 }
@@ -24,12 +24,12 @@
 }
 .sect.cont#overview hr {
     width: calc(var(--scaling) * 25);
-    height: calc(var(--scaling) * 0.5);
+    height: calc(var(--scaling) * 0.2);
     margin-bottom: calc(var(--scaling) * 1.5);
     color: darkgray;
     border: none;
-    background: darkgray;
-    border-radius: calc(var(--scaling) * 0.5);
+    background: white;
+    border-radius: calc(var(--scaling) * 0.1);
 }
 
 .sect.cont#overview p {
