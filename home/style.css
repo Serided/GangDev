@@ -50,6 +50,9 @@
 .sect.cont#products .columns .games {
     padding: calc(var(--scaling) * 0.75) auto;
 }
+.sect.cont#products .columns .games h2 {
+    font-size: calc(var(--scaling) * 2.2);
+}
 
 .sect.cont#overview p {
     width: 100%;
