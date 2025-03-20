@@ -30,8 +30,8 @@
     background: #ccc;
 }
 .timelineItem {
-    posi
-    width: 50%;
+    position: absolute;
+    width: 20%;
     padding: calc(var(--scaling) * 1);
 }
 .timelineItem:nth-child(odd) {
