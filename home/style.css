@@ -17,16 +17,19 @@
 .sect.cont#overview h2 {
     font-weight: bold;
     font-size: calc(var(--scaling) * 2);
-    margin-bottom: calc(var(--scaling) * 2);
+    margin-bottom: calc(var(--scaling) * 1.5);
 }
 .sect.cont#overview h2 b {
     font-weight: bolder;
 }
 .sect.cont#overview hr {
-    width: calc(var(--scaling) * 20);
-    height: calc(var(--scaling) * 1);
-    margin-bottom: calc(var(--scaling) * 2);
+    width: calc(var(--scaling) * 25);
+    height: calc(var(--scaling) * 0.5);
+    margin-bottom: calc(var(--scaling) * 1.5);
     color: darkgray;
+    border: none;
+    background: darkgray;
+    border-radius: calc(var(--scaling) * 0.5);
 }
 
 .sect.cont#overview p {
