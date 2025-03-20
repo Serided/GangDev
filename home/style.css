@@ -38,6 +38,10 @@
 .sect.cont#products p {
     font-size: calc(var(--scaling) * 0.9);
 }
+.sect.cont#products a {
+    color: lightskyblue;
+    line-height: calc(var(--scaling) * 0.9);
+}
 .sect.cont#products .columns {
     width: 100%;
     height: 100%;
@@ -51,7 +55,7 @@
     padding: calc(var(--scaling) * 0.75) auto;
 }
 .sect.cont#products .columns .games h2 {
-    font-size: calc(var(--scaling) * 2.2);
+    font-size: calc(var(--scaling) * 2.3);
 }
 
 .sect.cont#overview p {
