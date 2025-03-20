@@ -132,7 +132,7 @@ body {
 }
 
 .footer {
-  background: gray;
+  background: #1D3A4D;
 }
 .footer p {
   font-size: calc(var(--scaling) * 0.8);
