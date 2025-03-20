@@ -142,6 +142,6 @@ function sendMessage() {
     const message = chatInput.value.trim();
     if (message) {
         sendData('chatMessage', message)
-        chatInput.value = ""; // clear input after sending
+        chatInput.value = "";
     }
 }
