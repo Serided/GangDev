@@ -34,7 +34,7 @@
             </p>
         </div>
 
-        <div class="sect cont three" id="about">
+        <div class="sect cont one" id="about">
             <h2>Mission Statement</h2>
             <p>
                 At GangDev, our mission is to empower individuals and businesses<br>
@@ -46,14 +46,14 @@
             </p>
         </div>
 
-        <div class="sect cont four" id="mods">
+        <div class="sect cont three" id="mods">
             <h2>Mods</h2>
             <p>
                 <a href="https://mods.gangdev.co/minecraft/php/resource_packs">Minecraft (Resource Packs)</a><br>
                 <a href="https://mods.gangdev.co/minecraft/php/data_packs">Minecraft (Data Packs)</a><br>
             </p>
         </div>
-
+        <!--
         <div class="sect cont three" id="apps">
             <h2>Apps</h2>
             <p>
@@ -74,8 +74,8 @@
                 <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game (Beta)</a><br>
             </p>
         </div>
-
-        <div class="sect cont one" id="contact">
+        -->
+        <div class="sect cont four" id="contact">
             <!-- add a form -->
             <h2>Contact</h2>
             <p>

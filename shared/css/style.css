@@ -112,16 +112,20 @@ body {
 }
 
 .sect.cont.one {
-  background: #99c6ff;
+  background: #ECEFF1;
+  color: #333333;
 }
 .sect.cont.two {
-  background: #5c98e1;
+  background: #2B5C6E;
+  color: #FFFFFF;
 }
 .sect.cont.three {
-  background: #75a3d6;
+  background: #70838F;
+  color: #FFFFFF;
 }
 .sect.cont.four {
-  background: #87aedd;
+  background: #F7CBA4;
+  color: #333333;
 }
 
 .sect.cont h2 {
