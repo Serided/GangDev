@@ -32,10 +32,7 @@
                         <p>Jun. 2022 - Aug. 2022</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>
-                            At Walmart, I excelled in a fast-paced retail environment, handling transactions,
-                            customer service, and logistics with efficiency.
-                        </p>
+                        <p>At Walmart, I excelled in a fast-paced retail environment, handling transactions, customer service, and logistics with efficiency.</p>
                         <ul>
                             <li>Processed high-volume transactions with speed and accuracy.</li>
                             <li>Provided exceptional customer service for purchases, returns, and inquiries.</li>
@@ -51,12 +48,10 @@
                         <p>Nov. 2022 - May 2024</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>
-                            At In‑N‑Out Burger, known for exceptional quality and service, I developed key skills:
-                        </p>
+                        <p>At In‑N‑Out Burger, known for exceptional quality and service, I developed key skills:</p>
                         <ul>
                             <li>Operated registers, drive‑thru, fry, and prep stations.</li>
-                            <li>Provided efficient service in high‑volume settings.</li>
+                            <li><strong>Provided efficient service in high‑volume settings.</strong></li>
                             <li>Trained teammates to foster leadership.</li>
                             <li>Upheld strict food safety and cleanliness.</li>
                             <li>Excelled in problem‑solving under pressure.</li>
@@ -85,10 +80,15 @@
                         <p>Nov. 2024 - Present</p>
                     </div>
                     <div class="timelineDetails">
-                        <p></p>
+                        <p>GangDev is a software development startup specializing in games, AI, and custom applications.</p>
                         <ul>
-                            <li></li>
+                            <li><strong>Designing and building game engines, AI models, and web applications.</strong></li>
+                            <li>Leading full-stack development across frontend and backend systems.</li>
+                            <li>Managing project workflows, client relations, and business operations.</li>
+                            <li>Developing scalable, high-performance, and secure solutions.</li>
+                            <li><strong>Building a brand and online presence, establishing GangDev in the tech industry.</strong></li>
                         </ul>
+
                     </div>
                 </div>
             </div>
