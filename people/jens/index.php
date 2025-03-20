@@ -31,7 +31,7 @@
                     <div class="timelineContent">
                         <div>
                             <h3>Customer Service</h3>
-                            <h2>Jun. 2022 - Aug. 2022</h2>
+                            <h3>Jun. 2022 - Aug. 2022</h3>
                         </div>
                         <div class="description">
                             <p></p>
@@ -46,7 +46,7 @@
                     <div class="timelineContent">
                         <div class="tTitle">
                             <h3>In-N-Out</h3>
-                            <h2>Nov. 2022 - May 2024</h2>
+                            <h3>Nov. 2022 - May 2024</h3>
                         </div>
                         <div class="tDescription">
                             <p>
@@ -68,7 +68,7 @@
                     <div class="timelineContent">
                         <div>
                             <h3>Mechanic</h3>
-                            <h2>Jul. 2024 - Oct. 2024</h2>
+                            <h3>Jul. 2024 - Oct. 2024</h3>
                         </div>
                         <div class="description">
                             <p></p>
