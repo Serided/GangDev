@@ -11,7 +11,7 @@
         <?= $navbar ?>
         <?= $warn ?>
 
-        <div class="sect cont home" id="home">
+        <div class="sect cont entry" id="home">
             <div class="shimmer">
                 <div class="logo"></div>
             </div>
