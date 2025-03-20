@@ -41,13 +41,13 @@
 }
 .timelineItem {
     width: 20%;
-    padding: calc(var(--scaling) * 1);
+    margin: 2%;
 }
 .timelineMarker {
-    width: calc(var(--scaling) * 0.2);
-    height: calc(var(--scaling) * 0.2);
+    width: calc(var(--scaling) * 0.4);
+    height: calc(var(--scaling) * 0.4);
     background: white;
-    border: calc(var(--scaling) * 0.1) solid #FF5722;
+    border: calc(var(--scaling) * 0.1) solid gray;
     border-radius: 50%;
     z-index: 1;
 }
