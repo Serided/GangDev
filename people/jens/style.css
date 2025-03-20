@@ -16,6 +16,9 @@
     font-weight: bold;
 }
 
+.sect.cont#overview {
+    align-content: normal;
+}
 .sect.cont#overview h2 {
     font-size: calc(var(--scaling) * 3);
     padding-bottom: calc(var(--scaling) * 5);
@@ -32,7 +35,8 @@
     content: "";
     position: absolute;
     width: 90%;
-    height: calc(var(--scaling) * 1);
+    height: calc(var(--scaling) * 0.3);
+    border-radius: calc(var(--scaling) * 0.1);
     background: #ccc;
 }
 .timelineItem {
@@ -44,7 +48,7 @@
     width: calc(var(--scaling) * 0.2);
     height: calc(var(--scaling) * 0.2);
     background: white;
-    border: calc(var(--scaling) * 0.1) solidFF5722;
+    border: calc(var(--scaling) * 0.1) solid #FF5722;
     border-radius: 50%;
     z-index: 1;
 }
