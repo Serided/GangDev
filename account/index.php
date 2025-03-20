@@ -45,7 +45,7 @@ if ($userId) {
             <div class="bgWrapper"></div>
             <?php if (isset($_SESSION["user_id"])): ?>
             <div class="shimmer" id="iDisplay">
-                <div style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');" class="icon"></div>
+                <div style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');" id="icon"></div>
             </div>
             <input type="file" id="iconFile" accept="image/*" style="display: none;">
             <div>

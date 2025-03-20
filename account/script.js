@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const iDisplay = document.getElementById("iDisplay");
+    const iDisplay = document.getElementById('iDisplay');
+    const icon = document.getElementById('icon')
     const iconFile = document.getElementById('iconFile');
     const cropModal = document.getElementById('cropModal');  // modal container
     const cropContent = document.getElementById('cropContent');  // content inside modal
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         .then(data => {
                             if (data.status === 'success') {
                                 const newIconUrl = data.url + '?v=' + new Date().getTime();
-                                iDisplay.style.backgroundImage = `url(${newIconUrl})`;
+                                icon.style.backgroundImage = `url(${newIconUrl})`;
 
                                 const navbarProfile = document.querySelector('.hNavbar .profile');
                                 if (navbarProfile) {
