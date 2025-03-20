@@ -45,15 +45,14 @@
                     </div>
                     <div class="timelineDetails">
                         <p>
-                            Known for their exceptional quality, fresh ingredients, and immaculate customer service,
-                            In-N-Out burger hired me and helped me develop and deliver high value skills:
+                            At In‑N‑Out Burger, known for exceptional quality and service, I developed key skills:
                         </p>
                         <ol>
-                            <li>Operated multiple stations, including register, drive-thru, fry station, and food prep, ensuring speed and accuracy.</li>
-                            <li>Provided exceptional customer service in a high-volume, fast-paced environment.</li>
-                            <li>Developed leadership and teamwork skills, assisting in training and supporting coworkers.</li>
-                            <li>Maintained strict food safety and cleanliness standards while handling transactions with accuracy.</li>
-                            <li>Thrived under pressure, demonstrating problem-solving and multitasking abilities.</li>
+                            <li>Operated registers, drive‑thru, fry, and prep stations.</li>
+                            <li>Provided efficient service in high‑volume settings.</li>
+                            <li>Trained teammates to foster leadership.</li>
+                            <li>Upheld strict food safety and cleanliness.</li>
+                            <li>Excelled in problem‑solving under pressure.</li>
                         </ol>
                     </div>
                 </div>
