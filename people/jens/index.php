@@ -109,88 +109,42 @@
             </p>
         </div>
 
-        <div class="sect cont three">
+        <div class="sect cont three" id="expertise">
             <div>
                 <h2>Expertise</h2>
-                <p>
-                    I have a vast array of experience in computer science.
-                </p>
+                <p>I have a vast array of experience in computer science.</p>
             </div>
-            <div class="exp-sect">
-                <div class="hexagon coding-exp">
-                    <p>
-                        <b><u>MC Function</u></b><br>
-                        8+ years
-                    </p>
+            <div class="expSect">
+                <div class="hexagon codingExp">
+                    <p><strong><u>MC Function</u></strong><br>8+ years</p>
                 </div>
-                <div class="hexagon coding-exp">
-                    <p>
-                        <b><u>Python</u></b><br>
-                        2 years
-                    </p>
+                <div class="hexagon codingExp">
+                    <p><strong><u>Python</u></strong><br>2 years</p>
                 </div>
-                <div class="hexagon coding-exp">
-                    <p>
-                        <b><u>HTML</u></b><br>
-                        4 years
-                    </p>
-                </div><br>
-                <div class="hexagon coding-exp">
-                    <p>
-                        <b><u>PHP</u></b><br>
-                        3 years
-                    </p>
+                <div class="hexagon codingExp">
+                    <p><strong><u>HTML</u></strong><br>4 years</p>
                 </div>
-                <div class="hexagon coding-exp">
-                    <p>
-                        <b><u>CSS</u></b><br>
-                        4 years
-                    </p>
-                </div><br>
-                <div class="hexagon coding-exp">
-                    <p>
-                        <b><u>JS</u></b><br>
-                        4 years
-                    </p>
+                <div class="hexagon codingExp">
+                    <p><strong><u>PHP</u></strong><br>3 years</p>
                 </div>
-                <div class="hexagon coding-exp">
-                    <p>
-                        <b><u>Linux Systems</u></b><br>
-                        3 years
-                    </p>
+                <div class="hexagon codingExp">
+                    <p><strong><u>CSS</u></strong><br>4 years</p>
                 </div>
-                <div class="hexagon coding-exp">
-                    <p>
-                        <b><u>Ruby</u></b><br>
-                        1 year
-                    </p>
+                <div class="hexagon codingExp">
+                    <p><strong><u>JS</u></strong><br>4 years</p>
                 </div>
-                <div class="hexagon coding-exp">
-                    <p>
-                        <b><u>Kotlin</u></b><br>
-                        1 year
-                    </p>
+                <div class="hexagon codingExp">
+                    <p><strong><u>Linux Systems</u></strong><br>3 years</p>
                 </div>
-                <div class="hexagon coding-exp">
-                    <p>
-                        <b><u>PostgreSQL</u></b><br>
-                        1 year
-                    </p>
+                <div class="hexagon codingExp">
+                    <p><strong><u>Ruby</u></strong><br>1 year</p>
                 </div>
-                <!--
-                <div class="hexagon other-exp">
-                    <p>
-                        <b><u>PC Assembly</u></b><br>
-                        Sixty hours of assembling PCs.
-                    </p>
+                <div class="hexagon codingExp">
+                    <p><strong><u>Kotlin</u></strong><br>1 year</p>
                 </div>
-                <div class="hexagon other-exp">
-                    <p>
-                        <b><u>PC Building</u></b><br>
-                        Ten hours of building PCs.
-                    </p>
+                <div class="hexagon codingExp">
+                    <p><strong><u>PostgreSQL</u></strong><br>1 year</p>
                 </div>
-                -->
             </div>
         </div>
 
