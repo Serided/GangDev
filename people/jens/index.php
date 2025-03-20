@@ -62,9 +62,14 @@
                         <p>Jul. 2024 - Oct. 2024</p>
                     </div>
                     <div class="timelineDetails">
-                        <p></p>
+                        <p>At Quincy Foods, LLC, I worked on large-scale agricultural equipment, specializing in combine maintenance and repair.</p>
                         <ul>
-                            <li></li>
+                            <li>Diagnosed and repaired hydraulic, electrical, and mechanical systems on combines.</li>
+                            <li>Performed preventative maintenance to maximize efficiency during harvest seasons.</li>
+                            <li>Used technical manuals and diagnostic tools to troubleshoot complex issues.</li>
+                            <li>Ensured safety compliance and proper functioning of all equipment.</li>
+                            <li>Developed problem-solving and hands-on mechanical expertise under high-pressure conditions.</li>
+                            <li><strong>Clocked 90+ grueling hours weekly, pushing my physical and mental limits.</strong></li>
                         </ul>
                     </div>
                 </div>
