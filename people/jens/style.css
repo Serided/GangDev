@@ -82,7 +82,7 @@
     font-size: calc(var(--scaling) * 0.5);
 }
 .timelineDetails ol {
-    padding-left: calc(var(--scaling) * 0.5);
+    padding-left: calc(var(--scaling) * 1);
 }
 .timelineItem:hover {
     max-height: calc(var(--scaling) * 15);
