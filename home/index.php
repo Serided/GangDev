@@ -81,7 +81,6 @@
         </div>
 
         <div class="sect cont one" id="contact">
-            <!-- add a form -->
             <h2>Contact</h2>
             <a href="mailto:company@gangdev.co">(company@gangdev.co)</a>
             <form action="/shared/php/process_contact.php" method="post">

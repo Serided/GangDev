@@ -23,33 +23,71 @@
             </h1>
         </div>
 
-        <div class="sect cont two">
+        <div class="sect cont two" id="overview">
             <h2>About Me</h2>
-            <h3>(According to ChatGPT)</h3>
-            <p>
-                Ladies, gentlemen, and sentient beings of the digital realm, gather 'round and behold the enigma that is <b>Jens Hansen</b>!<br>
-                Picture, if you will, a cocktail of caffeine, coding, and chaos, shaken (not stirred) with a dash of theoretical pondering,<br>
-                a sprinkle of gaming prowess, and a generous serving of outdoor escapades.<br>
-                <br>
-                In the labyrinth of 1s and 0s, I am the alchemist, transmuting lines of code into pure digital gold.<br>
-                But fear not, for I'm not just a wizard behind the keyboard; I'm also a virtuoso in the realm of gaming,<br>
-                where I slay dragons, conquer kingdoms, and occasionally forget to eat because, well, priorities.<br>
-                <br>
-                Yet, dear friends, do not be fooled by the glow of my monitor or the allure of virtual adventures,<br>
-                for I am equally at home in the great outdoors. Picture me, if you will, hiking through rugged terrain,<br>
-                communing with nature, and occasionally outrunning a bear (or at least attempting to).<br>
-                <br>
-                And let us not forget the temple of iron, where I sculpt these muscles into monuments of magnificence.<br>
-                Yes, I am a devotee of the gym, where I lift, grunt, and occasionally contemplate the meaning of life between sets.<br>
-                <br>
-                But perhaps most intriguing of all is the labyrinth of my mind, where theories swirl like leaves in the wind.<br>
-                From pondering the mysteries of the universe to debating the best strategy for world domination (spoiler alert: it involves cats),<br>
-                my thoughts are a playground of intellectual mischief.<br>
-                <br>
-                So, my dear companions on this cosmic journey, fasten your seatbelts and prepare for an adventure unlike any other.<br>
-                For in the world of <b>Jens Hansen</b>, the code is complex, the games are epic, the hikes are scenic, the workouts are intense, and the theories...<br>
-                well, let's just say they're out of this world.
-            </p>
+            <div class="timeline">
+                <div class="timelineItem">
+                    <div class="timelineMarker"></div>
+                    <div class="timelineContent">
+                        <div>
+                            <h3>Customer Service</h3>
+                            <h2>Jun. 2022 - Aug. 2022</h2>
+                        </div>
+                        <div class="description">
+                            <p></p>
+                            <ol>
+                                <li></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="timelineItem">
+                    <div class="timelineMarker"></div>
+                    <div class="timelineContent">
+                        <div>
+                            <h3>In-N-Out</h3>
+                            <h2>Nov. 2022 - May 2024</h2>
+                        </div>
+                        <div class="description">
+                            <p>
+                                Known for their exceptional quality, fresh ingredients, and immaculate customer service,
+                                In-N-Out burger hired me and helped me develop and deliver high value skills:
+                            </p>
+                            <ol>
+                                <li>Operated multiple stations, including register, drive-thru, fry station, and food prep, ensuring speed and accuracy.</li>
+                                <li>Provided exceptional customer service in a high-volume, fast-paced environment.</li>
+                                <li>Developed leadership and teamwork skills, assisting in training and supporting coworkers.</li>
+                                <li>Maintained strict food safety and cleanliness standards while handling transactions with accuracy.</li>
+                                <li>Thrived under pressure, demonstrating problem-solving and multitasking abilities.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="timelineItem">
+                    <div class="timelineMarker"></div>
+                    <div class="timelineContent">
+                        <div>
+                            <h3>Mechanic</h3>
+                            <h2>Jul. 2024 - Oct. 2024</h2>
+                        </div>
+                        <div class="description">
+                            <p></p>
+                            <ol>
+                                <li></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="timelineItem">
+                    <div class="timelineMarker"></div>
+                    <div class="timelineContent">
+                        <h3>Startup</h3>
+                        <div>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="sect cont three">
@@ -99,6 +137,12 @@
                 </div>
                 <div class="hexagon coding-exp">
                     <p>
+                        <b><u>Linux Systems</u></b><br>
+                        3 years
+                    </p>
+                </div>
+                <div class="hexagon coding-exp">
+                    <p>
                         <b><u>Ruby</u></b><br>
                         1 year
                     </p>
@@ -106,6 +150,12 @@
                 <div class="hexagon coding-exp">
                     <p>
                         <b><u>Kotlin</u></b><br>
+                        1 year
+                    </p>
+                </div>
+                <div class="hexagon coding-exp">
+                    <p>
+                        <b><u>PostgreSQL</u></b><br>
                         1 year
                     </p>
                 </div>
@@ -156,6 +206,29 @@
                 <a href="https://mods.gangdev.co/minecraft/resource_packs" target="_blank">Minecraft (Resource Packs)</a><br>
                 <a href="https://mods.gangdev.co/minecraft/data_packs" target="_blank">Minecraft (Data Packs)</a>
             </p>
+        </div>
+
+        <div class="sect cont one" id="contact">
+            <h2>Contact</h2>
+            <a href="mailto:company@gangdev.co">(company@gangdev.co)</a>
+            <form action="/shared/php/process_contact.php" method="post">
+                <div class="details">
+					        <?php if (!isset($_SESSION["user_id"])): ?>
+                      <label for="name">Name: *</label><br>
+                      <div class="info"><input name="name" id="name" type="text" required></div>
+                      <label for="email">Email:</label><br>
+                      <div class="info"><input name="email" id="email" type="email"></div>
+                      <label for="message">Message: *</label><br>
+                      <div><textarea name="message" id="message" rows="5" maxlength="1000" required></textarea></div>
+					        <?php else: ?>
+                      <label for="name">Name:</label><br>
+                      <div class="info"><input name="name" id="name" type="text"></div>
+                      <label for="message">Message:</label><br>
+                      <div><textarea name="message" id="message" rows="7" maxlength="2500" style="width: " required></textarea></div>
+					        <?php endif; ?>
+                </div>
+                <div><button type="submit">Send</button></div>
+            </form>
         </div>
 
         <?= $footer ?>

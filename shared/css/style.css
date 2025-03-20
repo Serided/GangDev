@@ -221,13 +221,62 @@ a {
   cursor: text;
 }
 
-.btn:hover .btnText{
-  /* color: aqua; */
-  font-weight: 700;
+/* universal contact form */
+.sect.cont#contact h2 {
+  font-size: calc(var(--scaling) * 2.5);
+  height: calc(var(--scaling) * 2.6);
+}
+.sect.cont#contact a {
+  font-size: calc(var(--scaling) * 0.5);
+  margin-bottom: calc(var(--scaling) * 0.75);
+}
+.sect.cont#contact .details {
+  justify-items: left;
+}
+.sect.cont#contact label {
+  font-size: calc(var(--scaling) * 0.8);
+}
+.sect.cont#contact .info {
+  width: calc(var(--scaling) * 15);
+  margin-bottom: calc(var(--scaling) * 0.22)
+}
+.sect.cont#contact input {
+  font-size: calc(var(--scaling) * 0.7);
+  padding: calc(var(--scaling) * 0.2);
+  width: 100%;
+  border-radius: calc(var(--scaling) * 0.05);
+  border: calc(var(--scaling) * 0.02) solid gray;
+}
+.sect.cont#contact textarea {
+  resize: none;
+  font-size: calc(var(--scaling) * 0.75);
+  padding: calc(var(--scaling) * 0.2);
+  width: calc(var(--scaling) * 15);
+  border-radius: calc(var(--scaling) * 0.05);
+  border: calc(var(--scaling) * 0.02) solid gray;
+}
+.sect.cont#contact button {
+  font-size: calc(var(--scaling) * 0.9);
+  padding: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.3);
+  margin-top: calc(var(--scaling) * 1);
+  background: darkgray;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: calc(var(--scaling) * 0.2);
+  box-shadow: calc(var(--scaling) * 0.02) calc(var(--scaling) * 0.045) gray;
+  transition: all 0.2s ease;
+}
+.sect.cont#contact button:hover {
+  transform: scale(1.05);
+  font-weight: bold;
 }
 
+/* basic universal styling */
+.btn:hover .btnText{
+  font-weight: 700;
+}
 a:hover{
-  /* color: aqua; */
   font-weight: 700;
 }
 
@@ -236,13 +285,11 @@ a:hover{
   -webkit-animation: fade-in 0.5s ease-in;
   animation: fade-in 0.5s ease-in;
 }
-
 .animate-out {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
   opacity: 0;
 }
-
 #fader {
   position: fixed;
   top: 0;
@@ -255,12 +302,10 @@ a:hover{
   animation-duration: 400ms;
   animation-timing-function: ease-in-out;
 }
-
 #fader.fade-out {
   opacity: 0;
   animation-name: fade-out;
 }
-
 #fader.fade-in {
   opacity: 1;
   animation-name: fade-in;
