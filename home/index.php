@@ -24,7 +24,7 @@
         </div>
 
         <div class="sect cont two" id="overview">
-            <h2>Snitches Get Stitches; Merge Conflicts Get Fixes</h2>
+            <h2>Snitches Get Stitches; <b>Merge Conflicts Get Fixes</b></h2>
             <p>
                 At <b>GangDev</b>, we run this code like a <b>tight crew</b>—no loose ends, no weak links.
                 When a bug steps out of line, we take it out <i>real quick</i>. Our <b>AI? Smarter than your average snitch</b>.

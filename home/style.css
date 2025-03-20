@@ -11,3 +11,12 @@
     font-size: calc(var(--scaling) * 1);
     vertical-align: super;
 }
+
+.sect.cont h2{
+    font-weight: normal;
+    font-size: calc(var(--scaling) * 2);
+}
+.sect.cont p {
+    font-weight: lighter;
+    font-size: calc(var(--scaling) * 2);
+}
