@@ -8,7 +8,6 @@
         <?= $head ?>
     </head>
     <body>
-        <div style="width: 100%; max-width: 1440px; margin: 0 auto;">
         <?= $navbar ?>
         <?= $warn ?>
 
@@ -85,6 +84,5 @@
         </div>
 
         <?= $footer ?>
-        </div>
     </body>
 </html>
