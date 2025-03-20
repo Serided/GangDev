@@ -77,15 +77,15 @@
     justify-items: left;
 }
 .sect.cont#contact label {
-    font-size: calc(var(--scaling) * 1.2);
-    height: calc(var(--scaling) * 0.65);
+    font-size: calc(var(--scaling) * 0.8);
+    height: calc(var(--scaling) * 0.2);
 }
 .sect.cont#contact .info {
     width: calc(var(--scaling) * 15);
     margin-bottom: calc(var(--scaling) * 0.2)
 }
 .sect.cont#contact input {
-    font-size: calc(var(--scaling) * 1);
+    font-size: calc(var(--scaling) * 0.7);
     padding: calc(var(--scaling) * 0.2);
     width: 100%;
     border-radius: calc(var(--scaling) * 0.05);
