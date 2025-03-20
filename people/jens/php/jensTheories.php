@@ -17,10 +17,10 @@
                     I've been looking for answers my whole life.
                 </p>
 
-                <button class="btn-theory btn-text" id="time">Time</button>
-                <button class="btn-theory btn-text" id="space">Space</button>
-                <button class="btn-theory btn-text" id="god">God</button>
-                <button class="btn-theory btn-text" id="morality">Morality</button>
+                <button class="btn-theory btnText" id="time">Time</button>
+                <button class="btn-theory btnText" id="space">Space</button>
+                <button class="btn-theory btnText" id="god">God</button>
+                <button class="btn-theory btnText" id="morality">Morality</button>
 
                 <p class="txt">
                     Here is my knowledge.

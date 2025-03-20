@@ -34,7 +34,7 @@
                     <input type="text" id="name" maxlength="15">
                 </form>
             </div>
-            <button type="submit" class="popupbtn btn-text" onclick="submitbtn()">Submit</button>
+            <button type="submit" class="popupbtn btnText" onclick="submitbtn()">Submit</button>
         </div>
         <div style="margin-top: 20px" class="submit" id="submit3">
             <h2 style="color: limegreen">
@@ -43,7 +43,7 @@
             <p style="color: limegreen">
                 Your score has been submitted!
             </p>
-            <button type="submit" class="btn-text tnybtnuwu" onclick="closePopup()">OKAY!!!</button>
+            <button type="submit" class="btnText tnybtnuwu" onclick="closePopup()">OKAY!!!</button>
         </div>
     </div>
     -->

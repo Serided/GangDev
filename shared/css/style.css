@@ -205,8 +205,11 @@ h1.shimmerText:hover {
   transform: scale(1.01);
 }
 
-/* How to decorate the text */
-.btn-text {
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.btnText {
   text-decoration: none;
   color: white;
 }
@@ -217,7 +220,7 @@ h1.shimmerText:hover {
   cursor: text;
 }
 
-.btn:hover .btn-text{
+.btn:hover .btnText{
   /* color: aqua; */
   font-weight: 700;
 }

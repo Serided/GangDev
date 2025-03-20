@@ -9,7 +9,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
     <aside class="sidebar one">
         <nav>
             <input type="radio" id="account" name="menu">
-            <label for="account" class="account-btn btn-text">
+            <label for="account" class="account-btn btnText">
                 <div class="profile" style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');">
                     <p><?= htmlspecialchars($displayname) ?></p>
                 </div>
@@ -17,71 +17,71 @@ require_once '/var/www/gangdev/shared/php/init.php';
             <?php if (isset($_SESSION["user_id"])): ?> <!-- change account tab content -->
                 <aside class="sidebar two">
                     <nav>
-                        <a href="http://account.gangdev.co" class="btn-text"><button class="hamburger-btn btn-text two">Account</button></a>
-                        <a href="#" class="btn-text"><button class="hamburger-btn btn-text two">Leaderboard</button></a>
-                        <a href="https://account.gangdev.co/login/signout.php" class="btn-text"><button class="hamburger-btn btn-text two">Sign Out</button></a>
+                        <a href="http://account.gangdev.co" class="btnText"><button class="hamburger-btn btnText two">Account</button></a>
+                        <a href="#" class="btnText"><button class="hamburger-btn btnText two">Leaderboard</button></a>
+                        <a href="https://account.gangdev.co/login/signout.php" class="btnText"><button class="hamburger-btn btnText two">Sign Out</button></a>
                     </nav>
                 </aside>
             <?php else: ?>
                 <aside class="sidebar two">
                     <nav>
-                        <a href="https://account.gangdev.co/login/signin.php" class="btn-text"><button class="hamburger-btn btn-text two">Sign In</button></a>
+                        <a href="https://account.gangdev.co/login/signin.php" class="btnText"><button class="hamburger-btn btnText two">Sign In</button></a>
                     </nav>
                 </aside>
             <?php endif; ?>
 
-            <a href="https://gangdev.co/"><button class="hamburger-btn btn-text one">Home</button></a>
+            <a href="https://gangdev.co/"><button class="hamburger-btn btnText one">Home</button></a>
 
             <input type="radio" id="mods" name="menu">
-            <label for="mods" class="hamburger-btn btn-text one">Mods</label>
+            <label for="mods" class="hamburger-btn btnText one">Mods</label>
             <aside class="sidebar two">
                 <nav>
-                    <a href="https://mods.gangdev.co/minecraft/resource_packs/index.php"><button class="hamburger-btn btn-text two">Minecraft<br>(Resource Packs)</button></a>
-                    <a href="https://mods.gangdev.co/minecraft/data_packs/index.php"><button class="hamburger-btn btn-text two">Minecraft<br>(Data Packs)</button></a>
-                    <a href="https://mods.gangdev.co/" class="btn-text"><button class="hamburger-btn btn-text two">More...</button></a>
+                    <a href="https://mods.gangdev.co/minecraft/resource_packs/index.php"><button class="hamburger-btn btnText two">Minecraft<br>(Resource Packs)</button></a>
+                    <a href="https://mods.gangdev.co/minecraft/data_packs/index.php"><button class="hamburger-btn btnText two">Minecraft<br>(Data Packs)</button></a>
+                    <a href="https://mods.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">More...</button></a>
                 </nav>
             </aside>
 
             <input type="radio" id="apps" name="menu">
-            <label for="apps" class="hamburger-btn btn-text one">Apps</label>
+            <label for="apps" class="hamburger-btn btnText one">Apps</label>
             <aside class="sidebar two">
                 <nav>
-                    <a href="https://apps.gangdev.co/roastGenerator"><button class="hamburger-btn btn-text two">Roast Generator</button></a>
-                    <a href="https://apps.gangdev.co/mmfGenerator"><button class="hamburger-btn btn-text two">MMF Generator</button></a>
-                    <a href="https://apps.gangdev.co/universalChat" target="_blank"><button class="hamburger-btn btn-text two">Universal Chat</button></a>
-                    <a href="https://apps.gangdev.co/" class="btn-text"><button class="hamburger-btn btn-text two">More...</button></a>
+                    <a href="https://apps.gangdev.co/roastGenerator"><button class="hamburger-btn btnText two">Roast Generator</button></a>
+                    <a href="https://apps.gangdev.co/mmfGenerator"><button class="hamburger-btn btnText two">MMF Generator</button></a>
+                    <a href="https://apps.gangdev.co/universalChat" target="_blank"><button class="hamburger-btn btnText two">Universal Chat</button></a>
+                    <a href="https://apps.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">More...</button></a>
                 </nav>
             </aside>
 
             <input type="radio" id="games" name="menu">
-            <label for="games" class="hamburger-btn btn-text one">Games</label>
+            <label for="games" class="hamburger-btn btnText one">Games</label>
             <aside class="sidebar two">
                 <nav>
-                    <a href="https://gaming.gangdev.co/gameEngine"><button class="hamburger-btn btn-text two">Game Engine<br>(Alpha)</button></a>
-                    <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank"><button class="hamburger-btn btn-text two">The Bouncing Cube<br>(Alpha)</button></a>
-                    <a href="https://gaming.gangdev.co/ultimatePong" target="_blank"><button class="hamburger-btn btn-text two">Ultimate Pong<br>(Alpha)</button></a>
-                    <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank"><button class="hamburger-btn btn-text two">Platformer Game<br>(Alpha)</button></a>
-                    <a href="https://gaming.gangdev.co/game1" target="_blank"><button class="hamburger-btn btn-text two">Multiplayer Game<br>(Alpha) [Online]</button></a>
-                    <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank"><button class="hamburger-btn btn-text two">Fighting Game<br>(Beta)</button></a>
-                    <a href="https://gaming.gangdev.co/" class="btn-text"><button class="hamburger-btn btn-text two">More...</button></a>
+                    <a href="https://gaming.gangdev.co/gameEngine"><button class="hamburger-btn btnText two">Game Engine<br>(Alpha)</button></a>
+                    <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank"><button class="hamburger-btn btnText two">The Bouncing Cube<br>(Alpha)</button></a>
+                    <a href="https://gaming.gangdev.co/ultimatePong" target="_blank"><button class="hamburger-btn btnText two">Ultimate Pong<br>(Alpha)</button></a>
+                    <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank"><button class="hamburger-btn btnText two">Platformer Game<br>(Alpha)</button></a>
+                    <a href="https://gaming.gangdev.co/game1" target="_blank"><button class="hamburger-btn btnText two">Multiplayer Game<br>(Alpha) [Online]</button></a>
+                    <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank"><button class="hamburger-btn btnText two">Fighting Game<br>(Beta)</button></a>
+                    <a href="https://gaming.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">More...</button></a>
                 </nav>
             </aside>
 
             <input type="radio" id="about" name="menu">
-            <label for="about" class="hamburger-btn btn-text one">About</label>
+            <label for="about" class="hamburger-btn btnText one">About</label>
             <aside class="sidebar two">
                 <nav>
-                    <a href="https://about.gangdev.co/" class="btn-text"><button class="hamburger-btn btn-text two">Company</button></a>
-                    <a href="https://jens.gangdev.co/"><button class="hamburger-btn btn-text two">Jens</button></a>
+                    <a href="https://about.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">Company</button></a>
+                    <a href="https://jens.gangdev.co/"><button class="hamburger-btn btnText two">Jens</button></a>
                 </nav>
             </aside>
 
             <input type="radio" id="contact" name="menu">
-            <label for="contact" class="hamburger-btn btn-text one">Contact</label>
+            <label for="contact" class="hamburger-btn btnText one">Contact</label>
             <aside class="sidebar two">
                 <nav>
-                    <a href="https://contact.gangdev.co/" class="btn-text"><button class="hamburger-btn btn-text two">Company</button></a>
-                    <a href="https://jens.gangdev.co/"><button class="hamburger-btn btn-text two">Jens</button></a>
+                    <a href="https://contact.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">Company</button></a>
+                    <a href="https://jens.gangdev.co/"><button class="hamburger-btn btnText two">Jens</button></a>
                 </nav>
             </aside>
         </nav>
