@@ -1,11 +1,6 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
-require_once '/var/www/gangdev/account/php/mailer.php';
-
-use Dotenv\Dotenv;
-
-$dotenv = Dotenv::createImmutable(__DIR__ . "/..");
-$dotenv->load();
+require_once '/var/www/gangdev/shared/php/mailer.php';
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 	header("Location: signup.php");

@@ -83,14 +83,14 @@
         <div class="sect cont one" id="contact">
             <!-- add a form -->
             <h2>Contact</h2>
-            <form action="contact.php" method="post">
+            <form action="process_contact.php" method="post">
                 <div class="details">
                     <label for="name">Name:</label><br>
                     <div class="info"><input name="name" id="name" type="text" required></div>
                     <label for="email">Email:</label><br>
-                    <div class="info"><input name="email" id="name" type="email" required></div>
+                    <div class="info"><input name="email" id="name" type="email"></div>
                     <label for="message">Message:</label><br>
-                    <div><textarea name="message" id="name" rows="5" required></textarea></div>
+                    <div><textarea name="message" id="name" rows="5" maxlength="2000" required></textarea></div>
                 </div>
                 <div><button type="submit">Send</button></div>
             </form>

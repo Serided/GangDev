@@ -1,11 +1,6 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
 
-use Dotenv\Dotenv;
-
-$dotenv = Dotenv::createImmutable(__DIR__ . "/..");
-$dotenv->load();
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['token'])) {
 	$token = trim($_GET['token']);
 
