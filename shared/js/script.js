@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     let bgWrapper = entryDiv.querySelector('.bgWrapper');
-    if (!entryDiv) {
+    if (!bgWrapper) {
         console.error('bgWrapper not found.')
         return;
     }

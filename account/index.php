@@ -42,8 +42,9 @@ if ($userId) {
         <?php endif; ?>
 
         <div class="sect cont entry">
-	        <?php if (isset($_SESSION["user_id"])): ?>
-            <div class="shimmer">
+            <div class="bgWrapper"></div>
+            <?php if (isset($_SESSION["user_id"])): ?>
+            <div class="shimmer" id="iDisplay">
                 <div style="background-image: url('<?= htmlspecialchars($userIconUrl) ?>');"></div>
             </div>
             <input type="file" id="iconFile" accept="image/*" style="display: none;">
