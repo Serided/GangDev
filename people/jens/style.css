@@ -60,7 +60,7 @@
 }
 
 .timelineContent {
-    max-width: 100%;
+    max-width: 20%;
     background: #f9f9f9;
     padding: calc(var(--scaling) * 1);
     border-radius: calc(var(--scaling) * 0.1);
