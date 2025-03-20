@@ -44,7 +44,6 @@
     padding: calc(var(--scaling) * 1);
 }
 .timelineMarker {
-    top: calc(var(--scaling) * 0.5);
     width: calc(var(--scaling) * 0.2);
     height: calc(var(--scaling) * 0.2);
     background: white;
@@ -52,15 +51,9 @@
     border-radius: 50%;
     z-index: 1;
 }
-.timelineItem:nth-child(odd) .timelineMarker {
-    right: calc(var(--scaling) * -0.1);
-}
-.timelineItem:nth-child(even) .timelineMarker {
-    left: calc(var(--scaling) * -0.1);
-}
-
 .timelineContent {
-    max-width: 20%;
+    justify-content: center;
+    width: 20%;
     background: #f9f9f9;
     padding: calc(var(--scaling) * 1);
     border-radius: calc(var(--scaling) * 0.1);
