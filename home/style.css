@@ -35,6 +35,9 @@
 .sect.cont#products .columns {
     display: flex;
 }
+.sect.cont#products .columns div {
+    max-width: 33.3333%;
+}
 
 .sect.cont#overview p {
     width: 100%;
