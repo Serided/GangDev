@@ -74,13 +74,14 @@
     font-size: calc(var(--scaling) * 0.5);
 }
 .timelineDetails {
-    padding: calc(var(--scaling) * 0.5);
     opacity: 0;
     transition: opacity 0.3s ease;
     color: gray;
+    font-size: calc(var(--scaling) * 0.5);
 }
 .timelineItem:hover .timelineDetails {
     opacity: 1;
+    padding: calc(var(--scaling) * 0.5);
 }
 
 .hexagon {
