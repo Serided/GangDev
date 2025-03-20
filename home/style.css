@@ -34,7 +34,7 @@
 
 .sect.cont#products h2 {
     font-size: calc(var(--scaling) * 2.2);
-    margin-bottom: calc(var(--scaling) * 1.5);
+    margin-bottom: calc(var(--scaling) * 1);
 }
 .sect.cont#products a {
     color: #F7CBA4;
@@ -59,9 +59,6 @@
     margin-bottom: calc(var(--scaling) * 0.5);
     font-size: calc(var(--scaling) * 0.9);
     line-height: calc(var(--scaling) * 0.9);
-}
-.sect.cont#products .columns .games {
-    padding: calc(var(--scaling) * 0.75) auto;
 }
 .sect.cont#products .columns .games h2 {
     font-size: calc(var(--scaling) * 2.7);
