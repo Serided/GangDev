@@ -18,6 +18,7 @@
 
 .timeline {
     width: 100%;
+    position: absolute;
     margin: calc(var(--scaling) * 1) auto;
     padding: calc(var(--scaling) * 1);
     display: flex;
@@ -30,7 +31,6 @@
     background: #ccc;
 }
 .timelineItem {
-    position: absolute;
     width: 20%;
     padding: calc(var(--scaling) * 1);
 }
