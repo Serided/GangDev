@@ -47,7 +47,7 @@
     position: relative;
     width: calc(var(--scaling) * 10);
     margin: 0 calc(var(--scaling) * 0.5);
-    padding: calc(var(--scaling) * 0.25);
+    padding: calc(var(--scaling) * 0.15);
     text-align: center;
     background: #f9f9f9;
     border-radius: calc(var(--scaling) * 0.2);
