@@ -52,13 +52,13 @@
     text-align: center;
     background: #f9f9f9;
     border-radius: calc(var(--scaling) * 0.2);
-    transition: height 0.3s ease;
+    transition: max-height 0.3s ease;
     max-height: calc(var(--scaling) * 2);
     overflow: hidden;
     z-index: 1;
 }
 .timelineItem:hover {
-    height: calc(var(--scaling) * 12);
+    max-height: calc(var(--scaling) * 20);
 }
 .timelineBox {
     display: flex;
