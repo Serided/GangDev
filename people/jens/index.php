@@ -17,7 +17,6 @@
                 <div style="background-image: url('https://gangdev.co/shared/files/img/jens/icon.webp')" class="jens"></div>
             </div>
             <h1>
-                ^<br>
                 Jens
                 <a href="php/vivienne.php" class="vivienne">&nbsp+ Vivienne</a>
             </h1>
