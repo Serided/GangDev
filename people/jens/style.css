@@ -11,6 +11,10 @@
     border: calc(var(--scaling) * 0.2) solid gray;
 }
 
+.arrow {
+    height: calc(var(--scaling) * 0.2);
+}
+
 .hexagon {
     width: var(--hexagon-width);
     height: var(--hexagon-height);
