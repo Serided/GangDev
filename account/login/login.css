@@ -67,7 +67,7 @@ form label {
     font-size: calc(var(--scaling) * 1);
 }
 .inputContainer {
-    width: calc(var(--scaling) * 10);
+    width: calc(var(--scaling) * 12);
     justify-items: left;
     text-align: left;
 }
@@ -76,17 +76,16 @@ form label {
     border-radius: calc(var(--scaling) * 0.17);
     padding: calc(var(--scaling) * 0.17);
     height: calc(var(--scaling) * 1.5);
-    min-width: 100%;
+    width: 100%;
     font-size: calc(var(--scaling) * 1);
     background: whitesmoke;
     border: none;
     transition: all 0.2s ease;
 }
 .inputContainer.signup {
-    width: calc(var(--scaling) * 10);
+    width: calc(var(--scaling) * 8);
 }
 .inputContainer.signup input {
-    min-width: 100%;
     height: calc(var(--scaling) * 1.3);
     font-size: calc(var(--scaling) * 0.9);
 }
