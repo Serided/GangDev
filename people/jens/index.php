@@ -32,9 +32,16 @@
                         <p>Jun. 2022 - Aug. 2022</p>
                     </div>
                     <div class="timelineDetails">
-                        <p></p>
+                        <p>
+                            At Walmart, I excelled in a fast-paced retail environment, handling transactions,
+                            customer service, and logistics with efficiency.
+                        </p>
                         <ul>
-                            <li></li>
+                            <li>Processed high-volume transactions with speed and accuracy.</li>
+                            <li>Provided exceptional customer service for purchases, returns, and inquiries.</li>
+                            <li><strong>Maneuvered and organized heavy shopping carts in a demanding, fast-paced environment.</strong></li>
+                            <li>Maintained a clean, organized store to enhance customer experience.</li>
+                            <li>Developed resilience, efficiency, and teamwork under constant pressure.</li>
                         </ul>
                     </div>
                 </div>
@@ -62,14 +69,13 @@
                         <p>Jul. 2024 - Oct. 2024</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>At Quincy Foods, LLC, I worked on large-scale agricultural equipment, specializing in combine maintenance and repair.</p>
+                        <p>At Quincy Foods, LLC, I maintained and repaired large-scale combines, ensuring peak efficiency.</p>
                         <ul>
-                            <li>Diagnosed and repaired hydraulic, electrical, and mechanical systems on combines.</li>
-                            <li>Performed preventative maintenance to maximize efficiency during harvest seasons.</li>
-                            <li>Used technical manuals and diagnostic tools to troubleshoot complex issues.</li>
-                            <li>Ensured safety compliance and proper functioning of all equipment.</li>
-                            <li>Developed problem-solving and hands-on mechanical expertise under high-pressure conditions.</li>
-                            <li><strong>Clocked 90+ grueling hours weekly, pushing my physical and mental limits.</strong></li>
+                            <li>Diagnosed and repaired hydraulic, electrical, and mechanical systems.</li>
+                            <li>Performed preventative maintenance to prevent downtime.</li>
+                            <li>Utilized technical manuals and diagnostics for troubleshooting.</li>
+                            <li>Ensured safety compliance and optimal equipment performance.</li>
+                            <li><strong>Worked 90+ grueling hours weekly, pushing physical and mental limits.</strong></li>
                         </ul>
                     </div>
                 </div>
