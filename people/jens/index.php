@@ -96,10 +96,12 @@
                 <strong>server administration</strong>, I manage my own infrastructure and lead large-scale projects,
                 all while actively contributing to <i>collaborative open-source development</i>—a journey that’s taught
                 me the true value of teamwork and shared innovation.<br><br>
+
                 One of my proudest achievements is founding <strong>GangDev</strong>, a company built on
                 <i>work ethic, efficiency, and scalable solutions</i>. I've engineered a high-performance web platform
                 and crafted procedural game mechanics that
                 <strong>boost scalability, refine AI behavior, and enhance in-game systems</strong>.<br><br>
+
                 My goal is to grow <strong>GangDev</strong> into a trademarked, mid-sized development company that
                 generates seven to eight figures annually through <i>innovative digital products</i>. Whether working
                 solo or as part of a team, I bring a
