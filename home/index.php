@@ -48,14 +48,26 @@
                 </div>
                 <div class="games">
                     <h2>Games</h2>
-                    <p>
-                        <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine<br>(Alpha)</a><br><br>
-                        <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube<br>(Alpha)</a><br><br>
-                        <a href="https://gaming.gangdev.co/ultimatePong" target="_blank">Ultimate Pong<br>(Alpha)</a><br><br>
-                        <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game<br>(Alpha)</a><br><br>
-                        <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game<br>(Alpha)</a>[Online]<br><br>
-                        <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game<br>(Beta)</a><br><br>
-                    </p>
+                    <div>
+                        <div>
+                            <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine<br>(Alpha)</a>
+                        </div>
+                        <div>
+                            <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube<br>(Alpha)</a>
+                        </div>
+                        <div>
+                            <a href="https://gaming.gangdev.co/ultimatePong" target="_blank">Ultimate Pong<br>(Alpha)</a>
+                        </div>
+                        <div>
+                            <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game<br>(Alpha)</a>
+                        </div>
+                        <div>
+                            <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game<br>(Alpha) <b>[Online]</b></a>
+                        </div>
+                        <div>
+                            <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game<br>(Beta)</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="apps">
                     <h2>Apps</h2>

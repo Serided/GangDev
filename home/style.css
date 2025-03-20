@@ -40,7 +40,10 @@
     line-height: calc(var(--scaling) * 0.9);
 }
 .sect.cont#products a {
-    color: lightsteelblue;
+    color: #F7CBA4;
+}
+.sect.cont#products a b {
+    color: lawngreen;
 }
 .sect.cont#products .columns {
     width: 100%;
