@@ -26,7 +26,6 @@
 .timeline {
     width: 100%;
     position: absolute;
-    top: calc(var(--scaling) * 4);
     padding: calc(var(--scaling) * 1);
     display: flex;
     justify-content: center;
