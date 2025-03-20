@@ -99,6 +99,7 @@ form label {
     font-size: calc(var(--scaling) * 0.5);
     cursor: pointer;
     color: black;
+    position: absolute;
 }
 
 .create {
