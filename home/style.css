@@ -74,17 +74,21 @@
     margin-bottom: calc(var(--scaling) * 0.75);
 }
 .sect.cont#contact label {
-    font-size: calc(var(--scaling) * 0.9);
+    font-size: calc(var(--scaling) * 1.2);
 }
 .sect.cont#contact .info {
     width: calc(var(--scaling) * 15);
     padding: calc(var(--scaling) * 1);
 }
 .sect.cont#contact input {
-    font-size: calc(var(--scaling) * 2);
+    font-size: calc(var(--scaling) * 1);
+    width: 100%;
+    border-radius: calc(var(--scaling) * 0.5);
 }
 .sect.cont#contact textarea {
     resize: none;
+    width: calc(var(--scaling) * 15);
+    font-size: calc(var(--scaling) * 0.75);
 }
 .sect.cont#contact button {
 }
