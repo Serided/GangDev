@@ -37,10 +37,10 @@
 }
 .sect.cont#products p {
     font-size: calc(var(--scaling) * 0.9);
+    line-height: calc(var(--scaling) * 0.9);
 }
 .sect.cont#products a {
-    color: lightskyblue;
-    line-height: calc(var(--scaling) * 0.9);
+    color: lightsteelblue;
 }
 .sect.cont#products .columns {
     width: 100%;
