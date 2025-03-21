@@ -115,35 +115,55 @@
                 <p class="desc">I have a vast array of experience in computer science.</p>
             </div>
             <div class="expSect">
-                <div class="hexagon codingExp">
-                    <p><strong><u>MC Function</u></strong><br>8+ years</p>
+                <div class="hexagon">
+                    <div class="innerHex">
+                        <p><strong><u>MC Function</u></strong><br>8+ years</p>
+                    </div>
                 </div>
-                <div class="hexagon codingExp">
-                    <p><strong><u>Python</u></strong><br>2 years</p>
+                <div class="hexagon">
+                    <div class="innerHex">
+                        <p><strong><u>Python</u></strong><br>2 years</p>
+                    </div>
                 </div>
-                <div class="hexagon codingExp">
-                    <p><strong><u>HTML</u></strong><br>4 years</p>
+                <div class="hexagon">
+                    <div class="innerHex">
+                        <p><strong><u>HTML</u></strong><br>4 years</p>
+                    </div>
                 </div>
-                <div class="hexagon codingExp">
-                    <p><strong><u>PHP</u></strong><br>3 years</p>
+                <div class="hexagon">
+                    <div class="innerHex">
+                        <p><strong><u>PHP</u></strong><br>3 years</p>
+                    </div>
                 </div>
-                <div class="hexagon codingExp">
-                    <p><strong><u>CSS</u></strong><br>4 years</p>
+                <div class="hexagon">
+                    <div class="innerHex">
+                        <p><strong><u>CSS</u></strong><br>4 years</p>
+                    </div>
                 </div>
-                <div class="hexagon codingExp">
-                    <p><strong><u>JS</u></strong><br>4 years</p>
+                <div class="hexagon">
+                    <div class="innerHex">
+                        <p><strong><u>JS</u></strong><br>4 years</p>
+                    </div>
                 </div>
-                <div class="hexagon codingExp">
-                    <p><strong><u>Linux</u></strong><br>3 years</p>
+                <div class="hexagon">
+                    <div class="innerHex">
+                        <p><strong><u>Linux</u></strong><br>3 years</p>
+                    </div>
                 </div>
-                <div class="hexagon codingExp">
-                    <p><strong><u>Ruby</u></strong><br>1 year</p>
+                <div class="hexagon">
+                    <div class="innerHex">
+                        <p><strong><u>Ruby</u></strong><br>1 year</p>
+                    </div>
                 </div>
-                <div class="hexagon codingExp">
-                    <p><strong><u>Kotlin</u></strong><br>1 year</p>
+                <div class="hexagon">
+                    <div class="innerHex">
+                        <p><strong><u>Kotlin</u></strong><br>1 year</p>
+                    </div>
                 </div>
-                <div class="hexagon codingExp">
-                    <p><strong><u>PostgreSQL</u></strong><br>1 year</p>
+                <div class="hexagon">
+                    <div class="innerHex">
+                        <p><strong><u>PostgreSQL</u></strong><br>1 year</p>
+                    </div>
                 </div>
             </div>
         </div>
