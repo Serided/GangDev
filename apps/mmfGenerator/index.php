@@ -11,7 +11,7 @@
         <?= $navbar ?>
         <?= $warn ?>
 
-        <div class="sect cont two single">
+        <div class="sect two single">
             <h1>
                 MMF Generator
             </h1>
@@ -27,7 +27,7 @@
             <h2>Generator</h2>
             <div>
                 <div>
-                    <input type="checkbox" id="sYN"> Forward Slash ( / )
+                    <input type="checkbox" id="sYN">Forward Slash ( / )
                 </div><br>
 
                 <div>

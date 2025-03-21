@@ -97,7 +97,7 @@ body {
   min-height: 100vh;
   padding: calc(var(--scaling) * 1.5);
 }
-.sect.cont.single {
+.sect.single {
   min-height: 90vh;
   padding: calc(var(--scaling) * 0.9);
 }
@@ -116,19 +116,19 @@ body {
   letter-spacing: calc(var(--scaling) * 0.01);
 }
 
-.sect.cont.one {
+.sect.one {
   background: #ECEFF1;
   color: #333333;
 }
-.sect.cont.two {
+.sect.two {
   background: #2B5C6E;
   color: #FFFFFF;
 }
-.sect.cont.three {
+.sect.three {
   background: #70838F;
   color: #FFFFFF;
 }
-.sect.cont.four {
+.sect.four {
   background: #F7CBA4;
   color: #333333;
 }
