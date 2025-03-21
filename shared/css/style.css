@@ -116,7 +116,7 @@ body {
   letter-spacing: calc(var(--scaling) * 0.01);
 }
 .sect.cont.entry h2 {
-  font-size: calc(var(--scaling) * 0.8);
+  font-size: calc(var(--scaling) * 0.5);
   font-weight: normal;
   letter-spacing: calc(var(--scaling) * 0.01);
 }
