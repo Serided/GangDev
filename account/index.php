@@ -67,6 +67,18 @@ if ($userId) {
 
         <div class="sect cont two">
             <?php if (isset($_SESSION["user_id"])): ?>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <label for="pInfo">Personal Info</label>
+                <input type="radio" id="pInfo" name="pInfo" checked>
+                <label for="aSecurity">Account Security</label>
+                <input type="radio" id="pInfo" name="aSecurity">
+                <label for="customization">Customization</label>
+                <input type="radio" id="pInfo" name="customization">
+                <label for="preferences">Notifications & Preferences</label>
+                <input type="radio" id="pInfo" name="preferences">
+                <label for="billing">Billing & Subscriptions</label>
+                <input type="radio" id="pInfo" name="billing">
+            </div>
             <div class="info">
                 <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
                 <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
