@@ -118,10 +118,8 @@
 .hexagon {
     position: relative;
     margin: 0;
-    top: 10%;   /* 10% from top */
-    left: 3%;  /* 10% from left */
-    width: 94%; /* 80% of the bounding box width */
-    height: 80%;/* 80% of the bounding box height */
+    width: calc(var(--hexWidth) * 1.1);
+    height: calc(var(--hexHeight) * 1.1);
 }
 .innerHex {
     position: absolute;
