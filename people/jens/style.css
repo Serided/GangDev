@@ -100,34 +100,39 @@
     font-size: calc(var(--scaling) * 1.2);
     margin-bottom: calc(var(--scaling) * 1.2);
 }
-.complexGrid {
+.tiltedGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 10px;
     width: 90%;
     margin: 0 auto;
+    justify-items: center;
 }
-.complexGrid > .cell {
-    background: linear-gradient(135deg, #ECEFF1, #ccc);
-    border-radius: 50%; /* Circle shape; change to a lower value for rounded squares */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+
+.tiltedCell {
+    background: #f0f0f0;
+    border: 2px solid #ccc;
+    border-radius: 10px;
     padding: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
     font-size: 0.9rem;
     color: #333;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.complexGrid > .cell:nth-child(odd) {
-    transform: rotate(-3deg);
+
+/* Subtle alternating rotations */
+.tiltedCell:nth-child(odd) {
+    transform: rotate(-2deg);
 }
-.complexGrid > .cell:nth-child(even) {
-    transform: rotate(3deg);
+
+.tiltedCell:nth-child(even) {
+    transform: rotate(2deg);
 }
-.complexGrid > .cell:hover {
-    transform: scale(1.05);
+
+/* Hover effect for added dynamism */
+.tiltedCell:hover {
+    transform: scale(1.05) rotate(0deg);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .vivienne {

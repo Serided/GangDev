@@ -114,17 +114,37 @@
                 <h2>Expertise</h2>
                 <p class="desc">I have a vast array of experience in computer science.</p>
             </div>
-            <div class="complexGrid">
-                <div class="cell">MC Function<br>8+ yrs</div>
-                <div class="cell">Python<br>5 yrs</div>
-                <div class="cell">HTML<br>4 yrs</div>
-                <div class="cell">CSS<br>4 yrs</div>
-                <div class="cell">JS<br>4 yrs</div>
-                <div class="cell">PHP<br>3 yrs</div>
-                <div class="cell">Linux<br>3 yrs</div>
-                <div class="cell">Ruby<br>1 yr</div>
-                <div class="cell">Kotlin<br>1 yr</div>
-                <div class="cell">PostgreSQL<br>1 yr</div>
+            <div class="tiltedGrid">
+                <div class="tiltedCell">
+                    <strong>MC Function</strong><br>8+ yrs
+                </div>
+                <div class="tiltedCell">
+                    <strong>Python</strong><br>2 yrs
+                </div>
+                <div class="tiltedCell">
+                    <strong>HTML</strong><br>4 yrs
+                </div>
+                <div class="tiltedCell">
+                    <strong>PHP</strong><br>3 yrs
+                </div>
+                <div class="tiltedCell">
+                    <strong>CSS</strong><br>4 yrs
+                </div>
+                <div class="tiltedCell">
+                    <strong>JS</strong><br>4 yrs
+                </div>
+                <div class="tiltedCell">
+                    <strong>Linux</strong><br>3 yrs
+                </div>
+                <div class="tiltedCell">
+                    <strong>Ruby</strong><br>1 yr
+                </div>
+                <div class="tiltedCell">
+                    <strong>Kotlin</strong><br>1 yr
+                </div>
+                <div class="tiltedCell">
+                    <strong>PostgreSQL</strong><br>1 yr
+                </div>
             </div>
         </div>
 
