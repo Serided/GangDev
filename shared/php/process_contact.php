@@ -65,11 +65,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	}
 	$altBody .= "Message:\n$message\n";
 
+	$currentUrl = $_SERVER['REQUEST_URI'];
+
+	if (strpos($currentUrl, '?') !== false) {
+		$redirectUrl = $currentUrl . "&status=";
+	} else {
+		$redirectUrl = $currentUrl . "?status=";
+	}
+
 	if (sendMail($fromEmail, $fromName, $toEmail, $toName, $subject, $htmlBody, $altBody)) {
-		header("Location: https://gangdev.co?status=success");
+		$status = 'success';
+		header("Location: " . $redirectUrl . $status);
 		exit;
 	} else {
-		header("Location: https://gangdev.co?status=error");
+		$status = 'error';
+		header("Location: " . $redirectUrl . $status);
 		exit;
 	}
 } else {
