@@ -119,19 +119,19 @@
                     <strong>MC Function</strong><br>8+ years
                 </div>
                 <div class="tiltedCell">
-                    <strong>Python</strong><br>2 years
+                    <strong>Python</strong><br>4 years
                 </div>
                 <div class="tiltedCell">
                     <strong>HTML</strong><br>4 years
-                </div>
-                <div class="tiltedCell">
-                    <strong>PHP</strong><br>3 years
                 </div>
                 <div class="tiltedCell">
                     <strong>CSS</strong><br>4 years
                 </div>
                 <div class="tiltedCell">
                     <strong>JS</strong><br>4 years
+                </div>
+                <div class="tiltedCell">
+                    <strong>PHP</strong><br>3 years
                 </div>
                 <div class="tiltedCell">
                     <strong>Linux</strong><br>3 years
@@ -146,6 +146,16 @@
                     <strong>PostgreSQL</strong><br>1 year
                 </div>
             </div>
+            <div>
+                <p class="desc">Some of my favorite projects:</p>
+            </div>
+            <div style="display: flex">
+                <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
+                <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine (Alpha)</a><br>
+                <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game (Alpha) [Online]</a><br>
+                <a href="https://apps.gangdev.co/roastGenerator" target="_blank">Roast Generator</a><br>
+                <a href="https://apps.gangdev.co/mmfGenerator" target="_blank">MMF Generator</a><br>
+            </div>
         </div>
 
         <div class="sect cont four">
@@ -156,27 +166,6 @@
                 <a href="https://www.youtube.com/@serided" target="_blank">YouTube</a><br>
                 <a href="https://github.com/Serided" target="_blank">GitHub</a><br>
                 <a href="https://stackoverflow.com/users/20779197/serided" target="_blank">Stack Overflow</a>
-            </p>
-        </div>
-
-        <div class="sect cont three">
-            <h2>Projects</h2>
-            <p>
-                <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
-
-                <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine (Alpha)</a><br>
-                <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube (Alpha)</a><br>
-                <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Ultimate Pong (Alpha)</a><br>
-                <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a><br>
-                <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game (Alpha) [Online]</a><br>
-                <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game (Beta)</a><br>
-
-                <a href="https://apps.gangdev.co/roastGenerator" target="_blank">Roast Generator</a><br>
-                <a href="https://apps.gangdev.co/mmfGenerator" target="_blank">MMF Generator</a><br>
-                <a href="https://apps.gangdev.co/universalChat" target="_blank">Universal Chat</a><br>
-
-                <a href="https://mods.gangdev.co/minecraft/resource_packs" target="_blank">Minecraft (Resource Packs)</a><br>
-                <a href="https://mods.gangdev.co/minecraft/data_packs" target="_blank">Minecraft (Data Packs)</a>
             </p>
         </div>
 
