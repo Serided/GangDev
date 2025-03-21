@@ -123,10 +123,10 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .tiltedCell:nth-child(odd) {
-    transform: rotate(-2deg);
+    transform: rotate(-1deg);
 }
 .tiltedCell:nth-child(even) {
-    transform: rotate(2deg);
+    transform: rotate(1deg);
 }
 .tiltedCell:hover {
     transform: scale(1.05) rotate(0deg);
