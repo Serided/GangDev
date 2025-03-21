@@ -90,7 +90,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const radios = document.querySelectorAll('input[name="sections"]');
     const sections = document.querySelectorAll('.accountInfo');
-    const fadeDuration = 400; // duration in ms
+    const fadeDuration = 400; // fade duration in ms
+
+    console.log("Radios found:", radios.length);
+    console.log("Sections found:", sections.length);
 
     // Function to fade out an element
     function fadeOut(el, callback) {
@@ -105,36 +108,48 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to fade in an element
     function fadeIn(el) {
         el.style.display = 'block';
-        // slight delay to ensure the display change is applied before transition
+        // slight delay to ensure the display change is applied before transition starts
         setTimeout(() => {
             el.style.transition = `opacity ${fadeDuration}ms ease`;
             el.style.opacity = 1;
         }, 10);
     }
 
-    // Initially, hide all sections and show the one for the checked radio
+    // Initially, hide all sections
     sections.forEach(section => {
         section.style.opacity = 0;
         section.style.display = 'none';
     });
+
+    // Get the initially checked radio button
     const initialRadio = document.querySelector('input[name="sections"]:checked');
+    console.log("Initial radio:", initialRadio);
     if (initialRadio) {
         const target = document.getElementById('sect' + initialRadio.id);
-        if (target) fadeIn(target);
+        console.log("Initial target section:", target);
+        if (target) {
+            fadeIn(target);
+        } else {
+            console.warn("No target found for", initialRadio.id);
+        }
     }
 
-    // Add change listener to each radio button
+    // Listen for changes on the radio buttons
     radios.forEach(radio => {
         radio.addEventListener('change', function () {
-            // Fade out all accountInfo sections
+            console.log("Radio changed:", this.id);
+            // Fade out all sections
             sections.forEach(section => fadeOut(section));
 
-            // Determine the target section from the radio's ID (prepend "sect")
+            // Determine the target section by prepending "sect" to the radio's ID
             const targetId = 'sect' + this.id;
             const targetSection = document.getElementById(targetId);
+            console.log("Target section:", targetSection);
             if (targetSection) {
-                // Fade in the target section after a short delay to let others fade out
+                // Fade in the target section after waiting for fade-out to complete
                 setTimeout(() => fadeIn(targetSection), fadeDuration);
+            } else {
+                console.warn("No section found with id", targetId);
             }
         });
     });

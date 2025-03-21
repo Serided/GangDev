@@ -87,7 +87,6 @@ if ($userId) {
                 <div class="accountInfo" id="sectPInfo">
                     <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
                     <h2>Email: <b><?php echo htmlspecialchars($_SESSION['email']) ?></b></h2>
-
                 </div>
                 <div class="accountInfo" id="sectASecurity">
                     <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>

@@ -43,12 +43,6 @@
 }
 
 .accountCont {
-    margin: calc(var(--scaling) * 1) auto;
-    padding: calc(var(--scaling) * 1);
-    border-radius: calc(var(--scaling) * 1);
-    background: darkgray;
-    justify-items: center;
-    width: max-content !important;
 }
 .accountInfo {
     display: none;
