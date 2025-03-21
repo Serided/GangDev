@@ -41,7 +41,7 @@
             </p>
         </div>
 
-        <div class="sect cont four">
+        <div class="sect cont one">
             <h2>
                 <a href="">IN PROGRESS</a>
             </h2>
@@ -52,15 +52,6 @@
             </p>
 		</div>
 
-        <div class="sect cont three">
-            <h2 style="color:red">
-                <b>Note:</b>
-            </h2>
-            <p>
-                In development.
-            </p>
-		</div>
-
-	<?= $footer ?>
+	    <?= $footer ?>
 	</body>
 </html>

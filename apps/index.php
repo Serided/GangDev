@@ -42,7 +42,7 @@
             </p>
         </div>
 
-        <div class="sect cont one">
+        <!--<div class="sect cont one">
             <h2>
                 <a href="universalChat" target="_blank">Universal Chat</a>
             </h2>
@@ -51,7 +51,7 @@
                 <br>
                 <b>Join with a custom username to view and contribute to a universal chat.</b>
             </p>
-        </div>
+        </div>-->
 
 		<div class="sect cont three">
             <h2>

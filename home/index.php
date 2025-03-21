@@ -52,12 +52,12 @@
                         <div class="link">
                             <a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine -<br>(Alpha)</a>
                         </div>
-                        <div class="link">
+                        <!--<div class="link">
                             <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">- The Bouncing Cube -<br>(Alpha)</a>
                         </div>
                         <div class="link">
                             <a href="https://gaming.gangdev.co/ultimatePong" target="_blank">- Ultimate Pong -<br>(Alpha)</a>
-                        </div>
+                        </div>-->
                         <div class="link">
                             <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">- Platformer Game -<br>(Alpha)</a>
                         </div>
@@ -74,7 +74,7 @@
                     <p class="desc">
                         <a href="https://apps.gangdev.co/roastGenerator/">- Roast Generator -</a><br>
                         <a href="https://apps.gangdev.co/mmfGenerator/">- MMF Generator -</a><br>
-                        <a href="https://apps.gangdev.co/universalChat/" target="_blank">- Universal Chat -</a><br>
+                        <!--<a href="https://apps.gangdev.co/universalChat/" target="_blank">- Universal Chat -</a><br>-->
                     </p>
                 </div>
             </div>

@@ -48,7 +48,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                 <nav>
                     <a href="https://apps.gangdev.co/roastGenerator"><button class="hamburger-btn btnText two">Roast Generator</button></a>
                     <a href="https://apps.gangdev.co/mmfGenerator"><button class="hamburger-btn btnText two">MMF Generator</button></a>
-                    <a href="https://apps.gangdev.co/universalChat" target="_blank"><button class="hamburger-btn btnText two">Universal Chat</button></a>
+                    <!--<a href="https://apps.gangdev.co/universalChat" target="_blank"><button class="hamburger-btn btnText two">Universal Chat</button></a>-->
                     <a href="https://apps.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">More...</button></a>
                 </nav>
             </aside>
@@ -58,8 +58,8 @@ require_once '/var/www/gangdev/shared/php/init.php';
             <aside class="sidebar two">
                 <nav>
                     <a href="https://gaming.gangdev.co/gameEngine"><button class="hamburger-btn btnText two">Game Engine<br>(Alpha)</button></a>
-                    <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank"><button class="hamburger-btn btnText two">The Bouncing Cube<br>(Alpha)</button></a>
-                    <a href="https://gaming.gangdev.co/ultimatePong" target="_blank"><button class="hamburger-btn btnText two">Ultimate Pong<br>(Alpha)</button></a>
+                    <!--<a href="https://gaming.gangdev.co/basicCubeGame" target="_blank"><button class="hamburger-btn btnText two">The Bouncing Cube<br>(Alpha)</button></a>
+                    <a href="https://gaming.gangdev.co/ultimatePong" target="_blank"><button class="hamburger-btn btnText two">Ultimate Pong<br>(Alpha)</button></a>-->
                     <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank"><button class="hamburger-btn btnText two">Platformer Game<br>(Alpha)</button></a>
                     <a href="https://gaming.gangdev.co/game1" target="_blank"><button class="hamburger-btn btnText two">Multiplayer Game<br>(Alpha) [Online]</button></a>
                     <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank"><button class="hamburger-btn btnText two">Fighting Game<br>(Beta)</button></a>

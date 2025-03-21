@@ -17,7 +17,7 @@
             </h1>
         </div>
 
-        <div class="sect cont two">
+        <!--<div class="sect cont two">
             <h2>
                 <a href="basicCubeGame" target="_blank">The Bouncing Cube (Alpha)</a>
             </h2>
@@ -38,6 +38,18 @@
                 <br>
                 <b>To play, move thine mouse good sir.</b>
             </p>
+        </div>-->
+
+        <div class="sect cont four">
+            <h2>
+                <a href="gameEngine" target="_blank">Game Engine (Alpha)</a>
+            </h2>
+            <p>
+                A tool I use to create my games and reuse code. Currently the only user friendly tool is the platformer.
+                Saves created platforms as a json file for game use.<br>
+                <br>
+                <b>INCLUDED</b>
+            </p>
         </div>
 
         <div class="sect cont four">
@@ -45,9 +57,10 @@
                 <a href="basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a>
             </h2>
             <p>
-                Currently unplayable, the next stupendous production in this line of phenomenal games.<br>
+                Just hop around. Be a little bunny rabbit or smth. Currently being worked on, mainly used to test code
+                optimization.<br>
                 <br>
-                <b>UNKNOWN</b>
+                <b>W, A, S, and D to move.</b>
             </p>
         </div>
 
@@ -56,7 +69,7 @@
                 <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game (Alpha) [Online]</a>
             </h2>
             <p>
-                First real experience and project with websockets. Just a basic chat app currently<br>
+                First real experience and project with websockets. Just a basic chat app currently.<br>
                 <br>
                 <b>To play, type and send a message goofy.</b>
             </p>
