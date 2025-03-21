@@ -51,13 +51,14 @@
     text-align: center;
     background: #f9f9f9;
     border-radius: calc(var(--scaling) * 0.2);
-    transition: max-height 0.3s ease;
+    transition: all 0.3s ease;
     max-height: calc(var(--scaling) * 2);
     overflow: hidden;
     z-index: 1;
 }
 .timelineItem:hover {
     max-height: 70vh;
+    transform: scale(1.05);
 }
 .timelineBox {
     display: flex;
@@ -104,7 +105,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(calc(var(--scaling) * 5), 1fr));
     gap: calc(var(--scaling) * 0.4);
-    width: calc(var(--scaling) * 30);
+    width: 70vw;
     margin: 0 auto;
     justify-items: center;
     align-content: center;

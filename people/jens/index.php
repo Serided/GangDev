@@ -116,34 +116,34 @@
             </div>
             <div class="tiltedGrid">
                 <div class="tiltedCell">
-                    <strong>MC Function</strong><br>8+ yrs
+                    <strong>MC Function</strong><br>8+ years
                 </div>
                 <div class="tiltedCell">
-                    <strong>Python</strong><br>2 yrs
+                    <strong>Python</strong><br>2 years
                 </div>
                 <div class="tiltedCell">
-                    <strong>HTML</strong><br>4 yrs
+                    <strong>HTML</strong><br>4 years
                 </div>
                 <div class="tiltedCell">
-                    <strong>PHP</strong><br>3 yrs
+                    <strong>PHP</strong><br>3 years
                 </div>
                 <div class="tiltedCell">
-                    <strong>CSS</strong><br>4 yrs
+                    <strong>CSS</strong><br>4 years
                 </div>
                 <div class="tiltedCell">
-                    <strong>JS</strong><br>4 yrs
+                    <strong>JS</strong><br>4 years
                 </div>
                 <div class="tiltedCell">
-                    <strong>Linux</strong><br>3 yrs
+                    <strong>Linux</strong><br>3 years
                 </div>
                 <div class="tiltedCell">
-                    <strong>Ruby</strong><br>1 yr
+                    <strong>Ruby</strong><br>1 year
                 </div>
                 <div class="tiltedCell">
-                    <strong>Kotlin</strong><br>1 yr
+                    <strong>Kotlin</strong><br>1 year
                 </div>
                 <div class="tiltedCell">
-                    <strong>PostgreSQL</strong><br>1 yr
+                    <strong>PostgreSQL</strong><br>1 year
                 </div>
             </div>
         </div>
