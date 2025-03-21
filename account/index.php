@@ -84,21 +84,21 @@ if ($userId) {
                 <label for="billing">Billing</label>
             </div>
             <div class="accountCont">
-                <div class="accountInfo" id="sectPInfo">
+                <div class="accountInfo" id="sectpInfo">
                     <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
                     <h2>Email: <b><?php echo htmlspecialchars($_SESSION['email']) ?></b></h2>
                 </div>
-                <div class="accountInfo" id="sectASecurity">
+                <div class="accountInfo" id="sectaSecurity">
                     <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
                     <h2>Password: <b>NOT SETUP</b></h2>
                 </div>
-                <div class="accountInfo" id="sectCustomization">
+                <div class="accountInfo" id="sectcustomization">
                     customization
                 </div>
-                <div class="accountInfo" id="sectPreferences">
+                <div class="accountInfo" id="sectpreferences">
                     preferences
                 </div>
-                <div class="accountInfo" id="sectBilling">
+                <div class="accountInfo" id="sectbilling">
                     billing
                 </div>
             </div>
