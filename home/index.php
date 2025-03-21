@@ -20,6 +20,9 @@
                 <h1 class="shimmerText">
                     Gang<b>DEV</b><span class="trademark">&trade;</span>
                 </h1>
+                <h2 class="shimmerText">
+                    Founded by <b>Jens Hansen</b>
+                </h2>
             </div>
         </div>
 
