@@ -1,6 +1,5 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
-require_once '/var/www/gangdev/shared/php/mailer.php';
 
 if (!isset($_SESSION['user_id'])) {
 	header("Location: https://account.gangdev.co?status=error");
@@ -38,6 +37,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	}
 
 	if ($newEmail !== $currentEmail) {
+		$stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? AND id <> ?");
+		$stmt->execute([$newEmail, $_SESSION['user_id']]);
+		if ($stmt->fetch(PDO::FETCH_ASSOC)) {
+			header("Location: https://account.gangdev.co?status=emailexists");
+			exit;
+		}
+
 		$fromEmail = 'company@gangdev.co';
 		$fromName  = 'GangDev Account';
 		$toEmail   = $currentEmail;
@@ -45,9 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		$subject   = "Email Change Notification";
 
 		$link = "https://account.gangdev.co/php/reset_email.php?old=" . urlencode($currentEmail) . "&new=" . urlencode($newEmail);
-		$htmlBody = "<p>Your email is being changed to <strong>$newEmail</strong>.</p>
-                     <p>If you did not request this change, please <a href='$link'>click here</a> to revert it.</p>";
-		$altBody  = "Your email is being changed to $newEmail. If you did not request this change, visit $link to revert it.";
+
+		$htmlBody = "<p>Greetings $currentDisplayName,</p>";
+		$htmlBody .= "<p>Your email is being changed to <strong>$newEmail</strong>.</p>";
+		$htmlBody .= "<p>If you did not request this change, please <a href='$link'>click here</a> to revert it.</p>";
+
+		$altBody  = "Dear $currentDisplayName,\nYour email is being changed to $newEmail.\nIf you did not request this change, visit $link to revert it.";
 
 		sendMail($fromEmail, $fromName, $toEmail, $toName, $subject, $htmlBody, $altBody);
 	}

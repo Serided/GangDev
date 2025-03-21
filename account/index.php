@@ -27,6 +27,9 @@ if(isset($_GET['status'])) {
 		case 'nochange':
 			$warningMessage = "No changes were made.";
 			break;
+        case 'emailexists':
+            $warningMessage = "The email address is already in use.";
+            break;
 		case 'error':
 			$warningMessage = "An error occurred while updating your information.";
 			break;
