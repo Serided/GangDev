@@ -42,7 +42,7 @@
             </p>
         </div>
 
-        <div class="sect cont four">
+        <div class="sect cont one">
             <h2>
                 <a href="universalChat" target="_blank">Universal Chat</a>
             </h2>

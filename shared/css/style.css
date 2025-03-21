@@ -97,6 +97,10 @@ body {
   min-height: 100vh;
   padding: calc(var(--scaling) * 1.5);
 }
+.sect.cont.single {
+  min-height: 90vh;
+  padding: calc(var(--scaling) * 0.9);
+}
 .sect.altCont {
   min-height: 10vh;
   padding: calc(var(--scaling) * 0.3);
