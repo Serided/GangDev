@@ -85,7 +85,10 @@ if ($userId) {
             </div>
             <div class="accountCont">
                 <div class="accountInfo" id="sectpInfo">
-                    <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
+                    <form id="changeForm" action="php/process_change.php" method="post">
+                        <label for="displayname">Display Name:</label>
+                        <input type="text" name="displayname" id="displayname" value="<?php echo htmlspecialchars($_SESSION['displayname']); ?>" required>
+                    </form>
                     <h2>Email: <b><?php echo htmlspecialchars($_SESSION['email']) ?></b></h2>
                 </div>
                 <div class="accountInfo" id="sectaSecurity">

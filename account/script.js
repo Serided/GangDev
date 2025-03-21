@@ -155,6 +155,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.getElementById('displayname').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();  // Prevent any default behavior if needed.
+        document.getElementById('changeForm').submit();
+    }
+});
+
+
 function startCountdown(remaining, elementId) {
     let display = document.getElementById(elementId);
 
