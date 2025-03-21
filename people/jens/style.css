@@ -103,7 +103,7 @@
 }
 .tiltedGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(calc(var(--scaling) * 5), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(calc(var(--scaling) * 11), 1fr));
     gap: calc(var(--scaling) * 0.4);
     width: 63vw;
     margin: 0 auto;
@@ -137,11 +137,11 @@
     flex-direction: column;
 }
 .sect.cont#expertise .favorites p {
-    margin: calc(var(--scaling) * 1);
+    margin: calc(var(--scaling) * 1) 0 0 0;
 }
 .sect.cont#expertise .favorites div {
     width: calc(var(--scaling) * 15);
-    padding: calc(var(--scaling) * 1);
+    padding-top: calc(var(--scaling) * 0.1);
 }
 
 .vivienne {
