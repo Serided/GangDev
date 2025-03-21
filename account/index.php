@@ -91,6 +91,7 @@ if ($userId) {
                 <div class="accountInfo" id="sectaSecurity">
                     <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
                     <h2>Password: <b>NOT SETUP</b></h2>
+                    <a href="delete/delete.php" class="sign">Delete Account</a>
                 </div>
                 <div class="accountInfo" id="sectcustomization">
                     customization
@@ -103,10 +104,9 @@ if ($userId) {
                 </div>
             </div>
 
-            <a href="delete/delete.php" class="sign">Delete Account</a>
-            <a href="login/signout.php" class="sign">Sign Out</a>
+            <button onclick="window.location.href='login/signout.php'">Sign Out</button>
             <?php else: ?>
-            <a href="login/signin.php" class="sign">Sign In</a>
+            <a href="login/signin.php" class="signin">Sign In</a>
             <?php endif; ?>
         </div>
 

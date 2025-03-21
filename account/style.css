@@ -88,14 +88,28 @@
     transition: all 0.3s ease;
 }
 
-.sign {
+.signin {
+    position: absolute;
+    bottom: 0;
+    text-decoration: none;
+    cursor: pointer;
+    background: darkgray;
+    color: white;
+    font-weight: bold;
+    border-radius: calc(var(--scaling) * 0.1);
+    font-size: calc(var(--scaling) * 1);
+    padding: calc(var(--scaling) * .4);
+    margin: calc(var(--scaling) * 1) auto !important;
+    transition: all 0.3s ease;
+}
+.signout {
     display: inline-block;
     text-decoration: none;
     cursor: pointer;
     background: darkgray;
     color: white;
     font-weight: bold;
-    border-radius: calc(var(--scaling) * 0.3);
+    border-radius: calc(var(--scaling) * 0.1);
     font-size: calc(var(--scaling) * 1);
     padding: calc(var(--scaling) * .4);
     margin: calc(var(--scaling) * 1) auto !important;
