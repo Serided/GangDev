@@ -177,7 +177,7 @@ div.profile p {
     text-align: center;
 }
 
-.hamburger-btn.selected {
+.selected {
     border: 2px solid red;
     transform: scale(1.05);
 }
