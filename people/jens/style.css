@@ -94,48 +94,40 @@
 /* Expertise Section */
 .sect.cont#expertise h2 {
     font-size: calc(var(--scaling) * 2.5);
-    height: calc(var(--scaling) * 2.5);
+    height: calc(var(--scaling) * 2.8);
+}
+.sect.cont#expertise p.desc {
+    font-size: calc(var(--scaling) * 1.2);
+    margin-bottom: calc(var(--scaling) * 1.2);
 }
 .expSect {
-    /* We'll define separate variables here for clarity */
-    --hexWidth: calc(var(--scaling) * 4); /* adjust as needed */
-    --hexHeight: calc(var(--hexWidth) * 0.866); /* a regular hex is ~86.6% tall as it is wide */
+    --hexWidth: calc(var(--scaling) * 4);
+    --hexHeight: calc(var(--hexWidth) * 0.866);
 
     display: grid;
-    /* Each column is exactly one “hexWidth” wide */
     grid-template-columns: repeat(auto-fill, var(--hexWidth));
-    /* Each grid row is 1.5x the hex height, leaving room for the stagger */
     grid-auto-rows: calc(var(--hexHeight) * 1.5);
 
     gap: calc(var(--scaling) * 0.5);
-    justify-content: center; /* Center the entire honeycomb within the page width */
+    justify-content: center;
     width: 90%;
     margin: 0 auto;
 }
-
-/* Each hexagon */
 .hexagon {
     width: var(--hexWidth);
     height: var(--hexHeight);
-    background-color: #ECEFF1; /* Light color for contrast */
+    background-color: #ECEFF1;
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
-/* Text inside the hexagon */
 .hexagon p {
     color: #333;
     text-align: center;
     font-size: calc(var(--scaling) * 0.5);
     margin: 0;
 }
-
-/*
-  Offset every even hexagon half a hex-height downward.
-  This creates the classic “honeycomb” nesting.
-*/
 .expSect > .hexagon:nth-child(2n) {
     margin-top: calc(var(--hexHeight) * 0.5);
 }
