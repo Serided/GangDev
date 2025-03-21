@@ -33,49 +33,70 @@ document.addEventListener('DOMContentLoaded', function () {
     // ----- ELEMENTS -----
     const hamburger = document.getElementById('hamburger');
 
-    // Define top-level items manually, in desired order.
-    const accountItem = document.querySelector('label[for="account"]'); // Account
-    const homeItem = document.querySelector('a[href="https://gangdev.co/"] button'); // Home
-    const modsItem = document.querySelector('label[for="mods"]');  // Mods
-    const appsItem = document.querySelector('label[for="apps"]');  // Apps
-    const gamesItem = document.querySelector('label[for="games"]'); // Games
-    const aboutItem = document.querySelector('label[for="about"]'); // About
-    const contactItem = document.querySelector('label[for="contact"]'); // Contact
+    // Manually define top-level items in order.
+    const accountItem = document.querySelector('label[for="account"]');
+    const homeItem = document.querySelector('a[href="https://gangdev.co/"] button');
+    const modsItem = document.querySelector('label[for="mods"]');
+    const appsItem = document.querySelector('label[for="apps"]');
+    const gamesItem = document.querySelector('label[for="games"]');
+    const aboutItem = document.querySelector('label[for="about"]');
+    const contactItem = document.querySelector('label[for="contact"]');
 
-    // Array of top-level nav items in order.
-    const topNavItems = [accountItem, homeItem, modsItem, appsItem, gamesItem, aboutItem, contactItem];
+    const topNavItems = [homeItem, accountItem, modsItem, appsItem, gamesItem, aboutItem, contactItem];
 
-    // For the Account submenu, we assume its links are inside the sidebar following the account radio.
-    const accountSubItems = Array.from(document.querySelectorAll('input#account ~ aside.sidebar.two nav a'));
-
-    // Sections for when navbar is closed.
+    // For section navigation when navbar is closed.
     const sections = Array.from(document.querySelectorAll('.sect.cont'));
 
     // ----- STATE VARIABLES -----
-    let inNavMode = false; // false: section nav; true: navbar nav.
-    let navLevel = 1;      // 1: top-level; 2: account submenu.
-    let currentIndex = 0;  // index in current menu.
+    let inNavMode = false;  // false = section navigation; true = navbar navigation.
+    let navLevel = 1;       // 1 = top-level; 2 = second-level.
+    let currentIndex = 0;   // index within the current menu.
 
     // ----- HELPER FUNCTIONS -----
+    // Get the second-level navigation items for the active top-level menu.
+    function getSecondLevelNav() {
+        // Look for the active radio (or account element) based on the current top-level selection.
+        // We assume the active top-level item is the one at currentIndex.
+        // Find its associated sidebar: look for the radio input with id equal to the lowercased text of that item (or for account, id="account").
+        // For simplicity, we assume that if the selected top-level item's text includes "account", its submenu exists.
+        const activeText = topNavItems[currentIndex] ? topNavItems[currentIndex].textContent.trim().toLowerCase() : '';
+        if (activeText.includes('account')) {
+            // Get the sidebar associated with the account radio.
+            const accountRadio = document.getElementById('account');
+            if (accountRadio) {
+                let sibling = accountRadio.nextElementSibling;
+                while (sibling && !(sibling.tagName.toLowerCase() === 'aside' && sibling.classList.contains('two'))) {
+                    sibling = sibling.nextElementSibling;
+                }
+                if (sibling) {
+                    return Array.from(sibling.querySelectorAll('nav a'));
+                }
+            }
+        }
+        // For other top-level items, if they have submenus, use a similar pattern.
+        // You could generalize here if needed. For now, we only handle Account.
+        return [];
+    }
 
-    // Update visual highlight on the given items array.
+    // Update visual highlight on a given array of items.
     function updateHighlight(items) {
-        items.forEach((el, idx) => {
+        items.forEach((item, idx) => {
             if (idx === currentIndex) {
-                el.classList.add('selected');
+                item.classList.add('selected');
             } else {
-                el.classList.remove('selected');
+                item.classList.remove('selected');
             }
         });
     }
 
-    // Clear all highlights.
+    // Clear all highlighting.
     function clearHighlight() {
-        topNavItems.forEach(item => item && item.classList.remove('selected'));
-        accountSubItems.forEach(item => item && item.classList.remove('selected'));
+        topNavItems.forEach(item => { if (item) item.classList.remove('selected'); });
+        const secondNav = getSecondLevelNav();
+        secondNav.forEach(item => { if (item) item.classList.remove('selected'); });
     }
 
-    // Navigate page sections when navbar is closed.
+    // Section navigation: scroll smoothly to the section nearest the top.
     function navigateSections(direction) {
         if (sections.length === 0) return;
         let currentSectionIndex = 0;
@@ -94,23 +115,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Open the navbar: set mode to navbar navigation (top-level).
+    // Open the navbar: set to navbar mode (top-level) and highlight starting item.
     function openNavbar() {
         hamburger.checked = true;
         inNavMode = true;
         navLevel = 1;
-        // Start on Home: force homeItem to index 1 if not already first.
-        // (We want Home to be first, so if it's not already, adjust.)
-        const homeIndex = topNavItems.indexOf(homeItem);
-        if (homeIndex !== -1) {
-            currentIndex = homeIndex;
-        } else {
-            currentIndex = 0;
-        }
+        // Start on Home (we forced homeItem to be first in our array).
+        currentIndex = 0;
         updateHighlight(topNavItems);
     }
 
-    // Close the navbar: return to section navigation mode.
+    // Close the navbar and return to section navigation mode.
     function closeNavbar() {
         hamburger.checked = false;
         inNavMode = false;
@@ -119,16 +134,17 @@ document.addEventListener('DOMContentLoaded', function () {
         clearHighlight();
     }
 
-    // ----- KEYBOARD EVENT HANDLING -----
+    // ----- KEYBOARD HANDLING -----
     document.addEventListener('keydown', function (e) {
         // Ignore if focus is in an input or textarea.
-        if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) return;
-
+        if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+            return;
+        }
         const key = e.key.toLowerCase();
-        if (!['a','d','w','s'].includes(key)) return;
+        if (!['a', 'd', 'w', 's'].includes(key)) return;
         e.preventDefault();
 
-        // If navbar is closed, use section navigation.
+        // If navbar is closed: use section navigation.
         if (!inNavMode) {
             if (key === 'a') {
                 openNavbar();
@@ -153,49 +169,57 @@ document.addEventListener('DOMContentLoaded', function () {
                 const selectedItem = topNavItems[currentIndex];
                 const selectedText = selectedItem.textContent.trim().toLowerCase();
                 if (selectedText === 'home') {
-                    // If Home, select it and close navbar.
+                    // For Home: select and close.
                     selectedItem.click();
                     closeNavbar();
                 } else if (selectedText.includes('account')) {
-                    // For Account, if submenu exists, switch to second-level mode.
-                    if (accountSubItems.length > 0) {
+                    // For Account, if a submenu exists, switch to second-level mode.
+                    const secondNav = getSecondLevelNav();
+                    if (secondNav.length > 0) {
                         navLevel = 2;
                         currentIndex = 0;
-                        updateHighlight(accountSubItems);
+                        updateHighlight(secondNav);
                     } else {
+                        // If no submenu, simulate click but keep navbar open.
                         selectedItem.click();
-                        closeNavbar();
                     }
                 } else {
-                    // For any other top-level item, select and close.
+                    // For any other top-level item, simulate click and do NOT close the navbar.
                     selectedItem.click();
-                    closeNavbar();
+                    // (Remove the closeNavbar() call so the menu stays open.)
                 }
             } else if (key === 'd') {
-                // D closes navbar in top-level mode.
+                // D closes the navbar.
                 closeNavbar();
             }
         } else if (navLevel === 2) {
-            // Second-level mode (for Account submenu).
+            // Second-level mode.
+            const secondNavItems = getSecondLevelNav();
+            if (secondNavItems.length === 0) {
+                // Fallback: return to top-level mode.
+                navLevel = 1;
+                currentIndex = 0;
+                updateHighlight(topNavItems);
+                return;
+            }
             if (key === 'w') {
-                currentIndex = (currentIndex - 1 + accountSubItems.length) % accountSubItems.length;
-                updateHighlight(accountSubItems);
+                currentIndex = (currentIndex - 1 + secondNavItems.length) % secondNavItems.length;
+                updateHighlight(secondNavItems);
             } else if (key === 's') {
-                currentIndex = (currentIndex + 1) % accountSubItems.length;
-                updateHighlight(accountSubItems);
+                currentIndex = (currentIndex + 1) % secondNavItems.length;
+                updateHighlight(secondNavItems);
             } else if (key === 'a') {
-                // In second-level, selecting a link triggers click and closes navbar.
-                accountSubItems[currentIndex].click();
+                // In second-level mode, select the highlighted link and close the navbar.
+                secondNavItems[currentIndex].click();
                 closeNavbar();
             } else if (key === 'd') {
-                // D returns to top-level mode without closing navbar.
+                // D returns to top-level mode (staying open).
                 navLevel = 1;
-                // Set current index to Account button.
+                // Set currentIndex to the Account button.
                 const accountIndex = topNavItems.indexOf(accountItem);
-                currentIndex = accountIndex !== -1 ? accountIndex : 0;
+                currentIndex = (accountIndex !== -1) ? accountIndex : 0;
                 updateHighlight(topNavItems);
             }
         }
     });
 });
-
