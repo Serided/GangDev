@@ -107,14 +107,14 @@
     grid-template-columns: repeat(auto-fit, var(--hexWidth));
     grid-auto-rows: calc(var(--hexHeight));
     gap: 0;
-    justify-content: center;
+    justify-content: start;
     width: 90%;
     margin: 0 auto;
 }
 .expSect > .hexagon:nth-child(even) {
     transform:
             translateY(calc(var(--hexHeight) * 0.5))
-            translateX(calc(var(--hexWidth) * -0.2));
+            translateX(calc(var(--hexWidth) * -0.1));
 }
 .hexagon {
     width: var(--hexWidth);
