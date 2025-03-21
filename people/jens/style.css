@@ -102,8 +102,8 @@
 }
 .tiltedGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(calc(var(--scaling) * 0.6), 1fr));
+    gap: calc(var(--scaling) * 0.1);
     width: 90%;
     margin: 0 auto;
     justify-items: center;
@@ -115,7 +115,7 @@
     border-radius: calc(var(--scaling) * 0.3);
     padding: calc(var(--scaling) * 0.4);
     text-align: center;
-    font-size: calc(var(--scaling) * 1.5);
+    font-size: calc(var(--scaling) * 0.6);
     width: calc(var(--scaling) * 5);
     color: #333;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
