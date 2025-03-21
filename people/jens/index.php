@@ -128,7 +128,7 @@
                     <strong>Database Management</strong><br>PostgreSQL, MySQL, SQLite, Oracle, Cassandra.
                 </div>
                 <div class="tiltedCell">
-                    <strong>Systems and Infrastructure</strong>Linux, DevoOps, Cloud Computing, Apache.
+                    <strong>Systems and Infrastructure</strong><br>Linux, DevoOps, Cloud Computing, Apache.
                 </div>
             </div>
             <div>
