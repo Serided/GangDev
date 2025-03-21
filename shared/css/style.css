@@ -165,7 +165,7 @@ body {
   color: white
 }
 
-h1.shimmerText {
+.shimmerText {
   color: black;
   position: relative;
   display: inline-block;
@@ -173,7 +173,7 @@ h1.shimmerText {
   transition: all 0.3s ease;
   text-align: center;
 }
-h1.shimmerText:hover {
+.shimmerText:hover {
   color: transparent;
   transform: scale(1.01);
   background: linear-gradient(90deg, black, white, black);
