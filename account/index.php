@@ -78,10 +78,10 @@ if ($userId) {
                 <label for="customization">Customization</label>
 
                 <input type="radio" id="preferences" name="sections">
-                <label for="preferences">Notifications & Preferences</label>
+                <label for="preferences">Preferences</label>
 
                 <input type="radio" id="billing" name="sections">
-                <label for="billing">Billing & Subscriptions</label>
+                <label for="billing">Billing</label>
             </div>
             <div class="info">
                 <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
