@@ -94,11 +94,14 @@
 /* Expertise Section */
 .sect.cont#expertise h2 {
     font-size: calc(var(--scaling) * 2.5);
+    margin-bottom: calc(var(--scaling) * 2);
 }
 .expSect {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(var(--hexagonSize), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
     gap: calc(var(--scaling) * 0.5);
+    width: 90%;
+    margin: 0 auto;
     justify-items: center;
     align-items: start;
 }
@@ -106,16 +109,16 @@
     transform: translateX(calc(var(--scaling) * 0.5));
 }
 .hexagon {
-    width: var(--hexagonSize);
+    width: 8rem;
     aspect-ratio: 1 / 0.866;
-    background-color: #000;
+    background-color: #ECEFF1;
     clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .hexagon p {
-    color: white;
+    color: #333;
     text-align: center;
     font-size: calc(var(--scaling) * 0.5);
     margin: 0;
