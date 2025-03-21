@@ -55,108 +55,138 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(changeBackground, (30 * 1000));
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    // NAVBAR ELEMENTS
-    const hamburgerBtn = document.getElementById("hamburger");
-    // All radio buttons in the menu
-    const navRadios = Array.from(document.querySelectorAll('input[name="menu"]'));
-    // Their clickable labels; assuming they have the class "hamburger-btn"
-    const navLabels = Array.from(document.querySelectorAll(".hamburger-btn"));
-    let currentNavIndex = 0;
+document.addEventListener('DOMContentLoaded', function () {
+    // --- ELEMENTS ---
+    const hamburger = document.getElementById('hamburger');
+    // Top-level radios for menu (e.g. account, mods, apps, etc.)
+    const topRadios = Array.from(document.querySelectorAll('input[name="menu"]'));
+    // Top-level labels: account-btn and hamburger-btn with "btnText one" classes.
+    const topLabels = Array.from(document.querySelectorAll('label[for]')).filter(label =>
+        (label.classList.contains('btnText') && label.classList.contains('one')) ||
+        label.classList.contains('account-btn')
+    );
 
-    // SECTION ELEMENTS
+    // Sections for page navigation when navbar is closed.
     const sections = Array.from(document.querySelectorAll('.sect.cont'));
 
-    // Mode flag: false = section navigation, true = navbar mode
+    // Mode flag: false = section navigation; true = navbar navigation.
     let inNavMode = false;
+    // Index for current selection in the active menu.
+    let currentIndex = 0;
 
-    // Update visual highlight on navbar items using a "selected" class
-    function updateNavHighlight() {
-        navLabels.forEach((label, index) => {
-            if (index === currentNavIndex) {
-                label.classList.add("selected");
+    // --- HELPER FUNCTIONS ---
+
+    // Get second-level nav items for the active top-level menu, if any.
+    function getSecondLevelNav() {
+        const activeRadio = document.querySelector('input[name="menu"]:checked');
+        if (activeRadio) {
+            // Look for the next sibling aside with class "sidebar two".
+            let sibling = activeRadio.nextElementSibling;
+            while (sibling && !sibling.classList.contains('sidebar')) {
+                sibling = sibling.nextElementSibling;
+            }
+            if (sibling && sibling.classList.contains('two') && sibling.style.opacity !== "0") {
+                // Return all <a> elements inside its nav.
+                return Array.from(sibling.querySelectorAll('nav a'));
+            }
+        }
+        return [];
+    }
+
+    // Update visual highlight for current nav items.
+    function updateHighlight(navItems) {
+        navItems.forEach((item, idx) => {
+            if (idx === currentIndex) {
+                item.classList.add('selected');
             } else {
-                label.classList.remove("selected");
+                item.classList.remove('selected');
             }
         });
     }
 
-    // Section navigation: scroll smoothly to previous/next section
+    // Clear any highlight.
+    function clearHighlight() {
+        topLabels.forEach(label => label.classList.remove('selected'));
+        const secondNav = getSecondLevelNav();
+        secondNav.forEach(link => link.classList.remove('selected'));
+    }
+
+    // Smoothly scroll to the section nearest the top.
     function navigateSections(direction) {
         if (sections.length === 0) return;
         let currentSectionIndex = 0;
         let closest = Infinity;
-        sections.forEach((section, index) => {
-            const rect = section.getBoundingClientRect();
-            const diff = Math.abs(rect.top);
+        sections.forEach((section, i) => {
+            const diff = Math.abs(section.getBoundingClientRect().top);
             if (diff < closest) {
                 closest = diff;
-                currentSectionIndex = index;
+                currentSectionIndex = i;
             }
         });
-        if (direction === "up" && currentSectionIndex > 0) {
-            sections[currentSectionIndex - 1].scrollIntoView({ behavior: "smooth" });
-        } else if (direction === "down" && currentSectionIndex < sections.length - 1) {
-            sections[currentSectionIndex + 1].scrollIntoView({ behavior: "smooth" });
+        if (direction === 'up' && currentSectionIndex > 0) {
+            sections[currentSectionIndex - 1].scrollIntoView({ behavior: 'smooth' });
+        } else if (direction === 'down' && currentSectionIndex < sections.length - 1) {
+            sections[currentSectionIndex + 1].scrollIntoView({ behavior: 'smooth' });
         }
     }
 
-    // Open navbar: check hamburger and switch mode
+    // Open the navbar (set it open and switch to navbar mode).
     function openNavbar() {
-        hamburgerBtn.checked = true;
+        hamburger.checked = true;
         inNavMode = true;
-        // Initialize nav selection (could be 0 or set to current if desired)
-        currentNavIndex = 0;
-        updateNavHighlight();
+        currentIndex = 0; // start with first top-level item
+        updateHighlight(topLabels);
     }
 
-    // Close navbar: uncheck hamburger and revert mode
+    // Close the navbar and return to section mode.
     function closeNavbar() {
-        hamburgerBtn.checked = false;
+        hamburger.checked = false;
         inNavMode = false;
-        navLabels.forEach(label => label.classList.remove("selected"));
+        clearHighlight();
     }
 
-    // Listen for keydown events
-    document.addEventListener("keydown", function(e) {
-        // Ignore keys if an input or textarea is focused
+    // --- KEYBOARD NAVIGATION HANDLING ---
+    document.addEventListener('keydown', function (e) {
+        // Ignore key events if focus is in an input or textarea.
         const activeEl = document.activeElement;
-        if (activeEl && (activeEl.tagName === "INPUT" || activeEl.tagName === "TEXTAREA")) return;
+        if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) return;
 
         const key = e.key.toLowerCase();
-        if (!["a", "d", "w", "s"].includes(key)) return;
-
+        if (!['a', 'd', 'w', 's'].includes(key)) return;
         e.preventDefault();
 
-        // If navbar is not open (section mode)
+        // If navbar is closed, use section navigation:
         if (!inNavMode) {
-            if (key === "a") {
-                // Open the navbar and switch mode
+            if (key === 'a') {
                 openNavbar();
                 return;
-            } else if (key === "w" || key === "s") {
-                navigateSections(key === "w" ? "up" : "down");
-                return;
+            } else if (key === 'w') {
+                navigateSections('up');
+            } else if (key === 's') {
+                navigateSections('down');
             }
-        } else {
-            // When navbar is open (navbar mode)
-            if (key === "w") {
-                // Cycle up
-                currentNavIndex = (currentNavIndex - 1 + navRadios.length) % navRadios.length;
-                updateNavHighlight();
-            } else if (key === "s") {
-                // Cycle down
-                currentNavIndex = (currentNavIndex + 1) % navRadios.length;
-                updateNavHighlight();
-            } else if (key === "a") {
-                // "A" selects the current link: simulate click on corresponding label
-                navLabels[currentNavIndex].click();
-                // Optionally close navbar after selection:
-                closeNavbar();
-            } else if (key === "d") {
-                // "D" closes the navbar without selecting
-                closeNavbar();
-            }
+            return;
+        }
+
+        // Navbar is open: determine which set of nav items to use.
+        let navItems = getSecondLevelNav();
+        if (!navItems || navItems.length === 0) {
+            navItems = topLabels;
+        }
+
+        if (key === 'w') {
+            currentIndex = (currentIndex - 1 + navItems.length) % navItems.length;
+            updateHighlight(navItems);
+        } else if (key === 's') {
+            currentIndex = (currentIndex + 1) % navItems.length;
+            updateHighlight(navItems);
+        } else if (key === 'a') {
+            // "A" selects the current link:
+            navItems[currentIndex].click();
+            closeNavbar();
+        } else if (key === 'd') {
+            // "D" closes the navbar without selection.
+            closeNavbar();
         }
     });
 });
