@@ -8,12 +8,12 @@
 <link rel="shortcut icon" href="https://gangdev.co/shared/files/img/favicon/new/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="https://gangdev.co/shared/files/img/favicon/new/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="GangDev" />
-<link rel="manifest" href="https://gangdev.co/shared/files/img/favicon/new/site.webmanifest" />
+<!--<link rel="manifest" href="https://gangdev.co/shared/files/img/favicon/new/site.webmanifest" />-->
 
 <!-- banner -->
 <meta property="og:title" content="GangDev - Kings of Kode">
-<meta property="og:description" content="The official website of the well-renowned (amongst family) development group GangDev, founded by Jens Hansen.">
-<meta property="og:image" content="https://shared.gangdev.co/files/img/favicon/favicon.ico">
+<meta property="og:description" content="Snitches Get Stiches; Merge Conflicts Get Fixes.">
+<meta property="og:image" content="https://gangdev.co/shared/files/img/favicon/new/favicon-96x96.png">
 <meta property="og:url" content="https://www.gangdev.co">
 <meta property="og:type" content="website">
 <meta name="viewport" content="width=device-width, initial-scale=1">

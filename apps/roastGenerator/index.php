@@ -31,7 +31,7 @@
           <p style="margin-top: 1px; font-size: 15px">
             Or <b id="timer" style="font-size: 18px">15</b> seconds until it roasts you, for you.
           </p>
-          <p id="output" style="color: red; font-size: 25px">
+          <p id="output" style="color: orangered; font-size: 25px">
             Roast generates here.
           </p>
         </div>
