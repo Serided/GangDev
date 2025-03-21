@@ -132,7 +132,7 @@
                 </div>
             </div>
             <div>
-                <p class="desc">Some of my favorite projects:</p>
+                <p class="desc favorites">Some of my favorite projects:</p>
             </div>
             <div class="favorites">
                 <div><a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a></div>
