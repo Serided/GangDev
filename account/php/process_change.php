@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
 	exit;
 }
 
-$delaySeconds = 5;
+$delaySeconds = 30;
 
 if (!isset($_SESSION['last_change'])) {
 	$_SESSION['last_change'] = 0;
