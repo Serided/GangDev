@@ -49,6 +49,12 @@
     opacity: 0;
     transition: opacity 0.4s ease-in-out;
 }
+.accountInfo h2 {
+    font-weight: normal;
+}
+form.changeForm label {
+
+}
 
 #cropModal {
     position: fixed;

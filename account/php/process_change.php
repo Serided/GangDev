@@ -1,10 +1,21 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
 
-// Ensure user is logged in.
 if (!isset($_SESSION['user_id'])) {
 	header("Location: https://account.gangdev.co?status=error");
 	exit;
+}
+
+$delaySeconds = 5;
+
+if (!isset($_SESSION['last_change'])) {
+	$_SESSION['last_change'] = 0;
+}
+$now = time();
+$timeSinceLast = $now - $_SESSION['last_change'];
+
+if ($timeSinceLast < $delaySeconds) {
+	sleep($delaySeconds - $timeSinceLast);
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -14,14 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		exit;
 	}
 
-	// Sanitize (strip HTML tags for safety)
 	$newDisplayName = strip_tags($newDisplayName);
 
-	// Update the display name in the database.
 	$stmt = $pdo->prepare("UPDATE users SET displayname = ? WHERE id = ?");
 	if ($stmt->execute([$newDisplayName, $_SESSION['user_id']])) {
-		// Update session so the new name is immediately reflected.
 		$_SESSION['displayname'] = $newDisplayName;
+		$_SESSION['last_change'] = time();
 		header("Location: https://account.gangdev.co?status=success");
 		exit;
 	} else {
