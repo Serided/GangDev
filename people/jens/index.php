@@ -116,19 +116,19 @@
             </div>
             <div class="tiltedGrid">
                 <div class="tiltedCell">
-                    <strong>Web Development</strong><br>PHP, HTML, CSS, JavaScript, Ruby
+                    <strong>Web Development</strong><br>PHP, HTML, CSS, JavaScript, and Ruby.
                 </div>
                 <div class="tiltedCell">
-                    <strong>App and Software Development</strong><br>Java, Kotlin, Rust.
+                    <strong>App and Software Development</strong><br>Java, Kotlin, and Rust.
                 </div>
                 <div class="tiltedCell">
-                    <strong>AI and Machine Learning</strong><br>Python, Tensorflow, Rust.
+                    <strong>AI and Machine Learning</strong><br>Python, Tensorflow, and Rust.
                 </div>
                 <div class="tiltedCell">
-                    <strong>Database Management</strong><br>PostgreSQL, MySQL, SQLite, Oracle, Cassandra.
+                    <strong>Database Management</strong><br>PostgreSQL, MySQL, SQLite, Oracle, and Cassandra.
                 </div>
                 <div class="tiltedCell">
-                    <strong>Systems and Infrastructure</strong><br>Linux, DevoOps, Cloud Computing, Apache.
+                    <strong>Systems and Infrastructure</strong><br>Linux, DevoOps, Cloud Computing, and Apache.
                 </div>
             </div>
             <div>
