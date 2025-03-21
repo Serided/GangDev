@@ -18,9 +18,10 @@ $warningMessage = "";
 if(isset($_GET['status'])) {
 	$status = $_GET['status'];
 	switch($status) {
-		case 'toofast':
-			$warningMessage = "Please wait a few seconds before making another change.";
-			break;
+        case 'toofast':
+            $left = $_GET['left'] ?? '';
+            $warningMessage = "Please wait $left before making another change.";
+            break;
 		case 'empty':
 			$warningMessage = "All fields must be filled.";
 			break;

@@ -6,14 +6,20 @@ if (!isset($_SESSION['user_id'])) {
 	exit;
 }
 
-$delaySeconds = 5;
+$delaySeconds = 3600;
 if (!isset($_SESSION['last_change'])) {
 	$_SESSION['last_change'] = 0;
 }
 $now = time();
 $timeSinceLast = $now - $_SESSION['last_change'];
+
 if ($timeSinceLast < $delaySeconds) {
-	header("Location: https://account.gangdev.co?status=toofast");
+	$timeLeft = $delaySeconds - $timeSinceLast;
+	$hours = floor($timeLeft / 3600);
+	$minutes = floor(($timeLeft % 3600) / 60);
+	$seconds = $timeLeft % 60;
+	$formatted = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+	header("Location: https://account.gangdev.co?status=toofast&left=" . urlencode($formatted));
 	exit;
 }
 
