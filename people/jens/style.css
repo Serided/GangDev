@@ -134,6 +134,10 @@
 }
 .sect.cont#expertise .favorites {
     display: flex;
+    flex-direction: column;
+}
+.sect.cont#expertise .favorites p {
+    margin: calc(var(--scaling) * 1);
 }
 .sect.cont#expertise .favorites div {
     width: calc(var(--scaling) * 15);
