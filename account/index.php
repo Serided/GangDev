@@ -13,6 +13,30 @@ if ($userId) {
 		$remainingSeconds = $deletionTime - time();
 	}
 }
+
+$warningMessage = "";
+if(isset($_GET['status'])) {
+	$status = $_GET['status'];
+	switch($status) {
+		case 'toofast':
+			$warningMessage = "Please wait a few seconds before making another change.";
+			break;
+		case 'empty':
+			$warningMessage = "All fields must be filled.";
+			break;
+		case 'nochange':
+			$warningMessage = "No changes were made.";
+			break;
+		case 'error':
+			$warningMessage = "An error occurred while updating your information.";
+			break;
+		case 'success':
+			$warningMessage = "Your information was updated successfully.";
+			break;
+		default:
+			$warningMessage = "";
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -85,11 +109,17 @@ if ($userId) {
             </div>
             <div class="accountCont">
                 <div class="accountInfo" id="sectpInfo">
+	                <?php if (!empty($warningMessage)): ?>
+                      <div class="statusMessage">
+                          <p><?php echo $warningMessage; ?></p>
+                      </div>
+	                <?php endif; ?>
                     <form id="changeForm" action="php/process_change.php" method="post">
                         <label for="displayname">Display Name:</label>
                         <input type="text" name="displayname" id="displayname" value="<?php echo htmlspecialchars($_SESSION['displayname']); ?>" required>
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>" required>
                     </form>
-                    <h2>Email: <b><?php echo htmlspecialchars($_SESSION['email']) ?></b></h2>
                 </div>
                 <div class="accountInfo" id="sectaSecurity">
                     <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
