@@ -155,11 +155,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.getElementById('displayname').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-        e.preventDefault();  // Prevent any default behavior if needed.
-        document.getElementById('changeForm').submit();
-    }
+document.querySelectorAll('#displayname, #email').forEach(function(input) {
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            document.getElementById('changeForm').submit();
+        }
+    });
 });
 
 
