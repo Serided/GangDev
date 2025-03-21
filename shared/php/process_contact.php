@@ -38,10 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		$fromName  = 'Jens Contact Form';
 		$toEmail = 'jens.hansen@gangdev.co';
 		$toName  = 'Jens Hansen';
+		$redirectUrl = 'https://jens.gangdev.co';
 	} else {
 		$toEmail = 'company@gangdev.co';
 		$fromName  = 'GangDev Contact Form';
 		$toName  = 'GangDev';
+		$redirectUrl = 'https://gangdev.co';
 	}
 
 	$fromEmail = 'company@gangdev.co';
@@ -65,23 +67,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	}
 	$altBody .= "Message:\n$message\n";
 
-	$currentUrl = $_SERVER['REQUEST_URI'];
-
-	if (strpos($currentUrl, '?') !== false) {
-		$redirectUrl = $currentUrl . "&status=";
-	} else {
-		$redirectUrl = $currentUrl . "?status=";
-	}
-
 	if (sendMail($fromEmail, $fromName, $toEmail, $toName, $subject, $htmlBody, $altBody)) {
-		$status = 'success';
-		header("Location: " . $redirectUrl . $status);
-		exit;
+		header("Location: " . $redirectUrl . "?status=success");
 	} else {
-		$status = 'error';
-		header("Location: " . $redirectUrl . $status);
-		exit;
+		header("Location: " . $redirectUrl . "?status=error");
 	}
+	exit;
 } else {
 	echo "Invalid request.";
 }
