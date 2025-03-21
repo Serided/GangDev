@@ -125,10 +125,10 @@
     position: absolute;
     /* Center the shape inside the bounding box with top/left + transform
        or use a simpler approach with a margin offset, like top: 10%; left: 10%. */
-    top: 2.5%;   /* 10% from top */
-    left: 1%;  /* 10% from left */
-    width: 98%; /* 80% of the bounding box width */
-    height: 95%;/* 80% of the bounding box height */
+    top: 10%;   /* 10% from top */
+    left: 3%;  /* 10% from left */
+    width: 94%; /* 80% of the bounding box width */
+    height: 80%;/* 80% of the bounding box height */
 
     /* Hex shape and styling */
     background-color: #ECEFF1;
