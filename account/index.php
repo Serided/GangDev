@@ -104,7 +104,7 @@ if ($userId) {
                 </div>
             </div>
 
-            <button onclick="window.location.href='login/signout.php'">Sign Out</button>
+            <button onclick="window.location.href='login/signout.php'" class="signout">Sign Out</button>
             <?php else: ?>
             <a href="login/signin.php" class="signin">Sign In</a>
             <?php endif; ?>
