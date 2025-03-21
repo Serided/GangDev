@@ -84,10 +84,24 @@ if ($userId) {
                 <label for="billing">Billing</label>
             </div>
             <div class="accountCont">
-                <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
-                <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
-                <h2>Email: <b><?php echo htmlspecialchars($_SESSION['email']) ?></b></h2>
-                <h2>AND MORE TO COME...</h2>
+                <div class="accountInfo" id="sectPInfo">
+                    <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
+                    <h2>Email: <b><?php echo htmlspecialchars($_SESSION['email']) ?></b></h2>
+
+                </div>
+                <div class="accountInfo" id="sectASecurity">
+                    <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
+                    <h2>Password: <b>NOT SETUP</b></h2>
+                </div>
+                <div class="accountInfo" id="sectCustomization">
+                    customization
+                </div>
+                <div class="accountInfo" id="sectPreferences">
+                    preferences
+                </div>
+                <div class="accountInfo" id="sectBilling">
+                    billing
+                </div>
             </div>
 
             <a href="delete/delete.php" class="sign">Delete Account</a>

@@ -170,7 +170,7 @@ body {
   color: black;
   position: relative;
   display: inline-block;
-  cursor: pointer;
+  cursor: default;
   transition: all 0.3s ease;
   text-align: center;
 }
