@@ -100,48 +100,34 @@
     font-size: calc(var(--scaling) * 1.2);
     margin-bottom: calc(var(--scaling) * 1.2);
 }
-.expSect {
-    --hexWidth: calc(var(--scaling) * 8);
-    --hexHeight: calc(var(--hexWidth) * 0.866);
+.complexGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, var(--hexWidth));
-    grid-auto-rows: calc(var(--hexHeight));
-    gap: 0;
-    justify-content: start;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
     width: 90%;
     margin: 0 auto;
 }
-.expSect > .hexagon:nth-child(even) {
-    transform:
-            translateY(calc(var(--hexHeight) * 0.5))
-}
-.hexagon {
-    position: relative;
-    width: var(--hexWidth);
-    height: var(--hexHeight);
-    margin: 0;
-}
-.innerHex {
-    position: absolute;
-    /* Center the shape inside the bounding box with top/left + transform
-       or use a simpler approach with a margin offset, like top: 10%; left: 10%. */
-    top: 10%;   /* 10% from top */
-    left: 10%;  /* 10% from left */
-    width: 80%; /* 80% of the bounding box width */
-    height: 80%;/* 80% of the bounding box height */
-
-    /* Hex shape and styling */
-    background-color: #ECEFF1;
-    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+.complexGrid > .cell {
+    background: linear-gradient(135deg, #ECEFF1, #ccc);
+    border-radius: 50%; /* Circle shape; change to a lower value for rounded squares */
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.hexagon p {
-    color: #333;
     text-align: center;
-    font-size: calc(var(--scaling) * 0.5);
-    margin: 0;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-size: 0.9rem;
+    color: #333;
+    transition: transform 0.3s ease;
+}
+.complexGrid > .cell:nth-child(odd) {
+    transform: rotate(-3deg);
+}
+.complexGrid > .cell:nth-child(even) {
+    transform: rotate(3deg);
+}
+.complexGrid > .cell:hover {
+    transform: scale(1.05);
 }
 
 .vivienne {
