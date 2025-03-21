@@ -103,7 +103,7 @@
 .tiltedGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(calc(var(--scaling) * 5), 1fr));
-    gap: calc(var(--scaling) * 0.2);
+    gap: calc(var(--scaling) * 0.4);
     width: 65%;
     margin: 0 auto;
     justify-items: center;
