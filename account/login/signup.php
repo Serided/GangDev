@@ -11,6 +11,8 @@ if (isset($_GET['error'])) {
     } elseif ($_GET['error'] == 4) {
         $error = "An account with that email already exists.";
     } elseif ($_GET['error'] == 5) {
+	    $error = "An account with that display name already exists.";
+    } elseif ($_GET['error'] == 6) {
         $error = "An error occurred. Please try again.";
     }
 }

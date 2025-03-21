@@ -65,7 +65,7 @@ if ($userId) {
             <?php endif; ?>
         </div>
 
-        <div class="sect cont three">
+        <div class="sect cont two">
             <?php if (isset($_SESSION["user_id"])): ?>
                 <div class="info">
                     <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
@@ -79,7 +79,6 @@ if ($userId) {
             <?php else: ?>
                 <a href="login/signin.php" class="sign">Sign In</a>
             <?php endif; ?>
-            <p style="color: red" class="account"><b>Note: </b>In development</p>
         </div>
 
 
