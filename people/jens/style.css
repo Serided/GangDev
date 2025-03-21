@@ -118,6 +118,7 @@
 .hexagon {
     width: var(--hexWidth);
     height: var(--hexHeight);
+    padding: calc(var(--scaling) * 0.2);
     background-color: #ECEFF1;
     clip-path: polygon(
             25% 0%, 75% 0%,
