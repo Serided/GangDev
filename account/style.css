@@ -13,6 +13,17 @@
     background-color: darkgray
 }
 
+.accountNav {
+
+}
+.accountNav label {
+    font-size: calc(var(--scaling) * 0.4);
+    padding: calc(var(--scaling) * 0.2);
+}
+.accountNav input {
+
+}
+
 .info {
     margin: calc(var(--scaling) * 1) auto;
     padding: calc(var(--scaling) * 1);
