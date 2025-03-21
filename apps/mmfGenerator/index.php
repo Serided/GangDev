@@ -14,7 +14,7 @@
         <div class="sect two single">
             <h1>
                 MMF Generator
-            </h1>
+            </h1><br>
 
             <h2>Functionality</h2>
             <p>
@@ -22,7 +22,7 @@
                 It can be a pain to manually figure out each command if you are wanting to load a large area.<br>
                 Using a ton of <b>math</b> and <b>JavaScript</b>, I managed to make a generator to create these commands for you,
                 only requiring two sets of <b>XZ</b> coordinates.
-            </p>
+            </p><br>
 
             <h2>Generator</h2>
             <div>

@@ -145,6 +145,13 @@ body {
   font-size: calc(var(--scaling) * 0.8);
 }
 
+.sect.single h1 {
+  font-size: calc(var(--scaling) * 2);
+}
+.sect.single h2 {
+  font-size: calc(var(--scaling) * 1);
+}
+
 .footer {
   background: #1D3A4D;
 }
