@@ -96,6 +96,7 @@ body {
 .sect.cont {
   min-height: 100vh;
   padding: calc(var(--scaling) * 1.5);
+  position: relative;
 }
 .sect.single {
   min-height: 90vh;
