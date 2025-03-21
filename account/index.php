@@ -83,7 +83,7 @@ if ($userId) {
                 <input type="radio" id="billing" name="sections">
                 <label for="billing">Billing</label>
             </div>
-            <div class="info">
+            <div class="accountCont">
                 <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
                 <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
                 <h2>Email: <b><?php echo htmlspecialchars($_SESSION['email']) ?></b></h2>

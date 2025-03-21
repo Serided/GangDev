@@ -14,8 +14,6 @@
 }
 
 .accountNav {
-    top: 10vh;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,13 +35,14 @@
     font-weight: bold;
 }
 
-.info {
+.accountCont {
+    height: 100%;
+    width: 100%;
     margin: calc(var(--scaling) * 1) auto;
     padding: calc(var(--scaling) * 1);
     border-radius: calc(var(--scaling) * 1);
     background: darkgray;
     justify-items: center;
-    width: max-content !important;
 }
 
 #cropModal {
