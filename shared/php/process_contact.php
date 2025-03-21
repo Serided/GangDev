@@ -34,11 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		}
 	}
 
-	$fromEmail = 'company@gangdev.co';
-	$fromName  = 'GangDev Contact Form';
+	if ($_POST["recipient"] === "jens") {
+		$fromName  = 'Jens Contact Form';
+		$toEmail = 'jens.hansen@gangdev.co';
+		$toName  = 'Jens Hansen';
+	} else {
+		$toEmail = 'company@gangdev.co';
+		$fromName  = 'GangDev Contact Form';
+		$toName  = 'GangDev';
+	}
 
-	$toEmail = 'company@gangdev.co';
-	$toName  = 'GangDev';
+	$fromEmail = 'company@gangdev.co';
 
 	$subject = "New Contact Form Message from $name";
 

@@ -156,22 +156,23 @@
 
         <div class="sect cont one" id="contact">
             <h2>Contact</h2>
-            <a href="mailto:company@gangdev.co">(company@gangdev.co)</a>
+            <a href="mailto:jens.hansen@gangdev.co">(jens.hansen@gangdev.co)</a>
             <form action="/shared/php/process_contact.php" method="post">
                 <div class="details">
-					        <?php if (!isset($_SESSION["user_id"])): ?>
-                      <label for="name">Name: *</label><br>
-                      <div class="info"><input name="name" id="name" type="text" required></div>
-                      <label for="email">Email:</label><br>
-                      <div class="info"><input name="email" id="email" type="email"></div>
-                      <label for="message">Message: *</label><br>
-                      <div><textarea name="message" id="message" rows="5" maxlength="1000" required></textarea></div>
-					        <?php else: ?>
-                      <label for="name">Name:</label><br>
-                      <div class="info"><input name="name" id="name" type="text"></div>
-                      <label for="message">Message:</label><br>
-                      <div><textarea name="message" id="message" rows="7" maxlength="2500" style="width: " required></textarea></div>
-					        <?php endif; ?>
+                    <input type="hidden" name="recipient" value="jens">
+                    <?php if (!isset($_SESSION["user_id"])): ?>
+                    <label for="name">Name: *</label><br>
+                    <div class="info"><input name="name" id="name" type="text" required></div>
+                    <label for="email">Email:</label><br>
+                    <div class="info"><input name="email" id="email" type="email"></div>
+                    <label for="message">Message: *</label><br>
+                    <div><textarea name="message" id="message" rows="5" maxlength="1000" required></textarea></div>
+                    <?php else: ?>
+                    <label for="name">Name:</label><br>
+                    <div class="info"><input name="name" id="name" type="text"></div>
+                    <label for="message">Message:</label><br>
+                    <div><textarea name="message" id="message" rows="7" maxlength="2500" style="width: " required></textarea></div>
+                    <?php endif; ?>
                 </div>
                 <div><button type="submit">Send</button></div>
             </form>
