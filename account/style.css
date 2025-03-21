@@ -14,6 +14,7 @@
 }
 
 .accountNav {
+    top: 1vh;
     position: absolute;
     display: flex;
     align-items: center;
@@ -25,6 +26,8 @@
     padding: calc(var(--scaling) * 0.4);
     margin: calc(var(--scaling) * 0.6);
     background: white;
+    color: black;
+    width: calc(var(--scaling) * 10);
     border-radius: calc(var(--scaling) * 0.05);
 }
 .accountNav input {
