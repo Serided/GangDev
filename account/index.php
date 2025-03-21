@@ -91,7 +91,7 @@ if ($userId) {
                 <div class="accountInfo" id="sectaSecurity">
                     <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
                     <h2>Password: <b>NOT SETUP</b></h2>
-                    <a href="delete/delete.php" class="sign">Delete Account</a>
+                    <button onclick="window.location.href='delete/delete.php'" class="delete">Delete Account</button>
                 </div>
                 <div class="accountInfo" id="sectcustomization">
                     customization

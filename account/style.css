@@ -21,7 +21,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-x: auto;
     z-index: 10;
 }
 .accountNav label {
@@ -89,10 +88,13 @@
     transition: all 0.3s ease;
 }
 
-.signout {
+button.signout {
     position: absolute;
     bottom: 0;
     margin-bottom: calc(var(--scaling) * 0.6);
+}
+button.delete {
+
 }
 
 .button {
