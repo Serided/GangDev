@@ -103,20 +103,18 @@
 .expSect {
     --hexWidth: calc(var(--scaling) * 4);
     --hexHeight: calc(var(--hexWidth) * 0.866);
-
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--hexWidth), 1fr));
+    grid-template-columns: repeat(auto-fit, var(--hexWidth));
     grid-auto-rows: calc(var(--hexHeight));
     gap: 0;
-
     justify-content: center;
     width: 90%;
     margin: 0 auto;
 }
 .expSect > .hexagon:nth-child(even) {
     transform:
-            translateY(calc(var(--hexHeight) * 0.5))  /* nest downward */
-            translateX(calc(var(--hexWidth) * -0.2)); /* shift left for closer horizontal spacing */
+            translateY(calc(var(--hexHeight) * 0.5))
+            translateX(calc(var(--hexWidth) * -0.2));
 }
 .hexagon {
     width: var(--hexWidth);

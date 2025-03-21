@@ -134,7 +134,7 @@
                     <p><strong><u>JS</u></strong><br>4 years</p>
                 </div>
                 <div class="hexagon codingExp">
-                    <p><strong><u>Linux Systems</u></strong><br>3 years</p>
+                    <p><strong><u>Linux</u></strong><br>3 years</p>
                 </div>
                 <div class="hexagon codingExp">
                     <p><strong><u>Ruby</u></strong><br>1 year</p>
