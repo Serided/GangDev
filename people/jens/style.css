@@ -120,6 +120,8 @@
     margin: 0;
     width: calc(var(--hexWidth) * 1.1);
     height: calc(var(--hexHeight) * 1.1);
+    justify-items: center;
+    align-content: center;
 }
 .innerHex {
     position: absolute;
