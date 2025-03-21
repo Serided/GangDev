@@ -101,7 +101,7 @@
     margin-bottom: calc(var(--scaling) * 1.2);
 }
 .expSect {
-    --hexWidth: calc(var(--scaling) * 4);
+    --hexWidth: calc(var(--scaling) * 8);
     --hexHeight: calc(var(--hexWidth) * 0.866);
     display: grid;
     grid-template-columns: repeat(auto-fit, var(--hexWidth));
@@ -117,18 +117,18 @@
 }
 .hexagon {
     position: relative;
+    width: var(--hexWidth);
+    height: var(--hexHeight);
     margin: 0;
-    width: calc(var(--hexWidth) * 1.1);
-    height: calc(var(--hexHeight) * 1.1);
-    justify-items: center;
-    align-content: center;
 }
 .innerHex {
     position: absolute;
     /* Center the shape inside the bounding box with top/left + transform
        or use a simpler approach with a margin offset, like top: 10%; left: 10%. */
-    width: var(--hexWidth);
-    height: var(--hexHeight);
+    top: 10%;   /* 10% from top */
+    left: 10%;  /* 10% from left */
+    width: 80%; /* 80% of the bounding box width */
+    height: 80%;/* 80% of the bounding box height */
 
     /* Hex shape and styling */
     background-color: #ECEFF1;
