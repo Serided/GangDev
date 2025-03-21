@@ -104,7 +104,7 @@
 .tiltedGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(calc(var(--scaling) * 9), 1fr));
-    gap: calc(var(--scaling) * 0.4);
+    gap: calc(var(--scaling) * 0.7);
     width: 63vw;
     margin: 0 auto;
     justify-items: center;
@@ -141,7 +141,7 @@
 }
 .sect.cont#expertise .favorites div {
     width: calc(var(--scaling) * 15);
-    padding-top: calc(var(--scaling) * 0.1);
+    padding-top: calc(var(--scaling) * 0.15);
 }
 
 .vivienne {
