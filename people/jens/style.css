@@ -104,7 +104,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(calc(var(--scaling) * 5), 1fr));
     gap: calc(var(--scaling) * 0.4);
-    width: calc(var(--scaling) * 35);
+    width: calc(var(--scaling) * 33);
     margin: 0 auto;
     justify-items: center;
     align-content: center;
