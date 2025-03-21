@@ -101,36 +101,66 @@
     margin-bottom: calc(var(--scaling) * 1.2);
 }
 .expSect {
+    /* Each hex’s nominal width and height */
     --hexWidth: calc(var(--scaling) * 4);
     --hexHeight: calc(var(--hexWidth) * 0.866);
 
+    /* We’ll use grid, but control offsets via row calculations */
     display: grid;
-    grid-template-columns: repeat(auto-fill, var(--hexWidth));
-    grid-auto-rows: calc(var(--hexHeight) * 1.5);
+    /* Enough columns to fill the width with hexes */
+    grid-template-columns: repeat(auto-fill, minmax(var(--hexWidth), 1fr));
+    /* Each row is just tall enough for one hex, plus a bit for offset nesting */
+    grid-auto-rows: calc(var(--hexHeight));
+    gap: 0; /* We'll manually space them for a tight honeycomb */
 
-    gap: calc(var(--scaling) * 0.5);
     justify-content: center;
     width: 90%;
     margin: 0 auto;
 }
+
+/* Base hexagon styling */
 .hexagon {
     width: var(--hexWidth);
     height: var(--hexHeight);
-    background-color: #ECEFF1;
-    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    background-color: #ECEFF1; /* Light color for contrast */
+    clip-path: polygon(
+            25% 0%, 75% 0%,
+            100% 50%, 75% 100%,
+            25% 100%, 0% 50%
+    );
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0; /* We'll offset with transforms below */
 }
+
+/* Text inside the hex */
 .hexagon p {
     color: #333;
     text-align: center;
     font-size: calc(var(--scaling) * 0.5);
     margin: 0;
 }
-.expSect > .hexagon:nth-child(2n) {
-    margin-top: calc(var(--hexHeight) * 0.5);
+
+/*
+  Create the “interlock” by offsetting every OTHER row horizontally and vertically.
+  We can detect even rows with this pattern:
+  - nth-child(2n) is every even item, but we want “every item in an even row.”
+  - So we rely on the grid placing items left-to-right, top-to-bottom.
+  This approach approximates a rectangular bounding box while allowing infinite rows.
+*/
+
+/* Slight vertical bump for the even row to nest between the odd row’s hexes */
+.expSect > .hexagon:nth-child(even) {
+    transform: translateY(calc(var(--hexHeight) * 0.5));
 }
+
+/*
+  If you want them even closer horizontally,
+  you can shift the even row to the left or right. For instance:
+  transform: translateY(...) translateX(...);
+  But that typically moves the bounding box edges.
+*/
 
 .vivienne {
     opacity: 0;
