@@ -177,6 +177,11 @@ div.profile p {
     text-align: center;
 }
 
+.hamburger-btn.selected {
+    border: 2px solid red;
+    transform: scale(1.05);
+}
+
 .hamburger-btn:hover {
     font-weight: 700;
     transform: scale(1.01);
