@@ -14,14 +14,24 @@
 }
 
 .accountNav {
-
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
 }
 .accountNav label {
-    font-size: calc(var(--scaling) * 0.4);
-    padding: calc(var(--scaling) * 0.2);
+    font-size: calc(var(--scaling) * 0.8);
+    padding: calc(var(--scaling) * 0.4);
+    margin: calc(var(--scaling) * 0.6);
+    background: white;
+    border-radius: calc(var(--scaling) * 0.05);
 }
 .accountNav input {
-
+    display: none;
+}
+.accountNav input[type="radio"]:checked + label {
+    font-weight: bold;
 }
 
 .info {
