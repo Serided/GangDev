@@ -114,7 +114,6 @@
 .expSect > .hexagon:nth-child(even) {
     transform:
             translateY(calc(var(--hexHeight) * 0.5))
-            translateX(calc(var(--hexWidth) * -0.1));
 }
 .hexagon {
     width: var(--hexWidth);
