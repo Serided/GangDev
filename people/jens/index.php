@@ -112,7 +112,7 @@
         <div class="sect cont three" id="expertise">
             <div>
                 <h2>Expertise</h2>
-                <p>I have a vast array of experience in computer science.</p>
+                <p class="desc">I have a vast array of experience in computer science.</p>
             </div>
             <div class="expSect">
                 <div class="hexagon codingExp">
