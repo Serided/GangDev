@@ -110,7 +110,6 @@
     justify-items: center;
     align-content: center;
 }
-
 .tiltedCell {
     background: #f0f0f0;
     border: calc(var(--scaling) * 0.1) solid #ccc;
@@ -123,20 +122,22 @@
     cursor: default;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
-/* Subtle alternating rotations */
 .tiltedCell:nth-child(odd) {
     transform: rotate(-2deg);
 }
-
 .tiltedCell:nth-child(even) {
     transform: rotate(2deg);
 }
-
-/* Hover effect for added dynamism */
 .tiltedCell:hover {
     transform: scale(1.05) rotate(0deg);
     box-shadow: 0 calc(var(--scaling) * 0.05) calc(var(--scaling) * 0.1) rgba(0,0,0,0.2);
+}
+.sect.cont#expertise .favorites {
+    display: flex;
+}
+.sect.cont#expertise .favorites div {
+    width: calc(var(--scaling) * 5);
+    padding: calc(var(--scaling) * 1);
 }
 
 .vivienne {

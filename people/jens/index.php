@@ -116,45 +116,30 @@
             </div>
             <div class="tiltedGrid">
                 <div class="tiltedCell">
-                    <strong>MC Function</strong><br>8+ years
+                    <strong>Web Development</strong><br>PHP, HTML, CSS, JavaScript, Ruby
                 </div>
                 <div class="tiltedCell">
-                    <strong>Python</strong><br>4 years
+                    <strong>App and Software Development</strong><br>Java, Kotlin, Rust.
                 </div>
                 <div class="tiltedCell">
-                    <strong>HTML</strong><br>4 years
+                    <strong>AI and Machine Learning</strong><br>Python, Tensorflow, Rust.
                 </div>
                 <div class="tiltedCell">
-                    <strong>CSS</strong><br>4 years
+                    <strong>Database Management</strong><br>PostgreSQL, MySQL, SQLite, Oracle, Cassandra.
                 </div>
                 <div class="tiltedCell">
-                    <strong>JS</strong><br>4 years
-                </div>
-                <div class="tiltedCell">
-                    <strong>PHP</strong><br>3 years
-                </div>
-                <div class="tiltedCell">
-                    <strong>Linux</strong><br>3 years
-                </div>
-                <div class="tiltedCell">
-                    <strong>Ruby</strong><br>1 year
-                </div>
-                <div class="tiltedCell">
-                    <strong>Kotlin</strong><br>1 year
-                </div>
-                <div class="tiltedCell">
-                    <strong>PostgreSQL</strong><br>1 year
+                    <strong>Systems and Infrastructure</strong>Linux, DevoOps, Cloud Computing, Apache.
                 </div>
             </div>
             <div>
                 <p class="desc">Some of my favorite projects:</p>
             </div>
-            <div style="display: flex">
-                <a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a><br>
-                <a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine (Alpha)</a><br>
-                <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game (Alpha) [Online]</a><br>
-                <a href="https://apps.gangdev.co/roastGenerator" target="_blank">Roast Generator</a><br>
-                <a href="https://apps.gangdev.co/mmfGenerator" target="_blank">MMF Generator</a><br>
+            <div class="favorites">
+                <div><a href="https://github.com/Serided/GangDev" target="_blank">GangDev Website</a></div>
+                <div><a href="https://gaming.gangdev.co/gameEngine" target="_blank">Game Engine (Alpha)</a></div>
+                <div><a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game (Alpha) [Online]</a></div>
+                <div><a href="https://apps.gangdev.co/roastGenerator" target="_blank">Roast Generator</a></div>
+                <div><a href="https://apps.gangdev.co/mmfGenerator" target="_blank">MMF Generator</a></div>
             </div>
         </div>
 
