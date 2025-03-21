@@ -87,6 +87,57 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         reader.readAsDataURL(file);
     });
+
+    const radios = document.querySelectorAll('input[name="sections"]');
+    const sections = document.querySelectorAll('.accountInfo');
+    const fadeDuration = 400; // duration in ms
+
+    // Function to fade out an element
+    function fadeOut(el, callback) {
+        el.style.transition = `opacity ${fadeDuration}ms ease`;
+        el.style.opacity = 0;
+        setTimeout(() => {
+            el.style.display = 'none';
+            if (callback) callback();
+        }, fadeDuration);
+    }
+
+    // Function to fade in an element
+    function fadeIn(el) {
+        el.style.display = 'block';
+        // slight delay to ensure the display change is applied before transition
+        setTimeout(() => {
+            el.style.transition = `opacity ${fadeDuration}ms ease`;
+            el.style.opacity = 1;
+        }, 10);
+    }
+
+    // Initially, hide all sections and show the one for the checked radio
+    sections.forEach(section => {
+        section.style.opacity = 0;
+        section.style.display = 'none';
+    });
+    const initialRadio = document.querySelector('input[name="sections"]:checked');
+    if (initialRadio) {
+        const target = document.getElementById('sect' + initialRadio.id);
+        if (target) fadeIn(target);
+    }
+
+    // Add change listener to each radio button
+    radios.forEach(radio => {
+        radio.addEventListener('change', function () {
+            // Fade out all accountInfo sections
+            sections.forEach(section => fadeOut(section));
+
+            // Determine the target section from the radio's ID (prepend "sect")
+            const targetId = 'sect' + this.id;
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                // Fade in the target section after a short delay to let others fade out
+                setTimeout(() => fadeIn(targetSection), fadeDuration);
+            }
+        });
+    });
 });
 
 function startCountdown(remaining, elementId) {
@@ -109,3 +160,4 @@ function startCountdown(remaining, elementId) {
     updateCountdown();
     setInterval(updateCountdown, 1000);
 }
+

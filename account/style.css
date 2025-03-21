@@ -55,26 +55,6 @@
     opacity: 0;
     transition: opacity 0.4s ease-in-out;
 }
-.accountNav input[type="radio"]#pInfo:checked #sectPInfo {
-    display: block;
-    opacity: 1;
-}
-.accountNav input[type="radio"]#aSecurity:checked #sectASecurity {
-    display: block;
-    opacity: 1;
-}
-.accountNav input[type="radio"]#customization:checked #sectCustomization {
-    display: block;
-    opacity: 1;
-}
-.accountNav input[type="radio"]#preferences:checked #sectPreferences {
-    display: block;
-    opacity: 1;
-}
-.accountNav input[type="radio"]#billing:checked #sectBilling {
-    display: block;
-    opacity: 1;
-}
 
 #cropModal {
     position: fixed;
