@@ -31,14 +31,14 @@ if ($userId) {
         <div id="cropModal" style="display:none;"><div id="cropContent"></div></div>
 
         <?php if ($remainingSeconds > 0): ?>
-            <div class="sect altCont deleteWarning">
-                <h2>
-                    <i>Your account is scheduled for deletion in <b style="color: red"><span id="timeRemaining"></span></b>.</i>
-                </h2>
-                <form action="delete/cancel_delete.php" method="post">
-                    <button type="submit" class="button cancelDelete">Stawp it :(</button>
-                </form>
-            </div>
+        <div class="sect altCont deleteWarning">
+            <h2>
+                <i>Your account is scheduled for deletion in <b style="color: red"><span id="timeRemaining"></span></b>.</i>
+            </h2>
+            <form action="delete/cancel_delete.php" method="post">
+                <button type="submit" class="button cancelDelete">Stawp it :(</button>
+            </form>
+        </div>
         <?php endif; ?>
 
         <div class="sect cont entry">
@@ -67,27 +67,27 @@ if ($userId) {
 
         <div class="sect cont two">
             <?php if (isset($_SESSION["user_id"])): ?>
-                <div class="info">
-                    <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
-                    <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
-                    <h2>Email: <b><?php echo htmlspecialchars($_SESSION['email']) ?></b></h2>
-                    <h2>AND MORE TO COME...</h2>
-                </div>
+            <div class="info">
+                <h2>Display Name: <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b></h2>
+                <h2>Username: <b><?php echo htmlspecialchars($_SESSION['username']) ?></b></h2>
+                <h2>Email: <b><?php echo htmlspecialchars($_SESSION['email']) ?></b></h2>
+                <h2>AND MORE TO COME...</h2>
+            </div>
 
-                <a href="delete/delete.php" class="sign">Delete Account</a>
-                <a href="login/signout.php" class="sign">Sign Out</a>
+            <a href="delete/delete.php" class="sign">Delete Account</a>
+            <a href="login/signout.php" class="sign">Sign Out</a>
             <?php else: ?>
-                <a href="login/signin.php" class="sign">Sign In</a>
+            <a href="login/signin.php" class="sign">Sign In</a>
             <?php endif; ?>
         </div>
 
 
         <script src="script.js"></script>
         <?php if ($remainingSeconds > 0): ?>
-            <script>
-                let remainingSeconds = <?php echo $remainingSeconds; ?>;
-                startCountdown(remainingSeconds, 'timeRemaining');
-            </script>
+        <script>
+            let remainingSeconds = <?php echo $remainingSeconds; ?>;
+            startCountdown(remainingSeconds, 'timeRemaining');
+        </script>
         <?php endif; ?>
 
         <?= $footer ?>

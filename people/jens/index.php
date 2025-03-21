@@ -146,11 +146,12 @@
         <div class="sect cont four">
             <h2>My Links</h2>
             <p>
-                <a href="https://www.instagram.com/ser1ded/" target="_blank">Instagram</a><br>
-                <a href="https://scandinalienballer.wixsite.com/jenshansenportfolio" target="_blank">Digital Media Portfolio</a><br>
-                <a href="https://www.youtube.com/@serided" target="_blank">YouTube</a><br>
                 <a href="https://github.com/Serided" target="_blank">GitHub</a><br>
                 <a href="https://stackoverflow.com/users/20779197/serided" target="_blank">Stack Overflow</a>
+                <a href="https://www.coursera.org/learner/serided" target="_blank">Coursera</a>
+                <a href="https://scandinalienballer.wixsite.com/jenshansenportfolio" target="_blank">Digital Media Portfolio</a><br>
+                <a href="https://www.instagram.com/ser1ded/" target="_blank">Instagram</a><br>
+                <a href="https://www.youtube.com/@serided" target="_blank">YouTube</a><br>
             </p>
         </div>
 
