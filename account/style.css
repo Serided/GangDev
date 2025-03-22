@@ -54,25 +54,24 @@
 }
 
 .statusMessage {
-    background: #fff3cd;
-    padding: calc(var(--scaling) * 0.5);
-    margin: calc(var(--scaling) * 0.5) auto;
-    width: 90%;
-    border-radius: calc(var(--scaling) * 0.3);
-    text-align: center;
-    font-size: calc(var(--scaling) * 0.8);
-    z-index: 5002;
+    top: calc(var(--scaling) * 1.5);
+    left: 0;
+    right: 0;
+    position: absolute;
+    z-index: 9;
 }
 .statusMessage.error {
     color: red;
 }
 .statusMessage.success {
-    color: green;
+    color: lawngreen;
 }
 
 form#changeForm {
-    display: flex;
     justify-items: right;
+}
+form#changeForm .item {
+    display: flex;
 }
 form#changeForm label {
     font-size: calc(var(--scaling) * 1);
