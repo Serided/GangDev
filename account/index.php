@@ -14,27 +14,33 @@ if ($userId) {
 	}
 }
 
-$warningMessage = "";
+$statusClass = "";
 if(isset($_GET['status'])) {
 	$status = $_GET['status'];
 	switch($status) {
-        case 'toofast':
-            $left = $_GET['left'] ?? '';
-            $warningMessage = "Please wait $left before making another change.";
-            break;
+		case 'toofast':
+			$statusClass = "error";
+			$left = $_GET['left'] ?? "";
+			$warningMessage = "Please wait $left before making another change.";
+			break;
 		case 'empty':
+			$statusClass = "error";
 			$warningMessage = "All fields must be filled.";
 			break;
 		case 'nochange':
+			$statusClass = "error";
 			$warningMessage = "No changes were made.";
 			break;
-        case 'emailexists':
-            $warningMessage = "The email address is already in use.";
-            break;
+		case 'emailexists':
+			$statusClass = "error";
+			$warningMessage = "The email address is already in use.";
+			break;
 		case 'error':
+			$statusClass = "error";
 			$warningMessage = "An error occurred while updating your information.";
 			break;
 		case 'success':
+			$statusClass = "success";
 			$warningMessage = "Your information was updated successfully.";
 			break;
 		default:
@@ -114,15 +120,15 @@ if(isset($_GET['status'])) {
             <div class="accountCont">
                 <div class="accountInfo" id="sectpInfo">
 	                <?php if (!empty($warningMessage)): ?>
-                      <div class="statusMessage">
-                          <p><?php echo $warningMessage; ?></p>
-                      </div>
+                    <div class="statusMessage <?php echo $statusClass; ?>">
+                        <p><?php echo $warningMessage; ?></p>
+                    </div>
 	                <?php endif; ?>
                     <form id="changeForm" action="php/process_change.php" method="post">
                         <label for="displayname">Display Name:</label>
                         <div class="inputContainer">
                             <input type="text" name="displayname" id="displayname" value="<?php echo htmlspecialchars($_SESSION['displayname']); ?>" required>
-                        </div>
+                        </div><br>
                         <label for="email">Email:</label>
                         <div class="inputContainer">
                             <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>" required>

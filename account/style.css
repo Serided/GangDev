@@ -52,6 +52,28 @@
 .accountInfo h2 {
     font-weight: normal;
 }
+
+.statusMessage {
+    background: #fff3cd;
+    padding: calc(var(--scaling) * 0.5);
+    margin: calc(var(--scaling) * 0.5) auto;
+    width: 90%;
+    border-radius: calc(var(--scaling) * 0.3);
+    text-align: center;
+    font-size: calc(var(--scaling) * 0.8);
+    z-index: 5002;
+}
+.statusMessage.error {
+    color: red;
+}
+.statusMessage.success {
+    color: green;
+}
+
+form#changeForm {
+    display: flex;
+    justify-items: right;
+}
 form#changeForm label {
     font-size: calc(var(--scaling) * 1);
 }
