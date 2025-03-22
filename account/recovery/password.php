@@ -10,6 +10,7 @@
     </head>
     <body>
         <?= $navbar ?>
+        <div class="bgWrapper"></div>
 
         <div class="recoveryContainer">
             <div>
@@ -29,5 +30,6 @@
                 </div>
             </form>
         </div>
+        <script src="https://shared.gangdev.co/js/script.js"></script>
     </body>
 </html>

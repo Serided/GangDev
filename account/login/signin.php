@@ -65,5 +65,6 @@ if (isset($_GET['error'])) {
         </div>
 
         <script src="login.js"></script>
+        <script src="https://shared.gangdev.co/js/script.js"></script>
     </body>
 </html>

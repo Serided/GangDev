@@ -22,6 +22,7 @@ if (isset($_GET['error'])) {
     </head>
     <body>
         <?= $navbar ?>
+        <div class="bgWrapper"></div>
 
         <div class="deleteContainer">
             <h2>Are you</h2>
@@ -46,5 +47,6 @@ if (isset($_GET['error'])) {
                 </div>
             </form>
         </div>
+        <script src="https://shared.gangdev.co/js/script.js"></script>
     </body>
 </html>

@@ -28,6 +28,7 @@ if (isset($_GET['error'])) {
     </head>
     <body>
         <?= $navbar ?>
+        <div class="bgWrapper"></div>
 
         <div class="loginContainer signup">
             <h1 class="signup">Create Account</h1>
@@ -148,5 +149,6 @@ if (isset($_GET['error'])) {
         </div>
 
         <script src="login.js"></script>
+        <script src="https://shared.gangdev.co/js/script.js"></script>
     </body>
 </html>

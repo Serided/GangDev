@@ -3,7 +3,6 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url("https://gangdev.co/shared/files/img/landscape/L-BG-7.jpg");
 }
 
 .deleteContainer h1 {
