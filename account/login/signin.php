@@ -18,6 +18,7 @@ if (isset($_GET['error'])) {
     </head>
     <body>
         <?= $navbar ?>
+        <div class="bgWrapper"></div>
 
         <div class="loginContainer">
             <h1>Sign In</h1>
