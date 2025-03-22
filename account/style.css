@@ -72,6 +72,7 @@ form#changeForm {
 }
 form#changeForm .item {
     display: flex;
+    padding: calc(var(--scaling) * 1.5);
 }
 form#changeForm label {
     font-size: calc(var(--scaling) * 1);
