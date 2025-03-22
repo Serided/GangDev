@@ -54,10 +54,11 @@
 }
 
 .statusMessage {
-    top: calc(var(--scaling) * 1.5);
+    top: calc(var(--scaling) * 2);
     left: 0;
     right: 0;
     position: absolute;
+    font-size: calc(var(--scaling) * 1);
     z-index: 9;
 }
 .statusMessage.error {
