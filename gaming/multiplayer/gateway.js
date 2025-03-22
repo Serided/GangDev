@@ -3,13 +3,10 @@ const http = require("http");
 const jwt = require('jsonwebtoken');
 const secretKey = 'your-very-secure-secret';  // Shared secret between PHP and Node.js
 
-// Setup HTTP server with WebSocket server
 const p = 10000;
 const server = http.createServer();
 const gatewayServer = new WebSocket.Server({ server });
 
-// Instead of a games object with multiple games,
-// we force the redirect to game1 for simplicity.
 const game1 = { path: "/game1", port: 10001 };
 
 gatewayServer.on("connection", (ws) => {
@@ -20,8 +17,7 @@ gatewayServer.on("connection", (ws) => {
         try {
             const data = JSON.parse(message.toString());
 
-            // First, expect an authentication message
-            if (!authenticated && data.type === "authenticate") {
+            if (!authenticated && data.type === "auth") {
                 try {
                     const decoded = jwt.verify(data.token, secretKey);
                     ws.user = { username: data.username, userId: data.userId };
@@ -32,18 +28,15 @@ gatewayServer.on("connection", (ws) => {
                     console.error("Authentication failed:", err);
                     return ws.close();
                 }
-                return; // Wait for further messages
+                return;
             }
 
-            // Reject any non-auth messages if not authenticated
             if (!authenticated) {
                 ws.send(JSON.stringify({ error: "Not authenticated." }));
                 return ws.close();
             }
 
-            // Now, handle the join request (e.g., for game1)
             if (data.game && data.game === "game1") {
-                // Build the redirect URL (using your domain)
                 const domain = process.env.DOMAIN || "gaming.gangdev.co";
                 ws.send(JSON.stringify({
                     redirect: `wss://${domain}${game1.path}`,
