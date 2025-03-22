@@ -120,9 +120,13 @@ if(isset($_GET['status'])) {
 	                <?php endif; ?>
                     <form id="changeForm" action="php/process_change.php" method="post">
                         <label for="displayname">Display Name:</label>
-                        <input type="text" name="displayname" id="displayname" value="<?php echo htmlspecialchars($_SESSION['displayname']); ?>" required>
+                        <div class="inputContainer">
+                            <input type="text" name="displayname" id="displayname" value="<?php echo htmlspecialchars($_SESSION['displayname']); ?>" required>
+                        </div>
                         <label for="email">Email:</label>
-                        <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>" required>
+                        <div class="inputContainer">
+                            <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>" required>
+                        </div>
                     </form>
                 </div>
                 <div class="accountInfo" id="sectaSecurity">

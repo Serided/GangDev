@@ -52,8 +52,26 @@
 .accountInfo h2 {
     font-weight: normal;
 }
-form.changeForm label {
-
+form#changeForm label {
+    font-size: calc(var(--scaling) * 1);
+}
+.inputContainer {
+    width: calc(var(--scaling) * 12);
+    justify-items: left;
+    text-align: left;
+}
+.inputContainer input {
+    border-radius: calc(var(--scaling) * 0.17);
+    padding: calc(var(--scaling) * 0.17);
+    height: calc(var(--scaling) * 1.5);
+    width: 100%;
+    font-size: calc(var(--scaling) * 1);
+    background: whitesmoke;
+    border: none;
+    transition: all 0.2s ease;
+}
+.inputContainer input:hover {
+    transform: scale(1.01);
 }
 
 #cropModal {
