@@ -5,10 +5,9 @@ if (!isset($_SESSION["user_id"])) {
     exit();
 }
 
-require_once '/var/www/gangdev/shared/php/vendor/autoload.php';
 use \Firebase\JWT\JWT;
 
-$secretKey = 'your-very-secure-secret'; // This must match your Node.js secret.
+$secretKey = 'your-very-secure-secret'; // Must match your Node.js secret.
 $issuedAt   = time();
 $expiration = $issuedAt + (60 * 60); // Token valid for 1 hour.
 $payload = [
@@ -27,31 +26,35 @@ $authToken = JWT::encode($payload, $secretKey, 'HS256');
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Crust</title>
 
-        <script src="/multiplayer/games/game1/client/game.js" defer></script> <!-- Loads WebSocket client -->
-        <link rel="stylesheet" href="/multiplayer/games/game1/client/style.css"> <!-- Link to your CSS -->
+        <!-- Embed auth token and user data into JavaScript variables -->
+        <script>
+            const authToken = <?php echo json_encode($authToken); ?>;
+            const username  = <?php echo json_encode($_SESSION["username"]); ?>;
+            const userId    = <?php echo json_encode($_SESSION["user_id"]); ?>;
+            console.log("User authenticated as:", username);
+        </script>
+
+        <script src="/multiplayer/games/game1/client/game.js" defer></script>
+        <link rel="stylesheet" href="/multiplayer/games/game1/client/style.css">
         <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     </head>
     <body>
         <canvas id="gameCanvas"></canvas>
-
         <div class="header">
             <h1>Crust</h1>
             <p class="status">Status: <span id="status">Offline</span></p>
             <p class="players">Players: <span id="players">0</span></p>
         </div>
-
         <div id="chatButton">
             <div class="chatBubble">
                 <span>...</span>
             </div>
         </div>
-
         <div id="chatPanel">
             <div id="messages"></div>
             <input type="text" id="chatInput" placeholder="Type a message...">
             <button id="sendButton">Send</button>
         </div>
-
         <div id="leftMenu"></div>
     </body>
 </html>

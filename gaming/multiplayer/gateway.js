@@ -1,7 +1,7 @@
 const WebSocket = require("ws");
 const http = require("http");
 const jwt = require('jsonwebtoken');
-const secretKey = 'your-very-secure-secret';  // Shared secret between PHP and Node.js
+const secretKey = 'your-very-secure-secret';
 
 const p = 10000;
 const server = http.createServer();
