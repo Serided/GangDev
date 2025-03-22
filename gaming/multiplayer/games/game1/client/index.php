@@ -1,3 +1,4 @@
+<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
