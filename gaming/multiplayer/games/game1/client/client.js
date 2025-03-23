@@ -13,7 +13,7 @@ window.canvas = canvas;
 window.ctx = ctx;
 
 // Set tile size (e.g., 4 pixels per meter at zoom=1)
-const tileSize = 4;
+const tileSize = 1;
 window.tileSize = tileSize;
 
 // Generate the map once

@@ -23,4 +23,4 @@ export function generateMap(width, height, scale, collisionThreshold = 0.7) {
 }
 
 // Generate a global map once (1km x 1km)
-export const globalMap = generateMap(1000, 1000, 100);
+export const globalMap = generateMap(1000, 1000, 1000);
