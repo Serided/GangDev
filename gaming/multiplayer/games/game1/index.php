@@ -7,7 +7,7 @@ if (!isset($_SESSION["user_id"])) {
 
 use \Firebase\JWT\JWT;
 
-$secretKey = 'your-very-secure-secret'; // Must match your Node.js secret.
+$secretKey = $_ENV['SECRET_KEY'];
 $issuedAt   = time();
 $expiration = $issuedAt + (60 * 60); // Token valid for 1 hour.
 $payload = [

@@ -1,7 +1,8 @@
+require('dotenv').config({ path: '/var/www/gangdev/shared/.env' });
 const WebSocket = require("ws");
 const http = require("http");
 const jwt = require('jsonwebtoken');
-const secretKey = 'your-very-secure-secret';
+const secretKey = process.env.SECRET_KEY;
 
 const p = 10000;
 const server = http.createServer();
