@@ -1,5 +1,4 @@
-import { Noise } from './noisejs';
-const noise = new Noise(Math.random());
+const noise = new window.Noise(Math.random());
 
 export function drawGame(ctx, canvas, camera, players, currentUserId) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
