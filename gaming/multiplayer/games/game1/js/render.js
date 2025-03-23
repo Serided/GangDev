@@ -1,4 +1,4 @@
-import { Noise } from "https://cdn.jsdelivr.net/npm/noisejs@2.0.0/index.js";
+import { Noise } from "https://unpkg.com/noisejs@2.0.0/index.js";
 const noise = new Noise(Math.random());
 
 export function drawGame(ctx, canvas, camera, players, currentUserId) {
