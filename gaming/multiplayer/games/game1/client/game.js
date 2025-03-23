@@ -50,13 +50,8 @@ function connectToGame(gameUrl, gameName) {
     };
     gameSocket.onmessage = async (event) => {
         console.log("Message from server:", event.data);
-        let data;
-        if (event.data instanceof Blob) {
-            data = JSON.parse(await event.data.text());
-            console.log("its a blob");
-        } else {
-            data = JSON.parse(event.data);
-        }
+        let data = JSON.parse(await event.data.text());
+
         switch (data.type) {
             case "chatMessage":
                 appendMessage(data.data);
