@@ -10,19 +10,18 @@ const gatewayServer = new WebSocket.Server({ server });
 
 const game1 = { path: "/game1", port: 10001 };
 
-// Global object to track active connections per userId.
 const activeSockets = {};
 
 gatewayServer.on("connection", (ws) => {
     console.log("New client connected to gateway.");
     let authenticated = false;
+    let joined = false;
 
     ws.on("message", (message) => {
         try {
             const data = JSON.parse(message.toString());
             console.log("Gateway received:", data);
 
-            // Process authentication message.
             if (!authenticated && data.type === "auth") {
                 try {
                     const decoded = jwt.verify(data.token, secretKey);
@@ -30,41 +29,42 @@ gatewayServer.on("connection", (ws) => {
                     authenticated = true;
                     console.log(`Authenticated user: ${data.username}`);
 
-                    // Enforce one active connection per user.
                     if (activeSockets[ws.user.userId]) {
                         console.log(`Existing connection for user ${ws.user.userId} found. Closing it.`);
                         activeSockets[ws.user.userId].close();
                     }
                     activeSockets[ws.user.userId] = ws;
-
-                    // Send back an authentication acknowledgment.
                     ws.send(JSON.stringify({ type: "authAck" }));
                 } catch (err) {
                     ws.send(JSON.stringify({ error: "Authentication failed." }));
                     console.error("Authentication failed:", err);
                     return ws.close();
                 }
-                return; // Do not process further until next message.
+                return;
             }
 
-            // If not authenticated, reject further messages.
             if (!authenticated) {
                 ws.send(JSON.stringify({ error: "Not authenticated." }));
                 return ws.close();
             }
 
-            // Process join request for game1 only after auth.
             if (data.game) {
-                if (data.game === "game1") {
-                    const domain = process.env.DOMAIN || "gaming.gangdev.co";
-                    ws.send(JSON.stringify({
-                        redirect: `wss://${domain}${game1.path}`,
-                        game: "game1"
-                    }));
-                    console.log(`Redirecting authenticated client to ${game1.path}`);
+                if (!joined) {
+                    if (data.game.trim() === "game1") {
+                        joined = true;
+                        const domain = process.env.DOMAIN || "gaming.gangdev.co";
+                        ws.send(JSON.stringify({
+                            redirect: `wss://${domain}${game1.path}`,
+                            game: "game1"
+                        }));
+                        console.log(`Redirecting authenticated client to ${game1.path}`);
+                    } else {
+                        ws.send(JSON.stringify({ error: "Invalid game requested." }));
+                        console.log("Invalid game requested:", data.game);
+                        return ws.close();
+                    }
                 } else {
-                    // Log any other game requests; do not close connection.
-                    console.log("Received unrecognized game request:", data.game);
+                    console.log("Duplicate join request received. Ignoring:", data.game);
                 }
             }
         } catch (err) {
