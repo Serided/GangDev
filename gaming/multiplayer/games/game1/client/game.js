@@ -8,7 +8,7 @@ canvas.height = window.innerHeight;
 const keys = {};
 const players = {};
 const speed = 200;
-const smoothingFactor = 0.2;
+const smoothingFactor = 0.01;
 let lastTime = performance.now();
 const localPlayer = {
     x: canvas.width / 2,
