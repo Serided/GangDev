@@ -1,6 +1,6 @@
-import Noise from "https://esm.sh/noisejs@2.1.0";
+import noisejs from "https://esm.sh/noisejs@2.1.0";
 
-const noise = new Noise(Math.random());
+const noise = new noisejs.Noise(Math.random());
 
 export function generateHeightMap(width, height, scale) {
     const map = new Array(height);
