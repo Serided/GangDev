@@ -8,7 +8,7 @@ canvas.height = window.innerHeight;
 const keys = {};
 const players = {};
 const speed = 200;
-const smoothingFactor = 0.01;
+const smoothingFactor = 0.04;
 let lastTime = performance.now();
 const localPlayer = {
     x: canvas.width / 2,
@@ -167,7 +167,7 @@ function drawGame() {
 
         ctx.fillStyle = p.userId === userId ? "green" : "red";
         ctx.fillRect(screenX - 25, screenY - 25, 50, 50);
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "gray";
         ctx.font = "16px Arial";
         ctx.fillText(p.displayName || (p.user && p.user.displayName) || "Unknown", screenX - 25, screenY - 30);
     }
