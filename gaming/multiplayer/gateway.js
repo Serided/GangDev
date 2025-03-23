@@ -10,6 +10,7 @@ const gatewayServer = new WebSocket.Server({ server });
 
 const game1 = { path: "/game1", port: 10001 };
 
+// Global object to track active connections per userId.
 const activeSockets = {};
 
 gatewayServer.on("connection", (ws) => {
@@ -19,7 +20,9 @@ gatewayServer.on("connection", (ws) => {
     ws.on("message", (message) => {
         try {
             const data = JSON.parse(message.toString());
+            console.log("Gateway received:", data);
 
+            // Process authentication message.
             if (!authenticated && data.type === "auth") {
                 try {
                     const decoded = jwt.verify(data.token, secretKey);
@@ -27,24 +30,30 @@ gatewayServer.on("connection", (ws) => {
                     authenticated = true;
                     console.log(`Authenticated user: ${data.username}`);
 
+                    // Enforce one active connection per user.
                     if (activeSockets[ws.user.userId]) {
                         console.log(`Existing connection for user ${ws.user.userId} found. Closing it.`);
                         activeSockets[ws.user.userId].close();
                     }
                     activeSockets[ws.user.userId] = ws;
+
+                    // Send back an authentication acknowledgment.
+                    ws.send(JSON.stringify({ type: "authAck" }));
                 } catch (err) {
                     ws.send(JSON.stringify({ error: "Authentication failed." }));
                     console.error("Authentication failed:", err);
                     return ws.close();
                 }
-                return;
+                return; // Do not process further until next message.
             }
 
+            // If not authenticated, reject further messages.
             if (!authenticated) {
                 ws.send(JSON.stringify({ error: "Not authenticated." }));
                 return ws.close();
             }
 
+            // Process join request for game1 only after auth.
             if (data.game) {
                 if (data.game === "game1") {
                     const domain = process.env.DOMAIN || "gaming.gangdev.co";
@@ -54,8 +63,8 @@ gatewayServer.on("connection", (ws) => {
                     }));
                     console.log(`Redirecting authenticated client to ${game1.path}`);
                 } else {
-                    // Instead of throwing an error, just log and ignore the message.
-                    console.log("Ignoring unrecognized game request:", data.game);
+                    // Log any other game requests; do not close connection.
+                    console.log("Received unrecognized game request:", data.game);
                 }
             }
         } catch (err) {
