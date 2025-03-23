@@ -16,14 +16,14 @@ const activeSockets = {};
 gatewayServer.on("connection", (ws) => {
     console.log("New client connected to gateway.");
     let authenticated = false;
-    let joined = false; // Flag to ensure join is processed only once
+    let joined = false; // Ensure join processed only once
 
     ws.on("message", (message) => {
         try {
             const data = JSON.parse(message.toString());
             console.log("Gateway received:", data);
 
-            // Process authentication message first.
+            // Process auth message.
             if (!authenticated && data.type === "auth") {
                 try {
                     const decoded = jwt.verify(data.token, secretKey);
@@ -38,24 +38,24 @@ gatewayServer.on("connection", (ws) => {
                     }
                     activeSockets[ws.user.userId] = ws;
 
-                    // Send back an authentication acknowledgment.
+                    // Send auth acknowledgment.
                     ws.send(JSON.stringify({ type: "authAck" }));
                 } catch (err) {
                     ws.send(JSON.stringify({ error: "Authentication failed." }));
                     console.error("Authentication failed:", err);
                     return ws.close();
                 }
-                return; // Do not process further; wait for next message.
+                return; // Stop further processing.
             }
 
-            // Reject any message if not authenticated.
+            // If not authenticated, reject messages.
             if (!authenticated) {
                 ws.send(JSON.stringify({ error: "Not authenticated." }));
                 return ws.close();
             }
 
-            // Process join request for game1, but only once per connection.
-            if (data.game) {
+            // Process join message if present.
+            if (typeof data.game !== 'undefined') {
                 if (!joined) {
                     if (data.game.trim() === "game1") {
                         joined = true;
@@ -71,9 +71,10 @@ gatewayServer.on("connection", (ws) => {
                         return ws.close();
                     }
                 } else {
-                    // If a join message is received again, log and ignore it.
                     console.log("Duplicate join request received. Ignoring:", data.game);
                 }
+            } else {
+                console.log("Received message without a game property; ignoring.");
             }
         } catch (err) {
             ws.send(JSON.stringify({ error: "Invalid message format." }));
