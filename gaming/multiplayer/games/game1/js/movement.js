@@ -40,3 +40,4 @@ export function handleMovementUpdate(data) {
         };
     }
 }
+window.handleMovementUpdate = handleMovementUpdate;
