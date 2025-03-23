@@ -146,13 +146,19 @@ function drawGame() {
         ctx.fillRect(p.x - 25, p.y - 25, 50, 50);
         ctx.fillStyle = "white";
         ctx.font = "16px Arial";
-        ctx.fillText(p.displayName, p.x - 25, p.y - 30);
+        ctx.fillText(p.displayName || (p.user && p.user.displayName) || "Unknown", p.x - 25, p.y - 30);
     }
 }
 
 function handleMovementUpdate(data) {
     if (data && data.user && data.user.userId) {
-        players[data.user.userId] = { ...players[data.user.userId], ...data };
+        const current = players[data.user.userId] || {};
+        players[data.user.userId] = {
+            ...current,
+            ...data,
+            displayName: data.user.displayName || current.displayName,
+            user: { ...current.user, ...data.user }
+        };
     }
 }
 
