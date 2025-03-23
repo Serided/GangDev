@@ -30,6 +30,7 @@ $redirect = $_GET['redirect'] ?? '';
             <?php endif; ?>
 
             <form method="post" action="process_signin.php">
+                <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirect) ?>">
                 <div class="margin">
                     <label for="username">Username: </label><br>
                     <div class="inputContainer">

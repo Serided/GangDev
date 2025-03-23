@@ -40,6 +40,7 @@ $redirect = $_GET['redirect'] ?? '';
             <?php endif; ?>
 
             <form method="post" action="process_signup.php">
+                <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirect) ?>">
                 <div class="doubleRow">
                     <div class="margin">
                         <div class="labelRow">
