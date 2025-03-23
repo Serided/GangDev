@@ -1,6 +1,7 @@
 import noisejs from "https://esm.sh/noisejs@2.1.0";
 
-const noise = new noisejs.Noise(Math.random());
+const fixedSeed = 12345; // Fixed seed for consistency
+const noise = new noisejs.Noise(fixedSeed);
 
 export function generateHeightMap(width, height, scale) {
     const map = new Array(height);
@@ -16,7 +17,10 @@ export function generateHeightMap(width, height, scale) {
 
 export function generateMap(width, height, scale, collisionThreshold = 0.7) {
     const heightMap = generateHeightMap(width, height, scale);
-    return { heightMap };
+    // For collision map: (not used here, but available)
+    const collisionMap = heightMap.map(row => row.map(val => val >= collisionThreshold));
+    return { heightMap, collisionMap };
 }
 
+// Generate a global map once (1km x 1km)
 export const globalMap = generateMap(1000, 1000, 100);

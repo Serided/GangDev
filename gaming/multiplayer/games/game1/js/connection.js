@@ -68,10 +68,9 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                 appendMessage(data.data, userId);
                 break;
             case "playerCount":
-                // updatePlayerCount(data.data); // If needed
+                updatePlayerCount(data.data);
                 break;
             case "movement":
-                // Use the imported handleMovementUpdate (attached globally)
                 window.handleMovementUpdate(data.data);
                 break;
             default:

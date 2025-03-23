@@ -1,7 +1,7 @@
 export function drawGame(ctx, canvas, camera, players, currentUserId, heightMap, tileSize) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Update the camera based on the local player's position.
+    // Update camera based on the local player's position.
     camera.update(players[currentUserId], canvas);
 
     const scaledTileSize = tileSize * camera.zoom;
@@ -12,14 +12,15 @@ export function drawGame(ctx, canvas, camera, players, currentUserId, heightMap,
     const startRow = Math.max(0, Math.floor(camera.y / scaledTileSize));
     const endRow = Math.min(rows, Math.ceil((camera.y + canvas.height) / scaledTileSize));
 
+    // Draw the background (map)
     for (let r = startRow; r < endRow; r++) {
         for (let c = startCol; c < endCol; c++) {
             const value = heightMap[r][c];
             let color;
-            if (value < 0.3) color = "#2D70B3";
-            else if (value < 0.5) color = "#88C070";
-            else if (value < 0.7) color = "#66A050";
-            else color = "#7D7D7D";
+            if (value < 0.3) color = "#2D70B3";     // water
+            else if (value < 0.5) color = "#88C070"; // plains
+            else if (value < 0.7) color = "#66A050"; // hills
+            else color = "#7D7D7D";                 // cliffs
             const screenX = c * scaledTileSize - camera.x;
             const screenY = r * scaledTileSize - camera.y;
             ctx.fillStyle = color;
@@ -27,6 +28,7 @@ export function drawGame(ctx, canvas, camera, players, currentUserId, heightMap,
         }
     }
 
+    // Draw players
     for (const id in players) {
         const p = players[id];
         const screenX = p.x - camera.x;
