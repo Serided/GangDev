@@ -55,9 +55,7 @@ function createGameServer(port, name, clientPath) {
         broadcastPlayerCount();
         ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
         ws.on('message', (msg) => {
-            if (msg instanceof Buffer) {
-                msg = msg.toString();
-            }
+            if (msg instanceof Buffer) msg = msg.toString();
             distributeData(msg);
         });
         ws.on('close', () => {
