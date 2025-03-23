@@ -27,7 +27,7 @@ export function gameLoop(timestamp) {
 
     // Use window.activeSocket (set in connection.js)
     sendData(window.activeSocket, "movement", { x: localPlayer.x, y: localPlayer.y }, userId, username, displayName);
-    drawGame(window.ctx, window.canvas, camera, players, userId);
+    drawGame(ctx, canvas, camera, players, userId, heightMap, tileSize);
     requestAnimationFrame(gameLoop);
 }
 
