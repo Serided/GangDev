@@ -95,8 +95,10 @@ window.addEventListener("resize", () => {
 
 function sendData(type, data) {
     if (activeSocket && activeSocket.readyState === WebSocket.OPEN) {
+        const payload = typeof data === "string" ? { text: data } : data;
+
         const enrichedData = {
-            ...data,
+            ...payload,
             user: {
                 userId: userId,
                 username: username,
@@ -136,10 +138,16 @@ function updatePlayerCount(count) {
 function appendMessage(msg) {
     const messagesElement = document.getElementById("messages");
     const messageElement = document.createElement("p");
-    if (typeof msg === "object") {
-        messageElement.textContent = JSON.stringify(msg);
+
+    if (typeof msg === "object" && msg !== null) {
+        if (msg.text && msg.user && msg.user.displayName) {
+            messageElement.textContent = `${msg.user.displayName}: ${msg.text}`;
+        } else {
+            messageElement.textContent = JSON.stringify(msg);
+        }
     } else {
         messageElement.textContent = msg.toString();
     }
     messagesElement.appendChild(messageElement);
 }
+
