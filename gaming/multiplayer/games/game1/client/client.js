@@ -30,7 +30,7 @@ window.addEventListener("wheel", (event) => {
     camera.zoom += (event.deltaY > 0 ? -0.1 : 0.1);
     if (camera.zoom < 0.5) camera.zoom = 0.5;
     if (camera.zoom > 3) camera.zoom = 3;
-});
+}, { passive: false });
 
 const chatButton = document.getElementById("chatButton");
 const chatPanel = document.getElementById("chatPanel");
