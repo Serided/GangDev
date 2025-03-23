@@ -1,5 +1,5 @@
 import { gameLoop } from "./movement.js";
-import { sendData, appendMessage, updateStatus } from "./utils.js";
+import { updateStatus, updatePlayerCount, sendData, appendMessage, sendMessage } from "./utils.js";
 
 export let activeSocket;
 
@@ -73,9 +73,7 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                 updatePlayerCount(data.data);
                 break;
             case "movement":
-                // Import handleMovementUpdate? It's in movement.js.
-                // If not imported here, assume it is global (or attach it to window)
-                window.handleMovementUpdate(data.data);
+                handleMovementUpdate(data.data);
                 break;
             default:
                 console.error("Invalid data:", data);
