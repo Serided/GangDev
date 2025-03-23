@@ -2,7 +2,7 @@ import { initConnection } from "../js/connection.js";
 import { gameLoop, keys, localPlayer, players, speed, handleMovementUpdate } from "../js/movement.js";
 import { camera } from "../js/camera.js";
 import { sendData, sendMessage, updateStatus, updatePlayerCount, appendMessage } from "../js/utils.js";
-import { drawGame, generateHeightMap } from "../js/render.js";
+import { drawGame } from "../js/render.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -10,11 +10,6 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 window.canvas = canvas;
 window.ctx = ctx;
-
-const heightMap = generateHeightMap(1000, 1000, 100);
-const tileSize = 4;
-window.heightMap = heightMap;
-window.tileSize = tileSize;
 
 const localKeys = {};
 Object.assign(keys, localKeys);
