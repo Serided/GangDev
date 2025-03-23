@@ -23,7 +23,7 @@ const camera = {
   y: 0,
   update: function(player) {
       const targetX = player.x - canvas.width / 2;
-      const targetY = player.y - canvas.width / 2;
+      const targetY = player.y - canvas.height / 2;
       this.x = lerp(this.x, targetX, smoothingFactor);
       this.y = lerp(this.y, targetY, smoothingFactor);
   }
