@@ -1,5 +1,5 @@
 import { initConnection } from "../js/connection.js";
-import { sendMessage } from "../js/message.js";
+import { sendMessage } from "../js/utils.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
