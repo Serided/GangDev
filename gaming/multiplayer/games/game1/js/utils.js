@@ -1,12 +1,17 @@
 export function sendData(activeSocket, type, data, userId, username, displayName) {
     if (activeSocket && activeSocket.readyState === WebSocket.OPEN) {
-        const payload = typeof data === "string" ? { text: data } : data;
+        let payload;
+        if (typeof data === "string" || data instanceof String) {
+            payload = { text: data };
+        } else {
+            payload = data;
+        }
         const enrichedData = {
             ...payload,
             user: {
-                userId,
-                username,
-                displayName
+                userId: userId,
+                username: username,
+                displayName: displayName
             }
         };
         const message = JSON.stringify({ type, data: enrichedData });
