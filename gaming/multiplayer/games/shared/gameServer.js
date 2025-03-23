@@ -38,7 +38,6 @@ function createGameServer(port, name, clientPath) {
 
     const wss = new WebSocket.Server({ server });
     let playerCount = 0;
-    // Track active connections by user ID.
     const activeGameSockets = {};
 
     wss.on('connection', (ws, request) => {
@@ -54,17 +53,13 @@ function createGameServer(port, name, clientPath) {
         playerCount++;
         console.log(`[${name}] Connection established. Player count: ${playerCount}`);
         broadcastPlayerCount();
-
         ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
-
         ws.on('message', (msg) => {
             if (msg instanceof Buffer) {
                 msg = msg.toString();
             }
-            // Minimal log for received messages (only errors if needed)
             distributeData(msg);
         });
-
         ws.on('close', () => {
             if (ws.userId && activeGameSockets[ws.userId] === ws) {
                 delete activeGameSockets[ws.userId];

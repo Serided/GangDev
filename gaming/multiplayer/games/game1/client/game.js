@@ -1,5 +1,4 @@
 let activeSocket;
-
 const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 
 gatewaySocket.onopen = () => {
@@ -21,7 +20,7 @@ gatewaySocket.onmessage = (event) => {
         console.log("Gateway response:", data);
         if (data.type === "authAck") {
             const joinPayload = JSON.stringify({ game: "game1" });
-            console.log("Sending join payload to gateway:", joinPayload);
+            console.log("Sending join payload:", joinPayload);
             gatewaySocket.send(joinPayload);
         } else if (data.redirect) {
             gatewaySocket.close();
@@ -43,14 +42,14 @@ function connectToGame(gameUrl, gameName) {
     }
     const gameSocket = new WebSocket(gameUrl);
     gameSocket.onopen = () => {
-        console.log(`Connected to ${gameName} server!`);
+        console.log(`Connected to ${gameName} server`);
         activeSocket = gameSocket;
         sendData('chatMessage', 'Player connected!');
         updateStatus(true);
     };
     gameSocket.onmessage = async (event) => {
-        console.log("Message from server:", event.data);
-        let data = JSON.parse(await event.data.text());
+        let data;
+        data = JSON.parse(await event.data.text());
 
         switch (data.type) {
             case "chatMessage":
@@ -68,9 +67,28 @@ function connectToGame(gameUrl, gameName) {
         updateStatus(false);
     };
     gameSocket.onclose = () => {
-        console.log(`Disconnected from ${gameName} server.`);
+        console.log(`Disconnected from ${gameName} server`);
         updateStatus(false);
     };
+}
+
+function sendData(type, data) {
+    if (activeSocket && activeSocket.readyState === WebSocket.OPEN) {
+        const message = JSON.stringify({ type, data });
+        const blob = new Blob([message], { type: 'application/json' });
+        console.log("Sending data:", message);
+        activeSocket.send(blob);
+    } else {
+        console.warn("Cannot send data. WebSocket closed.");
+    }
+}
+
+function sendMessage() {
+    const message = chatInput.value.trim();
+    if (message) {
+        sendData('chatMessage', message);
+        chatInput.value = "";
+    }
 }
 
 const chatButton = document.getElementById("chatButton");
@@ -78,20 +96,14 @@ const chatPanel = document.getElementById("chatPanel");
 const sendButton = document.getElementById("sendButton");
 const chatInput = document.getElementById("chatInput");
 
-chatButton.addEventListener("click", (event) => {
-    if (chatPanel.style.right === "0vw") {
-        chatPanel.style.right = "-30vw";
-    } else {
-        chatPanel.style.right = "0vw";
-    }
+chatButton.addEventListener("click", () => {
+    chatPanel.style.right = (chatPanel.style.right === "0vw") ? "-30vw" : "0vw";
 });
 sendButton.addEventListener("click", sendMessage);
 chatInput.addEventListener("keypress", (event) => {
-    if (event.key === "Enter") {
-        sendMessage();
-    }
+    if (event.key === "Enter") sendMessage();
 });
-window.addEventListener("resize", (event) => {
+window.addEventListener("resize", () => {
     const gameCanvas = document.getElementById("gameCanvas");
     gameCanvas.width = window.innerWidth;
     gameCanvas.height = window.innerHeight;
@@ -113,23 +125,4 @@ function appendMessage(msg) {
     const messageElement = document.createElement("p");
     messageElement.textContent = msg.toString();
     messagesElement.appendChild(messageElement);
-}
-
-function sendData(type, data) {
-    if (activeSocket && activeSocket.readyState === WebSocket.OPEN) {
-        const message = JSON.stringify({ type: type, data: data });
-        const blob = new Blob([message], { type: 'application/json' });
-        console.log("Sending data:", message);
-        activeSocket.send(blob);
-    } else {
-        console.warn("Cannot send data. WebSocket closed.");
-    }
-}
-
-function sendMessage() {
-    const message = chatInput.value.trim();
-    if (message) {
-        sendData('chatMessage', message);
-        chatInput.value = "";
-    }
 }
