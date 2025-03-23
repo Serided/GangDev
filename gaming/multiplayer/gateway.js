@@ -9,6 +9,8 @@ const gatewayServer = new WebSocket.Server({ server });
 
 const game1 = { path: "/game1", port: 10001 };
 
+const activeSockets = {};
+
 gatewayServer.on("connection", (ws) => {
     console.log("New client connected to gateway.");
     let authenticated = false;
@@ -23,6 +25,12 @@ gatewayServer.on("connection", (ws) => {
                     ws.user = { username: data.username, userId: data.userId };
                     authenticated = true;
                     console.log(`Authenticated user: ${data.username}`);
+
+                    if (activeSockets[ws.user.userId]) {
+                        console.log(`Existing connection for user ${ws.user.userId} found. Closing it.`);
+                        activeSockets[ws.user.userId].close();
+                    }
+                    activeSockets[ws.user.userId] = ws;
                 } catch (err) {
                     ws.send(JSON.stringify({ error: "Authentication failed." }));
                     console.error("Authentication failed:", err);
@@ -55,6 +63,9 @@ gatewayServer.on("connection", (ws) => {
 
     ws.on("close", () => {
         console.log("Client disconnected from gateway.");
+        if (ws.user && activeSockets[ws.user.userId] === ws) {
+            delete activeSockets[ws.user.userId];
+        }
     });
 });
 
