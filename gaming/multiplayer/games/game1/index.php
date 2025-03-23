@@ -1,7 +1,7 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init.php';
 if (!isset($_SESSION["user_id"])) {
-    header("Location: https://account.gangdev.co/login/signin.php?message=please_sign_in");
+    header("Location: https://account.gangdev.co/login/signin.php?redirect=/game1");
     exit();
 }
 

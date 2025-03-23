@@ -6,6 +6,7 @@ if (isset($_GET['error'])) {
 		$error = "Username or password invalid.";
 	}
 }
+$redirect = $_GET['redirect'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +62,7 @@ if (isset($_GET['error'])) {
                 </label><br>
             </div>
 
-            <div class="create"><a href="signup.php"> - Create A New Account - </a></div>
+            <div class="create"><a href="signup.php?redirect=<?= $redirect ?>"> - Create A New Account - </a></div>
         </div>
 
         <script src="login.js"></script>

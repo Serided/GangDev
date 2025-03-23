@@ -16,6 +16,7 @@ if (isset($_GET['error'])) {
         $error = "An error occurred. Please try again.";
     }
 }
+$redirect = $_GET['redirect'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,7 +145,7 @@ if (isset($_GET['error'])) {
                     </div>
                 </div>
 
-                <div class="create centeredDiv"><a href="signin.php"> - Sign In - </a></div>
+                <div class="create centeredDiv"><a href="signin.php?redirect=<?= $redirect ?>"> - Sign In - </a></div>
             </form>
         </div>
 

@@ -44,7 +44,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			setcookie('rememberMe', $token, time() + (30 * 24 * 60 * 60), '/', '.gangdev.co', false, true);
 		}
 
-		header("Location: https://account.gangdev.co");
+		$redirect = isset($_POST["redirect"]) ? trim($_POST["redirect"]) : '';
+
+		if (!empty($redirect) && strpos($redirect, "/") === 0) {
+			header("Location: https://gaming.gangdev.co" . $redirect);
+		} else {
+			header("Location: https://account.gangdev.co");
+		}
+
 		exit();
 	} else {
 		error_log("Failed login attempt for user: " . $username);

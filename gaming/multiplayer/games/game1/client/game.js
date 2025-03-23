@@ -1,3 +1,5 @@
+let activeSocket;
+
 const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 
 gatewaySocket.onopen = () => {
