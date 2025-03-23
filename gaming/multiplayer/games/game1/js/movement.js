@@ -25,7 +25,7 @@ export function gameLoop(timestamp, canvas, heightMap, tileSize) {
     if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= effectiveSpeed * delta;
     if (keys["ArrowRight"] || keys["d"]) localPlayer.x += effectiveSpeed * delta;
     sendData(window.activeSocket, "movement", { x: localPlayer.x, y: localPlayer.y }, userId, username, displayName);
-    drawGame(window.ctx, canvas, camera, players, userId, heightMap, tileSize);
+    drawGame(window.ctx, canvas, camera, players, userId, window.heightMap, window.tileSize);
     requestAnimationFrame((ts) => gameLoop(ts, canvas, heightMap, tileSize));
 }
 
