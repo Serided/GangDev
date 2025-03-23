@@ -20,25 +20,27 @@ gatewayServer.on("connection", (ws) => {
         try {
             const data = JSON.parse(message.toString());
 
-            if (!authenticated && data.type === "auth") {
-                try {
-                    const decoded = jwt.verify(data.token, secretKey);
-                    ws.user = { username: data.username, userId: data.userId };
-                    authenticated = true;
-                    console.log(`Authenticated user: ${data.username}`);
+            try {
+                const decoded = jwt.verify(data.token, secretKey);
+                ws.user = { username: data.username, userId: data.userId };
+                authenticated = true;
+                console.log(`Authenticated user: ${data.username}`);
 
-                    if (activeSockets[ws.user.userId]) {
-                        console.log(`Existing connection for user ${ws.user.userId} found. Closing it.`);
-                        activeSockets[ws.user.userId].close();
-                    }
-                    activeSockets[ws.user.userId] = ws;
-                } catch (err) {
-                    ws.send(JSON.stringify({ error: "Authentication failed." }));
-                    console.error("Authentication failed:", err);
-                    return ws.close();
+                // Enforce one active connection per user.
+                if (activeSockets[ws.user.userId]) {
+                    console.log(`Existing connection for user ${ws.user.userId} found. Closing it.`);
+                    activeSockets[ws.user.userId].close();
                 }
-                return;
+                activeSockets[ws.user.userId] = ws;
+
+                // Send back an authentication acknowledgment.
+                ws.send(JSON.stringify({ type: "authAck" }));
+            } catch (err) {
+                ws.send(JSON.stringify({ error: "Authentication failed." }));
+                console.error("Authentication failed:", err);
+                return ws.close();
             }
+            return;
 
             if (!authenticated) {
                 ws.send(JSON.stringify({ error: "Not authenticated." }));

@@ -43,8 +43,16 @@ function createGameServer(port, name, clientPath) {
     const wss = new WebSocket.Server({ server });
 
     let playerCount = 0;
+    let activeGameSockets = {};
 
     wss.on('connection', (ws) => {
+        if (ws.user) {
+            if (activeGameSockets[ws.user.userId]) {
+                activeGameSockets[ws.user.userId].close();
+            }
+            activeGameSockets[ws.user.userId] = ws;
+        }
+
         playerCount++;
         console.log(`Client connected to ${name}. Player count: ${playerCount}`);
 
@@ -61,6 +69,9 @@ function createGameServer(port, name, clientPath) {
         });
 
         ws.on('close', () => {
+            if (ws.user && activeGameSockets[ws.user.userId] === ws) {
+                delete activeGameSockets[ws.user.userId];
+            }
             playerCount--;
             console.log(`Client disconnected from ${name} server`);
             broadcastPlayerCount(wss);
