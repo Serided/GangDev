@@ -1,3 +1,7 @@
+import {sendData} from "./utils";
+import {drawGame} from "./map";
+import {camera} from "./camera";
+
 export const keys = {};
 export const players = {};
 
@@ -13,7 +17,7 @@ players[userId] = localPlayer;
 export const speed = 200;
 export let lastTime = performance.now();
 
-export function gameLoop(timestamp, canvas, sendMovement, drawGame) {
+function gameLoop(timestamp) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
     if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= speed * delta;
@@ -21,13 +25,9 @@ export function gameLoop(timestamp, canvas, sendMovement, drawGame) {
     if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= speed * delta;
     if (keys["ArrowRight"] || keys["d"]) localPlayer.x += speed * delta;
 
-    // Send movement update using provided function.
-    sendMovement({ x: localPlayer.x, y: localPlayer.y });
-
-    // Redraw the game.
-    drawGame();
-
-    requestAnimationFrame((ts) => gameLoop(ts, canvas, sendMovement, drawGame));
+    sendData("movement", { x: localPlayer.x, y: localPlayer.y });
+    drawGame(ctx, canvas, camera, players, userId);
+    requestAnimationFrame(gameLoop);
 }
 
 export function handleMovementUpdate(data) {

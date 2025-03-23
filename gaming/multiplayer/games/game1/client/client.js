@@ -29,18 +29,3 @@ chatInput.addEventListener("keypress", (event) => { if (event.key === "Enter") s
 
 // Initialize connection to gateway
 initConnection(authToken, username, userId, displayName, canvas);
-
-function gameLoop(timestamp) {
-    const delta = (timestamp - lastTime) / 1000;
-    lastTime = timestamp;
-    if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= speed * delta;
-    if (keys["ArrowDown"] || keys["s"]) localPlayer.y += speed * delta;
-    if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= speed * delta;
-    if (keys["ArrowRight"] || keys["d"]) localPlayer.x += speed * delta;
-
-    // Send movement update.
-    sendData("movement", { x: localPlayer.x, y: localPlayer.y });
-    // Use the imported drawGame to render the map.
-    drawGame(ctx, canvas, camera, players, userId);
-    requestAnimationFrame(gameLoop);
-}
