@@ -1,8 +1,7 @@
-import { globalMap } from "./map.js";
-
-export function drawGame(ctx, canvas, camera, players, currentUserId, tileSize) {
-    const { heightMap } = globalMap;
+export function drawGame(ctx, canvas, camera, players, currentUserId, heightMap, tileSize) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Update the camera based on the local player's position.
     camera.update(players[currentUserId], canvas);
 
     const scaledTileSize = tileSize * camera.zoom;

@@ -23,8 +23,7 @@ export function sendMessage() {
     if (!chatInput) return;
     const message = chatInput.value.trim();
     if (message) {
-        // Assume window.activeSocket, window.userId, etc. are set
-        sendData(window.activeSocket, 'chatMessage', message, window.userId, window.username, window.displayName);
+        sendData(window.activeSocket, 'chatMessage', message, userId, username, displayName);
         chatInput.value = "";
     }
 }

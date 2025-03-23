@@ -1,5 +1,5 @@
-import { gameLoop, handleMovementUpdate } from "./movement.js";
-import { updateStatus, updatePlayerCount, sendData, appendMessage, sendMessage } from "./utils.js";
+import { gameLoop } from "./movement.js";
+import { sendData, appendMessage, updateStatus } from "./utils.js";
 
 export let activeSocket;
 
@@ -17,7 +17,6 @@ export function initConnection(authToken, username, userId, displayName, canvas)
         console.log("Sending auth payload:", authPayload);
         gatewaySocket.send(authPayload);
     };
-
     gatewaySocket.onmessage = (event) => {
         try {
             const data = JSON.parse(event.data);
@@ -38,7 +37,6 @@ export function initConnection(authToken, username, userId, displayName, canvas)
             console.error("Error parsing gateway message:", err);
         }
     };
-
     gatewaySocket.onerror = (event) => {
         console.error("Gateway socket error:", event);
     };
@@ -53,10 +51,10 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName} server`);
         activeSocket = gameSocket;
-        window.activeSocket = gameSocket; // Attach to window for global access.
+        window.activeSocket = gameSocket;
         sendData(activeSocket, 'chatMessage', 'Player connected!', userId, username, displayName);
         updateStatus(true);
-        requestAnimationFrame(gameLoop);
+        requestAnimationFrame((ts) => gameLoop(ts, canvas, window.heightMap, window.tileSize));
     };
     gameSocket.onmessage = async (event) => {
         let data;
@@ -70,10 +68,11 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                 appendMessage(data.data, userId);
                 break;
             case "playerCount":
-                updatePlayerCount(data.data);
+                // updatePlayerCount(data.data); // If needed
                 break;
             case "movement":
-                handleMovementUpdate(data.data);
+                // Use the imported handleMovementUpdate (attached globally)
+                window.handleMovementUpdate(data.data);
                 break;
             default:
                 console.error("Invalid data:", data);
