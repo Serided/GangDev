@@ -21,8 +21,15 @@ const heightMap = globalMap.heightMap;
 window.heightMap = heightMap;
 
 // Attach event listeners for movement and chat
-window.addEventListener("keydown", (event) => { keys[event.key] = true; });
-window.addEventListener("keyup", (event) => { keys[event.key] = false; });
+window.addEventListener("keydown", (event) => {
+    if (document.activeElement === chatInput) return;
+    keys[event.key] = true;
+});
+window.addEventListener("keyup", (event) => {
+    if (document.activeElement === chatInput) return;
+    keys[event.key] = false;
+});
+
 window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
