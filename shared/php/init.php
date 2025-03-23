@@ -94,5 +94,4 @@ error_log('Session content: ' . print_r($_SESSION, true));
 
 <script>
     let backgrounds = <?php echo $jsonBackgrounds; ?>;
-    console.log("Backgrounds array from init.php:", backgrounds);
 </script>
