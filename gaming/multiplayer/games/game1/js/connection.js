@@ -1,12 +1,10 @@
-import { gameLoop, keys, localPlayer } from "./movement.js";
-import { camera } from "./camera.js";
-import { sendData, appendMessage, updateStatus, updatePlayerCount, sendMessage } from "./utils.js";
+import { gameLoop } from "./movement.js";
+import { sendData, appendMessage, updateStatus } from "./utils.js";
 
 export let activeSocket;
 
 export function initConnection(authToken, username, userId, displayName, canvas) {
     const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
-
     gatewaySocket.onopen = () => {
         console.log("Connected to gateway");
         updateStatus(true);
@@ -55,10 +53,10 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName} server`);
         activeSocket = gameSocket;
+        window.activeSocket = gameSocket; // Attach to window for global access.
         sendData(activeSocket, 'chatMessage', 'Player connected!', userId, username, displayName);
         updateStatus(true);
-        lastTime = performance.now();
-        requestAnimationFrame((ts) => gameLoop(ts, canvas, sendMovement, drawGame));
+        requestAnimationFrame(gameLoop);
     };
     gameSocket.onmessage = async (event) => {
         let data;
@@ -75,7 +73,9 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                 updatePlayerCount(data.data);
                 break;
             case "movement":
-                handleMovementUpdate(data.data);
+                // Import handleMovementUpdate? It's in movement.js.
+                // If not imported here, assume it is global (or attach it to window)
+                window.handleMovementUpdate(data.data);
                 break;
             default:
                 console.error("Invalid data:", data);

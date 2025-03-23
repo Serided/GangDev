@@ -1,7 +1,5 @@
 export function drawGame(ctx, canvas, camera, players, currentUserId) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // Update camera using the local player's position.
-    // Assumes that players[currentUserId] exists.
     camera.update(players[currentUserId], canvas);
     for (const id in players) {
         const p = players[id];

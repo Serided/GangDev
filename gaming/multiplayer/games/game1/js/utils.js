@@ -8,11 +8,7 @@ export function sendData(activeSocket, type, data, userId, username, displayName
         }
         const enrichedData = {
             ...payload,
-            user: {
-                userId: userId,
-                username: username,
-                displayName: displayName
-            }
+            user: { userId, username, displayName }
         };
         const message = JSON.stringify({ type, data: enrichedData });
         const blob = new Blob([message], { type: 'application/json' });
@@ -22,10 +18,13 @@ export function sendData(activeSocket, type, data, userId, username, displayName
     }
 }
 
-export function sendMessage(chatInput, activeSocket, userId, username, displayName) {
+export function sendMessage() {
+    const chatInput = document.getElementById("chatInput");
+    if (!chatInput) return;
     const message = chatInput.value.trim();
     if (message) {
-        sendData(activeSocket, 'chatMessage', message, userId, username, displayName);
+        // Assume window.activeSocket, window.userId, etc. are set
+        sendData(window.activeSocket, 'chatMessage', message, window.userId, window.username, window.displayName);
         chatInput.value = "";
     }
 }
@@ -41,7 +40,7 @@ export function updatePlayerCount(count) {
     playerCountElement.textContent = count.toString();
 }
 
-export function appendMessage(msg, userId) {
+export function appendMessage(msg, currentUserId) {
     const messagesElement = document.getElementById("messages");
     const messageElement = document.createElement("p");
     let messageText = "";
@@ -49,7 +48,7 @@ export function appendMessage(msg, userId) {
     if (typeof msg === "object" && msg !== null) {
         if (msg.text && msg.user && msg.user.displayName) {
             messageText = `${msg.user.displayName}: ${msg.text}`;
-            if (msg.user.userId === userId) color = "green";
+            if (msg.user.userId === currentUserId) color = "green";
         } else {
             messageText = JSON.stringify(msg);
         }
