@@ -1,5 +1,10 @@
-import Noise from "https://cdn.skypack.dev/noisejs";
-const noise = new Noise(Math.random());
+import noisejs from "https://esm.sh/noisejs@2.1.0";
+
+// Log the export to see what is provided:
+console.log(noisejs);
+
+// If noisejs exports an object with a Noise property, use it:
+const noise = new noisejs.Noise(Math.random());
 console.log(noise.perlin2(0.5, 0.5));
 
 export function drawGame(ctx, canvas, camera, players, currentUserId) {

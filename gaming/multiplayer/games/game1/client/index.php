@@ -25,7 +25,6 @@ $authToken = JWT::encode($payload, $secretKey, 'HS256');
     <title>Crust</title>
     <link rel="stylesheet" href="/multiplayer/games/game1/client/style.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noisejs/2.0.0/perlin.min.js"></script>
     <script>
         const authToken = <?php echo json_encode($authToken); ?>;
         const username = <?php echo json_encode($_SESSION["username"]); ?>;
