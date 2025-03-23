@@ -38,36 +38,30 @@ function createGameServer(port, name, clientPath) {
 
     const wss = new WebSocket.Server({ server });
     let playerCount = 0;
-
-    // Global object to track active game sockets by user ID.
+    // Track active connections by user ID.
     const activeGameSockets = {};
 
     wss.on('connection', (ws, request) => {
-        // Parse query parameters from the connection URL.
         const query = url.parse(request.url, true).query;
-        const userId = query.userId;  // This is our duplicate-connection key.
-
-        // Enforce one connection per user if userId is provided.
+        const userId = query.userId;
         if (userId) {
             if (activeGameSockets[userId]) {
-                console.log(`Game server: Existing connection for user ${userId} found. Closing it.`);
                 activeGameSockets[userId].close();
             }
             activeGameSockets[userId] = ws;
-            // Optionally, store userId on the ws for cleanup.
             ws.userId = userId;
         }
-
         playerCount++;
-        console.log(`Client connected to ${name}. Player count: ${playerCount}`);
-        broadcastPlayerCount(wss);
+        console.log(`[${name}] Connection established. Player count: ${playerCount}`);
+        broadcastPlayerCount();
+
         ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
 
         ws.on('message', (msg) => {
             if (msg instanceof Buffer) {
                 msg = msg.toString();
             }
-            console.log(`[${name}] Received: `, msg);
+            // Minimal log for received messages (only errors if needed)
             distributeData(msg);
         });
 
@@ -76,8 +70,8 @@ function createGameServer(port, name, clientPath) {
                 delete activeGameSockets[ws.userId];
             }
             playerCount--;
-            console.log(`Client disconnected from ${name} server`);
-            broadcastPlayerCount(wss);
+            console.log(`[${name}] Connection closed. Player count: ${playerCount}`);
+            broadcastPlayerCount();
             distributeData({ type: 'chatMessage', data: 'Player disconnected.' }, true);
         });
     });
@@ -91,12 +85,12 @@ function createGameServer(port, name, clientPath) {
         });
     }
 
-    function broadcastPlayerCount(wss) {
+    function broadcastPlayerCount() {
         distributeData({ type: 'playerCount', data: playerCount }, true);
     }
 
     server.listen(port, '127.0.0.1', () => {
-        console.log(`${name} WebSocket server running on port ${port} (IPv4)`);
+        console.log(`[${name}] WebSocket server running on port ${port} (IPv4)`);
     });
 
     return wss;

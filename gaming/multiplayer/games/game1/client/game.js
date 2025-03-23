@@ -5,11 +5,9 @@ const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 gatewaySocket.onopen = () => {
     console.log("Connected to gateway");
     updateStatus(true);
-
-    // Send auth payload.
     const authPayload = JSON.stringify({
         type: "auth",
-        token: authToken,  // authToken must be defined from PHP (embedded in index.php)
+        token: authToken,
         username: username,
         userId: userId
     });
@@ -21,15 +19,13 @@ gatewaySocket.onmessage = (event) => {
     try {
         const data = JSON.parse(event.data);
         console.log("Gateway response:", data);
-
         if (data.type === "authAck") {
-            // Now that we have an authAck, send the join message.
             const joinPayload = JSON.stringify({ game: "game1" });
             console.log("Sending join payload to gateway:", joinPayload);
             gatewaySocket.send(joinPayload);
         } else if (data.redirect) {
-            gatewaySocket.close(); // Close the gateway connection.
-            connectToGame(data.redirect, data.game); // Connect to game server.
+            gatewaySocket.close();
+            connectToGame(data.redirect, data.game);
         } else if (data.error) {
             console.error("Gateway error:", data.error);
         } else if (data.message) {
@@ -46,14 +42,12 @@ function connectToGame(gameUrl, gameName) {
         gameUrl = `wss://${window.location.host}${gameUrl}`;
     }
     const gameSocket = new WebSocket(gameUrl);
-
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName} server!`);
         activeSocket = gameSocket;
         sendData('chatMessage', 'Player connected!');
         updateStatus(true);
     };
-
     gameSocket.onmessage = async (event) => {
         console.log("Message from server:", event.data);
         let data;
@@ -74,12 +68,10 @@ function connectToGame(gameUrl, gameName) {
                 console.error("Invalid data:", data);
         }
     };
-
     gameSocket.onerror = (event) => {
         console.error("WebSocket error:", event);
         updateStatus(false);
     };
-
     gameSocket.onclose = () => {
         console.log(`Disconnected from ${gameName} server.`);
         updateStatus(false);
