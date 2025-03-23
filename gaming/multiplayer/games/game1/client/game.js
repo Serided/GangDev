@@ -9,7 +9,7 @@ gatewaySocket.onopen = () => {
     // Send auth payload.
     const authPayload = JSON.stringify({
         type: "auth",
-        token: authToken,
+        token: authToken,  // authToken must be defined from PHP (embedded in index.php)
         username: username,
         userId: userId
     });
@@ -22,21 +22,17 @@ gatewaySocket.onmessage = (event) => {
         const data = JSON.parse(event.data);
         console.log("Gateway response:", data);
 
-        // Wait for auth acknowledgment before sending join.
         if (data.type === "authAck") {
-            // Now that auth is confirmed, send join request.
+            // Now that we have an authAck, send the join message.
             const joinPayload = JSON.stringify({ game: "game1" });
             console.log("Sending join payload to gateway:", joinPayload);
             gatewaySocket.send(joinPayload);
-        }
-        else if (data.redirect) {
-            gatewaySocket.close(); // close gateway connection
-            connectToGame(data.redirect, data.game); // connect to game server
-        }
-        else if (data.error) {
+        } else if (data.redirect) {
+            gatewaySocket.close(); // Close the gateway connection.
+            connectToGame(data.redirect, data.game); // Connect to game server.
+        } else if (data.error) {
             console.error("Gateway error:", data.error);
-        }
-        else if (data.message) {
+        } else if (data.message) {
             appendMessage(data.message);
         }
     } catch (err) {
@@ -46,7 +42,7 @@ gatewaySocket.onmessage = (event) => {
 
 function connectToGame(gameUrl, gameName) {
     console.log(`Connecting to game server: ${gameUrl}`);
-    if (!gameUrl.startsWith("wss://")) { // ensure URL is formatted properly
+    if (!gameUrl.startsWith("wss://")) {
         gameUrl = `wss://${window.location.host}${gameUrl}`;
     }
     const gameSocket = new WebSocket(gameUrl);
