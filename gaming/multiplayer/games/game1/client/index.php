@@ -35,7 +35,7 @@ $authToken = JWT::encode($payload, $secretKey, 'HS256');
             console.log("User authenticated as:", username);
         </script>
 
-        <link rel="stylesheet" href="/multiplayer/games/game1/client/style.css">
+        <link rel="stylesheet" href="/multiplayer/games/game1/style.css">
         <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     </head>
     <body>
