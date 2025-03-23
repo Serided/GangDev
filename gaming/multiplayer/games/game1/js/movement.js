@@ -17,7 +17,7 @@ players[userId] = localPlayer;
 export const speed = 200;
 export let lastTime = performance.now();
 
-function gameLoop(timestamp) {
+export function gameLoop(timestamp) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
     if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= speed * delta;
