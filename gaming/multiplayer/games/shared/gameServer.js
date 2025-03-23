@@ -2,21 +2,19 @@ const WebSocket = require('ws');
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
+const url = require('url');
 
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
         let resolvedPath = path.resolve(clientPath, "." + req.url);
-
         if (!resolvedPath.startsWith(clientPath)) {
             console.error(`[${name}] 403 Forbidden: ${resolvedPath}`);
             res.writeHead(403, { 'Content-Type': 'text/plain' });
             return res.end('403 Forbidden');
         }
-
         let requestedFile = req.url === '/' ? 'index.html' : req.url;
         let filePath = path.join(clientPath, requestedFile);
-
-        const ext = path.extname(filePath); // get file extension
+        const ext = path.extname(filePath);
         const mimeTypes = {
             '.html': 'text/html',
             '.css': 'text/css',
@@ -26,9 +24,7 @@ function createGameServer(port, name, clientPath) {
             '.gif': 'image/gif',
             '.svg': 'image/svg+xml'
         };
-
         const contentType = mimeTypes[ext] || 'application/octet-stream';
-
         fs.readFile(filePath, (err, data) => {
             if (err) {
                 console.error(`[${name}] 404 Not Found: ${filePath}`);
@@ -41,36 +37,43 @@ function createGameServer(port, name, clientPath) {
     });
 
     const wss = new WebSocket.Server({ server });
-
     let playerCount = 0;
-    let activeGameSockets = {};
 
-    wss.on('connection', (ws) => {
-        if (ws.user) {
-            if (activeGameSockets[ws.user.userId]) {
-                activeGameSockets[ws.user.userId].close();
+    // Global object to track active game sockets by user ID.
+    const activeGameSockets = {};
+
+    wss.on('connection', (ws, request) => {
+        // Parse query parameters from the connection URL.
+        const query = url.parse(request.url, true).query;
+        const userId = query.userId;  // This is our duplicate-connection key.
+
+        // Enforce one connection per user if userId is provided.
+        if (userId) {
+            if (activeGameSockets[userId]) {
+                console.log(`Game server: Existing connection for user ${userId} found. Closing it.`);
+                activeGameSockets[userId].close();
             }
-            activeGameSockets[ws.user.userId] = ws;
+            activeGameSockets[userId] = ws;
+            // Optionally, store userId on the ws for cleanup.
+            ws.userId = userId;
         }
 
         playerCount++;
         console.log(`Client connected to ${name}. Player count: ${playerCount}`);
-
         broadcastPlayerCount(wss);
-
-        ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!`}));
+        ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
 
         ws.on('message', (msg) => {
             if (msg instanceof Buffer) {
                 msg = msg.toString();
             }
-            console.log(`[${name}] Received: `, msg.toString());
+            console.log(`[${name}] Received: `, msg);
             distributeData(msg);
         });
 
         ws.on('close', () => {
-            if (ws.user && activeGameSockets[ws.user.userId] === ws) {
-                delete activeGameSockets[ws.user.userId];
+            if (ws.userId && activeGameSockets[ws.userId] === ws) {
+                delete activeGameSockets[ws.userId];
             }
             playerCount--;
             console.log(`Client disconnected from ${name} server`);
@@ -80,12 +83,12 @@ function createGameServer(port, name, clientPath) {
     });
 
     function distributeData(data, server = false) {
-        if (server) data = new Blob([JSON.stringify(data)], {type: 'application/json'});
+        if (server) data = new Blob([JSON.stringify(data)], { type: 'application/json' });
         wss.clients.forEach(client => {
             if (client.readyState === WebSocket.OPEN) {
                 client.send(data);
             }
-        })
+        });
     }
 
     function broadcastPlayerCount(wss) {

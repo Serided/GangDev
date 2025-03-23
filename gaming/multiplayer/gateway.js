@@ -61,7 +61,7 @@ gatewayServer.on("connection", (ws) => {
                         joined = true;
                         const domain = process.env.DOMAIN || "gaming.gangdev.co";
                         ws.send(JSON.stringify({
-                            redirect: `wss://${domain}${game1.path}`,
+                            redirect: `wss://${domain}${game1.path}?userId=${ws.user.userId}`,
                             game: "game1"
                         }));
                         console.log(`Redirecting authenticated client to ${game1.path}`);
