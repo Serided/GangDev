@@ -136,6 +136,10 @@ function updatePlayerCount(count) {
 function appendMessage(msg) {
     const messagesElement = document.getElementById("messages");
     const messageElement = document.createElement("p");
-    messageElement.textContent = msg.toString();
+    if (typeof msg === "object") {
+        messageElement.textContent = JSON.stringify(msg);
+    } else {
+        messageElement.textContent = msg.toString();
+    }
     messagesElement.appendChild(messageElement);
 }
