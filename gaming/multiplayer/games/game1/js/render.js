@@ -1,5 +1,6 @@
-import { Noise } from "https://unpkg.com/noisejs@2.0.0/index.js";
+import Noise from "https://cdn.skypack.dev/noisejs";
 const noise = new Noise(Math.random());
+console.log(noise.perlin2(0.5, 0.5));
 
 export function drawGame(ctx, canvas, camera, players, currentUserId) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
