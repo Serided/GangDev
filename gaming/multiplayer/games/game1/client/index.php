@@ -57,6 +57,6 @@ $authToken = JWT::encode($payload, $secretKey, 'HS256');
             <button id="sendButton">Send</button>
         </div>
         <div id="leftMenu"></div>
-        <script type="module" src="/multiplayer/games/game1/client/client.js"></script>
+        <script type="module" src="/multiplayer/games/game1/client/client.js" defer></script>
     </body>
 </html>
