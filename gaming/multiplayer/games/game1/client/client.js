@@ -25,12 +25,6 @@ window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
-window.addEventListener("wheel", (event) => {
-    event.preventDefault();
-    camera.zoom += (event.deltaY > 0 ? -0.1 : 0.1);
-    if (camera.zoom < 0.5) camera.zoom = 0.5;
-    if (camera.zoom > 1.5) camera.zoom = 1.5;
-}, { passive: false });
 
 const chatButton = document.getElementById("chatButton");
 const chatPanel = document.getElementById("chatPanel");

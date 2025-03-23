@@ -20,14 +20,18 @@ export let lastTime = performance.now();
 export function gameLoop(timestamp) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
-    if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= speed * delta;
-    if (keys["ArrowDown"] || keys["s"]) localPlayer.y += speed * delta;
-    if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= speed * delta;
-    if (keys["ArrowRight"] || keys["d"]) localPlayer.x += speed * delta;
+    const effectiveSpeed = speed / camera.zoom;
 
-    // Use window.activeSocket (set in connection.js)
+    if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= effectiveSpeed * delta;
+    if (keys["ArrowDown"] || keys["s"]) localPlayer.y += effectiveSpeed * delta;
+    if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= effectiveSpeed * delta;
+    if (keys["ArrowRight"] || keys["d"]) localPlayer.x += effectiveSpeed * delta;
+
+    // Send movement update using current global activeSocket, userId, etc.
     sendData(window.activeSocket, "movement", { x: localPlayer.x, y: localPlayer.y }, userId, username, displayName);
-    drawGame(ctx, canvas, camera, players, userId, heightMap, tileSize);
+
+    // drawGame uses camera.zoom when scaling everything, so it will redraw the map and players accordingly.
+    drawGame(window.ctx, window.canvas, camera, players, userId, window.heightMap, window.tileSize);
     requestAnimationFrame(gameLoop);
 }
 
