@@ -15,12 +15,10 @@ const activeSockets = {};
 gatewayServer.on("connection", (ws) => {
     console.log("New client connected to gateway.");
     let authenticated = false;
-    let joined = false;
 
     ws.on("message", (message) => {
         try {
             const data = JSON.parse(message.toString());
-            console.log("Gateway received:", data);
 
             if (!authenticated && data.type === "auth") {
                 try {
@@ -34,7 +32,6 @@ gatewayServer.on("connection", (ws) => {
                         activeSockets[ws.user.userId].close();
                     }
                     activeSockets[ws.user.userId] = ws;
-                    ws.send(JSON.stringify({ type: "authAck" }));
                 } catch (err) {
                     ws.send(JSON.stringify({ error: "Authentication failed." }));
                     console.error("Authentication failed:", err);
@@ -48,24 +45,16 @@ gatewayServer.on("connection", (ws) => {
                 return ws.close();
             }
 
-            if (data.game) {
-                if (!joined) {
-                    if (data.game.trim() === "game1") {
-                        joined = true;
-                        const domain = process.env.DOMAIN || "gaming.gangdev.co";
-                        ws.send(JSON.stringify({
-                            redirect: `wss://${domain}${game1.path}`,
-                            game: "game1"
-                        }));
-                        console.log(`Redirecting authenticated client to ${game1.path}`);
-                    } else {
-                        ws.send(JSON.stringify({ error: "Invalid game requested." }));
-                        console.log("Invalid game requested:", data.game);
-                        return ws.close();
-                    }
-                } else {
-                    console.log("Duplicate join request received. Ignoring:", data.game);
-                }
+            if (data.game && data.game === "game1") {
+                const domain = process.env.DOMAIN || "gaming.gangdev.co";
+                ws.send(JSON.stringify({
+                    redirect: `wss://${domain}${game1.path}`,
+                    game: "game1"
+                }));
+                console.log(`Redirecting authenticated client to ${game1.path}`);
+            } else {
+                ws.send(JSON.stringify({ error: "Invalid game requested." }));
+                console.log("Invalid game requested:", data.game);
             }
         } catch (err) {
             ws.send(JSON.stringify({ error: "Invalid message format." }));
