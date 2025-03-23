@@ -1,7 +1,7 @@
-import Noise from "https://esm.sh/noisejs@2.1.0";
+import noisejs from "https://esm.sh/noisejs@2.1.0";
 
 // Create a noise instance once using a fixed seed for reproducibility
-const noise = new Noise(Math.random());
+const noise = new noisejs.Noise(Math.random());
 
 // Generates a height map as a 2D array of normalized values [0,1]
 export function generateHeightMap(width, height, scale) {
