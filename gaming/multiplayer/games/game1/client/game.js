@@ -3,11 +3,19 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-const players = {};
-players[userId] = { x: canvas.width / 2, y: canvas.height / 2, displayName: displayName, userId: userId };
-const speed = 200;
+
+// Movement and player tracking variables
 const keys = {};
+const players = {};
+const speed = 200;
 let lastTime = performance.now();
+const localPlayer = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    displayName: displayName,
+    userId: userId
+};
+players[userId] = localPlayer;
 
 const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 
