@@ -21,8 +21,8 @@ const camera = {
   x: 0,
   y: 0,
   update: function(player) {
-      this.x = player.x - camera.width / 2;
-      this.y = player.y - camera.height / 2;
+      this.x = player.x - canvas.width / 2;
+      this.y = player.y - canvas.height / 2;
   }
 };
 
