@@ -29,8 +29,9 @@ $authToken = JWT::encode($payload, $secretKey, 'HS256');
         <!-- Embed auth token and user data into JavaScript variables -->
         <script>
             const authToken = <?php echo json_encode($authToken); ?>;
-            const username  = <?php echo json_encode($_SESSION["username"]); ?>;
-            const userId    = <?php echo json_encode($_SESSION["user_id"]); ?>;
+            const username = <?php echo json_encode($_SESSION["username"]); ?>;
+            const userId = <?php echo json_encode($_SESSION["userId"] ?? $_SESSION["user_id"]); ?>;
+            const displayName = <?php echo json_encode($_SESSION["displayname"]); ?>;
             console.log("User authenticated as:", username);
         </script>
 

@@ -75,25 +75,6 @@ function connectToGame(gameUrl, gameName) {
     };
 }
 
-function sendData(type, data) {
-    if (activeSocket && activeSocket.readyState === WebSocket.OPEN) {
-        const message = JSON.stringify({ type, data });
-        const blob = new Blob([message], { type: 'application/json' });
-        console.log("Sending data:", message);
-        activeSocket.send(blob);
-    } else {
-        console.warn("Cannot send data. WebSocket closed.");
-    }
-}
-
-function sendMessage() {
-    const message = chatInput.value.trim();
-    if (message) {
-        sendData('chatMessage', message);
-        chatInput.value = "";
-    }
-}
-
 const chatButton = document.getElementById("chatButton");
 const chatPanel = document.getElementById("chatPanel");
 const sendButton = document.getElementById("sendButton");
@@ -111,6 +92,35 @@ window.addEventListener("resize", () => {
     gameCanvas.width = window.innerWidth;
     gameCanvas.height = window.innerHeight;
 });
+
+function sendData(type, data) {
+    if (activeSocket && activeSocket.readyState === WebSocket.OPEN) {
+        const enrichedData = {
+            ...data,
+            user: {
+                userId: userId,
+                username: username,
+                displayName: displayName
+            }
+        }
+
+        const message = JSON.stringify({ type, data: enrichedData });
+        console.log("Enriched Data:", enrichedData);
+        const blob = new Blob([message], { type: 'application/json' });
+        console.log("Sending data:", message);
+        activeSocket.send(blob);
+    } else {
+        console.warn("Cannot send data. WebSocket closed.");
+    }
+}
+
+function sendMessage() {
+    const message = chatInput.value.trim();
+    if (message) {
+        sendData('chatMessage', message);
+        chatInput.value = "";
+    }
+}
 
 function updateStatus(status) {
     const statusElement = document.getElementById("status");
