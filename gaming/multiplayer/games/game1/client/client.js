@@ -25,7 +25,7 @@ window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
-canvas.addEventListener("wheel", (event) => {
+window.addEventListener("wheel", (event) => {
     event.preventDefault();
     camera.zoom += (event.deltaY > 0 ? -0.1 : 0.1);
     if (camera.zoom < 0.5) camera.zoom = 0.5;
