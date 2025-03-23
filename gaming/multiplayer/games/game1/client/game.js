@@ -138,16 +138,22 @@ function updatePlayerCount(count) {
 function appendMessage(msg) {
     const messagesElement = document.getElementById("messages");
     const messageElement = document.createElement("p");
+    let messageText = "";
+    let color = "red";
 
     if (typeof msg === "object" && msg !== null) {
         if (msg.text && msg.user && msg.user.displayName) {
-            messageElement.textContent = `${msg.user.displayName}: ${msg.text}`;
+            messageText = `${msg.user.displayName}: ${msg.text}`;
+            if (msg.user.userId === userId) {
+                color = "green";
+            }
         } else {
-            messageElement.textContent = JSON.stringify(msg);
+            messageText = JSON.stringify(msg);
         }
     } else {
-        messageElement.textContent = msg.toString();
+        messageText = msg.toString();
     }
+    messageElement.textContent = messageText;
+    messageElement.style.color = color;
     messagesElement.appendChild(messageElement);
 }
-
