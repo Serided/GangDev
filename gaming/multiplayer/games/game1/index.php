@@ -35,7 +35,6 @@ $authToken = JWT::encode($payload, $secretKey, 'HS256');
             console.log("User authenticated as:", username);
         </script>
 
-        <script src="/multiplayer/games/game1/client/game.js" defer></script>
         <link rel="stylesheet" href="/multiplayer/games/game1/client/style.css">
         <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     </head>
@@ -57,5 +56,6 @@ $authToken = JWT::encode($payload, $secretKey, 'HS256');
             <button id="sendButton">Send</button>
         </div>
         <div id="leftMenu"></div>
+        <script src="/multiplayer/games/game1/client/game.js" defer></script>
     </body>
 </html>

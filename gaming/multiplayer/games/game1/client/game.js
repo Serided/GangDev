@@ -46,6 +46,9 @@ function connectToGame(gameUrl, gameName) {
         activeSocket = gameSocket;
         sendData('chatMessage', 'Player connected!');
         updateStatus(true);
+        // start game loop
+        lastTime = performance.now();
+        requestAnimationFrame(gameLoop);
     };
     gameSocket.onmessage = async (event) => {
         let data;
@@ -75,6 +78,7 @@ function connectToGame(gameUrl, gameName) {
     };
 }
 
+const canvas = document.getElementById("gameCanvas");
 const chatButton = document.getElementById("chatButton");
 const chatPanel = document.getElementById("chatPanel");
 const sendButton = document.getElementById("sendButton");
@@ -88,9 +92,8 @@ chatInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") sendMessage();
 });
 window.addEventListener("resize", () => {
-    const gameCanvas = document.getElementById("gameCanvas");
-    gameCanvas.width = window.innerWidth;
-    gameCanvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 });
 
 function sendData(type, data) {
@@ -157,3 +160,51 @@ function appendMessage(msg) {
     messageElement.style.color = color;
     messagesElement.appendChild(messageElement);
 }
+
+// movement stuff
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+const players = {};
+let lastTime = performance.now();
+const speed = 200;
+const keys = {};
+let localPlayer = { x: canvas.width / 2, y: canvas.height / 2, displayName: displayName, userId: userId };
+players[userId] = localPlayer;
+
+function gameLoop(timestamp) {
+    const delta = (timestamp - lastTime) / 1000;
+    lastTime = timestamp;
+    if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= speed * delta;
+    if (keys["ArrowDown"] || keys["s"]) localPlayer.y += speed * delta;
+    if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= speed * delta;
+    if (keys["ArrowRight"] || keys["d"]) localPlayer.x += speed * delta;
+    sendData("movement", { x: localPlayer.x, y: localPlayer.y });
+    drawGame();
+    requestAnimationFrame(gameLoop);
+}
+
+function drawGame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const id in players) {
+        const p = players[id];
+        ctx.fillStyle = p.userId === userId ? "green" : "red";
+        ctx.fillRect(p.x - 25, p.y - 25, 50, 50);
+        ctx.fillStyle = "white";
+        ctx.font = "16px Arial";
+        ctx.fillText(p.displayName, p.x - 25, p.y - 30);
+    }
+}
+
+function handleMovementUpdate(data) {
+    if (data && data.user && data.user.userId) {
+        players[data.user.userId] = data;
+    }
+}
+
+window.addEventListener("keydown", (event) => {
+    keys[event.key] = true;
+});
+window.addEventListener("keyup", (event) => {
+    keys[event.key] = false;
+});
