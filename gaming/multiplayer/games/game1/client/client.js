@@ -2,9 +2,8 @@ import { initConnection } from "../js/connection.js";
 import { gameLoop, keys, localPlayer, players, speed, handleMovementUpdate } from "../js/movement.js";
 import { camera } from "../js/camera.js";
 import { sendData, sendMessage, updateStatus, updatePlayerCount, appendMessage } from "../js/utils.js";
-import { drawGame } from "../js/map.js";
+import { drawGame } from "../js/render.js";
 
-// Set up canvas and context
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
