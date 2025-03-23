@@ -1,6 +1,6 @@
-import {sendData} from "utils.js";
-import {drawGame} from "map.js";
-import {camera} from "camera.js";
+import {sendData} from "./utils.js";
+import {drawGame} from "./map.js";
+import {camera} from "./camera.js";
 
 export const keys = {};
 export const players = {};
