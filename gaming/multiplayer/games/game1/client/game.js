@@ -17,6 +17,15 @@ const localPlayer = {
 };
 players[userId] = localPlayer;
 
+const camera = {
+  x: 0,
+  y: 0,
+  update: function(player) {
+      this.x = player.x - camera.width / 2;
+      this.y = player.y - camera.height / 2;
+  }
+};
+
 const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 
 gatewaySocket.onopen = () => {
@@ -133,6 +142,9 @@ function gameLoop(timestamp) {
     if (keys["ArrowDown"] || keys["s"]) localPlayer.y += speed * delta;
     if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= speed * delta;
     if (keys["ArrowRight"] || keys["d"]) localPlayer.x += speed * delta;
+
+    camera.update(localPlayer);
+
     sendData("movement", { x: localPlayer.x, y: localPlayer.y });
     drawGame();
     requestAnimationFrame(gameLoop);
@@ -142,11 +154,15 @@ function drawGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (const id in players) {
         const p = players[id];
+
+        const screenX = p.x - camera.x;
+        const screenY = p.y - camera.y;
+
         ctx.fillStyle = p.userId === userId ? "green" : "red";
-        ctx.fillRect(p.x - 25, p.y - 25, 50, 50);
+        ctx.fillRect(screenX - 25, screenY - 25, 50, 50);
         ctx.fillStyle = "white";
         ctx.font = "16px Arial";
-        ctx.fillText(p.displayName || (p.user && p.user.displayName) || "Unknown", p.x - 25, p.y - 30);
+        ctx.fillText(p.displayName || (p.user && p.user.displayName) || "Unknown", screenX - 25, screenY - 30);
     }
 }
 
