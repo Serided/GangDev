@@ -1,35 +1,30 @@
 import noisejs from "https://esm.sh/noisejs@2.1.0";
-
-// Log the export to see what is provided:
-console.log(noisejs);
-
-// If noisejs exports an object with a Noise property, use it:
 const noise = new noisejs.Noise(Math.random());
-console.log(noise.perlin2(0.5, 0.5));
 
 export function drawGame(ctx, canvas, camera, players, currentUserId, heightMap, tileSize) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     // Update the camera based on the local player's position.
     camera.update(players[currentUserId], canvas);
 
-    const rows = heightMap.length;
-    const cols = heightMap[0].length;
     const scaledTileSize = tileSize * camera.zoom;
 
+    const rows = heightMap.length;
+    const cols = heightMap[0].length;
     const startCol = Math.max(0, Math.floor(camera.x / scaledTileSize));
     const endCol = Math.min(cols, Math.ceil((camera.x + canvas.width) / scaledTileSize));
     const startRow = Math.max(0, Math.floor(camera.y / scaledTileSize));
     const endRow = Math.min(rows, Math.ceil((camera.y + canvas.height) / scaledTileSize));
 
-    // Draw background map using the height map values
+    // Draw background map.
     for (let r = startRow; r < endRow; r++) {
         for (let c = startCol; c < endCol; c++) {
             const value = heightMap[r][c];
             let color;
-            if (value < 0.3) color = "#2D70B3"; // water
-            else if (value < 0.5) color = "#88C070"; // plains
-            else if (value < 0.7) color = "#66A050"; // hills
-            else color = "#7D7D7D"; // cliffs
+            if (value < 0.3) color = "#2D70B3";
+            else if (value < 0.5) color = "#88C070";
+            else if (value < 0.7) color = "#66A050";
+            else color = "#7D7D7D";
             const screenX = c * scaledTileSize - camera.x;
             const screenY = r * scaledTileSize - camera.y;
             ctx.fillStyle = color;
@@ -37,7 +32,7 @@ export function drawGame(ctx, canvas, camera, players, currentUserId, heightMap,
         }
     }
 
-    // Draw player cubes on top
+    // Draw players.
     for (const id in players) {
         const p = players[id];
         const screenX = p.x - camera.x;
