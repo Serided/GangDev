@@ -6,17 +6,15 @@ gatewaySocket.onopen = () => {
     console.log("Connected to gateway");
     updateStatus(true);
 
+    // Send auth payload.
     const authPayload = JSON.stringify({
         type: "auth",
         token: authToken,
         username: username,
         userId: userId
     });
+    console.log("Sending auth payload:", authPayload);
     gatewaySocket.send(authPayload);
-
-    const joinPayload = JSON.stringify({ game: "game1" });
-    console.log("Sending message to gateway:", joinPayload);
-    gatewaySocket.send(joinPayload);
 };
 
 gatewaySocket.onmessage = (event) => {
@@ -24,12 +22,21 @@ gatewaySocket.onmessage = (event) => {
         const data = JSON.parse(event.data);
         console.log("Gateway response:", data);
 
-        if (data.redirect) {
+        // Wait for auth acknowledgment before sending join.
+        if (data.type === "authAck") {
+            // Now that auth is confirmed, send join request.
+            const joinPayload = JSON.stringify({ game: "game1" });
+            console.log("Sending join payload to gateway:", joinPayload);
+            gatewaySocket.send(joinPayload);
+        }
+        else if (data.redirect) {
             gatewaySocket.close(); // close gateway connection
-            connectToGame(data.redirect, data.game); // connect to game
-        } else if (data.error) {
+            connectToGame(data.redirect, data.game); // connect to game server
+        }
+        else if (data.error) {
             console.error("Gateway error:", data.error);
-        } else if (data.message) {
+        }
+        else if (data.message) {
             appendMessage(data.message);
         }
     } catch (err) {
@@ -39,8 +46,7 @@ gatewaySocket.onmessage = (event) => {
 
 function connectToGame(gameUrl, gameName) {
     console.log(`Connecting to game server: ${gameUrl}`);
-
-    if (!gameUrl.startsWith("wss://")) { // ensure url formatted properly
+    if (!gameUrl.startsWith("wss://")) { // ensure URL is formatted properly
         gameUrl = `wss://${window.location.host}${gameUrl}`;
     }
     const gameSocket = new WebSocket(gameUrl);
@@ -48,13 +54,12 @@ function connectToGame(gameUrl, gameName) {
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName} server!`);
         activeSocket = gameSocket;
-        sendData('chatMessage', 'Player connected!')
+        sendData('chatMessage', 'Player connected!');
         updateStatus(true);
     };
 
     gameSocket.onmessage = async (event) => {
         console.log("Message from server:", event.data);
-
         let data;
         if (event.data instanceof Blob) {
             data = JSON.parse(await event.data.text());
@@ -62,19 +67,15 @@ function connectToGame(gameUrl, gameName) {
         } else {
             data = JSON.parse(event.data);
         }
-
         switch (data.type) {
-            case "chatMessage": {
+            case "chatMessage":
                 appendMessage(data.data);
                 break;
-            }
-            case "playerCount": {
+            case "playerCount":
                 updatePlayerCount(data.data);
                 break;
-            }
-            default: {
+            default:
                 console.error("Invalid data:", data);
-            }
         }
     };
 
@@ -89,12 +90,10 @@ function connectToGame(gameUrl, gameName) {
     };
 }
 
-
 const chatButton = document.getElementById("chatButton");
 const chatPanel = document.getElementById("chatPanel");
 const sendButton = document.getElementById("sendButton");
 const chatInput = document.getElementById("chatInput");
-
 
 chatButton.addEventListener("click", (event) => {
     if (chatPanel.style.right === "0vw") {
@@ -115,10 +114,8 @@ window.addEventListener("resize", (event) => {
     gameCanvas.height = window.innerHeight;
 });
 
-
 function updateStatus(status) {
     const statusElement = document.getElementById("status");
-
     statusElement.style.color = status ? 'green' : 'red';
     statusElement.textContent = status ? "Online" : "Offline";
 }
@@ -142,14 +139,14 @@ function sendData(type, data) {
         console.log("Sending data:", message);
         activeSocket.send(blob);
     } else {
-        console.warn("Cannot send data. Websocket closed.")
+        console.warn("Cannot send data. WebSocket closed.");
     }
 }
 
 function sendMessage() {
     const message = chatInput.value.trim();
     if (message) {
-        sendData('chatMessage', message)
+        sendData('chatMessage', message);
         chatInput.value = "";
     }
 }
