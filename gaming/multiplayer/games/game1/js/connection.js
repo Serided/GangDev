@@ -1,4 +1,4 @@
-import { gameLoop } from "./movement.js";
+import { gameLoop, handleMovementUpdate } from "./movement.js";
 import { updateStatus, updatePlayerCount, sendData, appendMessage, sendMessage } from "./utils.js";
 
 export let activeSocket;
