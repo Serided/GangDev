@@ -21,19 +21,12 @@ gatewaySocket.onmessage = (event) => {
         const data = JSON.parse(event.data);
         console.log("Gateway response:", data);
 
-        if (data.type === "authAck") {
-            const joinPayload = JSON.stringify({ game: "game1" });
-            console.log("Sending join payload to gateway:", joinPayload);
-            gatewaySocket.send(joinPayload);
-        }
-        else if (data.redirect) {
-            gatewaySocket.close();
-            connectToGame(data.redirect, data.game);
-        }
-        else if (data.error) {
+        if (data.redirect) {
+            gatewaySocket.close(); // close gateway connection
+            connectToGame(data.redirect, data.game); // connect to game
+        } else if (data.error) {
             console.error("Gateway error:", data.error);
-        }
-        else if (data.message) {
+        } else if (data.message) {
             appendMessage(data.message);
         }
     } catch (err) {
