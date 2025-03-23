@@ -3,6 +3,10 @@ import { gameLoop, keys, localPlayer, players, speed, handleMovementUpdate } fro
 import { camera } from "../js/camera.js";
 import { sendData, sendMessage, updateStatus, updatePlayerCount, appendMessage } from "../js/utils.js";
 import { drawGame } from "../js/render.js";
+import { generateHeightMap, globalMap } from "../js/render.js";
+
+const heightMap = globalMap.heightMap || generateHeightMap(1000, 1000, 100);
+window.heightMap = heightMap;
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
