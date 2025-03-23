@@ -37,6 +37,7 @@ $authToken = JWT::encode($payload, $secretKey, 'HS256');
 
         <link rel="stylesheet" href="/multiplayer/games/game1/style.css">
         <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noisejs/2.0.0/perlin.min.js"></script>
     </head>
     <body>
         <canvas id="gameCanvas"></canvas>
@@ -56,6 +57,6 @@ $authToken = JWT::encode($payload, $secretKey, 'HS256');
             <button id="sendButton">Send</button>
         </div>
         <div id="leftMenu"></div>
-        <script src="/multiplayer/games/game1/client/game.js" defer></script>
+        <script src="/multiplayer/games/game1/client/js/game.js" defer></script>
     </body>
 </html>
