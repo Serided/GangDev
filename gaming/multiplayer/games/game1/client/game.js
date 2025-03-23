@@ -49,8 +49,11 @@ function connectToGame(gameUrl, gameName) {
     };
     gameSocket.onmessage = async (event) => {
         let data;
-        data = JSON.parse(await event.data.text());
-
+        if (event.data instanceof Blob && typeof event.data.text === "function") {
+            data = JSON.parse(await event.data.text());
+        } else {
+            data = JSON.parse(event.data);
+        }
         switch (data.type) {
             case "chatMessage":
                 appendMessage(data.data);
