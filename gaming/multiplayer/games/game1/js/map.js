@@ -19,5 +19,4 @@ export function generateMap(width, height, scale, collisionThreshold = 0.7) {
     return { heightMap };
 }
 
-// Generate a 1km x 1km map (1000 x 1000 cells) with a given noise scale.
 export const globalMap = generateMap(1000, 1000, 100);
