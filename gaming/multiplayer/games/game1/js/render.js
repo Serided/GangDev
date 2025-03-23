@@ -1,4 +1,4 @@
-import { globalMap } from "map.js";
+import { globalMap } from "./map.js";
 
 export function drawGame(ctx, canvas, camera, players, currentUserId, tileSize) {
     const { heightMap } = globalMap;
