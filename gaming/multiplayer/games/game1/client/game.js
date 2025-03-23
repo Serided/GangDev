@@ -13,7 +13,7 @@ gatewaySocket.onopen = () => {
     gatewaySocket.send(JSON.stringify(authPayload));
 
     const joinPayload = JSON.stringify({ game: "game1" });
-    console.log("Sending message to gateway:", payload);
+    console.log("Sending message to gateway:", joinPayload);
     gatewaySocket.send(joinPayload);
 };
 
