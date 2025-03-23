@@ -14,9 +14,11 @@ gatewaySocket.onopen = () => {
     });
     gatewaySocket.send(authPayload);
 
-    const joinPayload = JSON.stringify({ game: "game1" });
-    console.log("Sending message to gateway:", joinPayload);
-    gatewaySocket.send(joinPayload);
+    setTimeout(() => {
+        const joinPayload = JSON.stringify({ game: "game1" });
+        console.log("Sending message to gateway:", joinPayload);
+        gatewaySocket.send(joinPayload);
+    }, 100)
 };
 
 gatewaySocket.onmessage = (event) => {
