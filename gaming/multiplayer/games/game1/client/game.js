@@ -8,6 +8,7 @@ canvas.height = window.innerHeight;
 const keys = {};
 const players = {};
 const speed = 200;
+const smoothingFactor = 0.1;
 let lastTime = performance.now();
 const localPlayer = {
     x: canvas.width / 2,
@@ -21,8 +22,10 @@ const camera = {
   x: 0,
   y: 0,
   update: function(player) {
-      this.x = player.x - canvas.width / 2;
-      this.y = player.y - canvas.height / 2;
+      const targetX = player.x - canvas.width / 2;
+      const targetY = player.y - canvas.width / 2;
+      this.x = lerp(this.x, targetX, smoothingFactor);
+      this.y = lerp(this.y, targetY, smoothingFactor);
   }
 };
 
@@ -133,6 +136,10 @@ function sendMessage() {
         sendData('chatMessage', message);
         chatInput.value = "";
     }
+}
+
+function lerp(a, b, t) {
+    return a + (b - a) * t;
 }
 
 function gameLoop(timestamp) {
