@@ -1,9 +1,9 @@
 import { authUser } from "/multiplayer/engine/src/network/auth.js";
 import { sendData } from "/multiplayer/engine/src/tools.js";
+import { appendMessage, sendMessage } from "/multiplayer/engine/src/chat/chat.js";
 
 let activeSocket = null;
 
-// Use authUser to authenticate for game2
 authUser(window.authToken, window.username, window.userId, "game2")
     .then(({ gameURL, gameName }) => {
         console.log("Authenticated! Received game server details:", gameURL, gameName);
@@ -15,7 +15,7 @@ authUser(window.authToken, window.username, window.userId, "game2")
 
 function connectToGame(gameUrl, gameName) {
     console.log(`Connecting to game server: ${gameUrl}`);
-    if (!gameUrl.startsWith("wss://")) { // ensure URL formatted properly
+    if (!gameUrl.startsWith("wss://")) {
         gameUrl = `wss://${window.location.host}${gameUrl}`;
     }
     const gameSocket = new WebSocket(gameUrl);
@@ -37,17 +37,14 @@ function connectToGame(gameUrl, gameName) {
             data = JSON.parse(event.data);
         }
         switch (data.type) {
-            case "chatMessage": {
+            case "chatMessage":
                 appendMessage(data.data);
                 break;
-            }
-            case "playerCount": {
+            case "playerCount":
                 updatePlayerCount(data.data);
                 break;
-            }
-            default: {
+            default:
                 console.error("Invalid data:", data);
-            }
         }
     };
 
@@ -62,30 +59,6 @@ function connectToGame(gameUrl, gameName) {
     };
 }
 
-const chatButton = document.getElementById("chatButton");
-const chatPanel = document.getElementById("chatPanel");
-const sendButton = document.getElementById("sendButton");
-const chatInput = document.getElementById("chatInput");
-
-chatButton.addEventListener("click", (event) => {
-    if (chatPanel.style.right === "0vw") {
-        chatPanel.style.right = "-30vw";
-    } else {
-        chatPanel.style.right = "0vw";
-    }
-});
-sendButton.addEventListener("click", sendMessage);
-chatInput.addEventListener("keypress", (event) => {
-    if (event.key === "Enter") {
-        sendMessage();
-    }
-});
-window.addEventListener("resize", (event) => {
-    const gameCanvas = document.getElementById("gameCanvas");
-    gameCanvas.width = window.innerWidth;
-    gameCanvas.height = window.innerHeight;
-});
-
 function updateStatus(status) {
     const statusElement = document.getElementById("status");
     statusElement.style.color = status ? "green" : "red";
@@ -97,23 +70,8 @@ function updatePlayerCount(count) {
     playerCountElement.textContent = count.toString();
 }
 
-function appendMessage(msg) {
-    const messagesElement = document.getElementById("messages");
-    const messageElement = document.createElement("p");
-
-    if (typeof msg === "object" && msg.text) {
-        messageElement.textContent = msg.text;
-    } else {
-        messageElement.textContent = msg.toString();
-    }
-
-    messagesElement.appendChild(messageElement);
-}
-
-function sendMessage() {
-    const message = chatInput.value.trim();
-    if (message) {
-        sendData(activeSocket, "chatMessage", message, window.userId, window.username, window.displayName);
-        chatInput.value = "";
-    }
-}
+window.addEventListener("resize", () => {
+    const gameCanvas = document.getElementById("gameCanvas");
+    gameCanvas.width = window.innerWidth;
+    gameCanvas.height = window.innerHeight;
+});
