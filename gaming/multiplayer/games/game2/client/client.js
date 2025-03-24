@@ -1,82 +1,20 @@
+// game engine
 import { authUser } from "/multiplayer/engine/src/network/auth.js";
 import { sendData } from "/multiplayer/engine/src/tools.js";
 import { appendMessage, sendMessage } from "/multiplayer/engine/src/comms/chat.js";
 import { updateStatus, updatePlayerCount } from "/multiplayer/engine/src/ui/header.js";
+import { connectToGame } from "/multiplayer/engine/src/network/connect.js";
+
+// local libraries
+import { chatButton, chatPanel } from "../src/ui.js"
 
 let activeSocket = null;
 
 authUser(window.authToken, window.username, window.userId, "game2")
-    .then(({ gameURL, gameName }) => {
-        console.log("Authenticated! Received game server details:", gameURL, gameName);
-        connectToGame(gameURL, gameName);
+    .then(({ gameUrl, gameName }) => {
+        console.log("Authenticated! Received game server details:", gameUrl, gameName);
+        activeSocket = connectToGame(gameUrl, gameName);
     })
     .catch(err => {
         console.error("Authentication failed:", err);
     });
-
-function connectToGame(gameUrl, gameName) {
-    console.log(`Connecting to game server: ${gameUrl}`);
-    if (!gameUrl.startsWith("wss://")) { // ensure URL formatted properly
-        gameUrl = `wss://${window.location.host}${gameUrl}`;
-    }
-    const gameSocket = new WebSocket(gameUrl);
-
-    gameSocket.onopen = () => {
-        console.log(`Connected to ${gameName} server!`);
-        activeSocket = gameSocket;
-        window.activeSocket = activeSocket;
-        sendData(activeSocket, "chatMessage", "Player connected!", window.userId, window.username, window.displayName);
-        updateStatus(true);
-    };
-
-    gameSocket.onmessage = async (event) => {
-        console.log("Message from server:", event.data);
-        let data;
-        if (event.data instanceof Blob) {
-            data = JSON.parse(await event.data.text());
-            console.log("its a blob");
-        } else {
-            data = JSON.parse(event.data);
-        }
-        switch (data.type) {
-            case "chatMessage": {
-                appendMessage(data.data);
-                break;
-            }
-            case "playerCount": {
-                updatePlayerCount(data.data);
-                break;
-            }
-            default: {
-                console.error("Invalid data:", data);
-            }
-        }
-    };
-
-    gameSocket.onerror = (event) => {
-        console.error("WebSocket error:", event);
-        updateStatus(false);
-    };
-
-    gameSocket.onclose = () => {
-        console.log(`Disconnected from ${gameName} server.`);
-        updateStatus(false);
-    };
-}
-
-const chatButton = document.getElementById("chatButton");
-const chatPanel = document.getElementById("chatPanel");
-
-chatButton.addEventListener("click", (event) => {
-    if (chatPanel.style.right === "0vw") {
-        chatPanel.style.right = "-30vw";
-    } else {
-        chatPanel.style.right = "0vw";
-    }
-});
-
-window.addEventListener("resize", (event) => {
-    const gameCanvas = document.getElementById("gameCanvas");
-    gameCanvas.width = window.innerWidth;
-    gameCanvas.height = window.innerHeight;
-});

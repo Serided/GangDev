@@ -1,6 +1,8 @@
 import { sendData } from "../tools.js"
 import { gameLoop } from "../../game/game.js"
 
+// add comment to explain
+
 export function authUser(authToken, username, userId, game) {
     return new Promise((resolve, reject) => {
         const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
@@ -19,7 +21,7 @@ export function authUser(authToken, username, userId, game) {
                     gatewaySocket.send(joinPayload);
                 } else if (data.redirect) {
                     gatewaySocket.close();
-                    resolve({gameURL: data.redirect, gameName: data.game });
+                    resolve({gameUrl: data.redirect, gameName: data.game });
                 } else if (data.error) {
                     reject(new Error(data.error));
                 }
