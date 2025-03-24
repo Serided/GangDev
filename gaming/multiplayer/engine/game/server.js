@@ -4,8 +4,11 @@ const path = require('path');
 const fs = require('fs');
 const url = require('url');
 
-const { Player } = require('../src/classes.js');
-const gameState = require('../src/gameState/gameState.js');
+import { Player } from '../src/classes.js';
+
+const gameState = {
+    players: {}
+}
 
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
