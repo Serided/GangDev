@@ -90,7 +90,12 @@ export function connectToGame(gameUrl, gameName) {
         }
         switch (data.type) {
             case 'gameState': {
-                gameState.players = data.data;
+                const newPlayers = {};
+                Object.keys(data.data).forEach(id => {
+                    const p = data.data[id];
+                    newPlayers[id] = new Player(p.userId, p.username, p.displayName, p.x, p.y);
+                })
+                gameState.players = newPlayers;
                 return;
             } case 'chatMessage': {// add message to chat if it's a chat message
                 appendMessage(data.data);
