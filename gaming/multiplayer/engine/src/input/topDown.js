@@ -11,12 +11,16 @@ export const topDownInput = (() => {
     function keyDownHandler(event) {
         const key = event.key.toLowerCase();
         if (["w", "a", "s", "d"].includes(key)) {
-            if (event.ctrlKey) event.preventDefault();
-            keys[event.key] = true;
+            if (event.ctrlKey) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            keys[key] = true;
         }
-        if (event.key === "Control" || event.key === "Shift") {
-            keys[event.key] = true;
+        if (key === "control" || key === "shift") {
+            keys[key] = true;
             event.preventDefault();
+            event.stopPropagation();
         }
     }
 
