@@ -52,7 +52,6 @@ function createGameServer(port, name, clientPath) {
             }
             activeGameSockets[userId] = ws;
             ws.userId = userId;
-            gameState.players[userId] = new Player(userId, username, displayName, 200, 200);
         }
 
         playerCount++;
