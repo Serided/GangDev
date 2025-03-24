@@ -6,7 +6,7 @@ import { updateStatus, updatePlayerCount } from "/multiplayer/engine/src/ui/head
 import { setup2dCanvas } from "/multiplayer/engine/src/canvas.js";
 import { gameLoop } from "/multiplayer/engine/game/game.js";
 import { Player } from "/multiplayer/engine/src/classes.js";
-import {gameState} from "/multiplayer/engine/src/gameState.js";
+import { gameState } from "/multiplayer/engine/src/gameState.js";
 import { topDownInput } from "/multiplayer/engine/src/input/topDown.js";
 import { drawMap } from "/multiplayer/engine/src/render/2d.js";
 
@@ -36,7 +36,7 @@ fetch('/multiplayer/games/game2/src/map/map.json')
     .then(response => response.json())
     .then(mapData => {
         window.sharedMap = mapData;
-        requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, window.gameState));
+        requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
     })
     .catch(err => {
         console.error("Failed to load map:", err)
