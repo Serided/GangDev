@@ -1,21 +1,4 @@
-<?php
-require_once '/var/www/gangdev/shared/php/init.php';
-if (!isset($_SESSION["user_id"])) {
-    header("Location: https://account.gangdev.co/login/signin.php?redirect=/game1");
-    exit();
-}
-use \Firebase\JWT\JWT;
-$secretKey = $_ENV['SECRET_KEY'];
-$issuedAt   = time();
-$expiration = $issuedAt + (60 * 60);
-$payload = [
-    'iat'      => $issuedAt,
-    'exp'      => $expiration,
-    'uid'      => $_SESSION["user_id"],
-    'username' => $_SESSION["username"],
-];
-$authToken = JWT::encode($payload, $secretKey, 'HS256');
-?>
+<?php require_once '/var/www/gangdev/gaming/multiplayer/engine/src/network/auth.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,16 +7,7 @@ $authToken = JWT::encode($payload, $secretKey, 'HS256');
   <title>Crust</title>
   <link rel="stylesheet" href="/multiplayer/games/game1/client/style.css">
   <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-  <script>
-    const authToken = <?php echo json_encode($authToken); ?>;
-    const username = <?php echo json_encode($_SESSION["username"]); ?>;
-    const userId = <?php echo json_encode($_SESSION["userId"] ?? $_SESSION["user_id"]); ?>;
-    const displayName = <?php echo json_encode($_SESSION["displayname"]); ?>;
-    window.authToken = authToken;
-    window.username = username;
-    window.userId = userId;
-    window.displayName = displayName;
-  </script>
+
 </head>
 <body>
   <canvas id="gameCanvas"></canvas>
