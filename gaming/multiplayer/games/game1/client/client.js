@@ -1,5 +1,5 @@
 // client.js
-import { createGameClient } from "/var/www/gangdev/gaming/multiplayer/engine/game/client.js";
+import { createGameClient } from "/multiplayer/engine/game/client.js";
 import { initConnection } from "../js/network.js";
 import { setupUI, setupInputListeners } from "../js/ui.js";
 import { globalMap, createMapCanvas } from "../js/map.js";
