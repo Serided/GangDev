@@ -4,8 +4,6 @@ const path = require('path');
 const fs = require('fs');
 const url = require('url');
 
-import { Player } from '../src/classes.js';
-
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
         let resolvedPath = path.resolve(clientPath, "." + req.url);
@@ -73,8 +71,7 @@ function createGameServer(port, name, clientPath) {
             }
             switch (data.type) {
                 case 'playerSpawn': {
-                    const {userId, x, y, username, displayName} = data.data;
-                    gameState.players[userId] = {userId, x, y, username, displayName};
+                    gameState.players[userId] = data.data;
                     broadcastGameState();
                     break;
                 } case 'playerMovement': {
