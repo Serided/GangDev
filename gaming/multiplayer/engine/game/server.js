@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const url = require('url');
 
+import { Player } from '../src/classes.js';
 const gameState = require('../src/gameState/gameState.js');
 
 function createGameServer(port, name, clientPath) {
