@@ -1,4 +1,4 @@
-import { gameState } from "../gameState/gameState.js"
+import { gameState } from "../gameState/clientGameState.js"
 import { Player } from "../classes.js"
 
 /**
