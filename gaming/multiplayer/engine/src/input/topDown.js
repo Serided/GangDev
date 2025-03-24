@@ -1,52 +1,58 @@
 export const topDownInput = (() => {
     const keys = {};
-    const baseSpeed = 100;
+    const baseSpeed = 100; // Base speed (units per second)
 
     function setupKeyboardListeners() {
         window.addEventListener("keydown", keyDownHandler);
         window.addEventListener("keyup", keyUpHandler);
-
     }
 
     function keyDownHandler(event) {
         const key = event.key.toLowerCase();
-        if (["w", "a", "s", "d"].includes(key)) {
-            if (event.ctrlKey || keys["control"]) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
+        if (
+            ["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright"].includes(key)
+        ) {
             keys[key] = true;
-        }
-        if (key === "control" || key === "shift") {
-            keys[key] = true;
-            event.preventDefault();
-            event.stopPropagation();
         }
     }
 
     function keyUpHandler(event) {
         const key = event.key.toLowerCase();
-        if (["w", "a", "s", "d", "control", "shift"].includes(key)) {
-            keys[event.key] = false;
+        if (
+            ["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright"].includes(key)
+        ) {
+            keys[key] = false;
         }
     }
 
-    function getEffectiveSpeed() {
-        let multiplier = 1;
-        if (keys["control"]) multiplier *= 1.5;
-        if (keys["shift"]) multiplier *= 0.5;
-        return baseSpeed * multiplier;
-    }
-
+    /**
+     * Computes the movement vector based on current key states.
+     * @param {number} deltaTime - Time elapsed since last frame in seconds.
+     * @returns {{dx: number, dy: number}} Movement vector.
+     */
     function getMovementVector(deltaTime) {
         let dx = 0;
         let dy = 0;
-        const speed = getEffectiveSpeed();
-        if (keys["w"] || keys["W"]) dy -= speed * deltaTime;
-        if (keys["s"] || keys["S"]) dy += speed * deltaTime;
-        if (keys["a"] || keys["A"]) dx -= speed * deltaTime;
-        if (keys["d"] || keys["D"]) dx += speed * deltaTime;
-        return { dx, dy };
+        const speed = baseSpeed; // No modifiers applied
+
+        if (keys["w"]) dy -= speed;
+        if (keys["s"]) dy += speed;
+        if (keys["a"]) dx -= speed;
+        if (keys["d"]) dx += speed;
+        if (keys["arrowup"]) dy -= speed;
+        if (keys["arrowdown"]) dy += speed;
+        if (keys["arrowleft"]) dx -= speed;
+        if (keys["arrowright"]) dx += speed;
+
+        // If moving diagonally, normalize the vector so that diagonal movement isn't faster.
+        if (dx !== 0 && dy !== 0) {
+            const factor = 1 / Math.sqrt(2);
+            dx *= factor;
+            dy *= factor;
+        }
+
+        // Multiply by deltaTime to get movement in units for this frame.
+        return { dx: dx * deltaTime, dy: dy * deltaTime };
     }
 
     return {
