@@ -1,7 +1,15 @@
-// ui.js
+document.addEventListener("DOMContentLoaded", () => {
+    // This ensures the elements are available before we try to use them.
+    setupCanvas();
+    setupUI(() => {}); // temporary empty sendMessage so that errors don't occur if sendMessage isn't defined yet
+});
 
 export function setupCanvas() {
     const canvas = document.getElementById("gameCanvas");
+    if (!canvas) {
+        console.error("No element with id 'gameCanvas' found.");
+        return null;
+    }
     const ctx = canvas.getContext("2d");
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -21,20 +29,18 @@ export function setupUI(sendMessage) {
     const chatInput = document.getElementById("chatInput");
 
     if (!chatButton || !chatPanel || !sendButton || !chatInput) {
-        console.error("One or more UI elements (chatButton, chatPanel, sendButton, chatInput) are missing from the DOM.");
+        console.error("Missing one or more UI elements (chatButton, chatPanel, sendButton, chatInput).");
         return null;
     }
 
     chatButton.addEventListener("click", () => {
-        // Toggle chatPanel's right style.
+        // Toggle the chat panel's right property.
         chatPanel.style.right = (chatPanel.style.right === "0vw") ? "-30vw" : "0vw";
     });
-
     sendButton.addEventListener("click", sendMessage);
     chatInput.addEventListener("keypress", (event) => {
         if (event.key === "Enter") sendMessage();
     });
-
     return chatInput;
 }
 
@@ -43,12 +49,10 @@ export function setupInputListeners(keys, chatInput, camera) {
         if (document.activeElement === chatInput) return;
         keys[event.key] = true;
     });
-
     document.addEventListener("keyup", (event) => {
         if (document.activeElement === chatInput) return;
         keys[event.key] = false;
     });
-
     window.addEventListener("wheel", (event) => {
         event.preventDefault();
         camera.zoom += (event.deltaY > 0 ? -0.1 : 0.1);
@@ -96,6 +100,7 @@ export function sendMessage() {
     if (!chatInput) return;
     const message = chatInput.value.trim();
     if (message) {
+        // Assumes sendData is globally available from network.js.
         window.sendData(window.activeSocket, "chatMessage", message, window.userId, window.username, window.displayName);
         chatInput.value = "";
     }
