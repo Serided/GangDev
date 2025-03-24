@@ -5,16 +5,16 @@ import { camera } from "./camera.js";
 export const keys = {};
 export const players = {};
 
-// localPlayer is initialized in world coordinates.
+// Initialize localPlayer in world coordinates (meters).
 export const localPlayer = {
-    x: 500, // Start at 500 meters (center of 1000m map)
+    x: 500, // center of a 1000m map
     y: 500,
     displayName: displayName, // from index.php
     userId: userId            // from index.php
 };
 players[userId] = localPlayer;
 
-export const speed = 4; // meters per second (adjusted for a slower pace)
+export const speed = 4; // meters per second
 export let lastTime = performance.now();
 
 export function gameLoop(timestamp, canvas, mapCanvas) {

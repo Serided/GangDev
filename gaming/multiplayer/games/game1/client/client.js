@@ -7,16 +7,16 @@ import { setupInputListeners } from "../js/input.js";
 import { globalMap, createMapCanvas } from "../js/map.js";
 
 const { canvas, ctx } = setupCanvas();
-const tileSize = 20;
+const tileSize = 20; // pixels per meter at zoom=1
 window.tileSize = tileSize;
 
-// Generate the global map and create offscreen map canvas.
+// Generate the global map and create the offscreen map canvas.
 window.heightMap = globalMap.heightMap;
 window.heightMapCanvas = createMapCanvas(globalMap.heightMap, tileSize);
 
-// Set up UI and input.
+// Set up UI (chat, etc.) and input listeners.
 const chatInput = setupUI(sendMessage);
 setupInputListeners(keys, chatInput, camera);
 
-// Initialize connection to gateway.
+// Initialize connection to the gateway.
 initConnection(authToken, username, userId, displayName, canvas);
