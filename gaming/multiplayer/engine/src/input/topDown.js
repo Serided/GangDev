@@ -1,14 +1,14 @@
 export const topDownInput = (() => {
     const keys = {};
-    const baseSpeed = 4;
+    const baseSpeed = 20;
 
     function setupKeyboardListeners() {
         window.addEventListener("keydown", keyDownHandler);
         window.addEventListener("keyup", keyUpHandler);
+
     }
 
     function keyDownHandler(event) {
-        const key = event.key.toLowerCase();
         if (["w", "a", "s", "d"].includes(key)) {
             if (event.ctrlKey) event.preventDefault();
             keys[event.key] = true;
