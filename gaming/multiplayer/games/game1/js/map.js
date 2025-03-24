@@ -1,8 +1,7 @@
-// map.js
-import Noise from "https://esm.sh/noisejs@2.1.0";
+import noisejs from "https://esm.sh/noisejs@2.1.0";
 
 const fixedSeed = 12345; // Fixed seed for consistency
-const noise = new Noise(fixedSeed);
+const noise = new noisejs.Noise(fixedSeed);
 
 export function generateHeightMap(width, height, scale) {
     const map = new Array(height);
