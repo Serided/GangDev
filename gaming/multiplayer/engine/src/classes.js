@@ -52,7 +52,7 @@ export class Player {
         ctx.fillText(this.displayName, this.x, this.y - 5);
 
         const icon = getUserIcon(this.userId);
-        if (icon && icon.complete) {
+        if (icon && icon.complete && icon.naturalWidth > 0) {
             const iconSize = size * 0.9;
             const offset = (size - iconSize) / 2;
             ctx.drawImage(icon, this.x + offset, this.y + offset, iconSize, iconSize);

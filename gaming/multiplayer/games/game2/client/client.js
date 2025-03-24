@@ -26,4 +26,4 @@ authUser(window.authToken, window.username, window.userId, "game2")
     })
     .catch(err => {
         console.error("Authentication failed:", err);
-    });0
+    });
