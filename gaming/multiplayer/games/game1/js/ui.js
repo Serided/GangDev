@@ -24,7 +24,6 @@ export function setupUI(sendMessage) {
     const chatInput = document.getElementById("chatInput");
 
     if (!chatButton || !chatPanel || !sendButton || !chatInput) {
-        console.error("setupUI: Missing one or more UI elements (chatButton, chatPanel, sendButton, chatInput).");
         return null;
     }
 
@@ -34,14 +33,12 @@ export function setupUI(sendMessage) {
 
     chatButton.addEventListener("click", () => {
         chatPanel.style.right = (chatPanel.style.right === "0vw") ? "-30vw" : "0vw";
-        console.log("Chat panel toggled; new right:", chatPanel.style.right);
     });
 
     sendButton.addEventListener("click", sendMessage);
     chatInput.addEventListener("keypress", (event) => {
         if (event.key === "Enter") sendMessage();
     });
-    console.log("UI elements initialized:", { chatButton, chatPanel, sendButton, chatInput });
     return chatInput;
 }
 
@@ -96,9 +93,6 @@ export function appendMessage(msg, currentUserId) {
     messagesElement.appendChild(messageElement);
 }
 
-/**
- * sendMessage is now in ui.js
- */
 export function sendMessage() {
     const chatInput = document.getElementById("chatInput");
     if (!chatInput) return;

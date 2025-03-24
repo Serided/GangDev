@@ -3,39 +3,19 @@ import { sendData } from "/multiplayer/engine/src/tools.js";
 
 let activeSocket = null;
 
-const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
-
-gatewaySocket.onopen = () => {
-    console.log("Connected to gateway");
-    updateStatus(true);
-
-    const payload = JSON.stringify({ game: "game2" });
-    console.log("Sending message to gateway:", payload);
-    gatewaySocket.send(payload);
-};
-
-gatewaySocket.onmessage = (event) => {
-    try {
-        const data = JSON.parse(event.data);
-        console.log("Gateway response:", data);
-
-        if (data.redirect) {
-            gatewaySocket.close(); // close gateway connection
-            connectToGame(data.redirect, data.game); // connect to game
-        } else if (data.error) {
-            console.error("Gateway error:", data.error);
-        } else if (data.message) {
-            appendMessage(data.message);
-        }
-    } catch (err) {
-        console.error("Error parsing gateway message:", err);
-    }
-};
+// Use authUser to authenticate for game2
+authUser(window.authToken, window.username, window.userId, "game2")
+    .then(({ gameURL, gameName }) => {
+        console.log("Authenticated! Received game server details:", gameURL, gameName);
+        connectToGame(gameURL, gameName);
+    })
+    .catch(err => {
+        console.error("Authentication failed:", err);
+    });
 
 function connectToGame(gameUrl, gameName) {
     console.log(`Connecting to game server: ${gameUrl}`);
-
-    if (!gameUrl.startsWith("wss://")) { // ensure url formatted properly
+    if (!gameUrl.startsWith("wss://")) { // ensure URL formatted properly
         gameUrl = `wss://${window.location.host}${gameUrl}`;
     }
     const gameSocket = new WebSocket(gameUrl);
@@ -43,13 +23,12 @@ function connectToGame(gameUrl, gameName) {
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName} server!`);
         activeSocket = gameSocket;
-        sendData('chatMessage', 'Player connected!')
+        sendData(activeSocket, "chatMessage", "Player connected!", window.userId, window.username, window.displayName);
         updateStatus(true);
     };
 
     gameSocket.onmessage = async (event) => {
         console.log("Message from server:", event.data);
-
         let data;
         if (event.data instanceof Blob) {
             data = JSON.parse(await event.data.text());
@@ -57,7 +36,6 @@ function connectToGame(gameUrl, gameName) {
         } else {
             data = JSON.parse(event.data);
         }
-
         switch (data.type) {
             case "chatMessage": {
                 appendMessage(data.data);
@@ -84,12 +62,10 @@ function connectToGame(gameUrl, gameName) {
     };
 }
 
-
 const chatButton = document.getElementById("chatButton");
 const chatPanel = document.getElementById("chatPanel");
 const sendButton = document.getElementById("sendButton");
 const chatInput = document.getElementById("chatInput");
-
 
 chatButton.addEventListener("click", (event) => {
     if (chatPanel.style.right === "0vw") {
@@ -110,11 +86,9 @@ window.addEventListener("resize", (event) => {
     gameCanvas.height = window.innerHeight;
 });
 
-
 function updateStatus(status) {
     const statusElement = document.getElementById("status");
-
-    statusElement.style.color = status ? 'green' : 'red';
+    statusElement.style.color = status ? "green" : "red";
     statusElement.textContent = status ? "Online" : "Offline";
 }
 
@@ -130,21 +104,10 @@ function appendMessage(msg) {
     messagesElement.appendChild(messageElement);
 }
 
-function sendData(type, data) {
-    if (activeSocket && activeSocket.readyState === WebSocket.OPEN) {
-        const message = JSON.stringify({ type: type, data: data });
-        const blob = new Blob([message], { type: 'application/json' });
-        console.log("Sending data:", message);
-        activeSocket.send(blob);
-    } else {
-        console.warn("Cannot send data. Websocket closed.")
-    }
-}
-
 function sendMessage() {
     const message = chatInput.value.trim();
     if (message) {
-        sendData('chatMessage', message)
+        sendData(activeSocket, "chatMessage", message, window.userId, window.username, window.displayName);
         chatInput.value = "";
     }
 }
