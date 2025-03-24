@@ -70,7 +70,7 @@ function createGameServer(port, name, clientPath) {
             switch (data.type) {
                 case 'playerSpawn': {
                     const {userId, x, y, username, displayName} = data.data;
-                    gameState.players[userId] = {userId, x, y, username, displayName};
+                    gameState.players[userId] = new Player(userId, username, displayName, x, y);
                     broadcastGameState();
                     break;
                 } case 'playerMovement': {
