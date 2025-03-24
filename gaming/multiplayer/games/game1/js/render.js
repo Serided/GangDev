@@ -12,7 +12,7 @@ export function drawGame(ctx, canvas, camera, players, currentUserId, mapCanvas)
     const playerPixelY = localPlayer.y * window.tileSize;
     const translateX = canvas.width / 2 - playerPixelX * camera.zoom;
     const translateY = canvas.height / 2 - playerPixelY * camera.zoom;
-    console.log("camera.zoom:", camera.zoom, "translateX:", translateX, "translateY:", translateY);
+    // console.log("camera.zoom:", camera.zoom, "translateX:", translateX, "translateY:", translateY);
 
     // Set transform: scale and translate.
     ctx.setTransform(
