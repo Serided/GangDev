@@ -1,3 +1,4 @@
+import { gameState } from "../gameState.js"
 import { Player } from "../classes.js"
 
 /**
@@ -12,7 +13,7 @@ export function drawPlayer(ctx, players) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     // draw each player
-    players.forEach(player => {
+    Object.values(gameState.players).forEach(player => {
         player.draw(ctx);
     });
 }

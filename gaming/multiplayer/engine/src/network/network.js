@@ -2,6 +2,8 @@ import { sendData } from "../tools.js"
 import { gameLoop } from "../../game/game.js"
 import { appendMessage } from "../comms/chat.js"
 import { updateStatus, updatePlayerCount } from "../ui/header.js"
+import { Player } from "../classes";
+import { gameState } from "../gameState.js"
 
 /**
  * Authenticates the user with the gateway server and requests to join a specified game.
@@ -91,6 +93,12 @@ export function connectToGame(gameUrl, gameName) {
                 updatePlayerCount(data.data);
                 break;
             case "playerMovement": // update player positions if it's player movement data
+                const { userId, x, y } = data.data;
+                if (gameState.players[userId]) {
+                    gameState.players[userId].updatePosition(x, y);
+                } else {
+                    gameState.players[userId] = new Player(userId, data.data.username, data.data.displayName, x, y);
+                }
                 break;
             default:
                 console.error("Invalid data:", data)

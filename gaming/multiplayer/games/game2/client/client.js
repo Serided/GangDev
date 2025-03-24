@@ -13,15 +13,9 @@ import { chatButton, chatPanel } from "../src/ui.js"
 let activeSocket = null;
 
 const { canvas, ctx } = setup2dCanvas();
-const gameState = {
-    players: []
-};
-
-const localPlayer = new Player(window.userId, window.username, window.displayName, 100, 100);
-gameState.players.push(localPlayer);
 
 function startGameLoop() {
-    requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
+    requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx));
 }
 
 authUser(window.authToken, window.username, window.userId, "game2")
