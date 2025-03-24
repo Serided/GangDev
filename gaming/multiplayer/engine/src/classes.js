@@ -50,7 +50,7 @@ export class Player {
         ctx.fillStyle = "black";
         ctx.font = ctx.font || "14px Arial"; // use current font if set, or default
         ctx.textAlign = "center";
-        ctx.fillText(this.displayName, this.x, this.y - 5);
+        ctx.fillText(this.displayName, this.x + (size / 2), this.y - 5);
 
         const icon = getUserIcon(this.userId);
         if (icon && icon.complete && icon.naturalWidth > 0) {
