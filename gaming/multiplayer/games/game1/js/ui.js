@@ -20,13 +20,21 @@ export function setupUI(sendMessage) {
     const sendButton = document.getElementById("sendButton");
     const chatInput = document.getElementById("chatInput");
 
+    if (!chatButton || !chatPanel || !sendButton || !chatInput) {
+        console.error("One or more UI elements (chatButton, chatPanel, sendButton, chatInput) are missing from the DOM.");
+        return null;
+    }
+
     chatButton.addEventListener("click", () => {
+        // Toggle chatPanel's right style.
         chatPanel.style.right = (chatPanel.style.right === "0vw") ? "-30vw" : "0vw";
     });
+
     sendButton.addEventListener("click", sendMessage);
     chatInput.addEventListener("keypress", (event) => {
         if (event.key === "Enter") sendMessage();
     });
+
     return chatInput;
 }
 
@@ -35,10 +43,12 @@ export function setupInputListeners(keys, chatInput, camera) {
         if (document.activeElement === chatInput) return;
         keys[event.key] = true;
     });
+
     document.addEventListener("keyup", (event) => {
         if (document.activeElement === chatInput) return;
         keys[event.key] = false;
     });
+
     window.addEventListener("wheel", (event) => {
         event.preventDefault();
         camera.zoom += (event.deltaY > 0 ? -0.1 : 0.1);
@@ -49,17 +59,20 @@ export function setupInputListeners(keys, chatInput, camera) {
 
 export function updateStatus(status) {
     const statusElement = document.getElementById("status");
+    if (!statusElement) return;
     statusElement.style.color = status ? "green" : "red";
     statusElement.textContent = status ? "Online" : "Offline";
 }
 
 export function updatePlayerCount(count) {
     const playerCountElement = document.getElementById("players");
+    if (!playerCountElement) return;
     playerCountElement.textContent = count.toString();
 }
 
 export function appendMessage(msg, currentUserId) {
     const messagesElement = document.getElementById("messages");
+    if (!messagesElement) return;
     const messageElement = document.createElement("p");
     let messageText = "";
     let color = "red";
@@ -83,7 +96,6 @@ export function sendMessage() {
     if (!chatInput) return;
     const message = chatInput.value.trim();
     if (message) {
-        // Assume sendData is available globally from network.js.
         window.sendData(window.activeSocket, "chatMessage", message, window.userId, window.username, window.displayName);
         chatInput.value = "";
     }
