@@ -5,10 +5,6 @@ import { camera } from "../src/camera/topDown.js";
 
 let lastTimeStamp = 0;
 
-window.gameState = {
-    players: {}
-};
-
 /**
  * A basic game loop that updates and renders the game.
  *
