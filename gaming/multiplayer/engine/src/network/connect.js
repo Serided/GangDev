@@ -21,7 +21,6 @@ export function connectToGame(gameUrl, gameName) {
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName}!`);
         window.activeSocket = gameSocket;
-        // initial chat message
         sendData(gameSocket, "chatMessage", "Player connected!", window.userId, window.username, window.displayName);
         updateStatus(true);
     };
@@ -30,7 +29,7 @@ export function connectToGame(gameUrl, gameName) {
         console.log(`Message from server:`, event.data);
         let data;
         if (event.data instanceof Blob) {
-            data.JSON.parse(await event.data.text());
+            data = JSON.parse(await event.data.text());
         } else {
             data = JSON.parse(event.data);
         }
