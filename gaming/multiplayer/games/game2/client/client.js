@@ -1,9 +1,8 @@
 // game engine
-import { authUser } from "/multiplayer/engine/src/network/auth.js";
+import { authUser, connectToGame } from "/multiplayer/engine/src/network/network.js";
 import { sendData } from "/multiplayer/engine/src/tools.js";
 import { appendMessage, sendMessage } from "/multiplayer/engine/src/comms/chat.js";
 import { updateStatus, updatePlayerCount } from "/multiplayer/engine/src/ui/header.js";
-import { connectToGame } from "/multiplayer/engine/src/network/connect.js";
 
 // local libraries
 import { chatButton, chatPanel } from "../src/ui.js"

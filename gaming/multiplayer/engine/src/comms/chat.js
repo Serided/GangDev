@@ -10,12 +10,20 @@ export function appendMessage(msg) {
     const messagesElement = document.getElementById("messages");
     const messageElement = document.createElement("p");
 
-    if (typeof msg === "object" && msg.text) {
-        messageElement.textContent = msg.text;
+    let text = "";
+    let color = "red";
+
+    if (typeof msg === "object" && msg.text && msg.user) {
+        text = `${msg.user.displayName}: ${msg.text}`;
+        if (msg.user.userId === window.userId) {
+            color = "green"
+        }
     } else {
-        messageElement.textContent = msg.toString();
+        text = msg.toString();
     }
 
+    messageElement.textContent = text;
+    messageElement.style.color = color;
     messagesElement.appendChild(messageElement);
 }
 

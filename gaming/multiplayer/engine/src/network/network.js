@@ -1,6 +1,56 @@
 import { sendData } from "../tools.js"
+import { gameLoop } from "../../game/game.js"
 import { appendMessage } from "../comms/chat.js"
 import { updateStatus, updatePlayerCount } from "../ui/header.js"
+
+/**
+ * Authenticates the user with the gateway server and requests to join a specified game.
+ *
+ * This function establishes a WebSocket connection to the gateway, sends an authentication
+ * payload (including the JWT token, username, and userId), and then waits for the gateway's
+ * response. Once an "authAck" is received, it sends a join request for the specified game.
+ * When the gateway responds with a redirect URL, it closes the gateway connection and resolves
+ * the Promise with an object containing the game server URL and game name.
+ *
+ * @param {string} authToken - The JWT token used for authentication.
+ * @param {string} username - The user's username.
+ * @param {string|number} userId - The user's unique identifier.
+ * @param {string} game - The name of the game to join (e.g. "game1" or "game2").
+ * @returns {Promise<Object>} A Promise that resolves with { gameUrl, gameName } on success.
+ */
+
+export function authUser(authToken, username, userId, game) {
+    return new Promise((resolve, reject) => {
+        const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
+
+        gatewaySocket.onopen = () => {
+            const authPayload = JSON.stringify({ type: "auth", token: authToken, username, userId });
+            gatewaySocket.send(authPayload);
+        };
+
+        gatewaySocket.onmessage = (e) => {
+            try {
+                const data = JSON.parse(e.data);
+
+                if (data.type === "authAck") {
+                    const joinPayload = JSON.stringify({ game });
+                    gatewaySocket.send(joinPayload);
+                } else if (data.redirect) {
+                    gatewaySocket.close();
+                    resolve({gameUrl: data.redirect, gameName: data.game });
+                } else if (data.error) {
+                    reject(new Error(data.error));
+                }
+            } catch (err) {
+                reject(err);
+            }
+        };
+
+        gatewaySocket.onerror = () => {
+            reject(new Error("Gateway socket error"));
+        };
+    });
+}
 
 /**
  * Connects to a game server given a URL and game name.
