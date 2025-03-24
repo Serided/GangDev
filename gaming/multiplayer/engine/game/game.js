@@ -18,6 +18,7 @@ const networkSendInterval = 0.05; // 50ms
 export function gameLoop(ts, canvas, ctx, gameState) {
     const deltaTime = (ts - lastTimeStamp) / 1000;
     lastTimeStamp = ts;
+    timeSinceLastSend += deltaTime;
 
     const movement = topDownInput.getMovementVector(deltaTime);
     const localPlayer = gameState.players[window.userId];
