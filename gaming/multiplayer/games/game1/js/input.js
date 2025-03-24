@@ -1,26 +1,39 @@
+// Global document-level listener to prevent default actions when Control is pressed.
+document.addEventListener(
+    "keydown",
+    (event) => {
+        if (event.ctrlKey) {
+            event.preventDefault();
+            // Optionally, you can log or handle control-key events here.
+        }
+    },
+    { capture: true }
+);
+
 export function setupInputListeners(keys, chatInput, camera) {
-    window.addEventListener("keydown", (event) => {
+    // Listen for keydown events
+    document.addEventListener("keydown", (event) => {
+        // When the chat input is focused, ignore game controls.
         if (document.activeElement === chatInput) return;
-        // Log the event for debugging.
-        console.log("keydown:", event.key, event.code, event.ctrlKey, event.shiftKey);
-        // Prevent default behavior and stop propagation.
-        event.preventDefault();
-        event.stopPropagation();
+        // Record the key state
         keys[event.key] = true;
-    }, { capture: true });
+    }, { capture: false });
 
-    window.addEventListener("keyup", (event) => {
+    // Listen for keyup events
+    document.addEventListener("keyup", (event) => {
         if (document.activeElement === chatInput) return;
-        console.log("keyup:", event.key, event.code);
-        event.preventDefault();
-        event.stopPropagation();
         keys[event.key] = false;
-    }, { capture: true });
+    }, { capture: false });
 
-    window.addEventListener("wheel", (event) => {
-        event.preventDefault();
-        camera.zoom += (event.deltaY > 0 ? -0.1 : 0.1);
-        if (camera.zoom < 0.5) camera.zoom = 0.5;
-        if (camera.zoom > 1.5) camera.zoom = 1.5;
-    }, { passive: false });
+    // Handle wheel events for zoom
+    window.addEventListener(
+        "wheel",
+        (event) => {
+            event.preventDefault();
+            camera.zoom += (event.deltaY > 0 ? -0.1 : 0.1);
+            if (camera.zoom < 0.5) camera.zoom = 0.5;
+            if (camera.zoom > 1.5) camera.zoom = 1.5;
+        },
+        { passive: false }
+    );
 }
