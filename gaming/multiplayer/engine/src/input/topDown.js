@@ -9,6 +9,9 @@ export const topDownInput = (() => {
             const delta = event.deltaY > 0 ? -0.1 : 0.1
             camera.setZoom(camera.targetZoom + delta);
         }, { passive: false });
+        window.addEventListener("resize", () => {
+            window.{ canvas, ctx } = setup2dCanvas();
+        });
     }
 
     function keyDownHandler(event) {

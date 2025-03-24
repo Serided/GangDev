@@ -15,11 +15,11 @@ import { chatButton, chatPanel } from "../src/ui.js"
 
 let activeSocket = null;
 
-const { canvas, ctx } = setup2dCanvas();
+window.gameWindow = setup2dCanvas();
 topDownInput.setupInputListeners();
 
 function startGameLoop() {
-    requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
+    requestAnimationFrame((ts) => gameLoop(ts, window.gameWindow.canvas, window.gameWindow.ctx, gameState));
 }
 
 authUser(window.authToken, window.username, window.userId, "game2")
@@ -36,7 +36,7 @@ fetch('/multiplayer/games/game2/src/map/map.json')
     .then(response => response.json())
     .then(mapData => {
         window.sharedMap = mapData;
-        requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
+        requestAnimationFrame((ts) => gameLoop(ts, window.gameWindow.canvas, window.gameWindow.ctx, gameState));
     })
     .catch(err => {
         console.error("Failed to load map:", err)
