@@ -8,7 +8,7 @@ export function generateHeightMap(width, height, scale) {
     for (let y = 0; y < height; y++) {
         map[y] = new Array(width);
         for (let x = 0; x < width; x++) {
-            let value = noise.perlin2(x / scale, y / scale);
+            const value = noise.perlin2(x / scale, y / scale);
             map[y][x] = (value + 1) / 2;
         }
     }
@@ -21,10 +21,7 @@ export function generateMap(width, height, scale, collisionThreshold = 0.7) {
     return { heightMap, collisionMap };
 }
 
-// For debugging, generate a 200×200 map.
-// (When ready, you can change these numbers to 1000×1000.)
-export const globalMap = generateMap(200, 200, 50);
-// console.log("Map dimensions (cells):", globalMap.heightMap.length, globalMap.heightMap[0].length);
+export const globalMap = generateMap(1000, 1000, 100);
 
 export function createMapCanvas(heightMap, tileSize) {
     const rows = heightMap.length;
@@ -33,19 +30,18 @@ export function createMapCanvas(heightMap, tileSize) {
     offCanvas.width = cols * tileSize;
     offCanvas.height = rows * tileSize;
     const offCtx = offCanvas.getContext("2d");
+
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
             const value = heightMap[r][c];
             let color;
-            // Adjust thresholds for more visible variation.
-            if (value < 0.3) color = "#2D70B3";     // water
-            else if (value < 0.5) color = "#88C070";  // plains
-            else if (value < 0.7) color = "#66A050";  // hills
-            else color = "#7D7D7D";                  // cliffs
+            if (value < 0.3) color = "#2D70B3";    // water
+            else if (value < 0.5) color = "#88C070"; // plains
+            else if (value < 0.7) color = "#66A050"; // hills
+            else color = "#7D7D7D";                 // cliffs
             offCtx.fillStyle = color;
             offCtx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
         }
     }
-    // console.log("Offscreen canvas dimensions (pixels):", offCanvas.width, offCanvas.height);
     return offCanvas;
 }
