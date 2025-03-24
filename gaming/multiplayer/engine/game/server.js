@@ -4,6 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const url = require('url');
 
+import { Player } from '../src/classes.js';
+
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
         let resolvedPath = path.resolve(clientPath, "." + req.url);
@@ -52,6 +54,7 @@ function createGameServer(port, name, clientPath) {
             }
             activeGameSockets[userId] = ws;
             ws.userId = userId;
+            gameState.players[userId] = new Player(userId, username, displayName, 200, 200);
         }
 
         playerCount++;
