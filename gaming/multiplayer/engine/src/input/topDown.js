@@ -26,18 +26,15 @@ export const topDownInput = (() => {
 
     function keyUpHandler(event) {
         const key = event.key.toLowerCase();
-        if (["w", "a", "s", "d"].includes(key)) {
-            keys[event.key] = false;
-        }
-        if (event.key === "Control" || event.key === "Shift") {
+        if (["w", "a", "s", "d", "control", "shift"].includes(key)) {
             keys[event.key] = false;
         }
     }
 
     function getEffectiveSpeed() {
         let multiplier = 1;
-        if (keys["Control"]) multiplier *= 1.5;
-        if (keys["Shift"]) multiplier *= 0.5;
+        if (keys["control"]) multiplier *= 1.5;
+        if (keys["shift"]) multiplier *= 0.5;
         return baseSpeed * multiplier;
     }
 
