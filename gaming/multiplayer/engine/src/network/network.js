@@ -64,7 +64,7 @@ export function authUser(authToken, username, userId, game) {
  */
 
 export function connectToGame(gameUrl, gameName) {
-    console.log(`COnnecting to game server: ${gameUrl}`);
+    console.log(`Connecting to game server: ${gameUrl}`);
     if (!gameUrl.startsWith("wss://")) { // ensure URL formatted properly
         gameUrl = `wss://${window.location.host}${gameUrl}`;
     }

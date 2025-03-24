@@ -66,7 +66,7 @@
 
         <div class="sect cont one">
             <h2>
-                <a href="https://gaming.gangdev.co/game1" target="_blank">First Multiplayer Game (Alpha) [Online]</a>
+                <a href="https://gaming.gangdev.co/game2" target="_blank">First Multiplayer Game (Alpha) [Online]</a>
             </h2>
             <p>
                 First real experience and project with websockets. Just a basic chat app currently.<br>
