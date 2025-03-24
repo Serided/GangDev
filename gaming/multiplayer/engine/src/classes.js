@@ -42,7 +42,7 @@ export class Player {
         // determine color
         const color = this.userId === window.userId ? "green" : "red";
         ctx.fillStyle = color;
-        ctx.fillRect(thix.x, this.y, size, size);
+        ctx.fillRect(this.x, this.y, size, size);
 
         // get font
 
