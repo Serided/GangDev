@@ -38,7 +38,7 @@ export class Player {
      * @param {number} size - The size of the player cube.
      */
 
-    draw(ctx, size = 50) {
+    draw(ctx, size = (window.scaling * 2)) {
         // determine color
         const color = this.userId === window.userId ? "green" : "red";
         ctx.fillStyle = color;
