@@ -1,17 +1,17 @@
 export function setupInputListeners(keys, chatInput, camera) {
     window.addEventListener("keydown", (event) => {
         if (document.activeElement === chatInput) return;
-        // Prevent default behavior for Control and Shift keys.
-        if (event.key === "Control" || event.key === "Shift") {
+        // If either Control or Shift is involved, prevent default behavior.
+        if (event.key === "Control" || event.key === "Shift" || event.ctrlKey || event.shiftKey) {
             event.preventDefault();
         }
         keys[event.key] = true;
-    });
+    }, { capture: true });
 
     window.addEventListener("keyup", (event) => {
         if (document.activeElement === chatInput) return;
         keys[event.key] = false;
-    });
+    }, { capture: true });
 
     window.addEventListener("wheel", (event) => {
         event.preventDefault();
