@@ -1,4 +1,4 @@
-import { getUserIcon } from "./render/imageCache";
+import { getUserIcon } from "./render/imageCache.js";
 
 export class Player {
     /**
