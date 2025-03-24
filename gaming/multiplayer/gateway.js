@@ -1,7 +1,8 @@
-require('dotenv').config({ path: '/var/www/gangdev/shared/.env' });
-const WebSocket = require("ws");
-const http = require("http");
-const jwt = require('jsonwebtoken');
+import dotenv from 'dotenv';
+dotenv.config({ path: '/var/www/gangdev/shared/.env' });
+import WebSocket from 'ws';
+import http from 'http';
+import jwt from 'jsonwebtoken';
 
 const secretKey = process.env.SECRET_KEY;
 const gatewayPort = 10000;
