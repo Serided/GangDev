@@ -18,6 +18,11 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     const deltaTime = (ts - lastTimeStamp) / 1000;
     lastTimeStamp = ts;
 
+    if (!gameState || !gameState.players) { // loop until populated
+        requestAnimationFrame((newTs) => gameLoop(newTs, canvas, ctx, gameState));
+        return;
+    }
+
     const movement = topDownInput.getMovementVector(deltaTime);
     const localPlayer = gameState.players[window.userId];
 
