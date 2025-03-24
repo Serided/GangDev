@@ -1,6 +1,6 @@
 import { authUser } from "/multiplayer/engine/src/network/auth.js";
 import { sendData } from "/multiplayer/engine/src/tools.js";
-import { appendMessage, sendMessage } from "/multiplayer/engine/src/chat/chat.js";
+import { appendMessage, sendMessage } from "/multiplayer/engine/src/comms/chat.js";
 
 let activeSocket = null;
 
