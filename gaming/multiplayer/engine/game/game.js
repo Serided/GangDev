@@ -3,8 +3,6 @@ import { topDownInput } from "../src/input/topDown.js"
 import { sendData } from "../src/tools.js";
 
 let lastTimeStamp = 0;
-let timeSinceLastSend = 0;
-const networkSendInterval = 0.05; // 50ms
 
 /**
  * A basic game loop that updates and renders the game.
@@ -18,17 +16,13 @@ const networkSendInterval = 0.05; // 50ms
 export function gameLoop(ts, canvas, ctx, gameState) {
     const deltaTime = (ts - lastTimeStamp) / 1000;
     lastTimeStamp = ts;
-    timeSinceLastSend += deltaTime;
 
     const movement = topDownInput.getMovementVector(deltaTime);
     const localPlayer = gameState.players[window.userId];
 
     if (localPlayer) {
-        localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
-        if (timeSinceLastSend >= networkSendInterval) {
-            sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
-            timeSinceLastSend = 0;
-        }
+        if (movement.dx !== 0 || movement.dy !== 0) localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
+        sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
     }
 
     drawPlayers(ctx);
