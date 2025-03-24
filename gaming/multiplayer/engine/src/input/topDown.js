@@ -1,3 +1,5 @@
+import { setup2dCanvas } from "../canvas.js";
+
 export const topDownInput = (() => {
     const keys = {};
 
@@ -10,7 +12,7 @@ export const topDownInput = (() => {
             camera.setZoom(camera.targetZoom + delta);
         }, { passive: false });
         window.addEventListener("resize", () => {
-            window.{ canvas, ctx } = setup2dCanvas();
+            window.gameWindow = setup2dCanvas();
         });
     }
 
