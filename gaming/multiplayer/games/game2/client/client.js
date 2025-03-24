@@ -6,6 +6,7 @@ import { updateStatus, updatePlayerCount } from "/multiplayer/engine/src/ui/head
 import { setup2dCanvas } from "/multiplayer/engine/src/canvas.js";
 import { gameLoop } from "/multiplayer/engine/game/game.js";
 import { Player } from "/multiplayer/engine/src/classes.js";
+import {gameState} from "/multiplayer/engine/src/gameState.js";
 
 // local libraries
 import { chatButton, chatPanel } from "../src/ui.js"
@@ -15,7 +16,7 @@ let activeSocket = null;
 const { canvas, ctx } = setup2dCanvas();
 
 function startGameLoop() {
-    requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx));
+    requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
 }
 
 authUser(window.authToken, window.username, window.userId, "game2")
