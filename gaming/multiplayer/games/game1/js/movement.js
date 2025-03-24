@@ -5,9 +5,9 @@ import { camera } from "./camera.js";
 export const keys = {};
 export const players = {};
 
-// localPlayer in world coordinates (meters)
+// Initialize localPlayer in world coordinates (meters)
 export const localPlayer = {
-    x: 100, // starting at 500,500
+    x: 100, // Starting position (adjust as needed)
     y: 100,
     displayName: displayName, // from index.php
     userId: userId,           // from index.php
@@ -22,11 +22,18 @@ export function gameLoop(timestamp, canvas, mapCanvas) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
 
-    // Sprint multiplier: if Control is pressed, add 50% speed.
-    const sprintMultiplier = keys["Control"] ? 1.5 : 1.0;
-    const effectiveSpeed = speed * sprintMultiplier;
+    // Determine effective speed:
+    // If Shift is pressed, reduce speed by 50%.
+    // Otherwise, if Control is pressed, increase speed by 50%.
+    let effectiveSpeed;
+    if (keys["Shift"]) {
+        effectiveSpeed = speed * 0.5;
+    } else if (keys["Control"]) {
+        effectiveSpeed = speed * 1.5;
+    } else {
+        effectiveSpeed = speed;
+    }
 
-    // Update local player position.
     if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= effectiveSpeed * delta;
     if (keys["ArrowDown"] || keys["s"]) localPlayer.y += effectiveSpeed * delta;
     if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= effectiveSpeed * delta;
@@ -35,14 +42,13 @@ export function gameLoop(timestamp, canvas, mapCanvas) {
     // Update crouch state.
     localPlayer.crouching = !!keys["Shift"];
 
-    // Send movement update (including crouching state).
+    // Send movement update including crouch state.
     sendData(window.activeSocket, "movement", {
         x: localPlayer.x,
         y: localPlayer.y,
         crouching: localPlayer.crouching
     }, userId, username, displayName);
 
-    // Draw the game.
     drawGame(window.ctx, canvas, camera, players, userId, mapCanvas);
     requestAnimationFrame((ts) => gameLoop(ts, canvas, mapCanvas));
 }

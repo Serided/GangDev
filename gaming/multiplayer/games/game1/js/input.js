@@ -1,6 +1,10 @@
 export function setupInputListeners(keys, chatInput, camera) {
     window.addEventListener("keydown", (event) => {
         if (document.activeElement === chatInput) return;
+        // Prevent default behavior for Control and Shift keys.
+        if (event.key === "Control" || event.key === "Shift") {
+            event.preventDefault();
+        }
         keys[event.key] = true;
     });
 
