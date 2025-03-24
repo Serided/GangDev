@@ -1,3 +1,4 @@
+// map.js
 import noisejs from "https://esm.sh/noisejs@2.1.0";
 
 const fixedSeed = 12345;
@@ -21,7 +22,7 @@ export function generateMap(width, height, scale, collisionThreshold = 0.7) {
     return { heightMap, collisionMap };
 }
 
-// For debugging, we generate a 200×200 map (you can change these numbers later).
+// For debugging, generate a 200x200 map. (Adjust later to 1000x1000 as needed)
 export const globalMap = generateMap(200, 200, 50);
 console.log("Map dimensions (cells):", globalMap.heightMap.length, globalMap.heightMap[0].length);
 
@@ -32,15 +33,14 @@ export function createMapCanvas(heightMap, tileSize) {
     offCanvas.width = cols * tileSize;
     offCanvas.height = rows * tileSize;
     const offCtx = offCanvas.getContext("2d");
-
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
             const value = heightMap[r][c];
             let color;
-            if (value < 0.3) color = "#2D70B3";    // water
-            else if (value < 0.5) color = "#88C070"; // plains
-            else if (value < 0.7) color = "#66A050"; // hills
-            else color = "#7D7D7D";                 // cliffs
+            if (value < 0.3) color = "#2D70B3";
+            else if (value < 0.5) color = "#88C070";
+            else if (value < 0.7) color = "#66A050";
+            else color = "#7D7D7D";
             offCtx.fillStyle = color;
             offCtx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
         }

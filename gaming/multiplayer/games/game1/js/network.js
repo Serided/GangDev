@@ -8,7 +8,7 @@ export function sendData(activeSocket, type, data, userId, username, displayName
             : data;
         const enrichedData = { ...payload, user: { userId, username, displayName } };
         const message = JSON.stringify({ type, data: enrichedData });
-        const blob = new Blob([message], { type: 'application/json' });
+        const blob = new Blob([message], { type: "application/json" });
         activeSocket.send(blob);
     } else {
         console.warn("Cannot send data. WebSocket closed.");
@@ -21,7 +21,6 @@ export function initConnection(authToken, username, userId, displayName, canvas,
     const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
     gatewaySocket.onopen = () => {
         console.log("Connected to gateway");
-        // Call UI updateStatus from UI.js via dynamic import if needed.
         const authPayload = JSON.stringify({ type: "auth", token: authToken, username, userId });
         console.log("Sending auth payload:", authPayload);
         gatewaySocket.send(authPayload);
@@ -40,7 +39,6 @@ export function initConnection(authToken, username, userId, displayName, canvas,
             } else if (data.error) {
                 console.error("Gateway error:", data.error);
             } else if (data.message) {
-                // Use UI's appendMessage
                 import("./ui.js").then(ui => ui.appendMessage(data.message, userId));
             }
         } catch (err) {
@@ -62,7 +60,7 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
         console.log(`Connected to ${gameName} server`);
         activeSocket = gameSocket;
         window.activeSocket = gameSocket;
-        sendData(activeSocket, 'chatMessage', 'Player connected!', userId, username, displayName);
+        sendData(activeSocket, "chatMessage", "Player connected!", userId, username, displayName);
         import("./ui.js").then(ui => ui.updateStatus(true));
         requestAnimationFrame((ts) => gameLoop(ts, canvas, mapCanvas));
     };
@@ -96,3 +94,5 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
         import("./ui.js").then(ui => ui.updateStatus(false));
     };
 }
+
+export { sendData };

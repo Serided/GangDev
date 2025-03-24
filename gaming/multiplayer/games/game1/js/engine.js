@@ -2,16 +2,16 @@
 import { drawGame } from "./render.js";
 import { camera } from "./camera.js";
 
-// State: keys, players, and localPlayer
+// Export keys and players for global state.
 export const keys = {};
 export const players = {};
 
-// Initialize localPlayer in world coordinates (meters)
+// Initialize localPlayer (in world coordinates, in meters).
 export const localPlayer = {
-    x: 100, // Starting position (must be within the map bounds)
+    x: 100,
     y: 100,
-    displayName: window.displayName, // from index.php
-    userId: window.userId,           // from index.php
+    displayName: window.displayName,
+    userId: window.userId,
     crouching: false
 };
 players[localPlayer.userId] = localPlayer;
@@ -23,8 +23,6 @@ export function gameLoop(timestamp, canvas, mapCanvas) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
 
-    // Calculate effective speed:
-    // If only Shift is held, reduce speed to 50%; if only Control, increase to 150%; if both, crouch mode takes precedence.
     let effectiveSpeed;
     if (keys["Shift"] && !keys["Control"]) {
         effectiveSpeed = speed * 0.5;
@@ -36,16 +34,13 @@ export function gameLoop(timestamp, canvas, mapCanvas) {
         effectiveSpeed = speed;
     }
 
-    // Update localPlayer position
     if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= effectiveSpeed * delta;
     if (keys["ArrowDown"] || keys["s"]) localPlayer.y += effectiveSpeed * delta;
     if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= effectiveSpeed * delta;
     if (keys["ArrowRight"] || keys["d"]) localPlayer.x += effectiveSpeed * delta;
 
-    // Update crouch state.
     localPlayer.crouching = !!keys["Shift"];
 
-    // Call render.
     drawGame(window.ctx, canvas, camera, players, localPlayer.userId, mapCanvas);
 
     requestAnimationFrame((ts) => gameLoop(ts, canvas, mapCanvas));

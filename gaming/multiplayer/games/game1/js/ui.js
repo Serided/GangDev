@@ -1,24 +1,6 @@
 // ui.js
 
-// Run this code when the DOM is fully loaded.
-document.addEventListener("DOMContentLoaded", () => {
-    const canvasSetup = initializeCanvas();
-    if (!canvasSetup) return;
-    const { canvas, ctx } = canvasSetup;
-    // Expose globals.
-    window.canvas = canvas;
-    window.ctx = ctx;
-    // Setup UI elements.
-    const chatInput = initializeUI();
-    if (!chatInput) return;
-    // (Optionally, you can set up input listeners here or in a separate module.)
-});
-
-/**
- * Initializes the canvas.
- * @returns {{canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D}|null}
- */
-function initializeCanvas() {
+export function setupCanvas() {
     const canvas = document.getElementById("gameCanvas");
     if (!canvas) {
         console.error("setupCanvas: 'gameCanvas' element not found.");
@@ -35,93 +17,67 @@ function initializeCanvas() {
     return { canvas, ctx };
 }
 
-/**
- * Initializes UI elements (chat panel, buttons, input).
- * @returns {HTMLInputElement|null} Returns the chat input element if successful.
- */
-function initializeUI() {
+export function setupUI(sendMessage) {
     const chatButton = document.getElementById("chatButton");
     const chatPanel = document.getElementById("chatPanel");
     const sendButton = document.getElementById("sendButton");
     const chatInput = document.getElementById("chatInput");
 
-    if (!chatButton) console.error("setupUI: 'chatButton' not found.");
-    if (!chatPanel) console.error("setupUI: 'chatPanel' not found.");
-    if (!sendButton) console.error("setupUI: 'sendButton' not found.");
-    if (!chatInput) console.error("setupUI: 'chatInput' not found.");
+    if (!chatButton || !chatPanel || !sendButton || !chatInput) {
+        console.error("setupUI: Missing one or more UI elements (chatButton, chatPanel, sendButton, chatInput).");
+        return null;
+    }
 
-    // If any are missing, abort setup.
-    if (!chatButton || !chatPanel || !sendButton || !chatInput) return null;
-
-    // Set an initial value for chatPanel.style.right if not defined.
     if (!chatPanel.style.right) {
         chatPanel.style.right = "-30vw";
     }
 
     chatButton.addEventListener("click", () => {
-        // Toggle the chat panel's right property.
         chatPanel.style.right = (chatPanel.style.right === "0vw") ? "-30vw" : "0vw";
-        console.log("Chat panel toggled. New right:", chatPanel.style.right);
+        console.log("Chat panel toggled; new right:", chatPanel.style.right);
     });
 
-    sendButton.addEventListener("click", () => {
-        if (typeof window.sendMessage === "function") {
-            window.sendMessage();
-        } else {
-            console.warn("sendMessage is not defined.");
-        }
-    });
-
+    sendButton.addEventListener("click", sendMessage);
     chatInput.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-            if (typeof window.sendMessage === "function") {
-                window.sendMessage();
-            }
-        }
+        if (event.key === "Enter") sendMessage();
     });
-
     console.log("UI elements initialized:", { chatButton, chatPanel, sendButton, chatInput });
     return chatInput;
 }
 
-/**
- * Updates the status element.
- * @param {boolean} status
- */
+export function setupInputListeners(keys, chatInput, camera) {
+    document.addEventListener("keydown", (event) => {
+        if (document.activeElement === chatInput) return;
+        keys[event.key] = true;
+    });
+    document.addEventListener("keyup", (event) => {
+        if (document.activeElement === chatInput) return;
+        keys[event.key] = false;
+    });
+    window.addEventListener("wheel", (event) => {
+        event.preventDefault();
+        camera.zoom += (event.deltaY > 0 ? -0.1 : 0.1);
+        if (camera.zoom < 0.5) camera.zoom = 0.5;
+        if (camera.zoom > 1.5) camera.zoom = 1.5;
+    }, { passive: false });
+}
+
 export function updateStatus(status) {
     const statusElement = document.getElementById("status");
-    if (!statusElement) {
-        console.error("updateStatus: 'status' element not found.");
-        return;
-    }
+    if (!statusElement) return;
     statusElement.style.color = status ? "green" : "red";
     statusElement.textContent = status ? "Online" : "Offline";
 }
 
-/**
- * Updates the player count element.
- * @param {number} count
- */
 export function updatePlayerCount(count) {
     const playerCountElement = document.getElementById("players");
-    if (!playerCountElement) {
-        console.error("updatePlayerCount: 'players' element not found.");
-        return;
-    }
+    if (!playerCountElement) return;
     playerCountElement.textContent = count.toString();
 }
 
-/**
- * Appends a chat message.
- * @param {object|string} msg
- * @param {number} currentUserId
- */
 export function appendMessage(msg, currentUserId) {
     const messagesElement = document.getElementById("messages");
-    if (!messagesElement) {
-        console.error("appendMessage: 'messages' element not found.");
-        return;
-    }
+    if (!messagesElement) return;
     const messageElement = document.createElement("p");
     let messageText = "";
     let color = "red";
@@ -141,22 +97,15 @@ export function appendMessage(msg, currentUserId) {
 }
 
 /**
- * A simple wrapper for sending a chat message.
+ * sendMessage is now in ui.js
  */
 export function sendMessage() {
     const chatInput = document.getElementById("chatInput");
     if (!chatInput) return;
     const message = chatInput.value.trim();
-    if (message) {
-        // Assumes sendData is defined globally in network.js.
-        if (typeof window.sendData === "function") {
-            window.sendData(window.activeSocket, "chatMessage", message, window.userId, window.username, window.displayName);
-            chatInput.value = "";
-        } else {
-            console.warn("sendData is not available.");
-        }
+    if (message && typeof window.sendData === "function") {
+        window.sendData(window.activeSocket, "chatMessage", message, window.userId, window.username, window.displayName);
+        chatInput.value = "";
     }
 }
-
-// Expose sendMessage so network.js or client.js can call it.
 window.sendMessage = sendMessage;

@@ -1,25 +1,35 @@
+// client.js
 import { initConnection } from "../js/network.js";
-import { setupCanvas, setupUI, setupInputListeners, updateStatus, appendMessage, updatePlayerCount, sendMessage } from "../js/ui.js";
+import { setupCanvas, setupUI, setupInputListeners } from "../js/ui.js";
 import { globalMap, createMapCanvas } from "../js/map.js";
+import { camera } from "../js/camera.js";
+import { keys } from "../js/engine.js";
 
-// Set up canvas.
-const { canvas, ctx } = setupCanvas();
-const tileSize = 20;
-window.tileSize = tileSize;
+// Wait for DOM to be loaded.
+document.addEventListener("DOMContentLoaded", () => {
+    const { canvas, ctx } = setupCanvas();
+    if (!canvas || !ctx) return;
 
-// Generate the global map and offscreen map canvas.
-window.heightMap = globalMap.heightMap;
-window.heightMapCanvas = createMapCanvas(globalMap.heightMap, tileSize);
+    const tileSize = 20; // pixels per meter at zoom=1
+    window.tileSize = tileSize;
 
-// Set up UI and input listeners.
-const chatInput = setupUI(sendMessage);
-setupInputListeners(window.keys, chatInput, window.camera);
+    // Generate the global map and offscreen map canvas.
+    window.heightMap = globalMap.heightMap;
+    window.heightMapCanvas = createMapCanvas(globalMap.heightMap, tileSize);
 
-// Expose global networking variables (assumed to be set from index.php).
-window.authToken = authToken;
-window.username = username;
-window.userId = userId;
-window.displayName = displayName;
+    // Set up UI and input listeners.
+    const chatInput = setupUI(sendMessage);
+    if (!chatInput) return;
+    setupInputListeners(keys, chatInput, camera);
 
-// Initialize connection to the gateway and pass canvas and mapCanvas.
-initConnection(authToken, username, userId, displayName, canvas, window.heightMapCanvas);
+    // Expose globals injected from index.php.
+    window.authToken = authToken;
+    window.username = username;
+    window.userId = userId;
+    window.displayName = displayName;
+
+    // Initialize connection; pass canvas and offscreen map canvas.
+    initConnection(authToken, username, userId, displayName, canvas, window.heightMapCanvas);
+});
+
+// sendMessage is defined in ui.js and is globally exposed.
