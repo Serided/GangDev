@@ -14,8 +14,10 @@ export const camera = {
      * @param {HTMLCanvasElement} canvas - The canvas element.
      */
     update(player, canvas) {
-        this.x = lerp(this.x, (player.x + (window.player / 2)), this.smoothFactor); // move camera to player center x
-        this.y = lerp(this.y, (player.y + (window.player / 2)), this.smoothFactor); // move camera to player center y
+        const targetX = player.x + playerSize / 2;
+        const targetY = player.y + playerSize / 2;
+        this.x = lerp(this.x, targetX, this.smoothFactor); // move camera to player center x
+        this.y = lerp(this.y, targetY, this.smoothFactor); // move camera to player center y
         this.zoom = lerp(this.zoom, this.targetZoom, this.smoothFactor);
     },
     setZoom(newZoom) {

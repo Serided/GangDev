@@ -4,6 +4,7 @@ import { sendData } from "../src/tools.js";
 import { camera } from "../src/camera/topDown.js";
 
 let lastTimeStamp = 0;
+let firstFrame = true;
 
 /**
  * A basic game loop that updates and renders the game.
@@ -26,13 +27,19 @@ export function gameLoop(ts, canvas, ctx, gameState) {
             localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
             sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
         }
-        camera.update(localPlayer, canvas)
+        if (firstFrame) {
+            camera.x = localPlayer.x + window.player / 2;
+            camera.y = localPlayer.y + window.player / 2;
+            firstFrame = false;
+        } else {
+            camera.update(localPlayer, canvas)
+        }
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height); // CLEAR THE CANVAS
 
     ctx.save();
-    ctx.translate(((canvas.width / 2) + (window.player / 2)), ((canvas.height / 2) + (window.player / 2))); // set camera x and y to player center
+    ctx.translate(canvas.width / 2, canvas.height / 2); // set camera x and y to player center
     ctx.scale(camera.zoom, camera.zoom);
     ctx.translate(-camera.x, -camera.y);
 
