@@ -87,7 +87,7 @@ export function connectToGame(gameUrl, gameName) {
             data = JSON.parse(event.data);
         }
         switch (data.type) {
-            case 'gateway': {
+            case 'gameState': {
                 gameState.players = data.data;
                 return;
             } case 'chatMessage': {// add message to chat if it's a chat message
