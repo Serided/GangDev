@@ -24,7 +24,7 @@ export function generateMap(width, height, scale, collisionThreshold = 0.7) {
 // For debugging, generate a 200×200 map.
 // (When ready, you can change these numbers to 1000×1000.)
 export const globalMap = generateMap(200, 200, 50);
-console.log("Map dimensions (cells):", globalMap.heightMap.length, globalMap.heightMap[0].length);
+// console.log("Map dimensions (cells):", globalMap.heightMap.length, globalMap.heightMap[0].length);
 
 export function createMapCanvas(heightMap, tileSize) {
     const rows = heightMap.length;
@@ -46,6 +46,6 @@ export function createMapCanvas(heightMap, tileSize) {
             offCtx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
         }
     }
-    console.log("Offscreen canvas dimensions (pixels):", offCanvas.width, offCanvas.height);
+    // console.log("Offscreen canvas dimensions (pixels):", offCanvas.width, offCanvas.height);
     return offCanvas;
 }

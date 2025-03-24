@@ -5,12 +5,13 @@ import { camera } from "./camera.js";
 export const keys = {};
 export const players = {};
 
-// localPlayer starts at (500,500) world units (meters).
+// localPlayer in world coordinates (meters)
 export const localPlayer = {
-    x: 100,
-    y: 100,
+    x: 500, // starting at 500,500
+    y: 500,
     displayName: displayName, // from index.php
-    userId: userId            // from index.php
+    userId: userId,           // from index.php
+    crouching: false
 };
 players[userId] = localPlayer;
 
@@ -21,12 +22,27 @@ export function gameLoop(timestamp, canvas, mapCanvas) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
 
-    if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= speed * delta;
-    if (keys["ArrowDown"] || keys["s"]) localPlayer.y += speed * delta;
-    if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= speed * delta;
-    if (keys["ArrowRight"] || keys["d"]) localPlayer.x += speed * delta;
+    // Sprint multiplier: if Control is pressed, add 50% speed.
+    const sprintMultiplier = keys["Control"] ? 1.5 : 1.0;
+    const effectiveSpeed = speed * sprintMultiplier;
 
-    sendData(window.activeSocket, "movement", { x: localPlayer.x, y: localPlayer.y }, userId, username, displayName);
+    // Update local player position.
+    if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= effectiveSpeed * delta;
+    if (keys["ArrowDown"] || keys["s"]) localPlayer.y += effectiveSpeed * delta;
+    if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= effectiveSpeed * delta;
+    if (keys["ArrowRight"] || keys["d"]) localPlayer.x += effectiveSpeed * delta;
+
+    // Update crouch state.
+    localPlayer.crouching = !!keys["Shift"];
+
+    // Send movement update (including crouching state).
+    sendData(window.activeSocket, "movement", {
+        x: localPlayer.x,
+        y: localPlayer.y,
+        crouching: localPlayer.crouching
+    }, userId, username, displayName);
+
+    // Draw the game.
     drawGame(window.ctx, canvas, camera, players, userId, mapCanvas);
     requestAnimationFrame((ts) => gameLoop(ts, canvas, mapCanvas));
 }
