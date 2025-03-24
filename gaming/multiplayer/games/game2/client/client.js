@@ -7,6 +7,7 @@ import { setup2dCanvas } from "/multiplayer/engine/src/canvas.js";
 import { gameLoop } from "/multiplayer/engine/game/game.js";
 import { Player } from "/multiplayer/engine/src/classes.js";
 import {gameState} from "/multiplayer/engine/src/gameState.js";
+import { topDownInput } from "/multiplayer/engine/src/input/topDown.js";
 
 // local libraries
 import { chatButton, chatPanel } from "../src/ui.js"
@@ -14,6 +15,7 @@ import { chatButton, chatPanel } from "../src/ui.js"
 let activeSocket = null;
 
 const { canvas, ctx } = setup2dCanvas();
+topDownInput.setupKeyboardListeners();
 
 function startGameLoop() {
     requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
