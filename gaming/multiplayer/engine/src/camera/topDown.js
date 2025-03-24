@@ -6,6 +6,7 @@ export const camera = {
     x: 0,
     y: 0,
     zoom: 1,
+    targetZoom: 1,
     smoothingFactor: 0.02,
     /**
      * Update the camera so that it smoothly follows the player.
@@ -17,6 +18,10 @@ export const camera = {
         const targetY = (player.y + window.scaling) - canvas.height / 2 / this.zoom;
         this.x = lerp(this.x, targetX, this.smoothingFactor);
         this.y = lerp(this.y, targetY, this.smoothingFactor);
+        this.zoom = lerp(this.zoom, this.targetZoom, this.smoothingFactor);
+    },
+    setZoom(newZoom) {
+        this.targetZoom = Math.max(0.5, Math.min(newZoom, 1.5))
     }
 };
 window.camera = camera;
