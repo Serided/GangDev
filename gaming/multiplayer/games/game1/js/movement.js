@@ -5,7 +5,7 @@ import { camera } from "./camera.js";
 export const keys = {};
 export const players = {};
 
-// Initialize localPlayer in world coordinates (meters)
+// Initialize localPlayer in world coordinates (meters).
 export const localPlayer = {
     x: 100, // Starting position (adjust as needed)
     y: 100,
@@ -22,14 +22,14 @@ export function gameLoop(timestamp, canvas, mapCanvas) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
 
-    // Determine effective speed:
-    // If Shift is pressed, reduce speed by 50%.
-    // Otherwise, if Control is pressed, increase speed by 50%.
-    let effectiveSpeed;
-    if (keys["Shift"]) {
+    // Calculate effective speed:
+    if (keys["Shift"] && !keys["Control"]) {
         effectiveSpeed = speed * 0.5;
-    } else if (keys["Control"]) {
+    } else if (keys["Control"] && !keys["Shift"]) {
         effectiveSpeed = speed * 1.5;
+    } else if (keys["Shift"] && keys["Control"]) {
+        // Prioritize crouch if both are pressed.
+        effectiveSpeed = speed * 0.5;
     } else {
         effectiveSpeed = speed;
     }
@@ -49,6 +49,7 @@ export function gameLoop(timestamp, canvas, mapCanvas) {
         crouching: localPlayer.crouching
     }, userId, username, displayName);
 
+    // Draw the game.
     drawGame(window.ctx, canvas, camera, players, userId, mapCanvas);
     requestAnimationFrame((ts) => gameLoop(ts, canvas, mapCanvas));
 }
