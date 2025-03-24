@@ -20,7 +20,8 @@ export function setup2dCanvas() {
     canvas.style.height = `${height}px`;
     console.log("Canvas initialized:", { width, height });
 
-    window.scaling = 30; // 20px a meter
+    window.scaling = 30; // 30px a meter
+    window.tileSize = window.scaling / 2;
 
     const computedStyle = window.getComputedStyle(canvas);
     const fontFamily = computedStyle.fontFamily;
