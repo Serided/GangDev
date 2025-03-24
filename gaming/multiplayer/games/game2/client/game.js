@@ -1,3 +1,6 @@
+import { authUser } from "/multiplayer/engine/src/network/auth.js";
+import { sendData } from "/multiplayer/engine/src/tools.js";
+
 let activeSocket = null;
 
 const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
