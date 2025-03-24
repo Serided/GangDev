@@ -32,7 +32,7 @@ authUser(window.authToken, window.username, window.userId, "game2")
         console.error("Authentication failed:", err);
     });
 
-fetch('../src/map/map.json')
+fetch('multiplayer/games/game2/src/map/map.json')
     .then(response => response.json())
     .then(mapData => {
         window.sharedMap = mapData;

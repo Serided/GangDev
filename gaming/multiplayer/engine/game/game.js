@@ -29,13 +29,15 @@ export function gameLoop(ts, canvas, ctx, gameState) {
         camera.update(localPlayer, canvas)
     }
 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     ctx.save();
     ctx.scale(camera.zoom, camera.zoom);
     ctx.translate(-camera.x, -camera.y);
 
-    /*if (window.sharedMap) {
+    if (window.sharedMap) {
         drawMap(ctx, window.sharedMap);
-    }*/
+    }
 
     drawPlayers(ctx);
 
