@@ -74,7 +74,7 @@ export function connectToGame(gameUrl, gameName) {
         console.log(`Connected to ${gameName}!`);
         window.activeSocket = gameSocket;
         sendData(gameSocket, "chatMessage", "Player connected!", window.userId, window.username, window.displayName);
-        gameState.players[userId] = new Player(userId, username, displayName, 200, 200);
+        sendData(gameSocket, "playerSpawn", { userId: window.userId, username: window.username, displayName: window.displayName, x: 200, y: 200}, window.userId, window.username, window.displayName);
         updateStatus(true);
     };
 
@@ -87,22 +87,27 @@ export function connectToGame(gameUrl, gameName) {
             data = JSON.parse(event.data);
         }
         switch (data.type) {
-            case "chatMessage": // add message to chat if it's a chat message
+            case "chatMessage": {// add message to chat if it's a chat message
                 appendMessage(data.data);
                 break;
-            case "playerCount": // update player count if it's player count data
+            } case "playerCount": { // update player count if it's player count data
                 updatePlayerCount(data.data);
                 break;
-            case "playerMovement": // update player positions if it's player movement data
-                const { userId, x, y } = data.data;
+            } case "playerSpawn": { // spawn player and add to game state
+                const {userId, x, y, username, displayName} = data.data;
+                gameState.players[userId] = new Player(userId, username, displayName, x, y);
+                break;
+            } case "playerMovement": { // update player positions if it's player movement data
+                const {userId, x, y, username, displayName} = data.data;
                 if (gameState.players[userId]) {
                     gameState.players[userId].updatePosition(x, y);
                 } else {
-                    gameState.players[userId] = new Player(userId, data.data.username, data.data.displayName, x, y);
+                    gameState.players[userId] = new Player(userId, username, displayName, x, y);
                 }
                 break;
-            default:
+            } default: {
                 console.error("Invalid data:", data)
+            }
         }
     };
 
