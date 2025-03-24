@@ -1,5 +1,6 @@
 import { sendData } from "./utils.js";
 import { drawGame } from "./render.js";
+import { camera } from "./camera.js";
 
 export const keys = {};
 export const players = {};
