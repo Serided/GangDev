@@ -15,7 +15,7 @@ authUser(window.authToken, window.username, window.userId, "game2")
 
 function connectToGame(gameUrl, gameName) {
     console.log(`Connecting to game server: ${gameUrl}`);
-    if (!gameUrl.startsWith("wss://")) {
+    if (!gameUrl.startsWith("wss://")) { // ensure URL formatted properly
         gameUrl = `wss://${window.location.host}${gameUrl}`;
     }
     const gameSocket = new WebSocket(gameUrl);
@@ -37,14 +37,17 @@ function connectToGame(gameUrl, gameName) {
             data = JSON.parse(event.data);
         }
         switch (data.type) {
-            case "chatMessage":
+            case "chatMessage": {
                 appendMessage(data.data);
                 break;
-            case "playerCount":
+            }
+            case "playerCount": {
                 updatePlayerCount(data.data);
                 break;
-            default:
+            }
+            default: {
                 console.error("Invalid data:", data);
+            }
         }
     };
 
@@ -59,6 +62,23 @@ function connectToGame(gameUrl, gameName) {
     };
 }
 
+const chatButton = document.getElementById("chatButton");
+const chatPanel = document.getElementById("chatPanel");
+
+chatButton.addEventListener("click", (event) => {
+    if (chatPanel.style.right === "0vw") {
+        chatPanel.style.right = "-30vw";
+    } else {
+        chatPanel.style.right = "0vw";
+    }
+});
+
+window.addEventListener("resize", (event) => {
+    const gameCanvas = document.getElementById("gameCanvas");
+    gameCanvas.width = window.innerWidth;
+    gameCanvas.height = window.innerHeight;
+});
+
 function updateStatus(status) {
     const statusElement = document.getElementById("status");
     statusElement.style.color = status ? "green" : "red";
@@ -69,9 +89,3 @@ function updatePlayerCount(count) {
     const playerCountElement = document.getElementById("players");
     playerCountElement.textContent = count.toString();
 }
-
-window.addEventListener("resize", () => {
-    const gameCanvas = document.getElementById("gameCanvas");
-    gameCanvas.width = window.innerWidth;
-    gameCanvas.height = window.innerHeight;
-});
