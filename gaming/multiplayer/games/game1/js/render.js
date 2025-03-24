@@ -1,41 +1,37 @@
 export function drawGame(ctx, canvas, camera, players, currentUserId, heightMap, tileSize) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     camera.update(players[currentUserId], canvas);
 
-    const scaledTileSize = tileSize * camera.zoom;
+    ctx.setTransform(camera.zoom, 0, 0, camera.zoom, -camera.x * camera.zoom, -camera.y * camera.zoom);
+
     const rows = heightMap.length;
     const cols = heightMap[0].length;
-    const startCol = Math.max(0, Math.floor(camera.x / scaledTileSize));
-    const endCol = Math.min(cols, Math.ceil((camera.x + canvas.width) / scaledTileSize));
-    const startRow = Math.max(0, Math.floor(camera.y / scaledTileSize));
-    const endRow = Math.min(rows, Math.ceil((camera.y + canvas.height) / scaledTileSize));
-
-    // Draw the map background.
-    for (let r = startRow; r < endRow; r++) {
-        for (let c = startCol; c < endCol; c++) {
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
             const value = heightMap[r][c];
             let color;
-            if (value < 0.3) color = "#2D70B3";
-            else if (value < 0.5) color = "#88C070";
-            else if (value < 0.7) color = "#66A050";
-            else color = "#7D7D7D";
-            const screenX = c * scaledTileSize - camera.x;
-            const screenY = r * scaledTileSize - camera.y;
+            if (value < 0.3) color = "#2D70B3";     // water
+            else if (value < 0.5) color = "#88C070";  // plains
+            else if (value < 0.7) color = "#66A050";  // hills
+            else color = "#7D7D7D";                  // cliffs
+            // Each cell is tileSize in world coordinates.
+            const screenX = c * tileSize;
+            const screenY = r * tileSize;
             ctx.fillStyle = color;
-            ctx.fillRect(screenX, screenY, scaledTileSize, scaledTileSize);
+            ctx.fillRect(screenX, screenY, tileSize, tileSize);
         }
     }
 
-    // Draw players.
     for (const id in players) {
         const p = players[id];
-        const screenX = p.x - camera.x;
-        const screenY = p.y - camera.y;
+        const size = 2 * tileSize;
         ctx.fillStyle = p.userId === currentUserId ? "green" : "red";
-        ctx.fillRect(screenX - 25 * camera.zoom, screenY - 25 * camera.zoom, 50 * camera.zoom, 50 * camera.zoom);
+        ctx.fillRect(p.x - size / 2, p.y - size / 2, size, size);
         ctx.fillStyle = "gray";
-        ctx.font = `${16 * camera.zoom}px Arial`;
+        ctx.font = "16px Arial"; // Font size will scale with zoom automatically.
         const nameToDisplay = p.displayName || (p.user && p.user.displayName) || "Unknown";
-        ctx.fillText(nameToDisplay, screenX - 25 * camera.zoom, screenY - 30 * camera.zoom);
+        ctx.fillText(nameToDisplay, p.x - size / 2, p.y - size / 2 - 5);
     }
 }
