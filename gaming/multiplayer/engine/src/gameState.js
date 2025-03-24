@@ -1,3 +1,5 @@
-export const gameState = {
+const gameState = {
     players: {}
 };
+
+module.exports = gameState;
