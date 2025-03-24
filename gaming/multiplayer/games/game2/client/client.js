@@ -62,6 +62,8 @@ function connectToGame(gameUrl, gameName) {
     };
 }
 
+window.activeSocket = activeSocket;
+
 const chatButton = document.getElementById("chatButton");
 const chatPanel = document.getElementById("chatPanel");
 
