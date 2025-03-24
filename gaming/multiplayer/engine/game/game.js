@@ -1,5 +1,6 @@
 import { drawPlayers } from "../src/render/2d.js"
 import { topDownInput } from "../src/input/topDown.js"
+import {sendData} from "../src/tools";
 
 let lastTimeStamp = 0;
 
@@ -19,6 +20,8 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     const movement = topDownInput.getMovementVector(deltaTime);
     const localPlayer = gameState.players[window.userId];
     if (localPlayer) localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
+
+    sendData(activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
 
     drawPlayers(ctx);
     requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
