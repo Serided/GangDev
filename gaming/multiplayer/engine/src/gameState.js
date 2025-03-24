@@ -1,5 +1,5 @@
 const gameState = {
-    players: {} // or [] if you prefer an array
+    players: {}
 };
 
 module.exports = gameState;
