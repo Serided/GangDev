@@ -1,10 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // This ensures the elements are available before we try to use them.
-    setupCanvas();
-    setupUI(() => {}); // temporary empty sendMessage so that errors don't occur if sendMessage isn't defined yet
-});
+// ui.js
 
-export function setupCanvas() {
+function initializeCanvas() {
     const canvas = document.getElementById("gameCanvas");
     if (!canvas) {
         console.error("No element with id 'gameCanvas' found.");
@@ -22,7 +18,7 @@ export function setupCanvas() {
     return { canvas, ctx };
 }
 
-export function setupUI(sendMessage) {
+function initializeUI(sendMessage) {
     const chatButton = document.getElementById("chatButton");
     const chatPanel = document.getElementById("chatPanel");
     const sendButton = document.getElementById("sendButton");
@@ -33,8 +29,12 @@ export function setupUI(sendMessage) {
         return null;
     }
 
+    // Ensure chatPanel has an initial right value.
+    if (!chatPanel.style.right) {
+        chatPanel.style.right = "-30vw";
+    }
+
     chatButton.addEventListener("click", () => {
-        // Toggle the chat panel's right property.
         chatPanel.style.right = (chatPanel.style.right === "0vw") ? "-30vw" : "0vw";
     });
     sendButton.addEventListener("click", sendMessage);
@@ -42,6 +42,26 @@ export function setupUI(sendMessage) {
         if (event.key === "Enter") sendMessage();
     });
     return chatInput;
+}
+
+export function setupCanvas() {
+    if (document.readyState === "loading") {
+        console.warn("Document still loading; canvas setup may be delayed.");
+    }
+    return initializeCanvas();
+}
+
+export function setupUI(sendMessage) {
+    if (document.readyState === "loading") {
+        // Wait for DOMContentLoaded if document is still loading.
+        document.addEventListener("DOMContentLoaded", () => {
+            initializeUI(sendMessage);
+        });
+        // Return null since elements aren't ready yet.
+        return null;
+    } else {
+        return initializeUI(sendMessage);
+    }
 }
 
 export function setupInputListeners(keys, chatInput, camera) {
@@ -100,7 +120,7 @@ export function sendMessage() {
     if (!chatInput) return;
     const message = chatInput.value.trim();
     if (message) {
-        // Assumes sendData is globally available from network.js.
+        // Assumes that sendData is available globally from network.js.
         window.sendData(window.activeSocket, "chatMessage", message, window.userId, window.username, window.displayName);
         chatInput.value = "";
     }
