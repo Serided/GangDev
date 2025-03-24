@@ -6,7 +6,6 @@ export function authUser(authToken, username, userId, game) {
         const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
 
         gatewaySocket.onopen = () => {
-            // Send authentication payload.
             const authPayload = JSON.stringify({ type: "auth", token: authToken, username, userId });
             gatewaySocket.send(authPayload);
         };

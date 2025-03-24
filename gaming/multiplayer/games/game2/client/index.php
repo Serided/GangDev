@@ -1,21 +1,4 @@
-<?php
-require_once '/var/www/gangdev/shared/php/init.php';
-if (!isset($_SESSION["user_id"])) {
-    header("Location: https://account.gangdev.co/login/signin.php?redirect=/game2");
-    exit();
-}
-use \Firebase\JWT\JWT;
-$secretKey = $_ENV['SECRET_KEY'];
-$issuedAt   = time();
-$expiration = $issuedAt + (60 * 60);
-$payload = [
-    'iat'      => $issuedAt,
-    'exp'      => $expiration,
-    'uid'      => $_SESSION["user_id"],
-    'username' => $_SESSION["username"],
-];
-$authToken = JWT::encode($payload, $secretKey, 'HS256');
-?>
+<?php require_once '/var/www/gangdev/gaming/multiplayer/engine/src/network/auth.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
