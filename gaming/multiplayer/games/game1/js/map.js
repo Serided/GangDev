@@ -23,6 +23,7 @@ export function generateMap(width, height, scale, collisionThreshold = 0.7) {
 
 // Global map generation (1km x 1km, i.e. 1000x1000 cells)
 export const globalMap = generateMap(1000, 1000, 100);
+console.log("Map dimensions (cells):", globalMap.heightMap.length, globalMap.heightMap[0].length);
 
 // Create an offscreen canvas to draw the map in pixel space.
 // Each cell is drawn as tileSize pixels.
@@ -45,5 +46,6 @@ export function createMapCanvas(heightMap, tileSize) {
             offCtx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
         }
     }
+    console.log("Offscreen canvas dimensions (pixels):", offCanvas.width, offCanvas.height);
     return offCanvas;
 }
