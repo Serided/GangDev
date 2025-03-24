@@ -1,9 +1,15 @@
 export const topDownInput = (() => {
     const keys = {};
 
-    function setupKeyboardListeners() {
+    function setupInputListeners() {
         window.addEventListener("keydown", keyDownHandler);
         window.addEventListener("keyup", keyUpHandler);
+        window.addEventListener("wheel", (event) => {
+            event.preventDefault();
+            camera.zoom += (event.deltaY > 0 ? -0.1 : 0.1);
+            if (camera.zoom < 0.5) camera.zoom = 0.5;
+            if (camera.zoom > 1.5) camera.zoom = 1.5;
+        }, { passive: false });
     }
 
     function keyDownHandler(event) {
@@ -32,8 +38,7 @@ export const topDownInput = (() => {
     function getMovementVector(deltaTime) {
         let dx = 0;
         let dy = 0;
-        const baseSpeed = (6 * window.scaling); // Base speed (units per second)
-        const speed = baseSpeed; // No modifiers applied
+        const speed = (6 * window.scaling); // No modifiers applied
 
         if (keys["w"]) dy -= speed;
         if (keys["s"]) dy += speed;
@@ -56,7 +61,7 @@ export const topDownInput = (() => {
     }
 
     return {
-        setupKeyboardListeners,
+        setupInputListeners,
         getMovementVector
     };
 })();

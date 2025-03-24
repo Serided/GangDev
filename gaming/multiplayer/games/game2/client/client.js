@@ -15,7 +15,7 @@ import { chatButton, chatPanel } from "../src/ui.js"
 let activeSocket = null;
 
 const { canvas, ctx } = setup2dCanvas();
-topDownInput.setupKeyboardListeners();
+topDownInput.setupInputListeners();
 
 function startGameLoop() {
     requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
