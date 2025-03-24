@@ -23,6 +23,7 @@ function connectToGame(gameUrl, gameName) {
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName} server!`);
         activeSocket = gameSocket;
+        window.activeSocket = activeSocket;
         sendData(activeSocket, "chatMessage", "Player connected!", window.userId, window.username, window.displayName);
         updateStatus(true);
     };
@@ -61,8 +62,6 @@ function connectToGame(gameUrl, gameName) {
         updateStatus(false);
     };
 }
-
-window.activeSocket = activeSocket;
 
 const chatButton = document.getElementById("chatButton");
 const chatPanel = document.getElementById("chatPanel");
