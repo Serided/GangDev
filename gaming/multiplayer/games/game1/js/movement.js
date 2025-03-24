@@ -7,8 +7,8 @@ export const players = {};
 
 // localPlayer starts at (500,500) world units (meters).
 export const localPlayer = {
-    x: 500,
-    y: 500,
+    x: 100,
+    y: 100,
     displayName: displayName, // from index.php
     userId: userId            // from index.php
 };
