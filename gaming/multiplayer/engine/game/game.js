@@ -1,4 +1,4 @@
-import { drawPlayers } from "../src/render/2d.js"
+import { drawPlayers, drawMap } from "../src/render/2d.js"
 import { topDownInput } from "../src/input/topDown.js"
 import { sendData } from "../src/tools.js";
 import { camera } from "../src/camera/topDown.js";
@@ -32,6 +32,10 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     ctx.save();
     ctx.scale(camera.zoom, camera.zoom);
     ctx.translate(-camera.x, -camera.y);
+
+    if (window.sharedMap) {
+        drawMap(ctx, window.sharedMap);
+    }
 
     drawPlayers(ctx);
 

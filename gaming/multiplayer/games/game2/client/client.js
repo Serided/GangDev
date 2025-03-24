@@ -8,6 +8,7 @@ import { gameLoop } from "/multiplayer/engine/game/game.js";
 import { Player } from "/multiplayer/engine/src/classes.js";
 import {gameState} from "/multiplayer/engine/src/gameState.js";
 import { topDownInput } from "/multiplayer/engine/src/input/topDown.js";
+import { drawMap } from "/multiplayer/engine/src/render/2d.js";
 
 // local libraries
 import { chatButton, chatPanel } from "../src/ui.js"
@@ -30,3 +31,13 @@ authUser(window.authToken, window.username, window.userId, "game2")
     .catch(err => {
         console.error("Authentication failed:", err);
     });
+
+fetch('../src/map/map.json')
+    .then(response => response.json())
+    .then(mapData => {
+        window.sharedMap = mapData;
+        requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, window.gameState));
+    })
+    .catch(err => {
+        console.error("Failed to load map:", err)
+    })
