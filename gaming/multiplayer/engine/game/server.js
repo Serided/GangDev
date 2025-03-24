@@ -4,6 +4,8 @@ const path = require('path');
 const fs = require('fs');
 const url = require('url');
 
+const gameState = require('../src/gameState.js');
+
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
         let resolvedPath = path.resolve(clientPath, "." + req.url);
@@ -39,6 +41,9 @@ function createGameServer(port, name, clientPath) {
     const wss = new WebSocket.Server({ server });
     let playerCount = 0;
     const activeGameSockets = {};
+    const gameState = {
+        players: {} //  key: userId, value: { userId, x, y, username, displayName }
+    };
 
     wss.on('connection', (ws, request) => {
         const query = url.parse(request.url, true).query;
@@ -50,21 +55,51 @@ function createGameServer(port, name, clientPath) {
             activeGameSockets[userId] = ws;
             ws.userId = userId;
         }
+
         playerCount++;
         console.log(`[${name}] Connection established. Player count: ${playerCount}`);
         broadcastPlayerCount();
         ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
+
         ws.on('message', (msg) => {
             if (msg instanceof Buffer) msg = msg.toString();
-            distributeData(msg);
+            let data;
+            try {
+                data = JSON.parse(msg);
+            } catch (e) {
+                console.error("Error parsing message", e);
+                return;
+            }
+            switch (data.type) {
+                case 'playerSpawn': {
+                    const {userId, x, y, username, displayName} = data.data;
+                    gameState.players[userId] = {userId, x, y, username, displayName};
+                    broadcastGameState();
+                    break;
+                } case 'playerMovement': {
+                    const {userId, x, y, username, displayName} = data.data;
+                    if (gameState.players[userId]) {
+                        gameState.players[userId].x = x;
+                        gameState.players[userId].y = y;
+                    } else {
+                        gameState.players[userId] = {userId, x, y, username, displayName};
+                    }
+                    broadcastGameState();
+                    break;
+                } default: {
+                    distributeData(msg);
+                }
+            }
         });
         ws.on('close', () => {
             if (ws.userId && activeGameSockets[ws.userId] === ws) {
                 delete activeGameSockets[ws.userId];
+                delete gameState.players[ws.userId]; // remove from gamestate
             }
             playerCount--;
             console.log(`[${name}] Connection closed. Player count: ${playerCount}`);
             broadcastPlayerCount();
+            broadcastGameState();
             distributeData({ type: 'chatMessage', data: 'Player disconnected.' }, true);
         });
     });
@@ -80,6 +115,9 @@ function createGameServer(port, name, clientPath) {
 
     function broadcastPlayerCount() {
         distributeData({ type: 'playerCount', data: playerCount }, true);
+    }
+    function broadcastGameState() {
+        distributeData({ type: 'gameState', data: gameState.players }, true);
     }
 
     server.listen(port, '127.0.0.1', () => {
