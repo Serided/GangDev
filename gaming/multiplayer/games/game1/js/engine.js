@@ -14,6 +14,7 @@ export const localPlayer = {
     crouching: false
 };
 players[localPlayer.userId] = localPlayer;
+window.localPlayer = localPlayer;
 
 export const speed = 4; // meters per second
 let lastTime = performance.now();
