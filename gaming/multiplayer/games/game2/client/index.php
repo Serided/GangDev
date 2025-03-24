@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crust</title>
 
-    <script src="/multiplayer/games/game1/client/game.js" defer></script> <!-- Loads WebSocket client -->
-    <link rel="stylesheet" href="/multiplayer/games/game1/client/style.css"> <!-- Link to your CSS -->
+    <script src="/multiplayer/games/game2/client/game.js" defer></script> <!-- Loads WebSocket client -->
+    <link rel="stylesheet" href="/multiplayer/games/game2/client/style.css"> <!-- Link to your CSS -->
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
