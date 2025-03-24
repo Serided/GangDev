@@ -13,7 +13,6 @@ export function authUser(authToken, username, userId, game) {
         gatewaySocket.onmessage = (e) => {
             try {
                 const data = JSON.parse(e.data);
-                console.log("Gateway full response:", data);
 
                 if (data.type === "authAck") {
                     const joinPayload = JSON.stringify({ game });
