@@ -20,7 +20,7 @@ export let lastTime = performance.now();
 export function gameLoop(timestamp, canvas, heightMap, tileSize) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
-    const effectiveSpeed = speed;
+    const effectiveSpeed = speed * camera.zoom;
     if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= effectiveSpeed * delta;
     if (keys["ArrowDown"] || keys["s"]) localPlayer.y += effectiveSpeed * delta;
     if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= effectiveSpeed * delta;
