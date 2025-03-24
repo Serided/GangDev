@@ -1,37 +1,28 @@
-export function drawGame(ctx, canvas, camera, players, currentUserId, heightMap, tileSize) {
+export function drawGame(ctx, canvas, camera, players, currentUserId, mapCanvas) {
+    // Reset transformation and clear canvas
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Update camera based on the local player's position.
     camera.update(players[currentUserId], canvas);
 
+    // Set the transform: scale by zoom and translate so that the camera.x,y
+    // becomes the top-left corner of the viewport.
     ctx.setTransform(camera.zoom, 0, 0, camera.zoom, -camera.x * camera.zoom, -camera.y * camera.zoom);
 
-    const rows = heightMap.length;
-    const cols = heightMap[0].length;
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-            const value = heightMap[r][c];
-            let color;
-            if (value < 0.3) color = "#2D70B3";     // water
-            else if (value < 0.5) color = "#88C070";  // plains
-            else if (value < 0.7) color = "#66A050";  // hills
-            else color = "#7D7D7D";                  // cliffs
-            // Each cell is tileSize in world coordinates.
-            const screenX = c * tileSize;
-            const screenY = r * tileSize;
-            ctx.fillStyle = color;
-            ctx.fillRect(screenX, screenY, tileSize, tileSize);
-        }
-    }
+    // Draw the pre-rendered map.
+    ctx.drawImage(mapCanvas, 0, 0);
 
+    // Draw players (in world coordinates)
     for (const id in players) {
         const p = players[id];
-        const size = 2 * tileSize;
         ctx.fillStyle = p.userId === currentUserId ? "green" : "red";
-        ctx.fillRect(p.x - size / 2, p.y - size / 2, size, size);
+        // Assuming player is 2 meters tall; tileSize represents 1 meter at zoom 1.
+        const playerSize = 2;
+        ctx.fillRect(p.x - (playerSize * 0.5), p.y - (playerSize * 0.5), playerSize, playerSize);
         ctx.fillStyle = "gray";
-        ctx.font = "16px Arial"; // Font size will scale with zoom automatically.
+        ctx.font = `${16}px Arial`;
         const nameToDisplay = p.displayName || (p.user && p.user.displayName) || "Unknown";
-        ctx.fillText(nameToDisplay, p.x - size / 2, p.y - size / 2 - 5);
+        ctx.fillText(nameToDisplay, p.x - (playerSize * 0.5), p.y - (playerSize * 0.5) - 5);
     }
 }

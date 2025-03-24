@@ -17,7 +17,7 @@ players[userId] = localPlayer;
 export const speed = 200;
 export let lastTime = performance.now();
 
-export function gameLoop(timestamp, canvas, heightMap, tileSize) {
+export function gameLoop(timestamp, canvas, mapCanvas) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
 
@@ -27,16 +27,10 @@ export function gameLoop(timestamp, canvas, heightMap, tileSize) {
     if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= speed * delta;
     if (keys["ArrowRight"] || keys["d"]) localPlayer.x += speed * delta;
 
-    // Send movement update to the server.
-    sendData(window.activeSocket, "movement", { x: localPlayer.x, y: localPlayer.y }, userId, username, displayName);
-
-    // Draw the game using the transformation matrix
-    drawGame(window.ctx, canvas, camera, players, userId, heightMap, tileSize);
-
-    requestAnimationFrame((ts) => gameLoop(ts, canvas, heightMap, tileSize));
+    sendData(window.activeSocket, "movement", {x: localPlayer.x, y: localPlayer.y}, userId, username, displayName);
+    drawGame(window.ctx, canvas, camera, players, userId, window.heightMapCanvas);
+    requestAnimationFrame((ts) => gameLoop(ts, canvas, mapCanvas));
 }
-
-
 
 export function handleMovementUpdate(data) {
     if (data && data.user && data.user.userId) {

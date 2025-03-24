@@ -1,7 +1,8 @@
-import noisejs from "https://esm.sh/noisejs@2.1.0";
+// map.js
+import Noise from "https://esm.sh/noisejs@2.1.0";
 
 const fixedSeed = 12345; // Fixed seed for consistency
-const noise = new noisejs.Noise(fixedSeed);
+const noise = new Noise(fixedSeed);
 
 export function generateHeightMap(width, height, scale) {
     const map = new Array(height);
@@ -17,10 +18,34 @@ export function generateHeightMap(width, height, scale) {
 
 export function generateMap(width, height, scale, collisionThreshold = 0.7) {
     const heightMap = generateHeightMap(width, height, scale);
-    // For collision map: (not used here, but available)
+    // Optionally create a collision map
     const collisionMap = heightMap.map(row => row.map(val => val >= collisionThreshold));
     return { heightMap, collisionMap };
 }
 
-// Generate a global map once (1km x 1km)
+// Global map generation (1km x 1km)
 export const globalMap = generateMap(1000, 1000, 100);
+
+// Offscreen map canvas creation function:
+export function createMapCanvas(heightMap, tileSize) {
+    const rows = heightMap.length;
+    const cols = heightMap[0].length;
+    const offCanvas = document.createElement("canvas");
+    offCanvas.width = cols * tileSize;
+    offCanvas.height = rows * tileSize;
+    const offCtx = offCanvas.getContext("2d");
+
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            const value = heightMap[r][c];
+            let color;
+            if (value < 0.3) color = "#2D70B3";
+            else if (value < 0.5) color = "#88C070";
+            else if (value < 0.7) color = "#66A050";
+            else color = "#7D7D7D";
+            offCtx.fillStyle = color;
+            offCtx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
+        }
+    }
+    return offCanvas;
+}
