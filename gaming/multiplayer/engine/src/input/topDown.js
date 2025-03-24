@@ -9,6 +9,7 @@ export const topDownInput = (() => {
     }
 
     function keyDownHandler(event) {
+        const key = event.key.toLowerCase();
         if (["w", "a", "s", "d"].includes(key)) {
             if (event.ctrlKey) event.preventDefault();
             keys[event.key] = true;
