@@ -3,7 +3,7 @@ import { gameLoop } from "../../game/game.js"
 import { appendMessage } from "../comms/chat.js"
 import { updateStatus, updatePlayerCount } from "../ui/header.js"
 import { Player } from "../classes.js";
-import { gameState } from "../gameState.js"
+const gameState = require("../gameState.js");
 
 /**
  * Authenticates the user with the gateway server and requests to join a specified game.
