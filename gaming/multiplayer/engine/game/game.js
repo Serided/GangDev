@@ -1,6 +1,6 @@
 import { drawPlayers } from "../src/render/2d.js"
 import { topDownInput } from "../src/input/topDown.js"
-import {sendData} from "../src/tools";
+import { sendData } from "../src/tools.js";
 
 let lastTimeStamp = 0;
 
