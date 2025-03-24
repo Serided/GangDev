@@ -24,7 +24,7 @@ export function drawGame(ctx, canvas, camera, players, currentUserId, mapCanvas)
     );
 
     // Debug: Draw a yellow border around the visible area.
-    ctx.strokeStyle = "yellow";
+    ctx.strokeStyle = "red";
     ctx.lineWidth = 3 / camera.zoom; // Adjust border width to remain visible.
     ctx.strokeRect(0, 0, canvas.width / camera.zoom, canvas.height / camera.zoom);
 
