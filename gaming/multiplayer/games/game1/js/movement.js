@@ -22,6 +22,7 @@ export function gameLoop(timestamp, canvas, mapCanvas) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
 
+    let effectiveSpeed;
     // Calculate effective speed:
     if (keys["Shift"] && !keys["Control"]) {
         effectiveSpeed = speed * 0.5;
