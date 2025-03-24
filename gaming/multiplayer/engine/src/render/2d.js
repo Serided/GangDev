@@ -1,13 +1,14 @@
+import { gameState } from "../gameState.js"
 import { Player } from "../classes.js"
 
 /**
  * Draws all players on the canvas.
  *
  * @param {CanvasRenderingContext2D} ctx - The canvas 2D context.
- * @param gameState
+ * @param {Player[]} players - An array of Player objects to be drawn.
  */
 
-export function drawPlayers(ctx, gameState) {
+export function drawPlayers(ctx) {
     // clear the canvas
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 

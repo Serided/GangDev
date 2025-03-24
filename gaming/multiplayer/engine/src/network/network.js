@@ -3,6 +3,7 @@ import { gameLoop } from "../../game/game.js"
 import { appendMessage } from "../comms/chat.js"
 import { updateStatus, updatePlayerCount } from "../ui/header.js"
 import { Player } from "../classes.js";
+import { gameState } from "../gameState.js"
 
 /**
  * Authenticates the user with the gateway server and requests to join a specified game.
@@ -68,9 +69,6 @@ export function connectToGame(gameUrl, gameName) {
         gameUrl = `wss://${window.location.host}${gameUrl}`;
     }
     const gameSocket = new WebSocket(gameUrl);
-    const gameState = {
-        players: {}
-    }
 
     gameSocket.onopen = () => {
         console.log(`Connected to ${gameName}!`);
