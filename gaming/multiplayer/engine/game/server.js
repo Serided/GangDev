@@ -4,12 +4,6 @@ const path = require('path');
 const fs = require('fs');
 const url = require('url');
 
-import { Player } from '../src/classes.js';
-
-const gameState = {
-    players: {}
-}
-
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
         let resolvedPath = path.resolve(clientPath, "." + req.url);
@@ -45,6 +39,9 @@ function createGameServer(port, name, clientPath) {
     const wss = new WebSocket.Server({ server });
     let playerCount = 0;
     const activeGameSockets = {};
+    const gameState = {
+        players: {} //  key: userId, value: { userId, x, y, username, displayName }
+    };
 
     wss.on('connection', (ws, request) => {
         const query = url.parse(request.url, true).query;
@@ -54,9 +51,6 @@ function createGameServer(port, name, clientPath) {
                 activeGameSockets[userId].close();
             }
             activeGameSockets[userId] = ws;
-            gameState.players[userId] = new Player(ws.userId, username, displayName, 200, 200);
-            broadcastGameState();
-            console.log(gameState)
             ws.userId = userId;
         }
 
@@ -75,18 +69,18 @@ function createGameServer(port, name, clientPath) {
                 return;
             }
             switch (data.type) {
-                /*case 'playerSpawn': {
+                case 'playerSpawn': {
                     const {userId, x, y, username, displayName} = data.data;
-                    gameState.players[userId] = new Player(userId, username, displayName, x, y);
+                    gameState.players[userId] = {userId, x, y, username, displayName};
                     broadcastGameState();
                     break;
-                }*/ case 'playerMovement': {
+                } case 'playerMovement': {
                     const {userId, x, y, username, displayName} = data.data;
                     if (gameState.players[userId]) {
                         gameState.players[userId].x = x;
                         gameState.players[userId].y = y;
                     } else {
-                        gameState.players[userId] = new Player(userId, username, displayName, 200, 200);
+                        gameState.players[userId] = {userId, x, y, username, displayName};
                     }
                     broadcastGameState();
                     break;
