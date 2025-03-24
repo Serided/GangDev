@@ -1,4 +1,4 @@
-const gameState = require("../gameState.js");
+import { gameState } from "../gameState/gameState.js"
 import { Player } from "../classes.js"
 
 /**

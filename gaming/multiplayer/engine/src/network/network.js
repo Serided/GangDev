@@ -3,7 +3,7 @@ import { gameLoop } from "../../game/game.js"
 import { appendMessage } from "../comms/chat.js"
 import { updateStatus, updatePlayerCount } from "../ui/header.js"
 import { Player } from "../classes.js";
-const gameState = require("../gameState.js");
+import { gameState } from "../gameState/clientGameState.js"
 
 /**
  * Authenticates the user with the gateway server and requests to join a specified game.
@@ -87,18 +87,21 @@ export function connectToGame(gameUrl, gameName) {
             data = JSON.parse(event.data);
         }
         switch (data.type) {
-            case "chatMessage": {// add message to chat if it's a chat message
+            case 'gateway': {
+                gameState.players = data.data;
+                return;
+            } case 'chatMessage': {// add message to chat if it's a chat message
                 appendMessage(data.data);
                 break;
-            } case "playerCount": { // update player count if it's player count data
+            } case 'playerCount': { // update player count if it's player count data
                 updatePlayerCount(data.data);
                 break;
-            } case "playerSpawn": { // spawn player and add to game state
+            } case 'playerSpawn': { // spawn player and add to game state
                 const {userId, x, y, username, displayName} = data.data;
                 gameState.players[userId] = new Player(userId, username, displayName, x, y);
                 console.log(gameState);
                 break;
-            } case "playerMovement": { // update player positions if it's player movement data
+            } case 'playerMovement': { // update player positions if it's player movement data
                 const {userId, x, y, username, displayName} = data.data;
                 if (gameState.players[userId]) {
                     gameState.players[userId].updatePosition(x, y);
