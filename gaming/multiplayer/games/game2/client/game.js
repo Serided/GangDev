@@ -6,7 +6,7 @@ gatewaySocket.onopen = () => {
     console.log("Connected to gateway");
     updateStatus(true);
 
-    const payload = JSON.stringify({ game: "game1" });
+    const payload = JSON.stringify({ game: "game2" });
     console.log("Sending message to gateway:", payload);
     gatewaySocket.send(payload);
 };
