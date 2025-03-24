@@ -74,7 +74,7 @@ export function connectToGame(gameUrl, gameName) {
         console.log(`Connected to ${gameName}!`);
         window.activeSocket = gameSocket;
         sendData(gameSocket, "chatMessage", "Player connected!", window.userId, window.username, window.displayName);
-        sendData(gameSocket, "playerSpawn", { userId: window.userId, username: window.username, displayName: window.displayName, x: 200, y: 200}, window.userId, window.username, window.displayName);
+        //sendData(gameSocket, "playerSpawn", { userId: window.userId, username: window.username, displayName: window.displayName, x: 200, y: 200}, window.userId, window.username, window.displayName);
         updateStatus(true);
     };
 
@@ -96,12 +96,12 @@ export function connectToGame(gameUrl, gameName) {
             } case 'playerCount': { // update player count if it's player count data
                 updatePlayerCount(data.data);
                 break;
-            } case 'playerSpawn': { // spawn player and add to game state
+            } /*case 'playerSpawn': { // spawn player and add to game state
                 const {userId, x, y, username, displayName} = data.data;
                 gameState.players[userId] = new Player(userId, username, displayName, x, y);
                 console.log(gameState);
                 break;
-            } case 'playerMovement': { // update player positions if it's player movement data
+            }*/ case 'playerMovement': { // update player positions if it's player movement data
                 const {userId, x, y, username, displayName} = data.data;
                 if (gameState.players[userId]) {
                     gameState.players[userId].updatePosition(x, y);
