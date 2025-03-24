@@ -8,7 +8,7 @@ import { Player } from "../classes.js"
  * @param {Player[]} players - An array of Player objects to be drawn.
  */
 
-export function drawPlayer(ctx, players) {
+export function drawPlayer(ctx) {
     // clear the canvas
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
