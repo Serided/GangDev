@@ -13,10 +13,8 @@ export const camera = {
      * @param {HTMLCanvasElement} canvas - The canvas element.
      */
     update(player, canvas) {
-        const worldWidth = canvas.width / window.tileSize;
-        const worldHeight = canvas.height / window.tileSize;
-        const targetX = player.x - worldWidth / 2;
-        const targetY = player.y - worldHeight / 2;
+        const targetX = player.x - worldWidth / 2 / this.zoom;
+        const targetY = player.y - worldHeight / 2 / this.zoom;
         this.x = lerp(this.x, targetX, this.smoothingFactor);
         this.y = lerp(this.y, targetY, this.smoothingFactor);
     }
