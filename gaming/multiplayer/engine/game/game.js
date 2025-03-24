@@ -1,4 +1,4 @@
-import { drawPlayer } from "../src/render/2d.js"
+import { drawPlayers } from "../src/render/2d.js"
 
 /**
  * A basic game loop that updates and renders the game.
@@ -10,7 +10,6 @@ import { drawPlayer } from "../src/render/2d.js"
  */
 
 export function gameLoop(timestamp, canvas, ctx, gameState) {
-    drawPlayer(ctx);
+    drawPlayers(ctx);
     requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
-    console.log("Game Loop");
 }

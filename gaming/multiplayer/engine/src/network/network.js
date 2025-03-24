@@ -96,6 +96,7 @@ export function connectToGame(gameUrl, gameName) {
             } case "playerSpawn": { // spawn player and add to game state
                 const {userId, x, y, username, displayName} = data.data;
                 gameState.players[userId] = new Player(userId, username, displayName, x, y);
+                console.log(gameState);
                 break;
             } case "playerMovement": { // update player positions if it's player movement data
                 const {userId, x, y, username, displayName} = data.data;
