@@ -94,5 +94,3 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
         import("./ui.js").then(ui => ui.updateStatus(false));
     };
 }
-
-export { sendData };
