@@ -29,7 +29,7 @@ export function gameLoop(ts, canvas, ctx, gameState) {
         camera.update(localPlayer, canvas)
     }
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // CLEAR THE CANVAS
 
     ctx.save();
     ctx.scale(camera.zoom, camera.zoom);

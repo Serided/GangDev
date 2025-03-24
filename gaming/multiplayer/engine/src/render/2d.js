@@ -9,9 +9,6 @@ import { Player } from "../classes.js"
  */
 
 export function drawPlayers(ctx) {
-    // clear the canvas
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
     // draw each player
     Object.values(gameState.players).forEach(player => {
         player.draw(ctx);
