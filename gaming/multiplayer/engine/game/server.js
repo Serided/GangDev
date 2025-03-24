@@ -1,10 +1,10 @@
-import WebSocket from 'ws';
-import http from 'http';
-import path from 'path';
-import fs from 'fs';
-import url from 'url';
+const WebSocket = require('ws');
+const http = require('http');
+const path = require('path');
+const fs = require('fs');
+const url = require('url');
 
-import gameState from '../src/gameState.js';
+const gameState = require('../src/gameState.js');
 
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
@@ -41,6 +41,9 @@ function createGameServer(port, name, clientPath) {
     const wss = new WebSocket.Server({ server });
     let playerCount = 0;
     const activeGameSockets = {};
+    const gameState = {
+        players: {} //  key: userId, value: { userId, x, y, username, displayName }
+    };
 
     wss.on('connection', (ws, request) => {
         const query = url.parse(request.url, true).query;
