@@ -24,6 +24,7 @@ export function setup2dCanvas() {
 
     const computedStyle = window.getComputedStyle(canvas);
     const fontFamily = computedStyle.fontFamily;
+    const fontSize = `${window.scaling * 2}px`;
     ctx.font = `16px ${fontFamily}`;
 
     return { canvas, ctx }
