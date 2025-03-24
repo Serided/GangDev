@@ -1,27 +1,25 @@
 import { sendData } from "./utils.js";
 import { drawGame } from "./render.js";
-import { camera } from "./camera.js";
 
 export const keys = {};
 export const players = {};
 
-// Initialize localPlayer in world coordinates (meters).
+// localPlayer starts at (500,500) meters.
 export const localPlayer = {
-    x: 500,  // Center of a 1000m x 1000m map.
+    x: 500,
     y: 500,
-    displayName: displayName, // from index.php
-    userId: userId            // from index.php
+    displayName: displayName,
+    userId: userId
 };
 players[userId] = localPlayer;
 
-export const speed = 200; // meters per second.
+export const speed = 4; // meters per second.
 export let lastTime = performance.now();
 
 export function gameLoop(timestamp, canvas, mapCanvas) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
 
-    // Update player position in world coordinates.
     if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= speed * delta;
     if (keys["ArrowDown"] || keys["s"]) localPlayer.y += speed * delta;
     if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= speed * delta;
