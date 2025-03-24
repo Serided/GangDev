@@ -1,4 +1,5 @@
 // ui.js
+
 export function setupCanvas() {
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
@@ -77,12 +78,12 @@ export function appendMessage(msg, currentUserId) {
     messagesElement.appendChild(messageElement);
 }
 
-// Expose sendMessage wrapper that calls sendData from network.
 export function sendMessage() {
     const chatInput = document.getElementById("chatInput");
     if (!chatInput) return;
     const message = chatInput.value.trim();
     if (message) {
+        // Assume sendData is available globally from network.js.
         window.sendData(window.activeSocket, "chatMessage", message, window.userId, window.username, window.displayName);
         chatInput.value = "";
     }
