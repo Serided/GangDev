@@ -15,6 +15,8 @@ export function sendData(activeSocket, type, data, userId, username, displayName
     }
 }
 
+window.sendData = sendData;
+
 export let activeSocket;
 
 export function initConnection(authToken, username, userId, displayName, canvas, mapCanvas) {
