@@ -49,6 +49,7 @@ export class Player {
         // draw player's display name
         ctx.fillStyle = "black";
         ctx.font = ctx.font || "14px Arial"; // use current font if set, or default
+        ctx.textAlign = "center";
         ctx.fillText(this.displayName, this.x, this.y - 5);
 
         const icon = getUserIcon(this.userId);
