@@ -19,7 +19,7 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     lastTimeStamp = ts;
 
     const movement = topDownInput.getMovementVector(deltaTime);
-    const localPlayer = gameState?.players?.[window.userId];
+    const localPlayer = gameState && gameState.players ? gameState.players[window.userId] : null;
 
     if (localPlayer) {
         if (movement.dx !== 0 || movement.dy !== 0) {
