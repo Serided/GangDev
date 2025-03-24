@@ -1,3 +1,5 @@
+import { sendData } from "../tools.js"
+
 const sendButton = document.getElementById("sendButton");
 const chatInput = document.getElementById("chatInput");
 
