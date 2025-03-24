@@ -20,21 +20,17 @@ export let lastTime = performance.now();
 export function gameLoop(timestamp, canvas, heightMap, tileSize) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
-    // Adjust movement speed relative to zoom.
-    const effectiveSpeed = speed / camera.zoom;
+    const effectiveSpeed = speed;
     if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= effectiveSpeed * delta;
     if (keys["ArrowDown"] || keys["s"]) localPlayer.y += effectiveSpeed * delta;
     if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= effectiveSpeed * delta;
     if (keys["ArrowRight"] || keys["d"]) localPlayer.x += effectiveSpeed * delta;
 
-    // Send movement update to server.
     sendData(window.activeSocket, "movement", { x: localPlayer.x, y: localPlayer.y }, userId, username, displayName);
-
-    // Draw the map and players.
     drawGame(window.ctx, canvas, camera, players, userId, heightMap, tileSize);
-
     requestAnimationFrame((ts) => gameLoop(ts, canvas, heightMap, tileSize));
 }
+
 
 export function handleMovementUpdate(data) {
     if (data && data.user && data.user.userId) {
