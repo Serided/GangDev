@@ -1,6 +1,6 @@
 export const topDownInput = (() => {
     const keys = {};
-    const baseSpeed = (window.scaling * 1); // Base speed (units per second)
+    const baseSpeed = 200; // Base speed (units per second)
 
     function setupKeyboardListeners() {
         window.addEventListener("keydown", keyDownHandler);
