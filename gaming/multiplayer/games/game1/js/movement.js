@@ -5,22 +5,23 @@ import { camera } from "./camera.js";
 export const keys = {};
 export const players = {};
 
-// Initialize localPlayer in world coordinates (meters) at the center of a 1000-meter map.
+// Initialize localPlayer in world coordinates (meters).
 export const localPlayer = {
-    x: 500,
+    x: 500,  // Center of a 1000m x 1000m map.
     y: 500,
-    displayName: displayName,
-    userId: userId
+    displayName: displayName, // from index.php
+    userId: userId            // from index.php
 };
 players[userId] = localPlayer;
 
-export const speed = 200; // meters per second
+export const speed = 200; // meters per second.
 export let lastTime = performance.now();
 
 export function gameLoop(timestamp, canvas, mapCanvas) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
 
+    // Update player position in world coordinates.
     if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= speed * delta;
     if (keys["ArrowDown"] || keys["s"]) localPlayer.y += speed * delta;
     if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= speed * delta;

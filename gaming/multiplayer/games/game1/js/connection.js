@@ -1,5 +1,5 @@
 import { gameLoop } from "./movement.js";
-import { sendData, appendMessage, updateStatus } from "./utils.js";
+import { sendData, appendMessage, updateStatus, updatePlayerCount } from "./utils.js";
 
 export let activeSocket;
 
@@ -63,7 +63,7 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                 appendMessage(data.data, userId);
                 break;
             case "playerCount":
-                // updatePlayerCount(data.data);
+                updatePlayerCount(data.data);
                 break;
             case "movement":
                 window.handleMovementUpdate(data.data);

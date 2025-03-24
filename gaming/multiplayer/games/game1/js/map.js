@@ -1,6 +1,6 @@
 import noisejs from "https://esm.sh/noisejs@2.1.0";
 
-const fixedSeed = 12345; // Fixed seed for consistency
+const fixedSeed = 12345;
 const noise = new noisejs.Noise(fixedSeed);
 
 export function generateHeightMap(width, height, scale) {
@@ -9,7 +9,7 @@ export function generateHeightMap(width, height, scale) {
         map[y] = new Array(width);
         for (let x = 0; x < width; x++) {
             let value = noise.perlin2(x / scale, y / scale);
-            map[y][x] = (value + 1) / 2; // Normalize to [0,1]
+            map[y][x] = (value + 1) / 2;
         }
     }
     return map;
@@ -17,16 +17,12 @@ export function generateHeightMap(width, height, scale) {
 
 export function generateMap(width, height, scale, collisionThreshold = 0.7) {
     const heightMap = generateHeightMap(width, height, scale);
-    // Optionally create a collision map (not used here)
     const collisionMap = heightMap.map(row => row.map(val => val >= collisionThreshold));
     return { heightMap, collisionMap };
 }
 
-// Generate a global map once (1km x 1km)
 export const globalMap = generateMap(1000, 1000, 100);
 
-// Offscreen map canvas creation function.
-// The offscreen canvas is drawn in pixel units; each cell is tileSize pixels.
 export function createMapCanvas(heightMap, tileSize) {
     const rows = heightMap.length;
     const cols = heightMap[0].length;
@@ -34,7 +30,6 @@ export function createMapCanvas(heightMap, tileSize) {
     offCanvas.width = cols * tileSize;
     offCanvas.height = rows * tileSize;
     const offCtx = offCanvas.getContext("2d");
-
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
             const value = heightMap[r][c];
