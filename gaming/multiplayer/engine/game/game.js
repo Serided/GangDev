@@ -10,6 +10,6 @@ import { drawPlayers } from "../src/render/2d.js"
  */
 
 export function gameLoop(timestamp, canvas, ctx, gameState) {
-    drawPlayers(ctx);
+    drawPlayers(ctx, gameState);
     requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
 }
