@@ -62,10 +62,28 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
         console.log(`Connected to ${gameName} server`);
         activeSocket = gameSocket;
         window.activeSocket = gameSocket;
+        // Send a chat message (already there)
         sendData(activeSocket, "chatMessage", "Player connected!", userId, username, displayName);
+
+        // Force an initial movement update so that the client’s position is known to others.
+        // (Ensure that localPlayer is exposed as window.localPlayer in engine.js.)
+        if (window.localPlayer) {
+            sendData(
+                activeSocket,
+                "movement",
+                { x: window.localPlayer.x, y: window.localPlayer.y, crouching: window.localPlayer.crouching },
+                userId,
+                username,
+                displayName
+            );
+        } else {
+            console.warn("localPlayer is not defined globally.");
+        }
+
         import("./ui.js").then(ui => ui.updateStatus(true));
         requestAnimationFrame((ts) => gameLoop(ts, canvas, mapCanvas));
     };
+
     gameSocket.onmessage = async (event) => {
         let data;
         if (event.data instanceof Blob && typeof event.data.text === "function") {
