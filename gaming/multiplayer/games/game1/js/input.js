@@ -1,15 +1,21 @@
 export function setupInputListeners(keys, chatInput, camera) {
     window.addEventListener("keydown", (event) => {
         if (document.activeElement === chatInput) return;
-        event.preventDefault(); // Always prevent default behavior.
+        // Log the event for debugging.
+        console.log("keydown:", event.key, event.code, event.ctrlKey, event.shiftKey);
+        // Prevent default behavior and stop propagation.
+        event.preventDefault();
+        event.stopPropagation();
         keys[event.key] = true;
-    });
+    }, { capture: true });
 
     window.addEventListener("keyup", (event) => {
         if (document.activeElement === chatInput) return;
+        console.log("keyup:", event.key, event.code);
         event.preventDefault();
+        event.stopPropagation();
         keys[event.key] = false;
-    });
+    }, { capture: true });
 
     window.addEventListener("wheel", (event) => {
         event.preventDefault();
