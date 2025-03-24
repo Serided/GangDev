@@ -16,3 +16,4 @@ export const camera = {
         this.y = lerp(this.y, targetY, this.smoothingFactor);
     }
 };
+window.camera = camera;
