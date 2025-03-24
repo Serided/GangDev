@@ -1,12 +1,17 @@
 export function setupCanvas() {
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
     window.canvas = canvas;
     window.ctx = ctx;
     return { canvas, ctx };
 }
+
 
 export function setupUI(sendMessage) {
     const chatButton = document.getElementById("chatButton");

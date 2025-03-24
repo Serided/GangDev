@@ -18,5 +18,15 @@ window.heightMapCanvas = createMapCanvas(globalMap.heightMap, tileSize);
 const chatInput = setupUI(sendMessage);
 setupInputListeners(keys, chatInput, camera);
 
+// Update canvas on window resize.
+window.addEventListener("resize", () => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+});
+
 // Initialize connection to the gateway.
 initConnection(authToken, username, userId, displayName, canvas);
