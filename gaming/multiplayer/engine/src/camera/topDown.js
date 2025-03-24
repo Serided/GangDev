@@ -6,7 +6,7 @@ export const camera = {
     x: 0,
     y: 0,
     zoom: 1,
-    smoothingFactor: 0.01,
+    smoothingFactor: 0.02,
     /**
      * Update the camera so that it smoothly follows the player.
      * @param {Player} player - The player instance to follow.

@@ -38,7 +38,7 @@ export const topDownInput = (() => {
     function getMovementVector(deltaTime) {
         let dx = 0;
         let dy = 0;
-        const speed = (6 * window.scaling); // No modifiers applied
+        const speed = (8 * window.scaling); // No modifiers applied
 
         if (keys["w"]) dy -= speed;
         if (keys["s"]) dy += speed;
