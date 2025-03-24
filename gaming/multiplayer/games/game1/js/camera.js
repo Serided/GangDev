@@ -8,7 +8,6 @@ export const camera = {
     zoom: 1,
     smoothingFactor: 0.1,
     update(player, canvas) {
-        // Convert canvas dimensions (pixels) to world units (meters) using window.tileSize.
         const worldWidth = canvas.width / window.tileSize;
         const worldHeight = canvas.height / window.tileSize;
         const targetX = player.x - worldWidth / 2;

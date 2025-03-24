@@ -5,9 +5,9 @@ import { camera } from "./camera.js";
 export const keys = {};
 export const players = {};
 
-// Initialize localPlayer in world coordinates (meters).
+// localPlayer starts at (500,500) world units (meters).
 export const localPlayer = {
-    x: 500, // center of a 1000m map
+    x: 500,
     y: 500,
     displayName: displayName, // from index.php
     userId: userId            // from index.php

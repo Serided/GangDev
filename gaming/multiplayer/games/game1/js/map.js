@@ -21,11 +21,11 @@ export function generateMap(width, height, scale, collisionThreshold = 0.7) {
     return { heightMap, collisionMap };
 }
 
-// Global map generation (1km x 1km, i.e. 1000x1000 cells)
-export const globalMap = generateMap(1000, 1000, 100);
+// For debugging, generate a 200×200 map.
+// (When ready, you can change these numbers to 1000×1000.)
+export const globalMap = generateMap(200, 200, 50);
+console.log("Map dimensions (cells):", globalMap.heightMap.length, globalMap.heightMap[0].length);
 
-// Create an offscreen canvas to draw the map in pixel space.
-// Each cell is drawn as tileSize pixels.
 export function createMapCanvas(heightMap, tileSize) {
     const rows = heightMap.length;
     const cols = heightMap[0].length;
@@ -37,13 +37,15 @@ export function createMapCanvas(heightMap, tileSize) {
         for (let c = 0; c < cols; c++) {
             const value = heightMap[r][c];
             let color;
-            if (value < 0.3) color = "#2D70B3";
-            else if (value < 0.5) color = "#88C070";
-            else if (value < 0.7) color = "#66A050";
-            else color = "#7D7D7D";
+            // Adjust thresholds for more visible variation.
+            if (value < 0.3) color = "#2D70B3";     // water
+            else if (value < 0.5) color = "#88C070";  // plains
+            else if (value < 0.7) color = "#66A050";  // hills
+            else color = "#7D7D7D";                  // cliffs
             offCtx.fillStyle = color;
             offCtx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
         }
     }
+    console.log("Offscreen canvas dimensions (pixels):", offCanvas.width, offCanvas.height);
     return offCanvas;
 }
