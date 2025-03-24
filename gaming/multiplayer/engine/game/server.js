@@ -3,6 +3,8 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 const url = require('url');
+const {Player} = require("../src/classes");
+const {gameState} = require("../src/gameState");
 
 function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
@@ -70,7 +72,12 @@ function createGameServer(port, name, clientPath) {
             }
             switch (data.type) {
                 case 'playerSpawn': {
-                    gameState.players[userId] = data.data;
+                    const newPlayers = {};
+                    Object.keys(data.data).forEach(id => {
+                        const p = data.data[id];
+                        newPlayers[id] = new Player(p.userId, p.username, p.displayName, p.x, p.y);
+                    })
+                    gameState.players = newPlayers;
                     broadcastGameState();
                     break;
                 } case 'playerMovement': {
