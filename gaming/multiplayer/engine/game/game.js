@@ -1,6 +1,7 @@
 import { drawPlayers } from "../src/render/2d.js"
 import { topDownInput } from "../src/input/topDown.js"
 import { sendData } from "../src/tools.js";
+import { camera } from "../src/camera/topDown.js";
 
 let lastTimeStamp = 0;
 
@@ -25,8 +26,16 @@ export function gameLoop(ts, canvas, ctx, gameState) {
             localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
             sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
         }
+        camera.update(localPlayer, canvas)
     }
 
+    ctx.save();
+    ctx.scale(camera.zoom, camera.zoom);
+    ctx.translate(-camera.x, -camera.y);
+
     drawPlayers(ctx);
+
+    ctx.restore();
+
     requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
 }

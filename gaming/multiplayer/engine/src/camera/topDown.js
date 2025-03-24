@@ -1,4 +1,3 @@
-// camera.js
 export function lerp(a, b, t) {
     return a + (b - a) * t;
 }
@@ -8,6 +7,11 @@ export const camera = {
     y: 0,
     zoom: 1,
     smoothingFactor: 0.1,
+    /**
+     * Update the camera so that it smoothly follows the player.
+     * @param {Player} player - The player instance to follow.
+     * @param {HTMLCanvasElement} canvas - The canvas element.
+     */
     update(player, canvas) {
         const worldWidth = canvas.width / window.tileSize;
         const worldHeight = canvas.height / window.tileSize;

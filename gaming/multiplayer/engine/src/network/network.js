@@ -80,7 +80,7 @@ export function connectToGame(gameUrl, gameName) {
     };
 
     gameSocket.onmessage = async (event) => {
-        console.log(`Message from server:`, event.data);
+        // console.log(`Message from server:`, event.data);
         let data;
         if (event.data instanceof Blob) {
             data = JSON.parse(await event.data.text());
@@ -102,12 +102,7 @@ export function connectToGame(gameUrl, gameName) {
             } case 'playerCount': { // update player count if it's player count data
                 updatePlayerCount(data.data);
                 break;
-            } /*case 'playerSpawn': { // spawn player and add to game state
-                const {userId, x, y, username, displayName} = data.data;
-                gameState.players[userId] = new Player(userId, username, displayName, x, y);
-                console.log(gameState);
-                break;
-            }*/ case 'playerMovement': { // update player positions if it's player movement data
+            } case 'playerMovement': { // update player positions if it's player movement data
                 const {userId, x, y, username, displayName} = data.data;
                 if (gameState.players[userId]) {
                     gameState.players[userId].updatePosition(x, y);
