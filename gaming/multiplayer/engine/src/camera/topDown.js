@@ -11,9 +11,8 @@ export const camera = {
     /**
      * Update the camera so that it smoothly follows the player.
      * @param {Player} player - The player instance to follow.
-     * @param {HTMLCanvasElement} canvas - The canvas element.
      */
-    update(player, canvas) {
+    update(player) {
         const targetX = player.x + window.player / 2;
         const targetY = player.y + window.player / 2;
         this.x = lerp(this.x, targetX, this.smoothFactor); // move camera to player center x

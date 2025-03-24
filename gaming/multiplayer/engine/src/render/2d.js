@@ -17,6 +17,9 @@ export function drawPlayers(ctx) {
 
 export function drawMap(ctx, mapData) {
     const { tileSize, minX, minY, width, height, map } = mapData;
+    const overlapFactor = 0.2;
+    const drawSize = tileSize * (1 + overlapFactor);
+    const offset = (drawSize - tileSize) / 2;
     // loop through each row and column
     for (let row = 0; row < height; row++) {
         for (let col = 0; col < width; col++) {
@@ -34,7 +37,7 @@ export function drawMap(ctx, mapData) {
             }
 
             ctx.fillStyle = color;
-            ctx.fillRect(tileX, tileY, tileSize, tileSize);
+            ctx.fillRect(tileX - offset, tileY - offset, drawSize, drawSize);
         }
     }
 }
