@@ -1,41 +1,36 @@
 // client.js
 import { createGameClient } from "/multiplayer/engine/game/client.js";
 import { initConnection } from "../js/network.js";
-import { setupUI, setupInputListeners } from "../js/ui.js";
+import { setupCanvas, setupUI, setupInputListeners } from "../js/ui.js";
 import { globalMap, createMapCanvas } from "../js/map.js";
 import { camera } from "../js/camera.js";
 import { keys } from "../js/engine.js";
 
 // Wait for DOM to be loaded.
 document.addEventListener("DOMContentLoaded", () => {
-    createGameClient()
-        .then(({ canvas, ctx, authDetails }) => {
-            // Set a tile size for your game.
-            const tileSize = 20;
-            window.tileSize = tileSize;
+    const { canvas, ctx } = setupCanvas();
+    if (!canvas || !ctx) return;
 
-            // Generate the global map and offscreen map canvas.
-            window.heightMap = globalMap.heightMap;
-            const mapCanvas = createMapCanvas(globalMap.heightMap, tileSize);
-            window.heightMapCanvas = mapCanvas;
+    const tileSize = 20; // pixels per meter at zoom=1
+    window.tileSize = tileSize;
 
-            // Set up UI and input listeners.
-            // Note: Ensure sendMessage is defined or imported in your UI module.
-            const chatInput = setupUI(sendMessage);
-            if (chatInput) {
-                setupInputListeners(keys, chatInput, camera);
-            }
+    // Generate the global map and offscreen map canvas.
+    window.heightMap = globalMap.heightMap;
+    window.heightMapCanvas = createMapCanvas(globalMap.heightMap, tileSize);
 
-            // Set auth globals (optional, but useful for other parts of your game).
-            window.authToken = authDetails.authToken;
-            window.username = authDetails.username;
-            window.userId = authDetails.userId;
-            window.displayName = authDetails.displayName;
+    // Set up UI and input listeners.
+    const chatInput = setupUI(sendMessage);
+    if (!chatInput) return;
+    setupInputListeners(keys, chatInput, camera);
 
-            // Initialize connection to the game server using the canvas and offscreen map canvas.
-            initConnection(authDetails.authToken, authDetails.username, authDetails.userId, authDetails.displayName, canvas, mapCanvas);
-        })
-        .catch(err => {
-            console.error("Error initializing game client:", err);
-        });
+    // Expose globals injected from index.php.
+    window.authToken = authToken;
+    window.username = username;
+    window.userId = userId;
+    window.displayName = displayName;
+
+    // Initialize connection; pass canvas and offscreen map canvas.
+    initConnection(authToken, username, userId, displayName, canvas, window.heightMapCanvas);
 });
+
+// sendMessage is defined in ui.js and is globally exposed.
