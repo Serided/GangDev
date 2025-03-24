@@ -50,7 +50,7 @@ export function gameLoop(timestamp, canvas, mapCanvas) {
 }
 
 export function updatePlayerMovement(data) {
-    console.log("Received movement update:", data);
+    console.log("Received movement update for other player:", data);
     if (data && data.user && data.user.userId) {
         const current = players[data.user.userId] || {};
         players[data.user.userId] = {
@@ -59,7 +59,7 @@ export function updatePlayerMovement(data) {
             displayName: data.user.displayName || current.displayName,
             user: { ...current.user, ...data.user }
         };
-        console.log("Updated players:", Object.keys(players));
+        console.log("Updated players:", players);
     }
 }
 window.handleMovementUpdate = updatePlayerMovement;
