@@ -18,26 +18,19 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     const deltaTime = (ts - lastTimeStamp) / 1000;
     lastTimeStamp = ts;
 
-    if (!gameState || !gameState.players) { // loop until populated
-        requestAnimationFrame((newTs) => gameLoop(newTs, canvas, ctx, gameState));
-        return;
-    }
-
     const movement = topDownInput.getMovementVector(deltaTime);
-    let localPlayer = gameState.players[window.userId];
-    if (!localPlayer) {
-        // Create a minimal fallback so we can still move
-        gameState.players[window.userId] = { x: 0, y: 0 };
-        localPlayer = gameState.players[window.userId];
+    const localPlayer = gameState.players[window.userId];
+
+    if (localPlayer) {
+        if (movement.dx !== 0 || movement.dy !== 0) {
+            localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
+            sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
+        }
+        camera.update(localPlayer, canvas)
     }
 
-    if (movement.dx !== 0 || movement.dy !== 0) {
-        localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
-        sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
-    }
-
-    camera.update(localPlayer, canvas)
     ctx.clearRect(0, 0, canvas.width, canvas.height); // CLEAR THE CANVAS
+
     ctx.save();
     ctx.scale(camera.zoom, camera.zoom);
     ctx.translate(-camera.x, -camera.y);
