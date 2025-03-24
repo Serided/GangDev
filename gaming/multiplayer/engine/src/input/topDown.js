@@ -1,11 +1,10 @@
 export const topDownInput = (() => {
+    const keys = {};
+
     function setupKeyboardListeners() {
         window.addEventListener("keydown", keyDownHandler);
         window.addEventListener("keyup", keyUpHandler);
     }
-
-    const keys = {};
-    const baseSpeed = 6 * window.scaling; // Base speed (units per second)
 
     function keyDownHandler(event) {
         const key = event.key.toLowerCase();
@@ -33,6 +32,7 @@ export const topDownInput = (() => {
     function getMovementVector(deltaTime) {
         let dx = 0;
         let dy = 0;
+        const baseSpeed = (6 * window.scaling); // Base speed (units per second)
         const speed = baseSpeed; // No modifiers applied
 
         if (keys["w"]) dy -= speed;
