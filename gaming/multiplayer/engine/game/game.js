@@ -21,8 +21,10 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     const localPlayer = gameState.players[window.userId];
 
     if (localPlayer) {
-        if (movement.dx !== 0 || movement.dy !== 0) localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
-        sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
+        if (movement.dx !== 0 || movement.dy !== 0) {
+            localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
+            sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
+        }
     }
 
     drawPlayers(ctx);
