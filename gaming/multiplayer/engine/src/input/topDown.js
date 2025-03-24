@@ -6,6 +6,7 @@ export const topDownInput = (() => {
         window.addEventListener("keydown", keyDownHandler);
         window.addEventListener("keyup", keyUpHandler);
     }
+
     function keyDownHandler(event) {
         const key = event.key.toLowerCase();
         if (["w", "a", "s", "d"].includes(key)) {
@@ -17,6 +18,7 @@ export const topDownInput = (() => {
             event.preventDefault();
         }
     }
+
     function keyUpHandler(event) {
         const key = event.key.toLowerCase();
         if (["w", "a", "s", "d"].includes(key)) {
@@ -33,6 +35,7 @@ export const topDownInput = (() => {
         if (keys["Shift"]) multiplier *= 0.5;
         return baseSpeed * multiplier;
     }
+
     function getMovementVector(deltaTime) {
         let dx = 0;
         let dy = 0;
@@ -47,5 +50,5 @@ export const topDownInput = (() => {
     return {
         setupKeyboardListeners,
         getMovementVector
-    }
-})
+    };
+})();
