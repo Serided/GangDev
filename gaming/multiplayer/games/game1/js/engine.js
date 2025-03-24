@@ -2,16 +2,15 @@
 import { drawGame } from "./render.js";
 import { camera } from "./camera.js";
 
-// Export keys and players for global state.
 export const keys = {};
 export const players = {};
 
-// Initialize localPlayer (in world coordinates, in meters).
+// Initialize localPlayer in world coordinates (meters)
 export const localPlayer = {
-    x: 100,
+    x: 100, // Starting position (adjust as needed)
     y: 100,
-    displayName: window.displayName,
-    userId: window.userId,
+    displayName: window.displayName, // from index.php
+    userId: window.userId,           // from index.php
     crouching: false
 };
 players[localPlayer.userId] = localPlayer;
@@ -23,13 +22,14 @@ export function gameLoop(timestamp, canvas, mapCanvas) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
 
+    // Calculate effective speed based on modifier keys.
     let effectiveSpeed;
     if (keys["Shift"] && !keys["Control"]) {
         effectiveSpeed = speed * 0.5;
     } else if (keys["Control"] && !keys["Shift"]) {
         effectiveSpeed = speed * 1.5;
     } else if (keys["Shift"] && keys["Control"]) {
-        effectiveSpeed = speed * 0.5;
+        effectiveSpeed = speed * 0.5; // Prioritize crouch when both are held.
     } else {
         effectiveSpeed = speed;
     }
@@ -39,9 +39,12 @@ export function gameLoop(timestamp, canvas, mapCanvas) {
     if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= effectiveSpeed * delta;
     if (keys["ArrowRight"] || keys["d"]) localPlayer.x += effectiveSpeed * delta;
 
+    // Update crouch state.
     localPlayer.crouching = !!keys["Shift"];
 
-    drawGame(window.ctx, canvas, camera, players, localPlayer.userId, mapCanvas);
+    // Instead of using window.ctx, always get the current 2D context from canvas.
+    const ctx = canvas.getContext("2d");
+    drawGame(ctx, canvas, camera, players, localPlayer.userId, mapCanvas);
 
     requestAnimationFrame((ts) => gameLoop(ts, canvas, mapCanvas));
 }
