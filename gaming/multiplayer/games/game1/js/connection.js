@@ -1,5 +1,5 @@
 import { gameLoop } from "./movement.js";
-import { sendData, appendMessage, updateStatus, updatePlayerCount } from "./utils.js";
+import { sendData, appendMessage, updateStatus } from "./utils.js";
 
 export let activeSocket;
 
@@ -8,12 +8,7 @@ export function initConnection(authToken, username, userId, displayName, canvas)
     gatewaySocket.onopen = () => {
         console.log("Connected to gateway");
         updateStatus(true);
-        const authPayload = JSON.stringify({
-            type: "auth",
-            token: authToken,
-            username: username,
-            userId: userId
-        });
+        const authPayload = JSON.stringify({ type: "auth", token: authToken, username, userId });
         console.log("Sending auth payload:", authPayload);
         gatewaySocket.send(authPayload);
     };
@@ -54,7 +49,7 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
         window.activeSocket = gameSocket;
         sendData(activeSocket, 'chatMessage', 'Player connected!', userId, username, displayName);
         updateStatus(true);
-        requestAnimationFrame((ts) => gameLoop(ts, canvas, window.heightMap, window.tileSize));
+        requestAnimationFrame((ts) => gameLoop(ts, canvas, window.heightMapCanvas));
     };
     gameSocket.onmessage = async (event) => {
         let data;
@@ -68,7 +63,7 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                 appendMessage(data.data, userId);
                 break;
             case "playerCount":
-                updatePlayerCount(data.data);
+                // updatePlayerCount(data.data);
                 break;
             case "movement":
                 window.handleMovementUpdate(data.data);

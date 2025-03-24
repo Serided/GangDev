@@ -17,15 +17,16 @@ export function generateHeightMap(width, height, scale) {
 
 export function generateMap(width, height, scale, collisionThreshold = 0.7) {
     const heightMap = generateHeightMap(width, height, scale);
-    // Optionally create a collision map
+    // Optionally create a collision map (not used here)
     const collisionMap = heightMap.map(row => row.map(val => val >= collisionThreshold));
     return { heightMap, collisionMap };
 }
 
-// Global map generation (1km x 1km)
+// Generate a global map once (1km x 1km)
 export const globalMap = generateMap(1000, 1000, 100);
 
-// Offscreen map canvas creation function:
+// Offscreen map canvas creation function.
+// The offscreen canvas is drawn in pixel units; each cell is tileSize pixels.
 export function createMapCanvas(heightMap, tileSize) {
     const rows = heightMap.length;
     const cols = heightMap[0].length;

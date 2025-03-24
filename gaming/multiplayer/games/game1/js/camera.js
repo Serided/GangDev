@@ -8,8 +8,11 @@ export const camera = {
     zoom: 1,
     smoothingFactor: 0.1,
     update(player, canvas) {
-        const targetX = player.x - canvas.width / (2 * this.zoom);
-        const targetY = player.y - canvas.height / (2 * this.zoom);
+        // Convert canvas dimensions from pixels to meters.
+        const worldWidth = canvas.width / window.tileSize;
+        const worldHeight = canvas.height / window.tileSize;
+        const targetX = player.x - worldWidth / 2;
+        const targetY = player.y - worldHeight / 2;
         this.x = lerp(this.x, targetX, this.smoothingFactor);
         this.y = lerp(this.y, targetY, this.smoothingFactor);
     }

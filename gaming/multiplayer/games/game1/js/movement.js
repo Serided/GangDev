@@ -5,30 +5,29 @@ import { camera } from "./camera.js";
 export const keys = {};
 export const players = {};
 
-// Create localPlayer using global variables (from index.php)
+// Initialize localPlayer in world coordinates (meters) at the center of a 1000-meter map.
 export const localPlayer = {
-    x: window.innerWidth / 2,
-    y: window.innerHeight / 2,
-    displayName: displayName, // from index.php
-    userId: userId            // from index.php
+    x: 500,
+    y: 500,
+    displayName: displayName,
+    userId: userId
 };
 players[userId] = localPlayer;
 
-export const speed = 200;
+export const speed = 200; // meters per second
 export let lastTime = performance.now();
 
 export function gameLoop(timestamp, canvas, mapCanvas) {
     const delta = (timestamp - lastTime) / 1000;
     lastTime = timestamp;
 
-    // Use constant speed in world coordinates.
     if (keys["ArrowUp"] || keys["w"]) localPlayer.y -= speed * delta;
     if (keys["ArrowDown"] || keys["s"]) localPlayer.y += speed * delta;
     if (keys["ArrowLeft"] || keys["a"]) localPlayer.x -= speed * delta;
     if (keys["ArrowRight"] || keys["d"]) localPlayer.x += speed * delta;
 
-    sendData(window.activeSocket, "movement", {x: localPlayer.x, y: localPlayer.y}, userId, username, displayName);
-    drawGame(window.ctx, canvas, camera, players, userId, window.heightMapCanvas);
+    sendData(window.activeSocket, "movement", { x: localPlayer.x, y: localPlayer.y }, userId, username, displayName);
+    drawGame(window.ctx, canvas, camera, players, userId, mapCanvas);
     requestAnimationFrame((ts) => gameLoop(ts, canvas, mapCanvas));
 }
 
