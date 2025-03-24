@@ -22,7 +22,7 @@ export function generateMap(width, height, scale, collisionThreshold = 0.7) {
 }
 
 // Global map generation (1km x 1km, i.e. 1000x1000 cells)
-export const globalMap = generateMap(1000, 1000, 100);
+export const globalMap = generateMap(200, 200, 100);
 
 // Create an offscreen canvas to draw the map in pixel space.
 // Each cell is drawn as tileSize pixels.
