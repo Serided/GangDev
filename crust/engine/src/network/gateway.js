@@ -54,9 +54,8 @@ gatewayServer.on("connection", (ws) => {
                 const game = games.find(g => g.name === requestedGameName);
                 if (game) {
                     joined = true;
-                    const redirectUrl = game.domain
-                        ? `wss://${game.domain}/?userId=${ws.user.userId}`
-                        : `wss://${process.env.DOMAIN || "gaming.gangdev.co"}${game.path}?userId=${ws.user.userId}`;
+                    const domain = process.env.DOMAIN || "crust.gangdev.co";
+                    const redirectUrl = `wss://${domain}${game.path}?userId=${ws.user.userId}`;
                     ws.send(JSON.stringify({
                         redirect: redirectUrl,
                         game: game.name

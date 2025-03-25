@@ -43,6 +43,8 @@ export const topDownInput = (() => {
      * @param {number} deltaTime - Time elapsed since last frame in seconds.
      * @returns {{dx: number, dy: number}} Movement vector.
      */
+
+    // MOVE TO MOVEMENT
     function getMovementVector(deltaTime) {
         let dx = 0;
         let dy = 0;
