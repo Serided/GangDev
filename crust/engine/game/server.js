@@ -90,6 +90,7 @@ export function createGameServer(port, name, clientPath) {
         });
         ws.on('close', () => {
             if (ws.userId && activeGameSockets[ws.userId] === ws) {
+                distributeData({ type: 'chatMessage', data: 'Player disconnected.' }, true);
                 delete activeGameSockets[ws.userId];
                 delete gameState.players[ws.userId]; // remove from gamestate
             }
@@ -97,7 +98,6 @@ export function createGameServer(port, name, clientPath) {
             console.log(`[${name}] Connection closed. Player count: ${playerCount}`);
             broadcastPlayerCount();
             broadcastGameState();
-            distributeData({ type: 'chatMessage', data: 'Player disconnected.' }, true);
         });
     });
 
