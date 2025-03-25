@@ -2,8 +2,8 @@ const fs = require('fs');
 
 // configuration
 tileSize = 15;
-const mapMin = -2400;
-const mapMax = 2400;
+const mapMin = -100;
+const mapMax = 100;
 
 // calculate how many tiles for each dimension
 const width = Math.ceil((mapMax - mapMin) / tileSize);
@@ -29,6 +29,9 @@ const mapData = {
     map
 };
 
+if (fs.existsSync("map.json")) {
+    fs.copyFileSync("map.json", "mapBackup.json");
+}
 fs.writeFileSync("map.json", JSON.stringify(mapData, null, 2));
 
 console.log("Mag generated and saved to map.json");
