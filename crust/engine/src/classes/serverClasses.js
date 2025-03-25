@@ -12,8 +12,8 @@ export class Map {
     constructor(tileSize, km, seed) {
         this.tileSize = tileSize;
         const pixels = km * tileSize * 2 * 1000;
-        this.min = -pixels / 2;
-        this.max = pixels / 2;
+        this.min = (-pixels / 2) + (tileSize * 2);
+        this.max = (pixels / 2) + (tileSize * 2);
         this.width = Math.ceil((this.max - this.min) / tileSize);
         this.height = Math.ceil((this.max - this.min) / tileSize);
         this.seed = seed || Math.floor(Math.random() * 100000);
