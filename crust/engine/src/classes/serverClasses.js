@@ -1,5 +1,5 @@
 import fs from 'fs';
-import noisejs from 'https://esm.sh/noisejs@2.1.0';
+import { Noise } from 'noisejs';
 
 export class Map {
     /**
@@ -16,7 +16,7 @@ export class Map {
         this.height = Math.ceil((max - min) / tileSize);
         this.seed = seed || Math.floor(Math.random() * 100000);
         console.log("Using seed:", this.seed);
-        this.noise = new noisejs.Noise(this.seed);
+        this.noise = new Noise(this.seed);
     }
 
     /**
