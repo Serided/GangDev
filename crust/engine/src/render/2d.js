@@ -29,11 +29,11 @@ export function drawMap(ctx, mapData, camera) {
     const offset = (drawSize - tileSize) / 2;
 
     const tileColors = {
-        water: "#74C0FC",
-        sand: "#F2C57C",
-        grass: "#95D5B2",
-        forest: "#2D6A4F",
-        mountain: "#6E6E6E"
+        water: "#00BFFF",    // Deep Sky Blue for vivid water
+        sand: "#FFD700",     // Gold for bright, vibrant sand
+        grass: "#32CD32",    // Lime Green for fresh, lively grass
+        forest: "#228B22",   // Forest Green for dense, rich forest
+        mountain: "#A9A9A9"  // Dark Gray for rugged mountains
     };
 
     // world boundaries in world coords
