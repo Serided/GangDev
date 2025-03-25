@@ -10,7 +10,7 @@ export class Player {
      * @param {number} [x=0] - The player's initial x-coordinate.
      * @param {number} [y=0] - The player's initial y-coordinate.
      */
-    constructor(userId, username, displayName, x = 0, y = 0) {
+    constructor(userId, username, displayName, x = -(window.player / 2), y = -(window.player / 2)) {
         this.userId = userId;
         this.username = username;
         this.displayName = displayName;
