@@ -1,7 +1,7 @@
 // game engine
 import { authUser, connectToGame } from "/multiplayer/engine/src/network/network.js";
 import { sendData } from "/multiplayer/engine/src/tools.js";
-import { chatButton, chatPanel, appendMessage, sendMessage } from "/multiplayer/engine/src/comms/chat.js";
+import { chatButton, appendMessage, sendMessage } from "/multiplayer/engine/src/comms/chat.js";
 import { updateStatus, updatePlayerCount } from "/multiplayer/engine/src/ui/header.js";
 import { setup2dCanvas } from "/multiplayer/engine/src/canvas.js";
 import { gameLoop } from "/multiplayer/engine/game/game.js";
