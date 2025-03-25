@@ -32,8 +32,9 @@ authUser(window.authToken, window.username, window.userId, "game2")
         console.error("Authentication failed:", err);
     });
 
-fetch('/multiplayer/games/game2/src/map/map.json')
-    .then(response => response.json())
+const mapUrl = `/multiplayer/games/game2/src/map/map.json?t=${Date.now()}`
+fetch(mapUrl)
+    .then(res => res.json())
     .then(mapData => {
         window.sharedMap = mapData;
         requestAnimationFrame((ts) => gameLoop(ts, window.gameWindow.canvas, window.gameWindow.ctx, gameState));
