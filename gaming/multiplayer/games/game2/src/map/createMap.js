@@ -2,8 +2,8 @@ const fs = require('fs');
 
 // configuration
 tileSize = 15;
-const mapMin = -100;
-const mapMax = 100;
+const mapMin = -2400;
+const mapMax = 2400;
 
 // calculate how many tiles for each dimension
 const width = Math.ceil((mapMax - mapMin) / tileSize);
@@ -33,7 +33,7 @@ if (fs.existsSync("map.json")) {
     fs.copyFileSync("map.json", "mapBackup.json");
 }
 try {
-    fs.writeFileSync("map.json", JSON.stringify(mapData, null, 2));
+    fs.writeFileSync("/games/game2/src/map/map.json", JSON.stringify(mapData, null, 2));
     console.log("Map saved successfully.");
 } catch (err) {
     console.error("Failed to save map:", err);
