@@ -2,8 +2,8 @@ const fs = require('fs');
 
 // configuration
 tileSize = 15;
-const mapMin = -600;
-const mapMax = 600;
+const mapMin = -1200;
+const mapMax = 1200;
 
 // calculate how many tiles for each dimension
 const width = Math.ceil((mapMax - mapMin) / tileSize);
