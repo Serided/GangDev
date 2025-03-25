@@ -1,4 +1,3 @@
-import fs from 'fs';
 import { Noise } from 'noisejs';
 
 import { getUserIcon } from "./render/imageCache.js";
