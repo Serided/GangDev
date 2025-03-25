@@ -44,7 +44,7 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     ctx.translate(-camera.x, -camera.y);
 
     if (window.sharedMap) {
-        drawMap(ctx, window.sharedMap);
+        drawMap(ctx, window.sharedMap, camera);
     }
 
     drawPlayers(ctx);
