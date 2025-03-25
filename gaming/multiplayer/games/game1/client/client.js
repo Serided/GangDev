@@ -1,36 +1,43 @@
-// client.js
-import { createGameClient } from "/multiplayer/engine/game/client.js";
-import { initConnection } from "../js/network.js";
-import { setupCanvas, setupUI, setupInputListeners } from "../js/ui.js";
-import { globalMap, createMapCanvas } from "../js/map.js";
-import { camera } from "../js/camera.js";
-import { keys } from "../js/engine.js";
+// game engine
+import { authUser, connectToGame } from "/multiplayer/engine/src/network/network.js";
+import { sendData } from "/multiplayer/engine/src/tools.js";
+import { appendMessage, sendMessage } from "/multiplayer/engine/src/comms/chat.js";
+import { updateStatus, updatePlayerCount } from "/multiplayer/engine/src/ui/header.js";
+import { setup2dCanvas } from "/multiplayer/engine/src/canvas.js";
+import { gameLoop } from "/multiplayer/engine/game/game.js";
+import { Player } from "/multiplayer/engine/src/classes.js";
+import { gameState } from "/multiplayer/engine/src/gameState.js";
+import { topDownInput } from "/multiplayer/engine/src/input/topDown.js";
+import { drawMap } from "/multiplayer/engine/src/render/2d.js";
 
-// Wait for DOM to be loaded.
-document.addEventListener("DOMContentLoaded", () => {
-    const { canvas, ctx } = setupCanvas();
-    if (!canvas || !ctx) return;
+// local libraries (none rn)
 
-    const tileSize = 20; // pixels per meter at zoom=1
-    window.tileSize = tileSize;
+let activeSocket = null;
 
-    // Generate the global map and offscreen map canvas.
-    window.heightMap = globalMap.heightMap;
-    window.heightMapCanvas = createMapCanvas(globalMap.heightMap, tileSize);
+window.gameWindow = setup2dCanvas();
+topDownInput.setupInputListeners();
 
-    // Set up UI and input listeners.
-    const chatInput = setupUI(sendMessage);
-    if (!chatInput) return;
-    setupInputListeners(keys, chatInput, camera);
+function startGameLoop() {
+    requestAnimationFrame((ts) => gameLoop(ts, window.gameWindow.canvas, window.gameWindow.ctx, gameState));
+}
 
-    // Expose globals injected from index.php.
-    window.authToken = authToken;
-    window.username = username;
-    window.userId = userId;
-    window.displayName = displayName;
+authUser(window.authToken, window.username, window.userId, "game1")
+    .then(({ gameUrl, gameName }) => {
+        console.log("Authenticated! Received game server details:", gameUrl, gameName);
+        activeSocket = connectToGame(gameUrl, gameName);
+        startGameLoop();
+    })
+    .catch(err => {
+        console.error("Authentication failed:", err);
+    });
 
-    // Initialize connection; pass canvas and offscreen map canvas.
-    initConnection(authToken, username, userId, displayName, canvas, window.heightMapCanvas);
-});
-
-// sendMessage is defined in ui.js and is globally exposed.
+const mapUrl = `/multiplayer/games/game1/src/map/map.json?t=${Date.now()}`
+fetch(mapUrl)
+    .then(res => res.json())
+    .then(mapData => {
+        window.sharedMap = mapData;
+        requestAnimationFrame((ts) => gameLoop(ts, window.gameWindow.canvas, window.gameWindow.ctx, gameState));
+    })
+    .catch(err => {
+        console.error("Failed to load map:", err)
+    })
