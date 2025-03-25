@@ -14,8 +14,8 @@ export class Player {
         this.userId = userId;
         this.username = username;
         this.displayName = displayName;
-        this.x = x - (window.player / 2);
-        this.y = y - (window.player / 2);
+        this.x = x;
+        this.y = y;
         this.iconUrl = `https://user.gangdev.co/${userId}/icon/user-icon.jpg`;
     }
 

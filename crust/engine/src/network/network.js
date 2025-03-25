@@ -74,7 +74,7 @@ export function connectToGame(gameUrl, gameName) {
         console.log(`Connected to ${gameName}!`);
         window.activeSocket = gameSocket;
         sendData(gameSocket, "chatMessage", "Player connected!", window.userId, window.username, window.displayName);
-        sendData(gameSocket, "playerSpawn", { userId: window.userId, username: window.username, displayName: window.displayName, x: 0, y: 0 }, window.userId, window.username, window.displayName);
+        sendData(gameSocket, "playerSpawn", { userId: window.userId, username: window.username, displayName: window.displayName, x: (0 - (window.player / 2)), y: (0 - (window.player / 2)) }, window.userId, window.username, window.displayName);
         console.log(gameState)
         updateStatus(true);
     };
