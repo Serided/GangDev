@@ -20,7 +20,7 @@ function startGameLoop() {
     requestAnimationFrame((ts) => gameLoop(ts, window.gameWindow.canvas, window.gameWindow.ctx, gameState));
 }
 
-authUser(window.authToken, window.username, window.userId, "game1")
+authUser(window.authToken, window.username, window.userId, "/game1")
     .then(({ gameUrl, gameName }) => {
         console.log("Authenticated! Received game server details:", gameUrl, gameName);
         activeSocket = connectToGame(gameUrl, gameName);
