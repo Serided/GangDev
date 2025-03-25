@@ -20,6 +20,15 @@ export function drawMap(ctx, mapData) {
     const overlapFactor = 0.2;
     const drawSize = tileSize * (1 + overlapFactor);
     const offset = (drawSize - tileSize) / 2;
+
+    const tileColors = {
+        water: "#74C0FC",
+        sand: "#F2C57C",
+        grass: "#95D5B2",
+        forest: "#2D6A4F",
+        mountain: "#6E6E6E"
+    };
+
     // loop through each row and column
     for (let row = 0; row < height; row++) {
         for (let col = 0; col < width; col++) {
@@ -27,16 +36,7 @@ export function drawMap(ctx, mapData) {
             const tileX = minX + col * tileSize;
             const tileY = minY + row * tileSize;
 
-            let color;
-            switch (map[row][col]) {
-                case "water":
-                    color = "#2D70B3";
-                    break;
-                default:
-                    color = "#000"; // default fallback color
-            }
-
-            ctx.fillStyle = color;
+            ctx.fillStyle = tileColors[tileType] || "#FF00FF";
             ctx.fillRect(tileX - offset, tileY - offset, drawSize, drawSize);
         }
     }

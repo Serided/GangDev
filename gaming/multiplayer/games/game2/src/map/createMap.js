@@ -1,18 +1,15 @@
 const fs = require('fs');
 const { Noise } = require('noisejs')
 const noise = new Noise(42);
-console.log(noise);
 
 const path = "games/game2/src/map/"
 
 // configuration
-tileSize = 15;
+tileSize = 15; // is relative to scaling so make sure you change if scaling changes
 const mapMin = -2400;
 const mapMax = 2400;
-
-// calculate how many tiles for each dimension
-const width = Math.ceil((mapMax - mapMin) / tileSize);
-const height = Math.ceil((mapMax - mapMin) / tileSize);
+const width = Math.ceil((mapMax - mapMin) / tileSize); // width tile count
+const height = Math.ceil((mapMax - mapMin) / tileSize); // height tile count
 
 // generate 2d array representing map
 // each cell is water
@@ -20,7 +17,17 @@ const map = [];
 for (let y = 0; y < height; y++) {
     const row = [];
     for (let x = 0; x < width; x++) {
-        row.push("water");
+        const nx = x / width - 0.5;
+        const ny = y / height - 0.5;
+        const elevation = noise.perlin2(nx * 5, ny * 5);
+
+        let tileType = "water";
+        if (elevation > -0.2) tileType = "sand";
+        else if (elevation > 0) tileType = "grass";
+        else if (elevation > 0.2) tileType = "forest";
+        else if (elevation > 0.4) tileType = "mountain";
+
+        row.push(tileType);
     }
     map.push(row);
 }
