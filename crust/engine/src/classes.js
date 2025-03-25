@@ -1,9 +1,11 @@
+import * as path from "node:path";
+
 const fs = require('fs');
 const { Noise } = require('noisejs');
 
 import { getUserIcon } from "./render/imageCache.js";
 
-export class Player {
+class Player {
     /**
      * Creates a new Player instance.
      *
@@ -64,7 +66,7 @@ export class Player {
     }
 }
 
-export class Map {
+class Map {
     /**
      * @param {number} tileSize - The size of each tile.
      * @param {number} min - The minimum coordinate (both x and y).
@@ -131,5 +133,19 @@ export class Map {
      * @param {string} filePath - The file path to save the map (e.g., "games/game2/src/map/map.json").
      */
 
-    save
+    saveToFile(filePath) {
+        const mapData = this.getMapData();
+        if (fs.existsSync(filePath)) {
+            fs.copyFileSync(filePath, filePath.replace('map.json', 'mapBackup.json'));
+        }
+        try {
+            fs.writeFileSync(filePath, JSON.stringify(mapData, null, 2));
+            console.log("Map saved successfully.")
+            console.log("Saving map to:", fs.realpathSync(filePath));
+        } catch (err) {
+            console.error("Failed to save map:", err);
+        }
+    }
 }
+
+module.exports = { Player, Map }
