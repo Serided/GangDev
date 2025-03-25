@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: '/var/www/gangdev/shared/.env' });
-import WebSocket from 'ws';
+import { WebSocketServer } from 'ws';
 import http from 'http';
 import jwt from 'jsonwebtoken';
 
@@ -16,7 +16,7 @@ const games = [
 
 const activeSockets = {};
 
-const gatewayServer = new WebSocket.Server({ server });
+const gatewayServer = new WebSocketServer({ server });
 
 gatewayServer.on("connection", (ws) => {
     let authenticated = false;
