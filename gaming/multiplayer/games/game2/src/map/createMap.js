@@ -6,8 +6,8 @@ const path = "games/game2/src/map/"
 
 // configuration
 tileSize = 15; // is relative to scaling so make sure you change if scaling changes
-const mapMin = -2400;
-const mapMax = 2400;
+const mapMin = -600;
+const mapMax = 600;
 const width = Math.ceil((mapMax - mapMin) / tileSize); // width tile count
 const height = Math.ceil((mapMax - mapMin) / tileSize); // height tile count
 
