@@ -35,6 +35,7 @@ export function drawMap(ctx, mapData) {
             // compute world coordinates
             const tileX = minX + col * tileSize;
             const tileY = minY + row * tileSize;
+            const tileType = map[row][col]
 
             ctx.fillStyle = tileColors[tileType] || "#FF00FF";
             ctx.fillRect(tileX - offset, tileY - offset, drawSize, drawSize);
