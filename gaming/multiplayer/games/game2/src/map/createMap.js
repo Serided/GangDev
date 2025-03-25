@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const path = "/multiplayer/games/game2/src/map/"
+const path = "games/game2/src/map/"
 
 // configuration
 tileSize = 15;
