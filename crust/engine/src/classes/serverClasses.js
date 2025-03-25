@@ -2,6 +2,11 @@ import fs from 'fs';
 import pkg from 'noisejs'
 const { Noise } = pkg;
 
+function smoothstep(edge0, edge1, x) {
+    x = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0))); // scale, bias and saturate x to 0..1 range
+    return x * x * (3 - 2 * x); // eval polynomial
+}
+
 export class Map {
     /**
      * @param {number} tileSize - The size of each tile.
@@ -28,7 +33,7 @@ export class Map {
 
     generate() {
         const map = [];
-        const factor = 65;
+        const factor = 75; // adjust terrain realism
         const frequency = this.width / factor;
         console.log("Using frequency:", frequency);
         for (let y = 0; y < this.height; y++) {
@@ -36,7 +41,11 @@ export class Map {
             for (let x = 0; x < this.width; x++) {
                 const nx = x / this.width - 0.5;
                 const ny = y / this.height - 0.5;
-                const elevation = this.noise.perlin2(nx * frequency, ny * frequency);
+
+                const distance = Math.sqrt(nx * nx + ny * ny);
+                const falloff = smoothstep(0.3, 0.5, distance);
+
+                const elevation = this.noise.perlin2(nx * frequency, ny * frequency) - falloff;
 
                 let tileType = "water";
                 if (elevation > 0.35) tileType = "mountain";
