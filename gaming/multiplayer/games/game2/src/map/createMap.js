@@ -12,7 +12,6 @@ const width = Math.ceil((mapMax - mapMin) / tileSize); // width tile count
 const height = Math.ceil((mapMax - mapMin) / tileSize); // height tile count
 
 // generate 2d array representing map
-// each cell is water
 const map = [];
 for (let y = 0; y < height; y++) {
     const row = [];
@@ -24,8 +23,8 @@ for (let y = 0; y < height; y++) {
         let tileType = "water";
         if (elevation > 0.4) tileType = "mountain";
         else if (elevation > 0.2) tileType = "forest";
-        else if (elevation > 0) tileType = "grass";
-        else if (elevation > -0.2) tileType = "sand";
+        else if (elevation > -0.25) tileType = "grass";
+        else if (elevation > -0.3) tileType = "sand";
 
         row.push(tileType);
     }
