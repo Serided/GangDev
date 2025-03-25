@@ -1,24 +1,22 @@
 import fs from 'fs';
-import pkg from 'noisejs'
-const { Noise } = pkg;
+import { Noise } from 'noise.js';
 
 export class Map {
     /**
-     * @param {number} tileSize - Size of each half meter by half meter tile, in pixels.
-     * @param {number} km - Map size in kilometers
+     * @param {number} tileSize - The size of each tile.
+     * @param {number} min - The minimum coordinate (both x and y).
+     * @param {number} max - The maximum coordinate (both x and y).
      * @param {number} [seed] - Optional seed for noise generation.
      */
-    constructor(tileSize, km, seed) {
+    constructor(tileSize, min, max, seed) {
         this.tileSize = tileSize;
-        const totalTiles = 2000 * km;
-        this.min = -totalTiles / 2;
-        this.max = totalTiles / 2;
-
-        this.width = Math.ceil((this.max - this.min) / 2);
-        this.height = Math.ceil((this.max - this.min) / 2);
+        this.min = min;
+        this.max = max;
+        this.width = Math.ceil((max - min) / tileSize);
+        this.height = Math.ceil((max - min) / tileSize);
         this.seed = seed || Math.floor(Math.random() * 100000);
         console.log("Using seed:", this.seed);
-        this.noise = new Noise(this.seed);
+        this.noise = new noisejs.Noise(this.seed);
     }
 
     /**
@@ -28,7 +26,6 @@ export class Map {
 
     generate() {
         const map = [];
-        const frequency = 500;
         for (let y = 0; y < this.height; y++) {
             const row = [];
             for (let x = 0; x < this.width; x++) {
