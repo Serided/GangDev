@@ -1,7 +1,7 @@
 import { sendData } from "../tools.js"
 
-export const chatButton = document.getElementById("chatButton");
-const chatPanel = document.getElementById("chatPanel");
+const chatButton = document.getElementById("chatButton");
+export const chatPanel = document.getElementById("chatPanel");
 const sendButton = document.getElementById("sendButton");
 export const chatInput = document.getElementById("chatInput");
 

@@ -1,5 +1,5 @@
 import { setup2dCanvas } from "../canvas.js";
-import { chatButton ,chatInput } from "../comms/chat.js"
+import { chatPanel ,chatInput } from "../comms/chat.js"
 
 export const topDownInput = (() => {
     const keys = {};
@@ -8,7 +8,7 @@ export const topDownInput = (() => {
         window.addEventListener("keydown", keyDownHandler);
         window.addEventListener("keyup", keyUpHandler);
         window.addEventListener("wheel", (event) => {
-            if (document.activeElement === chatButton) return;
+            if (chatPanel.contains(document.activeElement)) return;
             event.preventDefault();
             const delta = event.deltaY > 0 ? -0.1 : 0.1
             camera.setZoom(camera.targetZoom + delta);
