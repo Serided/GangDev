@@ -1,14 +1,14 @@
 // game engine
-import { authUser, connectToGame } from "/multiplayer/engine/src/network/network.js";
-import { sendData } from "/multiplayer/engine/src/tools.js";
-import { appendMessage, sendMessage } from "/multiplayer/engine/src/comms/chat.js";
-import { updateStatus, updatePlayerCount } from "/multiplayer/engine/src/ui/header.js";
-import { setup2dCanvas } from "/multiplayer/engine/src/canvas.js";
-import { gameLoop } from "/multiplayer/engine/game/game.js";
-import { Player } from "/multiplayer/engine/src/classes.js";
-import { gameState } from "/multiplayer/engine/src/gameState.js";
-import { topDownInput } from "/multiplayer/engine/src/input/topDown.js";
-import { drawMap } from "/multiplayer/engine/src/render/2d.js";
+import { authUser, connectToGame } from "/engine/src/network/network.js";
+import { sendData } from "/engine/src/tools.js";
+import { appendMessage, sendMessage } from "/engine/src/comms/chat.js";
+import { updateStatus, updatePlayerCount } from "/engine/src/ui/header.js";
+import { setup2dCanvas } from "/engine/src/canvas.js";
+import { gameLoop } from "/engine/game/game.js";
+import { Player } from "/engine/src/classes.js";
+import { gameState } from "/engine/src/gameState.js";
+import { topDownInput } from "/engine/src/input/topDown.js";
+import { drawMap } from "/engine/src/render/2d.js";
 
 // local libraries (none rn)
 
@@ -31,7 +31,7 @@ authUser(window.authToken, window.username, window.userId, "game2")
         console.error("Authentication failed:", err);
     });
 
-const mapUrl = `/multiplayer/games/game2/src/map/map.json?t=${Date.now()}`
+const mapUrl = `/games/game2/src/map/map.json?t=${Date.now()}`
 fetch(mapUrl)
     .then(res => res.json())
     .then(mapData => {

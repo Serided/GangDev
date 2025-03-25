@@ -1,4 +1,4 @@
-<?php require_once '/var/www/gangdev/gaming/multiplayer/engine/src/network/auth.php'; ?>
+<?php require_once '/var/www/gangdev/crust/engine/src/network/auth.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Crust</title>
 
-        <link rel="stylesheet" href="/multiplayer/games/game2/client/style.css">
+        <link rel="stylesheet" href="/games/game1/client/style.css">
         <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     </head>
     <body>
@@ -31,6 +31,6 @@
         </div>
 
         <div id="leftMenu"></div>
-        <script type="module" src="/multiplayer/games/game2/client/client.js"></script>
+        <script type="module" src="/games/game1/client/client.js"></script>
     </body>
 </html>
