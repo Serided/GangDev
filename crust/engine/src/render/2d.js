@@ -47,10 +47,11 @@ export function drawMap(ctx, mapData, camera) {
     const visibleBottom = camera.y + halfViewHeight;
 
     // visible boundaries as indices
-    const startCol = Math.max(0, Math.floor((visibleLeft - minX) / tileSize));
-    const endCol = Math.min(width, Math.floor((visibleRight - minX) / tileSize));
-    const startRow = Math.max(0, Math.floor((visibleTop - minY) / tileSize));
-    const endRow = Math.min(height, Math.floor((visibleBottom - minY) / tileSize));
+    const extraTiles = 3; // make edge seamless
+    const startCol = Math.max(0, Math.floor((visibleLeft - minX) / tileSize) - extraTiles);
+    const endCol = Math.min(width, Math.floor((visibleRight - minX) / tileSize) + extraTiles);
+    const startRow = Math.max(0, Math.floor((visibleTop - minY) / tileSize) - extraTiles);
+    const endRow = Math.min(height, Math.floor((visibleBottom - minY) / tileSize) + extraTiles);
 
     // LOD (level of detail) threshold (zoom out beyond this value, batch tiles)
     const lodThreshold = 0.8;
