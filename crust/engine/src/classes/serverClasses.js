@@ -9,10 +9,11 @@ export class Map {
      * @param {number} max - The maximum coordinate (both x and y).
      * @param {number} [seed] - Optional seed for noise generation.
      */
-    constructor(tileSize, min, max, seed) {
+    constructor(tileSize, km, seed) {
         this.tileSize = tileSize;
-        this.min = min;
-        this.max = max;
+        const pixels = km * tileSize * 1000;
+        this.min = -pixels / 2;
+        this.max = pixels / 2;
         this.width = Math.ceil((max - min) / tileSize);
         this.height = Math.ceil((max - min) / tileSize);
         this.seed = seed || Math.floor(Math.random() * 100000);
