@@ -1,4 +1,4 @@
-import { WebSocketServer, WebSocket } from 'ws';
+import { WebSocketServer } from 'ws';
 import http from 'http';
 import path from 'path';
 import fs from 'fs';
