@@ -81,8 +81,8 @@ export function drawMap(ctx, mapData, camera) {
             }
 
             // compute drawing position in world coords
-            const tileX = minX + col * tileSize
-            const tileY = minY + col * tileSize
+            const tileX = minX + col * tileSize;
+            const tileY = minY + row * tileSize;
 
             if (blockSize > 1 && homogenous) { // if homo, draw larger rect for block
                 const blockWidth = tileSize * blockSize;
