@@ -89,7 +89,7 @@ export function drawMap(ctx, mapData, camera) {
                 const blockHeight = tileSize * blockSize;
                 // adjust drawSize we want big block to overlap
                 const blockDrawSize = drawSize * blockSize;
-                const blockOffset = (blockDrawSize - blockSize) / 2;
+                const blockOffset = (blockDrawSize - blockWidth) / 2;
 
                 ctx.fillStyle = tileColors[dominantTile] || "#FF00FF";
                 ctx.fillRect(tileX - blockOffset, tileY - blockOffset, blockDrawSize, blockDrawSize);
