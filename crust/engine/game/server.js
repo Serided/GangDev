@@ -1,10 +1,10 @@
-const WebSocket = require('ws');
-const http = require('http');
-const path = require('path');
-const fs = require('fs');
-const url = require('url');
+import WebSocket from 'ws';
+import http from 'http';
+import path from 'path';
+import fs from 'fs';
+import url from 'url';
 
-function createGameServer(port, name, clientPath) {
+export function createGameServer(port, name, clientPath) {
     const server = http.createServer((req, res) => {
         let resolvedPath = path.resolve(clientPath, "." + req.url);
         if (!resolvedPath.startsWith(clientPath)) {
@@ -123,5 +123,3 @@ function createGameServer(port, name, clientPath) {
 
     return wss;
 }
-
-module.exports = { createGameServer };

@@ -1,9 +1,9 @@
-const fs = require('fs');
-const { Noise } = require('noisejs');
+import fs from 'fs';
+import { Noise } from 'noisejs';
 
 import { getUserIcon } from "./render/imageCache.js";
 
-class Player {
+export class Player {
     /**
      * Creates a new Player instance.
      *
@@ -64,7 +64,7 @@ class Player {
     }
 }
 
-class Map {
+export class Map {
     /**
      * @param {number} tileSize - The size of each tile.
      * @param {number} min - The minimum coordinate (both x and y).
@@ -145,5 +145,3 @@ class Map {
         }
     }
 }
-
-module.exports = { Player, Map }

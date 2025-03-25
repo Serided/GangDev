@@ -1,4 +1,4 @@
-const { createGameServer } = require('/var/www/gangdev/crust/engine/game/server.js');
-const path = require("path");
+import { createGameServer } from '/var/www/gangdev/crust/engine/game/server.js';
+import path from 'path';
 
 createGameServer(10002, "Crust", path.join(__dirname, 'client')); // create server

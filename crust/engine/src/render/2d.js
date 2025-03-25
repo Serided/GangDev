@@ -1,5 +1,5 @@
 import { gameState } from "../gameState.js";
-const { Player } = require("../classes.js");
+import { Player } from "../classes.js";
 
 /**
  * Draws all players on the canvas.

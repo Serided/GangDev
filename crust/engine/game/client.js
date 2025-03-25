@@ -1,5 +1,5 @@
-import { authUser } from "../src/network/auth.js";
-import { setupCanvas } from "../src/canvas/2d.js";
+import { authUser } from "../src/network/network.js";
+import { setupCanvas } from "../src/canvas.js";
 
 export function createGameClient() {
     return new Promise((resolve, reject) => {
