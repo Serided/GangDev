@@ -13,8 +13,8 @@ export class Map {
         const halfMeters = km * 2000;
         this.min = -halfMeters / 2;
         this.max = halfMeters / 2;
-        this.width = Math.ceil((this.max - this.min) / tileSize);
-        this.height = Math.ceil((this.max - this.min) / tileSize);
+        this.width = Math.ceil((this.max - this.min) * tileSize);
+        this.height = Math.ceil((this.max - this.min) * tileSize);
         this.seed = seed || Math.floor(Math.random() * 100000);
         console.log("Using seed:", this.seed);
         this.noise = new Noise(this.seed);
@@ -27,6 +27,7 @@ export class Map {
 
     generate() {
         const map = [];
+        const frequency = (this.width / 500)
         for (let y = 0; y < this.height; y++) {
             const row = [];
             for (let x = 0; x < this.width; x++) {
