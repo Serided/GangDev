@@ -40,7 +40,7 @@ export class Player {
 
     draw(ctx, size = (window.player)) {
         // determine color
-        const color = this.userId === window.userId ? "green" : "red";
+        const color = this.userId === window.userId ? "lightgreen" : "red";
         ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, size, size);
 
