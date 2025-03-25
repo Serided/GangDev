@@ -1,4 +1,4 @@
-const { Map } = require('/engine/src/classes.js');
+import { Map } from '/engine/src/classes.js';
 
 const myMap = new Map(15, -2400, 2400);
 
