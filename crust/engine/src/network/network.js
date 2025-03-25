@@ -23,7 +23,7 @@ import { gameState } from "../gameState.js"
 
 export function authUser(authToken, username, userId, game) {
     return new Promise((resolve, reject) => {
-        const gatewaySocket = new WebSocket("wss://gaming.gangdev.co/socket");
+        const gatewaySocket = new WebSocket("wss://crust.gangdev.co/socket");
 
         gatewaySocket.onopen = () => {
             const authPayload = JSON.stringify({ type: "auth", token: authToken, username, userId });
