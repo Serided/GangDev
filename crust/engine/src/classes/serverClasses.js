@@ -28,12 +28,15 @@ export class Map {
 
     generate() {
         const map = [];
+        const values = { exp: 0.5, baseline: 1000 };
+        const frequency = Math.pow(values.baseline / this.width, values.exp)
+        console.log("Using frequency:", frequency);
         for (let y = 0; y < this.height; y++) {
             const row = [];
             for (let x = 0; x < this.width; x++) {
                 const nx = x / this.width - 0.5;
                 const ny = y / this.height - 0.5;
-                const elevation = this.noise.perlin2(nx * 5, ny * 5);
+                const elevation = this.noise.perlin2(nx * frequency, ny * frequency);
 
                 let tileType = "water";
                 if (elevation > 0.35) tileType = "mountain";
