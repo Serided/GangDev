@@ -5,7 +5,7 @@ export const topDownInput = (() => {
     const keys = {};
 
     function setupInputListeners() {
-        if (!chatInput) {
+        if (!chatInput.active) {
             window.addEventListener("keydown", keyDownHandler);
             window.addEventListener("keyup", keyUpHandler);
             window.addEventListener("wheel", (event) => {
