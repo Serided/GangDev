@@ -28,7 +28,7 @@ export class Map {
 
     generate() {
         const map = [];
-        const values = { exp: 0.5, baseline: 100 };
+        const values = { exp: 0.5, baseline: 80 };
         const frequency = this.width / values.baseline;
         console.log("Using frequency:", frequency);
         for (let y = 0; y < this.height; y++) {
