@@ -1,4 +1,5 @@
-import { Noise } from 'noisejs';
+import fs from 'fs';
+import { Noise } from 'https://esm.sh/noisejs@2.1.0';
 
 import { getUserIcon } from "./render/imageCache.js";
 
