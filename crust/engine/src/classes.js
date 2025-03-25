@@ -1,3 +1,6 @@
+const fs = require('fs');
+const { Noise } = require('noisejs');
+
 import { getUserIcon } from "./render/imageCache.js";
 
 export class Player {
@@ -60,9 +63,6 @@ export class Player {
         }
     }
 }
-
-const fs = require('fs');
-const { Noise } = require('noisejs')
 
 export class Map {
     /**
