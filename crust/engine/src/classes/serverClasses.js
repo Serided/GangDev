@@ -10,11 +10,13 @@ export class Map {
      */
     constructor(tileSize, km, seed) {
         this.tileSize = tileSize;
-        const meters = 2000 * tileSize;
+        const totalTiles = 2000 * km;
+        this.width = totalTiles;
+        this.height = totalTiles;
+
+        const meters = totalTiles * 0.5;
         this.min = -meters / 2;
         this.max = meters / 2;
-        this.width = Math.ceil((this.max - this.min) / tileSize);
-        this.height = Math.ceil((this.max - this.min) / tileSize);
         this.seed = seed || Math.floor(Math.random() * 100000);
         console.log("Using seed:", this.seed);
         this.noise = new Noise(this.seed);
