@@ -1,9 +1,10 @@
-import { sendData } from "../tools.js"
-import { gameLoop } from "../../game/game.js"
-import { appendMessage } from "../comms/chat.js"
-import { updateStatus, updatePlayerCount } from "../ui/header.js"
-import { Player } from "../classes/clientClasses.js";
-import { gameState } from "../gameState.js"
+import { sendData } from '../tools.js'
+import { gameLoop } from '../../game/game.js'
+import { appendMessage } from '../comms/chat.js'
+import { updateStatus, updatePlayerCount } from '../ui/header.js'
+import { Player } from '../classes/clientClasses.js';
+import { gameState } from '../gameState.js'
+import { WebSocketServer, WebSocket } from 'ws';
 
 /**
  * Authenticates the user with the gateway server and requests to join a specified game.
