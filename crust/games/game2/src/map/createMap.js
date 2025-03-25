@@ -1,4 +1,4 @@
-import { Map } from '/engine/src/classes.js';
+import { Map } from '/engine/src/classes/serverClasses.js';
 
 const myMap = new Map(15, -2400, 2400);
 

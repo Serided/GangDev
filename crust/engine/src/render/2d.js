@@ -1,5 +1,5 @@
 import { gameState } from "../gameState.js";
-import { Player } from "../classes.js";
+import { Player } from "../classes/clientClasses.js";
 
 /**
  * Draws all players on the canvas.
