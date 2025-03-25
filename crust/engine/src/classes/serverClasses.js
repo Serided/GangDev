@@ -10,7 +10,7 @@ export class Map {
      */
     constructor(tileSize, km, seed) {
         this.tileSize = tileSize;
-        const halfMeters = km * 2000
+        const halfMeters = km * 2000;
         this.min = -halfMeters / 2;
         this.max = -halfMeters / 2;
         this.width = Math.ceil((this.max - this.min) / tileSize);
