@@ -95,9 +95,9 @@ export function createGameServer(port, name, clientPath) {
             }
             playerCount--;
             console.log(`[${name}] Connection closed. Player count: ${playerCount}`);
-            distributeData({ type: 'chatMessage', data: `${displayName}: Player disconnected.` }, true);
             broadcastPlayerCount();
             broadcastGameState();
+            distributeData({ type: 'chatMessage', data: 'Player disconnected.' }, true);
         });
     });
 
