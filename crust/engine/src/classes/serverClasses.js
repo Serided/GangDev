@@ -4,17 +4,18 @@ const { Noise } = pkg;
 
 export class Map {
     /**
-     * @param {number} tileSize - Size of a half meter wide tile in pixels.
-     * @param {number} km - Size of the world (width and height) in kilometers.
+     * @param {number} tileSize - The size of each tile.
+     * @param {number} min - The minimum coordinate (both x and y).
+     * @param {number} max - The maximum coordinate (both x and y).
      * @param {number} [seed] - Optional seed for noise generation.
      */
     constructor(tileSize, km, seed) {
         this.tileSize = tileSize;
-        const halfMeters = km * 2000;
-        this.min = -halfMeters / 2;
-        this.max = halfMeters / 2;
-        this.width = Math.ceil((this.max - this.min) * tileSize);
-        this.height = Math.ceil((this.max - this.min) * tileSize);
+        const meters = 2000 * tileSize;
+        this.min = -meters / 2;
+        this.max = meters / 2;
+        this.width = Math.ceil((this.max - this.min) / tileSize);
+        this.height = Math.ceil((this.max - this.min) / tileSize);
         this.seed = seed || Math.floor(Math.random() * 100000);
         console.log("Using seed:", this.seed);
         this.noise = new Noise(this.seed);
@@ -27,7 +28,6 @@ export class Map {
 
     generate() {
         const map = [];
-        const frequency = (this.width / 500);
         for (let y = 0; y < this.height; y++) {
             const row = [];
             for (let x = 0; x < this.width; x++) {
