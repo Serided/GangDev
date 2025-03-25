@@ -1,5 +1,4 @@
 import { sendData } from '../tools.js'
-import { gameLoop } from '../../game/game.js'
 import { appendMessage } from '../comms/chat.js'
 import { updateStatus, updatePlayerCount } from '../ui/header.js'
 import { Player } from '../classes/clientClasses.js';

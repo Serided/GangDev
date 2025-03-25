@@ -20,8 +20,8 @@ export function setup2dCanvas() {
     canvas.style.height = `${height}px`;
     console.log("Canvas initialized:", { width, height });
 
-    window.scaling = 32; // 30px a meter
-    window.player = (window.scaling * 2); // 60px player (2m)
+    window.scaling = 32; // 32px a meter
+    window.player = (window.scaling * 2); // 64px player (2m)
     window.tileSize = window.scaling / 2;
 
     const computedStyle = window.getComputedStyle(canvas);

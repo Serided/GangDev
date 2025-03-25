@@ -5,6 +5,7 @@ import { camera } from "../src/camera/topDown.js";
 
 let lastTimeStamp = 0;
 let firstFrame = true;
+let fixedDeltaTime = 1 / 60; // fps
 
 /**
  * A basic game loop that updates and renders the game.
@@ -16,17 +17,14 @@ let firstFrame = true;
  */
 
 export function gameLoop(ts, canvas, ctx, gameState) {
-    const deltaTime = (ts - lastTimeStamp) / 1000;
-    lastTimeStamp = ts;
-
-    const movement = topDownInput.computeMovement(deltaTime);
+    const movement = topDownInput.computeMovement(fixedDeltaTime);
     const localPlayer = gameState.players[window.userId];
 
     if (localPlayer) {
-        if (movement.dx !== 0 || movement.dy !== 0) {
-            localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
-            sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
-        }
+        localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
+        console.log(localPlayer);
+        sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
+
         if (firstFrame) {
             camera.x = localPlayer.x + window.player / 2;
             camera.y = localPlayer.y + window.player / 2;
@@ -37,18 +35,13 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height); // CLEAR THE CANVAS
-
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2); // set camera x and y to player center
     ctx.scale(camera.zoom, camera.zoom);
     ctx.translate(-camera.x, -camera.y);
 
-    if (window.sharedMap) {
-        drawMap(ctx, window.sharedMap, camera);
-    }
-
+    if (window.sharedMap) drawMap(ctx, window.sharedMap, camera);
     drawPlayers(ctx);
-
     ctx.restore();
 
     requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
