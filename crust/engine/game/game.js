@@ -28,8 +28,6 @@ export function gameLoop(ts, canvas, ctx, gameState) {
             sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
         }
         if (firstFrame) {
-            camera.x = localPlayer.x + window.player / 2;
-            camera.y = localPlayer.y + window.player / 2;
             firstFrame = false;
         } else {
             camera.update(localPlayer)
