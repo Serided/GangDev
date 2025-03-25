@@ -12,7 +12,7 @@ export class Map {
         this.tileSize = tileSize;
         const halfMeters = km * 2000;
         this.min = -halfMeters / 2;
-        this.max = -halfMeters / 2;
+        this.max = halfMeters / 2;
         this.width = Math.ceil((this.max - this.min) / tileSize);
         this.height = Math.ceil((this.max - this.min) / tileSize);
         this.seed = seed || Math.floor(Math.random() * 100000);

@@ -99,9 +99,3 @@ export function drawMap(ctx, mapData, camera) {
         }
     }
 }
-
-/**
- * Returns the color for a given tile type.
- * @param {string} tileType
- * @returns {string} Hex color code.
- */
