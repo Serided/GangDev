@@ -36,12 +36,11 @@ export function drawMap(ctx, mapData, camera) {
         mountain: "#6E6E6E"
     };
 
+    // world boundaries in world coords
     const viewWidth = ctx.canvas.width / camera.zoom;
     const viewHeight = ctx.canvas.height / camera.zoom;
     const halfViewWidth = viewWidth / 2;
     const halfViewHeight = viewHeight / 2;
-
-    // visible world boundaries
     const visibleLeft = camera.x - halfViewWidth;
     const visibleRight = camera.x + halfViewWidth;
     const visibleTop = camera.y - halfViewHeight;
@@ -65,18 +64,18 @@ export function drawMap(ctx, mapData, camera) {
     // loop through visible region
     for (let row = startRow; row < endRow; row += blockSize) {
         for (let col = startCol; col < endCol; col += blockSize) {
-            // LOD: blockSize > 1, check if similar (some might even say homogeneous)
-            let dominantTile = map[row][col];
-            let homogenous = true;
-            if (blockSize > 1) {
-                for (let r = row; r < Math.min(row + blockSize, endRow); r++) {
-                    for (let c = col; c < Math.min(col + blockSize, endCol); c++) {
-                        if (map[r][c] !== dominantTile) {
-                            homogenous = false;
-                            break;
-                        }
+            let counts = {};
+            let dominantTile = null;
+            let maxCount = 0;
+
+            for (let r = row; r < Math.min(row + blockSize, endRow); r++) {
+                for (let c = col; c < Math.min(col + blockSize, endCol); c++) {
+                    const tile = map[r][c];
+                    counts[tile] = ( counts[tile] || 0 ) + 1;
+                    if (counts[tile] > maxCount) {
+                        maxCount = counts[tile];
+                        dominantTile = tile;
                     }
-                    if (!homogenous) break;
                 }
             }
 
@@ -84,12 +83,13 @@ export function drawMap(ctx, mapData, camera) {
             const tileX = minX + col * tileSize;
             const tileY = minY + row * tileSize;
 
-            if (blockSize > 1 && homogenous) { // if homo, draw larger rect for block
+            if (blockSize > 1) { // if homo, draw larger rect for block
                 const blockWidth = tileSize * blockSize;
-                const blockHeight = tileSize * blockSize;
+                const blockDrawSize = drawSize * blockSize;
+                const blockOffset = (blockDrawSize - blockWidth) / 2;
 
                 ctx.fillStyle = tileColors[dominantTile] || "#FF00FF";
-                ctx.fillRect(tileX, tileY, blockWidth, blockHeight);
+                ctx.fillRect(tileX - blockOffset, tileY - blockOffset, blockDrawSize, blockDrawSize);
             } else { // else draw tiles individually
                 const tileType = map[row][col];
                 ctx.fillStyle = tileColors[tileType] || "#FF00FF";
