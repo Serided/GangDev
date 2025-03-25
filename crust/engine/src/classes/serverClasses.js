@@ -14,8 +14,8 @@ export class Map {
         const pixels = km * tileSize * 1000;
         this.min = -pixels / 2;
         this.max = pixels / 2;
-        this.width = Math.ceil((max - min) / tileSize);
-        this.height = Math.ceil((max - min) / tileSize);
+        this.width = Math.ceil((this.max - this.min) / tileSize);
+        this.height = Math.ceil((this.max - this.min) / tileSize);
         this.seed = seed || Math.floor(Math.random() * 100000);
         console.log("Using seed:", this.seed);
         this.noise = new Noise(this.seed);
