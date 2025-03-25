@@ -21,10 +21,10 @@ for (let y = 0; y < height; y++) {
         const elevation = noise.perlin2(nx * 5, ny * 5);
 
         let tileType = "water";
-        if (elevation > 0.4) tileType = "mountain";
-        else if (elevation > 0.2) tileType = "forest";
+        if (elevation > 0.35) tileType = "mountain";
+        else if (elevation > 1.5) tileType = "forest";
         else if (elevation > -0.25) tileType = "grass";
-        else if (elevation > -0.3) tileType = "sand";
+        else if (elevation > -0.325) tileType = "sand";
 
         row.push(tileType);
     }
