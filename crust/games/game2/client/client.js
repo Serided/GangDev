@@ -5,7 +5,6 @@ import { appendMessage, sendMessage } from "/engine/src/comms/chat.js";
 import { updateStatus, updatePlayerCount } from "/engine/src/ui/header.js";
 import { setup2dCanvas } from "/engine/src/canvas.js";
 import { gameLoop } from "/engine/game/game.js";
-import { Player } from "/engine/src/classes.js";
 import { gameState } from "/engine/src/gameState.js";
 import { topDownInput } from "/engine/src/input/topDown.js";
 import { drawMap } from "/engine/src/render/2d.js";
