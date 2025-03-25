@@ -1,7 +1,7 @@
 import { sendData } from "../tools.js"
 
 const sendButton = document.getElementById("sendButton");
-const chatInput = document.getElementById("chatInput");
+export const chatInput = document.getElementById("chatInput");
 
 sendButton.addEventListener("click", sendMessage);
 chatInput.addEventListener("keypress", (event) => { if (event.key === "Enter") sendMessage(); });
