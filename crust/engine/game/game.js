@@ -32,7 +32,7 @@ export function gameLoop(ts, canvas, ctx, gameState) {
             camera.y = localPlayer.y + window.player / 2;
             firstFrame = false;
         } else {
-            camera.update(localPlayer, canvas)
+            camera.update(localPlayer)
         }
     }
 
