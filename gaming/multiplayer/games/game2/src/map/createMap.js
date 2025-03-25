@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { Noise } = require('noisejs')
-const noise = new Noise(42);
+const noise = new Noise(Math.floor(Math.random()*100000));
 
 const path = "games/game2/src/map/"
 
