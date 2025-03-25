@@ -1,7 +1,17 @@
 import { sendData } from "../tools.js"
 
+export const chatButton = document.getElementById("chatButton");
+const chatPanel = document.getElementById("chatPanel");
 const sendButton = document.getElementById("sendButton");
 export const chatInput = document.getElementById("chatInput");
+
+chatButton.addEventListener("click", (event) => {
+    if (chatPanel.style.right === "0vw") {
+        chatPanel.style.right = "-30vw";
+    } else {
+        chatPanel.style.right = "0vw";
+    }
+});
 
 sendButton.addEventListener("click", sendMessage);
 chatInput.addEventListener("keypress", (event) => { if (event.key === "Enter") sendMessage(); });

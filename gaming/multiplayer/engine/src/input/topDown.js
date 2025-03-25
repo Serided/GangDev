@@ -1,25 +1,25 @@
 import { setup2dCanvas } from "../canvas.js";
-import { chatInput } from "../comms/chat.js"
+import { chatButton ,chatInput } from "../comms/chat.js"
 
 export const topDownInput = (() => {
     const keys = {};
 
     function setupInputListeners() {
-        if (!chatInput.active) {
-            window.addEventListener("keydown", keyDownHandler);
-            window.addEventListener("keyup", keyUpHandler);
-            window.addEventListener("wheel", (event) => {
-                event.preventDefault();
-                const delta = event.deltaY > 0 ? -0.1 : 0.1
-                camera.setZoom(camera.targetZoom + delta);
-            }, { passive: false });
-            window.addEventListener("resize", () => {
-                window.gameWindow = setup2dCanvas();
-            });
-        }
+        window.addEventListener("keydown", keyDownHandler);
+        window.addEventListener("keyup", keyUpHandler);
+        window.addEventListener("wheel", (event) => {
+            if (document.activeElement === chatButton) return;
+            event.preventDefault();
+            const delta = event.deltaY > 0 ? -0.1 : 0.1
+            camera.setZoom(camera.targetZoom + delta);
+        }, { passive: false });
+        window.addEventListener("resize", () => {
+            window.gameWindow = setup2dCanvas();
+        });
     }
 
     function keyDownHandler(event) {
+        if (document.activeElement === chatInput) return;
         const key = event.key.toLowerCase();
         if (
             ["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright"].includes(key)
@@ -29,6 +29,7 @@ export const topDownInput = (() => {
     }
 
     function keyUpHandler(event) {
+        if (document.activeElement === chatInput) return;
         const key = event.key.toLowerCase();
         if (
             ["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright"].includes(key)

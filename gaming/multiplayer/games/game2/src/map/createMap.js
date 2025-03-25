@@ -1,6 +1,8 @@
 const fs = require('fs');
 const { Noise } = require('noisejs')
-const noise = new Noise(Math.floor(Math.random()*100000));
+const seed = process.argv[2] || Math.floor(Math.random()*100000)
+console.log("Using seed:", seed);
+const noise = new Noise(seed);
 
 const path = "games/game2/src/map/"
 
