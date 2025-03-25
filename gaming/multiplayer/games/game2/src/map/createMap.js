@@ -1,4 +1,7 @@
 const fs = require('fs');
+const { Noise } = require('noisejs')
+const noise = new Noise(42);
+console.log(noise);
 
 const path = "games/game2/src/map/"
 
