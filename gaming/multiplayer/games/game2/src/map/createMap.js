@@ -22,7 +22,7 @@ for (let y = 0; y < height; y++) {
 
         let tileType = "water";
         if (elevation > 0.35) tileType = "mountain";
-        else if (elevation > 1.5) tileType = "forest";
+        else if (elevation > 0.15) tileType = "forest";
         else if (elevation > -0.25) tileType = "grass";
         else if (elevation > -0.325) tileType = "sand";
 
