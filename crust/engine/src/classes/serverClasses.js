@@ -1,5 +1,6 @@
 import fs from 'fs';
-import { Noise } from 'noisejs';
+import pkg from 'noisejs'
+const { Noise } = pkg;
 
 export class Map {
     /**
