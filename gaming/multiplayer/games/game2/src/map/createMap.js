@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+const path = "/games/game2/src/map/"
+
 // configuration
 tileSize = 15;
 const mapMin = -2400;
@@ -29,15 +31,15 @@ const mapData = {
     map
 };
 
-if (fs.existsSync("map.json")) {
-    fs.copyFileSync("map.json", "mapBackup.json");
+if (fs.existsSync(`${path}/map.json`)) {
+    fs.copyFileSync(`${path}/map.json`, `${path}/mapBackup.json`);
 }
 try {
-    fs.writeFileSync("/games/game2/src/map/map.json", JSON.stringify(mapData, null, 2));
+    fs.writeFileSync(`${path}/map.json`, JSON.stringify(mapData, null, 2));
     console.log("Map saved successfully.");
 } catch (err) {
     console.error("Failed to save map:", err);
 }
 
 console.log("Mag generated and saved to map.json");
-console.log("Saving map to:", fs.realpathSync("map.json"));
+console.log("Saving map to:", fs.realpathSync(`${path}/map.json`));
