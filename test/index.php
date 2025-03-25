@@ -80,7 +80,7 @@
             <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">The Bouncing Cube (Alpha)</a><br>
             <a href="https://gaming.gangdev.co/ultimatePong" target="_blank">Ultimate Pong (Alpha)</a><br>
             <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a><br>
-            <!-- <a href="https://gaming.gangdev.co/game2" target="_blank">First Multiplayer Game (Alpha) [Online]</a><br> -->
+            <a href="https://crust.gangdev.co/game1" target="_blank">Crust (Alpha) [Online]</a><br>
             <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">Fighting Game (Beta)</a><br>
         </p>
     
