@@ -1,5 +1,3 @@
-import * as path from "node:path";
-
 const fs = require('fs');
 const { Noise } = require('noisejs');
 
