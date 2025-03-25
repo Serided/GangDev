@@ -9,8 +9,8 @@ const server = http.createServer();
 
 // Declare the available games.
 const games = [
-    { name: "game1", path: "/game1", port: 10001 },
-    { name: "game2", path: "/game2", port: 10002 }
+    { name: "game1", domain: "gaming.gangdev.co", path: "/game1", port: 10001 },
+    { name: "game2", domain: "crust.gangdev.co", path: "/game2", port: 10002 }
 ];
 
 const activeSockets = {};
@@ -54,8 +54,9 @@ gatewayServer.on("connection", (ws) => {
                 const game = games.find(g => g.name === requestedGameName);
                 if (game) {
                     joined = true;
-                    const domain = process.env.DOMAIN || "gaming.gangdev.co";
-                    const redirectUrl = `wss://${domain}${game.path}?userId=${ws.user.userId}`;
+                    const redirectUrl = game.domain
+                        ? `wss://${game.domain}/?userId=${ws.user.userId}`
+                        : `wss://${process.env.DOMAIN || "gaming.gangdev.co"}${game.path}?userId=${ws.user.userId}`;
                     ws.send(JSON.stringify({
                         redirect: redirectUrl,
                         game: game.name
