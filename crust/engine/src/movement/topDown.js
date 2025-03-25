@@ -6,7 +6,7 @@
  * @returns {{dx: number, dy: number}} The computed movement vector.
  */
 
-export function getMovementVector(deltaTime, keys, speed = (8 * window.scaling)) {
+export function getMovementVector(deltaTime, keys, speed) {
     let dx = 0;
     let dy = 0;
 

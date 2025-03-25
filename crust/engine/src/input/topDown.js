@@ -40,7 +40,8 @@ export const topDownInput = (() => {
     }
 
     return {
-        setupInputListeners
+        setupInputListeners,
+        computeMovement
     };
 })();
 
@@ -51,6 +52,6 @@ export const topDownInput = (() => {
  * @returns {{dx: number, dy: number}} Movement vector.
  */
 
-export function computeMovement(deltaTime, speed) {
+export function computeMovement(deltaTime, speed = (8 * window.scaling)) {
     return getMovementVector(deltaTime, keys, speed);
 }
