@@ -35,6 +35,8 @@ export function appendMessage(msg) {
     messageElement.textContent = text;
     messageElement.style.color = color;
     messagesElement.appendChild(messageElement);
+
+    messagesElement.scrollTop = messagesElement.scrollHeight;
 }
 
 export function sendMessage() {
