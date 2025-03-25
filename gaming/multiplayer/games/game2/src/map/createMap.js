@@ -32,6 +32,12 @@ const mapData = {
 if (fs.existsSync("map.json")) {
     fs.copyFileSync("map.json", "mapBackup.json");
 }
-fs.writeFileSync("map.json", JSON.stringify(mapData, null, 2));
+try {
+    fs.writeFileSync("map.json", JSON.stringify(mapData, null, 2));
+    console.log("Map saved successfully.");
+} catch (err) {
+    console.error("Failed to save map:", err);
+}
 
 console.log("Mag generated and saved to map.json");
+console.log("Saving map to:", fs.realpathSync("map.json"));
