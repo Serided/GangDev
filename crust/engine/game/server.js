@@ -1,4 +1,4 @@
-import WebSocket from 'ws';
+import { WebSocketServer, WebSocket } from 'ws';
 import http from 'http';
 import path from 'path';
 import fs from 'fs';
@@ -36,7 +36,7 @@ export function createGameServer(port, name, clientPath) {
         });
     });
 
-    const wss = new WebSocket.Server({ server });
+    const wss = new WebSocketServer({ server });
     let playerCount = 0;
     const activeGameSockets = {};
     const gameState = {
