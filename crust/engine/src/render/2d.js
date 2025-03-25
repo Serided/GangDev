@@ -87,12 +87,9 @@ export function drawMap(ctx, mapData, camera) {
             if (blockSize > 1 && homogenous) { // if homo, draw larger rect for block
                 const blockWidth = tileSize * blockSize;
                 const blockHeight = tileSize * blockSize;
-                // adjust drawSize we want big block to overlap
-                const blockDrawSize = drawSize * blockSize;
-                const blockOffset = (blockDrawSize - blockWidth) / 2;
 
                 ctx.fillStyle = tileColors[dominantTile] || "#FF00FF";
-                ctx.fillRect(tileX - blockOffset, tileY - blockOffset, blockDrawSize, blockDrawSize);
+                ctx.fillRect(tileX, tileY, blockWidth, blockHeight);
             } else { // else draw tiles individually
                 const tileType = map[row][col];
                 ctx.fillStyle = tileColors[tileType] || "#FF00FF";
