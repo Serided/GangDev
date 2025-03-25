@@ -60,3 +60,76 @@ export class Player {
         }
     }
 }
+
+const fs = require('fs');
+const { Noise } = require('noisejs')
+
+export class Map {
+    /**
+     * @param {number} tileSize - The size of each tile.
+     * @param {number} min - The minimum coordinate (both x and y).
+     * @param {number} max - The maximum coordinate (both x and y).
+     * @param {number} [seed] - Optional seed for noise generation.
+     */
+    constructor(tileSize, min, max, seed) {
+        this.tileSize = tileSize;
+        this.min = min;
+        this.max = max;
+        this.width = Math.ceil((max - min) / tileSize);
+        this.height = Math.ceil((max - min) / tileSize);
+        this.seed = seed || Math.floor(Math.random() * 100000);
+        console.log("Using seed:", this.seed);
+        this.noise = new Noise(this.seed);
+    }
+
+    /**
+     * Generates the 2D map using Perlin noise.
+     * @returns {Array<Array<string>>} The generated map as a 2D array of tile types.
+     */
+
+    generate() {
+        const map = [];
+        for (let y = 0; y < this.height; y++) {
+            const row = [];
+            for (let x = 0; x < this.width; x++) {
+                const nx = x / this.width - 0.5;
+                const ny = y / this.height - 0.5;
+                const elevation = this.noise.perlin2(nx * 5, ny * 5);
+
+                let tileType = "water";
+                if (elevation > 0.35) tileType = "mountain";
+                else if (elevation > 0.15) tileType = "forest";
+                else if (elevation > -0.25) tileType = "grass";
+                else if (elevation > -0.325) tileType = "sand";
+
+                row.push(tileType);
+            }
+            map.push(row);
+        }
+        return map;
+    }
+
+    /**
+     * Returns the complete map data structure.
+     * @returns {Object} An object containing map configuration and the 2D array.
+     */
+
+    getMapData() {
+        return {
+            tileSize: this.tileSize,
+            minX: this.min,
+            minY: this.min,
+            width: this.width,
+            height: this.height,
+            map: this.generate(),
+        }
+    }
+
+    /**
+     * Saves the generated map data as JSON to the given file path.
+     * If the file exists, creates a backup.
+     * @param {string} filePath - The file path to save the map (e.g., "games/game2/src/map/map.json").
+     */
+
+    save
+}

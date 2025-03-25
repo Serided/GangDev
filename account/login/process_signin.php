@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		$redirect = isset($_POST["redirect"]) ? trim($_POST["redirect"]) : '';
 
 		if (!empty($redirect) && strpos($redirect, "/") === 0) {
-			header("Location: https://gaming.gangdev.co" . $redirect);
+			header("Location: https://crust.gangdev.co" . $redirect);
 		} else {
 			header("Location: https://account.gangdev.co");
 		}
