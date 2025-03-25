@@ -4,9 +4,8 @@ const { Noise } = pkg;
 
 export class Map {
     /**
-     * @param {number} tileSize - The size of each tile.
-     * @param {number} min - The minimum coordinate (both x and y).
-     * @param {number} max - The maximum coordinate (both x and y).
+     * @param {number} tileSize - Size of each half meter by half meter tile, in pixels.
+     * @param {number} km - Map size in kilometers
      * @param {number} [seed] - Optional seed for noise generation.
      */
     constructor(tileSize, km, seed) {
