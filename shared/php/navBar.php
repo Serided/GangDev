@@ -71,7 +71,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
             <label for="about" class="hamburger-btn btnText one">About</label>
             <aside class="sidebar two">
                 <nav>
-                    <a href="https://about.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">Company</button></a>
+                    <a href="https://gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">Company</button></a>
                     <a href="https://jens.gangdev.co/"><button class="hamburger-btn btnText two">Jens</button></a>
                 </nav>
             </aside>
@@ -80,7 +80,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
             <label for="contact" class="hamburger-btn btnText one">Contact</label>
             <aside class="sidebar two">
                 <nav>
-                    <a href="https://contact.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">Company</button></a>
+                    <a href="https://gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">Company</button></a>
                     <a href="https://jens.gangdev.co/"><button class="hamburger-btn btnText two">Jens</button></a>
                 </nav>
             </aside>
