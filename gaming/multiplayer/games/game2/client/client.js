@@ -1,7 +1,7 @@
 // game engine
 import { authUser, connectToGame } from "/multiplayer/engine/src/network/network.js";
 import { sendData } from "/multiplayer/engine/src/tools.js";
-import { appendMessage, sendMessage } from "/multiplayer/engine/src/comms/chat.js";
+import { chatButton, chatPanel, appendMessage, sendMessage } from "/multiplayer/engine/src/comms/chat.js";
 import { updateStatus, updatePlayerCount } from "/multiplayer/engine/src/ui/header.js";
 import { setup2dCanvas } from "/multiplayer/engine/src/canvas.js";
 import { gameLoop } from "/multiplayer/engine/game/game.js";
@@ -10,8 +10,7 @@ import { gameState } from "/multiplayer/engine/src/gameState.js";
 import { topDownInput } from "/multiplayer/engine/src/input/topDown.js";
 import { drawMap } from "/multiplayer/engine/src/render/2d.js";
 
-// local libraries
-import { chatButton, chatPanel } from "../src/ui.js"
+// local libraries (none rn)
 
 let activeSocket = null;
 
