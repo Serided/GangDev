@@ -1,9 +1,10 @@
 import { setup2dCanvas } from "../canvas.js";
 import { chatPanel ,chatInput } from "../comms/chat.js"
+import { getMovementVector } from "../movement/topDown.js";
+
+const keys = {};
 
 export const topDownInput = (() => {
-    const keys = {};
-
     function setupInputListeners() {
         window.addEventListener("keydown", keyDownHandler);
         window.addEventListener("keyup", keyUpHandler);
@@ -38,40 +39,18 @@ export const topDownInput = (() => {
         }
     }
 
-    /**
-     * Computes the movement vector based on current key states.
-     * @param {number} deltaTime - Time elapsed since last frame in seconds.
-     * @returns {{dx: number, dy: number}} Movement vector.
-     */
-
-    // MOVE TO MOVEMENT
-    function getMovementVector(deltaTime) {
-        let dx = 0;
-        let dy = 0;
-        const speed = (8 * window.scaling); // No modifiers applied
-
-        if (keys["w"]) dy -= speed;
-        if (keys["s"]) dy += speed;
-        if (keys["a"]) dx -= speed;
-        if (keys["d"]) dx += speed;
-        if (keys["arrowup"]) dy -= speed;
-        if (keys["arrowdown"]) dy += speed;
-        if (keys["arrowleft"]) dx -= speed;
-        if (keys["arrowright"]) dx += speed;
-
-        // If moving diagonally, normalize the vector so that diagonal movement isn't faster.
-        if (dx !== 0 && dy !== 0) {
-            const factor = 1 / Math.sqrt(2);
-            dx *= factor;
-            dy *= factor;
-        }
-
-        // Multiply by deltaTime to get movement in units for this frame.
-        return { dx: dx * deltaTime, dy: dy * deltaTime };
-    }
-
     return {
-        setupInputListeners,
-        getMovementVector
+        setupInputListeners
     };
 })();
+
+/**
+ * Computes and returns the movement vector using the current key state.
+ * @param {number} deltaTime - Time elapsed since last frame (in seconds).
+ * @param {number} speed - Base movement speed.
+ * @returns {{dx: number, dy: number}} Movement vector.
+ */
+
+export function computeMovement(deltaTime, speed) {
+    return getMovementVector(deltaTime, keys, speed);
+}
