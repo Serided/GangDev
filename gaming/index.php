@@ -66,12 +66,12 @@
         -->
         <div class="sect cont three">
             <h2>
-                <a href="https://crust.gangdev.co/game2" target="_blank">Crust (Alpha) [Online]</a>
+                <a href="https://crust.gangdev.co/game2" target="_blank">Crust (Alpha) <b style="color: lightgreen">[Online]<b></b></a>
             </h2>
             <p>
-                First real experience and project with websockets. Just a basic chat app currently.<br>
+                Start of my decade-long game idea. Currently implementing procedural generation and websockets.<br>
                 <br>
-                <b>To play, type and send a message goofy.</b>
+                <b>To play, WASD to move and you can send messages in chat.</b>
             </p>
         </div>
 
