@@ -108,10 +108,10 @@ export function createGameServer(port, name, clientPath) {
     });
 
     function distributeData(wss, data) {
-        if (data.server) data = JSON.stringify(data);
+        const serverData = JSON.stringify(data);
         wss.clients.forEach(client => {
             if (client.readyState === client.OPEN) {
-                client.send(data);
+                client.send(serverData);
             }
         });
     }
