@@ -104,13 +104,13 @@ export function createGameServer(port, name, clientPath) {
         });
 
         ws.on('close', () => {
-            if (ws.userId && activeGameSockets[ws.userId] === ws) {
-                delete activeGameSockets[ws.userId]; // remove from active sockets
-                delete gameState.players[ws.userId]; // remove from gamestate
+            const uid = ws.user.userId;
+            if (uid && activeGameSockets[uid] === ws) {
+                delete activeGameSockets[uid]; // remove from active sockets
+                delete gameState.players[uid]; // remove from gamestate
             }
             playerCount--;
             distributeData(wss, { type: 'playerCount', data: playerCount });
-            const displayName = gameState.players[ws.user?.userId]?.displayName || 'Unknown';
             distributeData(wss, { type: 'chatMessage', data: { text: `${ws.user.displayName} disconnected.`, user: wss.user } });
             console.log(`[${name}] Connection closed. Player count: ${playerCount}`);
         });

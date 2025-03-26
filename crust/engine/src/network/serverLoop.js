@@ -9,15 +9,16 @@ export function startServerLoop(wss) {
 }
 
 function updateGameState(gameState, deltaTime) {
-    // TODO: Process queued inputs and update player positions or other state here.
-    // Input queue per player:
-    // for (const userId in gameState.players) {
-    //    const player = gameState.players[userId];
-    //    const inputs = inputQueue.get(userId);
-    //    inputs.forEach(input => {
-    //        // Update player based on input and deltaTime
-    //    });
-    // }
+    Object.keys(gameState.players).forEach((uid) => {
+        const player = gameState.players[uid];
+        if (player.inputQueue && player.inputQueue.length > 0) {
+            player.inputQueue.forEach(input => {
+                player.x += input.dx;
+                player.y += input.dy;
+            });
+            player.inputQueue = [];
+        }
+    })
 }
 
 function broadcastGameState(wss) {
