@@ -55,13 +55,12 @@ export function createGameServer(port, name, clientPath) {
             }
             activeGameSockets[userId] = ws;
 
-            const displayName = query.displayName || "Unknown";
-            ws.user = { userId, displayName };
+            ws.user = userId;
         }
 
         playerCount++;
         distributeData(wss, { type: 'playerCount', data: playerCount }, true)
-        distributeData(wss, { type: 'chatMessage', data: { text: `${window.displayName} connected!`, server: wss.user, user: ws.user }});
+        distributeData(wss, { type: 'chatMessage', data: { text: `${gameState[ws.userId].displayName} connected!`, server: wss.user }});
         console.log(`[${name}] Connection established. Player count: ${playerCount}`);
         ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
 
@@ -97,12 +96,12 @@ export function createGameServer(port, name, clientPath) {
 
         ws.on('close', () => {
             if (ws.userId && activeGameSockets[ws.userId] === ws) {
-                delete activeGameSockets[ws.userId];
+                delete activeGameSockets[ws.userId]; // remove from active sockets
                 delete gameState.players[ws.userId]; // remove from gamestate
             }
             playerCount--;
             distributeData(wss, { type: 'playerCount', data: playerCount }, true)
-            distributeData(wss, { type: 'chatMessage', data: { text: `${window.displayName} disconnected.`, server: wss.user, user: ws.user }});
+            distributeData(wss, { type: 'chatMessage', data: { text: `${gameState[ws.userId].displayName} disconnected.`, server: wss.user }});
             console.log(`[${name}] Connection closed. Player count: ${playerCount}`);
         });
     });

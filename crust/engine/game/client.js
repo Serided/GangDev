@@ -1,10 +1,10 @@
 import { authUser } from "../src/network/network.js";
-import { setupCanvas } from "../src/canvas.js";
+import { setup2dCanvas } from "../src/canvas.js";
 
 export function createGameClient() {
     return new Promise((resolve, reject) => {
         document.addEventListener("DOMContentLoaded", () => {
-            const canvasData = setupCanvas();
+            const canvasData = setup2dCanvas();
             if (!canvasData) {
                 return reject(new Error("Canvas setup failed."));
             }
