@@ -17,7 +17,7 @@ let fixedDeltaTime = 1 / 60; // fps
  */
 
 export function gameLoop(ts, canvas, ctx, gameState) {
-    const movement = topDownInput.computeMovement(fixedDeltaTime);
+    const movement = topDownInput.computeMovement(fixedDeltaTime, (8 * window.scaling));
     const localPlayer = gameState.players[window.userId];
 
     if (localPlayer) {

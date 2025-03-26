@@ -46,25 +46,32 @@ export function drawMap(ctx, mapData, camera) {
     const visibleTop = camera.y - halfViewHeight;
     const visibleBottom = camera.y + halfViewHeight;
 
-    // visible boundaries as indices
-    const extraTiles = 3; // make edge seamless
-    const startCol = Math.max(0, Math.floor((visibleLeft - minX) / tileSize) - extraTiles);
-    const endCol = Math.min(width, Math.floor((visibleRight - minX) / tileSize) + extraTiles);
-    const startRow = Math.max(0, Math.floor((visibleTop - minY) / tileSize) - extraTiles);
-    const endRow = Math.min(height, Math.floor((visibleBottom - minY) / tileSize) + extraTiles);
+    // visible boundaries as indices (extra margin from extra tiles)
+    const extraTiles = 3;
 
-    // LOD (level of detail) threshold (zoom out beyond this value, batch tiles)
-    const lodThreshold = 0.8;
+    const rawStartCol = Math.floor((visibleLeft - minX) / tileSize);
+    const rawEndCol = Math.floor((visibleRight - minX) / tileSize);
+    const rawStartRow = Math.floor((visibleTop - minY) / tileSize);
+    const rawEndRow = Math.floor((visibleBottom - minY) / tileSize);
+
+    const startCol = Math.max(0, rawStartCol - extraTiles);
+    const endCol = Math.min(width, rawEndCol + extraTiles);
+    const startRow = Math.max(0, rawStartRow - extraTiles);
+    const endRow = Math.min(height, rawEndRow + extraTiles);
 
     // determine LOD block size
+    const lodThreshold = 0.8;
     let blockSize = 1;
     if (camera.zoom < lodThreshold) {
         blockSize = 4;
     }
 
+    const snappedStartCol = Math.floor(startCol / blockSize) * blockSize;
+    const snappedStartRow = Math.floor(startRow / blockSize) * blockSize;
+
     // loop through visible region
-    for (let row = startRow; row < endRow; row += blockSize) {
-        for (let col = startCol; col < endCol; col += blockSize) {
+    for (let row = snappedStartRow; row < endRow; row += blockSize) {
+        for (let col = snappedStartCol; col < endCol; col += blockSize) {
             let counts = {};
             let dominantTile = null;
             let maxCount = 0;

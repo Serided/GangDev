@@ -52,6 +52,6 @@ export const topDownInput = (() => {
  * @returns {{dx: number, dy: number}} Movement vector.
  */
 
-export function computeMovement(deltaTime, speed = (8 * window.scaling)) {
+export function computeMovement(deltaTime, speed) {
     return getMovementVector(deltaTime, keys, speed);
 }
