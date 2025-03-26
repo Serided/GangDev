@@ -61,7 +61,7 @@ export function createGameServer(port, name, clientPath) {
 
         playerCount++;
         distributeData(wss, { type: 'playerCount', data: playerCount }, true)
-        distributeData(wss, { type: 'chatMessage', data: { text: `${ws.displayName} connected!`, user: wss.user }}, true);
+        distributeData(wss, { type: 'chatMessage', data: { text: `${ws.user.displayName} connected!`, user: wss.user }}, true);
         console.log(`[${name}] Connection established. Player count: ${playerCount}`);
         ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
 
@@ -102,7 +102,7 @@ export function createGameServer(port, name, clientPath) {
             }
             playerCount--;
             distributeData(wss, { type: 'playerCount', data: playerCount }, true)
-            distributeData(wss, { type: 'chatMessage', data: { text: `${ws.displayName} disconnected.`, user: wss.user }}, true);
+            distributeData(wss, { type: 'chatMessage', data: { text: `${ws.user.displayName} disconnected.`, user: wss.user }}, true);
             console.log(`[${name}] Connection closed. Player count: ${playerCount}`);
         });
     });
