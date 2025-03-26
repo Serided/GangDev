@@ -4,28 +4,12 @@ import { updateStatus, updatePlayerCount } from '../ui/header.js'
 import { Player } from '../classes/clientClasses.js';
 import { gameState } from '../gameState.js'
 
-/**
- * Authenticates the user with the gateway server and requests to join a specified game.
- *
- * This function establishes a WebSocket connection to the gateway, sends an authentication
- * payload (including the JWT token, username, and userId), and then waits for the gateway's
- * response. Once an "authAck" is received, it sends a join request for the specified game.
- * When the gateway responds with a redirect URL, it closes the gateway connection and resolves
- * the Promise with an object containing the game server URL and game name.
- *
- * @param {string} authToken - The JWT token used for authentication.
- * @param {string} username - The user's username.
- * @param {string|number} userId - The user's unique identifier.
- * @param {string} game - The name of the game to join (e.g. "game1" or "game2").
- * @returns {Promise<Object>} A Promise that resolves with { gameUrl, gameName } on success.
- */
-
-export function authUser(authToken, username, userId, game) {
+export function authUser(authToken, username, userId, displayName, game) {
     return new Promise((resolve, reject) => {
         const gatewaySocket = new WebSocket("wss://crust.gangdev.co/socket");
 
         gatewaySocket.onopen = () => {
-            const authPayload = JSON.stringify({ type: "auth", token: authToken, username, userId, displayName });
+            const authPayload = JSON.stringify({ type: "auth", token: authToken, data: { username, userId, displayName } });
             gatewaySocket.send(authPayload);
         };
 
