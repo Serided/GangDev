@@ -81,12 +81,13 @@ export function createGameServer(port, name, clientPath) {
                     break;
                 }
                 case 'playerMovement': {
-                    const {userId, x, y, username, displayName} = data.data;
-                    if (gameState.players[userId]) {
-                        gameState.players[userId].x = x;
-                        gameState.players[userId].y = y;
+                    const { x, y, username, displayName} = data.data;
+                    const uid = ws.user.userId;
+                    if (gameState.players[uid]) {
+                        gameState.players[uid].x = x;
+                        gameState.players[uid].y = y;
                     } else {
-                        gameState.players[userId] = {userId, x, y, username, displayName};
+                        gameState.players[uid] = { userId: uid, x, y, username, displayName};
                     }
                     break;
                 }
