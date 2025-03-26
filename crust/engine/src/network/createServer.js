@@ -57,6 +57,11 @@ export function createGameServer(port, name, clientPath) {
                 return;
             }
 
+            if (data.type !== 'auth' && !ws.user) {
+                ws.send(JSON.stringify({ error: "Not authenticated." }));
+                return
+            }
+
             if (data.type === 'auth') {
                 const { userId, username, displayName } = data.data;
                 if (!userId || !displayName) {
@@ -74,10 +79,10 @@ export function createGameServer(port, name, clientPath) {
                 console.log(`[${name}] Connection established. Player count: ${playerCount}`);
                 distributeData(wss, { type: 'playerCount', data: playerCount }, true)
                 distributeData(wss, { type: 'chatMessage', data: { text: `${ws.user.displayName} connected!`, server: wss.user }});
+                return;
             }
 
             const uid = ws.user.userId;
-
             switch (data.type) {
                 case 'playerSpawn': {
                     gameState.players[uid] = data.data;
