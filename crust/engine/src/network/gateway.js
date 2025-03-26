@@ -30,21 +30,31 @@ gatewayServer.on("connection", (ws) => {
             if (!authenticated && data.type === "auth") {
                 try {
                     jwt.verify(data.token, secretKey);
-                    ws.user = { username: data.username, userId: data.userId };
-                    authenticated = true;
-                    if (activeSockets[ws.user.userId]) {
-                        activeSockets[ws.user.userId].close();
-                    }
-                    activeSockets[ws.user.userId] = ws;
-                    ws.send(JSON.stringify({ type: "authAck" }));
                 } catch (err) {
                     ws.send(JSON.stringify({ error: "Authentication failed." }));
                     return ws.close();
                 }
+
+                const {userId, username, displayName} = data.data;
+
+                if (!userId || !displayName) {
+                    ws.send(JSON.stringify({ error: "Missing authentication fields." }));
+                }
+
+                ws.user = { userId, username, displayName };
+                ws.isAuthenticated = true;
+
+                if (activeSockets[userId]) {
+                    activeSockets[userId].close();
+                }
+
+                activeSockets[userId] = ws;
+                ws.send(JSON.stringify({ type: "authAck" }));
+                console.log(`Authenticated: ${displayName} (ID: ${userId})`);
                 return;
             }
 
-            if (!authenticated) {
+            if (!ws.isAuthenticated) {
                 ws.send(JSON.stringify({ error: "Not authenticated." }));
                 return ws.close();
             }
@@ -56,7 +66,7 @@ gatewayServer.on("connection", (ws) => {
                 if (game) {
                     joined = true;
                     const domain = process.env.DOMAIN || "crust.gangdev.co";
-                    const redirectUrl = `wss://${domain}${game.path}?userId=${ws.user.userId}`;
+                    const redirectUrl = `wss://${domain}${game.path}`;
                     ws.send(JSON.stringify({
                         redirect: redirectUrl,
                         game: game.name

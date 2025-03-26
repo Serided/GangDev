@@ -25,7 +25,7 @@ export function authUser(authToken, username, userId, game) {
         const gatewaySocket = new WebSocket("wss://crust.gangdev.co/socket");
 
         gatewaySocket.onopen = () => {
-            const authPayload = JSON.stringify({ type: "auth", token: authToken, username, userId });
+            const authPayload = JSON.stringify({ type: "auth", token: authToken, username, userId, displayName });
             gatewaySocket.send(authPayload);
         };
 
@@ -53,16 +53,8 @@ export function authUser(authToken, username, userId, game) {
     });
 }
 
-/**
- * Connects to a game server given a URL and game name.
- * This universal function sets up the WebSocket connection and its handlers.
- *
- * @param {string} gameUrl - The game server URL (will be corrected to wss:// if needed)
- * @param {string} gameName - The name of the game.
- * @returns {WebSocket} The connected game socket.
- */
-
-export function connectToGame(gameUrl, gameName) {
+// connect to game server
+export function connectToGame(gameUrl, gameName, username, userId, displayName, canvas, mapCanvas) {
     console.log(`Connecting to game server: ${gameUrl}`);
     if (!gameUrl.startsWith("wss://")) { // ensure URL formatted properly
         gameUrl = `wss://${window.location.host}${gameUrl}`;
