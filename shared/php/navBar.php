@@ -60,7 +60,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                     <a href="https://gaming.gangdev.co/gameEngine"><button class="hamburger-btn btnText two">Game Engine<br>(Alpha)</button></a>
                     <!--<a href="https://gaming.gangdev.co/basicCubeGame" target="_blank"><button class="hamburger-btn btnText two">The Bouncing Cube<br>(Alpha)</button></a>
                     <a href="https://gaming.gangdev.co/ultimatePong" target="_blank"><button class="hamburger-btn btnText two">Ultimate Pong<br>(Alpha)</button></a>-->
-                    <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank"><button class="hamburger-btn btnText two">Platformer Game<br>(Alpha)</button></a>
+                    <!--<a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank"><button class="hamburger-btn btnText two">Platformer Game<br>(Alpha)</button></a>-->
                     <a href="https://crust.gangdev.co/game1" target="_blank"><button class="hamburger-btn btnText two">Crust<br>(Alpha) <b style="color: lightgreen;">[Online]</b></button></a>
                     <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank"><button class="hamburger-btn btnText two">Fighting Game<br>(Beta)</button></a>
                     <a href="https://gaming.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">More...</button></a>
