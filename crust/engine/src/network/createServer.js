@@ -77,7 +77,7 @@ export function createGameServer(port, name, clientPath) {
                 playerCount++;
                 console.log(`[${name}] Connection established. Player count: ${playerCount}`);
                 distributeData(wss, { type: 'playerCount', data: playerCount })
-                distributeData(wss, { type: 'chatMessage', data: { text: `${ws.user.displayName} connected!` }, userId: wss.user.userId, username: wss.user.username, displayName: wss.user.displayName});
+                distributeData(wss, { type: 'chatMessage', data: { text: `${ws.user.displayName} connected!`, user: wss.user } });
                 return;
             }
 
