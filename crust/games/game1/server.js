@@ -1,4 +1,4 @@
-import { createGameServer } from '../../engine/game/server.js';
+import { createServer } from '../../engine/game/server.js';
 import path from "path";
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
