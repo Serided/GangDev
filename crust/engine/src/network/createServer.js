@@ -47,17 +47,6 @@ export function createGameServer(port, name, clientPath) {
     const activeGameSockets = {};
 
     wss.on('connection', (ws, request) => {
-        const query = url.parse(request.url, true).query;
-        const userId = query.userId;
-        if (userId) {
-            if (activeGameSockets[userId]) {
-                activeGameSockets[userId].close();
-            }
-            activeGameSockets[userId] = ws;
-
-            ws.user = userId;
-        }
-
         ws.on('message', (msg) => {
             if (msg instanceof Buffer) msg = msg.toString();
             let data;
