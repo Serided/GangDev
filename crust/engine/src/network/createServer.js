@@ -41,7 +41,7 @@ export function createGameServer(port, name, clientPath) {
         players: {} //  key: userId, value: { userId, x, y, username, displayName }
     };
     wss.gameState = gameState;
-    wss.user = { userId: 0, displayName: 'Server' };
+    wss.user = { userId: 0, username: 'server', displayName: 'Server' };
 
     let playerCount = 0;
     const activeGameSockets = {};
@@ -61,7 +61,6 @@ export function createGameServer(port, name, clientPath) {
                 ws.send(JSON.stringify({ error: "Not authenticated." }));
                 return
             }
-
             if (data.type === 'auth') {
                 const { userId, username, displayName } = data.data;
                 if (!userId || !displayName) {
@@ -77,8 +76,8 @@ export function createGameServer(port, name, clientPath) {
                 ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
                 playerCount++;
                 console.log(`[${name}] Connection established. Player count: ${playerCount}`);
-                distributeData(wss, { type: 'playerCount', data: playerCount }, true)
-                distributeData(wss, { type: 'chatMessage', data: { text: `${ws.user.displayName} connected!`, server: wss.user.displayName }});
+                distributeData(wss, { type: 'playerCount', data: playerCount })
+                distributeData(wss, { type: 'chatMessage', data: { text: `${ws.user.displayName} connected!` }, userId: wss.user.userId, username: wss.user.username, displayName: wss.user.displayName});
                 return;
             }
 
@@ -99,7 +98,7 @@ export function createGameServer(port, name, clientPath) {
                     break;
                 }
                 default: {
-                    distributeData(wss, msg);
+                    distributeData(wss, data);
                 }
             }
         });
@@ -110,9 +109,9 @@ export function createGameServer(port, name, clientPath) {
                 delete gameState.players[ws.userId]; // remove from gamestate
             }
             playerCount--;
-            distributeData(wss, { type: 'playerCount', data: playerCount }, true);
+            distributeData(wss, { type: 'playerCount', data: playerCount });
             const displayName = gameState.players[ws.user?.userId]?.displayName || 'Unknown';
-            distributeData(wss, { type: 'chatMessage', data: { text: `${displayName} disconnected.`, server: wss.user.displayName }});
+            distributeData(wss, { type: 'chatMessage', data: { text: `${ws.user.displayName} disconnected.` }, userId: wss.user.userId, username: wss.user.username, displayName: wss.user.displayName});
             console.log(`[${name}] Connection closed. Player count: ${playerCount}`);
         });
     });
