@@ -59,7 +59,7 @@ export function createGameServer(port, name, clientPath) {
         playerCount++;
         console.log(`[${name}] Connection established. Player count: ${playerCount}`);
         ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
-        ws.send(JSON.stringify({ type: 'playerCount', data: playerCount}));
+        distributeData(wss, { type: 'playerCount', data: playerCount }, true)
 
         ws.on('message', (msg) => {
             if (msg instanceof Buffer) msg = msg.toString();
@@ -98,7 +98,7 @@ export function createGameServer(port, name, clientPath) {
             }
             playerCount--;
             console.log(`[${name}] Connection closed. Player count: ${playerCount}`);
-            ws.send(JSON.stringify({ type: 'playerCount', data: playerCount}));
+            distributeData(wss, { type: 'playerCount', data: playerCount }, true)
             distributeData(wss, { type: 'chatMessage', data: 'Player disconnected.' }, true);
         });
     });
