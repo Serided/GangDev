@@ -31,6 +31,8 @@ export function appendMessage(msg) {
         } else if (msg.user.userId === window.userId) {
             text = `${msg.user.displayName}: ${msg.text}`;
             color = "green"
+        } else {
+            text = `${msg.user.displayName}: ${msg.text}`;
         }
     } else {
         text = msg.toString();
