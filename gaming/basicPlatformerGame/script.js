@@ -1,6 +1,6 @@
-import { gameEngine } from '/gameEngine/script.js';
-import { Tools } from '/gameEngine/js/tools.js';
-import { Platform, Player } from '/gameEngine/js/classes.js';
+import { gameEngine } from '../gameEngine/script.js';
+import { Tools } from '../gameEngine/js/tools.js';
+import { Platform, Player } from '../gameEngine/js/classes.js';
 
 Tools.setupKeyboardListeners();
 
