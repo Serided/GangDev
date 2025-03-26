@@ -22,7 +22,7 @@ export function gameLoop(ts, canvas, ctx, gameState) {
 
     if (localPlayer) {
         localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
-        console.log(localPlayer);
+        // console.log(localPlayer);
         sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
 
         if (firstFrame) {
