@@ -65,9 +65,8 @@ export function createGameServer(port, name, clientPath) {
                 }
                 ws.user = { userId, username, displayName };
 
-                activeGameSockets[ws.userId].close();
-                activeGameSockets[ws.userId] = ws;
-                ws.send(JSON.stringify)
+                if (activeGameSockets[ws.user.userId]) activeGameSockets[ws.user.userId].close();
+                activeGameSockets[ws.user.userId] = ws;
 
                 ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
                 playerCount++;
