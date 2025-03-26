@@ -2,7 +2,7 @@ import fs from 'fs';
 import pkg from 'noisejs'
 const { Noise } = pkg;
 
-function smoothstep(edge0, edge1, x) {
+function smoothStep(edge0, edge1, x) {
     x = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0))); // scale, bias and saturate x to 0..1 range
     return x * x * (3 - 2 * x); // eval polynomial
 }
@@ -43,7 +43,7 @@ export class Map {
                 const ny = y / this.height - 0.5;
 
                 const distance = Math.sqrt(nx * nx + ny * ny);
-                const falloff = smoothstep(0.3, 0.5, distance);
+                const falloff = smoothStep(0.3, 0.5, distance);
 
                 const elevation = this.noise.perlin2(nx * frequency, ny * frequency) - falloff;
 
