@@ -98,6 +98,7 @@ export function createGameServer(port, name, clientPath) {
             }
             playerCount--;
             console.log(`[${name}] Connection closed. Player count: ${playerCount}`);
+            ws.send(JSON.stringify({ type: 'playerCount', data: playerCount}));
             distributeData(wss, { type: 'chatMessage', data: 'Player disconnected.' }, true);
         });
     });
