@@ -41,6 +41,7 @@ export function createGameServer(port, name, clientPath) {
         players: {} //  key: userId, value: { userId, x, y, username, displayName }
     };
     wss.gameState = gameState;
+    wss.user = { userId: 0, displayName: 'Server' };
 
     let playerCount = 0;
     const activeGameSockets = {};
@@ -54,13 +55,13 @@ export function createGameServer(port, name, clientPath) {
             }
             activeGameSockets[userId] = ws;
 
-            const username = query.username || "Unknown";
-            ws.user = { userId, username };
+            const displayName = query.displayName || "Unknown";
+            ws.user = { userId, displayName };
         }
 
         playerCount++;
         distributeData(wss, { type: 'playerCount', data: playerCount }, true)
-        distributeData(wss, { type: 'chatMessage', data: `${ws.displayName} connected!` }, true);
+        distributeData(wss, { type: 'chatMessage', data: { text: `${ws.displayName} connected!`, user: wss.user }}, true);
         console.log(`[${name}] Connection established. Player count: ${playerCount}`);
         ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
 
@@ -101,7 +102,7 @@ export function createGameServer(port, name, clientPath) {
             }
             playerCount--;
             distributeData(wss, { type: 'playerCount', data: playerCount }, true)
-            distributeData(wss, { type: 'chatMessage', data: `${ws.displayName} disconnected.` }, true);
+            distributeData(wss, { type: 'chatMessage', data: { text: `${ws.displayName} disconnected.`, user: wss.user }}, true);
             console.log(`[${name}] Connection closed. Player count: ${playerCount}`);
         });
     });

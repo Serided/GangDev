@@ -24,8 +24,11 @@ export function appendMessage(msg) {
     let color = "red";
 
     if (typeof msg === "object" && msg.text && msg.user) {
-        text = `${msg.user.displayName}: ${msg.text}`;
-        if (msg.user.userId === window.userId) {
+        if (msg.user.userId === 0) {
+            text = msg.text;
+            color = "gray"
+        } else if (msg.user.userId === window.userId) {
+            text = `${msg.user.displayName}: ${msg.text}`;
             color = "green"
         }
     } else {
