@@ -60,10 +60,10 @@
                         </div>
                         <div class="link">
                             <a href="https://gaming.gangdev.co/ultimatePong" target="_blank">- Ultimate Pong -<br>(Alpha)</a>
-                        </div>-->
+                        </div>
                         <div class="link">
                             <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">- Platformer Game -<br>(Alpha)</a>
-                        </div>
+                        </div>-->
                         <div class="link">
                             <a href="https://crust.gangdev.co/game1" target="_blank">- Crust -<br>(Alpha) <b>[Online]</b></a>
                         </div>

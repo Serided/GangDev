@@ -51,7 +51,7 @@
                 <b>INCLUDED</b>
             </p>
         </div>
-
+        <!--
         <div class="sect cont three">
             <h2>
                 <a href="basicPlatformerGame" target="_blank">Platformer Game (Alpha)</a>
@@ -63,8 +63,8 @@
                 <b>W, A, S, and D to move.</b>
             </p>
         </div>
-
-        <div class="sect cont one">
+        -->
+        <div class="sect cont three">
             <h2>
                 <a href="https://crust.gangdev.co/game2" target="_blank">Crust (Alpha) [Online]</a>
             </h2>
@@ -75,7 +75,7 @@
             </p>
         </div>
 
-        <div class="sect cont four">
+        <div class="sect cont one">
             <h2>
                 <a href="basicFighterGame" target="_blank">Fighting Game (Beta)</a>
             </h2>
