@@ -111,7 +111,7 @@ export function createGameServer(port, name, clientPath) {
             playerCount--;
             distributeData(wss, { type: 'playerCount', data: playerCount });
             const displayName = gameState.players[ws.user?.userId]?.displayName || 'Unknown';
-            distributeData(wss, { type: 'chatMessage', data: { text: `${ws.user.displayName} disconnected.` }, user: { userId: wss.user.userId, username: wss.user.username, displayName: wss.user.displayName} });
+            distributeData(wss, { type: 'chatMessage', data: { text: `${ws.user.displayName} disconnected.`, user: wss.user } });
             console.log(`[${name}] Connection closed. Player count: ${playerCount}`);
         });
     });
