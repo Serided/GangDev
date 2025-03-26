@@ -58,15 +58,15 @@ export function createGameServer(port, name, clientPath) {
             }
 
             if (data.type === 'auth') {
-                const {userId, username, displayName} = data.data;
+                const { userId, username, displayName } = data.data;
                 if (!userId || !displayName) {
                     ws.send(JSON.stringify({ error: "Missing authentication fields." }));
                     return ws.close();
                 }
                 ws.user = { userId, username, displayName };
 
-                activeGameSockets[userId].close();
-                activeGameSockets[userId] = ws;
+                activeGameSockets[ws.userId].close();
+                activeGameSockets[ws.userId] = ws;
                 ws.send(JSON.stringify)
 
                 ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
