@@ -64,9 +64,10 @@ export function createGameServer(port, name, clientPath) {
                     return ws.close();
                 }
                 ws.user = { userId, username, displayName };
+                const uid = ws.user.userId;
 
-                if (activeGameSockets[ws.user.userId]) activeGameSockets[ws.user.userId].close();
-                activeGameSockets[ws.user.userId] = ws;
+                if (activeGameSockets[uid]) activeGameSockets[uid].close();
+                activeGameSockets[uid] = ws;
 
                 ws.send(JSON.stringify({ type: 'chatMessage', data: `Welcome to ${name}!` }));
                 playerCount++;
@@ -75,14 +76,15 @@ export function createGameServer(port, name, clientPath) {
                 distributeData(wss, { type: 'chatMessage', data: { text: `${ws.user.displayName} connected!`, server: wss.user }});
             }
 
+            const uid = ws.user.userId;
+
             switch (data.type) {
                 case 'playerSpawn': {
-                    gameState.players[userId] = data.data;
+                    gameState.players[uid] = data.data;
                     break;
                 }
                 case 'playerMovement': {
                     const { x, y, username, displayName} = data.data;
-                    const uid = ws.user.userId;
                     if (gameState.players[uid]) {
                         gameState.players[uid].x = x;
                         gameState.players[uid].y = y;
