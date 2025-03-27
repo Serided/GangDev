@@ -54,7 +54,6 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
     };
 
     gameSocket.onmessage = async (event) => {
-        // console.log(`Message from server:`, event.data);
         let data;
         if (event.data instanceof Blob) {
             data = JSON.parse(await event.data.text());
@@ -63,13 +62,26 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
         }
         switch (data.type) {
             case 'gameState': {
-                const newPlayers = {};
-                Object.keys(data.data).forEach(id => {
-                    const p = data.data[id];
-                    newPlayers[id] = new Player(p.userId, p.username, p.displayName, p.x, p.y);
-                })
-                gameState.players = newPlayers;
-                return;
+                Object.keys(data.data).forEach(uid => {
+                    const serverPlayer = data.data[uid];
+                    if (uid === window.userId) {
+                        const localPlayer = gameState.players[uid];
+                        localPlayer.x = serverPlayer.x;
+                        localPlayer.y = serverPlayer.y;
+
+                        localPlayer.predictedPosition = { x: serverPlayer.x, y: serverPlayer.y }; // reset predicted position to server state
+
+                        if (window.inputBuffer) {
+                            window.inputBuffer.forEach(input => {
+                                localPlayer.predictedPosition.x += input.dx;
+                                localPlayer.predictedPosition.y += input.dy;
+                            });
+                        }
+                    } else {
+                        gameState.players[uid] = new Player(serverPlayer.userId, serverPlayer.username, serverPlayer.displayName, serverPlayer.x, serverPlayer.y);
+                    }
+                });
+                break;
             } case 'chatMessage': {// add message to chat if it's a chat message
                 appendMessage(data.data);
                 break;

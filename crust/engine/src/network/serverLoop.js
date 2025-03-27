@@ -4,7 +4,7 @@ export function startServerLoop(wss) {
 
     setInterval(() => { // process all queued inputs
         updateGameState(wss.gameState, tickInterval / 1000); // process game state updates (physics, inputs, etc)
-        broadcastGameState(wss) // broadcast updated state to all connected clients)
+        broadcastGameState(wss) // broadcast updated state to all connected clients
     }, tickInterval);
 }
 

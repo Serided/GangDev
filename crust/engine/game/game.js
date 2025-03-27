@@ -21,16 +21,25 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     const localPlayer = gameState.players[window.userId];
 
     if (localPlayer) {
-        // console.log(localPlayer);
+        if (!localPlayer.predictedPosition) {
+            localPlayer.predictedPosition = { x: localPlayer.x, y: localPlayer.y };
+        }
+
+        localPlayer.predictedPosition.x += movement.dx;
+        localPlayer.predictedPosition.y += movement.dy;
+
         const input = { dx: movement.dx, dy: movement.dy, ts: Date.now() };
         sendData(window.activeSocket, "movementInput", input, window.userId, window.username, window.displayName);
 
+        window.inputBuffer = window.inputBuffer || [];
+        window.inputBuffer.push(input);
+
         if (firstFrame) {
-            camera.x = localPlayer.x + window.player / 2;
-            camera.y = localPlayer.y + window.player / 2;
+            camera.x = localPlayer.predictedPosition.x + window.player / 2;
+            camera.y = localPlayer.predictedPosition.y + window.player / 2;
             firstFrame = false;
         } else {
-            camera.update(localPlayer)
+            camera.update({x: localPlayer.predictedPosition.x, y: localPlayer.predictedPosition.y });
         }
     }
 
@@ -39,7 +48,6 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     ctx.translate(canvas.width / 2, canvas.height / 2); // set camera x and y to player center
     ctx.scale(camera.zoom, camera.zoom);
     ctx.translate(-camera.x, -camera.y);
-
     if (window.sharedMap) drawMap(ctx, window.sharedMap, camera);
     drawPlayers(ctx);
     ctx.restore();
