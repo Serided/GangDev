@@ -67,16 +67,17 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                     const serverPlayer = data.data[uid];
                     if (uid === window.userId) {
                         const localPlayer = gameState.players[uid];
-                        localPlayer.x = serverPlayer.x;
-                        localPlayer.y = serverPlayer.y;
+                        const targetX = serverPlayer.x;
+                        const targetY = serverPlayer.y;
 
-                        reconcilePosition(localPlayer, serverPlayer.x, serverPlayer.y);
+                        reconcilePosition(localPlayer, targetX, targetY, 0.1);
 
                         if (window.inputBuffer) {
                             window.inputBuffer.forEach(input => {
                                 localPlayer.predictedPosition.x += input.dx;
                                 localPlayer.predictedPosition.y += input.dy;
                             });
+                            window.inputBuffer = [];
                         }
 
                         localPlayer.x = localPlayer.predictedPosition.x;
