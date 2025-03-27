@@ -210,6 +210,7 @@ nav input:checked + .account-btn + .sidebar.two {
 .sectBtn {
     position: fixed;
     right: calc(var(--scaling) * 1);
+    z-index: 5000;
 }
 #upBtn {
     top: calc(var(--scaling) * 1);
