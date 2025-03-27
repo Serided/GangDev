@@ -70,7 +70,7 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                         const targetX = serverPlayer.x;
                         const targetY = serverPlayer.y;
 
-                        reconcilePosition(localPlayer, targetX, targetY, 0.015);
+                        reconcilePosition(localPlayer, targetX, targetY, 0.000000001);
 
                         if (window.inputBuffer) {
                             window.inputBuffer.forEach(input => {
