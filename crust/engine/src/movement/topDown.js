@@ -28,7 +28,7 @@ export function getMovementVector(deltaTime, keys, speed) {
     return { dx: dx * deltaTime, dy: dy * deltaTime };
 }
 
-export function reconcilePosition(localPlayer, serverX, serverY, smoothFactor = 0.1) {
+export function reconcilePosition(localPlayer, serverX, serverY, smoothFactor = 0.015) {
     localPlayer.predictedPosition.x = lerp(localPlayer.predictedPosition.x, serverX, smoothFactor);
     localPlayer.predictedPosition.y = lerp(localPlayer.predictedPosition.y, serverY, smoothFactor);
 }
