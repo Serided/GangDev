@@ -210,8 +210,18 @@ nav input:checked + .account-btn + .sidebar.two {
 .sectBtn {
     position: fixed;
     right: calc(var(--scaling) * 1);
+    padding: calc(var(--scaling) * 0.3);
+    font-size: calc(var(--scaling) * 0.5);
     z-index: 5000;
+    border: none;
+    color: white;
+    border-radius: calc(var(--scaling) * 0.2);
+    background-color: #455A64;
     transition: all 0.2s ease;
+}
+.sectBtn:hover {
+    background-color: #37474F;
+    transform: scale(1.05);
 }
 #upBtn {
     top: calc(var(--scaling) * 1);
