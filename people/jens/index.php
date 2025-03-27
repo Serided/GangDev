@@ -137,7 +137,7 @@
             <div class="favorites">
                 <div><a href="https://github.com/Serided/GangDev" target="_blank">- GangDev Website -</a></div>
                 <div><a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine (Alpha) -</a></div>
-                <div><a href="https://crust.gangdev.co/game1" target="_blank">- Crust (Alpha) [Online] -</a></div>
+                <div><a href="https://crust.gangdev.co/game1" target="_blank">- Crust (Alpha) <b>[Online]</b> -</a></div>
                 <div><a href="https://apps.gangdev.co/roastGenerator" target="_blank">- Roast Generator -</a></div>
                 <div><a href="https://apps.gangdev.co/mmfGenerator" target="_blank">- MMF Generator -</a></div>
             </div>
