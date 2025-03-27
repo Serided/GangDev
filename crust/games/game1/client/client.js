@@ -23,7 +23,7 @@ function startGameLoop() {
 authUser(window.authToken, window.username, window.userId, window.displayName, "game1")
     .then(({ gameUrl, gameName }) => {
         console.log("Authenticated! Received game server details:", gameUrl, gameName);
-        activeSocket = connectToGame(gameUrl, gameName);
+        activeSocket = connectToGame(gameUrl, gameName, window.username, window.userId, window.displayName);
         startGameLoop();
     })
     .catch(err => {
