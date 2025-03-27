@@ -77,14 +77,6 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
             } case 'playerCount': { // update player count if it's player count data
                 updatePlayerCount(data.data);
                 break;
-            } case 'playerMovement': { // update player positions if it's player movement data
-                const {userId, x, y, username, displayName} = data.data;
-                if (gameState.players[userId]) {
-                    gameState.players[userId].updatePosition(x, y);
-                } else {
-                    gameState.players[userId] = new Player(userId, username, displayName, x, y);
-                }
-                break;
             } default: {
                 console.error("Invalid data:", data)
             }
