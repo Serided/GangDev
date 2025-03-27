@@ -1,11 +1,10 @@
 import { drawPlayers, drawMap } from "../src/render/2d.js"
-import { topDownInput } from "../src/input/topDown.js"
+import { computeMovement } from "../src/movement/topDown.js"
 import { sendData } from "../src/tools.js";
 import { camera } from "../src/camera/topDown.js";
 
-let lastTimeStamp = 0;
 let firstFrame = true;
-let fixedDeltaTime = 1 / 60; // fps
+let fixedDeltaTime = 1 / 60;
 
 /**
  * A basic game loop that updates and renders the game.
@@ -17,7 +16,7 @@ let fixedDeltaTime = 1 / 60; // fps
  */
 
 export function gameLoop(ts, canvas, ctx, gameState) {
-    const movement = topDownInput.computeMovement(fixedDeltaTime, (2 * window.scaling));
+    const movement = computeMovement(fixedDeltaTime, (2 * window.scaling));
     const localPlayer = gameState.players[window.userId];
 
     if (localPlayer) {

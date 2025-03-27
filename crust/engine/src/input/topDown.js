@@ -40,18 +40,8 @@ export const topDownInput = (() => {
     }
 
     return {
-        setupInputListeners,
-        computeMovement
+        setupInputListeners
     };
 })();
 
-/**
- * Computes and returns the movement vector using the current key state.
- * @param {number} deltaTime - Time elapsed since last frame (in seconds).
- * @param {number} speed - Base movement speed.
- * @returns {{dx: number, dy: number}} Movement vector.
- */
-
-export function computeMovement(deltaTime, speed) {
-    return getMovementVector(deltaTime, keys, speed);
-}
+export { keys }

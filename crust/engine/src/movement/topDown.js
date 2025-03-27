@@ -1,4 +1,5 @@
 import { lerp } from '../tools.js';
+import { keys } from '../input/topDown.js';
 
 /**
  * Computes the movement vector based on the current key states.
@@ -26,6 +27,10 @@ export function getMovementVector(deltaTime, keys, speed) {
 
     // Multiply by deltaTime to get movement in units for this frame.
     return { dx: dx * deltaTime, dy: dy * deltaTime };
+}
+
+export function computeMovement(deltaTime, speed) {
+    return getMovementVector(deltaTime, keys, speed);
 }
 
 export function reconcilePosition(localPlayer, serverX, serverY, smoothFactor = 0.015) {
