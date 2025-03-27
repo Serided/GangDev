@@ -224,7 +224,7 @@ nav input:checked + .account-btn + .sidebar.two {
     color: white;
     cursor: pointer;
     border-radius: calc(var(--scaling) * 0.2);
-    background-color: var(--foreground);
+    background-color: dimgray;
     transition: all 0.2s ease;
 }
 .sectBtn:hover {
