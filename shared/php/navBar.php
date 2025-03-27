@@ -18,7 +18,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                 <aside class="sidebar two">
                     <nav>
                         <a href="http://account.gangdev.co" class="btnText"><button class="hamburger-btn btnText two">Account</button></a>
-                        <a href="#" class="btnText"><button class="hamburger-btn btnText two">Leaderboard</button></a>
+                        <a href="" class="btnText"><button class="hamburger-btn btnText two">Leaderboard</button></a>
                         <a href="https://account.gangdev.co/login/signout.php" class="btnText"><button class="hamburger-btn btnText two">Sign Out</button></a>
                     </nav>
                 </aside>
@@ -38,7 +38,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                 <nav>
                     <a href="https://mods.gangdev.co/minecraft/resource_packs/index.php"><button class="hamburger-btn btnText two">Minecraft<br>(Resource Packs)</button></a>
                     <a href="https://mods.gangdev.co/minecraft/data_packs/index.php"><button class="hamburger-btn btnText two">Minecraft<br>(Data Packs)</button></a>
-                    <a href="https://mods.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">More...</button></a>
+                    <!--<a href="https://mods.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">More...</button></a>-->
                 </nav>
             </aside>
 
@@ -49,7 +49,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                     <a href="https://apps.gangdev.co/roastGenerator"><button class="hamburger-btn btnText two">Roast Generator</button></a>
                     <a href="https://apps.gangdev.co/mmfGenerator"><button class="hamburger-btn btnText two">MMF Generator</button></a>
                     <!--<a href="https://apps.gangdev.co/universalChat" target="_blank"><button class="hamburger-btn btnText two">Universal Chat</button></a>-->
-                    <a href="https://apps.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">More...</button></a>
+                    <!--<a href="https://apps.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">More...</button></a>-->
                 </nav>
             </aside>
 
@@ -63,7 +63,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                     <!--<a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank"><button class="hamburger-btn btnText two">Platformer Game<br>(Alpha)</button></a>-->
                     <a href="https://crust.gangdev.co/game1" target="_blank"><button class="hamburger-btn btnText two">Crust<br>(Alpha) <b style="color: lightgreen;">[Online]</b></button></a>
                     <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank"><button class="hamburger-btn btnText two">Fighting Game<br>(Beta)</button></a>
-                    <a href="https://gaming.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">More...</button></a>
+                    <!--<a href="https://gaming.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">More...</button></a>-->
                 </nav>
             </aside>
 

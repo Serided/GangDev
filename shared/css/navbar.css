@@ -237,6 +237,7 @@ nav input:checked + .account-btn + .sidebar.two {
 #upBtn::before {
     content: "";
     display: block;
+    position: absolute;
     color: white;
     width: calc(var(--scaling) * 0.5);
     height: calc(var(--scaling) * 0.3);
@@ -249,6 +250,7 @@ nav input:checked + .account-btn + .sidebar.two {
 #downBtn::after {
     content: "";
     display: block;
+    position: absolute;
     color: white;
     width: calc(var(--scaling) * 0.5);
     height: calc(var(--scaling) * 0.3);
