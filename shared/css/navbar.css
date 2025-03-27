@@ -215,9 +215,10 @@ nav input:checked + .account-btn + .sidebar.two {
     justify-content: center;
     right: calc(var(--scaling) * 0.5);
     padding: calc(var(--scaling) * 0.1);
-    width: calc(var(--scaling) * 2.2);
-    height: calc(var(--scaling) * 2.2);
-    font-size: calc(var(--scaling) * 1);
+    width: calc(var(--scaling) * 2.5);
+    height: calc(var(--scaling) * 2.5);
+    font-size: calc(var(--scaling) * 1.3);
+    font-weight: bold;
     z-index: 5000;
     border: none;
     color: white;
