@@ -1,8 +1,7 @@
 import { setup2dCanvas } from "../canvas.js";
 import { chatPanel ,chatInput } from "../comms/chat.js"
-import { getMovementVector } from "../movement/topDown.js";
 
-const keys = {};
+export const keys = {};
 
 export const topDownInput = (() => {
     function setupInputListeners() {
@@ -44,4 +43,4 @@ export const topDownInput = (() => {
     };
 })();
 
-export { keys }
+export { keys };
