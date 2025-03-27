@@ -71,7 +71,6 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                         localPlayer.y = serverPlayer.y;
 
                         reconcilePosition(localPlayer, serverPlayer.x, serverPlayer.y);
-                        localPlayer.predictedPosition = { x: serverPlayer.x, y: serverPlayer.y }; // reset predicted position to server state
 
                         if (window.inputBuffer) {
                             window.inputBuffer.forEach(input => {
