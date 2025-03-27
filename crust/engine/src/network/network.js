@@ -78,6 +78,9 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                                 localPlayer.predictedPosition.y += input.dy;
                             });
                         }
+
+                        localPlayer.x = localPlayer.predictedPosition.x;
+                        localPlayer.y = localPlayer.predictedPosition.y;
                     } else {
                         gameState.players[uid] = new Player(serverPlayer.userId, serverPlayer.username, serverPlayer.displayName, serverPlayer.x, serverPlayer.y);
                     }
