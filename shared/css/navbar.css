@@ -229,11 +229,12 @@ nav input:checked + .account-btn + .sidebar.two {
 #upBtn {
     top: calc(var(--scaling) * 0.5);
 }
-#upBtn::after {
+#upBtn::before {
     content: "";
-    display: inline-block;
-    width: 10px;
-    height: 6px;
+    display: block;
+    color: white;
+    width: calc(var(--scaling) * 0.2);
+    height: calc(var(--scaling) * 0.1);
     vertical-align: middle;
     margin-left: 4px;
     background: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><polyline points='1,5 5,1 9,5' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center;
@@ -244,9 +245,10 @@ nav input:checked + .account-btn + .sidebar.two {
 }
 #downBtn::after {
     content: "";
-    display: inline-block;
-    width: 10px;
-    height: 6px;
+    display: block;
+    color: white;
+    width: calc(var(--scaling) * 0.2);
+    height: calc(var(--scaling) * 0.1);
     vertical-align: middle;
     margin-left: 4px;
     background: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><polyline points='1,1 5,5 9,1' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center;
