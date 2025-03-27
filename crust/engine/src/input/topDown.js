@@ -42,5 +42,3 @@ export const topDownInput = (() => {
         setupInputListeners
     };
 })();
-
-export { keys };
