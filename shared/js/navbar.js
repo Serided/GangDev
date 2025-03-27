@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(() => {
         pulseButton(upBtn);
         pulseButton(downBtn);
-    }, 30000);
+    }, 1000);
 
     function getCurrentSectionIndex() {
         let currentIndex = 0;
