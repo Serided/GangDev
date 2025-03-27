@@ -206,3 +206,14 @@ nav input:checked + .account-btn + .sidebar.two {
     translate: 0;
     opacity: 100%;
 }
+
+.sectButton {
+    position: fixed;
+    right: calc(var(--scaling) * 1);
+}
+#upButton {
+    top: calc(var(--scaling) * 1);
+}
+#downButton {
+    bottom: calc(var(--scaling) * 1);
+}
