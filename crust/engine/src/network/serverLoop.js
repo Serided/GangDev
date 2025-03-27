@@ -11,13 +11,13 @@ export function startServerLoop(wss) {
 function updateGameState(gameState, deltaTime) {
     Object.keys(gameState.players).forEach((uid) => {
         const player = gameState.players[uid];
-        /*if (player.inputQueue && player.inputQueue.length > 0) {
+        if (player.inputQueue && player.inputQueue.length > 0) {
             player.inputQueue.forEach(input => {
                 player.x += input.dx;
                 player.y += input.dy;
             });
             player.inputQueue = [];
-        }*/
+        }
     })
 }
 
