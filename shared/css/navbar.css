@@ -254,7 +254,3 @@ nav input:checked + .account-btn + .sidebar.two {
     background: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><polyline points='1,1 5,5 9,1' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center;
     background-size: contain;
 }
-
-.pulse {
-    box-shadow: 0 0 calc(var(--scaling) * 0.2) white;
-}
