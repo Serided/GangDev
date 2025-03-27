@@ -211,6 +211,8 @@ nav input:checked + .account-btn + .sidebar.two {
     position: fixed;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     right: calc(var(--scaling) * 0.5);
     padding: calc(var(--scaling) * 0.1);
     width: calc(var(--scaling) * 2.2);
@@ -219,6 +221,7 @@ nav input:checked + .account-btn + .sidebar.two {
     z-index: 5000;
     border: none;
     color: white;
+    cursor: pointer;
     border-radius: calc(var(--scaling) * 0.2);
     box-shadow: 0 0 calc(var(--scaling) * 0.2) white;
     background-color: #455A64;
