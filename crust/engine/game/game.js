@@ -21,9 +21,9 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     const localPlayer = gameState.players[window.userId];
 
     if (localPlayer) {
-        localPlayer.updatePosition(localPlayer.x + movement.dx, localPlayer.y + movement.dy);
         // console.log(localPlayer);
-        sendData(window.activeSocket, "playerMovement", localPlayer, window.userId, window.username, window.displayName);
+        const input = { dx: movement.dx, dy: movement.dy, ts: Date.now() };
+        sendData(window.activeSocket, "movementInput", input, window.userId, window.username, window.displayName);
 
         if (firstFrame) {
             camera.x = localPlayer.x + window.player / 2;

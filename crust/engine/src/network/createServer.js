@@ -87,14 +87,13 @@ export function createGameServer(port, name, clientPath) {
                     gameState.players[uid] = data.data;
                     break;
                 }
-                case 'playerMovement': {
-                    const { x, y, username, displayName} = data.data;
-                    if (gameState.players[uid]) {
-                        gameState.players[uid].x = x;
-                        gameState.players[uid].y = y;
-                    } else {
-                        gameState.players[uid] = { userId: uid, x, y, username, displayName};
+                case 'movementInput': {
+                    const { dx, dy, ts } = data.data;
+                    const player = wss.gameState.players[uid];
+                    if (!player.inputQueue) {
+                        player.inputQueue = [];
                     }
+                    player.inputQueue.push({ dx, dy, ts })
                     break;
                 }
                 default: {
