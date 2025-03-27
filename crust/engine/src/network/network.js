@@ -70,14 +70,17 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                         const targetX = serverPlayer.x;
                         const targetY = serverPlayer.y;
 
-                        reconcilePosition(localPlayer, targetX, targetY, 0.000000001);
+                        reconcilePosition(localPlayer, targetX, targetY, 0.1);
+
+                        const lastProcessedTs = serverPlayer.lastProcessedTs || 0;
 
                         if (window.inputBuffer) {
-                            window.inputBuffer.forEach(input => {
+                            const pendingInputs = window.inputBuffer.filter(input => input.ts > lastProcessedTs);
+                            pendingInputs.forEach(input => {
                                 localPlayer.predictedPosition.x += input.dx;
                                 localPlayer.predictedPosition.y += input.dy;
                             });
-                            window.inputBuffer = [];
+                            window.inputBuffer = pendingInputs;
                         }
 
                         localPlayer.x = localPlayer.predictedPosition.x;

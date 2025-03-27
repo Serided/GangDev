@@ -18,6 +18,7 @@ let fixedDeltaTime = 1 / 60;
 export function gameLoop(ts, canvas, ctx, gameState) {
     const movement = computeMovement(fixedDeltaTime, (2 * window.scaling));
     const localPlayer = gameState.players[window.userId];
+    window.inputBuffer = window.inputBuffer || [];
 
     if (localPlayer) {
         if (!localPlayer.predictedPosition) {
@@ -30,7 +31,6 @@ export function gameLoop(ts, canvas, ctx, gameState) {
         const input = { dx: movement.dx, dy: movement.dy, ts: Date.now() };
         sendData(window.activeSocket, "movementInput", input, window.userId, window.username, window.displayName);
 
-        window.inputBuffer = window.inputBuffer || [];
         window.inputBuffer.push(input);
 
         if (firstFrame) {

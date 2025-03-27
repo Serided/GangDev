@@ -16,6 +16,7 @@ function updateGameState(gameState, deltaTime) {
                 player.x += input.dx;
                 player.y += input.dy;
             });
+            player.lastProcessedTs = player.inputQueue[player.inputQueue.length - 1].ts;
             player.inputQueue = [];
         }
     })
