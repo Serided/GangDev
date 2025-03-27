@@ -209,9 +209,11 @@ nav input:checked + .account-btn + .sidebar.two {
 
 .sectBtn {
     position: fixed;
-    right: calc(var(--scaling) * 1);
-    padding: calc(var(--scaling) * 0.3);
-    font-size: calc(var(--scaling) * 0.5);
+    right: calc(var(--scaling) * 0.5);
+    padding: calc(var(--scaling) * 0.6);
+    width: calc(var(--scaling) * 1);
+    height: calc(var(--scaling) * 1);
+    font-size: calc(var(--scaling) * 1);
     z-index: 5000;
     border: none;
     color: white;
@@ -224,8 +226,8 @@ nav input:checked + .account-btn + .sidebar.two {
     transform: scale(1.05);
 }
 #upBtn {
-    top: calc(var(--scaling) * 1);
+    top: calc(var(--scaling) * 0.5);
 }
 #downBtn {
-    bottom: calc(var(--scaling) * 1);
+    bottom: calc(var(--scaling) * 0.5);
 }
