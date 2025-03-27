@@ -240,7 +240,7 @@ nav input:checked + .account-btn + .sidebar.two {
     color: white;
     width: calc(var(--scaling) * 0.5);
     height: calc(var(--scaling) * 0.3);
-    background: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><polyline points='1,5 5,1 9,5' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center;
+    background: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><polyline points='1,5 5,1 9,5' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center;
     background-size: contain;
 }
 #downBtn {
@@ -252,6 +252,6 @@ nav input:checked + .account-btn + .sidebar.two {
     color: white;
     width: calc(var(--scaling) * 0.5);
     height: calc(var(--scaling) * 0.3);
-    background: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><polyline points='1,1 5,5 9,1' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center;
+    background: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><polyline points='1,1 5,5 9,1' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center;
     background-size: contain;
 }
