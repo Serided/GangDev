@@ -238,6 +238,7 @@ nav input:checked + .account-btn + .sidebar.two {
     content: "";
     display: block;
     position: absolute;
+    top: calc(var(--scaling) * 0.1);
     color: white;
     width: calc(var(--scaling) * 0.5);
     height: calc(var(--scaling) * 0.3);
@@ -251,6 +252,7 @@ nav input:checked + .account-btn + .sidebar.two {
     content: "";
     display: block;
     position: absolute;
+    bottom: calc(var(--scaling) * 0.1);
     color: white;
     width: calc(var(--scaling) * 0.5);
     height: calc(var(--scaling) * 0.3);
