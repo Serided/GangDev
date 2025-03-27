@@ -88,5 +88,5 @@ require_once '/var/www/gangdev/shared/php/init.php';
     </aside>
     <script src="https://gangdev.co/shared/js/navbar.js"></script>
 </div>
-<button class="sectButton" id="upButton">W</button>
-<button class="sectButton" id="downButton">S</button>
+<button class="sectBtn" id="upBtn">W</button>
+<button class="sectBtn" id="downBtn">S</button>

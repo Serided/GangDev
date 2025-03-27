@@ -207,13 +207,13 @@ nav input:checked + .account-btn + .sidebar.two {
     opacity: 100%;
 }
 
-.sectButton {
+.sectBtn {
     position: fixed;
     right: calc(var(--scaling) * 1);
 }
-#upButton {
+#upBtn {
     top: calc(var(--scaling) * 1);
 }
-#downButton {
+#downBtn {
     bottom: calc(var(--scaling) * 1);
 }

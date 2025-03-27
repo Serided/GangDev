@@ -32,8 +32,8 @@ hamburgerBtn.addEventListener('click', uncheckAll)
 document.addEventListener('DOMContentLoaded', function() {
     const sections = Array.from(document.querySelectorAll('.sect.cont'));
     const hamburger = document.getElementById('hamburger');
-    const upBtn = document.getElementById('upButton')
-    const downBtn = document.getElementById('downButton')
+    const upBtn = document.getElementById('upBtn')
+    const downBtn = document.getElementById('downBtn')
 
     function getCurrentSectionIndex() {
         let currentIndex = 0;
