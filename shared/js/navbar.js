@@ -35,6 +35,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const upBtn = document.getElementById('upBtn')
     const downBtn = document.getElementById('downBtn')
 
+    function pulseButton(button) {
+        button.classList.add("pulse");
+        // Remove the pulse class after 1 second (adjust if needed)
+        setTimeout(() => {
+            button.classList.remove("pulse");
+        }, 1000);
+    }
+
+    pulseButton(upBtn);
+    pulseButton(downBtn);
+
+    setInterval(() => {
+        pulseButton(upBtn);
+        pulseButton(downBtn);
+    }, 30000);
+
     function getCurrentSectionIndex() {
         let currentIndex = 0;
         let closest = Infinity;
