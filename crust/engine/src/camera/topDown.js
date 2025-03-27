@@ -1,6 +1,4 @@
-export function lerp(a, b, t) {
-    return a + (b - a) * t;
-}
+import { lerp } from '../tools.js'
 
 export const camera = {
     x: 0,
@@ -8,10 +6,6 @@ export const camera = {
     zoom: 1,
     targetZoom: 1,
     smoothFactor: 0.015,
-    /**
-     * Update the camera so that it smoothly follows the player.
-     * @param {Player} player - The player instance to follow.
-     */
     update(player) {
         const targetX = player.x + window.player / 2;
         const targetY = player.y + window.player / 2;

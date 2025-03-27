@@ -1,6 +1,7 @@
 import { sendData } from '../tools.js'
 import { appendMessage } from '../comms/chat.js'
 import { updateStatus, updatePlayerCount } from '../ui/header.js'
+import { reconcilePosition } from "../movement/topDown.js";
 import { Player } from '../classes/clientClasses.js';
 import { gameState } from '../gameState.js'
 
@@ -69,6 +70,7 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                         localPlayer.x = serverPlayer.x;
                         localPlayer.y = serverPlayer.y;
 
+                        reconcilePosition(localPlayer, serverPlayer.x, serverPlayer.y);
                         localPlayer.predictedPosition = { x: serverPlayer.x, y: serverPlayer.y }; // reset predicted position to server state
 
                         if (window.inputBuffer) {

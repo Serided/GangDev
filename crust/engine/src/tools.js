@@ -9,3 +9,7 @@ export function sendData(activeSocket, type, data, userId, username, displayName
         console.warn("Cannot send data. WebSocket closed.");
     }
 }
+
+export function lerp(a, b, t) {
+    return a + (b - a) * t;
+}

@@ -1,3 +1,5 @@
+import { lerp } from '../tools.js';
+
 /**
  * Computes the movement vector based on the current key states.
  * @param {number} deltaTime - Time elapsed since the last frame (in seconds).
@@ -24,4 +26,9 @@ export function getMovementVector(deltaTime, keys, speed) {
 
     // Multiply by deltaTime to get movement in units for this frame.
     return { dx: dx * deltaTime, dy: dy * deltaTime };
+}
+
+export function reconcilePosition(localPlayer, serverX, serverY, smoothFactor = 0.1) {
+    localPlayer.predictedPosition.x = lerp(localPlayer.predictedPosition.x, serverX, smoothFactor);
+    localPlayer.predictedPosition.y = lerp(localPlayer.predictedPosition.y, serverY, smoothFactor);
 }
