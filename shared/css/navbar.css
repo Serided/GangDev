@@ -211,6 +211,7 @@ nav input:checked + .account-btn + .sidebar.two {
     position: fixed;
     right: calc(var(--scaling) * 1);
     z-index: 5000;
+    transition: all 0.2s ease;
 }
 #upBtn {
     top: calc(var(--scaling) * 1);
