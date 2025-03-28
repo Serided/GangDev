@@ -4,16 +4,7 @@ import { sendData } from "../src/tools.js";
 import { camera } from "../src/camera/topDown.js";
 
 let firstFrame = true;
-let fixedDeltaTime = 1 / 60;
-
-/**
- * A basic game loop that updates and renders the game.
- *
- * @param {number} ts - The current time from requestAnimationFrame.
- * @param {HTMLCanvasElement} canvas - The canvas element.
- * @param {CanvasRenderingContext2D} ctx - The 2D rendering context.
- * @param {Object} gameState - An object representing your game state (e.g., players, etc.).
- */
+let fixedDeltaTime = 1 / 60; // 60 fps
 
 export function gameLoop(ts, canvas, ctx, gameState) {
     const movement = computeMovement(fixedDeltaTime, (2 * window.scaling));
