@@ -1,7 +1,7 @@
 export function startServerLoop(wss) {
     const tickRate = 60; // ticks per second
     const tickInterval = 1000 / tickRate; // ms per tick
-    const simulationDelay = 0; // ms delay to compensate for latency
+    const simulationDelay = 1000; // ms delay to compensate for latency
 
     setInterval(() => { // process all queued inputs
         updateGameState(wss.gameState, tickInterval / 1000, simulationDelay); // process game state updates (physics, inputs, etc)
