@@ -4,7 +4,7 @@ import { sendData } from "../src/tools.js";
 import { camera } from "../src/camera/topDown.js";
 
 let firstFrame = true;
-let fixedDeltaTime = 1 / 60; // 60 fps
+let fixedDeltaTime = 1 / 10; // 60 fps
 
 export function gameLoop(ts, canvas, ctx, gameState) {
     const movement = computeMovement(fixedDeltaTime, (2 * window.scaling));
