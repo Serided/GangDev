@@ -8,7 +8,7 @@ input[type=number] {
 }
 
 input[type=range] {
-    margin: calc(var(--scaling) * 0.5);
+    margin: calc(var(--scaling) * 0.1);
     width: calc(var(--scaling) * 5);
 }
 
@@ -39,12 +39,12 @@ table, th, td {
     display: inline-block;
     padding: calc(var(--scaling) * 0.5);
     border-radius: calc(var(--scaling) * 0.5);
-    border: solid gray calc(var(--scaling) * 0.2);
+    border: solid gray calc(var(--scaling) * 0.05);
 }
 
 .btn {
-    margin: calc(var(--scaling) * 0.5);
-    padding: calc(var(--scaling) * 0.5);
+    margin: calc(var(--scaling) * 0.1);
+    padding: calc(var(--scaling) * 0.1);
     background-color: white;
     color: black;
     display: inline-block;
@@ -53,7 +53,7 @@ table, th, td {
     font-size: calc(var(--scaling) * 1);
     cursor: pointer;
     font-weight: bold;
-    border: solid black calc(var(--scaling) * 0.3);
+    border: solid black calc(var(--scaling) * 0.05);
 }
 
 .btn:hover {

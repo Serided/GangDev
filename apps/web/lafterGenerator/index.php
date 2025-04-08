@@ -28,8 +28,8 @@
                 <th>U</th>
                 <th>R</th>
                 <th>D</th>
-                <th>Damage</th>
                 <th>Type</th>
+                <th>App</th>
                 <th>Actions</th>
             </tr>
             </thead>
