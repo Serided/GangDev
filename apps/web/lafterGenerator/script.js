@@ -28,12 +28,12 @@ document.addEventListener("DOMContentLoaded", function() {
             tr.innerHTML = `
                 <td>${champ.id}</td>
                 <td>${champ.name}</td>
+                <td>${champ.damage}</td>
                 <td>${champ.toughness}</td>
                 <td>${champ.cc}</td>
                 <td>${champ.mobility}</td>
                 <td>${champ.utility}</td>
                 <td>${champ.range}</td>
-                <td>${champ.damage}</td>
                 <td>${dmgTypes.join(", ")}</td>
                 <td>${dmgApp}</td>
                 <td style="display: flex">

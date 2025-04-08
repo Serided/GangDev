@@ -22,12 +22,12 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Dmg</th>
                 <th>Toughness</th>
                 <th>CC</th>
                 <th>Mobility</th>
                 <th>Utility</th>
                 <th>Range</th>
-                <th>Dmg</th>
                 <th>Type</th>
                 <th>Application</th>
                 <th>Actions</th>
