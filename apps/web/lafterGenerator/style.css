@@ -1,5 +1,5 @@
 input[type=number] {
-    width: calc(var(--scaling) * 0.85);
+    width: calc(var(--scaling) * 0.95);
     height: calc(var(--scaling) * 0.75);
     box-sizing: border-box;
     border-radius: calc(var(--scaling) * 0.05);
@@ -9,7 +9,7 @@ input[type=number] {
 
 input[type=number]#championId {
     margin: calc(var(--scaling) * 0.4) calc(var(--scaling) * 1);
-    width: calc(var(--scaling) * 1);
+    width: calc(var(--scaling) * 1.2);
     height: calc(var(--scaling) * 1);
 }
 
