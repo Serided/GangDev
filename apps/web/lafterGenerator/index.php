@@ -91,8 +91,8 @@
             <!-- Damage Application Checkboxes -->
             <div>
                 <label>Damage Type:</label><br>
-                <label><input type="radio" name="damageApplication[]" value="burst"> Burst</label>
-                <label><input type="radio" name="damageApplication[]" value="dps"> DPS</label>
+                <label><input type="radio" name="damageApplication" value="burst"> Burst</label>
+                <label><input type="radio" name="damageApplication" value="dps"> DPS</label>
             </div>
             <br>
 
