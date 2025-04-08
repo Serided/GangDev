@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", function() {
         range: 1
     };
 
+    // Update the champion table to match the header order:
+    // ID, Name, Toughness, CC, Mobility, Utility, Range, D, Type, Actions.
     function updateTable() {
         const tbody = document.querySelector("#championTable tbody");
         if (!tbody) {
@@ -20,9 +22,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         tbody.innerHTML = "";
         championList.forEach((champ, index) => {
-            // Safely access damageTypes and damageApplication arrays.
-            const damageTypes = (champ.damageTypes || []);
-            const damageApplication = (champ.damageApplication || []);
+            // Use empty arrays as default for checkbox groups.
+            const dmgTypes = champ.damageTypes || [];
+            const dmgApp = champ.damageApplication || [];
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td>${champ.id}</td>
@@ -33,8 +35,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 <td>${champ.utility}</td>
                 <td>${champ.range}</td>
                 <td>${champ.damage}</td>
-                <td>DT: ${damageTypes.join(", ")}; DA: ${damageApplication.join(", ")}</td>
-                <td>
+                <td>DT: ${dmgTypes.join(", ")}; DA: ${dmgApp.join(", ")}</td>
+                <td style="display: flex">
                     <button class="btn" onclick="editChampion(${index})">Edit</button>
                     <button class="btn" onclick="removeChampion(${index})">Remove</button>
                 </td>
@@ -46,15 +48,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function clearForm() {
         document.getElementById("championForm").reset();
-        // Reset all sliders to default 1
+        // Reset each slider/number pair to default value (1)
         ['damage', 'toughness', 'cc', 'mobility', 'utility', 'range'].forEach(stat => {
-            document.getElementById(stat + "Slider").value = 1;
-            document.getElementById(stat + "Number").value = 1;
+            document.getElementById(stat + "Slider").value = defaultStats[stat];
+            document.getElementById(stat + "Number").value = defaultStats[stat];
         });
         editingIndex = -1;
     }
 
-    // Sync slider and number fields for a given stat.
+    // Synchronize slider and number fields.
     function syncInput(stat) {
         const slider = document.getElementById(stat + "Slider");
         const number = document.getElementById(stat + "Number");
@@ -68,12 +70,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     ['damage', 'toughness', 'cc', 'mobility', 'utility', 'range'].forEach(syncInput);
 
+    // Submit form event: create champion object.
     document.getElementById("championForm").addEventListener("submit", function(e) {
         e.preventDefault();
         const id = parseInt(document.getElementById("championId").value);
         const name = document.getElementById("championName").value.trim();
 
-        // Get stat values from number inputs (synced with sliders)
+        // Get numeric stats from the corresponding number inputs.
         const damage = parseInt(document.getElementById("damageNumber").value);
         const toughness = parseInt(document.getElementById("toughnessNumber").value);
         const cc = parseInt(document.getElementById("ccNumber").value);
@@ -81,10 +84,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const utility = parseInt(document.getElementById("utilityNumber").value);
         const rangeVal = parseInt(document.getElementById("rangeNumber").value);
 
-        // Get Damage Types checkboxes
+        // Get checkbox groups.
         const damageTypes = Array.from(document.querySelectorAll('input[name="damageType[]"]:checked')).map(el => el.value);
-
-        // Get Damage Application checkboxes
         const damageApplication = Array.from(document.querySelectorAll('input[name="damageApplication[]"]:checked')).map(el => el.value);
 
         const champion = {
@@ -109,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
         clearForm();
     });
 
+    // Expose editChampion and removeChampion as globals.
     window.editChampion = function(index) {
         const champ = championList[index];
         document.getElementById("championId").value = champ.id;
@@ -138,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("clearForm").addEventListener("click", clearForm);
 
-    // When importing, add any missing keys from defaultStats and ensure arrays for checkboxes.
+    // When importing JSON, ensure missing stat keys are added.
     function ensureChampionDefaults(champion) {
         Object.keys(defaultStats).forEach(key => {
             if (champion[key] === undefined) {
@@ -169,6 +171,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("importExportArea").value = JSON.stringify(championList, null, 2);
     });
 
-    // Initialize table on page load.
+    // Initialize the table on page load.
     updateTable();
 });

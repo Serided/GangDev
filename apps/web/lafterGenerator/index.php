@@ -22,13 +22,14 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Toughness</th>
-                <th>CC</th>
-                <th>Mobility</th>
-                <th>Utility</th>
-                <th>Range</th>
+                <th>T</th>
+                <th>C</th>
+                <th>M</th>
+                <th>U</th>
+                <th>R</th>
+                <th>D</th>
                 <th>Damage</th>
-                <th>Damage Type</th>
+                <th>Type</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -81,7 +82,7 @@
 
             <!-- Damage Type Checkboxes -->
             <div>
-                <label>Damage Type:</label><br>
+                <label>Damage:</label><br>
                 <label><input type="checkbox" name="damageType[]" value="physical"> Physical</label>
                 <label><input type="checkbox" name="damageType[]" value="magic"> Magic</label>
             </div>
@@ -89,7 +90,7 @@
 
             <!-- Damage Application Checkboxes -->
             <div>
-                <label>Damage Application:</label><br>
+                <label>Damage Type:</label><br>
                 <label><input type="radio" name="damageApplication[]" value="burst"> Burst</label>
                 <label><input type="radio" name="damageApplication[]" value="dps"> DPS</label>
             </div>
