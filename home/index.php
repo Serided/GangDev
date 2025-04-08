@@ -75,8 +75,8 @@
                 <div class="apps sect">
                     <h2>Apps</h2>
                     <p class="desc">
-                        <a href="https://apps.gangdev.co/roastGenerator/">- Roast Generator -</a><br>
-                        <a href="https://apps.gangdev.co/mmfGenerator/">- MMF Generator -</a><br>
+                        <a href="https://apps.gangdev.co/web/roastGenerator/">- Roast Generator -</a><br>
+                        <a href="https://apps.gangdev.co/web/mmfGenerator/">- MMF Generator -</a><br>
                         <!--<a href="https://apps.gangdev.co/universalChat/" target="_blank">- Universal Chat -</a><br>-->
                     </p>
                 </div>

@@ -20,7 +20,7 @@
 
 		<div class="sect cont two">
             <h2>
-                <a href="roastGenerator">Roast Generator</a>
+                <a href="web/roastGenerator">Roast Generator</a>
             </h2>
             <p>
                 A terribly effective way to satisfy your urge for carnage and slaughter, this app can both automatically
@@ -32,7 +32,7 @@
 
         <div class="sect cont three">
             <h2>
-                <a href="mmfGenerator">MMF Generator</a>
+                <a href="web/mmfGenerator">MMF Generator</a>
             </h2>
             <p>
                 The MMF Generator, also known as the Minecraft Mass Forceload Generator, is used to generate mass forceload commands. <br>

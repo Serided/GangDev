@@ -46,8 +46,8 @@ require_once '/var/www/gangdev/shared/php/init.php';
             <label for="apps" class="hamburger-btn btnText one">Apps</label>
             <aside class="sidebar two">
                 <nav>
-                    <a href="https://apps.gangdev.co/roastGenerator"><button class="hamburger-btn btnText two">Roast Generator</button></a>
-                    <a href="https://apps.gangdev.co/mmfGenerator"><button class="hamburger-btn btnText two">MMF Generator</button></a>
+                    <a href="https://apps.gangdev.co/web/roastGenerator"><button class="hamburger-btn btnText two">Roast Generator</button></a>
+                    <a href="https://apps.gangdev.co/web/mmfGenerator"><button class="hamburger-btn btnText two">MMF Generator</button></a>
                     <!--<a href="https://apps.gangdev.co/universalChat" target="_blank"><button class="hamburger-btn btnText two">Universal Chat</button></a>-->
                     <!--<a href="https://apps.gangdev.co/" class="btnText"><button class="hamburger-btn btnText two">More...</button></a>-->
                 </nav>

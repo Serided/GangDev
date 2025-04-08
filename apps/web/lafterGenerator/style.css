@@ -1,0 +1,62 @@
+html {
+    font-size: 2vh;
+}
+
+body {
+    margin: 2vh;
+    font-family: Arial, sans-serif;
+}
+
+input[type=text], input[type=number] {
+    width: 15vh;
+    height: 2.3vh;
+    box-sizing: border-box;
+    border: solid gray 1px;
+    margin: 0.5vh;
+}
+
+select {
+    width: 15vh;
+    height: 2.3vh;
+    margin: 0.5vh;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 1vh 0;
+    width: 90%;
+}
+
+table, th, td {
+    border: 1px solid gray;
+    padding: 0.5vh;
+    text-align: center;
+}
+
+.output {
+    margin: 0 !important;
+    background-color: white;
+    color: royalblue;
+    display: inline-block;
+    padding: 1vh;
+    border-radius: 0.5vh;
+    border: solid gray 0.3vh;
+}
+
+.btn {
+    margin: 1vh;
+    padding: 1vh;
+    background-color: white;
+    color: black;
+    display: inline-block;
+    border-radius: 0.5vh;
+    text-decoration: none;
+    font-size: 22px;
+    cursor: pointer;
+    font-weight: bold;
+    border: solid black 0.3vh;
+}
+
+.btn:hover {
+    background-color: #f0f0f0;
+}
