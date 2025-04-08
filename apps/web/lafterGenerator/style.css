@@ -5,8 +5,9 @@ input[type=number] {
     box-sizing: border-box;
     border-radius: calc(var(--scaling) * 0.05);
     border: solid gray calc(var(--scaling) * 0.05);
-    margin: calc(var(--scaling) * 0.2);
+    margin: calc(var(--scaling) * 0.2) calc(var(--scaling) * 1);
 }
+
 
 input[type=range] {
     margin: calc(var(--scaling) * 0.2);
@@ -54,7 +55,7 @@ table, th, td {
     display: inline-block;
     border-radius: calc(var(--scaling) * 0.05);
     text-decoration: none;
-    font-size: calc(var(--scaling) * 0.3);
+    font-size: calc(var(--scaling) * 0.5);
     cursor: pointer;
     font-weight: bold;
     border: solid black calc(var(--scaling) * 0.05);
