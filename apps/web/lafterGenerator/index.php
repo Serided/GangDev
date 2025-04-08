@@ -14,6 +14,7 @@
 <div class="sect two single">
     <h1>Champion List Generator</h1>
 
+    <!-- Champion Table -->
     <div>
         <h2>Champion List (<span id="listLength">0</span> entries)</h2>
         <table id="championTable">
@@ -21,10 +22,14 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Damage</th>
+                <th>Toughness</th>
+                <th>CC</th>
+                <th>Mobility</th>
+                <th>Utility</th>
+                <th>Range</th>
                 <th>Damage Type(s)</th>
-                <th>Position(s)</th>
-                <th>Champion Archetype(s)</th>
-                <th>Team Comp(s)</th>
+                <th>Damage Application(s)</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -34,53 +39,69 @@
         </table>
     </div>
 
+    <!-- Add/Edit Champion Form -->
     <div>
         <h2>Add/Edit Champion</h2>
         <form id="championForm">
             <input type="number" id="championId" placeholder="ID" required>
             <input type="text" id="championName" placeholder="Name" required>
             <br>
+
+            <!-- Numeric Stat Inputs with Sliders -->
+            <div class="stat-group">
+                <label>Damage:</label>
+                <input type="range" id="damageSlider" min="1" max="3" step="1" value="1">
+                <input type="number" id="damageNumber" min="1" max="3" step="1" value="1">
+            </div>
+            <div class="stat-group">
+                <label>Toughness:</label>
+                <input type="range" id="toughnessSlider" min="1" max="3" step="1" value="1">
+                <input type="number" id="toughnessNumber" min="1" max="3" step="1" value="1">
+            </div>
+            <div class="stat-group">
+                <label>CC:</label>
+                <input type="range" id="ccSlider" min="1" max="3" step="1" value="1">
+                <input type="number" id="ccNumber" min="1" max="3" step="1" value="1">
+            </div>
+            <div class="stat-group">
+                <label>Mobility:</label>
+                <input type="range" id="mobilitySlider" min="1" max="3" step="1" value="1">
+                <input type="number" id="mobilityNumber" min="1" max="3" step="1" value="1">
+            </div>
+            <div class="stat-group">
+                <label>Utility:</label>
+                <input type="range" id="utilitySlider" min="1" max="3" step="1" value="1">
+                <input type="number" id="utilityNumber" min="1" max="3" step="1" value="1">
+            </div>
+            <div class="stat-group">
+                <label>Range:</label>
+                <input type="range" id="rangeSlider" min="1" max="3" step="1" value="1">
+                <input type="number" id="rangeNumber" min="1" max="3" step="1" value="1">
+            </div>
+            <br>
+
             <!-- Damage Type Checkboxes -->
             <div>
                 <label>Damage Type:</label><br>
-                <label><input type="checkbox" name="damageType[]" value="ap"> AP</label>
-                <label><input type="checkbox" name="damageType[]" value="ad"> AD</label>
+                <label><input type="checkbox" name="damageType[]" value="physical"> Physical</label>
+                <label><input type="checkbox" name="damageType[]" value="magic"> Magic</label>
             </div>
             <br>
-            <!-- Positions Checkboxes -->
+
+            <!-- Damage Application Checkboxes -->
             <div>
-                <label>Positions:</label><br>
-                <label><input type="checkbox" name="positions[]" value="top"> Top</label>
-                <label><input type="checkbox" name="positions[]" value="jg"> Jungle</label>
-                <label><input type="checkbox" name="positions[]" value="mid"> Mid</label>
-                <label><input type="checkbox" name="positions[]" value="bot"> ADC/Bot</label>
-                <label><input type="checkbox" name="positions[]" value="supp"> Support</label>
+                <label>Damage Application:</label><br>
+                <label><input type="checkbox" name="damageApplication[]" value="burst"> Burst</label>
+                <label><input type="checkbox" name="damageApplication[]" value="dps"> DPS</label>
             </div>
             <br>
-            <!-- Champion Archetype (Role) Checkboxes -->
-            <div>
-                <label>Champion Archetype:</label><br>
-                <label><input type="checkbox" name="archetypes[]" value="assassin"> Assassin</label>
-                <label><input type="checkbox" name="archetypes[]" value="fighter"> Fighter</label>
-                <label><input type="checkbox" name="archetypes[]" value="mage"> Mage</label>
-                <label><input type="checkbox" name="archetypes[]" value="marksman"> Marksman</label>
-                <label><input type="checkbox" name="archetypes[]" value="support"> Support</label>
-                <label><input type="checkbox" name="archetypes[]" value="tank"> Tank</label>
-            </div>
-            <br>
-            <!-- Team Comp Checkboxes -->
-            <div>
-                <label>Team Comp:</label><br>
-                <label><input type="checkbox" name="teamComp[]" value="dive"> Dive</label>
-                <label><input type="checkbox" name="teamComp[]" value="pick"> Pick</label>
-                <label><input type="checkbox" name="teamComp[]" value="kite"> Kite</label>
-            </div>
-            <br>
+
             <button type="submit" class="btn" id="saveChampion">Save</button>
             <button type="button" class="btn" id="clearForm">Clear</button>
         </form>
     </div>
 
+    <!-- Import/Export Section -->
     <div>
         <h2>Import/Export</h2>
         <textarea id="importExportArea" rows="10" cols="50" placeholder="Paste JSON here"></textarea><br>

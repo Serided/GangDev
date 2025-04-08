@@ -7,14 +7,17 @@ input[type=number] {
     margin: 0.5vh;
 }
 
+input[type=range] {
+    margin: 0.5vh;
+    width: 15vh;
+}
+
 input[type=checkbox] {
     margin: 0.5vh;
 }
 
-select {
-    width: 15vh;
-    height: 2.3vh;
-    margin: 0.5vh;
+.stat-group {
+    margin-bottom: 1vh;
 }
 
 table {
@@ -55,4 +58,9 @@ table, th, td {
 
 .btn:hover {
     background-color: #f0f0f0;
+}
+
+textarea {
+    width: 90%;
+    margin: 1vh 0;
 }
