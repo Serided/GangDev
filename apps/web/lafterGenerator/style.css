@@ -71,8 +71,12 @@ table, th, td {
     font-size: calc(var(--scaling) * 0.5);
     cursor: pointer;
     font-weight: bold;
-    border: solid black calc(var(--scaling) * 0.05);
+    box-shadow: calc(var(--scaling) * 0.05) calc(var(--scaling) * 0.05) gray;
     transition: all 0.2s ease;
+}
+td .btn {
+    font-size: calc(var(--scaling) * 0.2);
+    box-shadow: calc(var(--scaling) * 0.008) calc(var(--scaling) * 0.008) gray;
 }
 
 .btn:hover {
