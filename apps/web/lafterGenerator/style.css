@@ -5,16 +5,19 @@ input[type=number] {
     box-sizing: border-box;
     border-radius: calc(var(--scaling) * 0.05);
     border: solid gray calc(var(--scaling) * 0.05);
-    margin: calc(var(--scaling) * 0.5);
+    margin: calc(var(--scaling) * 0.1);
 }
 
 input[type=range] {
-    margin: calc(var(--scaling) * 0.1);
+    margin: calc(var(--scaling) * 0.2);
     width: calc(var(--scaling) * 5);
 }
 
 input[type=checkbox] {
-    margin: calc(var(--scaling) * 0.5);
+    margin: calc(var(--scaling) * 0.2);
+}
+input[type=radio] {
+    margin: calc(var(--scaling) * 0.2);
 }
 
 .stat-group {
@@ -45,13 +48,13 @@ table, th, td {
 
 .btn {
     margin: calc(var(--scaling) * 0.1);
-    padding: calc(var(--scaling) * 0.1);
+    padding: calc(var(--scaling) * 0.05) calc(var(--scaling) * 0.1);
     background-color: white;
     color: black;
     display: inline-block;
     border-radius: calc(var(--scaling) * 0.05);
     text-decoration: none;
-    font-size: calc(var(--scaling) * 1);
+    font-size: calc(var(--scaling) * 0.3);
     cursor: pointer;
     font-weight: bold;
     border: solid black calc(var(--scaling) * 0.05);
@@ -60,7 +63,7 @@ table, th, td {
 
 .btn:hover {
     background-color: #f0f0f0;
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 textarea {
