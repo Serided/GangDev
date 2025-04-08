@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-
     let championList = [];
     let editingIndex = -1;
 
@@ -21,19 +20,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         tbody.innerHTML = "";
         championList.forEach((champ, index) => {
-            // Safely access array properties, defaulting to empty arrays if undefined.
+            // Safely access damageTypes and damageApplication arrays.
             const damageTypes = (champ.damageTypes || []);
-            const positions = (champ.positions || []);
-            const archetypes = (champ.archetypes || []);
-            const teamComp = (champ.teamComp || []);
+            const damageApplication = (champ.damageApplication || []);
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td>${champ.id}</td>
                 <td>${champ.name}</td>
-                <td>${damageTypes.join(", ")}</td>
-                <td>${positions.join(", ")}</td>
-                <td>${archetypes.join(", ")}</td>
-                <td>${teamComp.join(", ")}</td>
+                <td>${champ.toughness}</td>
+                <td>${champ.cc}</td>
+                <td>${champ.mobility}</td>
+                <td>${champ.utility}</td>
+                <td>${champ.range}</td>
+                <td>${champ.damage}</td>
+                <td>DT: ${damageTypes.join(", ")}; DA: ${damageApplication.join(", ")}</td>
                 <td>
                     <button class="btn" onclick="editChampion(${index})">Edit</button>
                     <button class="btn" onclick="removeChampion(${index})">Remove</button>
@@ -66,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function() {
             slider.value = number.value;
         });
     }
-
     ['damage', 'toughness', 'cc', 'mobility', 'utility', 'range'].forEach(syncInput);
 
     document.getElementById("championForm").addEventListener("submit", function(e) {
@@ -74,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const id = parseInt(document.getElementById("championId").value);
         const name = document.getElementById("championName").value.trim();
 
-        // Get stat values from number inputs (they are synced with sliders)
+        // Get stat values from number inputs (synced with sliders)
         const damage = parseInt(document.getElementById("damageNumber").value);
         const toughness = parseInt(document.getElementById("toughnessNumber").value);
         const cc = parseInt(document.getElementById("ccNumber").value);
@@ -82,17 +81,23 @@ document.addEventListener("DOMContentLoaded", function() {
         const utility = parseInt(document.getElementById("utilityNumber").value);
         const rangeVal = parseInt(document.getElementById("rangeNumber").value);
 
-        // Get checkbox groups.
+        // Get Damage Types checkboxes
         const damageTypes = Array.from(document.querySelectorAll('input[name="damageType[]"]:checked')).map(el => el.value);
-        const positions = Array.from(document.querySelectorAll('input[name="positions[]"]:checked')).map(el => el.value);
-        const archetypes = Array.from(document.querySelectorAll('input[name="archetypes[]"]:checked')).map(el => el.value);
-        const teamComp = Array.from(document.querySelectorAll('input[name="teamComp[]"]:checked')).map(el => el.value);
+
+        // Get Damage Application checkboxes
+        const damageApplication = Array.from(document.querySelectorAll('input[name="damageApplication[]"]:checked')).map(el => el.value);
 
         const champion = {
             id,
             name,
-            damage, toughness, cc, mobility, utility, range: rangeVal,
-            damageTypes, positions, archetypes, teamComp
+            damage,
+            toughness,
+            cc,
+            mobility,
+            utility,
+            range: rangeVal,
+            damageTypes,
+            damageApplication
         };
 
         if (editingIndex >= 0) {
@@ -114,18 +119,11 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById(stat + "Number").value = champ[stat] || defaultStats[stat];
         });
 
-        // Set checkbox values.
         document.querySelectorAll('input[name="damageType[]"]').forEach(input => {
             input.checked = champ.damageTypes && champ.damageTypes.includes(input.value);
         });
-        document.querySelectorAll('input[name="positions[]"]').forEach(input => {
-            input.checked = champ.positions && champ.positions.includes(input.value);
-        });
-        document.querySelectorAll('input[name="archetypes[]"]').forEach(input => {
-            input.checked = champ.archetypes && champ.archetypes.includes(input.value);
-        });
-        document.querySelectorAll('input[name="teamComp[]"]').forEach(input => {
-            input.checked = champ.teamComp && champ.teamComp.includes(input.value);
+        document.querySelectorAll('input[name="damageApplication[]"]').forEach(input => {
+            input.checked = champ.damageApplication && champ.damageApplication.includes(input.value);
         });
 
         editingIndex = index;
@@ -140,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("clearForm").addEventListener("click", clearForm);
 
-    // When importing, add any missing stat keys from defaultStats.
+    // When importing, add any missing keys from defaultStats and ensure arrays for checkboxes.
     function ensureChampionDefaults(champion) {
         Object.keys(defaultStats).forEach(key => {
             if (champion[key] === undefined) {
@@ -148,9 +146,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
         if (!champion.damageTypes) champion.damageTypes = [];
-        if (!champion.positions) champion.positions = [];
-        if (!champion.archetypes) champion.archetypes = [];
-        if (!champion.teamComp) champion.teamComp = [];
+        if (!champion.damageApplication) champion.damageApplication = [];
         return champion;
     }
 
@@ -173,6 +169,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("importExportArea").value = JSON.stringify(championList, null, 2);
     });
 
-    // Initialize the table on page load.
+    // Initialize table on page load.
     updateTable();
 });
