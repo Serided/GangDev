@@ -1,16 +1,16 @@
 input[type=text],
 input[type=number] {
-    width: calc(var(--scaling) * 5);
-    height: calc(var(--scaling) * 1);
+    width: calc(var(--scaling) * 1.5);
+    height: calc(var(--scaling) * 0.75);
     box-sizing: border-box;
     border-radius: calc(var(--scaling) * 0.05);
     border: solid gray calc(var(--scaling) * 0.05);
-    margin: calc(var(--scaling) * 0.1);
+    margin: calc(var(--scaling) * 0.2);
 }
 
 input[type=range] {
     margin: calc(var(--scaling) * 0.2);
-    width: calc(var(--scaling) * 5);
+    width: calc(var(--scaling) * 3);
 }
 
 input[type=checkbox] {
@@ -32,7 +32,7 @@ table {
 
 table, th, td {
     border: calc(var(--scaling) * 0.05) solid gray;
-    padding:calc(var(--scaling) * 0.5);
+    padding:calc(var(--scaling) * 0.2);
     text-align: center;
 }
 

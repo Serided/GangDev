@@ -23,11 +23,11 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Toughness</th>
-                <th>Crowd Control</th>
+                <th>CC</th>
                 <th>Mobility</th>
                 <th>Utility</th>
                 <th>Range</th>
-                <th>Damage</th>
+                <th>Dmg</th>
                 <th>Type</th>
                 <th>Application</th>
                 <th>Actions</th>
