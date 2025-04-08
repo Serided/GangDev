@@ -23,6 +23,7 @@
                 <th>Name</th>
                 <th>Damage Type(s)</th>
                 <th>Position(s)</th>
+                <th>Champion Archetype(s)</th>
                 <th>Team Comp(s)</th>
                 <th>Actions</th>
             </tr>
@@ -46,14 +47,25 @@
                 <label><input type="checkbox" name="damageType[]" value="ad"> AD</label>
             </div>
             <br>
-            <!-- Positions (Roles) Checkboxes -->
+            <!-- Positions Checkboxes -->
             <div>
                 <label>Positions:</label><br>
-                <label><input type="checkbox" name="roles[]" value="top"> Top</label>
-                <label><input type="checkbox" name="roles[]" value="jg"> Jungle</label>
-                <label><input type="checkbox" name="roles[]" value="mid"> Mid</label>
-                <label><input type="checkbox" name="roles[]" value="bot"> Bot</label>
-                <label><input type="checkbox" name="roles[]" value="supp"> Support</label>
+                <label><input type="checkbox" name="positions[]" value="top"> Top</label>
+                <label><input type="checkbox" name="positions[]" value="jg"> Jungle</label>
+                <label><input type="checkbox" name="positions[]" value="mid"> Mid</label>
+                <label><input type="checkbox" name="positions[]" value="bot"> ADC/Bot</label>
+                <label><input type="checkbox" name="positions[]" value="supp"> Support</label>
+            </div>
+            <br>
+            <!-- Champion Archetype (Role) Checkboxes -->
+            <div>
+                <label>Champion Archetype:</label><br>
+                <label><input type="checkbox" name="archetypes[]" value="assassin"> Assassin</label>
+                <label><input type="checkbox" name="archetypes[]" value="fighter"> Fighter</label>
+                <label><input type="checkbox" name="archetypes[]" value="mage"> Mage</label>
+                <label><input type="checkbox" name="archetypes[]" value="marksman"> Marksman</label>
+                <label><input type="checkbox" name="archetypes[]" value="support"> Support</label>
+                <label><input type="checkbox" name="archetypes[]" value="tank"> Tank</label>
             </div>
             <br>
             <!-- Team Comp Checkboxes -->

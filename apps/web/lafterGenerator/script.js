@@ -11,7 +11,8 @@ function updateTable() {
             <td>${champ.id}</td>
             <td>${champ.name}</td>
             <td>${champ.damageTypes.join(", ")}</td>
-            <td>${champ.roles.join(", ")}</td>
+            <td>${champ.positions.join(", ")}</td>
+            <td>${champ.archetypes.join(", ")}</td>
             <td>${champ.teamComp.join(", ")}</td>
             <td>
                 <button class="btn" onclick="editChampion(${index})">Edit</button>
@@ -33,16 +34,19 @@ document.getElementById("championForm").addEventListener("submit", function(e) {
     const id = parseInt(document.getElementById("championId").value);
     const name = document.getElementById("championName").value.trim();
 
-    // Get Damage Type from checkboxes (name="damageType[]")
+    // Get damage types
     const damageTypes = Array.from(document.querySelectorAll('input[name="damageType[]"]:checked')).map(el => el.value);
 
-    // Get Positions (Roles) from checkboxes (name="roles[]")
-    const roles = Array.from(document.querySelectorAll('input[name="roles[]"]:checked')).map(el => el.value);
+    // Get positions
+    const positions = Array.from(document.querySelectorAll('input[name="positions[]"]:checked')).map(el => el.value);
 
-    // Get Team Comp from checkboxes (name="teamComp[]")
+    // Get champion archetypes
+    const archetypes = Array.from(document.querySelectorAll('input[name="archetypes[]"]:checked')).map(el => el.value);
+
+    // Get team comp
     const teamComp = Array.from(document.querySelectorAll('input[name="teamComp[]"]:checked')).map(el => el.value);
 
-    const champion = { id, name, damageTypes, roles, teamComp };
+    const champion = { id, name, damageTypes, positions, archetypes, teamComp };
 
     if (editingIndex >= 0) {
         championList[editingIndex] = champion;
@@ -63,9 +67,14 @@ function editChampion(index) {
         input.checked = champ.damageTypes.includes(input.value);
     });
 
-    // Set roles checkboxes.
-    document.querySelectorAll('input[name="roles[]"]').forEach(input => {
-        input.checked = champ.roles.includes(input.value);
+    // Set positions checkboxes.
+    document.querySelectorAll('input[name="positions[]"]').forEach(input => {
+        input.checked = champ.positions.includes(input.value);
+    });
+
+    // Set champion archetypes checkboxes.
+    document.querySelectorAll('input[name="archetypes[]"]').forEach(input => {
+        input.checked = champ.archetypes.includes(input.value);
     });
 
     // Set team comp checkboxes.
