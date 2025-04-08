@@ -33,13 +33,13 @@ document.getElementById("championForm").addEventListener("submit", function(e) {
     const id = parseInt(document.getElementById("championId").value);
     const name = document.getElementById("championName").value.trim();
 
-    // Get damage types
+    // Get Damage Type from checkboxes (name="damageType[]")
     const damageTypes = Array.from(document.querySelectorAll('input[name="damageType[]"]:checked')).map(el => el.value);
 
-    // Get roles
+    // Get Positions (Roles) from checkboxes (name="roles[]")
     const roles = Array.from(document.querySelectorAll('input[name="roles[]"]:checked')).map(el => el.value);
 
-    // Get team comp
+    // Get Team Comp from checkboxes (name="teamComp[]")
     const teamComp = Array.from(document.querySelectorAll('input[name="teamComp[]"]:checked')).map(el => el.value);
 
     const champion = { id, name, damageTypes, roles, teamComp };

@@ -22,8 +22,8 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Damage Type(s)</th>
-                <th>Positions</th>
-                <th>Team Comp</th>
+                <th>Position(s)</th>
+                <th>Team Comp(s)</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -52,17 +52,16 @@
                 <label><input type="checkbox" name="roles[]" value="top"> Top</label>
                 <label><input type="checkbox" name="roles[]" value="jg"> Jungle</label>
                 <label><input type="checkbox" name="roles[]" value="mid"> Mid</label>
+                <label><input type="checkbox" name="roles[]" value="bot"> Bot</label>
                 <label><input type="checkbox" name="roles[]" value="supp"> Support</label>
-                <label><input type="checkbox" name="roles[]" value="bot"> ADC/Bot</label>
             </div>
             <br>
             <!-- Team Comp Checkboxes -->
             <div>
                 <label>Team Comp:</label><br>
-                <label><input type="checkbox" name="teamComp[]" value="dps"> DPS</label>
-                <label><input type="checkbox" name="teamComp[]" value="burst"> Burst</label>
-                <label><input type="checkbox" name="teamComp[]" value="tank"> Tank</label>
-                <label><input type="checkbox" name="teamComp[]" value="fighter"> Fighter</label>
+                <label><input type="checkbox" name="teamComp[]" value="dive"> Dive</label>
+                <label><input type="checkbox" name="teamComp[]" value="pick"> Pick</label>
+                <label><input type="checkbox" name="teamComp[]" value="kite"> Kite</label>
             </div>
             <br>
             <button type="submit" class="btn" id="saveChampion">Save</button>
