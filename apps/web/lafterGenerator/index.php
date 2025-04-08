@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Champion List Generator</title>
+    <title>Lafter Generator</title>
 	<?= $head ?>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -43,7 +43,7 @@
             <div>
                 <label>Damage Type:</label><br>
                 <label><input type="checkbox" name="damageType[]" value="ap"> AP</label>
-                <label><input type="checkbox" name="damageType[]" value="ad" checked> AD</label>
+                <label><input type="checkbox" name="damageType[]" value="ad"> AD</label>
             </div>
             <br>
             <!-- Positions (Roles) Checkboxes -->
@@ -59,12 +59,10 @@
             <!-- Team Comp Checkboxes -->
             <div>
                 <label>Team Comp:</label><br>
-                <label><input type="checkbox" name="teamComp[]" value="dive"> Dive</label>
-                <label><input type="checkbox" name="teamComp[]" value="peel"> Peel</label>
-                <label><input type="checkbox" name="teamComp[]" value="kite"> Kite</label>
-                <label><input type="checkbox" name="teamComp[]" value="engage"> Engage</label>
-                <label><input type="checkbox" name="teamComp[]" value="split-push"> Split-Push</label>
-                <label><input type="checkbox" name="teamComp[]" value="poke"> Poke</label>
+                <label><input type="checkbox" name="teamComp[]" value="dps"> DPS</label>
+                <label><input type="checkbox" name="teamComp[]" value="burst"> Burst</label>
+                <label><input type="checkbox" name="teamComp[]" value="tank"> Tank</label>
+                <label><input type="checkbox" name="teamComp[]" value="fighter"> Fighter</label>
             </div>
             <br>
             <button type="submit" class="btn" id="saveChampion">Save</button>
