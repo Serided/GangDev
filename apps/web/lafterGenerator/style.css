@@ -9,13 +9,13 @@ input[type=number] {
 
 input[type=number]#championId {
     margin: calc(var(--scaling) * 0.4) calc(var(--scaling) * 1);
-    width: calc(var(--scaling) * 2);
-    height: calc(var(--scaling) * 2);
+    width: calc(var(--scaling) * 1);
+    height: calc(var(--scaling) * 1);
 }
 
 input[type=text] {
     width: calc(var(--scaling) * 5);
-    height: calc(var(--scaling) * 2);
+    height: calc(var(--scaling) * 1);
     box-sizing: border-box;
     border-radius: calc(var(--scaling) * 0.05);
     border: solid gray calc(var(--scaling) * 0.05);
