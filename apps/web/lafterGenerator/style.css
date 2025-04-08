@@ -1,13 +1,26 @@
-input[type=text],
 input[type=number] {
-    width: calc(var(--scaling) * 1.5);
+    width: calc(var(--scaling) * 0.85);
     height: calc(var(--scaling) * 0.75);
     box-sizing: border-box;
     border-radius: calc(var(--scaling) * 0.05);
     border: solid gray calc(var(--scaling) * 0.05);
-    margin: calc(var(--scaling) * 0.2) calc(var(--scaling) * 1);
+    margin: calc(var(--scaling) * 0.2);
 }
 
+input[type=number]#championId {
+    margin: calc(var(--scaling) * 0.4) calc(var(--scaling) * 1);
+    width: calc(var(--scaling) * 2);
+    height: calc(var(--scaling) * 2);
+}
+
+input[type=text] {
+    width: calc(var(--scaling) * 5);
+    height: calc(var(--scaling) * 2);
+    box-sizing: border-box;
+    border-radius: calc(var(--scaling) * 0.05);
+    border: solid gray calc(var(--scaling) * 0.05);
+    margin: calc(var(--scaling) * 0.4) calc(var(--scaling) * 1);
+}
 
 input[type=range] {
     margin: calc(var(--scaling) * 0.2);
