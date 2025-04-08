@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let championList = [];
     let editingIndex = -1;
 
-    // Default values for new stat keys.
+    // Default values for new numeric stat keys.
     const defaultStats = {
         damage: 1,
         toughness: 1,
@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function() {
         range: 1
     };
 
-    // Update the champion table to match the header order:
-    // ID, Name, Toughness, CC, Mobility, Utility, Range, D, Type, Actions.
+    // Update the table. Column order:
+    // ID, Name, Toughness, CC, Mobility, Utility, Range, Damage, Type, Actions.
     function updateTable() {
         const tbody = document.querySelector("#championTable tbody");
         if (!tbody) {
@@ -22,9 +22,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         tbody.innerHTML = "";
         championList.forEach((champ, index) => {
-            // Use empty arrays as default for checkbox groups.
-            const dmgTypes = champ.damageTypes || [];
-            const dmgApp = champ.damageApplication || [];
+            // Ensure checkbox arrays exist.
+            const dmgTypes = (champ.damageTypes || []);
+            const dmgApp = (champ.damageApplication || []);
+            // For the "Type" column, we want to show only the damage application
+            // (e.g., "Burst" or "DPS") plus the damage type if needed.
+            const typeText = `${dmgTypes.join(", ")}` +
+                (dmgApp.length ? `; ${dmgApp.join(", ")}` : "");
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td>${champ.id}</td>
@@ -35,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 <td>${champ.utility}</td>
                 <td>${champ.range}</td>
                 <td>${champ.damage}</td>
-                <td>DT: ${dmgTypes.join(", ")}; DA: ${dmgApp.join(", ")}</td>
-                <td style="display: flex">
+                <td>${typeText}</td>
+                <td>
                     <button class="btn" onclick="editChampion(${index})">Edit</button>
                     <button class="btn" onclick="removeChampion(${index})">Remove</button>
                 </td>
@@ -48,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function clearForm() {
         document.getElementById("championForm").reset();
-        // Reset each slider/number pair to default value (1)
+        // Reset all sliders/number inputs to default values.
         ['damage', 'toughness', 'cc', 'mobility', 'utility', 'range'].forEach(stat => {
             document.getElementById(stat + "Slider").value = defaultStats[stat];
             document.getElementById(stat + "Number").value = defaultStats[stat];
@@ -56,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
         editingIndex = -1;
     }
 
-    // Synchronize slider and number fields.
+    // Synchronize slider and number fields for a given stat.
     function syncInput(stat) {
         const slider = document.getElementById(stat + "Slider");
         const number = document.getElementById(stat + "Number");
@@ -70,13 +74,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     ['damage', 'toughness', 'cc', 'mobility', 'utility', 'range'].forEach(syncInput);
 
-    // Submit form event: create champion object.
     document.getElementById("championForm").addEventListener("submit", function(e) {
         e.preventDefault();
         const id = parseInt(document.getElementById("championId").value);
         const name = document.getElementById("championName").value.trim();
 
-        // Get numeric stats from the corresponding number inputs.
+        // Get stat values from number inputs.
         const damage = parseInt(document.getElementById("damageNumber").value);
         const toughness = parseInt(document.getElementById("toughnessNumber").value);
         const cc = parseInt(document.getElementById("ccNumber").value);
@@ -84,9 +87,19 @@ document.addEventListener("DOMContentLoaded", function() {
         const utility = parseInt(document.getElementById("utilityNumber").value);
         const rangeVal = parseInt(document.getElementById("rangeNumber").value);
 
-        // Get checkbox groups.
+        // Validation: require at least one damage type.
         const damageTypes = Array.from(document.querySelectorAll('input[name="damageType[]"]:checked')).map(el => el.value);
+        if (damageTypes.length === 0) {
+            alert("Please select at least one Damage Type.");
+            return;
+        }
+
+        // Require a damage application selection (radio; should be exactly one).
         const damageApplication = Array.from(document.querySelectorAll('input[name="damageApplication[]"]:checked')).map(el => el.value);
+        if (damageApplication.length === 0) {
+            alert("Please select a Damage Application (Burst or DPS).");
+            return;
+        }
 
         const champion = {
             id,
@@ -110,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
         clearForm();
     });
 
-    // Expose editChampion and removeChampion as globals.
+    // Expose editChampion and removeChampion as global functions.
     window.editChampion = function(index) {
         const champ = championList[index];
         document.getElementById("championId").value = champ.id;
@@ -140,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("clearForm").addEventListener("click", clearForm);
 
-    // When importing JSON, ensure missing stat keys are added.
+    // When importing, ensure missing stat keys are added.
     function ensureChampionDefaults(champion) {
         Object.keys(defaultStats).forEach(key => {
             if (champion[key] === undefined) {
