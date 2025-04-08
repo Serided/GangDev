@@ -22,14 +22,14 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>T</th>
-                <th>C</th>
-                <th>M</th>
-                <th>U</th>
-                <th>R</th>
-                <th>D</th>
+                <th>Tuf</th>
+                <th>CC</th>
+                <th>Mob</th>
+                <th>Uti</th>
+                <th>Rng</th>
+                <th>Dmg</th>
                 <th>Type</th>
-                <th>App</th>
+                <th>App.</th>
                 <th>Actions</th>
             </tr>
             </thead>

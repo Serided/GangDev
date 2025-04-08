@@ -3,7 +3,8 @@ input[type=number] {
     width: calc(var(--scaling) * 5);
     height: calc(var(--scaling) * 1);
     box-sizing: border-box;
-    border: solid gray calc(var(--scaling) * 0.1);
+    border-radius: calc(var(--scaling) * 0.05);
+    border: solid gray calc(var(--scaling) * 0.05);
     margin: calc(var(--scaling) * 0.5);
 }
 
@@ -17,7 +18,7 @@ input[type=checkbox] {
 }
 
 .stat-group {
-    margin-bottom: calc(var(--scaling) * 1);
+    margin-bottom: calc(var(--scaling) * 0.1);
 }
 
 table {
@@ -27,7 +28,7 @@ table {
 }
 
 table, th, td {
-    border: calc(var(--scaling) * 0.1) solid gray;
+    border: calc(var(--scaling) * 0.05) solid gray;
     padding:calc(var(--scaling) * 0.5);
     text-align: center;
 }
@@ -38,7 +39,7 @@ table, th, td {
     color: royalblue;
     display: inline-block;
     padding: calc(var(--scaling) * 0.5);
-    border-radius: calc(var(--scaling) * 0.5);
+    border-radius: calc(var(--scaling) * 0.05);
     border: solid gray calc(var(--scaling) * 0.05);
 }
 
@@ -48,16 +49,18 @@ table, th, td {
     background-color: white;
     color: black;
     display: inline-block;
-    border-radius: calc(var(--scaling) * 0.5);
+    border-radius: calc(var(--scaling) * 0.05);
     text-decoration: none;
     font-size: calc(var(--scaling) * 1);
     cursor: pointer;
     font-weight: bold;
     border: solid black calc(var(--scaling) * 0.05);
+    transition: all 0.2s ease;
 }
 
 .btn:hover {
     background-color: #f0f0f0;
+    transform: scale(1.05);
 }
 
 textarea {
