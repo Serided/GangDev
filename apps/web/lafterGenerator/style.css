@@ -7,11 +7,16 @@ body {
     font-family: Arial, sans-serif;
 }
 
-input[type=text], input[type=number] {
+input[type=text],
+input[type=number] {
     width: 15vh;
     height: 2.3vh;
     box-sizing: border-box;
     border: solid gray 1px;
+    margin: 0.5vh;
+}
+
+input[type=checkbox] {
     margin: 0.5vh;
 }
 
