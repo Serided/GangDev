@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
         burst: ["physical", "magic"],
         tank: ["armor", "magic resist", "health"],
         fighter: ["physical", "magic"],
-        utility: ["heal", "shields", "ult"]
+        utility: ["heal", "shields", "cc", "ult"]
     };
 
     // Array to store added category pairs
