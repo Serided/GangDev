@@ -4,9 +4,10 @@
     overflow-y: auto;
     border-radius: calc(var(--scaling) * 0.05);
     border: calc(var(--scaling) * 0.05) solid #ccc; /* Optional for visual separation */
-    padding-top: calc(var(--scaling) * 1);
+    padding: calc(var(--scaling) * 0.25);
     margin: calc(var(--scaling) * 0.5);
     align-items: center;
+    display: block;
 }
 
 input[type=number] {
@@ -62,6 +63,7 @@ table, th, td {
 tbody {
     padding-top: calc(var(--scaling) * 1);
     box-sizing: border-box;
+    display: block;
 }
 th {
     min-width: calc(var(--scaling) * 1);
