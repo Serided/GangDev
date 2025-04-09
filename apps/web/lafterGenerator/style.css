@@ -58,7 +58,7 @@ table, th, td {
 }
 
 tbody {
-    margin-top: calc(var(--scaling) * 1);
+    padding-top: calc(var(--scaling) * 1);
 }
 th {
     min-width: calc(var(--scaling) * 1);
