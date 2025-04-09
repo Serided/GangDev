@@ -90,8 +90,7 @@ td {
 .center {
     align-items: center;
     justify-content: center;
-    text-align: center;
-    box-sizing: border-box;
+    margin: auto;
 }
 
 .id {
