@@ -23,12 +23,12 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Key</th>
-                <th>Damage</th>
-                <th>Toughness</th>
-                <th>CC</th>
-                <th>Mobility</th>
-                <th>Utility</th>
-                <th>Range</th>
+                <th>D</th>
+                <th>T</th>
+                <th>C</th>
+                <th>M</th>
+                <th>U</th>
+                <th>R</th>
                 <th>Categories</th>
                 <th>Actions</th>
             </tr>
