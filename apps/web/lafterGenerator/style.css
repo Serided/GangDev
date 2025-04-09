@@ -59,6 +59,7 @@ table, th, td {
 
 tbody {
     padding-top: calc(var(--scaling) * 1);
+    box-sizing: border-box;
 }
 th {
     min-width: calc(var(--scaling) * 1);
