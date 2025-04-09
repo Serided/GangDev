@@ -5,6 +5,7 @@
     border: calc(var(--scaling) * 0.05) solid #ccc; /* Optional for visual separation */
     margin: calc(var(--scaling) * 0.5);
     padding: calc(var(--scaling) * 0.5);
+    box-shadow: 0 0 calc(var(--scaling) * -0.5) dimgray;
 }
 
 input[type=number] {
