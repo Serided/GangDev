@@ -147,8 +147,8 @@ document.addEventListener("DOMContentLoaded", function() {
         <td>${champ.range}</td>
         <td class="categories">${categoriesText}</td>
         <td class="actions">
-            <button class="small btn" onclick="editChampion(${index})">Edit</button>
-            <button class="small btn" onclick="removeChampion(${index})">Remove</button>
+            <button class="action btn" onclick="editChampion(${index})">Edit</button>
+            <button class="action btn" onclick="removeChampion(${index})">Remove</button>
         </td>
       `;
             tbody.appendChild(tr);

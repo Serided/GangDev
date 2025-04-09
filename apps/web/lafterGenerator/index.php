@@ -103,7 +103,7 @@
                         <option value="">-- Select Value --</option>
                     </select>
 
-                    <button type="button" class="small btn" id="addCategoryBtn">Add</button>
+                    <button type="button" class="add btn" id="addCategoryBtn">Add</button>
                 </div>
                 <!-- This container will show the selected category pairs -->
                 <div id="selectedCategories"></div>

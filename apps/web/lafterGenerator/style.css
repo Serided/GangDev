@@ -47,6 +47,7 @@ select {
     width: calc(var(--scaling) * 5);
     height: calc(var(--scaling) * 1);
     font-size: calc(var(--scaling) * 0.5);
+    margin: calc(var(--scaling) * 0.1);
 }
 
 .stat-group {
@@ -134,11 +135,11 @@ td {
     box-shadow: 0 0 calc(var(--scaling) * 0.05) gray;
     transition: all 0.2s ease;
 }
-.small.btn {
+.action.btn {
     font-size: calc(var(--scaling) * 0.4);
     box-shadow: 0 0 calc(var(--scaling) * 0.008) gray;
 }
-.add {
+.add.btn {
     font-size: calc(var(--scaling) * 0.6);
     box-shadow: 0 0 calc(var(--scaling) * 0.01) gray;
     height: calc(var(--scaling) * 1);
