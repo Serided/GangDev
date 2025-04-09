@@ -76,6 +76,7 @@ select {
 #championTable tbody {
     padding-top: calc(var(--scaling) * 0.9);
     box-sizing: border-box;
+    display: block;
 }
 th {
     min-width: calc(var(--scaling) * 1);
@@ -92,6 +93,7 @@ td {
 .center {
     align-items: center;
     justify-content: center;
+    display: block;
 }
 
 .id {
