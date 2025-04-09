@@ -1,10 +1,13 @@
 #tableContainer {
+    min-height: calc(var(--scaling) * 2);
+    min-width: 90%;
     max-height: calc(var(--scaling) * 10); /* Adjust to fit your layout */
     overflow-y: auto;
     border-radius: calc(var(--scaling) * 0.05);
     border: calc(var(--scaling) * 0.05) solid #ccc; /* Optional for visual separation */
     margin: calc(var(--scaling) * 0.5);
     padding: calc(var(--scaling) * 0.25);
+    justify-content: center;
 }
 
 input[type=number] {
