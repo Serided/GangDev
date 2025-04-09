@@ -6,7 +6,6 @@
     border-radius: calc(var(--scaling) * 0.05);
     border: calc(var(--scaling) * 0.05) solid #ccc; /* Optional for visual separation */
     margin: calc(var(--scaling) * 0.5);
-    padding: calc(var(--scaling) * 0.25);
     justify-content: center;
 }
 
