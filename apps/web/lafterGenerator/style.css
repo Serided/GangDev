@@ -60,7 +60,8 @@ table, th, td {
 td {
     min-width: calc(var(--scaling) * 3);
     min-height: calc(var(--scaling) * 0.75);
-    font-size: calc(var(--scaling) * 0.1);
+    font-size: calc(var(--scaling) * 1);
+    border: none;
 }
 .name {
     min-width: calc(var(--scaling) * 4.5);
