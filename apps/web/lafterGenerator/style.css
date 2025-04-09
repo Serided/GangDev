@@ -1,4 +1,6 @@
 #tableContainer {
+    min-height: calc(var(--scaling) * 2);
+    min-width: calc(var(--scaling) * 30);
     max-height: calc(var(--scaling) * 10); /* Adjust to fit your layout */
     overflow-y: auto;
     border-radius: calc(var(--scaling) * 0.05);
@@ -48,7 +50,7 @@ input[type=range] {
 
 table {
     border-collapse: collapse;
-    width: 90%;
+    min-width: calc(var(--scaling) * 30);
 }
 
 table, th, td {
