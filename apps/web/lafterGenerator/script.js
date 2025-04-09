@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const removeBtn = document.createElement("button");
             removeBtn.textContent = "X";
             removeBtn.className = "x";
-            removeBtn.style.marginLeft = "1vh";
+            removeBtn.style.marginLeft = "calc(var(--scaling) * 0.1)";
             removeBtn.addEventListener("click", function() {
                 categoryPairs.splice(index, 1);
                 updateSelectedCategoriesDisplay();
