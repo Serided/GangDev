@@ -94,10 +94,10 @@
                     </select>
 
                     <select id="categorySub">
-                        <option value="">-- Value --</option>
+                        <option value="">-- Select Type --</option>
                     </select>
 
-                    <button type="button" class="btn" id="addCategoryBtn">Add Category</button>
+                    <button type="button" class="small btn" id="addCategoryBtn">Add</button>
                 </div>
                 <!-- This container will show the selected category pairs -->
                 <div id="selectedCategories"></div>
