@@ -61,7 +61,7 @@ td {
     min-width: calc(var(--scaling) * 3);
 }
 .name {
-    min-width: calc(var(--scaling) * 4);
+    min-width: calc(var(--scaling) * 4.5);
 }
 .id {
     min-width: calc(var(--scaling) * 1.5);
