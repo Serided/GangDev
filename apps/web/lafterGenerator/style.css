@@ -60,6 +60,12 @@ table, th, td {
 td {
     min-width: calc(var(--scaling) * 3);
 }
+.name {
+    min-width: calc(var(--scaling) * 8);
+}
+.id {
+    min-width: calc(var(--scaling) * 1.5);
+}
 
 .output {
     margin: 0 !important;
@@ -72,7 +78,7 @@ td {
 }
 
 .btn {
-    margin: calc(var(--scaling) * 0.05);
+    margin: calc(var(--scaling) * 0.03) calc(var(--scaling) * 0.08);
     padding: calc(var(--scaling) * 0.03) calc(var(--scaling) * 0.08);
     background-color: white;
     color: black;
@@ -93,11 +99,15 @@ td {
 .x {
     background: none;
     color: red;
+    border: none;
 }
 
 .btn:hover {
     background-color: #f0f0f0;
-    transform: scale(1.03);
+    transform: scale(1.05);
+}
+.x:hover {
+    transform: scale(1.05);
 }
 
 textarea {

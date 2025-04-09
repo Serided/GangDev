@@ -96,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const id = parseInt(document.getElementById("championId").value);
         const name = document.getElementById("championName").value.trim();
         const key = document.getElementById("championKey").value.trim();
-
         const damage = parseInt(document.getElementById("damageNumber").value);
         const toughness = parseInt(document.getElementById("toughnessNumber").value);
         const cc = parseInt(document.getElementById("ccNumber").value);
@@ -137,8 +136,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 categoriesText = champ.categories.map(cat => `[${cat.type}: ${cat.subCategory}]`).join(", ");
             }
             tr.innerHTML = `
-        <td>${champ.id}</td>
-        <td>${champ.name}</td>
+        <td class="id">${champ.id}</td>
+        <td class="name">${champ.name}</td>
         <td>${champ.key}</td>
         <td>${champ.damage}</td>
         <td>${champ.toughness}</td>
