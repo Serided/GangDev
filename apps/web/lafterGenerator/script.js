@@ -139,12 +139,12 @@ document.addEventListener("DOMContentLoaded", function() {
         <td class="id">${champ.id}</td>
         <td class="name">${champ.name}</td>
         <td class="key">${champ.key}</td>
-        <td class="nums">${champ.damage}</td>
-        <td class="nums">${champ.toughness}</td>
-        <td class="nums">${champ.cc}</td>
-        <td class="nums">${champ.mobility}</td>
-        <td class="nums">${champ.utility}</td>
-        <td class="nums">${champ.range}</td>
+        <td>${champ.damage}</td>
+        <td>${champ.toughness}</td>
+        <td>${champ.cc}</td>
+        <td>${champ.mobility}</td>
+        <td>${champ.utility}</td>
+        <td>${champ.range}</td>
         <td class="categories">${categoriesText}</td>
         <td class="actions">
             <button class="small btn" onclick="editChampion(${index})">Edit</button>

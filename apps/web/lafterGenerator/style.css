@@ -58,8 +58,8 @@ table, th, td {
 }
 
 td {
-    min-width: calc(var(--scaling) * 0.6);
-    min-height: calc(var(--scaling) * 0.6);
+    min-width: calc(var(--scaling) * 1);
+    min-height: calc(var(--scaling) * 1);
     font-size: calc(var(--scaling) * 0.5);
 }
 .id {
@@ -70,9 +70,6 @@ td {
 }
 .key {
     min-width: calc(var(--scaling) * 4.5);
-}
-.nums {
-    min-width: calc(var(--scaling) * 0.6);
 }
 .categories {
     min-width: calc(var(--scaling) * 9);
