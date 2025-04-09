@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Optionally, add a remove button for each pair.
             const removeBtn = document.createElement("button");
             removeBtn.textContent = "Remove";
-            removeBtn.className = "btn";
+            removeBtn.className = "small btn";
             removeBtn.style.marginLeft = "10px";
             removeBtn.addEventListener("click", function() {
                 categoryPairs.splice(index, 1);

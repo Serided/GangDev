@@ -85,7 +85,7 @@
                 <h3>Add Category</h3>
                 <div id="categoryForm">
                     <select id="categoryType">
-                        <option value="">-- Select Type --</option>
+                        <option value="">-- Type --</option>
                         <option value="dps">dps</option>
                         <option value="burst">burst</option>
                         <option value="tank">tank</option>
@@ -94,7 +94,7 @@
                     </select>
 
                     <select id="categorySub">
-                        <option value="">-- Select Sub-Category --</option>
+                        <option value="">-- Value --</option>
                     </select>
 
                     <button type="button" class="btn" id="addCategoryBtn">Add Category</button>
@@ -104,8 +104,8 @@
             </div>
             <br>
 
-            <button type="submit" class="btn" id="saveChampion">Save</button>
-            <button type="button" class="btn" id="clearForm">Clear</button>
+            <button type="submit" class="small btn" id="saveChampion">Save</button>
+            <button type="button" class="small btn" id="clearForm">Clear</button>
         </form>
     </div>
 

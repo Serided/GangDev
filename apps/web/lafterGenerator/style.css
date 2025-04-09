@@ -57,6 +57,10 @@ table, th, td {
     text-align: center;
 }
 
+td {
+    width: calc(var(--scaling) * 5);
+}
+
 .output {
     margin: 0 !important;
     background-color: white;
@@ -82,7 +86,7 @@ table, th, td {
     box-shadow: 0 0 calc(var(--scaling) * 0.05) gray;
     transition: all 0.2s ease;
 }
-td .btn {
+.small.btn {
     font-size: calc(var(--scaling) * 0.2);
     box-shadow: 0 0 calc(var(--scaling) * 0.008) gray;
 }
