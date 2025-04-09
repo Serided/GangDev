@@ -161,6 +161,7 @@ td {
     color: red;
     border: none;
     font-weight: bold;
+    font-size: calc(var(--scaling) * 0.6);
 }
 
 .btn:hover {
