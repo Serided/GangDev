@@ -1,3 +1,7 @@
+* {
+    display: block;
+}
+
 #tableContainer {
     min-width: calc(var(--scaling) * 30.2);
     max-height: calc(var(--scaling) * 10); /* Adjust to fit your layout */
@@ -69,10 +73,9 @@ select {
     text-align: center;
 }
 
-tbody {
+#championTable tbody {
     padding-top: calc(var(--scaling) * 0.9);
     box-sizing: border-box;
-    display: block;
 }
 th {
     min-width: calc(var(--scaling) * 1);
