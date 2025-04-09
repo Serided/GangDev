@@ -128,7 +128,7 @@ td {
     display: inline-block;
     border-radius: calc(var(--scaling) * 0.05);
     text-decoration: none;
-    font-size: calc(var(--scaling) * 0.5);
+    font-size: calc(var(--scaling) * 1);
     cursor: pointer;
     font-weight: bold;
     border: none;
@@ -149,6 +149,7 @@ td {
     background: none;
     color: red;
     border: none;
+    font-weight: bold;
 }
 
 .btn:hover {
