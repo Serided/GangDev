@@ -51,7 +51,6 @@ input[type=range] {
 
 table {
     border-collapse: collapse;
-    min-width: calc(var(--scaling) * 30);
 }
 
 table, th, td {
