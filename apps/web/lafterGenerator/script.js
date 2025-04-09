@@ -1,73 +1,93 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // ----- Category Options Mapping -----
+    const categoryOptions = {
+        dps: ["physical", "magic"],
+        burst: ["physical", "magic"],
+        tank: ["armor", "magic resist", "health"],
+        fighter: ["physical", "magic"],
+        utility: ["heal", "shields", "ult"]
+    };
+
+    // Array to store added category pairs
+    let categoryPairs = [];
+
+    // Reference to the selects and container
+    const typeSelect = document.getElementById("categoryType");
+    const subSelect = document.getElementById("categorySub");
+    const selectedContainer = document.getElementById("selectedCategories");
+    const addCategoryBtn = document.getElementById("addCategoryBtn");
+
+    // When category type changes, update sub-select options.
+    typeSelect.addEventListener("change", function() {
+        const selectedType = typeSelect.value;
+        // Clear previous options in subSelect.
+        subSelect.innerHTML = `<option value="">-- Select Sub-Category --</option>`;
+        if (selectedType && categoryOptions[selectedType]) {
+            categoryOptions[selectedType].forEach(sub => {
+                const opt = document.createElement("option");
+                opt.value = sub;
+                opt.textContent = sub;
+                subSelect.appendChild(opt);
+            });
+        }
+    });
+
+    // Function to update the list display of selected categories.
+    function updateSelectedCategoriesDisplay() {
+        selectedContainer.innerHTML = "";
+        if (categoryPairs.length === 0) {
+            selectedContainer.textContent = "No categories added.";
+            return;
+        }
+        const ul = document.createElement("ul");
+        categoryPairs.forEach((pair, index) => {
+            const li = document.createElement("li");
+            li.textContent = `${pair.type}: ${pair.subCategory}`;
+            // Optionally, add a remove button for each pair.
+            const removeBtn = document.createElement("button");
+            removeBtn.textContent = "Remove";
+            removeBtn.className = "btn";
+            removeBtn.style.marginLeft = "10px";
+            removeBtn.addEventListener("click", function() {
+                categoryPairs.splice(index, 1);
+                updateSelectedCategoriesDisplay();
+            });
+            li.appendChild(removeBtn);
+            ul.appendChild(li);
+        });
+        selectedContainer.appendChild(ul);
+    }
+
+    // Add Category Button handler.
+    addCategoryBtn.addEventListener("click", function() {
+        const selectedType = typeSelect.value;
+        const selectedSub = subSelect.value;
+        if (!selectedType || !selectedSub) {
+            alert("Please select both type and sub-category.");
+            return;
+        }
+        // Add the pair to the array.
+        categoryPairs.push({ type: selectedType, subCategory: selectedSub });
+        // Update the display.
+        updateSelectedCategoriesDisplay();
+        // Reset selects.
+        typeSelect.value = "";
+        subSelect.innerHTML = `<option value="">-- Select Sub-Category --</option>`;
+    });
+
+    // ----- Champion Form Code (existing) -----
     let championList = [];
     let editingIndex = -1;
 
-    // Default values for numeric stat keys.
-    const defaultStats = {
-        damage: 1,
-        toughness: 1,
-        cc: 1,
-        mobility: 1,
-        utility: 1,
-        range: 1
-    };
+    const defaultStats = {damage: 1, toughness: 1, cc: 1, mobility: 1, utility: 1, range: 1};
 
-    // Update the champion table using these columns:
-    // ID, Name, Toughness, CC, Mobility, Utility, Range, Damage, Damage Type, Damage Application, Actions.
-    function updateTable() {
-        const tbody = document.querySelector("#championTable tbody");
-        if (!tbody) {
-            console.error("Champion table body not found.");
-            return;
-        }
-        tbody.innerHTML = "";
-        championList.forEach((champ, index) => {
-            const dmgTypes = (champ.damageTypes || []);
-            const dmgApp = (champ.damageApplication || "");  // now a string
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td>${champ.id}</td>
-                <td>${champ.name}</td>
-                <td>${champ.key}</td>
-                <td>${champ.damage}</td>
-                <td>${champ.toughness}</td>
-                <td>${champ.cc}</td>
-                <td>${champ.mobility}</td>
-                <td>${champ.utility}</td>
-                <td>${champ.range}</td>
-                <td>${dmgTypes.join(", ")}</td>
-                <td>${dmgApp}</td>
-                <td style="display: flex">
-                    <button class="btn" onclick="editChampion(${index})">Edit</button>
-                    <button class="btn" onclick="removeChampion(${index})">Remove</button>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-        document.getElementById("listLength").textContent = championList.length;
-    }
-
-    // Clear the form and reset slider/number pairs.
-    function clearForm() {
-        document.getElementById("championForm").reset();
-        ['damage', 'toughness', 'cc', 'mobility', 'utility', 'range'].forEach(stat => {
-            document.getElementById(stat + "Slider").value = defaultStats[stat];
-            document.getElementById(stat + "Number").value = defaultStats[stat];
-        });
-        editingIndex = -1;
-    }
-
-    // Synchronize slider and number fields for each stat.
+    // Synchronize slider and number inputs (code omitted for brevity)
     function syncInput(stat) {
         const slider = document.getElementById(stat + "Slider");
         const number = document.getElementById(stat + "Number");
         if (!slider || !number) return;
-        slider.addEventListener("input", () => {
-            number.value = slider.value;
-        });
-        number.addEventListener("input", () => {
-            slider.value = number.value;
-        });
+        slider.addEventListener("input", () => { number.value = slider.value; });
+        number.addEventListener("input", () => { slider.value = number.value; });
     }
     ['damage', 'toughness', 'cc', 'mobility', 'utility', 'range'].forEach(syncInput);
 
@@ -77,7 +97,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const name = document.getElementById("championName").value.trim();
         const key = document.getElementById("championKey").value.trim();
 
-        // Get numeric stat values.
         const damage = parseInt(document.getElementById("damageNumber").value);
         const toughness = parseInt(document.getElementById("toughnessNumber").value);
         const cc = parseInt(document.getElementById("ccNumber").value);
@@ -85,35 +104,21 @@ document.addEventListener("DOMContentLoaded", function() {
         const utility = parseInt(document.getElementById("utilityNumber").value);
         const rangeVal = parseInt(document.getElementById("rangeNumber").value);
 
-        // Get Damage Type(s) from checkboxes.
-        const damageTypes = Array.from(document.querySelectorAll('input[name="damageType[]"]:checked')).map(el => el.value);
-        if(damageTypes.length === 0) {
-            alert("Please select at least one Damage Type (Physical or Magic).");
-            return;
-        }
-
-        // Get Damage Application from radio input (single selection).
-        const dmgAppElem = document.querySelector('input[name="damageApplication"]:checked');
-        if(!dmgAppElem) {
-            alert("Please select a Damage Application (Burst or DPS).");
-            return;
-        }
-        const damageApplication = dmgAppElem.value;
-
+        // Build champion object with the categories added.
         const champion = {
             id,
             name,
+            key,
             damage,
             toughness,
             cc,
             mobility,
             utility,
             range: rangeVal,
-            damageTypes,
-            damageApplication
+            categories: [...categoryPairs]  // Save the category pairs.
         };
 
-        if(editingIndex >= 0) {
+        if (editingIndex >= 0) {
             championList[editingIndex] = champion;
         } else {
             championList.push(champion);
@@ -122,7 +127,48 @@ document.addEventListener("DOMContentLoaded", function() {
         clearForm();
     });
 
-    // Expose editChampion and removeChampion to global scope.
+    function updateTable() {
+        const tbody = document.querySelector("#championTable tbody");
+        tbody.innerHTML = "";
+        championList.forEach((champ, index) => {
+            const tr = document.createElement("tr");
+            let categoriesText = "";
+            if (champ.categories && Array.isArray(champ.categories)) {
+                categoriesText = champ.categories.map(cat => `${cat.type}: ${cat.subCategory}`).join(" | ");
+            }
+            tr.innerHTML = `
+        <td>${champ.id}</td>
+        <td>${champ.name}</td>
+        <td>${champ.key}</td>
+        <td>${champ.damage}</td>
+        <td>${champ.toughness}</td>
+        <td>${champ.cc}</td>
+        <td>${champ.mobility}</td>
+        <td>${champ.utility}</td>
+        <td>${champ.range}</td>
+        <td>${categoriesText}</td>
+        <td style="display: flex">
+            <button class="btn" onclick="editChampion(${index})">Edit</button>
+            <button class="btn" onclick="removeChampion(${index})">Remove</button>
+        </td>
+      `;
+            tbody.appendChild(tr);
+        });
+        document.getElementById("listLength").textContent = championList.length;
+    }
+
+    function clearForm() {
+        document.getElementById("championForm").reset();
+        ['damage', 'toughness', 'cc', 'mobility', 'utility', 'range'].forEach(stat => {
+            document.getElementById(stat + "Slider").value = defaultStats[stat];
+            document.getElementById(stat + "Number").value = defaultStats[stat];
+        });
+        document.getElementById("categoriesList").innerHTML = "";
+        categoryPairs = []; // Reset the temporary category pairs.
+        updateSelectedCategoriesDisplay();
+        editingIndex = -1;
+    }
+
     window.editChampion = function(index) {
         const champ = championList[index];
         document.getElementById("championId").value = champ.id;
@@ -132,19 +178,19 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById(stat + "Slider").value = champ[stat] || defaultStats[stat];
             document.getElementById(stat + "Number").value = champ[stat] || defaultStats[stat];
         });
-        document.querySelectorAll('input[name="damageType[]"]').forEach(input => {
-            input.checked = champ.damageTypes && champ.damageTypes.includes(input.value);
-        });
-        // For damageApplication, set the radio button.
-        const dmgAppRadio = document.querySelector(`input[name="damageApplication"][value="${champ.damageApplication}"]`);
-        if(dmgAppRadio) {
-            dmgAppRadio.checked = true;
+        // Rebuild the categories list.
+        categoryPairs = [];
+        const catContainer = document.getElementById("selectedCategories");
+        catContainer.innerHTML = "";
+        if (champ.categories && Array.isArray(champ.categories)) {
+            categoryPairs = champ.categories.slice();
+            updateSelectedCategoriesDisplay();
         }
         editingIndex = index;
     };
 
     window.removeChampion = function(index) {
-        if(confirm("Are you sure you want to remove this champion?")) {
+        if (confirm("Are you sure you want to remove this champion?")) {
             championList.splice(index, 1);
             updateTable();
         }
@@ -152,30 +198,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("clearForm").addEventListener("click", clearForm);
 
-    // When importing, ensure missing keys are set.
-    function ensureChampionDefaults(champion) {
-        Object.keys(defaultStats).forEach(key => {
-            if(champion[key] === undefined) {
-                champion[key] = defaultStats[key];
-            }
-        });
-        if(!champion.damageTypes) champion.damageTypes = [];
-        // For damageApplication, if missing, set to an empty string.
-        if(champion.damageApplication === undefined) champion.damageApplication = "";
-        return champion;
-    }
-
     document.getElementById("importBtn").addEventListener("click", function() {
         const text = document.getElementById("importExportArea").value;
         try {
             const importedList = JSON.parse(text);
-            if(Array.isArray(importedList)) {
-                championList = importedList.map(champ => ensureChampionDefaults(champ));
+            if (Array.isArray(importedList)) {
+                championList = importedList;
                 updateTable();
             } else {
                 alert("Invalid format: Expected an array.");
             }
-        } catch(e) {
+        } catch (e) {
             alert("Error parsing JSON: " + e.message);
         }
     });

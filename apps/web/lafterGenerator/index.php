@@ -82,19 +82,26 @@
             </div>
             <br>
 
-            <!-- Damage Type Checkboxes -->
-            <div>
-                <label>Damage:</label><br>
-                <label><input type="checkbox" name="damageType[]" value="physical"> Physical</label>
-                <label><input type="checkbox" name="damageType[]" value="magic"> Magic</label>
-            </div>
-            <br>
+            <div id="categoryContainer">
+                <h3>Add Category</h3>
+                <div id="categoryForm">
+                    <select id="categoryType">
+                        <option value="">-- Select Type --</option>
+                        <option value="dps">dps</option>
+                        <option value="burst">burst</option>
+                        <option value="tank">tank</option>
+                        <option value="fighter">fighter</option>
+                        <option value="utility">utility</option>
+                    </select>
 
-            <!-- Damage Application Checkboxes -->
-            <div>
-                <label>Damage Type:</label><br>
-                <label><input type="radio" name="damageApplication" value="burst"> Burst</label>
-                <label><input type="radio" name="damageApplication" value="dps"> DPS</label>
+                    <select id="categorySub">
+                        <option value="">-- Select Sub-Category --</option>
+                    </select>
+
+                    <button type="button" class="btn" id="addCategoryBtn">Add Category</button>
+                </div>
+                <!-- This container will show the selected category pairs -->
+                <div id="selectedCategories"></div>
             </div>
             <br>
 
