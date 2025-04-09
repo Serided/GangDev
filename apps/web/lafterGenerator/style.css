@@ -57,16 +57,20 @@ table, th, td {
     text-align: center;
 }
 
-td {
-    min-width: calc(var(--scaling) * 1);
-    min-height: calc(var(--scaling) * 1);
-    font-size: calc(var(--scaling) * 0.5);
+tbody {
+    margin-top: calc(var(--scaling) * 1);
 }
 th {
     min-width: calc(var(--scaling) * 1);
     min-height: calc(var(--scaling) * 1);
     font-size: calc(var(--scaling) * 0.5);
 }
+td {
+    min-width: calc(var(--scaling) * 1);
+    min-height: calc(var(--scaling) * 1);
+    font-size: calc(var(--scaling) * 0.5);
+}
+
 .id {
     min-width: calc(var(--scaling) * 1.5);
 }

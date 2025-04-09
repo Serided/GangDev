@@ -31,19 +31,6 @@
                 <th class="categories">Categories</th>
                 <th class="actions">Actions</th>
             </tr>
-            <tr>
-                <th class="id">ID</th>
-                <th class="name">Name</th>
-                <th class="key">Key</th>
-                <th>D</th>
-                <th>T</th>
-                <th>C</th>
-                <th>M</th>
-                <th>U</th>
-                <th>R</th>
-                <th class="categories">Categories</th>
-                <th class="actions">Actions</th>
-            </tr>
             </thead>
             <tbody>
             <!-- Table rows inserted dynamically -->
