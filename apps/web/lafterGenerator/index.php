@@ -49,38 +49,38 @@
             </div>
             <br>
 
-            <div>
+            <div class="center">
                 <table>
                     <tbody>
                         <tr class="stat-group">
                             <td>Damage:</td>
-                            <td><input type="range" id="damageSlider" min="1" max="3" step="1" value="1"></td>
-                            <td><input type="number" id="damageNumber" min="1" max="3" step="1" value="1"></td>
+                            <td><input type="range" id="damageSlider" min="0" max="3" step="1" value="1"></td>
+                            <td><input type="number" id="damageNumber" min="0" max="3" step="1" value="1"></td>
                         </tr>
                         <tr class="stat-group">
                             <td>Toughness:</td>
-                            <td><input type="range" id="toughnessSlider" min="1" max="3" step="1" value="1"></td>
-                            <td><input type="number" id="toughnessNumber" min="1" max="3" step="1" value="1"></td>
+                            <td><input type="range" id="toughnessSlider" min="0" max="3" step="1" value="1"></td>
+                            <td><input type="number" id="toughnessNumber" min="0" max="3" step="1" value="1"></td>
                         </tr>
                         <tr class="stat-group">
                             <td>CC:</td>
-                            <td><input type="range" id="ccSlider" min="1" max="3" step="1" value="1"></td>
-                            <td><input type="number" id="ccNumber" min="1" max="3" step="1" value="1"></td>
+                            <td><input type="range" id="ccSlider" min="0" max="3" step="1" value="1"></td>
+                            <td><input type="number" id="ccNumber" min="0" max="3" step="1" value="1"></td>
                         </tr>
                         <tr class="stat-group">
                             <td>Mobility:</td>
-                            <td><input type="range" id="mobilitySlider" min="1" max="3" step="1" value="1"></td>
-                            <td><input type="number" id="mobilityNumber" min="1" max="3" step="1" value="1"></td>
+                            <td><input type="range" id="mobilitySlider" min="0" max="3" step="1" value="1"></td>
+                            <td><input type="number" id="mobilityNumber" min="0" max="3" step="1" value="1"></td>
                         </tr>
                         <tr class="stat-group">
                             <td>Utility:</td>
-                            <td><input type="range" id="utilitySlider" min="1" max="3" step="1" value="1"></td>
-                            <td><input type="number" id="utilityNumber" min="1" max="3" step="1" value="1"></td>
+                            <td><input type="range" id="utilitySlider" min="0" max="3" step="1" value="1"></td>
+                            <td><input type="number" id="utilityNumber" min="0" max="3" step="1" value="1"></td>
                         </tr>
                         <tr class="stat-group">
                             <td>Range:</td>
-                            <td><input type="range" id="rangeSlider" min="1" max="3" step="1" value="1"></td>
-                            <td><input type="number" id="rangeNumber" min="1" max="3" step="1" value="1"></td>
+                            <td><input type="range" id="rangeSlider" min="0" max="3" step="1" value="1"></td>
+                            <td><input type="number" id="rangeNumber" min="0" max="3" step="1" value="1"></td>
                         </tr>
                     </tbody>
                 </table>

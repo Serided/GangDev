@@ -12,12 +12,13 @@
 }
 
 input[type=number] {
-    width: calc(var(--scaling) * 0.95);
+    width: calc(var(--scaling) * 1.05);
     height: calc(var(--scaling) * 0.75);
     box-sizing: border-box;
     border-radius: calc(var(--scaling) * 0.05);
     border: solid gray calc(var(--scaling) * 0.05);
     margin: calc(var(--scaling) * 0.2);
+    font-size: calc(var(--scaling) * 0.4);
 }
 
 input[type=number]#championId {
@@ -38,12 +39,12 @@ input[type=text] {
 
 input[type=range] {
     margin: calc(var(--scaling) * 0.2);
-    width: calc(var(--scaling) * 3);
+    width: calc(var(--scaling) * 4);
 }
 select {
     width: calc(var(--scaling) * 5);
     height: calc(var(--scaling) * 1);
-    font-size: calc(var(--scaling) * 0.75);
+    font-size: calc(var(--scaling) * 0.5);
 }
 
 .stat-group {
@@ -83,6 +84,11 @@ td {
     min-width: calc(var(--scaling) * 1);
     min-height: calc(var(--scaling) * 1);
     font-size: calc(var(--scaling) * 0.5);
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
 }
 
 .id {
