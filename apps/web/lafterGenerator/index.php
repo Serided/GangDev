@@ -85,7 +85,7 @@
                 <h3>Add Category</h3>
                 <div id="categoryForm">
                     <select id="categoryType">
-                        <option value="">-- Type --</option>
+                        <option value="">-- Select Type --</option>
                         <option value="tank">tank</option>
                         <option value="fighter">fighter</option>
                         <option value="burst">burst</option>

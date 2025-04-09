@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
     typeSelect.addEventListener("change", function() {
         const selectedType = typeSelect.value;
         // Clear previous options in subSelect.
-        subSelect.innerHTML = `<option value="">-- Value --</option>`;
+        subSelect.innerHTML = `<option value="">-- Select Value --</option>`;
         if (selectedType && categoryOptions[selectedType]) {
             categoryOptions[selectedType].forEach(sub => {
                 const opt = document.createElement("option");
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateSelectedCategoriesDisplay();
         // Reset selects.
         typeSelect.value = "";
-        subSelect.innerHTML = `<option value="">-- Select Type --</option>`;
+        subSelect.innerHTML = `<option value="">-- Select Value --</option>`;
     });
 
     // ----- Champion Form Code (existing) -----
