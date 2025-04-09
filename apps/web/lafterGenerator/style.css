@@ -1,6 +1,4 @@
 #tableContainer {
-    min-height: calc(var(--scaling) * 2);
-    min-width: 90%;
     max-height: calc(var(--scaling) * 10); /* Adjust to fit your layout */
     overflow-y: auto;
     border-radius: calc(var(--scaling) * 0.05);
