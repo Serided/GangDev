@@ -169,6 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     window.editChampion = function(index) {
+        document.getElementById("championForm").scrollIntoView({ behavior: "smooth" });
         const champ = championList[index];
         document.getElementById("championId").value = champ.id;
         document.getElementById("championName").value = champ.name;
