@@ -95,7 +95,7 @@ td {
     transition: all 0.2s ease;
 }
 .small.btn {
-    font-size: calc(var(--scaling) * 0.3);
+    font-size: calc(var(--scaling) * 0.4);
     box-shadow: 0 0 calc(var(--scaling) * 0.008) gray;
 }
 .x {
