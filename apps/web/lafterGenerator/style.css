@@ -140,6 +140,7 @@ td {
     box-shadow: 0 0 calc(var(--scaling) * 0.008) gray;
 }
 .add.btn {
+    margin: calc(var(--scaling) * 0.1);
     font-size: calc(var(--scaling) * 0.6);
     box-shadow: 0 0 calc(var(--scaling) * 0.01) gray;
     height: calc(var(--scaling) * 1);
