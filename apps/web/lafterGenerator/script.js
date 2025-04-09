@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateSelectedCategoriesDisplay();
         // Reset selects.
         typeSelect.value = "";
-        subSelect.innerHTML = `<option value="">-- Select Sub-Category --</option>`;
+        subSelect.innerHTML = `<option value="">-- Value --</option>`;
     });
 
     // ----- Champion Form Code (existing) -----
@@ -148,8 +148,8 @@ document.addEventListener("DOMContentLoaded", function() {
         <td>${champ.range}</td>
         <td>${categoriesText}</td>
         <td style="display: flex">
-            <button class="btn" onclick="editChampion(${index})">Edit</button>
-            <button class="btn" onclick="removeChampion(${index})">Remove</button>
+            <button class="small btn" onclick="editChampion(${index})">Edit</button>
+            <button class="small btn" onclick="removeChampion(${index})">Remove</button>
         </td>
       `;
             tbody.appendChild(tr);

@@ -58,7 +58,7 @@ table, th, td {
 }
 
 td {
-    width: calc(var(--scaling) * 5);
+    min-width: calc(var(--scaling) * 3);
 }
 
 .output {
