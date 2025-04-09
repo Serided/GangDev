@@ -77,10 +77,10 @@ th {
     min-width: calc(var(--scaling) * 4.5);
 }
 .categories {
-    min-width: calc(var(--scaling) * 9);
+    width: calc(var(--scaling) * 9);
 }
 .actions {
-    min-width: calc(var(--scaling) * 4.5);
+    min-width: calc(var(--scaling) * 4);
 }
 
 .output {
@@ -94,7 +94,7 @@ th {
 }
 
 .btn {
-    margin: calc(var(--scaling) * 0.03) calc(var(--scaling) * 0.08);
+    margin: calc(var(--scaling) * 0.03) calc(var(--scaling) * 0.1);
     padding: calc(var(--scaling) * 0.03) calc(var(--scaling) * 0.08);
     background-color: white;
     color: black;
