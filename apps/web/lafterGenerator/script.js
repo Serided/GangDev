@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const tr = document.createElement("tr");
             let categoriesText = "";
             if (champ.categories && Array.isArray(champ.categories)) {
-                categoriesText = champ.categories.map(cat => `${cat.type}: ${cat.subCategory}`).join(" | ");
+                categoriesText = champ.categories.map(cat => `[${cat.type}: ${cat.subCategory}]`).join(", ");
             }
             tr.innerHTML = `
         <td>${champ.id}</td>

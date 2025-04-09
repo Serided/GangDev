@@ -86,10 +86,10 @@
                 <div id="categoryForm">
                     <select id="categoryType">
                         <option value="">-- Type --</option>
-                        <option value="dps">dps</option>
-                        <option value="burst">burst</option>
                         <option value="tank">tank</option>
                         <option value="fighter">fighter</option>
+                        <option value="burst">burst</option>
+                        <option value="dps">dps</option>
                         <option value="utility">utility</option>
                     </select>
 
@@ -104,8 +104,8 @@
             </div>
             <br>
 
-            <button type="submit" class="small btn" id="saveChampion">Save</button>
-            <button type="button" class="small btn" id="clearForm">Clear</button>
+            <button type="submit" class="btn" id="saveChampion">Save</button>
+            <button type="button" class="btn" id="clearForm">Clear</button>
         </form>
     </div>
 
