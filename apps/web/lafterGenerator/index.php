@@ -29,8 +29,7 @@
                 <th>Mobility</th>
                 <th>Utility</th>
                 <th>Range</th>
-                <th>Type</th>
-                <th>Application</th>
+                <th>Categories</th>
                 <th>Actions</th>
             </tr>
             </thead>
