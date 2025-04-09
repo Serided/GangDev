@@ -57,12 +57,12 @@ select {
     margin-right: calc(var(--scaling) * 0.1);
 }
 
-table {
+#championTable {
     max-width: calc(var(--scaling) * 30);
     border-collapse: collapse;
 }
 
-.championTable, .championTable th, .championTable td {
+#championTable, #championTable th, #championTable td {
     border: calc(var(--scaling) * 0.05) solid gray;
     padding: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2);
     text-align: center;
