@@ -94,7 +94,7 @@
                     </select>
 
                     <select id="categorySub">
-                        <option value="">-- Select Type --</option>
+                        <option value="">-- Select Value --</option>
                     </select>
 
                     <button type="button" class="small btn" id="addCategoryBtn">Add</button>
@@ -108,6 +108,7 @@
             <button type="button" class="btn" id="clearForm">Clear</button>
         </form>
     </div>
+    <br>
 
     <!-- Import/Export Section -->
     <div>
