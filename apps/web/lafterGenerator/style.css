@@ -62,7 +62,7 @@ table {
     border-collapse: collapse;
 }
 
-table, th, td {
+.championTable, .championTable th, .championTable td {
     border: calc(var(--scaling) * 0.05) solid gray;
     padding: calc(var(--scaling) * 0.1) calc(var(--scaling) * 0.2);
     text-align: center;
