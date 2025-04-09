@@ -72,7 +72,7 @@ td {
 }
 
 .btn {
-    margin: calc(var(--scaling) * 0.1);
+    margin: calc(var(--scaling) * 0.05);
     padding: calc(var(--scaling) * 0.03) calc(var(--scaling) * 0.08);
     background-color: white;
     color: black;
