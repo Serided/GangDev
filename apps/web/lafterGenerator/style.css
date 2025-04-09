@@ -1,11 +1,10 @@
 #tableContainer {
-    max-height: calc(var(--scaling) * 20); /* Adjust to fit your layout */
+    max-height: calc(var(--scaling) * 10); /* Adjust to fit your layout */
     overflow-y: auto;
     border-radius: calc(var(--scaling) * 0.05);
     border: calc(var(--scaling) * 0.05) solid #ccc; /* Optional for visual separation */
     margin: calc(var(--scaling) * 0.5);
-    padding: calc(var(--scaling) * 0.5);
-    box-shadow: 0 0 calc(var(--scaling) * -0.5) dimgray;
+    padding: calc(var(--scaling) * 0.25);
 }
 
 input[type=number] {
@@ -18,7 +17,6 @@ input[type=number] {
 }
 
 input[type=number]#championId {
-    margin: calc(var(--scaling) * 0.4) calc(var(--scaling) * 1);
     width: calc(var(--scaling) * 1.2);
     height: calc(var(--scaling) * 1);
 }
@@ -29,7 +27,7 @@ input[type=text] {
     box-sizing: border-box;
     border-radius: calc(var(--scaling) * 0.05);
     border: solid gray calc(var(--scaling) * 0.05);
-    margin: calc(var(--scaling) * 0.4) calc(var(--scaling) * 1);
+    margin: calc(var(--scaling) * 0.25);
 }
 
 input[type=range] {

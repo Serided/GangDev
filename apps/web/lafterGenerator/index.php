@@ -42,12 +42,13 @@
     <div>
         <h2>Add/Edit Champion</h2>
         <form id="championForm">
-            <input type="number" id="championId" placeholder="ID" required>
-            <input type="text" id="championName" placeholder="Name" required>
-            <input type="text" id="championKey" placeholder="Key" required>
+            <div>
+                <input type="number" id="championId" placeholder="ID" required>
+                <input type="text" id="championName" placeholder="Name" required>
+                <input type="text" id="championKey" placeholder="Key" required>
+            </div>
             <br>
 
-            <!-- Numeric Stat Inputs with Sliders -->
             <div class="stat-group">
                 <label>Damage:</label>
                 <input type="range" id="damageSlider" min="1" max="3" step="1" value="1">
