@@ -40,6 +40,10 @@ input[type=range] {
     margin: calc(var(--scaling) * 0.2);
     width: calc(var(--scaling) * 3);
 }
+select {
+    width: calc(var(--scaling) * 5);
+    height: calc(var(--scaling) * 1);
+}
 
 .stat-group {
     margin-bottom: calc(var(--scaling) * 0.1);
@@ -128,6 +132,7 @@ td {
 .add {
     font-size: calc(var(--scaling) * 0.6);
     box-shadow: 0 0 calc(var(--scaling) * 0.01) gray;
+    height: calc(var(--scaling) * 1);
 }
 .x {
     background: none;
