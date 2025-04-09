@@ -110,6 +110,17 @@ td {
     min-width: calc(var(--scaling) * 4);
 }
 
+#selectedCategories ul {
+    list-style-position: inside;
+    padding-left: calc(var(--scaling) * 0.2);
+    font-size: calc(var(--scaling) * 0.6);
+    margin: 0;
+}
+
+#selectedCategories ul li {
+    margin: calc(var(--scaling) * 0.1) 0;
+}
+
 .output {
     margin: 0 !important;
     background-color: white;
