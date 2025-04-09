@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let championList = [];
     let editingIndex = -1;
 
-    const defaultStats = {damage: 1, toughness: 1, cc: 1, mobility: 1, utility: 1, range: 1};
+    const defaultStats = { damage: 0, toughness: 0, cc: 0, mobility: 0, utility: 0, range: 0 };
 
     // Synchronize slider and number inputs (code omitted for brevity)
     function syncInput(stat) {
