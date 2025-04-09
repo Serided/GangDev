@@ -8,6 +8,7 @@
     margin: calc(var(--scaling) * 0.5);
     align-items: center;
     display: block;
+    background: white;
 }
 
 input[type=number] {
@@ -60,7 +61,7 @@ table, th, td {
 }
 
 tbody {
-    padding-top: calc(var(--scaling) * 1);
+    padding-top: calc(var(--scaling) * 0.9);
     box-sizing: border-box;
     display: block;
 }
