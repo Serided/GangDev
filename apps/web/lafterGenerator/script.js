@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <td>${champ.utility}</td>
         <td>${champ.range}</td>
         <td>${categoriesText}</td>
-        <td style="align-items: center; justify-content: center">
+        <td style="justify-content: flex-start">
             <button class="small btn" onclick="editChampion(${index})">Edit</button>
             <button class="small btn" onclick="removeChampion(${index})">Remove</button>
         </td>
