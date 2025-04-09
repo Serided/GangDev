@@ -43,6 +43,7 @@ input[type=range] {
 select {
     width: calc(var(--scaling) * 5);
     height: calc(var(--scaling) * 1);
+    font-size: calc(var(--scaling) * 0.75);
 }
 
 .stat-group {
