@@ -19,9 +19,9 @@
         <table id="championTable">
             <thead>
             <tr style="position: absolute">
-                <th>ID</th>
-                <th>Name</th>
-                <th>Key</th>
+                <th class="id">ID</th>
+                <th class="name">Name</th>
+                <th class="key">Key</th>
                 <th>D</th>
                 <th>T</th>
                 <th>C</th>
