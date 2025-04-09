@@ -91,6 +91,7 @@ td {
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+    display: block;
 }
 
 .id {
