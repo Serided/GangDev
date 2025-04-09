@@ -1,3 +1,10 @@
+#tableContainer {
+    max-height: calc(var(--scaling) * 20); /* Adjust to fit your layout */
+    overflow-y: auto;
+    border-radius: calc(var(--scaling) * 0.05);
+    border: calc(var(--scaling) * 0.05) solid #ccc; /* Optional for visual separation */
+}
+
 input[type=number] {
     width: calc(var(--scaling) * 0.95);
     height: calc(var(--scaling) * 0.75);
@@ -25,13 +32,6 @@ input[type=text] {
 input[type=range] {
     margin: calc(var(--scaling) * 0.2);
     width: calc(var(--scaling) * 3);
-}
-
-input[type=checkbox] {
-    margin: calc(var(--scaling) * 0.2);
-}
-input[type=radio] {
-    margin: calc(var(--scaling) * 0.2);
 }
 
 .stat-group {

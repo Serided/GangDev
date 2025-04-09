@@ -14,9 +14,8 @@
 <div class="sect two single">
     <h1>Champion List Generator</h1>
 
-    <!-- Champion Table -->
-    <div>
-        <h2>Champion List (<span id="listLength">0</span> entries)</h2>
+    <h2>Champion List (<span id="listLength">0</span> entries)</h2>
+    <div id="tableContainer">
         <table id="championTable">
             <thead>
             <tr>
