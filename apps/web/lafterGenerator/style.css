@@ -73,7 +73,7 @@ td {
 
 .btn {
     margin: calc(var(--scaling) * 0.1);
-    padding: calc(var(--scaling) * 0.05) calc(var(--scaling) * 0.1);
+    padding: calc(var(--scaling) * 0.04) calc(var(--scaling) * 0.1);
     background-color: white;
     color: black;
     display: inline-block;
