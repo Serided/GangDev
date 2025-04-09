@@ -59,7 +59,7 @@ table, th, td {
 
 td {
     min-width: calc(var(--scaling) * 3);
-    min-height: calc(var(--scaling) * 0.75);
+    min-height: calc(var(--scaling) * 0.6);
     font-size: calc(var(--scaling) * 0.5);
 }
 .name {
