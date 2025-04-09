@@ -18,7 +18,7 @@
     <div id="tableContainer">
         <table id="championTable">
             <thead>
-            <tr>
+            <tr style="position: absolute">
                 <th>ID</th>
                 <th>Name</th>
                 <th>Key</th>
