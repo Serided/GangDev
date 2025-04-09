@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
             tr.innerHTML = `
                 <td>${champ.id}</td>
                 <td>${champ.name}</td>
+                <td>${champ.key}</td>
                 <td>${champ.damage}</td>
                 <td>${champ.toughness}</td>
                 <td>${champ.cc}</td>
@@ -74,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
         e.preventDefault();
         const id = parseInt(document.getElementById("championId").value);
         const name = document.getElementById("championName").value.trim();
+        const key = document.getElementById("championKey").value.trim();
 
         // Get numeric stat values.
         const damage = parseInt(document.getElementById("damageNumber").value);
@@ -125,6 +127,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const champ = championList[index];
         document.getElementById("championId").value = champ.id;
         document.getElementById("championName").value = champ.name;
+        document.getElementById("championKey").value = champ.key;
         ['damage', 'toughness', 'cc', 'mobility', 'utility', 'range'].forEach(stat => {
             document.getElementById(stat + "Slider").value = champ[stat] || defaultStats[stat];
             document.getElementById(stat + "Number").value = champ[stat] || defaultStats[stat];

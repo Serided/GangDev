@@ -22,6 +22,7 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Key</th>
                 <th>Dmg</th>
                 <th>Toughness</th>
                 <th>CC</th>
@@ -45,6 +46,7 @@
         <form id="championForm">
             <input type="number" id="championId" placeholder="ID" required>
             <input type="text" id="championName" placeholder="Name" required>
+            <input type="text" id="championKey" placeholder="Key" required>
             <br>
 
             <!-- Numeric Stat Inputs with Sliders -->
