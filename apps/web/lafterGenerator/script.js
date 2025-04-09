@@ -162,8 +162,8 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById(stat + "Slider").value = defaultStats[stat];
             document.getElementById(stat + "Number").value = defaultStats[stat];
         });
-        document.getElementById("categoriesList").innerHTML = "";
-        categoryPairs = []; // Reset the temporary category pairs.
+        document.getElementById("selectedCategories").innerHTML = "";
+        categoryPairs = [];
         updateSelectedCategoriesDisplay();
         editingIndex = -1;
     }
