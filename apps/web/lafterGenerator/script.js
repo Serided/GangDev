@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let championList = [];
     let editingIndex = -1;
 
-    const defaultStats = { damage: 0, toughness: 0, cc: 0, mobility: 0, utility: 0, range: 0 };
+    const defaultStats = { damage: 1, toughness: 1, cc: 1, mobility: 1, utility: 1, range: 1 };
 
     // Synchronize slider and number inputs (code omitted for brevity)
     function syncInput(stat) {
@@ -174,8 +174,8 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("championName").value = champ.name;
         document.getElementById("championKey").value = champ.key;
         ['damage', 'toughness', 'cc', 'mobility', 'utility', 'range'].forEach(stat => {
-            document.getElementById(stat + "Slider").value = champ[stat] || defaultStats[stat];
-            document.getElementById(stat + "Number").value = champ[stat] || defaultStats[stat];
+            document.getElementById(stat + "Slider").value = (champ[stat] === undefined ? defaultStats[stat] : champ[stat]);
+            document.getElementById(stat + "Number").value = (champ[stat] === undefined ? defaultStats[stat] : champ[stat]);
         });
         // Rebuild the categories list.
         categoryPairs = [];
