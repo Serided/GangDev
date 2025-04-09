@@ -90,6 +90,10 @@ td {
     font-size: calc(var(--scaling) * 0.3);
     box-shadow: 0 0 calc(var(--scaling) * 0.008) gray;
 }
+.x {
+    background: none;
+    color: red;
+}
 
 .btn:hover {
     background-color: #f0f0f0;

@@ -23,7 +23,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Key</th>
-                <th>Dmg</th>
+                <th>Damage</th>
                 <th>Toughness</th>
                 <th>CC</th>
                 <th>Mobility</th>

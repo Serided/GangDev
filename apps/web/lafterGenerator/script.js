@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", function() {
             li.textContent = `${pair.type}: ${pair.subCategory}`;
             // Optionally, add a remove button for each pair.
             const removeBtn = document.createElement("button");
-            removeBtn.textContent = "Remove";
-            removeBtn.className = "small btn";
-            removeBtn.style.marginLeft = "10px";
+            removeBtn.textContent = "X";
+            removeBtn.className = "x";
+            removeBtn.style.marginLeft = "1vh";
             removeBtn.addEventListener("click", function() {
                 categoryPairs.splice(index, 1);
                 updateSelectedCategoriesDisplay();
