@@ -9,8 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     // Array to store added category pairs
-    let categoryPairs = [];
-
+    let categoryPairs = []
     // Reference to the selects and container
     const typeSelect = document.getElementById("categoryType");
     const subSelect = document.getElementById("categorySub");
