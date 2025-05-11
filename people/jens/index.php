@@ -102,8 +102,7 @@
                 and crafted procedural game mechanics that
                 <strong>boost scalability, refine AI behavior, and enhance in-game systems</strong>.<br><br>
 
-                My goal is to grow <strong>GangDev</strong> into a trademarked, mid-sized development company that
-                generates seven to eight figures annually through <i>innovative digital products</i>. Whether working
+                Whether working
                 solo or as part of a team, I bring a
                 <strong>problem-solving mindset, deep technical expertise, and relentless drive</strong> to every project I tackle.
             </p>
