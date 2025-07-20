@@ -110,7 +110,7 @@
             <p class="desc">
                 I’ve always gotten bored fast. I can’t stand standing around, so I defaulted to coding.
                 I’ve got a weird style, but it works — and I legit can’t sleep at night knowing my code’s gonna need a full rewrite in a few years.
-                I future-proof everything I touch, even if I don’t know what the official term for that is.
+                I build things to last, not to patch later; no hacks, no bandaids, just clean setups that hold up.
                 Eventually I’ll be this generation’s <strong>Tony Stark</strong> — just gotta keep grinding.<br><br>
 
                 I started <strong>GangDev</strong> because I’ve got a vision for how I want to impact the world, and I’m tired of being boxed in by outdated norms that slow everything down.
