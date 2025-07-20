@@ -28,7 +28,7 @@
             <div class="timeline">
                 <div class="timelineItem">
                     <div class="timelineBox">
-                        <h3>Customer Service</h3>
+                        <h3>Walmart</h3>
                         <p>Jun. 2022 - Aug. 2022</p>
                     </div>
                     <div class="timelineDetails">
@@ -76,23 +76,6 @@
                 </div>
                 <div class="timelineItem">
                     <div class="timelineBox">
-                        <h3>TEKsystems</h3>
-                        <p>Jun. 2025 - Present</p>
-                    </div>
-                    <div class="timelineDetails">
-                        <p>Contracted through TEKsystems to deploy and maintain infrastructure inside Microsoft’s high-security datacenter environment.</p>
-                        <ul>
-                            <li><strong>Installed M1s/M2s, T2s, line cards, and SFP modules into full rack systems.</strong></li>
-                            <li><strong>Built complete racks with coupler panels, patch panels, and structured cabling.</strong></li>
-                            <li>Connected power and OOB (out-of-band) management cables following airflow and service standards.</li>
-                            <li>Ensured proper labeling, placement, and mapping of all physical components.</li>
-                            <li><strong>Operated under active security clearance with strict access compliance.</strong></li>
-                            <li>Worked extended shifts in cold, loud environments while meeting deployment deadlines.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timelineItem">
-                    <div class="timelineBox">
                         <h3>Startup</h3>
                         <p>Nov. 2024 - Present</p>
                     </div>
@@ -104,6 +87,22 @@
                             <li>Managing project workflows, client relations, and business operations.</li>
                             <li>Developing scalable, high-performance, and secure solutions.</li>
                             <li><strong>Building a brand and online presence, establishing GangDev in the tech industry.</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timelineItem">
+                    <div class="timelineBox">
+                        <h3>TEKsystems</h3>
+                        <p>Jun. 2025 - Present</p>
+                    </div>
+                    <div class="timelineDetails">
+                        <p>Contracted through TEKsystems to deploy and service infrastructure in Microsoft’s secure datacenter environment.</p>
+                        <ul>
+                            <li><strong>Installed M1s/M2s, T2s, line cards, and SFP modules across full racks.</strong></li>
+                            <li><strong>Built out coupler panels, patch panels, and routed power/OOB cabling.</strong></li>
+                            <li>Maintained labeling, port mapping, and airflow-optimized cable dressing.</li>
+                            <li><strong>Operated under active security clearance and strict access protocols.</strong></li>
+                            <li>Worked long shifts in cold, high-noise environments to meet deployment goals.</li>
                         </ul>
                     </div>
                 </div>
