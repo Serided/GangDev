@@ -108,20 +108,17 @@
                 </div>
             </div>
             <p class="desc">
-                With hands-on experience in <strong>cloud computing</strong>, <strong>DevOps</strong>, and
-                <strong>server administration</strong>, I manage my own infrastructure and lead large-scale projects,
-                all while actively contributing to <i>collaborative open-source development</i>—a journey that’s taught
-                me the true value of teamwork and shared innovation.<br><br>
+                I build stuff because I get bored fast, I like figuring things out, and yeah — I’ve always wanted to be the next <strong>Tony Stark</strong>.
+                My dad was a coder, so this kind of thing just feels normal to me. I like making things that actually work, not just look cool on paper.<br><br>
 
-                One of my proudest achievements is founding <strong>GangDev</strong>, a company built on
-                <i>work ethic, efficiency, and scalable solutions</i>. I've engineered a high-performance web platform
-                and crafted procedural game mechanics that
-                <strong>boost scalability, refine AI behavior, and enhance in-game systems</strong>.<br><br>
+                I started <strong>GangDev</strong> so I could make my own rules and build whatever I want, how I want.
+                I’ve set up my own servers, made web platforms from scratch, and built game systems that scale without falling apart.
+                Most of the time, I’m just trying to make things cleaner, faster, and smarter — one goofy project at a time.<br><br>
 
-                Whether working
-                solo or as part of a team, I bring a
-                <strong>problem-solving mindset, deep technical expertise, and relentless drive</strong> to every project I tackle.
+                I’m not chasing clout or some perfect title. I just like building cool stuff, solving problems, and learning by doing.
+                That’s it.
             </p>
+
         </div>
 
         <div class="sect cont three" id="expertise">
