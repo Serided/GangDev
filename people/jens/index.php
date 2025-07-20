@@ -108,17 +108,19 @@
                 </div>
             </div>
             <p class="desc">
-                I build stuff because I get bored fast, I like figuring things out, and yeah — I’ve always wanted to be the next <strong>Tony Stark</strong>.
-                My dad was a coder, so this kind of thing just feels normal to me. I like making things that actually work, not just look cool on paper.<br><br>
+                I’ve always gotten bored fast. I can’t stand standing around, so I defaulted to coding.
+                I’ve got a weird style, but it works — and I legit can’t sleep at night knowing my code’s gonna need a full rewrite in a few years.
+                I future-proof everything I touch, even if I don’t know what the official term for that is.
+                Eventually I’ll be this generation’s <strong>Tony Stark</strong> — just gotta keep grinding.<br><br>
 
-                I started <strong>GangDev</strong> so I could make my own rules and build whatever I want, how I want.
-                I’ve set up my own servers, made web platforms from scratch, and built game systems that scale without falling apart.
-                Most of the time, I’m just trying to make things cleaner, faster, and smarter — one goofy project at a time.<br><br>
+                I started <strong>GangDev</strong> because I’ve got a vision for how I want to impact the world, and I’m tired of being boxed in by outdated norms that slow everything down.
+                I’ve set up <strong>cloud and physical servers</strong> from scratch, built <strong>web platforms completely from the ground up</strong>,
+                and made <strong>game systems that scale forever without falling apart</strong>.
+                I’m always trying to make stuff cleaner, faster, and smarter — one giga project at a time.<br><br>
 
-                I’m not chasing clout or some perfect title. I just like building cool stuff, solving problems, and learning by doing.
-                That’s it.
+                I'm not chasing clout, trying to boost my ego, or flaunt a fake persona; that's why I build things that are real.
+                I want to be something my dad would be proud of — something <strong>전설적인</strong>.
             </p>
-
         </div>
 
         <div class="sect cont three" id="expertise">
