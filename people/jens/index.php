@@ -93,7 +93,7 @@
                 <div class="timelineItem">
                     <div class="timelineBox">
                         <h3>TEKsystems</h3>
-                        <p>Jun. 2025 - Present</p>
+                        <p>Jun. 2025 - Aug. 2025</p>
                     </div>
                     <div class="timelineDetails">
                         <p>Contracted through TEKsystems to deploy and service infrastructure in Microsoft’s secure datacenter environment.</p>
