@@ -160,6 +160,8 @@
         <div class="sect cont four">
             <h2>My Links</h2>
             <p>
+                <a href="https://www.linkedin.com/in/jens-hansen-2486a6329/" target="_blank">LinkedIn</a><br>
+                <a href="https://profile.indeed.com/p/jensh-vmz588q" target="_blank">Indeed</a><br>
                 <a href="https://github.com/Serided" target="_blank">GitHub</a><br>
                 <a href="https://stackoverflow.com/users/20779197/serided" target="_blank">Stack Overflow</a><br>
                 <a href="https://www.coursera.org/learner/serided" target="_blank">Coursera</a><br>
