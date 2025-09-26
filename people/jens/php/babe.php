@@ -3,12 +3,12 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Vivienne</title>
+		<title>Lily</title>
 		<?= $head ?>
 		<link rel="stylesheet" href="../style.css">
-		<link rel="stylesheet" href="../css/vivienne.css">
+		<link rel="stylesheet" href="../css/babe.css">
 	</head>
-	<body class="main-p-vivienne">
+	<body class="main-p-babe">
         <div class="windowRef" id="windowRef"></div>
         <div class="values" id="values"></div>
 
@@ -16,8 +16,8 @@
         <div id="attributeContainer"></div>
 
         <h1 class="ily" style="top: 10vh">i love you</h1>
-        <img src="../files/img/vivienne/vivienne_1.webp" class="cutie" alt="an incredibly beautiful girl with amazing eyes">
-        <h1 class="ily" style="bottom: 10vh">Vivienne</h1>
-        <script src="../js/vivienne.js"></script>
+        <img src="../files/img/babe/babe_1.webp" class="cutie" alt="an incredibly beautiful girl with the most devious giggle.">
+        <h1 class="ily" style="bottom: 10vh">Lily</h1>
+        <script src="../js/babe.js"></script>
     </body>
 </html>
