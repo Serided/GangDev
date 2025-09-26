@@ -62,14 +62,14 @@
                 <div class="timelineItem">
                     <div class="timelineBox">
                         <h3>Mechanic</h3>
-                        <p>Jul. 2024 - Oct. 2024</p>
+                        <p>Jul. 2024 - Jul. 2025</p>
                     </div>
                     <div class="timelineDetails">
                         <p>At Quincy Foods, LLC, I maintained and repaired large-scale combines, ensuring peak efficiency.</p>
                         <ul>
-                            <li>Diagnosed and repaired hydraulic, electrical, and mechanical systems.</li>
+                            <li><strong>Diagnosed and repaired hydraulic, electrical, and mechanical systems.</strong></li>
                             <li>Performed preventative maintenance to prevent downtime.</li>
-                            <li>Utilized technical manuals and diagnostics for troubleshooting.</li>
+                            <li><strong>Utilized technical manuals and diagnostics for troubleshooting.</strong></li>
                             <li>Ensured safety compliance and optimal equipment performance.</li>
                             <li><strong>Worked 90+ grueling hours weekly, pushing physical and mental limits.</strong></li>
                         </ul>
