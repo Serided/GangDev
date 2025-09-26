@@ -127,7 +127,7 @@
         <div class="sect cont three" id="expertise">
             <div>
                 <h2>Expertise</h2>
-                <p class="desc">I have a vast array of experience in computer science.</p>
+                <p class="desc">I have a vast array of experience.</p>
             </div>
             <div class="tiltedGrid">
                 <div class="tiltedCell">
@@ -144,6 +144,15 @@
                 </div>
                 <div class="tiltedCell">
                     <strong>Systems and Infrastructure</strong><br>Linux, DevoOps, Cloud Computing, and Apache.
+                </div>
+                <div class="tiltedCell">
+                    <strong>IT & Data Center Ops</strong><br>HW logistics, RMA, structured cabling, and rack deployment.
+                </div>
+                <div class="tiltedCell">
+                    <strong>Mech/Electrical Systems</strong><br>MRO on agricultural combines; hydraulics, wiring, and system diagnostics.
+                </div>
+                <div class="tiltedCell">
+                    <strong>Customer Experience</strong><br>Exceptional service, communication, and issue resolution.
                 </div>
             </div>
             <div>
