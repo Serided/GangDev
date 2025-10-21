@@ -99,10 +99,10 @@
                     <div class="timelineDetails">
                         <p>Contracted through <strong>Milestone Technologies</strong> to support <strong>Meta’s datacenter logistics</strong> as part of a <strong>high-performing special ops team</strong>.</p>
                         <ul>
-                            <li><strong>Staged and transported full rack systems</strong> across multiple data halls.</li>
-                            <li><strong>Operated EPJs, tugs, and pallet jacks</strong> to move high-value equipment safely.</li>
+                            <li><strong>Staged and transported full rack systems across multiple data halls.</strong></li>
+                            <li><strong>Operated EPJs, tugs, and pallet jacks to move high-value equipment safely.</strong></li>
                             <li>Supported SLC workflows and technical relocations.</li>
-                            <li><strong>Earned an early performance bonus</strong> for speed, accuracy, and reliability.</li>
+                            <li><strong>Earned an early performance bonus for speed, accuracy, and reliability.</strong></li>
                         </ul>
                     </div>
                 </div>
