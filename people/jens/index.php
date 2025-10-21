@@ -77,7 +77,7 @@
                 </div>
                 <div class="timelineItem">
                     <div class="timelineBox">
-                        <h3>TEKsystems</h3>
+                        <h3>DC Technician</h3>
                         <p>Jun. 2025 - Aug. 2025</p>
                     </div>
                     <div class="timelineDetails">
@@ -93,7 +93,7 @@
                 </div>
                 <div class="timelineItem">
                     <div class="timelineBox">
-                        <h3>Milestone Technologies</h3>
+                        <h3>DC Logistics</h3>
                         <p>Sep. 2025 – Present</p>
                     </div>
                     <div class="timelineDetails">
