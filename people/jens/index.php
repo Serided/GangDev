@@ -32,7 +32,7 @@
                         <p>Jun. 2022 - Aug. 2022</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>At Walmart, I excelled in a fast-paced retail environment, handling transactions, customer service, and logistics with efficiency.</p>
+                        <p>At <strong>Walmart</strong>, I excelled in a fast-paced retail environment, handling transactions, customer service, and logistics with efficiency.</p>
                         <ul>
                             <li>Processed high-volume transactions with speed and accuracy.</li>
                             <li>Provided exceptional customer service for purchases, returns, and inquiries.</li>
@@ -48,7 +48,7 @@
                         <p>Nov. 2022 - May 2024</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>At In‑N‑Out Burger, known for exceptional quality and service, I developed key skills:</p>
+                        <p>At <strong>In‑N‑Out Burger</strong>, known for exceptional quality and service, I developed key skills:</p>
                         <ul>
                             <li>Operated registers, drive‑thru, fry, and prep stations.</li>
                             <li><strong>Provided efficient service in high‑volume settings.</strong></li>
@@ -65,7 +65,7 @@
                         <p>Jul. 2024 - Jul. 2025</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>At Quincy Foods, LLC, I maintained and repaired large-scale combines, ensuring peak efficiency.</p>
+                        <p>At <strong>Quincy Foods, LLC</strong>, I maintained and repaired large-scale combines, ensuring peak efficiency.</p>
                         <ul>
                             <li><strong>Diagnosed and repaired hydraulic, electrical, and mechanical systems.</strong></li>
                             <li>Performed preventative maintenance to prevent downtime.</li>
@@ -81,7 +81,7 @@
                         <p>Nov. 2024 - Present</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>GangDev is a software development startup specializing in games, AI, and custom applications.</p>
+                        <p><strong>GangDev</strong> is a software development startup specializing in games, AI, and custom applications.</p>
                         <ul>
                             <li><strong>Designing and building game engines, AI models, and web applications.</strong></li>
                             <li>Leading full-stack development across frontend and backend systems.</li>
@@ -97,13 +97,29 @@
                         <p>Jun. 2025 - Aug. 2025</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>Contracted through TEKsystems to deploy and service infrastructure in Microsoft’s secure datacenter environment.</p>
+                        <p>Contracted through <strong>TEKsystems</strong> to deploy and service infrastructure in <strong>Microsoft’s secure datacenter environment</strong>.</p>
                         <ul>
                             <li><strong>Installed M1s/M2s, T2s, line cards, and SFP modules across full racks.</strong></li>
                             <li><strong>Built out coupler panels, patch panels, and routed power/OOB cabling.</strong></li>
                             <li>Maintained labeling, port mapping, and airflow-optimized cable dressing.</li>
                             <li><strong>Operated under active security clearance and strict access protocols.</strong></li>
                             <li>Worked long shifts in cold, high-noise environments to meet deployment goals.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timelineItem">
+                    <div class="timelineBox">
+                        <h3>Milestone Technologies</h3>
+                        <p>Sep. 2025 – Present</p>
+                    </div>
+                    <div class="timelineDetails">
+                        <p>Contracted through <strong>Milestone Technologies</strong> to support <strong>Meta’s datacenter logistics and infrastructure operations</strong> as part of a <strong>top-performing special ops team</strong>.</p>
+                        <ul>
+                            <li><strong>Received, unpackaged, and staged full rack systems for deployment across multiple data halls.</strong></li>
+                            <li><strong>Operated EPJs, tugs, and pallet jacks to transport and position high-value equipment safely and efficiently.</strong></li>
+                            <li>Supported SLC workflows and assisted with technical equipment relocations.</li>
+                            <li>Maintained precise staging layouts and ensured clean, organized operational zones.</li>
+                            <li><strong>Earned an early performance bonus for exceptional speed, accuracy, and reliability.</strong></li>
                         </ul>
                     </div>
                 </div>
