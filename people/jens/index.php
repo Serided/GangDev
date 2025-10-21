@@ -28,22 +28,6 @@
             <div class="timeline">
                 <div class="timelineItem">
                     <div class="timelineBox">
-                        <h3>Walmart</h3>
-                        <p>Jun. 2022 - Aug. 2022</p>
-                    </div>
-                    <div class="timelineDetails">
-                        <p>At <strong>Walmart</strong>, I excelled in a fast-paced retail environment, handling transactions, customer service, and logistics with efficiency.</p>
-                        <ul>
-                            <li>Processed high-volume transactions with speed and accuracy.</li>
-                            <li>Provided exceptional customer service for purchases, returns, and inquiries.</li>
-                            <li><strong>Maneuvered and organized heavy shopping carts in a demanding, fast-paced environment.</strong></li>
-                            <li>Maintained a clean, organized store to enhance customer experience.</li>
-                            <li>Developed resilience, efficiency, and teamwork under constant pressure.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timelineItem">
-                    <div class="timelineBox">
                         <h3>In-N-Out</h3>
                         <p>Nov. 2022 - May 2024</p>
                     </div>
