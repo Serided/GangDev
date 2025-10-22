@@ -45,8 +45,8 @@
                 <div class="mods sect">
                     <h2>Mods</h2>
                     <p class="desc">
-                        <a href="https://mods.gangdev.co/minecraft/php/resource_packs">- Minecraft (Resource Packs) -</a><br>
-                        <a href="https://mods.gangdev.co/minecraft/php/data_packs">- Minecraft (Data Packs) -</a><br>
+                        <a href="https://mods.gangdev.co/minecraft/resource_packs">- Minecraft (Resource Packs) -</a><br>
+                        <a href="https://mods.gangdev.co/minecraft/data_packs">- Minecraft (Data Packs) -</a><br>
                     </p>
                 </div>
                 <div class="games sect">
