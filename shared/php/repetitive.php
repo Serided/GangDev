@@ -11,8 +11,8 @@
 <!--<link rel="manifest" href="https://gangdev.co/shared/files/img/favicon/new/site.webmanifest" />-->
 
 <!-- banner -->
-<meta property="og:title" content="GangDev - Kings of Kode">
-<meta property="og:description" content="Snitches Get Stiches; Merge Conflicts Get Fixes.">
+<meta property="og:title" content="GangDev">
+<meta property="og:description" content="Done Doesn't Exist; Only Doing.">
 <meta property="og:image" content="https://gangdev.co/shared/files/img/favicon/new/favicon-96x96.png">
 <meta property="og:url" content="https://www.gangdev.co">
 <meta property="og:type" content="website">
