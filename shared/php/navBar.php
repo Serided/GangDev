@@ -85,7 +85,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                 </nav>
             </aside>
 
-            <a href="https://changelog.gangdev.co/"><button class="hamburger-btn btnText one">Changelog</button></a>
+            <!-- <a href="https://changelog.gangdev.co/"><button class="hamburger-btn btnText one">Changelog</button></a> -->
         </nav>
     </aside>
     <script src="https://gangdev.co/shared/js/navbar.js"></script>

@@ -27,7 +27,7 @@
         </div>
 
         <div class="sect cont two" id="overview">
-            <h2>Snitches Get Stitches;<br><b>Merge Conflicts Get Fixes</b></h2>
+            <h2>Done Doesn't Exist;<br><b>Only Doing</b></h2>
             <hr>
             <p class="desc">
                 At <b>GangDev</b>, we run this code like a <b>tight crew</b>—no loose ends, no weak links.
