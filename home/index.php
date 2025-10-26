@@ -27,16 +27,18 @@
         </div>
 
         <div class="sect cont two" id="overview">
-            <h2>Done Doesn't Exist;<br><b>Only Doing</b></h2>
+            <h2>Done Doesn't Exist;<br><b>Only Doing.</b></h2>
             <hr>
             <p class="desc">
-                At <b>GangDev</b>, we run this code like a <b>tight crew</b>—no loose ends, no weak links.
-                When a bug steps out of line, we take it out <i>real quick</i>. Our <b>AI? Smarter than your average snitch</b>.
-                Our <b>games? More addictive than a turf war</b> over high scores. And our <b>software?
-                Built so solid, it’s basically bulletproof</b>.<br><br>
-                We don’t just <i>commit</i> code; we <b>make power moves</b>.
-                We don’t just <i>refactor</i>; we <b>put sloppy scripts in their place</b>. So if you’re looking for <b>clean code,
-                big energy, and a dev gang that never sleeps</b>—welcome to <b>GangDev</b>, where we <b>deploy fast and commit for life</b>.
+                <b>GangDev</b> was built on the <i>dissatisfaction of how easy it is to settle</i>.
+                Most people hit a goal and stop there. We don’t.
+                <br>
+                We chase perfection because there’s no proof we can’t reach it.
+                People used to think flight was impossible. Phones. Space travel.
+                “Impossible” just changes shape when you get close enough.
+                <br>
+                Every push, every setback, every late night — it all pushes the line forward.
+                The work doesn’t end. Neither do we.
             </p>
         </div>
 
