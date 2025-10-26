@@ -17,13 +17,16 @@
 
         <div class="sect cont two" id="overview">
             <h2>Changelog 2025.1.0</h2>
+
+            <hr>
+
             <p class="desc">
-                <strong>ACCOUNT MANAGEMENT</strong> - Added an account system, with signup, signin, signout, as well as a recovery system and account deletion system.<br>
-                <strong>ACCOUNT EXTRA</strong> - You can customize your account with an icon, and each account session is unique.<br>
-                <strong></strong> -<br>
-                <strong></strong> -<br>
-                <strong></strong> -<br>
-                <strong></strong> - <br>
+                <b>ACCOUNT MANAGEMENT</b> - Added an account system, with signup, signin, signout, as well as a recovery system and account deletion system.<br>
+                <b>ACCOUNT EXTRA</b> - You can customize your account with an icon, and each account session is unique.<br>
+                <b></b> - <br>
+                <b></b> - <br>
+                <b></b> - <br>
+                <b></b> - <br>
             </p>
         </div>
 
