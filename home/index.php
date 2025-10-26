@@ -31,14 +31,19 @@
             <hr>
             <p class="desc">
                 <b>GangDev</b> was built on the <i>dissatisfaction of how easy it is to settle</i>.
-                Most people hit a goal and stop there. We don’t.
+                Most people hit a goal and stop there — <b>we don’t</b>. We keep going because
+                <i>progress doesn’t stop just because we got comfortable</i>.
+
                 <br><br>
-                We chase perfection because there’s no proof we can’t reach it.
-                People used to think flight was impossible. Phones. Space travel.
-                “Impossible” just changes shape when you get close enough.
+
+                <b>Perfect isn’t impossible.</b> It’s just not supposed to be easy.
+                The things that used to be impossible — <i>flight</i>, <i>phones</i>, <i>space travel</i>
+                — only stayed that way until someone decided to keep going.
+
                 <br><br>
-                Every push, every setback, every late night — it all pushes the line forward.
-                The work doesn’t end. Neither do we.
+
+                Every push, every setback, every late night — <i>it all pushes the line forward.</i>
+                <b>The work doesn’t end.</b> And <b>neither do we.</b>
             </p>
         </div>
 
