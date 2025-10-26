@@ -17,17 +17,13 @@
 
         <div class="sect cont two">
             <h2>Changelog 2025.1.0</h2>
-            <p>
-                WHAT IS UP everybody! Welcome to my changelog. I will cover changes and new features you can expect to find
-                after the most recent update. <b style="color: red">Still very incomplete.</b>
-            </p>
             <p class="desc">
-                <strong>ACCOUNT MANAGEMENT</strong> - Added an account system, with signup, signin, signout, as well as a recovery system and account deletion system.
-                <strong>ACCOUNT EXTRA</strong> - You can customize your account with an icon, and each account session is unique.
-                <strong></strong> -
-                <strong></strong> -
-                <strong></strong> -
-                <strong></strong> - </>
+                <strong>ACCOUNT MANAGEMENT</strong> - Added an account system, with signup, signin, signout, as well as a recovery system and account deletion system.<br>
+                <strong>ACCOUNT EXTRA</strong> - You can customize your account with an icon, and each account session is unique.<br>
+                <strong></strong> -<br>
+                <strong></strong> -<br>
+                <strong></strong> -<br>
+                <strong></strong> - <br>
             </p>
         </div>
 
