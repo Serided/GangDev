@@ -36,7 +36,7 @@
 
                 <br><br>
 
-                <b>Perfect isn’t impossible<b>. It’s just not supposed to be easy.
+                <b>Perfect isn’t impossible</b>. It’s just not supposed to be easy.
                 The things that used to be impossible — flight, phones, space travel — only stayed that way until someone decided to keep going.
 
                 <br><br>
