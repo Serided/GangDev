@@ -32,11 +32,11 @@
             <p class="desc">
                 <b>GangDev</b> was built on the <i>dissatisfaction of how easy it is to settle</i>.
                 Most people hit a goal and stop there. We don’t.
-                <br>
+                <br><br>
                 We chase perfection because there’s no proof we can’t reach it.
                 People used to think flight was impossible. Phones. Space travel.
                 “Impossible” just changes shape when you get close enough.
-                <br>
+                <br><br>
                 Every push, every setback, every late night — it all pushes the line forward.
                 The work doesn’t end. Neither do we.
             </p>
