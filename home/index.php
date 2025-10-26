@@ -30,20 +30,18 @@
             <h2>Done Doesn't Exist;<br><b>Only Doing.</b></h2>
             <hr>
             <p class="desc">
-                <b>GangDev</b> was built on the <i>dissatisfaction of how easy it is to settle</i>.
-                Most people hit a goal and stop there — <b>we don’t</b>. We keep going because
-                <i>progress doesn’t stop just because we got comfortable</i>.
+                GangDev was built on the dissatisfaction of how easy it is to settle.
+                Most people hit a goal and stop there — we don’t.
+                We keep going because progress doesn’t stop just because we got comfortable.
 
                 <br><br>
 
-                <b>Perfect isn’t impossible.</b> It’s just not supposed to be easy.
-                The things that used to be impossible — <i>flight</i>, <i>phones</i>, <i>space travel</i>
-                — only stayed that way until someone decided to keep going.
+                Perfect isn’t impossible. It’s just not supposed to be easy.
+                The things that used to be impossible — flight, phones, space travel — only stayed that way until someone decided to keep going.
 
                 <br><br>
 
-                Every push, every setback, every late night — <i>it all pushes the line forward.</i>
-                <b>The work doesn’t end.</b> And <b>neither do we.</b>
+                Every push, every setback, every late night — it all pushes the line forward. The work doesn’t end. Neither do we.
             </p>
         </div>
 
