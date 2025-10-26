@@ -21,15 +21,14 @@
                 WHAT IS UP everybody! Welcome to my changelog. I will cover changes and new features you can expect to find
                 after the most recent update. <b style="color: red">Still very incomplete.</b>
             </p>
-            <ol>
-                <li><strong>ACCOUNT MANAGEMENT</strong> - Added an account system, with signup, signin, signout, as well as a recovery system and account deletion system.</li>
-                <li><strong>ACCOUNT EXTRA</strong> - You can customize your account with an icon, and each account session is unique.</li>
-                <li><strong></strong> - </li>
-                <li><strong></strong> - </li>
-                <li><strong></strong> - </li>
-                <li><strong></strong> - </li>
-                <li><strong></strong> - </li>
-            </ol>
+            <p class="desc">
+                <strong>ACCOUNT MANAGEMENT</strong> - Added an account system, with signup, signin, signout, as well as a recovery system and account deletion system.
+                <strong>ACCOUNT EXTRA</strong> - You can customize your account with an icon, and each account session is unique.
+                <strong></strong> -
+                <strong></strong> -
+                <strong></strong> -
+                <strong></strong> - </>
+            </p>
         </div>
 
         <?= $footer ?>
