@@ -15,7 +15,7 @@
             <h1>GangDev Site Change Log</h1>
         </div>
 
-        <div class="sect cont two">
+        <div class="sect cont two" id="overview">
             <h2>Changelog 2025.1.0</h2>
             <p class="desc">
                 <strong>ACCOUNT MANAGEMENT</strong> - Added an account system, with signup, signin, signout, as well as a recovery system and account deletion system.<br>
