@@ -4,6 +4,7 @@
 	<head>
 		<meta charset="UTF-8" name="description" content="Home">
 		<title>Change Log</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
         <?= $head ?>
 	</head>
 	<body>
