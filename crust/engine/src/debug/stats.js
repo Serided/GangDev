@@ -32,8 +32,7 @@ export function drawStats(ctx) {
     ctx.save();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-    ctx.font = ctx.font || "14px Arial";
-    ctx.fontStretch = "expanded";
+    ctx.font = "14px Arial";
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
 
