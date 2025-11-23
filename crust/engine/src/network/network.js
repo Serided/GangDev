@@ -92,7 +92,7 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                     }
 
                     if (uid === String(window.userId)) {
-                        // ---- LOCAL PLAYER: prediction + reconciliation ----
+                        // local player prediction + reconciliation
 
                         const targetX = serverPlayer.x;
                         const targetY = serverPlayer.y;
@@ -103,7 +103,7 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                         }
 
                         // gently pull prediction toward server state
-                        const snapFactor = 0.2; // 0 = never correct, 1 = hard snap
+                        const snapFactor = 0.5; // 0 = never correct, 1 = hard snap
                         clientPlayer.predictedPosition.x += (targetX - clientPlayer.predictedPosition.x) * snapFactor;
                         clientPlayer.predictedPosition.y += (targetY - clientPlayer.predictedPosition.y) * snapFactor;
 

@@ -9,7 +9,7 @@ let lastFrameTime = null;
 const playerSpeedMultiplier = 6;
 
 export function gameLoop(ts, canvas, ctx, gameState) {
-    // ---- deltaTime ----
+    // deltaTime
     if (lastFrameTime === null) {
         lastFrameTime = ts;
     }
@@ -59,7 +59,7 @@ export function gameLoop(ts, canvas, ctx, gameState) {
         }
     }
 
-    // ---- draw world ----
+    // draw world
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
@@ -71,7 +71,7 @@ export function gameLoop(ts, canvas, ctx, gameState) {
 
     ctx.restore();
 
-    // ---- stats ----
+    // stats
     updateStats(ts);
     drawStats(ctx);
 
