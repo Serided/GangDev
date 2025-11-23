@@ -3,6 +3,7 @@ import { appendMessage } from '../comms/chat.js';
 import { updateStatus, updatePlayerCount } from '../ui/header.js';
 import { Player } from '../classes/clientClasses.js';
 import { gameState } from '../gameState.js';
+import { reconcileLocalPlayer } from './clientPrediction.js';
 
 export function authUser(authToken, username, userId, displayName, game) {
     return new Promise((resolve, reject) => {
@@ -79,7 +80,7 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                     const serverPlayer = serverPlayers[uid];
                     let clientPlayer = gameState.players[uid];
 
-                    // create Player instance if needed
+                    // Create Player instance if needed
                     if (!clientPlayer) {
                         clientPlayer = new Player(
                             serverPlayer.userId,
@@ -92,38 +93,14 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                     }
 
                     if (uid === String(window.userId)) {
-                        // local player prediction + reconciliation
-
-                        const targetX = serverPlayer.x;
-                        const targetY = serverPlayer.y;
-
-                        // ensure predictedPosition exists
-                        if (!clientPlayer.predictedPosition) {
-                            clientPlayer.predictedPosition = { x: targetX, y: targetY };
-                        }
-
-                        // gently pull prediction toward server state
-                        const snapFactor = 0.35; // 0 = never correct, 1 = hard snap
-                        clientPlayer.predictedPosition.x += (targetX - clientPlayer.predictedPosition.x) * snapFactor;
-                        clientPlayer.predictedPosition.y += (targetY - clientPlayer.predictedPosition.y) * snapFactor;
-
-                        // drop already-processed inputs using lastProcessedTs
-                        const lastProcessedTs = serverPlayer.lastProcessedTs || 0;
-                        const pendingInputs = window.inputBuffer.filter(input => input.ts > lastProcessedTs);
-
-                        // reapply only unprocessed inputs on top of server state
-                        pendingInputs.forEach(input => {
-                            clientPlayer.predictedPosition.x += input.dx;
-                            clientPlayer.predictedPosition.y += input.dy;
-                        });
-
-                        window.inputBuffer = pendingInputs;
-
-                        // keep server truth stored on the player
-                        clientPlayer.x = targetX;
-                        clientPlayer.y = targetY;
+                        // LOCAL PLAYER: prediction + reconciliation lives in helper
+                        window.inputBuffer = reconcileLocalPlayer(
+                            clientPlayer,
+                            serverPlayer,
+                            window.inputBuffer
+                        );
                     } else {
-                        // ---- REMOTE PLAYERS: pure server positions ----
+                        // REMOTE PLAYERS: pure server positions
                         clientPlayer.updatePosition(serverPlayer.x, serverPlayer.y);
                     }
                 });

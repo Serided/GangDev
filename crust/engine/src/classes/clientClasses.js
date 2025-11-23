@@ -10,7 +10,7 @@ export class Player {
         this.x = x;
         this.y = y;
 
-        // client prediction position (used only for the local player)
+        // client prediction for local player (used on window.userId only)
         this.predictedPosition = null;
 
         this.iconUrl = `https://user.gangdev.co/${userId}/icon/user-icon.jpg`;
@@ -25,7 +25,7 @@ export class Player {
         let drawX = this.x;
         let drawY = this.y;
 
-        // For the LOCAL player, draw from predictedPosition if we have it
+        // For LOCAL player, use predicted position if available
         if (this.userId === window.userId && this.predictedPosition) {
             drawX = this.predictedPosition.x;
             drawY = this.predictedPosition.y;
@@ -40,7 +40,7 @@ export class Player {
         ctx.fillStyle = "black";
         ctx.font = ctx.font || "14px Arial";
         ctx.textAlign = "center";
-        ctx.fillText(this.displayName, drawX + size / 2, drawY - 5);
+        ctx.fillText(this.displayName, drawX + (size / 2), drawY - 5);
 
         // icon
         const icon = getUserIcon(this.userId);

@@ -5,16 +5,16 @@ import { camera } from "../src/camera/topDown.js";
 import { updateStats, drawStats } from "../src/debug/stats.js";
 
 let firstFrame = true;
-let lastFrameTime = null;
+let lastFrameTime = null; // track last frame timestamp
 const playerSpeedMultiplier = 6;
 
 export function gameLoop(ts, canvas, ctx, gameState) {
-    // deltaTime
+    // ---- deltaTime ----
     if (lastFrameTime === null) {
         lastFrameTime = ts;
     }
 
-    let deltaTime = (ts - lastFrameTime) / 1000; // ms → seconds
+    let deltaTime = (ts - lastFrameTime) / 1000; // ms -> seconds
     lastFrameTime = ts;
 
     if (deltaTime < 0.0001) deltaTime = 0.0001;
@@ -25,17 +25,22 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     window.inputBuffer = window.inputBuffer || [];
 
     if (localPlayer) {
-        // init prediction once
+        // init prediction once, starting from server state
         if (!localPlayer.predictedPosition) {
             localPlayer.predictedPosition = { x: localPlayer.x, y: localPlayer.y };
         }
 
-        // apply local input to prediction (client-side movement)
+        // apply local movement prediction
         localPlayer.predictedPosition.x += movement.dx;
         localPlayer.predictedPosition.y += movement.dy;
 
         // send the input to server
-        const input = { dx: movement.dx, dy: movement.dy, ts: Date.now() };
+        const input = {
+            dx: movement.dx,
+            dy: movement.dy,
+            ts: Date.now()
+        };
+
         sendData(
             window.activeSocket,
             "movementInput",
@@ -44,9 +49,10 @@ export function gameLoop(ts, canvas, ctx, gameState) {
             window.username,
             window.displayName
         );
+
         window.inputBuffer.push(input);
 
-        // camera follows predicted position so it feels instant
+        // camera follows predicted position so movement feels instant
         const followX = localPlayer.predictedPosition.x + window.player / 2;
         const followY = localPlayer.predictedPosition.y + window.player / 2;
 
@@ -59,7 +65,7 @@ export function gameLoop(ts, canvas, ctx, gameState) {
         }
     }
 
-    // draw world
+    // ---- draw world ----
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
@@ -71,7 +77,7 @@ export function gameLoop(ts, canvas, ctx, gameState) {
 
     ctx.restore();
 
-    // stats
+    // ---- stats overlay ----
     updateStats(ts);
     drawStats(ctx);
 
