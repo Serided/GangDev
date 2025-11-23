@@ -55,6 +55,6 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     ctx.restore();
 
     requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
-    updateStats(ctx);
+    updateStats(ts);
     drawStats(ctx);
 }
