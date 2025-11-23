@@ -25,9 +25,9 @@ export function updateStats(ts) {
 export function drawStats(ctx) {
     const boxX = 6;
     const boxY = 6;
-    const boxW = 90; // a bit narrower
-    const boxH = 40;  // a bit taller
-    const pad  = 6;
+    const boxW = 80;
+    const boxH = 40;
+    const pad = 6;
 
     ctx.save();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
