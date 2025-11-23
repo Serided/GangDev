@@ -1,20 +1,17 @@
 <?php
-require_once '/var/www/gangdev/shared/php/init.php';
+require_once '/var/www/gangdev/shared/lib/composer/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable('/var/www/gangdev');
+$dotenv->load();
+
+require_once '/var/www/gangdev/shared/php/db.php';
 
 function deleteDirectory($dir) {
-	if (!file_exists($dir)) {
-		return true;
-	}
-	if (!is_dir($dir)) {
-		return unlink($dir);
-	}
+	if (!file_exists($dir)) return true;
+	if (!is_dir($dir)) return unlink($dir);
 	foreach (scandir($dir) as $item) {
-		if ($item == '.' || $item == '..') {
-			continue;
-		}
-		if (!deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
-			return false;
-		}
+		if ($item == '.' || $item == '..') continue;
+		if (!deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) return false;
 	}
 	return rmdir($dir);
 }
@@ -27,7 +24,6 @@ $usersToDelete = $stmt->fetchAll(PDO::FETCH_ASSOC);
 foreach ($usersToDelete as $user) {
 	$userId = $user['id'];
 
-	// Delete user's folder if it exists
 	$userFolder = '/var/www/gangdev/user/' . $userId;
 	if (file_exists($userFolder)) {
 		if (deleteDirectory($userFolder)) {
@@ -39,7 +35,6 @@ foreach ($usersToDelete as $user) {
 		echo "No folder found for user $userId\n";
 	}
 
-	// Delete user record from the database
 	$stmtDel = $pdo->prepare("DELETE FROM users WHERE id = ?");
 	if ($stmtDel->execute([$userId])) {
 		echo "Deleted user $userId from database\n";
