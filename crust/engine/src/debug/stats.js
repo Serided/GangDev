@@ -32,7 +32,7 @@ export function drawStats(ctx) {
     ctx.save();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-    ctx.font = "14px Arial";
+    ctx.font = ctx.font || "14px Arial";
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
 
@@ -46,7 +46,7 @@ export function drawStats(ctx) {
 
     // ms line (14px font + ~2px spacing)
     ctx.fillStyle = "#FFFFFF";
-    ctx.fillText(`MS: ${frameMsCurrent.toFixed(1)}`, boxX + pad, boxY + pad + 16);
+    ctx.fillText(`ms: ${frameMsCurrent.toFixed(1)}`, boxX + pad, boxY + pad + 16);
 
     ctx.restore();
 }

@@ -21,8 +21,6 @@ export class Player {
         ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, size, size);
 
-        // get font
-
         // draw player's display name
         ctx.fillStyle = "black";
         ctx.font = ctx.font || "14px Arial"; // use current font if set, or default
