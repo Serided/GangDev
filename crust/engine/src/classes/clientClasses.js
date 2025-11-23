@@ -16,32 +16,24 @@ export class Player {
     }
 
     draw(ctx, size = (window.player)) {
-        // 🔥 choose draw position
-        let drawX = this.x;
-        let drawY = this.y;
-
-        // for the LOCAL player, if we have a predictedPosition, use that for rendering
-        if (this.userId === window.userId && this.predictedPosition) {
-            drawX = this.predictedPosition.x;
-            drawY = this.predictedPosition.y;
-        }
-
         // determine color
         const color = this.userId === window.userId ? "lightgreen" : "red";
         ctx.fillStyle = color;
-        ctx.fillRect(drawX, drawY, size, size);
+        ctx.fillRect(this.x, this.y, size, size);
+
+        // get font
 
         // draw player's display name
         ctx.fillStyle = "black";
-        ctx.font = ctx.font || "14px Arial";
+        ctx.font = ctx.font || "14px Arial"; // use current font if set, or default
         ctx.textAlign = "center";
-        ctx.fillText(this.displayName, drawX + (size / 2), drawY - 5);
+        ctx.fillText(this.displayName, this.x + (size / 2), this.y - 5);
 
         const icon = getUserIcon(this.userId);
         if (icon && icon.complete && icon.naturalWidth > 0) {
             const iconSize = size * 0.8;
             const offset = (size - iconSize) / 2;
-            ctx.drawImage(icon, drawX + offset, drawY + offset, iconSize, iconSize);
+            ctx.drawImage(icon, this.x + offset, this.y + offset, iconSize, iconSize);
         }
     }
 }

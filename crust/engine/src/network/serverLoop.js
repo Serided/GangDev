@@ -1,37 +1,48 @@
 export function startServerLoop(wss) {
-    const tickRate = 60; // ticks per second
-    const tickInterval = 1000 / tickRate; // ms per tick
-    const simulationDelay = 0; // ms delay to compensate for latency
+    const tickRate = 60;                     // ticks per second
+    const tickInterval = 1000 / tickRate;    // ms per tick
 
-    setInterval(() => { // process all queued inputs
-        updateGameState(wss.gameState, tickInterval / 1000, simulationDelay); // process game state updates (physics, inputs, etc)
-        broadcastGameState(wss) // broadcast updated state to all connected clients
+    setInterval(() => {
+        updateGameState(wss.gameState);      // process all queued inputs
+        broadcastGameState(wss);             // send updated state to all clients
     }, tickInterval);
 }
 
-function updateGameState(gameState, deltaTime, simulationDelay ) {
-    const now = Date.now();
-    Object.keys(gameState.players).forEach((uid) => {
+function updateGameState(gameState) {
+    for (const uid in gameState.players) {
         const player = gameState.players[uid];
-        if (player.inputQueue && player.inputQueue.length > 0) {
-            const inputsToProcess = player.inputQueue.filter(input => (now - input.ts) >= simulationDelay);
-            if (inputsToProcess.length > 0) {
-                inputsToProcess.forEach(input => {
-                    player.x += input.dx;
-                    player.y += input.dy;
-                });
-                player.lastProcessedTs = inputsToProcess[inputsToProcess.length - 1].ts;
-                player.inputQueue = player.inputQueue.filter(input => (now - input.ts) < simulationDelay);
-            }
+        if (!player || !player.inputQueue || player.inputQueue.length === 0) continue;
+
+        let totalDx = 0;
+        let totalDy = 0;
+
+        // Just apply EVERYTHING we received since last tick
+        for (const input of player.inputQueue) {
+            totalDx += input.dx;
+            totalDy += input.dy;
         }
-    })
+
+        player.x += totalDx;
+        player.y += totalDy;
+
+        // Remember the latest timestamp for client-side reconciliation if you want
+        const lastInput = player.inputQueue[player.inputQueue.length - 1];
+        player.lastProcessedTs = lastInput?.ts ?? player.lastProcessedTs;
+
+        // Clear processed inputs
+        player.inputQueue.length = 0;
+    }
 }
 
 function broadcastGameState(wss) {
-    const stateMessage = JSON.stringify({ type: 'gameState', data: wss.gameState.players});
+    const stateMessage = JSON.stringify({
+        type: 'gameState',
+        data: wss.gameState.players,
+    });
+
     wss.clients.forEach((client) => {
         if (client.readyState === client.OPEN) {
             client.send(stateMessage);
         }
-    })
+    });
 }
