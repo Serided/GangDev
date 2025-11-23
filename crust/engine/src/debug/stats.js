@@ -23,6 +23,12 @@ export function updateStats(ts) {
 }
 
 export function drawStats(ctx) {
+    const boxX = 6;
+    const boxY = 6;
+    const boxW = 110; // a bit narrower
+    const boxH = 40;  // a bit taller
+    const pad  = 6;
+
     ctx.save();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
@@ -30,14 +36,17 @@ export function drawStats(ctx) {
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
 
+    // background box
     ctx.fillStyle = "rgba(0,0,0,0.6)";
-    ctx.fillRect(6, 6, 72, 33);
+    ctx.fillRect(boxX, boxY, boxW, boxH);
 
-    ctx.fillStyle = "#00FF00"; // FPS
-    ctx.fillText(`FPS: ${fpsCurrent.toFixed(0)}`, 10, 10);
+    // FPS line
+    ctx.fillStyle = "#00FF00";
+    ctx.fillText(`fps: ${fpsCurrent.toFixed(0)}`, boxX + pad, boxY + pad);
 
-    ctx.fillStyle = "#FFFFFF"; // ms
-    ctx.fillText(`ms: ${frameMsCurrent.toFixed(1)}`, 10, 26);
+    // ms line (14px font + ~2px spacing)
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillText(`ms: ${frameMsCurrent.toFixed(1)}`, boxX + pad, boxY + pad + 16);
 
     ctx.restore();
 }
