@@ -8,16 +8,9 @@ let lastFrameTime = null; // track last frame timestamp
 const playerSpeedMultiplier = 6;
 
 export function gameLoop(ts, canvas, ctx, gameState) {
-    if (!window.lastFpsCheck) {
-        window.lastFpsCheck = ts;
-        window.fps = 0;
-    }
-    window.fps++;
-    if (ts - window.lastFpsCheck > 1000) {
-        console.log("FPS:", window.fps);
-        window.fps = 0;
-        window.lastFpsCheck = ts;
-    }
+    const t = performance.now();
+    sendData(window.activeSocket, "movementInput", input, ...);
+    console.log("WS SEND at:", performance.now() - t);
 
     if (lastFrameTime === null) {
         lastFrameTime = ts;
