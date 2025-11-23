@@ -14,6 +14,7 @@ function updateGameState(gameState) {
     if (!gameState || !gameState.players) return;
 
     const mapData = gameState.mapData || null;
+    const tileSize = mapData?.tileSize ?? 0;
 
     for (const uid in gameState.players) {
         const player = gameState.players[uid];
@@ -36,7 +37,7 @@ function updateGameState(gameState) {
             let adjDy = dy;
 
             // 🔥 SERVER-SIDE TERRAIN
-            if (mapData) {
+            if (mapData && tileSize > 0) {
                 const centerX = player.x + tileSize * 2;
                 const centerY = player.y + tileSize * 2;
 
