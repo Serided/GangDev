@@ -103,7 +103,7 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                         }
 
                         // gently pull prediction toward server state
-                        const snapFactor = 0.5; // 0 = never correct, 1 = hard snap
+                        const snapFactor = 0.35; // 0 = never correct, 1 = hard snap
                         clientPlayer.predictedPosition.x += (targetX - clientPlayer.predictedPosition.x) * snapFactor;
                         clientPlayer.predictedPosition.y += (targetY - clientPlayer.predictedPosition.y) * snapFactor;
 
