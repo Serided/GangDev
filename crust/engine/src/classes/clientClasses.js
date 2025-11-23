@@ -1,7 +1,5 @@
 import { getUserIcon } from "../render/imageCache.js";
 
-import { getUserIcon } from "../render/imageCache.js";
-
 export class Player {
     constructor(userId, username, displayName, x = 0, y = 0) {
         this.userId = userId;
