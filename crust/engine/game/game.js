@@ -8,10 +8,6 @@ let lastFrameTime = null; // track last frame timestamp
 const playerSpeedMultiplier = 6;
 
 export function gameLoop(ts, canvas, ctx, gameState) {
-    const t = performance.now();
-    sendData(window.activeSocket, "movementInput", input, ...);
-    console.log("WS SEND at:", performance.now() - t);
-
     if (lastFrameTime === null) {
         lastFrameTime = ts;
     }
@@ -27,6 +23,19 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     window.inputBuffer = window.inputBuffer || [];
 
     if (localPlayer) {
+        console.log("MOVE", {
+            dt: deltaTime,
+            dx: movement.dx,
+            dy: movement.dy,
+            predX: localPlayer.predictedPosition.x,
+            predY: localPlayer.predictedPosition.y,
+            time: performance.now()
+        });
+
+        const t0 = performance.now();
+        sendData(window.activeSocket, "movementInput", input, window.userId, window.username, window.displayName);
+        console.log("SEND delay(ms):", performance.now() - t0);
+
         if (!localPlayer.predictedPosition) {
             localPlayer.predictedPosition = { x: localPlayer.x, y: localPlayer.y };
         }
