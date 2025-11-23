@@ -5,7 +5,7 @@ import { camera } from "../src/camera/topDown.js";
 
 let firstFrame = true;
 let lastFrameTime = null; // track last frame timestamp
-const playerSpeed = 6 * window.scaling;
+const playerSpeed = 3 * window.scaling;
 
 export function gameLoop(ts, canvas, ctx, gameState) {
     if (lastFrameTime === null) {
