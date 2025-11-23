@@ -1,7 +1,7 @@
 <?php
 require_once '/var/www/gangdev/shared/lib/composer/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable('/var/www/gangdev');
+$dotenv = Dotenv\Dotenv::createImmutable('/var/www/gangdev/shared');
 $dotenv->load();
 
 require_once '/var/www/gangdev/shared/php/db.php';
