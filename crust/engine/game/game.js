@@ -4,10 +4,19 @@ import { sendData } from "../src/tools.js";
 import { camera } from "../src/camera/topDown.js";
 
 let firstFrame = true;
-let fixedDeltaTime = 1 / 60; // 60 fps
+let lastFrameTime = null; // track last frame timestamp
 
 export function gameLoop(ts, canvas, ctx, gameState) {
-    const movement = computeMovement(fixedDeltaTime, (2 * window.scaling));
+    if (lastFrameTime === null) {
+        lastFrameTime = ts;
+    }
+
+    let deltaTime = (ts - lastFrameTime) / 1000; // ms to seconds
+    lastFrameTime = ts;
+
+    if (deltaTime > 0.1) deltaTime = 0.1;
+
+    const movement = computeMovement(deltaTime, (2 * window.scaling));
     const localPlayer = gameState.players[window.userId];
     window.inputBuffer = window.inputBuffer || [];
 
