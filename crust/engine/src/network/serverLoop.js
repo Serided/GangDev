@@ -16,7 +16,7 @@ function updateGameState(gameState) {
         let totalDx = 0;
         let totalDy = 0;
 
-        // Just apply EVERYTHING we received since last tick
+        // just apply EVERYTHING we received since last tick
         for (const input of player.inputQueue) {
             totalDx += input.dx;
             totalDy += input.dy;
@@ -25,11 +25,11 @@ function updateGameState(gameState) {
         player.x += totalDx;
         player.y += totalDy;
 
-        // Remember the latest timestamp for client-side reconciliation if you want
+        // remember the latest timestamp for client-side reconciliation if you want
         const lastInput = player.inputQueue[player.inputQueue.length - 1];
         player.lastProcessedTs = lastInput?.ts ?? player.lastProcessedTs;
 
-        // Clear processed inputs
+        // clear processed inputs
         player.inputQueue.length = 0;
     }
 }

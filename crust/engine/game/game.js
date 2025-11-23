@@ -2,6 +2,7 @@ import { drawPlayers, drawMap } from "../src/render/2d.js"
 import { computeMovement } from "../src/movement/topDown.js"
 import { sendData } from "../src/tools.js";
 import { camera } from "../src/camera/topDown.js";
+import { updateStats, drawStats } from "../src/debug/stats.js";
 
 let firstFrame = true;
 let lastFrameTime = null; // track last frame timestamp
@@ -54,4 +55,6 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     ctx.restore();
 
     requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
+    updateStats(ctx);
+    drawStats(ctx);
 }
