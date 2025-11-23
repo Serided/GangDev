@@ -23,19 +23,6 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     window.inputBuffer = window.inputBuffer || [];
 
     if (localPlayer) {
-        console.log("MOVE", {
-            dt: deltaTime,
-            dx: movement.dx,
-            dy: movement.dy,
-            predX: localPlayer.predictedPosition.x,
-            predY: localPlayer.predictedPosition.y,
-            time: performance.now()
-        });
-
-        const t0 = performance.now();
-        sendData(window.activeSocket, "movementInput", input, window.userId, window.username, window.displayName);
-        console.log("SEND delay(ms):", performance.now() - t0);
-
         if (!localPlayer.predictedPosition) {
             localPlayer.predictedPosition = { x: localPlayer.x, y: localPlayer.y };
         }
