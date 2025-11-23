@@ -13,7 +13,7 @@ export function updateStats(ts) {
 
     const elapsed = ts - fpsLastTs;
 
-    if (elapsed >= 500) {
+    if (elapsed >= 100) {
         fpsCurrent = (fpsFrameCount * 1000 / elapsed);
         frameMsCurrent = elapsed / fpsFrameCount;
 
@@ -31,7 +31,7 @@ export function drawStats(ctx) {
     ctx.textBaseline = "top";
 
     ctx.fillStyle = "rgba(0,0,0,0.6)";
-    ctx.fillRect(6, 6, 120, 32);
+    ctx.fillRect(6, 6, 72, 33);
 
     ctx.fillStyle = "#00FF00"; // FPS
     ctx.fillText(`FPS: ${fpsCurrent.toFixed(0)}`, 10, 10);
