@@ -36,15 +36,12 @@ export function drawStats(ctx) {
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
 
-    // background box
     ctx.fillStyle = "rgba(0,0,0,0.6)";
     ctx.fillRect(boxX, boxY, boxW, boxH);
 
-    // FPS line
     ctx.fillStyle = "#00FF00";
     ctx.fillText(`FPS: ${fpsCurrent.toFixed(0)}`, boxX + pad, boxY + pad);
 
-    // ms line (14px font + ~2px spacing)
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText(`ms: ${frameMsCurrent.toFixed(1)}`, boxX + pad, boxY + pad + 16);
 
