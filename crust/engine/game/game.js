@@ -17,7 +17,7 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     if (deltaTime < 0.0001) deltaTime = 0.0001;
     if (deltaTime > 0.05) deltaTime = 0.05;
 
-    const movement = computeMovement(deltaTime, (2 * window.scaling));
+    const movement = computeMovement(deltaTime, (6 * window.scaling));
     const localPlayer = gameState.players[window.userId];
     window.inputBuffer = window.inputBuffer || [];
 
