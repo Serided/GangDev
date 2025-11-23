@@ -1,79 +1,48 @@
-import { drawPlayers, drawMap } from "../src/render/2d.js"
-import { computeMovement } from "../src/movement/topDown.js"
-import { sendData } from "../src/tools.js";
-import { camera } from "../src/camera/topDown.js";
-import { updateStats, drawStats } from "../src/debug/stats.js";
+export function startServerLoop(wss) {
+    const tickRate = 60;                     // ticks per second
+    const tickInterval = 1000 / tickRate;    // ms per tick
 
-let firstFrame = true;
-let lastFrameTime = null; // track last frame timestamp
-const playerSpeedMultiplier = 6;
+    setInterval(() => {
+        updateGameState(wss.gameState);      // process all queued inputs
+        broadcastGameState(wss);             // send updated state to all clients
+    }, tickInterval);
+}
 
-export function gameLoop(ts, canvas, ctx, gameState) {
-    // ----- deltaTime -----
-    if (lastFrameTime === null) {
-        lastFrameTime = ts;
-    }
+function updateGameState(gameState) {
+    for (const uid in gameState.players) {
+        const player = gameState.players[uid];
+        if (!player || !player.inputQueue || player.inputQueue.length === 0) continue;
 
-    let deltaTime = (ts - lastFrameTime) / 1000; // ms to seconds
-    lastFrameTime = ts;
+        let totalDx = 0;
+        let totalDy = 0;
 
-    if (deltaTime < 0.0001) deltaTime = 0.0001;
-    if (deltaTime > 0.05)   deltaTime = 0.05;
-
-    const movement = computeMovement(deltaTime, (playerSpeedMultiplier * window.scaling));
-    const localPlayer = gameState.players[window.userId];
-    window.inputBuffer = window.inputBuffer || [];
-
-    if (localPlayer) {
-        // init prediction once (start at server position)
-        if (!localPlayer.predictedPosition) {
-            localPlayer.predictedPosition = { x: localPlayer.x, y: localPlayer.y };
+        // just apply EVERYTHING we received since last tick
+        for (const input of player.inputQueue) {
+            totalDx += input.dx;
+            totalDy += input.dy;
         }
 
-        // apply local input to prediction
-        localPlayer.predictedPosition.x += movement.dx;
-        localPlayer.predictedPosition.y += movement.dy;
+        player.x += totalDx;
+        player.y += totalDy;
 
-        // send input to server
-        const input = { dx: movement.dx, dy: movement.dy, ts: Date.now() };
-        sendData(
-            window.activeSocket,
-            "movementInput",
-            input,
-            window.userId,
-            window.username,
-            window.displayName
-        );
-        window.inputBuffer.push(input);
+        // remember the latest timestamp for client-side reconciliation if you want
+        const lastInput = player.inputQueue[player.inputQueue.length - 1];
+        player.lastProcessedTs = lastInput?.ts ?? player.lastProcessedTs;
 
-        // camera follows predicted position so it feels instant
-        const followX = localPlayer.predictedPosition.x + window.player / 2;
-        const followY = localPlayer.predictedPosition.y + window.player / 2;
-
-        if (firstFrame) {
-            camera.x = followX;
-            camera.y = followY;
-            firstFrame = false;
-        } else {
-            camera.update({ x: followX, y: followY });
-        }
+        // clear processed inputs
+        player.inputQueue.length = 0;
     }
+}
 
-    // ----- draw world -----
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.save();
-    ctx.translate(canvas.width / 2, canvas.height / 2);
-    ctx.scale(camera.zoom, camera.zoom);
-    ctx.translate(-camera.x, -camera.y);
+function broadcastGameState(wss) {
+    const stateMessage = JSON.stringify({
+        type: 'gameState',
+        data: wss.gameState.players,
+    });
 
-    if (window.sharedMap) drawMap(ctx, window.sharedMap, camera);
-    drawPlayers(ctx);
-
-    ctx.restore();
-
-    // ----- stats -----
-    updateStats(ts);
-    drawStats(ctx);
-
-    requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
+    wss.clients.forEach((client) => {
+        if (client.readyState === client.OPEN) {
+            client.send(stateMessage);
+        }
+    });
 }
