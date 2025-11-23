@@ -3,7 +3,7 @@ import { authUser, connectToGame } from "/engine/src/network/network.js";
 import { sendData } from "/engine/src/tools.js";
 import { appendMessage, sendMessage } from "/engine/src/comms/chat.js";
 import { updateStatus, updatePlayerCount } from "/engine/src/ui/header.js";
-import { setup2dCanvas } from "/engine/src/canvas.js";
+import { setup2dCanvas } from "/engine/src/render/canvas.js";
 import { gameLoop } from "/engine/game/game.js";
 import { gameState } from "/engine/src/gameState.js";
 import { topDownInput } from "/engine/src/input/topDown.js";

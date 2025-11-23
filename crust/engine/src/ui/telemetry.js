@@ -3,7 +3,7 @@ let fpsLastTs = 0;
 let fpsCurrent = 0;
 let frameMsCurrent = 0;
 
-export function updateStats(ts) {
+export function updateTelemetry(ts) {
     fpsFrameCount ++;
 
     if (!fpsLastTs) {
@@ -22,7 +22,7 @@ export function updateStats(ts) {
     }
 }
 
-export function drawStats(ctx) {
+export function drawTelemetry(ctx) {
     const boxX = 6;
     const boxY = 6;
     const boxW = 80;

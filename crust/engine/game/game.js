@@ -2,7 +2,7 @@ import { drawPlayers, drawMap } from "../src/render/2d.js";
 import { computeMovement } from "../src/movement/topDown.js";
 import { sendData } from "../src/tools.js";
 import { camera } from "../src/camera/topDown.js";
-import { updateStats, drawStats } from "../src/debug/stats.js";
+import { updateTelemetry, drawTelemetry } from "../src/ui/telemetry.js";
 
 let firstFrame = true;
 let lastFrameTime = null; // track last frame timestamp
@@ -77,9 +77,9 @@ export function gameLoop(ts, canvas, ctx, gameState) {
 
     ctx.restore();
 
-    // stats
-    updateStats(ts);
-    drawStats(ctx);
+    // telemetry
+    updateTelemetry(ts);
+    drawTelemetry(ctx);
 
     requestAnimationFrame((ts) => gameLoop(ts, canvas, ctx, gameState));
 }

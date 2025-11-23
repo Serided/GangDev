@@ -1,4 +1,4 @@
-import { setup2dCanvas } from "../canvas.js";
+import { setup2dCanvas } from "../render/canvas.js";
 import { chatPanel ,chatInput } from "../comms/chat.js"
 
 export const keys = {};
