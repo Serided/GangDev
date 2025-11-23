@@ -36,11 +36,14 @@ function updateGameState(gameState) {
             let adjDy = dy;
 
             // 🔥 SERVER-SIDE TERRAIN
-            if (mapData) {
+            if (mapData && tileSize > 0) {
+                const centerX = player.x + tileSize * 2;
+                const centerY = player.y + tileSize * 2;
+
                 const adjusted = applyTerrainToDelta(
                     mapData,
-                    player.x,
-                    player.y,
+                    centerX,
+                    centerY,
                     dx,
                     dy
                 );
