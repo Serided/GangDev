@@ -1,26 +1,12 @@
 import { gameState } from "../gameState.js";
 import { Player } from "../classes/clientClasses.js";
 
-/**
- * Draws all players on the canvas.
- *
- * @param {CanvasRenderingContext2D} ctx - The canvas 2D context.
- * @param {Player[]} players - An array of Player objects to be drawn.
- */
-
 export function drawPlayers(ctx) {
     // draw each player
     Object.values(gameState.players).forEach(player => {
         player.draw(ctx);
     });
 }
-
-/**
- * Draws the map onto the canvas with spatial culling, LOD, and batch drawing.
- * @param {CanvasRenderingContext2D} ctx - The 2D context.
- * @param {Object} mapData - The map data (tileSize, minX, minY, width, height, map array).
- * @param {Object} camera - The camera object with x, y, and zoom.
- */
 
 export function drawMap(ctx, mapData, camera) {
     const { tileSize, minX, minY, width, height, map } = mapData;
