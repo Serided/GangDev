@@ -1,14 +1,6 @@
 import { lerp } from '../tools.js';
 import { keys } from '../input/topDown.js';
 
-/**
- * Computes the movement vector based on the current key states.
- * @param {number} deltaTime - Time elapsed since the last frame (in seconds).
- * @param {Object} keys - An object mapping keys to booleans.
- * @param {number} speed - The base speed in units per second.
- * @returns {{dx: number, dy: number}} The computed movement vector.
- */
-
 export function getMovementVector(deltaTime, keys, speed) {
     let dx = 0;
     let dy = 0;

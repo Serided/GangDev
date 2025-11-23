@@ -1,3 +1,1 @@
-export const gameState = {
-    players: {}
-}
+export const gameState = { players: {} }

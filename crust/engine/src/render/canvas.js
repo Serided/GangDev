@@ -18,7 +18,6 @@ export function setup2dCanvas() {
     canvas.height = height;
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
-    console.log("Canvas initialized:", { width, height });
 
     window.scaling = 32; // 32px a meter
     window.player = (window.scaling * 2); // 64px player (2m)

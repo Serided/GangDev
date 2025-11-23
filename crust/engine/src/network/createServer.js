@@ -37,11 +37,26 @@ export function createGameServer(port, name, clientPath) {
     });
 
     const wss = new WebSocketServer({ server });
+
     const gameState = {
-        players: {} //  key: userId, value: { userId, x, y, username, displayName }
+        players: {}, //  key: userId, value: { userId, x, y, username, displayName }
+        mapData: null
     };
     wss.gameState = gameState;
     wss.user = { userId: 0, username: 'server', displayName: 'Server' };
+
+    try {
+        const mapPath = path.resolve(
+            clientPath,
+            "../src/map/map.json"
+        );
+        const raw = fs.readFileSync(mapPath, "utf8");
+        gameState.mapData = JSON.parse(raw);
+        console.log(`[${name}] Loaded map data from ${mapPath}`);
+    } catch (err) {
+        console.error(`[${name}] Failed to load map data:`, err);
+        gameState.mapData = null;
+    }
 
     let playerCount = 0;
     const activeGameSockets = {};

@@ -1,42 +1,69 @@
+import { applyTerrainToDelta } from "../world/terrain.js";
+
 export function startServerLoop(wss) {
-    const tickRate = 60;                     // ticks per second
-    const tickInterval = 1000 / tickRate;    // ms per tick
+    const tickRate = 60;                  // ticks per second
+    const tickInterval = 1000 / tickRate; // ms per tick
 
     setInterval(() => {
-        updateGameState(wss.gameState);      // process all queued inputs
-        broadcastGameState(wss);             // send updated state to all clients
+        updateGameState(wss.gameState);   // process queued inputs, apply terrain
+        broadcastGameState(wss);          // send updated players to all clients
     }, tickInterval);
 }
 
 function updateGameState(gameState) {
+    if (!gameState || !gameState.players) return;
+
+    const mapData = gameState.mapData || null;
+
     for (const uid in gameState.players) {
         const player = gameState.players[uid];
-        if (!player || !player.inputQueue || player.inputQueue.length === 0) continue;
+        if (!player) continue;
 
-        let totalDx = 0;
-        let totalDy = 0;
+        const queue = player.inputQueue;
+        if (!queue || queue.length === 0) continue;
 
-        // just apply EVERYTHING we received since last tick
-        for (const input of player.inputQueue) {
-            totalDx += input.dx;
-            totalDy += input.dy;
+        let lastProcessedTs = player.lastProcessedTs || 0;
+
+        // process inputs in order
+        for (const input of queue) {
+            if (!input) continue;
+            const { dx, dy, ts } = input;
+
+            // ignore already-processed inputs
+            if (ts <= lastProcessedTs) continue;
+
+            let adjDx = dx;
+            let adjDy = dy;
+
+            // 🔥 SERVER-SIDE TERRAIN
+            if (mapData) {
+                const adjusted = applyTerrainToDelta(
+                    mapData,
+                    player.x,
+                    player.y,
+                    dx,
+                    dy
+                );
+                adjDx = adjusted.dx;
+                adjDy = adjusted.dy;
+            }
+
+            // apply movement to server-authoritative position
+            player.x += adjDx;
+            player.y += adjDy;
+
+            lastProcessedTs = ts;
         }
 
-        player.x += totalDx;
-        player.y += totalDy;
-
-        // remember the latest timestamp for client-side reconciliation if you want
-        const lastInput = player.inputQueue[player.inputQueue.length - 1];
-        player.lastProcessedTs = lastInput?.ts ?? player.lastProcessedTs;
-
-        // clear processed inputs
+        player.lastProcessedTs = lastProcessedTs;
+        // clear queue now that we've consumed the inputs
         player.inputQueue.length = 0;
     }
 }
 
 function broadcastGameState(wss) {
     const stateMessage = JSON.stringify({
-        type: 'gameState',
+        type: "gameState",
         data: wss.gameState.players,
     });
 

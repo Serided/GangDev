@@ -20,7 +20,9 @@ export function gameLoop(ts, canvas, ctx, gameState) {
     if (deltaTime < 0.0001) deltaTime = 0.0001;
     if (deltaTime > 0.05)   deltaTime = 0.05;
 
-    const movement = computeMovement(deltaTime, playerSpeedMultiplier * window.scaling);
+    // basic movement (no terrain slow here)
+    let movement = computeMovement(deltaTime, playerSpeedMultiplier * window.scaling);
+
     const localPlayer = gameState.players[window.userId];
     window.inputBuffer = window.inputBuffer || [];
 
@@ -52,7 +54,7 @@ export function gameLoop(ts, canvas, ctx, gameState) {
 
         window.inputBuffer.push(input);
 
-        // camera follows predicted position so movement feels instant
+        // camera follows predicted position
         const followX = localPlayer.predictedPosition.x + window.player / 2;
         const followY = localPlayer.predictedPosition.y + window.player / 2;
 
