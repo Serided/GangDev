@@ -19,7 +19,7 @@ export class Player {
 
     draw(ctx, size = (window.player)) {
         // smooth render position toward server position
-        const smoothing = 0.9;
+        const smoothing = 2;
         this.renderX += (this.x - this.renderX) * smoothing;
         this.renderY += (this.y - this.renderY) * smoothing;
 
