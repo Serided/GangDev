@@ -1,0 +1,160 @@
+:root {
+    --hexagonSize: calc(var(--scaling) * 2)
+}
+
+.shimmer div.isaac {
+    background-image: url('https://gangdev.co/shared/files/img/isaac/icon.webp');
+    border: calc(var(--scaling) * 0.2) solid gray;
+}
+
+.arrow {
+    font-size: calc(var(--scaling) * 0.85);
+    height: calc(var(--scaling) * 0.2);
+    font-weight: bold;
+}
+
+/* About Me Section (also known as overview */
+.sect.cont#overview {
+    justify-content: flex-start;
+}
+.sect.cont#overview h2 {
+    font-size: calc(var(--scaling) * 3);
+    margin-bottom: calc(var(--scaling) * 5);
+}
+.timeline {
+    width: 100%;
+    position: absolute;
+    padding: calc(var(--scaling) * 1);
+    margin-top: calc(var(--scaling) * 4);
+    display: flex;
+    justify-content: center;
+    pointer-events: auto;
+    cursor: default;
+}
+.timeline::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--scaling) * 2);
+    left: 5%;
+    right: 5%;
+    height: calc(var(--scaling) * 0.3);
+    border-radius: calc(var(--scaling) * 0.1);
+    transform: translateY(-50%);
+    background: white;
+    z-index: 0;
+}
+.timelineItem {
+    position: relative;
+    width: calc(var(--scaling) * 10);
+    margin: 0 calc(var(--scaling) * 0.5);
+    padding: calc(var(--scaling) * 0.15) calc(var(--scaling) * 0.3) calc(var(--scaling) * 0.3) calc(var(--scaling) * 0.3);
+    text-align: center;
+    background: #f9f9f9;
+    border-radius: calc(var(--scaling) * 0.2);
+    transition: all 0.3s ease;
+    max-height: calc(var(--scaling) * 2);
+    overflow: hidden;
+    z-index: 1;
+}
+.timelineItem:hover {
+    max-height: 70vh;
+    transform: scale(1.03);
+}
+.timelineBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+.timelineBox h3 {
+    font-size: calc(var(--scaling) * 1);
+    height: calc(var(--scaling) * 1.1);
+}
+.timelineBox p {
+    font-size: calc(var(--scaling) * 0.5);
+}
+.timelineDetails {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: dimgray;
+    font-size: calc(var(--scaling) * 0.5);
+}
+.timelineDetails ul {
+    font-style: italic;
+    text-align: left;
+    padding-left: calc(var(--scaling) * 1);
+}
+.timelineItem:hover {
+    max-height: calc(var(--scaling) * 15);
+}
+.timelineItem:hover .timelineDetails {
+    opacity: 1;
+}
+
+/* Expertise Section */
+.sect.cont#expertise h2 {
+    font-size: calc(var(--scaling) * 2.5);
+    height: calc(var(--scaling) * 2.8);
+}
+.sect.cont#expertise p.desc {
+    font-size: calc(var(--scaling) * 1.2);
+    margin-bottom: calc(var(--scaling) * 1.2);
+}
+.tiltedGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(calc(var(--scaling) * 9), 1fr));
+    gap: calc(var(--scaling) * 0.7);
+    width: 63vw;
+    margin: 0 auto;
+    justify-items: center;
+    align-content: center;
+}
+.tiltedCell {
+    background: #f0f0f0;
+    border: calc(var(--scaling) * 0.1) solid #ccc;
+    border-radius: calc(var(--scaling) * 0.3);
+    padding: calc(var(--scaling) * 0.4);
+    text-align: center;
+    font-size: calc(var(--scaling) * 0.6);
+    width: calc(var(--scaling) * 10);
+    color: #333;
+    cursor: default;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.tiltedCell:nth-child(odd) {
+    transform: rotate(-1deg);
+}
+.tiltedCell:nth-child(even) {
+    transform: rotate(1deg);
+}
+.tiltedCell:hover {
+    transform: scale(1.05) rotate(0deg);
+    box-shadow: 0 calc(var(--scaling) * 0.05) calc(var(--scaling) * 0.1) rgba(0,0,0,0.2);
+}
+.sect.cont#expertise .favorites {
+    display: flex;
+    flex-direction: column;
+}
+.sect.cont#expertise p.desc.favorites {
+    margin: calc(var(--scaling) * 1) 0 0 0;
+}
+.sect.cont#expertise .favorites div {
+    width: calc(var(--scaling) * 15);
+    padding-top: calc(var(--scaling) * 0.15);
+}
+
+.babe {
+    opacity: 0;
+    position: absolute;
+    white-space: nowrap;
+    transform: translateX(-50%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    font-size: inherit;
+    color: pink;
+    text-decoration: none;
+}
+.title:hover .babe {
+    opacity: 1;
+    transform: translateX(0);
+}

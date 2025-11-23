@@ -1,4 +1,8 @@
 <?php
+if (!empty($_ENV['SKIP_LOCAL_DB']) && $_ENV['SKIP_LOCAL_DB'] === 'true') {
+	return null;
+}
+
 try {
 	$pdo = new PDO(
 		"pgsql:host=" . $_ENV["DB_HOST"] . ";port=" . $_ENV["DB_PORT"] . ";dbname=" . $_ENV["DB_NAME"],

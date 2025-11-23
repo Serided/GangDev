@@ -126,7 +126,7 @@
         <div class="sect cont three" id="expertise">
             <div>
                 <h2>Expertise</h2>
-                <p class="desc">I have a vast array of experience.</p>
+                <p class="desc">I have a vast array of expertise.</p>
             </div>
             <div class="tiltedGrid">
                 <div class="tiltedCell">
