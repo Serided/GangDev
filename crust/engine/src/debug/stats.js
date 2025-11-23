@@ -25,7 +25,7 @@ export function updateStats(ts) {
 export function drawStats(ctx) {
     const boxX = 6;
     const boxY = 6;
-    const boxW = 110; // a bit narrower
+    const boxW = 90; // a bit narrower
     const boxH = 40;  // a bit taller
     const pad  = 6;
 
@@ -42,11 +42,11 @@ export function drawStats(ctx) {
 
     // FPS line
     ctx.fillStyle = "#00FF00";
-    ctx.fillText(`fps: ${fpsCurrent.toFixed(0)}`, boxX + pad, boxY + pad);
+    ctx.fillText(`FPS: ${fpsCurrent.toFixed(0)}`, boxX + pad, boxY + pad);
 
     // ms line (14px font + ~2px spacing)
     ctx.fillStyle = "#FFFFFF";
-    ctx.fillText(`ms: ${frameMsCurrent.toFixed(1)}`, boxX + pad, boxY + pad + 16);
+    ctx.fillText(`MS: ${frameMsCurrent.toFixed(1)}`, boxX + pad, boxY + pad + 16);
 
     ctx.restore();
 }
