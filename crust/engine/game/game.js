@@ -41,7 +41,10 @@ export function gameLoop(ts, canvas, ctx, gameState) {
             camera.y = localPlayer.predictedPosition.y + window.player / 2;
             firstFrame = false;
         } else {
-            camera.update({x: localPlayer.predictedPosition.x, y: localPlayer.predictedPosition.y });
+            camera.update({
+                x: localPlayer.renderX + window.player / 2,
+                y: localPlayer.renderY + window.player / 2
+            });
         }
     }
 
