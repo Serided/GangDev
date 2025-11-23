@@ -80,7 +80,7 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                     const serverPlayer = serverPlayers[uid];
                     let clientPlayer = gameState.players[uid];
 
-                    // Create Player instance if needed
+                    // create player instance if needed
                     if (!clientPlayer) {
                         clientPlayer = new Player(
                             serverPlayer.userId,
@@ -93,14 +93,14 @@ export function connectToGame(gameUrl, gameName, username, userId, displayName, 
                     }
 
                     if (uid === String(window.userId)) {
-                        // LOCAL PLAYER: prediction + reconciliation lives in helper
+                        // local player: prediction + reconciliation lives in helper
                         window.inputBuffer = reconcileLocalPlayer(
                             clientPlayer,
                             serverPlayer,
                             window.inputBuffer
                         );
                     } else {
-                        // REMOTE PLAYERS: pure server positions
+                        // remote player: pure server positions
                         clientPlayer.updatePosition(serverPlayer.x, serverPlayer.y);
                     }
                 });
