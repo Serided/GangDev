@@ -1,30 +1,53 @@
 import { getUserIcon } from "../render/imageCache.js";
 
+import { getUserIcon } from "../render/imageCache.js";
+
 export class Player {
     constructor(userId, username, displayName, x = 0, y = 0) {
         this.userId = userId;
         this.username = username;
         this.displayName = displayName;
+
+        // server positions
         this.x = x;
         this.y = y;
-        this.renderX = x;
-        this.renderY = y;
+
+        // previous server positions (for interpolation)
+        this.prevX = x;
+        this.prevY = y;
+
+        // when we last got a server update for this player
+        this.lastUpdateTime = (performance.now ? performance.now() : Date.now());
+
         this.iconUrl = `https://user.gangdev.co/${userId}/icon/user-icon.jpg`;
     }
 
     updatePosition(newX, newY) {
+        // store previous server state
+        this.prevX = this.x;
+        this.prevY = this.y;
+
+        // store new server state
         this.x = newX;
         this.y = newY;
+
+        // timestamp of this snapshot
+        this.lastUpdateTime = (performance.now ? performance.now() : Date.now());
     }
 
     draw(ctx, size = (window.player)) {
-        // smooth render position toward server position
-        const smoothing = 2;
-        this.renderX += (this.x - this.renderX) * smoothing;
-        this.renderY += (this.y - this.renderY) * smoothing;
+        // --- interpolate between prev and current server state ---
 
-        const drawX = this.renderX;
-        const drawY = this.renderY;
+        const now = (performance.now ? performance.now() : Date.now());
+        const serverTickMs = 1000 / 60; // matches your tickRate = 60
+
+        // how far we are between the last two snapshots (0..1)
+        let t = (now - this.lastUpdateTime) / serverTickMs;
+        if (t < 0) t = 0;
+        if (t > 1) t = 1;
+
+        const drawX = this.prevX + (this.x - this.prevX) * t;
+        const drawY = this.prevY + (this.y - this.prevY) * t;
 
         // determine color
         const color = this.userId === window.userId ? "lightgreen" : "red";
