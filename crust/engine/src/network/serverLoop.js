@@ -36,7 +36,7 @@ function updateGameState(gameState) {
             let adjDy = dy;
 
             // 🔥 SERVER-SIDE TERRAIN
-            if (mapData && tileSize > 0) {
+            if (mapData) {
                 const centerX = player.x + tileSize * 2;
                 const centerY = player.y + tileSize * 2;
 
