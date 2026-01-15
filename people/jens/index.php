@@ -106,7 +106,7 @@
                     </div>
                     <div class="timelineDetails">
                         <p>
-                            Contracted through <strong>Milestone Technologies</strong> to support
+                            Contracted through <strong>Milestone Technologies</strong> to execute
                             <strong>Meta’s datacenter logistics</strong>.
                         </p>
                         <ul>
