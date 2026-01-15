@@ -32,7 +32,9 @@
                         <p>Nov. 2022 - May 2024</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>At <strong>In‑N‑Out Burger</strong>, known for exceptional <strong>quality and service</strong>, I developed key skills:</p>
+                        <p>
+                            At <strong>In‑N‑Out Burger</strong>, known for exceptional <strong>quality and service</strong>, I developed key skills:
+                        </p>
                         <ul>
                             <li>Operated registers, drive‑thru, fry, and prep stations.</li>
                             <li><strong>Provided efficient service in high‑volume settings.</strong></li>
@@ -49,7 +51,9 @@
                         <p>Jul. 2024 - Jul. 2025</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>At <strong>Quincy Foods, LLC</strong>, I <strong>maintained and repaired large-scale combines</strong>, ensuring peak efficiency.</p>
+                        <p>
+                            At <strong>Quincy Foods, LLC</strong>, I <strong>maintained and repaired large-scale combines</strong>, ensuring peak efficiency.
+                        </p>
                         <ul>
                             <li><strong>Diagnosed and repaired hydraulic, electrical, and mechanical systems.</strong></li>
                             <li>Performed preventative maintenance to prevent downtime.</li>
@@ -65,7 +69,9 @@
                         <p>Nov. 2024 - Present</p>
                     </div>
                     <div class="timelineDetails">
-                        <p><strong>GangDev</strong> is a software development startup specializing in <strong>games, AI, and custom applications</strong>.</p>
+                        <p>
+                            <strong>GangDev</strong> is a software development startup specializing in <strong>games, AI, and custom applications</strong>.
+                        </p>
                         <ul>
                             <li><strong>Designing and building game engines, AI models, and web applications.</strong></li>
                             <li>Leading full-stack development across frontend and backend systems.</li>
@@ -81,7 +87,9 @@
                         <p>Jun. 2025 - Aug. 2025</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>Contracted through <strong>TEKsystems</strong> to deploy and service infrastructure in <strong>Microsoft’s secure datacenter environment</strong>.</p>
+                        <p>
+                            Contracted through <strong>TEKsystems</strong> to deploy and service infrastructure in <strong>Microsoft’s secure datacenter environment</strong>.
+                        </p>
                         <ul>
                             <li><strong>Installed M1s/M2s, T2s, line cards, and SFP modules across full racks.</strong></li>
                             <li><strong>Built out coupler panels, patch panels, and routed power/OOB cabling.</strong></li>
@@ -97,15 +105,20 @@
                         <p>Sep. 2025 – Present</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>Contracted through <strong>Milestone Technologies</strong> to support <strong>Meta’s datacenter logistics</strong> as part of a <strong>high-performing special ops team</strong>.</p>
+                        <p>
+                            Contracted through <strong>Milestone Technologies</strong> to support
+                            <strong>Meta’s datacenter logistics</strong>.
+                        </p>
                         <ul>
-                            <li><strong>Staged and transported full rack systems across multiple data halls.</strong></li>
-                            <li><strong>Operated EPJs, tugs, and pallet jacks to move high-value equipment safely.</strong></li>
-                            <li>Supported SLC workflows and technical relocations.</li>
-                            <li><strong>Earned an early performance bonus for speed, accuracy, and reliability.</strong></li>
+                            <li><strong>Promoted to Project Lead after ~3.5 months as an L1 due to performance and SLC proficiency.</strong></li>
+                            <li>Lead SLC operations and conduct SLC audits across an entire data center.</li>
+                            <li>Execute full rack lifecycle operations across inbound and outbound logistics.</li>
+                            <li><strong>Recognized with a performance bonus for impeccable rack operations.</strong></li>
+                            <li><strong>Authored and presented a rewrite of the SLC SOP for leadership approval.</strong></li>
                         </ul>
                     </div>
                 </div>
+
             </div>
             <p class="desc">
                 I’ve always gotten bored fast. I can’t stand standing around, so I defaulted to coding.
