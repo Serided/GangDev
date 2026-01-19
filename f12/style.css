@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&display=swap');
+
+:root{
+    --text: #eef0ff;
+    --muted: rgba(238,240,255,0.72);
+    --accent: #6b6bff;
+    --accent2: #b07cff;
+    --shadow-sm: 0 2px 10px rgba(0,0,0,0.28);
+    --shadow-md: 0 18px 44px rgba(0,0,0,0.40);
+
+    /* NEW: primary “code” font */
+    --code: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; height:100%; }
+
+body{
+    /* NEW: make the whole site code-y */
+    font-family: var(--code);
+    font-weight: 500;
+    color: var(--text);
+    min-height: 100vh;
+    overflow: hidden;
+
+    background:
+            radial-gradient(1200px 700px at 52% 45%, rgba(108, 62, 255, 0.22), rgba(7, 7, 12, 1) 72%),
+            radial-gradient(900px 600px at 30% 70%, rgba(160, 90, 255, 0.10), transparent 60%),
+            #07070c;
+}
+
+/* Amoeba-ish vignette */
+body::before{
+    content:"";
+    position:fixed;
+    inset:-12vh -12vw;
+    pointer-events:none;
+    z-index:-2;
+
+    background:
+            radial-gradient(520px 380px at 52% 52%, rgba(176,124,255,0.16), transparent 62%),
+            radial-gradient(620px 440px at 58% 46%, rgba(107,107,255,0.11), transparent 65%),
+
+            radial-gradient(1200px 900px at 46% 50%, transparent 40%, rgba(0,0,0,0.86) 100%),
+            radial-gradient(1200px 900px at 62% 56%, transparent 42%, rgba(0,0,0,0.78) 100%),
+            radial-gradient(1200px 900px at 40% 62%, transparent 44%, rgba(0,0,0,0.74) 100%),
+            radial-gradient(1200px 900px at 58% 40%, transparent 43%, rgba(0,0,0,0.72) 100%),
+            radial-gradient(1400px 900px at 50% 58%, transparent 46%, rgba(0,0,0,0.70) 100%);
+
+    filter: saturate(1.06);
+}
+
+#bgCanvas{
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+#app{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+#topbar{
+    height:64px;
+    padding:0 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: lowercase;
+    color: rgba(238,240,255,0.92);
+    opacity: 0.95;
+}
+
+.actions{ display:flex; gap:12px; }
+
+button{
+    font-family: var(--code);
+    font-weight: 600;
+
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(238,240,255,0.92);
+    padding:10px 16px;
+    border-radius:12px;
+    font-size:14px;
+    cursor:pointer;
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(10px);
+    transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+button:hover{
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(255,255,255,0.20);
+}
+
+button.primary{
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color:#fff;
+    border-color: transparent;
+    box-shadow: 0 14px 34px rgba(107,107,255,0.24);
+}
+
+/* Hero */
+#hero{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+
+    padding: 0 56px;
+
+    gap: 18px;
+    position: relative;
+    z-index: 1;
+}
+
+.logoWrap{
+    width: 170px;
+    height: 170px;
+    border-radius: 30px;
+    overflow:hidden;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow: 0 26px 60px rgba(0,0,0,0.55);
+    backdrop-filter: blur(10px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+#logo{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    display:block;
+}
+
+/* Title stays bold but now in a code-ish mono */
+.title{
+    margin:0;
+    font-size: clamp(30px, 4.4vw, 54px);
+    font-weight: 800;             /* mono looks “heavier” at same number */
+    letter-spacing: -0.03em;      /* tighter feels more “terminal” */
+    line-height: 1.08;
+    color: rgba(238,240,255,0.94);
+    text-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    position: relative;
+    z-index: 2;
+    padding: 0 6px;
+}
+
+.emph{ font-weight: 900; }
+
+.phrase{
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    padding-top: 26px;
+    white-space: nowrap;
+}
+
+.aWord{ font-weight: 800; }
+
+.god{
+    font-weight: 900;
+    background: linear-gradient(135deg, #7fb4ff, #b07cff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.seam{
+    position: relative;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    z-index: 5;
+}
+
+/* keep your chosen offset */
+.tag{
+    position:absolute;
+    left: 0;
+    top: -72px;
+    transform: translateX(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    user-select:none;
+    pointer-events:none;
+    z-index: 10;
+}
+
+.tag-word{
+    font-family: var(--code);
+    font-size: 18px;
+    letter-spacing: 0.10em;       /* gives that “code label” feel */
+    font-weight: 600;
+    color: rgba(238,240,255,0.62);
+    text-shadow: 0 10px 24px rgba(0,0,0,0.35);
+}
+
+.tag-arrow{
+    font-family: var(--code);
+    font-size: 18px;
+    line-height: 1;
+    margin-top: 2px;
+    color: rgba(238,240,255,0.46);
+    text-shadow: 0 10px 24px rgba(0,0,0,0.35);
+}
+
+.sub{
+    max-width: 620px;
+    margin:0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--muted);
+    text-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    position: relative;
+    z-index: 2;
+}
+
+.cta{
+    display:flex;
+    gap:16px;
+    margin-top: 6px;
+    position: relative;
+    z-index: 2;
+}
+
+.socials-bottom{
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 22px;
+    z-index: 5;
+}
+
+.socials-bottom a{
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(238,240,255,0.45);
+    text-decoration: none;
+    transition: color 120ms ease, transform 120ms ease;
+}
+
+.socials-bottom a:hover{
+    color: rgba(238,240,255,0.9);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 650px){
+    body{ overflow:auto; }
+    #topbar{ padding: 0 16px; }
+    #hero{ padding: 0 18px; }
+    .cta{
+        flex-direction:column;
+        width:100%;
+        max-width:320px;
+    }
+    .cta button{ width:100%; }
+    .phrase{ padding-top: 18px; gap: 10px; white-space: normal; }
+    .tag{ top: -62px; }
+    .tag-word{ font-size: 16px; }
+}

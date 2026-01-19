@@ -40,7 +40,8 @@ export function createGameServer(port, name, clientPath) {
 
     const gameState = {
         players: {}, //  key: userId, value: { userId, x, y, username, displayName }
-        mapData: null
+        mapData: null,
+        projectiles: []
     };
     wss.gameState = gameState;
     wss.user = { userId: 0, username: 'server', displayName: 'Server' };
@@ -99,16 +100,40 @@ export function createGameServer(port, name, clientPath) {
             const uid = ws.user.userId;
             switch (data.type) {
                 case 'playerSpawn': {
-                    gameState.players[uid] = data.data;
+                    const spawnData = data.data;
+
+                    gameState.players[uid] = {
+                        ...spawnData,
+                        userId: uid,
+                        hp: 100,
+                        maxHp: 100,
+                        lastAttackTime: 0
+                    };
+
                     break;
                 }
                 case 'movementInput': {
                     const { dx, dy, ts } = data.data;
                     const player = wss.gameState.players[uid];
+                    if (!player) break;
+
                     if (!player.inputQueue) {
                         player.inputQueue = [];
                     }
+
                     player.inputQueue.push({ dx, dy, ts })
+                    break;
+                }
+                case 'attack': {
+                    const { ts } = data.data;
+                    const player = wss.gameState.players[uid];
+                    if (!player) break;
+
+                    if (!player.inputQueueAttack) {
+                        player.inputQueueAttack = [];
+                    }
+
+                    player.inputQueueAttack.push({ ts })
                     break;
                 }
                 default: {

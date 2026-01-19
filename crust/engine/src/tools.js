@@ -13,3 +13,28 @@ export function sendData(activeSocket, type, data, userId, username, displayName
 export function lerp(a, b, t) {
     return a + (b - a) * t;
 }
+
+export function getPlayerHalfSize(mapData) {
+    const tileSize = mapData?.tileSize ?? 16;
+    return tileSize * 2;
+}
+
+export function getPlayerCenter(player, mapData) {
+    const half = getPlayerHalfSize(mapData);
+    return {
+        x: player.x + half,
+        y: player.y + half
+    };
+}
+
+export function getPlayerHitbox(player, mapData) {
+    const half = getPlayerHalfSize(mapData);
+    const size = half * 2;
+
+    return {
+        x: player.x,
+        y: player.y,
+        w: size,
+        h: size
+    };
+}

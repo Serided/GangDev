@@ -1,4 +1,6 @@
 import { applyTerrainToDelta } from "../world/terrain.js";
+import { getPlayerCenter } from "../tools";
+import { spawnProjectile, updateProjectiles } from "../gameplay/projectiles";
 
 export function startServerLoop(wss) {
     const tickRate = 60;                  // ticks per second
@@ -36,15 +38,14 @@ function updateGameState(gameState) {
             let adjDx = dx;
             let adjDy = dy;
 
-            // 🔥 SERVER-SIDE TERRAIN
+            // server side terrain
             if (mapData && tileSize > 0) {
-                const centerX = player.x + tileSize * 2;
-                const centerY = player.y + tileSize * 2;
+                const center = getPlayerCenter(player, mapData);
 
                 const adjusted = applyTerrainToDelta(
                     mapData,
-                    centerX,
-                    centerY,
+                    center.x,
+                    center.y,
                     dx,
                     dy
                 );
