@@ -1,6 +1,5 @@
-<?php
-// index.php — DCOPS landing page
-?>
+<!-- index.php -->
+<?php /* DCOPS landing page */ ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<title>DCOPS — Datacenter Operations Software</title>
 	<meta name="description" content="DCOPS is datacenter operations software: progress tracking, workflow visibility, audits, and operational metrics." />
-	<link rel="stylesheet" href="style.css?v=1" />
+	<link rel="stylesheet" href="style.css?v=2" />
 </head>
 
 <body>
@@ -59,7 +58,7 @@
 				</div>
 
 				<p class="subnote">
-					Designed for rack lifecycle, audits, inbound/outbound, staging, and shift execution. No fluff.
+					Designed for rack lifecycle, audits, inbound/outbound, staging, and shift execution.
 				</p>
 
 				<div class="heroStats">
@@ -135,7 +134,7 @@
 					</div>
 
 					<div class="dashFooter">
-						<span class="faint">Preview mock — your metrics + workflows plug in here.</span>
+						<span class="faint">Preview mock</span>
 					</div>
 				</div>
 			</div>
@@ -178,7 +177,7 @@
 			<div class="sectionTitle">
 				<div>
 					<h2>Capabilities</h2>
-					<p>Focused features built for datacenter reality: lifecycle, auditing, inventory touchpoints, and throughput.</p>
+					<p>Focused features built for datacenter reality: lifecycle, auditing, inventory.</p>
 				</div>
 			</div>
 
@@ -196,7 +195,7 @@
 				<div class="feature">
 					<div class="icon">⚑</div>
 					<h3>Escalations</h3>
-					<p>Flag blockers, route to the right owners, and prevent “lost work” across shifts.</p>
+					<p>Flag blockers, route to the right owners, and prevent lost work across shifts.</p>
 				</div>
 				<div class="feature">
 					<div class="icon">▦</div>
@@ -206,12 +205,12 @@
 				<div class="feature">
 					<div class="icon">⛓</div>
 					<h3>Traceability</h3>
-					<p>Every change is logged. Every item has a story. No more “who touched this?”</p>
+					<p>Every change is logged. Every item has a story.</p>
 				</div>
 				<div class="feature">
 					<div class="icon">⇄</div>
 					<h3>Integrations</h3>
-					<p>Built to connect into existing processes—CSV imports, API endpoints, and automation hooks.</p>
+					<p>CSV imports, API endpoints, and automation hooks.</p>
 				</div>
 			</div>
 		</div>
@@ -286,7 +285,7 @@
 					</label>
 
 					<button class="btn primary" type="submit">Send</button>
-					<p class="formNote" id="formNote">This form currently simulates submission (no backend). Hook it to PHP/mail when ready.</p>
+					<p class="formNote subtle">Contact intake is currently being finalized.</p>
 				</form>
 			</div>
 		</div>
@@ -300,6 +299,6 @@
 	</footer>
 </main>
 
-<script src="script.js?v=1"></script>
+<script src="script.js?v=2"></script>
 </body>
 </html>
