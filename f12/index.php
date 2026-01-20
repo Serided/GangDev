@@ -59,7 +59,7 @@
 
                 <div class="cta">
                     <button class="primary" id="tryDemo" type="button">Try Demo</button>
-                    <button type="button">Learn More</button>
+                    <a class="learn-link" href="learn.php">Learn More</a>
                 </div>
 
             </main>

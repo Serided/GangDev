@@ -1,0 +1,182 @@
+.inspectre-outline{
+    outline: 2px solid rgba(176,124,255,0.9) !important;
+    outline-offset: 2px !important;
+}
+
+/* Panel */
+#inspectre-panel{
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: 320px;
+    z-index: 2147483647;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+    color: #eef0ff;
+
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(10,10,18,.78);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    box-shadow: 0 18px 60px rgba(0,0,0,.55);
+    overflow: hidden;
+
+    /* NEW: resizable panel */
+    resize: both;
+    overflow: auto;
+    min-width: 260px;
+    min-height: 210px;
+    max-width: min(560px, calc(100vw - 24px));
+    max-height: min(640px, calc(100vh - 24px));
+}
+
+#inspectre-panel .top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    padding:10px 12px;
+    border-bottom:1px solid rgba(255,255,255,.10);
+}
+
+#inspectre-panel .left{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+}
+
+#inspectre-panel .name{
+    font-weight:900;
+    letter-spacing:.6px;
+    text-transform: lowercase;
+}
+
+#inspectre-panel .pill{
+    font-size:11px;
+    opacity:.7;
+}
+
+/* Small icon button */
+#inspectre-panel .icon-btn{
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    display:grid;
+    place-items:center;
+
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.08);
+    color: rgba(238,240,255,0.9);
+
+    cursor:pointer;
+    padding:0;
+    line-height:1;
+
+    box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+}
+
+#inspectre-panel .icon-btn:hover{
+    border-color: rgba(255,255,255,.22);
+}
+
+/* Body */
+#inspectre-panel .body{
+    padding:10px 12px 12px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+#inspectre-panel textarea{
+    width:100%;
+    min-height:64px;
+    resize: vertical;
+    padding:10px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.06);
+    color:#eef0ff;
+    outline:none;
+}
+
+#inspectre-panel .row{
+    display:flex;
+    gap:8px;
+}
+
+#inspectre-panel button.action{
+    flex:1;
+    border:1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.08);
+    color:#eef0ff;
+    padding:9px 10px;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+#inspectre-panel button.primary{
+    background: linear-gradient(135deg,#6b6bff,#b07cff);
+    border-color: transparent;
+}
+
+#inspectre-panel .small{
+    font-size:11px;
+    opacity:.65;
+}
+
+/* Minimized state */
+#inspectre-panel.min{
+    width: 190px;
+    border-radius: 14px;
+
+    /* keep resize but make it feel less janky */
+    resize: none;
+    min-height: unset;
+    min-width: unset;
+}
+
+#inspectre-panel.min .top{
+    border-bottom: none;
+}
+
+#inspectre-panel.min .body{
+    display:none;
+}
+
+#inspectre-panel.min .pill{
+    opacity:.55;
+}
+
+/* Inline editing highlight */
+.inspectre-inline-edit{
+    outline: 2px dashed rgba(176,124,255,0.75) !important;
+    outline-offset: 2px !important;
+    cursor: text !important;
+}
+
+/* Draggable clones */
+.inspectre-clone{ position: relative; }
+.inspectre-dragging{ cursor: move !important; }
+
+/* Watermark */
+#inspectre-watermark{
+    position: fixed;
+    bottom: 14px;
+    right: 16px;
+    z-index: 2147483647;
+
+    padding: 4px 8px;
+    border-radius: 8px;
+
+    font: 10px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+    letter-spacing: .10em;
+    text-transform: lowercase;
+
+    color: rgba(238,240,255,0.55);
+    background: rgba(10,10,18,0.18);
+    border: 1px solid rgba(255,255,255,0.10);
+
+    box-shadow: 0 0 14px rgba(176,124,255,0.14);
+    backdrop-filter: blur(6px);
+    pointer-events: none;
+    user-select: none;
+}
