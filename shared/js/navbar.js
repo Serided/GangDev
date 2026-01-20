@@ -12,11 +12,11 @@ function uncheckAll() {
         companyBtn.checked === true
         )) {
 
+        hamburgerBtn.checked = true;
         accountBtn.checked = false;
         productsBtn.checked = false;
         labsBtn.checked = false;
         companyBtn.checked = false;
-        hamburgerBtn.checked = true;
     }
 }
 

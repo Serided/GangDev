@@ -51,11 +51,11 @@ require_once '/var/www/gangdev/shared/php/init.php';
             <label for="labs" class="hamburger-btn btnText one">Labs</label>
             <aside class="sidebar two">
                 <nav>
-                    <a href="https://gaming.gangdev.co/gameEngine"><button class="hamburger-btn btnText two">Game Engine<br>(Alpha)</button></a>
-                    <a href="https://crust.gangdev.co/game1" target="_blank"><button class="hamburger-btn btnText two">Crust<br>(Alpha) <b style="color: lightgreen;">[Online]</b></button></a>
-                    <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank"><button class="hamburger-btn btnText two">Fighting Game<br>(Beta)</button></a>
-                    <a href="https://apps.gangdev.co/web/roastGenerator"><button class="hamburger-btn btnText two">Roast Generator<br>(Alpha)</button></a>
-                    <a href="https://apps.gangdev.co/web/mmfGenerator"><button class="hamburger-btn btnText two">MMF Generator<br>(Beta)</button></a>
+                    <a href="https://gaming.gangdev.co/gameEngine"><button class="hamburger-btn btnText two">Game Engine<br> <b style="color: lightblue;">(Alpha)</b> </button> </a>
+                    <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank"><button class="hamburger-btn btnText two">Fighting Game<br> <b style="color: lightblue;">(Beta)</b> </button> </a>
+                    <a href="https://crust.gangdev.co/game1" target="_blank"><button class="hamburger-btn btnText two">Crust<br> <b style="color: lightblue;">(Alpha)</b> <b style="color: lightgreen;">[Online]</b> </button> </a>
+                    <a href="https://apps.gangdev.co/web/roastGenerator"><button class="hamburger-btn btnText two">Roast Generator<br> <b style="color: lightblue;">(Alpha)</b> </button> </a>
+                    <a href="https://apps.gangdev.co/web/mmfGenerator"><button class="hamburger-btn btnText two">MMF Generator<br> <b style="color: dodgerblue;">(Beta)</b> </button> </a>
                 </nav>
             </aside>
 
