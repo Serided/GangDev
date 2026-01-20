@@ -295,7 +295,7 @@
 	<footer class="footer">
 		<div class="wrap foot">
 			<span class="faint">© <?php echo date('Y'); ?> DCOPS. Built for datacenter operations.</span>
-			<span class="faint">Status: <span id="statusBadge">operational</span></span>
+			<span class="faint">Status: <span id="statusBadge" class="status wip">in progress</span></span>
 		</div>
 	</footer>
 </main>

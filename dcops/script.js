@@ -21,6 +21,14 @@
         bar: 68
     };
 
+    function handleTopbar(){
+        const topbar = document.querySelector(".topbar");
+        if (!topbar) return;
+        topbar.classList.toggle("scrolled", window.scrollY > 10);
+    }
+    window.addEventListener("scroll", handleTopbar, { passive: true });
+    handleTopbar();
+
     function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
 
     function animate(){
