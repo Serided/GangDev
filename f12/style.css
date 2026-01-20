@@ -8,7 +8,6 @@
     --shadow-sm: 0 2px 10px rgba(0,0,0,0.28);
     --shadow-md: 0 18px 44px rgba(0,0,0,0.40);
 
-    /* NEW: primary “code” font */
     --code: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -16,7 +15,6 @@
 html,body{ margin:0; padding:0; height:100%; }
 
 body{
-    /* NEW: make the whole site code-y */
     font-family: var(--code);
     font-weight: 500;
     color: var(--text);
@@ -83,7 +81,11 @@ body::before{
 
 .actions{ display:flex; gap:12px; }
 
-button{
+/* Apply “button” styling to both buttons and anchor-buttons */
+button,
+a.demo,
+a.primary,
+a.plan-cta{
     font-family: var(--code);
     font-weight: 600;
 
@@ -97,28 +99,28 @@ button{
     box-shadow: var(--shadow-sm);
     backdrop-filter: blur(10px);
     transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-button:hover{
+button:hover,
+a.demo:hover,
+a.primary:hover,
+a.plan-cta:hover{
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
     border-color: rgba(255,255,255,0.20);
 }
 
-button.primary{
+button.primary,
+a.primary{
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     color:#fff;
     border-color: transparent;
     box-shadow: 0 14px 34px rgba(107,107,255,0.24);
-}
-
-a.primary,
-a.demo,
-a.plan-cta {
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /* Hero */
@@ -158,12 +160,11 @@ a.plan-cta {
     display:block;
 }
 
-/* Title stays bold but now in a code-ish mono */
 .title{
     margin:0;
     font-size: clamp(30px, 4.4vw, 54px);
-    font-weight: 800;             /* mono looks “heavier” at same number */
-    letter-spacing: -0.03em;      /* tighter feels more “terminal” */
+    font-weight: 800;
+    letter-spacing: -0.03em;
     line-height: 1.08;
     color: rgba(238,240,255,0.94);
     text-shadow: 0 10px 30px rgba(0,0,0,0.35);
@@ -201,7 +202,6 @@ a.plan-cta {
     z-index: 5;
 }
 
-/* keep your chosen offset */
 .tag{
     position:absolute;
     left: 0;
@@ -218,7 +218,7 @@ a.plan-cta {
 .tag-word{
     font-family: var(--code);
     font-size: 18px;
-    letter-spacing: 0.10em;       /* gives that “code label” feel */
+    letter-spacing: 0.10em;
     font-weight: 600;
     color: rgba(238,240,255,0.62);
     text-shadow: 0 10px 24px rgba(0,0,0,0.35);
@@ -277,7 +277,6 @@ a.plan-cta {
     border-color: rgba(255,255,255,0.20);
 }
 
-
 .socials-bottom{
     position: fixed;
     bottom: 16px;
@@ -303,7 +302,7 @@ a.plan-cta {
 
 /* ===== Learn page ===== */
 .page-learn{
-    overflow: auto;           /* allow scrolling on learn page */
+    overflow: auto;
 }
 
 .page-learn #app{
@@ -318,7 +317,7 @@ a.plan-cta {
 #learnMain{
     width: min(1100px, 92vw);
     margin: 0 auto;
-    padding: 24px 0 96px;     /* leave room for socials */
+    padding: 24px 0 96px;
     position: relative;
     z-index: 2;
 }
@@ -545,7 +544,10 @@ a.plan-cta {
         width:100%;
         max-width:320px;
     }
-    .cta button{ width:100%; }
+    .cta button,
+    .cta a{
+        width:100%;
+    }
     .phrase{ padding-top: 18px; gap: 10px; white-space: normal; }
     .tag{ top: -62px; }
     .tag-word{ font-size: 16px; }

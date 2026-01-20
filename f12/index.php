@@ -11,7 +11,7 @@
     </head>
     <body>
 
-        <canvas id="bgCanvas" aria-hidden="true"></canvas>
+    <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
         <div id="app">
 
@@ -33,17 +33,17 @@
                 <h1 class="title">
                     Do <span class="emph">YOU</span> want to be
                     <span class="phrase">
-                <span class="aWord">a</span>
+                  <span class="aWord">a</span>
 
-                <span class="seam" aria-hidden="true">
-                  <span class="tag">
-                    <span class="tag-word">performative</span>
-                    <span class="tag-arrow">˅</span>
+                  <span class="seam" aria-hidden="true">
+                    <span class="tag">
+                      <span class="tag-word">performative</span>
+                      <span class="tag-arrow">˅</span>
+                    </span>
                   </span>
-                </span>
 
-                <span class="god">God?</span>
-              </span>
+                  <span class="god">God?</span>
+                </span>
                 </h1>
 
                 <p class="sub">
@@ -56,10 +56,8 @@
                     <strong>AND</strong> it's free!
                 </p>
 
-
                 <div class="cta">
                     <a class="primary" id="tryDemo" href="files/downloads/inspectre-extension.zip" download>Try Demo</a>
-
                     <a class="learn-link" href="learn.php">Learn More</a>
                 </div>
 
