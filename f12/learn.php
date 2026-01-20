@@ -108,7 +108,7 @@
 						<li>Clean export</li>
 						<li><strong>Emulated pages</strong> (no account needed)</li>
 					</ul>
-					<button class="primary plan-cta" type="button">Go Creator</button>
+					<button class="primary plan-cta" type="button">Unavailable</button>
 				</div>
 
 				<div class="plan">
@@ -123,7 +123,7 @@
 						<li>Macros / workflows</li>
 						<li>Asset library</li>
 					</ul>
-					<button class="primary plan-cta" type="button">Go Studio</button>
+					<button class="primary plan-cta" type="button">Unavailable</button>
 				</div>
 			</div>
 
