@@ -20,8 +20,8 @@
 
 		<div class="actions">
 			<a class="learn-link" href="index.php">Home</a>
-			<button class="primary" type="button">Early Access</button>
-		</div>
+            <a class="primary" href="files/downloads/inspectre-extension.zip" download>Demo</a>
+        </div>
 	</header>
 
 	<main id="learnMain">
@@ -93,8 +93,8 @@
 						<li>Quick reset</li>
 						<li>Built for clips</li>
 					</ul>
-					<button class="primary plan-cta" type="button">Try Demo</button>
-				</div>
+                    <a class="primary plan-cta" href="files/downloads/inspectre-extension.zip" download>Try Demo</a>
+                </div>
 
 				<div class="plan featured">
 					<div class="plan-top">
@@ -136,7 +136,22 @@
 			</div>
 		</section>
 
-	</main>
+        <section class="learn-hero" style="margin-top:32px;">
+            <h2 class="learn-title">How to install</h2>
+
+            <div class="learn-card" style="max-width:640px;margin:0 auto;">
+                <ol class="learn-card-body">
+                    <li>Click <strong>Try Demo</strong> to download the ZIP</li>
+                    <li>Unzip the folder</li>
+                    <li>Open <code>chrome://extensions</code></li>
+                    <li>Enable <strong>Developer mode</strong> (top right)</li>
+                    <li>Click <strong>Load unpacked</strong></li>
+                    <li>Select the unzipped folder</li>
+                </ol>
+            </div>
+        </section>
+
+    </main>
 
 </div>
 

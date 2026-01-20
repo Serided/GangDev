@@ -65,12 +65,12 @@
                 </div>
                 <div class="timelineItem">
                     <div class="timelineBox">
-                        <h3>Startup</h3>
+                        <h3>GangDev LLC</h3>
                         <p>Nov. 2024 - Present</p>
                     </div>
                     <div class="timelineDetails">
                         <p>
-                            <strong>GangDev</strong> is a software development startup specializing in <strong>games, AI, and custom applications</strong>.
+                            <strong>GangDev LLC&trade;</strong> is a software development company specializing in <strong>games, AI, and custom applications</strong>.
                         </p>
                         <ul>
                             <li><strong>Designing and building game engines, AI models, and web applications.</strong></li>
@@ -171,9 +171,10 @@
                 <p class="desc favorites">Some of my favorite projects:</p>
             </div>
             <div class="favorites">
-                <div><a href="https://github.com/Serided/GangDev" target="_blank">- GangDev Website -</a></div>
-                <div><a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine (Alpha) -</a></div>
-                <div><a href="https://crust.gangdev.co/game1" target="_blank">- Crust (Alpha) <b style="color: lightgreen">[Online]</b> -</a></div>
+                <div><a href="https://github.com/Serided/GangDev" target="_blank">- GangDev LLC -</a></div>
+                <div><a href="https://inspectre.link/" target="_blank">- inspectre -</a></div>
+                <div><a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine <b style="color: dodgerblue;">(Alpha)</b> -</a></div>
+                <div><a href="https://crust.gangdev.co/game1" target="_blank">- Crust <b style="color: dodgerblue;">(Alpha)</b> <b style="color: lightgreen">[Online]</b> -</a></div>
                 <div><a href="https://apps.gangdev.co/web/roastGenerator" target="_blank">- Roast Generator -</a></div>
                 <div><a href="https://apps.gangdev.co/web/mmfGenerator" target="_blank">- MMF Generator -</a></div>
             </div>

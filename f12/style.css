@@ -112,6 +112,15 @@ button.primary{
     box-shadow: 0 14px 34px rgba(107,107,255,0.24);
 }
 
+a.primary,
+a.demo,
+a.plan-cta {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Hero */
 #hero{
     flex:1;

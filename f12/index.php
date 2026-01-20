@@ -19,8 +19,8 @@
                 <div class="brand">inspectre</div>
 
                 <div class="actions">
-                    <button class="demo" type="button">Demo</button>
-                    <button class="primary" type="button">Early Access</button>
+                    <a class="demo" href="files/downloads/inspectre-extension.zip" download>Demo</a>
+                    <a class="primary" href="learn.php">Early Access</a>
                 </div>
             </header>
 
@@ -58,7 +58,8 @@
 
 
                 <div class="cta">
-                    <button class="primary" id="tryDemo" type="button">Try Demo</button>
+                    <a class="primary" id="tryDemo" href="files/downloads/inspectre-extension.zip" download>Try Demo</a>
+
                     <a class="learn-link" href="learn.php">Learn More</a>
                 </div>
 
