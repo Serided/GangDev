@@ -14,7 +14,7 @@ if (!isset($_SESSION['dcops_login_user_id'])) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>DCOPS — Verify sign-in</title>
+	<title>DCOPS - Verify sign-in</title>
 
 	<link rel="stylesheet" href="/login/login.css">
 	<script src="/login/login.js" defer></script>

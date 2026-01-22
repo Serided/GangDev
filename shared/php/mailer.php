@@ -19,7 +19,10 @@ function sendMail($fromEmail, $fromName, $toEmail, $toName, $subject, $htmlBody,
 		$mail->SMTPSecure = $smtpEncryption;
 		$mail->Port       = $smtpPort;
 
-		$mail->setFrom($fromEmail, $fromName);
+		$mail->CharSet  = 'UTF-8';
+		$mail->Encoding = 'base64';
+
+		$mail->setFrom($fromEmail, $fromName, false);
 		$mail->addAddress($toEmail, $toName);
 
 		$mail->isHTML(true);
@@ -34,4 +37,3 @@ function sendMail($fromEmail, $fromName, $toEmail, $toName, $subject, $htmlBody,
 		return false;
 	}
 }
-?>

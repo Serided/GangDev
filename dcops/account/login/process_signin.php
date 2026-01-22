@@ -51,7 +51,7 @@ $_SESSION['dcops_login_email'] = $user['email'];
 
 $fromEmail = 'company@gangdev.co';
 $fromName = 'GangDev';
-$subject = 'DCOPS — Sign-in code';
+$subject = 'DCOPS - Sign-in code';
 
 $codeEsc = htmlspecialchars($code, ENT_QUOTES, 'UTF-8');
 $nameEsc = htmlspecialchars($user['real_name'], ENT_QUOTES, 'UTF-8');
@@ -89,7 +89,7 @@ $htmlBody = '
 ';
 
 $altBody =
-	"DCOPS — Sign-in code\n\n" .
+	"DCOPS - Sign-in code\n\n" .
 	"DCOPS is built and operated by GangDev.\n\n" .
 	"Your code: {$code}\n" .
 	"Expires in 10 minutes.\n";

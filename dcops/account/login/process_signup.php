@@ -78,7 +78,7 @@ $nameEsc = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
 
 $fromEmail = 'company@gangdev.co';
 $fromName = 'GangDev';
-$subject = 'DCOPS — Verify your email';
+$subject = 'DCOPS - Verify your email';
 
 $headerLine = 'DCOPS is built and operated by GangDev.';
 
@@ -127,7 +127,7 @@ $htmlBody = '
 ';
 
 $altBody =
-	"DCOPS — Verify your email\n\n" .
+	"DCOPS - Verify your email\n\n" .
 	$headerLine . "\n\n" .
 	"Hi {$name},\n\n" .
 	"Verify your email to activate your account:\n{$verifyUrl}\n\n" .
