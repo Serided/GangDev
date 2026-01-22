@@ -52,7 +52,7 @@ if (!isset($_SESSION['dcops_login_user_id'])) {
 				</div>
 
 				<div class="row">
-					<button class="btn primary" type="submit">Finish sign in</button>
+					<button class="btn primary" type="submit">Verify</button>
 					<div class="links">
 						<a href="/login/signin.php">Start over</a>
 					</div>
