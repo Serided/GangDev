@@ -23,6 +23,7 @@ function sendMail($fromEmail, $fromName, $toEmail, $toName, $subject, $htmlBody,
 		$mail->Encoding = 'base64';
 
 		$mail->setFrom($fromEmail, $fromName, false);
+		$mail->addReplyTo($fromEmail, 'GangDev');
 		$mail->addAddress($toEmail, $toName);
 
 		$mail->isHTML(true);
@@ -37,3 +38,4 @@ function sendMail($fromEmail, $fromName, $toEmail, $toName, $subject, $htmlBody,
 		return false;
 	}
 }
+?>

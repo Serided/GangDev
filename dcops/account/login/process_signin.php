@@ -50,8 +50,8 @@ $_SESSION['dcops_login_user_id'] = (int)$user['id'];
 $_SESSION['dcops_login_email'] = $user['email'];
 
 $fromEmail = 'company@gangdev.co';
-$fromName = 'GangDev';
-$subject = 'DCOPS - Sign-in code';
+$fromName = 'GangDev / DCOPS';
+$subject = 'DCOPS - Sign-in code: ' . $code;
 
 $codeEsc = htmlspecialchars($code, ENT_QUOTES, 'UTF-8');
 $nameEsc = htmlspecialchars($user['real_name'], ENT_QUOTES, 'UTF-8');

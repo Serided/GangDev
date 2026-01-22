@@ -28,9 +28,13 @@ $org   = $_SESSION['dcops_org'] ?? '';
 			<span class="dc">DC</span><span class="ops">OPS</span>
 		</div>
 
-		<form method="post" action="/login/signout.php">
-			<button type="submit" class="signOutBtn">Sign out</button>
-		</form>
+		<div class="topActions">
+			<a class="homeBtn" href="https://dcops.co/">Home</a>
+
+			<form method="post" action="/login/signout.php">
+				<button type="submit" class="signOutBtn">Sign out</button>
+			</form>
+		</div>
 	</div>
 
 	<div class="card">

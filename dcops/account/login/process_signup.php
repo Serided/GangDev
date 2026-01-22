@@ -77,7 +77,7 @@ $verifyUrlEsc = htmlspecialchars($verifyUrl, ENT_QUOTES, 'UTF-8');
 $nameEsc = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
 
 $fromEmail = 'company@gangdev.co';
-$fromName = 'GangDev';
+$fromName = 'GangDev / DCOPS';
 $subject = 'DCOPS - Verify your email';
 
 $headerLine = 'DCOPS is built and operated by GangDev.';

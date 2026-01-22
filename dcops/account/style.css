@@ -83,3 +83,25 @@ body {
 .signOutBtn:hover {
     background: rgba(11,18,32,.07);
 }
+
+.topActions {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.homeBtn {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(11, 18, 32, .18);
+    background: rgba(11, 18, 32, .04);
+    font: 12px/1 var(--mono);
+    color: var(--text);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.homeBtn:hover {
+    background: rgba(11, 18, 32, .07);
+}
