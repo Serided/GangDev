@@ -1,72 +1,83 @@
 <?php
-require_once '/var/www/gangdev/shared/php/init.php';
-$error = '';
-if (isset($_GET['error'])) {
-	if ($_GET['error'] == 1) {
-		$error = "Username or password invalid.";
-	}
-}
-$redirect = $_GET['redirect'] ?? '';
+require_once '/var/www/gangdev/shared/php/init_dcops.php';
+
+$error = $_GET['error'] ?? '';
+$ok = $_GET['ok'] ?? '';
 ?>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sign In</title>
-        <link href="login.css" rel="stylesheet" >
-        <?= $head ?>
-    </head>
-    <body>
-        <?= $navbar ?>
-        <div class="bgWrapper"></div>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DCOPS — Sign in</title>
 
-        <div class="loginContainer">
-            <h1>Sign In</h1>
-            <hr class="marginBoost">
+    <link rel="stylesheet" href="/login/login.css">
+    <script src="/login/login.js" defer></script>
+</head>
+<body>
 
-            <?php if ($error): ?>
-                <p style="color: red"><?= htmlspecialchars($error) ?></p>
-            <?php endif; ?>
+<div class="canvas">
+    <div class="shell">
 
-            <form method="post" action="process_signin.php">
-                <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirect) ?>">
-                <div class="margin">
-                    <label for="username">Username: </label><br>
-                    <div class="inputContainer">
-                        <input type="text" id="username" name="username" required><br>
-                    </div>
-                    <div class="forgot"><a href="../recovery/username.php">forgot username?</a></div>
-                </div>
-
-                <div>
-                    <div class="labelRow">
-                        <label for="password">Password:</label>
-                        <span id="togglePassword" onclick="togglePassword()">[Show]</span>
-                    </div>
-                    <div class="inputContainer">
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <div class="forgot"><a href="../recovery/password.php">forgot password?</a></div>
-                </div>
-
-                <div class="centeredDiv">
-                    <button type="submit" class="submit">Ya</button>
-                </div>
-            </form>
-
-            <div>
-                <label class="customCheckbox">
-                    <input type="checkbox" id="rememberMe" name="rememberMe">
-                    <span class="checkmark"></span>
-                    <label for="rememberMe" class="chex">Remember me</label>
-                </label><br>
+        <div class="top">
+            <div class="brand">
+                <div class="brandMark"><span class="dc">DC</span><span class="ops">OPS</span></div>
+                <div class="meta">account</div>
             </div>
 
-            <div class="create"><a href="signup.php?redirect=<?= $redirect ?>"> - Create A New Account - </a></div>
+            <div class="productSwitch">
+                <button class="switchBtn" type="button">other sign-ins</button>
+                <div class="pop">
+                    <a href="https://gangdev.co/login/signin.php"><span>GangDev</span><span class="badge">main</span></a>
+                    <a href="/login/signin.php"><span>DCOPS</span><span class="badge">here</span></a>
+                </div>
+            </div>
         </div>
 
-        <script src="login.js"></script>
-        <script src="https://shared.gangdev.co/js/script.js"></script>
-    </body>
+        <div class="body">
+            <h1 class="h1">Sign in</h1>
+            <p class="p">Email + password, then a code sent to your inbox.</p>
+
+            <form method="post" action="/login/process_signin.php" autocomplete="on">
+                <div class="grid" style="grid-template-columns: 1fr;">
+                    <div class="field">
+                        <div class="label">Email</div>
+                        <input class="input" name="email" required autocomplete="email" inputmode="email">
+                    </div>
+
+                    <div class="field">
+                        <div class="label">Password</div>
+                        <div class="pwWrap">
+                            <input class="input pw" type="password" name="password" required autocomplete="current-password" id="pwLogin">
+                            <button class="pwBtn" type="button" data-toggle-password="#pwLogin">show</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <button class="btn primary" type="submit">Continue</button>
+                    <div class="links">
+                        <a href="/login/signup.php">Create account</a>
+                    </div>
+                </div>
+
+                <?php if ($error !== ''): ?>
+                    <div class="error"><?= htmlspecialchars($error) ?></div>
+                <?php endif; ?>
+
+                <?php if ($ok !== ''): ?>
+                    <div class="ok"><?= htmlspecialchars($ok) ?></div>
+                <?php endif; ?>
+            </form>
+        </div>
+
+        <div class="footer">
+            <span>GangDev</span>
+            <span>DCOPS</span>
+        </div>
+
+    </div>
+</div>
+
+</body>
 </html>

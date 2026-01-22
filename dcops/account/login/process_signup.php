@@ -3,7 +3,7 @@ require_once '/var/www/gangdev/shared/php/init_dcops.php';
 require_once '/var/www/gangdev/shared/php/mailer.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-	header('Location: /signup.php');
+	header('Location: /login/signup.php');
 	exit;
 }
 
@@ -14,29 +14,29 @@ $confirm = $_POST['confirm_password'] ?? '';
 $t = trim($_POST['t'] ?? '');
 
 if ($realName === '' || $email === '' || $password === '' || $confirm === '') {
-	header('Location: /signup.php?error=' . urlencode('All fields are required.'));
+	header('Location: /login/signup.php?error=' . urlencode('All fields are required.'));
 	exit;
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-	header('Location: /signup.php?error=' . urlencode('Invalid email.'));
+	header('Location: /login/signup.php?error=' . urlencode('Invalid email.'));
 	exit;
 }
 
 $org = dcops_org_from_email($email);
 
 if ($org === null) {
-	header('Location: /signup.php?error=' . urlencode('Only @milestone.tech or @meta.com emails are allowed.'));
+	header('Location: /login/signup.php?error=' . urlencode('Only @milestone.tech or @meta.com emails are allowed.'));
 	exit;
 }
 
 if ($password !== $confirm) {
-	header('Location: /signup.php?error=' . urlencode('Passwords do not match.'));
+	header('Location: /login/signup.php?error=' . urlencode('Passwords do not match.'));
 	exit;
 }
 
 if (strlen($password) < 10) {
-	header('Location: /signup.php?error=' . urlencode('Password must be at least 10 characters.'));
+	header('Location: /login/signup.php?error=' . urlencode('Password must be at least 10 characters.'));
 	exit;
 }
 
@@ -76,7 +76,7 @@ if ($t !== '') {
 	$del->execute([$t]);
 }
 
-$verifyUrl = 'https://account.dcops.co/verify.php?token=' . urlencode($token);
+$verifyUrl = 'https://account.dcops.co/login/verify.php?token=' . urlencode($token);
 
 $fromEmail = 'company@gangdev.co';
 $fromName = 'GangDev';
@@ -132,9 +132,9 @@ $altBody =
 $sent = sendMail($fromEmail, $fromName, $email, $realName, $subject, $htmlBody, $altBody);
 
 if (!$sent) {
-	header('Location: /signup.php?error=' . urlencode('Email failed to send. Try again.'));
+	header('Location: /login/signup.php?error=' . urlencode('Email failed to send. Try again.'));
 	exit;
 }
 
-header('Location: /signup.php?ok=' . urlencode('Verification email sent. Check your inbox.'));
+header('Location: /login/signup.php?ok=' . urlencode('Verification email sent. Check your inbox.'));
 exit;
