@@ -5,13 +5,13 @@ if (isset($_GET['error'])) {
     if ($_GET['error'] == 1) {
         $error = "All fields are required.";
     } elseif ($_GET['error'] == 2) {
-	    $error = "Emails do not match.";
+        $error = "Emails do not match.";
     } elseif ($_GET['error'] == 3) {
         $error = "Passwords do not match.";
     } elseif ($_GET['error'] == 4) {
         $error = "An account with that email already exists.";
     } elseif ($_GET['error'] == 5) {
-	    $error = "An account with that display name already exists.";
+        $error = "An account with that display name already exists.";
     } elseif ($_GET['error'] == 6) {
         $error = "An error occurred. Please try again.";
     }
@@ -23,7 +23,7 @@ $redirect = $_GET['redirect'] ?? '';
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>GangDev — Create account</title>
+        <title>GangDev - Create account</title>
         <link href="login.css" rel="stylesheet" >
         <?= $head ?>
     </head>
@@ -46,10 +46,10 @@ $redirect = $_GET['redirect'] ?? '';
                         <div class="labelRow">
                             <label for="displayname">Display Name:</label>
                             <span class="tooltip">ⓘ
-                                <span class="tooltipText">
-                                    The name other players will know you by.
-                                </span>
-                            </span>
+                                        <span class="tooltipText">
+                                            The name other players will know you by.
+                                        </span>
+                                    </span>
                         </div>
                         <div class="inputContainer signup">
                             <input type="text" id="displayname" name="displayname" required>
@@ -60,10 +60,10 @@ $redirect = $_GET['redirect'] ?? '';
                         <div class="labelRow">
                             <label for="username">Username:</label>
                             <span class="tooltip">ⓘ
-                                <span class="tooltipText">
-                                    A unique identifier for you (and it helps you sign in faster).
-                                </span>
-                            </span>
+                                        <span class="tooltipText">
+                                            A unique identifier for you (and it helps you sign in faster).
+                                        </span>
+                                    </span>
                         </div>
                         <div class="inputContainer signup">
                             <input type="text" id="username" name="username" required>
@@ -76,10 +76,10 @@ $redirect = $_GET['redirect'] ?? '';
                         <div class="labelRow">
                             <label for="email">Email:</label>
                             <span class="tooltip">ⓘ
-                                <span class="tooltipText">
-                                    How we store your account.
-                                </span>
-                            </span>
+                                        <span class="tooltipText">
+                                            How we store your account.
+                                        </span>
+                                    </span>
                         </div>
                         <div class="inputContainer signup">
                             <input type="email" id="email" name="email" required>
@@ -90,10 +90,10 @@ $redirect = $_GET['redirect'] ?? '';
                             <label for="password">Password:</label>
                             <span id="togglePassword" onclick="togglePassword()">[Show]</span>
                             <span class="tooltip">ⓘ
-                                <span class="tooltipText">
-                                    The main thing making your data yours.
-                                </span>
-                            </span>
+                                        <span class="tooltipText">
+                                            The main thing making your data yours.
+                                        </span>
+                                    </span>
                         </div>
                         <div class="inputContainer signup">
                             <input type="password" id="password" name="password" required>
@@ -147,6 +147,13 @@ $redirect = $_GET['redirect'] ?? '';
                 </div>
 
                 <div class="create centeredDiv"><a href="signin.php?redirect=<?= $redirect ?>"> - Sign In - </a></div>
+
+                <div class="otherProducts">
+                    <span class="otherLabel">Other products:</span>
+                    <a href="https://account.dcops.co/login/signin.php">DCOPS Sign in</a>
+                    <span class="dot">•</span>
+                    <a href="https://account.dcops.co/login/signup.php">DCOPS Create account</a>
+                </div>
             </form>
         </div>
 

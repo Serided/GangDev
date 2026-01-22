@@ -2,9 +2,9 @@
 require_once '/var/www/gangdev/shared/php/init.php';
 $error = '';
 if (isset($_GET['error'])) {
-	if ($_GET['error'] == 1) {
-		$error = "Username or password invalid.";
-	}
+    if ($_GET['error'] == 1) {
+        $error = "Username or password invalid.";
+    }
 }
 $redirect = $_GET['redirect'] ?? '';
 ?>
@@ -13,7 +13,7 @@ $redirect = $_GET['redirect'] ?? '';
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>GangDev — Sign in</title>
+        <title>GangDev - Sign in</title>
         <link href="login.css" rel="stylesheet" >
         <?= $head ?>
     </head>
@@ -64,6 +64,13 @@ $redirect = $_GET['redirect'] ?? '';
             </div>
 
             <div class="create"><a href="signup.php?redirect=<?= $redirect ?>"> - Create A New Account - </a></div>
+
+            <div class="otherProducts">
+                <span class="otherLabel">Other products:</span>
+                <a href="https://account.dcops.co/login/signin.php">DCOPS Sign in</a>
+                <span class="dot">•</span>
+                <a href="https://account.dcops.co/login/signup.php">DCOPS Create account</a>
+            </div>
         </div>
 
         <script src="login.js"></script>

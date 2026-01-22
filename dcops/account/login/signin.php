@@ -9,7 +9,7 @@ $ok = $_GET['ok'] ?? '';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DCOPS — Sign in</title>
+    <title>DCOPS - Sign in</title>
 
     <link rel="stylesheet" href="/login/login.css">
     <script src="/login/login.js" defer></script>

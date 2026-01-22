@@ -25,7 +25,7 @@ if ($t !== '') {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DCOPS — Create account</title>
+    <title>DCOPS - Create account</title>
 
     <link rel="stylesheet" href="/login/login.css">
     <script src="/login/login.js" defer></script>
