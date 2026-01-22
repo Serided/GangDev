@@ -41,8 +41,8 @@ if ($t !== '') {
             <div class="productSwitch">
                 <button class="switchBtn" type="button">other sign-ins</button>
                 <div class="pop">
-                    <a href="https://gangdev.co/login/signin.php"><span>GangDev</span><span class="badge">main</span></a>
-                    <a href="/signin.php"><span>DCOPS</span><span class="badge">here</span></a>
+                    <a href="https://account.gangdev.co/login/signin.php"><span>GangDev</span><span class="badge">main</span></a>
+                    <a href="/login/signin.php"><span>DCOPS</span><span class="badge">here</span></a>
                 </div>
             </div>
         </div>
@@ -80,7 +80,7 @@ if ($t !== '') {
                 <div class="row">
                     <button class="btn primary" type="submit">Create account</button>
                     <div class="links">
-                        <a href="/signin.php">Sign in</a>
+                        <a href="/login/signin.php">Sign in</a>
                     </div>
                 </div>
 

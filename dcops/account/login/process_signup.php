@@ -44,7 +44,7 @@ $stmt = $pdo->prepare("SELECT 1 FROM dcops.users WHERE email = ? LIMIT 1");
 $stmt->execute([$email]);
 
 if ($stmt->fetchColumn()) {
-	header('Location: /signin.php?error=' . urlencode('Account already exists. Sign in.'));
+	header('Location: /login/signin.php?error=' . urlencode('Account already exists. Sign in.'));
 	exit;
 }
 

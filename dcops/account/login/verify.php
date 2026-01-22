@@ -4,7 +4,7 @@ require_once '/var/www/gangdev/shared/php/init_dcops.php';
 $token = trim($_GET['token'] ?? '');
 
 if ($token === '') {
-	header('Location: /signup.php?error=' . urlencode('Missing token.'));
+	header('Location: /login/signup.php?error=' . urlencode('Missing token.'));
 	exit;
 }
 
@@ -19,14 +19,14 @@ $stmt->execute([$token]);
 $pending = $stmt->fetch();
 
 if (!$pending) {
-	header('Location: /signup.php?error=' . urlencode('Invalid or expired token.'));
+	header('Location: /login/signup.php?error=' . urlencode('Invalid or expired token.'));
 	exit;
 }
 
 $org = $pending['organization'] ?? null;
 
 if ($org !== 'milestone' && $org !== 'meta') {
-	header('Location: /signup.php?error=' . urlencode('Organization not set. Contact admin.'));
+	header('Location: /login/signup.php?error=' . urlencode('Organization not set. Contact admin.'));
 	exit;
 }
 
@@ -44,7 +44,7 @@ try {
 		$del = $pdo->prepare("DELETE FROM dcops.pending_users WHERE id = ?");
 		$del->execute([$pending['id']]);
 		$pdo->commit();
-		header('Location: /signin.php?error=' . urlencode('Account already verified. Sign in.'));
+		header('Location: /login/signin.php?error=' . urlencode('Account already verified. Sign in.'));
 		exit;
 	}
 
@@ -68,9 +68,9 @@ try {
 	$pdo->commit();
 } catch (Throwable $e) {
 	$pdo->rollBack();
-	header('Location: /signup.php?error=' . urlencode('Verification failed.'));
+	header('Location: /login/signup.php?error=' . urlencode('Verification failed.'));
 	exit;
 }
 
-header('Location: /signin.php?ok=' . urlencode('Email verified. You can sign in.'));
+header('Location: /login/signin.php?ok=' . urlencode('Email verified. You can sign in.'));
 exit;

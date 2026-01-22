@@ -10,7 +10,7 @@ if (!empty($_SESSION['dcops_user_id'])) {
 }
 
 $btnText = ($u && !empty($u['real_name'])) ? $u['real_name'] : 'Sign in';
-$btnHref = ($u && !empty($u['real_name'])) ? 'https://account.dcops.co/' : 'https://account.dcops.co/signin.php';
+$btnHref = ($u && !empty($u['real_name'])) ? 'https://account.dcops.co/' : 'https://account.dcops.co/login/signin.php';
 ?>
 <!doctype html>
 <html lang="en">
