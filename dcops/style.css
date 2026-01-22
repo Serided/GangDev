@@ -141,6 +141,16 @@ body {
     border-right-width: 2px;
 }
 
+.gangdevLink {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text);
+}
+
+.gangdevLink:hover {
+    text-decoration: underline;
+}
+
 .sub {
     font-size: 12px;
     color: var(--muted);

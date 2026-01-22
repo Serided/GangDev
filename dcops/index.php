@@ -28,7 +28,9 @@ $btnHref = $isAuthed ? 'https://account.dcops.co/' : 'https://account.dcops.co/l
 
     <div class="edge edge-bottom">
         <span class="muted">built by</span>
-        <span class="credit">GangDev</span>
+        <a class="credit gangdevLink" href="https://gangdev.co" target="_blank" rel="noopener noreferrer">
+            GangDev
+        </a>
     </div>
 
     <div class="edge edge-left muted">system</div>
