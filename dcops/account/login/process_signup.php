@@ -71,13 +71,18 @@ if ($t !== '') {
 	$del->execute([$t]);
 }
 
-$verifyUrl = 'https://account.dcops.co/verify.php?token=' . urlencode($token);
+$verifyUrl = 'https://account.dcops.co/login/verify.php?token=' . urlencode($token);
+
+$verifyUrlEsc = htmlspecialchars($verifyUrl, ENT_QUOTES, 'UTF-8');
+$nameEsc = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
 
 $fromEmail = 'company@gangdev.co';
 $fromName = 'GangDev';
 $subject = 'DCOPS — Verify your email';
 
 $headerLine = 'DCOPS is built and operated by GangDev.';
+
+$headerLineEsc = htmlspecialchars($headerLine, ENT_QUOTES, 'UTF-8');
 
 $htmlBody = '
 <div style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace; background:#f7f9fc; padding:28px;">
@@ -86,17 +91,18 @@ $htmlBody = '
       <div style="font-weight:800; font-size:18px; letter-spacing:1px;">
         <span style="color:#4a0f1a;">DC</span><span style="color:#bfa14a;">OPS</span>
       </div>
-      <div style="color:rgba(11,18,32,.55); font-size:12px; margin-top:6px;">' . htmlspecialchars($headerLine) . '</div>
+      <div style="color:rgba(11,18,32,.55); font-size:12px; margin-top:6px;">' . $headerLineEsc . '</div>
     </div>
 
     <div style="padding:18px;">
-      <div style="font-size:14px; color:#0b1220;">Hi ' . htmlspecialchars($name) . ',</div>
+      <div style="font-size:14px; color:#0b1220;">Hi ' . $nameEsc . ',</div>
       <div style="margin-top:10px; color:rgba(11,18,32,.72); font-size:13px;">
         Verify your email to activate your account.
       </div>
 
       <div style="margin-top:16px;">
-        <a href="' . htmlspecialchars($verifyUrl) . '" style="display:inline-block; padding:12px 14px; border-radius:12px; border:1px solid rgba(11,18,32,.14); background:rgba(74,15,26,.06); color:#0b1220; text-decoration:none;">
+        <a href="' . $verifyUrlEsc . '" target="_blank" rel="noopener noreferrer"
+           style="display:inline-block; padding:12px 14px; border-radius:12px; border:1px solid rgba(11,18,32,.14); background:rgba(74,15,26,.06); color:#0b1220; text-decoration:none;">
           Verify email
         </a>
       </div>
@@ -105,8 +111,11 @@ $htmlBody = '
         This link expires in 60 minutes.
       </div>
 
-      <div style="margin-top:16px; padding:12px; border:1px dashed rgba(11,18,32,.18); border-radius:12px; color:rgba(11,18,32,.72); font-size:12px; word-break:break-all;">
-        ' . htmlspecialchars($verifyUrl) . '
+      <div style="margin-top:16px; padding:12px; border:1px dashed rgba(11,18,32,.18); border-radius:12px; font-size:12px; word-break:break-all;">
+        <a href="' . $verifyUrlEsc . '" target="_blank" rel="noopener noreferrer"
+           style="color:#0b1220; text-decoration:underline;">
+          ' . $verifyUrlEsc . '
+        </a>
       </div>
     </div>
 
