@@ -17,7 +17,7 @@ $org   = $_SESSION['dcops_org'] ?? '';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>DCOPS — Account</title>
 
-	<link rel="stylesheet" href="/account/style.css">
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
