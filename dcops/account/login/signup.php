@@ -52,7 +52,7 @@ if ($t !== '') {
 
         <div class="body">
             <h1>Create your account</h1>
-            <p>If you’re creating an account for work, use your company email. Otherwise, use the email you want tied to this account.</p>
+            <p>For organization access, use your work email. For personal use, use your preferred email.</p>
 
             <form method="post" action="/login/process_signup.php" autocomplete="on">
                 <input type="hidden" name="t" value="<?= htmlspecialchars($t) ?>">
