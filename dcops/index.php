@@ -1,16 +1,11 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init_dcops.php';
 
-$u = null;
+$name = $_SESSION['dcops_name'] ?? '';
+$isAuthed = isset($_SESSION['dcops_user_id']) && $name !== '';
 
-if (!empty($_SESSION['dcops_user_id'])) {
-    $u = [
-            'real_name' => $_SESSION['dcops_real_name'] ?? null,
-    ];
-}
-
-$btnText = ($u && !empty($u['real_name'])) ? $u['real_name'] : 'Sign in';
-$btnHref = ($u && !empty($u['real_name'])) ? 'https://account.dcops.co/' : 'https://account.dcops.co/login/signin.php';
+$btnText = $isAuthed ? $name : 'Sign in';
+$btnHref = $isAuthed ? 'https://account.dcops.co/' : 'https://account.dcops.co/login/signin.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -45,15 +40,15 @@ $btnHref = ($u && !empty($u['real_name'])) ? 'https://account.dcops.co/' : 'http
             <span class="corner br"></span>
 
             <div class="logo">
-            <span class="name">
-                <span class="dc">DC</span><span class="ops">OPS</span>
-            </span>
+                <span class="name">
+                    <span class="dc">DC</span><span class="ops">OPS</span>
+                </span>
             </div>
         </div>
 
         <div class="sub">awaiting definition</div>
 
-        <a class="authBtn" href="<?= htmlspecialchars($btnHref) ?>">
+        <a class="accountBtn" href="<?= htmlspecialchars($btnHref) ?>">
             <?= htmlspecialchars($btnText) ?>
         </a>
     </div>
