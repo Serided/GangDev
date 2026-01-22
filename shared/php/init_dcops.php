@@ -29,12 +29,13 @@ function is_dcops_company_email(string $email): bool
 	return dcops_org_from_email($email) !== null;
 }
 
-function dcops_org_from_email(string $email): ?string
+function dcops_org_from_email(string $email): string
 {
 	$e = strtolower(trim($email));
 
 	if (str_ends_with($e, '@milestone.tech')) return 'milestone';
 	if (str_ends_with($e, '@meta.com')) return 'meta';
 
-	return null;
+	return 'personal';
 }
+

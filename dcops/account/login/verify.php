@@ -23,10 +23,9 @@ if (!$pending) {
 	exit;
 }
 
-$org = $pending['organization'] ?? null;
-
-if ($org !== 'milestone' && $org !== 'meta') {
-	header('Location: /login/signup.php?error=' . urlencode('Organization not set. Contact admin.'));
+$org = $pending['organization'] ?? '';
+if (!in_array($org, ['milestone', 'meta', 'personal'], true)) {
+	header('Location: /login/signup.php?error=' . urlencode('Account state invalid. Contact admin.'));
 	exit;
 }
 
@@ -44,7 +43,7 @@ try {
 		$del = $pdo->prepare("DELETE FROM dcops.pending_users WHERE id = ?");
 		$del->execute([$pending['id']]);
 		$pdo->commit();
-		header('Location: /login/signin.php?error=' . urlencode('Account already verified. Sign in.'));
+		header('Location: /login/signin.php?ok=' . urlencode('Account already verified. Sign in.'));
 		exit;
 	}
 

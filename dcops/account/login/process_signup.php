@@ -7,26 +7,19 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 	exit;
 }
 
-$realName = trim($_POST['real_name'] ?? '');
+$name = trim($_POST['name'] ?? '');
 $email = strtolower(trim($_POST['email'] ?? ''));
 $password = $_POST['password'] ?? '';
 $confirm = $_POST['confirm_password'] ?? '';
 $t = trim($_POST['t'] ?? '');
 
-if ($realName === '' || $email === '' || $password === '' || $confirm === '') {
+if ($name === '' || $email === '' || $password === '' || $confirm === '') {
 	header('Location: /login/signup.php?error=' . urlencode('All fields are required.'));
 	exit;
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 	header('Location: /login/signup.php?error=' . urlencode('Invalid email.'));
-	exit;
-}
-
-$org = dcops_org_from_email($email);
-
-if ($org === null) {
-	header('Location: /login/signup.php?error=' . urlencode('Only @milestone.tech or @meta.com emails are allowed.'));
 	exit;
 }
 
@@ -48,6 +41,8 @@ if ($stmt->fetchColumn()) {
 	exit;
 }
 
+$org = dcops_org_from_email($email);
+
 $token = bin2hex(random_bytes(32));
 $expiresAt = (new DateTimeImmutable('+60 minutes'))->format('Y-m-d H:i:s');
 $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -62,13 +57,13 @@ if ($pendingId) {
         SET real_name = ?, password_hash = ?, verification_token = ?, token_expires = ?, organization = ?
         WHERE id = ?
     ");
-	$stmt->execute([$realName, $hash, $token, $expiresAt, $org, $pendingId]);
+	$stmt->execute([$name, $hash, $token, $expiresAt, $org, $pendingId]);
 } else {
 	$stmt = $pdo->prepare("
         INSERT INTO dcops.pending_users (email, real_name, password_hash, verification_token, token_expires, organization)
         VALUES (?, ?, ?, ?, ?, ?)
     ");
-	$stmt->execute([$email, $realName, $hash, $token, $expiresAt, $org]);
+	$stmt->execute([$email, $name, $hash, $token, $expiresAt, $org]);
 }
 
 if ($t !== '') {
@@ -76,11 +71,13 @@ if ($t !== '') {
 	$del->execute([$t]);
 }
 
-$verifyUrl = 'https://account.dcops.co/login/verify.php?token=' . urlencode($token);
+$verifyUrl = 'https://account.dcops.co/verify.php?token=' . urlencode($token);
 
 $fromEmail = 'company@gangdev.co';
 $fromName = 'GangDev';
 $subject = 'DCOPS — Verify your email';
+
+$headerLine = 'DCOPS is built and operated by GangDev.';
 
 $htmlBody = '
 <div style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace; background:#f7f9fc; padding:28px;">
@@ -89,15 +86,13 @@ $htmlBody = '
       <div style="font-weight:800; font-size:18px; letter-spacing:1px;">
         <span style="color:#4a0f1a;">DC</span><span style="color:#bfa14a;">OPS</span>
       </div>
-      <div style="color:rgba(11,18,32,.55); font-size:12px; margin-top:6px;">
-        Sent via GangDev on behalf of DCOPS
-      </div>
+      <div style="color:rgba(11,18,32,.55); font-size:12px; margin-top:6px;">' . htmlspecialchars($headerLine) . '</div>
     </div>
 
     <div style="padding:18px;">
-      <div style="font-size:14px; color:#0b1220;">Hi ' . htmlspecialchars($realName) . ',</div>
+      <div style="font-size:14px; color:#0b1220;">Hi ' . htmlspecialchars($name) . ',</div>
       <div style="margin-top:10px; color:rgba(11,18,32,.72); font-size:13px;">
-        Verify your email to activate your DCOPS account.
+        Verify your email to activate your account.
       </div>
 
       <div style="margin-top:16px;">
@@ -107,7 +102,7 @@ $htmlBody = '
       </div>
 
       <div style="margin-top:14px; color:rgba(11,18,32,.55); font-size:12px;">
-        Link expires in 60 minutes.
+        This link expires in 60 minutes.
       </div>
 
       <div style="margin-top:16px; padding:12px; border:1px dashed rgba(11,18,32,.18); border-radius:12px; color:rgba(11,18,32,.72); font-size:12px; word-break:break-all;">
@@ -124,12 +119,12 @@ $htmlBody = '
 
 $altBody =
 	"DCOPS — Verify your email\n\n" .
-	"Sent via GangDev on behalf of DCOPS\n\n" .
-	"Hi {$realName},\n\n" .
-	"Verify your email to activate your DCOPS account:\n{$verifyUrl}\n\n" .
-	"Link expires in 60 minutes.\n";
+	$headerLine . "\n\n" .
+	"Hi {$name},\n\n" .
+	"Verify your email to activate your account:\n{$verifyUrl}\n\n" .
+	"This link expires in 60 minutes.\n";
 
-$sent = sendMail($fromEmail, $fromName, $email, $realName, $subject, $htmlBody, $altBody);
+$sent = sendMail($fromEmail, $fromName, $email, $name, $subject, $htmlBody, $altBody);
 
 if (!$sent) {
 	header('Location: /login/signup.php?error=' . urlencode('Email failed to send. Try again.'));

@@ -44,15 +44,15 @@ if ($t !== '') {
             <div class="productSwitch">
                 <button class="switchBtn" type="button">other sign-ins</button>
                 <div class="pop">
-                    <a href="https://gangdev.co/login/signin.php"><span>GangDev</span><span class="badge">main</span></a>
+                    <a href="https://account.gangdev.co/login/"><span>GangDev</span><span class="badge">main</span></a>
                     <a href="/login/signin.php"><span>DCOPS</span><span class="badge">here</span></a>
                 </div>
             </div>
         </div>
 
         <div class="body">
-            <h1 class="h1">Create your account</h1>
-            <p class="p">Use the email tied to the org you’re signing up under.</p>
+            <h1>Create your account</h1>
+            <p>If you’re creating an account for work, use your company email. Otherwise, use the email you want tied to this account.</p>
 
             <form method="post" action="/login/process_signup.php" autocomplete="on">
                 <input type="hidden" name="t" value="<?= htmlspecialchars($t) ?>">
@@ -60,16 +60,16 @@ if ($t !== '') {
                 <div class="grid">
                     <div class="field" style="grid-column: 1 / -1;">
                         <div class="label">Name</div>
-                        <input class="input" name="real_name" value="<?= htmlspecialchars($prefill['name']) ?>" required autocomplete="name">
+                        <input class="input" name="name" value="<?= htmlspecialchars($prefill['name']) ?>" required autocomplete="name">
                     </div>
 
                     <div class="field" style="grid-column: 1 / -1;">
                         <div class="labelRow">
                             <div class="label">Email</div>
                             <div class="hint">
-                                <button class="hintBtn" type="button" aria-label="Email help">?</button>
+                                <button class="hintBtn" type="button" aria-label="Why email matters">?</button>
                                 <div class="hintPop">
-                                    If you’re signing up for Milestone or Meta access, use your company email so we can map you to the correct org.
+                                    This helps associate your account with the correct organization and access level.
                                 </div>
                             </div>
                         </div>

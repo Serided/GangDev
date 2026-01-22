@@ -28,15 +28,15 @@ $ok = $_GET['ok'] ?? '';
             <div class="productSwitch">
                 <button class="switchBtn" type="button">other sign-ins</button>
                 <div class="pop">
-                    <a href="https://gangdev.co/login/signin.php"><span>GangDev</span><span class="badge">main</span></a>
+                    <a href="https://account.gangdev.co/login/"><span>GangDev</span><span class="badge">main</span></a>
                     <a href="/login/signin.php"><span>DCOPS</span><span class="badge">here</span></a>
                 </div>
             </div>
         </div>
 
         <div class="body">
-            <h1 class="h1">Sign in</h1>
-            <p class="p">Email + password, then a code sent to your inbox.</p>
+            <h1>Sign in</h1>
+            <p>Secure sign-in. Verification may be required.</p>
 
             <form method="post" action="/login/process_signin.php" autocomplete="on">
                 <div class="grid" style="grid-template-columns: 1fr;">
