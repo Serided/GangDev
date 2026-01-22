@@ -1,3 +1,17 @@
+<?php
+require_once '/var/www/gangdev/shared/php/init_dcops.php';
+
+$u = null;
+
+if (!empty($_SESSION['dcops_user_id'])) {
+    $u = [
+            'real_name' => $_SESSION['dcops_real_name'] ?? null,
+    ];
+}
+
+$btnText = ($u && !empty($u['real_name'])) ? $u['real_name'] : 'Sign in';
+$btnHref = ($u && !empty($u['real_name'])) ? 'https://account.dcops.co/' : 'https://account.dcops.co/signin.php';
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,13 +45,17 @@
             <span class="corner br"></span>
 
             <div class="logo">
-          <span class="name">
-            <span class="dc">DC</span><span class="ops">OPS</span>
-          </span>
+            <span class="name">
+                <span class="dc">DC</span><span class="ops">OPS</span>
+            </span>
             </div>
         </div>
 
         <div class="sub">awaiting definition</div>
+
+        <a class="authBtn" href="<?= htmlspecialchars($btnHref) ?>">
+            <?= htmlspecialchars($btnText) ?>
+        </a>
     </div>
 
 </div>
