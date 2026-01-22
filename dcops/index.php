@@ -46,7 +46,7 @@ $btnHref = $isAuthed ? 'https://account.dcops.co/' : 'https://account.dcops.co/l
             </div>
         </div>
 
-        <div class="sub">awaiting definition</div>
+        <div class="sub">awaiting purpose #relatable</div>
 
         <a class="accountBtn" href="<?= htmlspecialchars($btnHref) ?>">
             <?= htmlspecialchars($btnText) ?>
