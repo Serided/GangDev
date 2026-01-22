@@ -232,32 +232,3 @@ form label {
     transform: scale(1.05);
     font-weight: bold;
 }
-
-.otherProducts {
-    margin: calc(var(--scaling) * 0.2) 0 calc(var(--scaling) * 0.5) 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: calc(var(--scaling) * 0.25);
-    flex-wrap: wrap;
-}
-
-.otherLabel {
-    font-size: calc(var(--scaling) * 0.45);
-    color: rgba(0, 0, 0, .75);
-}
-
-.otherProducts a {
-    font-size: calc(var(--scaling) * 0.45) !important;
-    color: black;
-    text-decoration: underline;
-}
-
-.otherProducts a:hover {
-    opacity: 0.8;
-}
-
-.dot {
-    font-size: calc(var(--scaling) * 0.45);
-    opacity: 0.55;
-}
