@@ -14,17 +14,22 @@ if ($userId <= 0) {
 	exit;
 }
 
-if (!preg_match('/^\d{6}$/', $code)) {
+if ($code === '' || !preg_match('/^\d{6}$/', $code)) {
 	header('Location: /login/verify_login.php?error=' . urlencode('Enter a valid 6-digit code.'));
 	exit;
 }
 
+if (!isset($pdo)) {
+	header('Location: /login/signin.php?error=' . urlencode('Server error.'));
+	exit;
+}
+
 $stmt = $pdo->prepare("
-    SELECT id, code_hash, expires_at
-    FROM dcops.login_otps
-    WHERE user_id = ?
-    ORDER BY created_at DESC
-    LIMIT 1
+	SELECT user_id, code_hash, expires_at
+	FROM dcops.login_otps
+	WHERE user_id = ?
+	ORDER BY expires_at DESC
+	LIMIT 1
 ");
 $stmt->execute([$userId]);
 $otp = $stmt->fetch();
@@ -42,10 +47,10 @@ if (!password_verify($code, $otp['code_hash'])) {
 $pdo->prepare("DELETE FROM dcops.login_otps WHERE user_id = ?")->execute([$userId]);
 
 $stmt = $pdo->prepare("
-    SELECT id, email, real_name, organization, admin_rank, trust_state, effective_rank
-    FROM dcops.users
-    WHERE id = ?
-    LIMIT 1
+	SELECT id, email, real_name, organization, admin_rank, trust_state, effective_rank
+	FROM dcops.users
+	WHERE id = ?
+	LIMIT 1
 ");
 $stmt->execute([$userId]);
 $user = $stmt->fetch();
@@ -67,11 +72,11 @@ $_SESSION['dcops_effective_rank'] = (int)$user['effective_rank'];
 
 $org = $_SESSION['dcops_org'] ?? 'personal';
 
-$host = match ($org) {
+$target = match ($org) {
 	'milestone' => 'https://dashboard.milestone.dcops.co',
-	'meta'      => 'https://dashboard.meta.dcops.co',
-	default     => 'https://dashboard.dcops.co',
+	'meta' => 'https://dashboard.meta.dcops.co',
+	default => 'https://dashboard.dcops.co',
 };
 
-header('Location: ' . $host . '/');
+header('Location: ' . $target . '/');
 exit;

@@ -1,146 +1,162 @@
 .updatesBody{
-    overflow: hidden;
+    overflow:hidden;
 }
 
-.updatesBody footer,
-.updatesBody .footer{
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 50;
+.updatesShell{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+    padding-bottom:var(--footerH, 0px);
 }
 
 .updatesPage{
-    padding-bottom: calc(var(--scaling) * 3.2);
-    text-align: center;
+    flex:1 1 auto;
+    min-height:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+#updatesFooterWrap{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:9999;
 }
 
 .updatesInner{
-    width: 100%;
-    max-width: calc(var(--scaling) * 40);
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--scaling) * 0.9);
+    width:100%;
+    max-width:calc(var(--scaling) * 44);
+    display:flex;
+    flex-direction:column;
+    gap:calc(var(--scaling) * 1);
 }
 
 .updatesTop h1{
-    font-size: calc(var(--scaling) * 2.2);
-    font-weight: normal;
-    letter-spacing: calc(var(--scaling) * 0.01);
-    margin: 0;
+    font-size:calc(var(--scaling) * 2.4);
+    font-weight:normal;
+    margin:0;
 }
 
 .updatesHintTop{
-    margin-top: calc(var(--scaling) * 0.35);
-    font-size: calc(var(--scaling) * 0.55);
-    opacity: 0.8;
+    margin-top:calc(var(--scaling) * 0.35);
+    font-size:calc(var(--scaling) * 0.55);
+    opacity:0.8;
 }
 
 .updatesFrame{
-    width: 100%;
-    border-radius: calc(var(--scaling) * 0.6);
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.18);
-    box-shadow: 0 18px 40px rgba(0,0,0,0.28);
-    padding: calc(var(--scaling) * 0.7) 0;
-    overflow: hidden;
+    width:100%;
+    border-radius:calc(var(--scaling) * 0.6);
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.18);
+    box-shadow:0 18px 40px rgba(0,0,0,0.28);
+    padding:calc(var(--scaling) * 0.8) 0;
+    overflow:hidden;
+}
+
+:root{
+    --railInset: calc(var(--scaling) * 1.6);
 }
 
 .updatesRail{
     display:flex;
-    gap: calc(var(--scaling) * 0.6);
-    padding: 0;
+    gap:calc(var(--scaling) * 0.7);
+    padding:0 var(--railInset);
     overflow-x:auto;
     overflow-y:hidden;
-    scroll-snap-type:x mandatory;
-    scroll-behavior:smooth;
     overscroll-behavior-x:contain;
-    cursor: grab;
+    scroll-behavior:smooth;
+    cursor:grab;
+
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--railInset);
+
+    touch-action:none;
 }
 
-.updatesRail:active{
-    cursor: grabbing;
+.updatesRail.isDragging{
+    cursor:grabbing;
+    scroll-behavior:auto;
 }
 
-.uSpacer{
-    flex: 0 0 calc(var(--scaling) * 1.4);
+.updatesRail.isDragging,
+.updatesRail.isDragging *{
+    user-select:none !important;
 }
 
 .uCard{
-    flex: 0 0 calc(100% - (var(--scaling) * 7.2));
-    scroll-snap-align: start;
-    border-radius: calc(var(--scaling) * 0.55);
-    background: rgba(0,0,0,0.18);
-    border: 1px solid rgba(255,255,255,0.14);
-    padding: calc(var(--scaling) * 0.8);
-    text-align: left;
+    flex:0 0 calc(100% - (var(--scaling) * 7));
+    border-radius:calc(var(--scaling) * 0.55);
+    background:rgba(0,0,0,0.18);
+    border:1px solid rgba(255,255,255,0.14);
+    padding:calc(var(--scaling) * 0.85);
+    text-align:left;
+    scroll-snap-align:start;
 }
 
 .uCard.active{
-    border-color: rgba(255,255,255,0.28);
-    box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+    border-color:rgba(255,255,255,0.28);
+    box-shadow:0 10px 22px rgba(0,0,0,0.25);
 }
 
 .uHead{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: calc(var(--scaling) * 0.6);
-    font-size: calc(var(--scaling) * 0.55);
-    opacity: 0.95;
-    margin-bottom: calc(var(--scaling) * 0.5);
-}
-
-.uStamp{
-    letter-spacing: calc(var(--scaling) * 0.01);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:calc(var(--scaling) * 0.6);
+    font-size:calc(var(--scaling) * 0.58);
+    opacity:0.95;
+    margin-bottom:calc(var(--scaling) * 0.55);
 }
 
 .uVer{
-    padding: calc(var(--scaling) * 0.12) calc(var(--scaling) * 0.45);
-    border-radius: calc(var(--scaling) * 0.7);
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.08);
-    font-size: calc(var(--scaling) * 0.52);
+    padding:calc(var(--scaling) * 0.14) calc(var(--scaling) * 0.5);
+    border-radius:calc(var(--scaling) * 0.7);
+    border:1px solid rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.08);
+    font-size:calc(var(--scaling) * 0.55);
 }
 
 .uTitle{
-    font-size: calc(var(--scaling) * 1.05);
-    font-weight: normal;
-    margin: 0 0 calc(var(--scaling) * 0.55);
+    font-size:calc(var(--scaling) * 1.1);
+    font-weight:normal;
+    margin:0 0 calc(var(--scaling) * 0.65);
 }
 
 .uBlock{
-    margin-top: calc(var(--scaling) * 0.55);
-    padding-top: calc(var(--scaling) * 0.45);
-    border-top: 1px solid rgba(255,255,255,0.12);
+    margin-top:calc(var(--scaling) * 0.65);
+    padding-top:calc(var(--scaling) * 0.55);
+    border-top:1px solid rgba(255,255,255,0.12);
 }
 
 .uLabel{
-    font-size: calc(var(--scaling) * 0.5);
-    letter-spacing: calc(var(--scaling) * 0.08);
-    opacity: 0.75;
-    text-transform: uppercase;
-    margin-bottom: calc(var(--scaling) * 0.25);
+    font-size:calc(var(--scaling) * 0.52);
+    letter-spacing:calc(var(--scaling) * 0.08);
+    opacity:0.75;
+    text-transform:uppercase;
+    margin-bottom:calc(var(--scaling) * 0.3);
 }
 
 .uList{
-    padding-left: calc(var(--scaling) * 1);
-    font-size: calc(var(--scaling) * 0.7);
-    opacity: 0.95;
-    margin: 0;
+    padding-left:calc(var(--scaling) * 1);
+    font-size:calc(var(--scaling) * 0.72);
+    opacity:0.95;
+    margin:0;
 }
 
 .uText{
-    font-size: calc(var(--scaling) * 0.7);
-    opacity: 0.95;
-    margin: 0;
+    font-size:calc(var(--scaling) * 0.72);
+    opacity:0.95;
+    margin:0;
 }
 
 .updatesRail::-webkit-scrollbar{
-    height: calc(var(--scaling) * 0.25);
+    height:calc(var(--scaling) * 0.28);
 }
 .updatesRail::-webkit-scrollbar-thumb{
-    background: rgba(255,255,255,0.25);
-    border-radius: 999px;
+    background:rgba(255,255,255,0.25);
+    border-radius:999px;
 }
