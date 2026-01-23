@@ -17,36 +17,23 @@ if (session_status() === PHP_SESSION_NONE) {
 	session_start();
 }
 
-$autoloadPaths = [
-	__DIR__ . '/../lib/composer/vendor/autoload.php',
-	__DIR__ . '/../../lib/composer/vendor/autoload.php',
-	'/var/www/gangdev/lib/composer/vendor/autoload.php',
-];
-
-foreach ($autoloadPaths as $p) {
-	if (is_file($p)) {
-		require_once $p;
-		break;
-	}
+$autoload = '/var/www/gangdev/lib/composer/vendor/autoload.php';
+if (is_file($autoload)) {
+	require $autoload;
 }
 
 if (class_exists('Dotenv\\Dotenv')) {
-	$dotenvRoots = [
-		__DIR__ . '/../',
-		__DIR__ . '/../../',
+	$roots = [
 		'/var/www/gangdev/shared',
 		'/var/www/gangdev',
 	];
 
-	foreach ($dotenvRoots as $root) {
-		$envPath = rtrim($root, '/');
-		if (is_file($envPath . '/.env')) {
-			Dotenv\Dotenv::createImmutable($envPath)->safeLoad();
+	foreach ($roots as $root) {
+		if (is_file($root . '/.env')) {
+			Dotenv\Dotenv::createImmutable($root)->safeLoad();
 		}
 	}
 }
-
-$pdo = $pdo ?? null;
 
 $pgUser = $_ENV['PG_USER'] ?? getenv('PG_USER') ?? '';
 $pgHost = $_ENV['PG_HOST'] ?? getenv('PG_HOST') ?? '';
@@ -54,33 +41,27 @@ $pgDb = $_ENV['PG_DATABASE'] ?? getenv('PG_DATABASE') ?? '';
 $pgPass = $_ENV['PG_PASSWORD'] ?? getenv('PG_PASSWORD') ?? '';
 $pgPort = $_ENV['PG_PORT'] ?? getenv('PG_PORT') ?? '5432';
 
-$dbHost = $_ENV['DB_HOST'] ?? getenv('DB_HOST') ?? '';
-$dbPort = $_ENV['DB_PORT'] ?? getenv('DB_PORT') ?? '';
-$dbName = $_ENV['DB_NAME'] ?? getenv('DB_NAME') ?? '';
-$dbUser = $_ENV['DB_USER'] ?? getenv('DB_USER') ?? '';
-$dbPass = $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD') ?? '';
+$pgHost = trim((string)$pgHost);
+$pgDb = trim((string)$pgDb);
+$pgUser = trim((string)$pgUser);
+$pgPort = trim((string)$pgPort);
 
-if (!($pdo instanceof PDO)) {
-	if ($pgHost !== '' && $pgDb !== '' && $pgUser !== '') {
-		$dsn = "pgsql:host={$pgHost};port={$pgPort};dbname={$pgDb}";
-		$pdo = new PDO($dsn, $pgUser, $pgPass, [
-			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-		]);
-	} elseif ($dbHost !== '' && $dbName !== '' && $dbUser !== '') {
-		$p = $dbPort !== '' ? $dbPort : '5432';
-		$dsn = "pgsql:host={$dbHost};port={$p};dbname={$dbName}";
-		$pdo = new PDO($dsn, $dbUser, $dbPass, [
-			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-		]);
-	}
-}
+$invalidHost = ($pgHost === '') || str_contains($pgHost, '=') || str_contains($pgHost, ';') || str_contains($pgHost, ' ');
+$invalidDb = ($pgDb === '') || str_contains($pgDb, '=') || str_contains($pgDb, ';') || str_contains($pgDb, ' ');
+$invalidUser = ($pgUser === '') || str_contains($pgUser, '=') || str_contains($pgUser, ';') || str_contains($pgUser, ' ');
+$invalidPort = ($pgPort === '') || !ctype_digit($pgPort);
 
-if (!($pdo instanceof PDO)) {
+if ($invalidHost || $invalidDb || $invalidUser || $invalidPort) {
 	http_response_code(500);
 	exit;
 }
+
+$dsn = "pgsql:host={$pgHost};port={$pgPort};dbname={$pgDb}";
+
+$pdo = new PDO($dsn, $pgUser, (string)$pgPass, [
+	PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+	PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+]);
 
 function dcops_redirect(string $url, int $code = 302): void {
 	header('Location: ' . $url, true, $code);
