@@ -2,12 +2,17 @@
     overflow:hidden;
 }
 
+:root{
+    --railInset: calc(var(--scaling) * 1.6);
+    --footerGap: calc(var(--scaling) * 1.4);
+}
+
 .updatesShell{
     height:100vh;
     display:flex;
     flex-direction:column;
     min-height:0;
-    padding-bottom:var(--footerH, 0px);
+    padding-bottom: calc(var(--footerH, 0px) + var(--footerGap));
 }
 
 .updatesPage{
@@ -57,10 +62,6 @@
     overflow:hidden;
 }
 
-:root{
-    --railInset: calc(var(--scaling) * 1.6);
-}
-
 .updatesRail{
     display:flex;
     gap:calc(var(--scaling) * 0.7);
@@ -70,10 +71,8 @@
     overscroll-behavior-x:contain;
     scroll-behavior:smooth;
     cursor:grab;
-
-    scroll-snap-type: x mandatory;
-    scroll-padding-left: var(--railInset);
-
+    scroll-snap-type:x mandatory;
+    scroll-padding-left:var(--railInset);
     touch-action:none;
 }
 
@@ -113,11 +112,12 @@
 }
 
 .uVer{
-    padding:calc(var(--scaling) * 0.14) calc(var(--scaling) * 0.5);
-    border-radius:calc(var(--scaling) * 0.7);
-    border:1px solid rgba(255,255,255,0.2);
-    background:rgba(255,255,255,0.08);
-    font-size:calc(var(--scaling) * 0.55);
+    padding:calc(var(--scaling) * 0.16) calc(var(--scaling) * 0.62);
+    border-radius:calc(var(--scaling) * 0.8);
+    border:1px solid rgba(255,255,255,0.22);
+    background:rgba(255,255,255,0.10);
+    font-size:calc(var(--scaling) * 0.56);
+    letter-spacing:calc(var(--scaling) * 0.02);
 }
 
 .uTitle{
@@ -134,7 +134,7 @@
 
 .uLabel{
     font-size:calc(var(--scaling) * 0.52);
-    letter-spacing:calc(var(--scaling) * 0.08);
+    letter-spacing:calc(var(--scaling) * 0.10);
     opacity:0.75;
     text-transform:uppercase;
     margin-bottom:calc(var(--scaling) * 0.3);
