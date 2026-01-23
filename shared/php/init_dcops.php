@@ -17,32 +17,16 @@ if (session_status() === PHP_SESSION_NONE) {
 	session_start();
 }
 
-$pdo = $pdo ?? null;
-
-$dcopsDbPaths = [
-	'/var/www/gangdev/shared/php/db.php',
-	'/var/www/gangdev/shared/db.php',
-	'/var/www/gangdev/dcops/php/db.php',
-	'/var/www/gangdev/dcops/account/php/db.php',
-];
-
-foreach ($dcopsDbPaths as $p) {
-	if (is_file($p)) {
-		require_once $p;
-		if (isset($pdo) && ($pdo instanceof PDO)) {
-			break;
-		}
-	}
-}
-
-function dcops_env_load(string $path): void {
+function dcops_env_load_file(string $path): void {
 	if (!is_file($path) || !is_readable($path)) return;
+
 	$lines = file($path, FILE_IGNORE_NEW_LINES);
 	if (!$lines) return;
 
 	foreach ($lines as $line) {
 		$line = trim($line);
 		if ($line === '' || str_starts_with($line, '#')) continue;
+
 		$pos = strpos($line, '=');
 		if ($pos === false) continue;
 
@@ -62,15 +46,18 @@ function dcops_env_load(string $path): void {
 	}
 }
 
-if (!isset($pdo) || !($pdo instanceof PDO)) {
-	dcops_env_load('/var/www/gangdev/shared/.env');
+dcops_env_load_file('/var/www/gangdev/shared/.env');
+dcops_env_load_file('/var/www/gangdev/.env');
 
-	$pgUser = getenv('PG_USER') ?: '';
-	$pgHost = getenv('PG_HOST') ?: '';
-	$pgDb = getenv('PG_DATABASE') ?: '';
-	$pgPass = getenv('PG_PASSWORD') ?: '';
-	$pgPort = getenv('PG_PORT') ?: '5432';
+$pdo = $pdo ?? null;
 
+$pgUser = getenv('PG_USER') ?: '';
+$pgHost = getenv('PG_HOST') ?: '';
+$pgDb = getenv('PG_DATABASE') ?: '';
+$pgPass = getenv('PG_PASSWORD') ?: '';
+$pgPort = getenv('PG_PORT') ?: '5432';
+
+if (!($pdo instanceof PDO)) {
 	if ($pgUser !== '' && $pgHost !== '' && $pgDb !== '') {
 		$dsn = "pgsql:host={$pgHost};port={$pgPort};dbname={$pgDb}";
 		$pdo = new PDO($dsn, $pgUser, $pgPass, [
@@ -78,11 +65,6 @@ if (!isset($pdo) || !($pdo instanceof PDO)) {
 			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 		]);
 	}
-}
-
-if (!isset($pdo) || !($pdo instanceof PDO)) {
-	http_response_code(500);
-	exit;
 }
 
 function dcops_redirect(string $url, int $code = 302): void {
