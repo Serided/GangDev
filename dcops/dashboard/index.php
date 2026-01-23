@@ -19,7 +19,7 @@ dcops_require_milestone();
 	<h1>Milestone</h1>
 
 	<div class="tiles">
-		<a class="tile primary" href="/milestone/uco/">UCO</a>
+		<a class="tile primary" href="">UCO</a>
 		<div class="tile disabled">EAG</div>
 		<div class="tile disabled">SCU</div>
 	</div>
