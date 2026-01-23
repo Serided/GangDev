@@ -65,5 +65,13 @@ $_SESSION['dcops_admin_rank'] = (int)$user['admin_rank'];
 $_SESSION['dcops_trust_state'] = (int)$user['trust_state'];
 $_SESSION['dcops_effective_rank'] = (int)$user['effective_rank'];
 
-header('Location: https://dcops.co/');
+$org = $_SESSION['dcops_org'] ?? 'personal';
+
+$host = match ($org) {
+	'milestone' => 'https://dashboard.milestone.dcops.co',
+	'meta'      => 'https://dashboard.meta.dcops.co',
+	default     => 'https://dashboard.dcops.co',
+};
+
+header('Location: ' . $host . '/');
 exit;

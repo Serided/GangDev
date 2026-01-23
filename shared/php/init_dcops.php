@@ -14,6 +14,36 @@ session_set_cookie_params([
 
 if (session_status() == PHP_SESSION_NONE) session_start();
 
+function dcops_dashboard_base_for_org(string $org): string {
+	return match ($org) {
+		'milestone' => 'dashboard.milestone.dcops.co',
+		'meta'      => 'dashboard.meta.dcops.co',
+		default     => 'dashboard.dcops.co',
+	};
+}
+
+function dcops_enforce_org_dashboard_host(): void {
+	if (!isset($_SESSION['dcops_user_id'])) return;
+
+	$org = $_SESSION['dcops_org'] ?? 'personal';
+	$expected = dcops_dashboard_base_for_org($org);
+
+	$host = strtolower($_SERVER['HTTP_HOST'] ?? '');
+	$path = $_SERVER['REQUEST_URI'] ?? '/';
+
+	// Only enforce when user is on any dashboard host
+	$isDashboard = str_starts_with($host, 'dashboard.');
+	if (!$isDashboard) return;
+
+	if ($host !== $expected) {
+		$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'https';
+		header('Location: ' . $scheme . '://' . $expected . $path, true, 302);
+		exit;
+	}
+}
+
+dcops_enforce_org_dashboard_host();
+
 require __DIR__ . '/../lib/composer/vendor/autoload.php';
 
 use Dotenv\Dotenv;
