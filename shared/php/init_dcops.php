@@ -17,40 +17,54 @@ if (session_status() === PHP_SESSION_NONE) {
 	session_start();
 }
 
-if (!function_exists('dcops_env_load')) {
-	function dcops_env_load(string $path): void {
-		if (!is_file($path) || !is_readable($path)) return;
-		$lines = file($path, FILE_IGNORE_NEW_LINES);
-		if (!$lines) return;
+$pdo = $pdo ?? null;
 
-		foreach ($lines as $line) {
-			$line = trim($line);
-			if ($line === '') continue;
-			if (str_starts_with($line, '#')) continue;
+$dcopsDbPaths = [
+	'/var/www/gangdev/shared/php/db.php',
+	'/var/www/gangdev/shared/db.php',
+	'/var/www/gangdev/dcops/php/db.php',
+	'/var/www/gangdev/dcops/account/php/db.php',
+];
 
-			$pos = strpos($line, '=');
-			if ($pos === false) continue;
-
-			$key = trim(substr($line, 0, $pos));
-			$val = trim(substr($line, $pos + 1));
-
-			if ($key === '') continue;
-
-			if ((str_starts_with($val, '"') && str_ends_with($val, '"')) || (str_starts_with($val, "'") && str_ends_with($val, "'"))) {
-				$val = substr($val, 1, -1);
-			}
-
-			if (getenv($key) === false) {
-				putenv($key . '=' . $val);
-				$_ENV[$key] = $val;
-			}
+foreach ($dcopsDbPaths as $p) {
+	if (is_file($p)) {
+		require_once $p;
+		if (isset($pdo) && ($pdo instanceof PDO)) {
+			break;
 		}
 	}
 }
 
-dcops_env_load(__DIR__ . '/../.env');
+function dcops_env_load(string $path): void {
+	if (!is_file($path) || !is_readable($path)) return;
+	$lines = file($path, FILE_IGNORE_NEW_LINES);
+	if (!$lines) return;
+
+	foreach ($lines as $line) {
+		$line = trim($line);
+		if ($line === '' || str_starts_with($line, '#')) continue;
+		$pos = strpos($line, '=');
+		if ($pos === false) continue;
+
+		$key = trim(substr($line, 0, $pos));
+		$val = trim(substr($line, $pos + 1));
+
+		if ($key === '') continue;
+
+		if ((str_starts_with($val, '"') && str_ends_with($val, '"')) || (str_starts_with($val, "'") && str_ends_with($val, "'"))) {
+			$val = substr($val, 1, -1);
+		}
+
+		if (getenv($key) === false) {
+			putenv($key . '=' . $val);
+			$_ENV[$key] = $val;
+		}
+	}
+}
 
 if (!isset($pdo) || !($pdo instanceof PDO)) {
+	dcops_env_load('/var/www/gangdev/shared/.env');
+
 	$pgUser = getenv('PG_USER') ?: '';
 	$pgHost = getenv('PG_HOST') ?: '';
 	$pgDb = getenv('PG_DATABASE') ?: '';
@@ -64,6 +78,11 @@ if (!isset($pdo) || !($pdo instanceof PDO)) {
 			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 		]);
 	}
+}
+
+if (!isset($pdo) || !($pdo instanceof PDO)) {
+	http_response_code(500);
+	exit;
 }
 
 function dcops_redirect(string $url, int $code = 302): void {

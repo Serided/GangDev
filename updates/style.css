@@ -4,7 +4,7 @@
 
 :root{
     --railInset: calc(var(--scaling) * 1.6);
-    --footerGap: calc(var(--scaling) * 1.4);
+    --footerGap: calc(var(--scaling) * 3.0);
 }
 
 .updatesShell{

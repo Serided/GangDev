@@ -53,7 +53,7 @@ if(rail&&frame){
 
         accum+=delta;
         if(Math.abs(accum)>=THRESH){
-            const dir=accum>0?1:-1;
+            const dir=accum>0?-1:1;
             accum=0;
             lock=true;
             const cur=closestIndex();
