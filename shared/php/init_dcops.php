@@ -17,54 +17,69 @@ if (session_status() === PHP_SESSION_NONE) {
 	session_start();
 }
 
-function dcops_env_load_file(string $path): void {
-	if (!is_file($path) || !is_readable($path)) return;
+$autoloadPaths = [
+	__DIR__ . '/../lib/composer/vendor/autoload.php',
+	__DIR__ . '/../../lib/composer/vendor/autoload.php',
+	'/var/www/gangdev/lib/composer/vendor/autoload.php',
+];
 
-	$lines = file($path, FILE_IGNORE_NEW_LINES);
-	if (!$lines) return;
+foreach ($autoloadPaths as $p) {
+	if (is_file($p)) {
+		require_once $p;
+		break;
+	}
+}
 
-	foreach ($lines as $line) {
-		$line = trim($line);
-		if ($line === '' || str_starts_with($line, '#')) continue;
+if (class_exists('Dotenv\\Dotenv')) {
+	$dotenvRoots = [
+		__DIR__ . '/../',
+		__DIR__ . '/../../',
+		'/var/www/gangdev/shared',
+		'/var/www/gangdev',
+	];
 
-		$pos = strpos($line, '=');
-		if ($pos === false) continue;
-
-		$key = trim(substr($line, 0, $pos));
-		$val = trim(substr($line, $pos + 1));
-
-		if ($key === '') continue;
-
-		if ((str_starts_with($val, '"') && str_ends_with($val, '"')) || (str_starts_with($val, "'") && str_ends_with($val, "'"))) {
-			$val = substr($val, 1, -1);
-		}
-
-		if (getenv($key) === false) {
-			putenv($key . '=' . $val);
-			$_ENV[$key] = $val;
+	foreach ($dotenvRoots as $root) {
+		$envPath = rtrim($root, '/');
+		if (is_file($envPath . '/.env')) {
+			Dotenv\Dotenv::createImmutable($envPath)->safeLoad();
 		}
 	}
 }
 
-dcops_env_load_file('/var/www/gangdev/shared/.env');
-dcops_env_load_file('/var/www/gangdev/.env');
-
 $pdo = $pdo ?? null;
 
-$pgUser = getenv('PG_USER') ?: '';
-$pgHost = getenv('PG_HOST') ?: '';
-$pgDb = getenv('PG_DATABASE') ?: '';
-$pgPass = getenv('PG_PASSWORD') ?: '';
-$pgPort = getenv('PG_PORT') ?: '5432';
+$pgUser = $_ENV['PG_USER'] ?? getenv('PG_USER') ?? '';
+$pgHost = $_ENV['PG_HOST'] ?? getenv('PG_HOST') ?? '';
+$pgDb = $_ENV['PG_DATABASE'] ?? getenv('PG_DATABASE') ?? '';
+$pgPass = $_ENV['PG_PASSWORD'] ?? getenv('PG_PASSWORD') ?? '';
+$pgPort = $_ENV['PG_PORT'] ?? getenv('PG_PORT') ?? '5432';
+
+$dbHost = $_ENV['DB_HOST'] ?? getenv('DB_HOST') ?? '';
+$dbPort = $_ENV['DB_PORT'] ?? getenv('DB_PORT') ?? '';
+$dbName = $_ENV['DB_NAME'] ?? getenv('DB_NAME') ?? '';
+$dbUser = $_ENV['DB_USER'] ?? getenv('DB_USER') ?? '';
+$dbPass = $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD') ?? '';
 
 if (!($pdo instanceof PDO)) {
-	if ($pgUser !== '' && $pgHost !== '' && $pgDb !== '') {
+	if ($pgHost !== '' && $pgDb !== '' && $pgUser !== '') {
 		$dsn = "pgsql:host={$pgHost};port={$pgPort};dbname={$pgDb}";
 		$pdo = new PDO($dsn, $pgUser, $pgPass, [
 			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 		]);
+	} elseif ($dbHost !== '' && $dbName !== '' && $dbUser !== '') {
+		$p = $dbPort !== '' ? $dbPort : '5432';
+		$dsn = "pgsql:host={$dbHost};port={$p};dbname={$dbName}";
+		$pdo = new PDO($dsn, $dbUser, $dbPass, [
+			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+			PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+		]);
 	}
+}
+
+if (!($pdo instanceof PDO)) {
+	http_response_code(500);
+	exit;
 }
 
 function dcops_redirect(string $url, int $code = 302): void {
