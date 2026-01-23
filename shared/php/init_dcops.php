@@ -10,57 +10,36 @@ session_set_cookie_params([
 	'domain' => '.dcops.co',
 	'secure' => true,
 	'httponly' => true,
-	'samesite' => 'Lax',
+	'samesite' => 'Lax'
 ]);
 
-if (session_status() === PHP_SESSION_NONE) {
-	session_start();
-}
+if (session_status() === PHP_SESSION_NONE) session_start();
 
-$autoload = '/var/www/gangdev/lib/composer/vendor/autoload.php';
-if (is_file($autoload)) {
-	require $autoload;
-}
+require __DIR__ . '/../lib/composer/vendor/autoload.php';
 
-if (class_exists('Dotenv\\Dotenv')) {
-	$roots = [
-		'/var/www/gangdev/shared',
-		'/var/www/gangdev',
-	];
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->safeLoad();
 
-	foreach ($roots as $root) {
-		if (is_file($root . '/.env')) {
-			Dotenv\Dotenv::createImmutable($root)->safeLoad();
-		}
-	}
-}
-
-$pgUser = $_ENV['PG_USER'] ?? getenv('PG_USER') ?? '';
-$pgHost = $_ENV['PG_HOST'] ?? getenv('PG_HOST') ?? '';
-$pgDb = $_ENV['PG_DATABASE'] ?? getenv('PG_DATABASE') ?? '';
-$pgPass = $_ENV['PG_PASSWORD'] ?? getenv('PG_PASSWORD') ?? '';
-$pgPort = $_ENV['PG_PORT'] ?? getenv('PG_PORT') ?? '5432';
+$pgHost = $_ENV['PG_HOST'] ?? '';
+$pgPort = $_ENV['PG_PORT'] ?? '5432';
+$pgDb = $_ENV['PG_DATABASE'] ?? '';
+$pgUser = $_ENV['PG_USER'] ?? '';
+$pgPass = $_ENV['PG_PASSWORD'] ?? '';
 
 $pgHost = trim((string)$pgHost);
+$pgPort = trim((string)$pgPort);
 $pgDb = trim((string)$pgDb);
 $pgUser = trim((string)$pgUser);
-$pgPort = trim((string)$pgPort);
 
-$invalidHost = ($pgHost === '') || str_contains($pgHost, '=') || str_contains($pgHost, ';') || str_contains($pgHost, ' ');
-$invalidDb = ($pgDb === '') || str_contains($pgDb, '=') || str_contains($pgDb, ';') || str_contains($pgDb, ' ');
-$invalidUser = ($pgUser === '') || str_contains($pgUser, '=') || str_contains($pgUser, ';') || str_contains($pgUser, ' ');
-$invalidPort = ($pgPort === '') || !ctype_digit($pgPort);
-
-if ($invalidHost || $invalidDb || $invalidUser || $invalidPort) {
+if ($pgHost === '' || $pgDb === '' || $pgUser === '' || !ctype_digit($pgPort)) {
 	http_response_code(500);
 	exit;
 }
 
 $dsn = "pgsql:host={$pgHost};port={$pgPort};dbname={$pgDb}";
-
 $pdo = new PDO($dsn, $pgUser, (string)$pgPass, [
 	PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-	PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+	PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
 ]);
 
 function dcops_redirect(string $url, int $code = 302): void {
@@ -80,7 +59,7 @@ function dcops_dashboard_host_for_org(string $org): string {
 	return match ($org) {
 		'milestone' => 'dashboard.milestone.dcops.co',
 		'meta' => 'dashboard.meta.dcops.co',
-		default => 'dashboard.dcops.co',
+		default => 'dashboard.dcops.co'
 	};
 }
 
