@@ -15,6 +15,18 @@ if ($org !== 'milestone') {
 $name = $_SESSION['dcops_name'] ?? 'Milestone';
 $email = $_SESSION['dcops_email'] ?? '';
 $rank = (int)($_SESSION['effective_rank'] ?? 0);
+
+$levelMap = [
+        0 => 'L1',
+        1 => 'L2',
+        2 => 'L3',
+        3 => 'L4'
+];
+
+$level = $_SESSION['dcops_level'] ?? ($levelMap[$rank] ?? 'L1');
+$tenure = $_SESSION['dcops_tenure'] ?? '5 mo';
+$role = $_SESSION['dcops_role'] ?? 'UCO SLC Audit Project Lead';
+$project = $_SESSION['dcops_project'] ?? 'UCO';
 ?>
 <!doctype html>
 <html lang="en">
@@ -40,8 +52,7 @@ $rank = (int)($_SESSION['effective_rank'] ?? 0);
                     <span class="ico">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M3 10.5 12 3l9 7.5"></path>
-                            <path d="M5 9.5V21h14V9.5"></path>
-                            <path d="M9 21v-7h6v7"></path>
+                            <path d="M5 10.5V21h14V10.5"></path>
                         </svg>
                     </span>
                     <span class="lbl">Dashboard</span>
@@ -56,15 +67,11 @@ $rank = (int)($_SESSION['effective_rank'] ?? 0);
                 <button class="navGroupBtn" type="button">
                     <span class="ico">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M12 2v4"></path>
-                            <path d="M12 18v4"></path>
-                            <path d="M4.93 4.93l2.83 2.83"></path>
-                            <path d="M16.24 16.24l2.83 2.83"></path>
-                            <path d="M2 12h4"></path>
-                            <path d="M18 12h4"></path>
-                            <path d="M4.93 19.07l2.83-2.83"></path>
-                            <path d="M16.24 7.76l2.83-2.83"></path>
                             <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a7.8 7.8 0 0 0 .1-6"></path>
+                            <path d="M4.5 9a7.8 7.8 0 0 0 0 6"></path>
+                            <path d="M8.6 20a8.6 8.6 0 0 0 6.8 0"></path>
+                            <path d="M15.4 4a8.6 8.6 0 0 0-6.8 0"></path>
                         </svg>
                     </span>
                     <span class="lbl">Operations</span>
@@ -125,9 +132,10 @@ $rank = (int)($_SESSION['effective_rank'] ?? 0);
                 <button class="navGroupBtn" type="button">
                     <span class="ico">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M9 21H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5"></path>
-                            <path d="M16 16l6 6"></path>
-                            <circle cx="17" cy="17" r="4"></circle>
+                            <path d="M14 7l3 3"></path>
+                            <path d="M5 20l7-7"></path>
+                            <path d="M16 3l5 5-4 4-5-5z"></path>
+                            <path d="M3 21l4-1-3-3z"></path>
                         </svg>
                     </span>
                     <span class="lbl">Tools</span>
@@ -144,17 +152,17 @@ $rank = (int)($_SESSION['effective_rank'] ?? 0);
                 <button class="navGroupBtn" type="button">
                     <span class="ico">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M16 11a4 4 0 1 0-8 0"></path>
-                            <path d="M12 15c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5Z"></path>
-                            <path d="M20 8a3 3 0 1 1-4.2 2.7"></path>
-                            <path d="M20 20v-1c0-1.6-.9-3-2.4-4"></path>
+                            <circle cx="9" cy="9" r="3"></circle>
+                            <path d="M2 21v-1c0-3.3 3.1-6 7-6"></path>
+                            <circle cx="17" cy="10" r="2.5"></circle>
+                            <path d="M14.5 21v-1c0-2.6-1.3-4.7-3.5-5.7"></path>
                         </svg>
                     </span>
                     <span class="lbl">Team</span>
                     <span class="chev">+</span>
                 </button>
                 <div class="navGroupBody">
-                    <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Individual Performance</span></a>
+                    <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Performance</span></a>
                     <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Leaderboards</span></a>
                     <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Assigned Tasks</span></a>
                     <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Assign Tasks</span></a>
@@ -185,8 +193,12 @@ $rank = (int)($_SESSION['effective_rank'] ?? 0);
                 <a class="accountLink" href="https://account.dcops.co/">Account</a>
             </div>
             <div class="userMeta">
-                <span class="pillMini">milestone</span>
-                <span class="pillMini">rank <?= (int)$rank ?></span>
+                <span class="pillMini"><?= htmlspecialchars($level) ?></span>
+                <span class="pillMini"><?= htmlspecialchars($tenure) ?></span>
+                <span class="pillMini"><?= htmlspecialchars($project) ?></span>
+            </div>
+            <div class="userMeta">
+                <span class="pillMini"><?= htmlspecialchars($role) ?></span>
             </div>
         </div>
     </aside>
@@ -194,8 +206,9 @@ $rank = (int)($_SESSION['effective_rank'] ?? 0);
     <main class="main">
         <header class="topbar">
             <div class="topLeft">
-                <button class="hamburger" id="hamburger" type="button" aria-label="Open menu">
-                    <span></span><span></span><span></span>
+                <button class="hamburger brandHamburger" id="hamburger" type="button" aria-label="Open menu">
+                    <span class="brandMark"><span class="d">D</span><span class="o">O</span></span>
+                    <span class="brandFull"><span class="dc">DC</span><span class="ops">OPS</span></span>
                 </button>
                 <div class="crumbs">
                     <span class="crumbStrong">Milestone</span>
@@ -309,7 +322,11 @@ $rank = (int)($_SESSION['effective_rank'] ?? 0);
     window.DCOPS_DASH = {
         userName: <?= json_encode($name) ?>,
         userEmail: <?= json_encode($email) ?>,
-        userRank: <?= json_encode($rank) ?>
+        userRank: <?= json_encode($rank) ?>,
+        userLevel: <?= json_encode($level) ?>,
+        userTenure: <?= json_encode($tenure) ?>,
+        userRole: <?= json_encode($role) ?>,
+        userProject: <?= json_encode($project) ?>
     }
 </script>
 <script src="./script.js"></script>

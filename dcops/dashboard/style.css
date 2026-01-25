@@ -123,6 +123,20 @@ a{ color:inherit; }
     transform:translateX(0);
 }
 
+.side.open .brandMark{ opacity:0; width:0; overflow:hidden; }
+.side.open .brandFull{ max-width:220px; opacity:1; transform:translateX(0); }
+
+.brandHamburger{
+    width:auto;
+    gap:10px;
+    padding:8px 12px;
+}
+
+.brandHamburger span{ display:inline-flex; }
+
+.side.open ~ .main .brandHamburger .brandMark{ opacity:0; width:0; overflow:hidden; }
+.side.open ~ .main .brandHamburger .brandFull{ max-width:220px; opacity:1; transform:translateX(0); }
+
 .dc{ color:var(--dc); }
 .ops{
     background:linear-gradient(180deg,#eddc9a 0%,#d4bb63 30%,#bfa14a 52%,#a48732 72%,#8a6f24 100%);
