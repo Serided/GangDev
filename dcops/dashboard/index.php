@@ -41,7 +41,6 @@ $project = $_SESSION['dcops_project'] ?? 'SCU';
     <aside class="side" id="side" data-collapsed="0">
         <div class="sideTop">
             <button class="brandBtn" id="sideCollapse" type="button" aria-label="Toggle sidebar">
-                <span class="brandMark"><span class="d">D</span><span class="o">O</span></span>
                 <span class="brandFull"><span class="dc">DC</span><span class="ops">OPS</span></span>
             </button>
         </div>
@@ -67,7 +66,6 @@ $project = $_SESSION['dcops_project'] ?? 'SCU';
                 <button class="navGroupBtn" type="button">
                     <span class="ico">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M12 2l1.1 2.7 2.9.3-2.2 2 0 3  -2.8-1.5L8.2 10l.1-3-2.2-2 2.9-.3L12 2Z" opacity="0"></path>
                             <path d="M19.4 15a7.9 7.9 0 0 0 0-6"></path>
                             <path d="M4.6 9a7.9 7.9 0 0 0 0 6"></path>
                             <path d="M15.6 4.4a8.4 8.4 0 0 0-7.2 0"></path>
@@ -211,7 +209,6 @@ $project = $_SESSION['dcops_project'] ?? 'SCU';
             <div class="topLeft">
                 <button class="hamburger brandHamburger" id="hamburger" type="button" aria-label="Open menu">
                     <span class="brandMark"><span class="d">D</span><span class="o">O</span></span>
-                    <span class="brandFull"><span class="dc">DC</span><span class="ops">OPS</span></span>
                 </button>
                 <div class="crumbs">
                     <span class="crumbStrong">Milestone</span>

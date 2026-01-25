@@ -28,9 +28,7 @@ body{
 
 a{ color:inherit; text-decoration:none; }
 
-.app{
-    min-height:100vh;
-}
+.app{ min-height:100vh; }
 
 .backdrop{
     position:fixed;
@@ -63,9 +61,7 @@ a{ color:inherit; text-decoration:none; }
     transition:left .18s ease;
 }
 
-.side.open{
-    left:0;
-}
+.side.open{ left:0; }
 
 .sideTop{
     padding:16px 16px 10px;
@@ -76,7 +72,7 @@ a{ color:inherit; text-decoration:none; }
     width:100%;
     display:flex;
     align-items:center;
-    gap:10px;
+    justify-content:center;
     padding:10px 12px;
     border-radius:14px;
     background:rgba(255,255,255,.72);
@@ -87,7 +83,8 @@ a{ color:inherit; text-decoration:none; }
 
 .brandBtn:active{ transform:scale(.985); }
 
-.brandMark{
+.brandMark,
+.brandFull{
     display:inline-flex;
     align-items:center;
     gap:0;
@@ -95,55 +92,23 @@ a{ color:inherit; text-decoration:none; }
     letter-spacing:1px;
     font-size:18px;
     line-height:1;
-}
-
-.brandMark .d{ color:var(--dc); }
-
-.brandMark .o{
-    background:linear-gradient(180deg,#eddc9a 0%,#d4bb63 30%,#bfa14a 52%,#a48732 72%,#8a6f24 100%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    text-shadow:0 0 .4px rgba(230,200,120,.55), 0 1px 1px rgba(120,95,30,.25);
-}
-
-.brandFull{
-    display:inline-flex;
-    align-items:baseline;
-    gap:0;
-    max-width:0;
-    opacity:0;
-    transform:translateX(-6px);
-    overflow:hidden;
     white-space:nowrap;
-    transition:max-width .18s ease, opacity .18s ease, transform .18s ease;
-    font-size:18px;
-    line-height:1;
-    font-weight:900;
-    letter-spacing:1px;
 }
 
-.dc{ color:var(--dc); }
+.brandMark .d,
+.brandFull .dc{ color:var(--dc); }
 
-.ops{
-    background:linear-gradient(180deg,#eddc9a 0%,#d4bb63 30%,#bfa14a 52%,#a48732 72%,#8a6f24 100%);
+.brandMark .o,
+.brandFull .ops{
+    background:linear-gradient(180deg,#f2e6b7 0%,#dfc878 28%,#c8ab52 55%,#ad8d3b 78%,#8c6f23 100%);
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
-    text-shadow:0 0 .4px rgba(230,200,120,.55), 0 1px 1px rgba(120,95,30,.25);
+    text-shadow:0 0 .35px rgba(230,200,120,.55), 0 1px 1px rgba(120,95,30,.22);
 }
 
-.side.open .brandMark{
-    opacity:0;
-    width:0;
-    overflow:hidden;
-}
-
-.side.open .brandFull{
-    max-width:240px;
-    opacity:1;
-    transform:translateX(0);
-}
+.brandBtn .brandMark{ display:none; }
+.brandBtn .brandFull{ display:inline-flex; }
 
 .nav{
     padding:14px 14px 12px;
@@ -200,7 +165,6 @@ a{ color:inherit; text-decoration:none; }
     justify-content:center;
     color:rgba(11,15,26,.45);
     font-weight:900;
-    transform:none !important;
 }
 
 .navGroupBody{
@@ -208,9 +172,7 @@ a{ color:inherit; text-decoration:none; }
     display:none;
 }
 
-.navGroup.open .navGroupBody{
-    display:block;
-}
+.navGroup.open .navGroupBody{ display:block; }
 
 .navItem{
     display:flex;
@@ -259,18 +221,14 @@ a{ color:inherit; text-decoration:none; }
     border-radius:14px;
 }
 
-.navModuleBtn .chev{
-    margin-left:auto;
-}
+.navModuleBtn .chev{ margin-left:auto; }
 
 .navModuleBody{
     padding:0 10px 10px;
     display:none;
 }
 
-.navModule.open .navModuleBody{
-    display:block;
-}
+.navModule.open .navModuleBody{ display:block; }
 
 .navLeaf{
     display:block;
@@ -362,30 +320,28 @@ a{ color:inherit; text-decoration:none; }
     border:1px solid rgba(0,0,0,.08);
     background:rgba(255,255,255,.80);
     border-radius:14px;
-    padding:10px 12px;
+    padding:0;
     cursor:pointer;
     display:inline-flex;
     align-items:center;
-    gap:10px;
+    justify-content:center;
 }
 
-.brandHamburger .brandFull{
-    max-width:0;
-    opacity:0;
-    transform:translateX(-6px);
+.brandHamburger{
+    padding:10px 12px;
 }
 
-.side.open ~ .main .brandHamburger .brandMark{
-    opacity:0;
-    width:0;
-    overflow:hidden;
+.brandHamburger .brandMark{
+    display:inline-flex;
+    align-items:center;
+    gap:0;
+    font-weight:900;
+    letter-spacing:1px;
+    font-size:18px;
+    line-height:1;
 }
 
-.side.open ~ .main .brandHamburger .brandFull{
-    max-width:240px;
-    opacity:1;
-    transform:translateX(0);
-}
+.brandHamburger .brandFull{ display:none; }
 
 .crumbs{
     display:flex;
@@ -393,9 +349,7 @@ a{ color:inherit; text-decoration:none; }
     line-height:1.1;
 }
 
-.crumbStrong{
-    font-size:13px;
-}
+.crumbStrong{ font-size:13px; }
 
 .crumbMuted{
     font-size:11px;
@@ -449,13 +403,9 @@ a{ color:inherit; text-decoration:none; }
     cursor:pointer;
 }
 
-.searchRow:hover{
-    background:rgba(74,15,26,.06);
-}
+.searchRow:hover{ background:rgba(74,15,26,.06); }
 
-.searchPrimary{
-    font-size:12px;
-}
+.searchPrimary{ font-size:12px; }
 
 .searchSecondary{
     font-size:11px;
@@ -501,13 +451,9 @@ a{ color:inherit; text-decoration:none; }
     letter-spacing:.6px;
 }
 
-.filterValue{
-    font-size:12px;
-}
+.filterValue{ font-size:12px; }
 
-.content{
-    padding:18px;
-}
+.content{ padding:18px; }
 
 .grid{
     display:grid;
@@ -523,9 +469,7 @@ a{ color:inherit; text-decoration:none; }
     padding:16px;
 }
 
-.panelWide{
-    grid-column:1 / -1;
-}
+.panelWide{ grid-column:1 / -1; }
 
 .panelTop{
     display:flex;
@@ -535,9 +479,7 @@ a{ color:inherit; text-decoration:none; }
     margin-bottom:12px;
 }
 
-.panelTitle{
-    font-size:13px;
-}
+.panelTitle{ font-size:13px; }
 
 .panelSub{
     font-size:11px;
@@ -585,9 +527,7 @@ a{ color:inherit; text-decoration:none; }
     background:rgba(74,15,26,.06);
 }
 
-.deckArea{
-    margin-top:12px;
-}
+.deckArea{ margin-top:12px; }
 
 .tilesRail{
     display:flex;
@@ -645,9 +585,7 @@ a{ color:inherit; text-decoration:none; }
     background:rgba(74,15,26,.06);
 }
 
-.perfTable{
-    margin-top:10px;
-}
+.perfTable{ margin-top:10px; }
 
 .perfHead,.perfRow{
     display:grid;
@@ -703,9 +641,7 @@ a{ color:inherit; text-decoration:none; }
     padding:12px;
 }
 
-.feedTitle{
-    font-size:12px;
-}
+.feedTitle{ font-size:12px; }
 
 .feedMeta{
     margin-top:6px;
@@ -748,9 +684,7 @@ a{ color:inherit; text-decoration:none; }
     border-bottom:1px solid rgba(0,0,0,.06);
 }
 
-.modalTitle{
-    font-size:13px;
-}
+.modalTitle{ font-size:13px; }
 
 .modalClose{
     border:1px solid rgba(0,0,0,.08);
@@ -762,9 +696,7 @@ a{ color:inherit; text-decoration:none; }
     font-size:18px;
 }
 
-.modalBody{
-    padding:14px 16px;
-}
+.modalBody{ padding:14px 16px; }
 
 .filterRowTop{
     display:flex;
@@ -795,9 +727,7 @@ a{ color:inherit; text-decoration:none; }
 
 .checkRow input{ width:16px; height:16px; }
 
-.checkText{
-    font-size:12px;
-}
+.checkText{ font-size:12px; }
 
 .modalBottom{
     padding:14px 16px;
