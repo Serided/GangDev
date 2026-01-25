@@ -29,19 +29,23 @@ $rank = (int)($_SESSION['effective_rank'] ?? 0);
     <aside class="side" id="side" data-collapsed="0">
         <div class="sideTop">
             <button class="brandBtn" id="sideCollapse" type="button" aria-label="Toggle sidebar">
-                <span class="brandMark">DO</span>
-                <span class="brandFull">
-						<span class="dc">DC</span><span class="ops">OPS</span>
-					</span>
+                <span class="brandMark"><span class="d">D</span><span class="o">O</span></span>
+                <span class="brandFull"><span class="dc">DC</span><span class="ops">OPS</span></span>
             </button>
         </div>
 
         <nav class="nav" id="nav">
-            <div class="navGroup" data-group="dashboard">
+            <div class="navGroup open" data-group="dashboard">
                 <button class="navGroupBtn" type="button">
-                    <span class="ico">⌂</span>
+                    <span class="ico">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 10.5 12 3l9 7.5"></path>
+                            <path d="M5 9.5V21h14V9.5"></path>
+                            <path d="M9 21v-7h6v7"></path>
+                        </svg>
+                    </span>
                     <span class="lbl">Dashboard</span>
-                    <span class="chev">+</span>
+                    <span class="chev">−</span>
                 </button>
                 <div class="navGroupBody">
                     <a class="navItem active" href="./"><span class="dot"></span><span class="txt">Overview</span></a>
@@ -50,7 +54,19 @@ $rank = (int)($_SESSION['effective_rank'] ?? 0);
 
             <div class="navGroup" data-group="operations">
                 <button class="navGroupBtn" type="button">
-                    <span class="ico">⚙</span>
+                    <span class="ico">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 2v4"></path>
+                            <path d="M12 18v4"></path>
+                            <path d="M4.93 4.93l2.83 2.83"></path>
+                            <path d="M16.24 16.24l2.83 2.83"></path>
+                            <path d="M2 12h4"></path>
+                            <path d="M18 12h4"></path>
+                            <path d="M4.93 19.07l2.83-2.83"></path>
+                            <path d="M16.24 7.76l2.83-2.83"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </span>
                     <span class="lbl">Operations</span>
                     <span class="chev">+</span>
                 </button>
@@ -107,7 +123,13 @@ $rank = (int)($_SESSION['effective_rank'] ?? 0);
 
             <div class="navGroup" data-group="tools">
                 <button class="navGroupBtn" type="button">
-                    <span class="ico">▦</span>
+                    <span class="ico">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M9 21H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5"></path>
+                            <path d="M16 16l6 6"></path>
+                            <circle cx="17" cy="17" r="4"></circle>
+                        </svg>
+                    </span>
                     <span class="lbl">Tools</span>
                     <span class="chev">+</span>
                 </button>
@@ -120,7 +142,14 @@ $rank = (int)($_SESSION['effective_rank'] ?? 0);
 
             <div class="navGroup" data-group="team">
                 <button class="navGroupBtn" type="button">
-                    <span class="ico">⌁</span>
+                    <span class="ico">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M16 11a4 4 0 1 0-8 0"></path>
+                            <path d="M12 15c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5Z"></path>
+                            <path d="M20 8a3 3 0 1 1-4.2 2.7"></path>
+                            <path d="M20 20v-1c0-1.6-.9-3-2.4-4"></path>
+                        </svg>
+                    </span>
                     <span class="lbl">Team</span>
                     <span class="chev">+</span>
                 </button>
@@ -134,7 +163,11 @@ $rank = (int)($_SESSION['effective_rank'] ?? 0);
 
             <div class="navGroup" data-group="admin">
                 <button class="navGroupBtn" type="button">
-                    <span class="ico">✶</span>
+                    <span class="ico">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z"></path>
+                        </svg>
+                    </span>
                     <span class="lbl">Admin</span>
                     <span class="chev">+</span>
                 </button>

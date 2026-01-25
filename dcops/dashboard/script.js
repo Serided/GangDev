@@ -160,26 +160,97 @@ function closeAllOverlays() {
 
 function preventDisabledClicks() {
     document.querySelectorAll('[data-disabled="1"]').forEach(el => {
-        el.addEventListener('click', (e) => e.preventDefault())
+        el.addEventListener('click', (e) => {
+            e.preventDefault()
+            e.stopPropagation()
+        })
+    })
+}
+
+function setChev(el, open) {
+    if (!el) return
+    el.textContent = open ? '−' : '+'
+}
+
+function syncGroupChev(group) {
+    const btn = group.querySelector('.navGroupBtn')
+    if (!btn) return
+    const chev = btn.querySelector('.chev')
+    if (!chev) return
+    setChev(chev, group.classList.contains('open'))
+}
+
+function syncModuleChev(mod) {
+    const btn = mod.querySelector('.navModuleBtn')
+    if (!btn) return
+    const chev = btn.querySelector('.chev')
+    if (!chev) return
+    setChev(chev, mod.classList.contains('open'))
+}
+
+function closeAllModulesInGroup(group) {
+    group.querySelectorAll('.navModule').forEach(m => {
+        m.classList.remove('open')
+        syncModuleChev(m)
+    })
+}
+
+function closeAllGroupsExcept(activeGroup) {
+    document.querySelectorAll('.navGroup').forEach(g => {
+        if (g === activeGroup) return
+        g.classList.remove('open')
+        syncGroupChev(g)
+        closeAllModulesInGroup(g)
+    })
+}
+
+function closeSiblingModules(mod) {
+    const group = mod.closest('.navGroup')
+    if (!group) return
+    group.querySelectorAll('.navModule').forEach(m => {
+        if (m === mod) return
+        m.classList.remove('open')
+        syncModuleChev(m)
     })
 }
 
 function initNavExpand() {
     document.querySelectorAll('.navGroup').forEach(group => {
         const btn = group.querySelector('.navGroupBtn')
-        const body = group.querySelector('.navGroupBody')
-        if (!btn || !body) return
+        if (!btn) return
+
+        syncGroupChev(group)
+
         btn.addEventListener('click', () => {
-            group.classList.toggle('open')
+            const willOpen = !group.classList.contains('open')
+            closeAllGroupsExcept(group)
+            group.classList.toggle('open', willOpen)
+            syncGroupChev(group)
+            if (!willOpen) closeAllModulesInGroup(group)
         })
     })
 
     document.querySelectorAll('.navModule').forEach(mod => {
         const btn = mod.querySelector('.navModuleBtn')
-        const body = mod.querySelector('.navModuleBody')
-        if (!btn || !body) return
-        btn.addEventListener('click', () => {
-            mod.classList.toggle('open')
+        if (!btn) return
+
+        syncModuleChev(mod)
+
+        btn.addEventListener('click', (e) => {
+            e.preventDefault()
+            e.stopPropagation()
+
+            const group = mod.closest('.navGroup')
+            if (group && !group.classList.contains('open')) {
+                closeAllGroupsExcept(group)
+                group.classList.add('open')
+                syncGroupChev(group)
+            }
+
+            const willOpen = !mod.classList.contains('open')
+            closeSiblingModules(mod)
+            mod.classList.toggle('open', willOpen)
+            syncModuleChev(mod)
         })
     })
 }
@@ -362,7 +433,7 @@ function applyFilterSave() {
 
 function renderDeckTabs() {
     deckTabs.innerHTML = ''
-    state.decks.forEach((d, i) => {
+    state.decks.forEach((d) => {
         const b = document.createElement('button')
         b.type = 'button'
         b.className = 'deckTab' + (d.key === state.activeDeckKey ? ' active' : '')
@@ -470,10 +541,7 @@ function fakeSearch(q) {
 
     const looksLikeRack = /(\bUCO1\b|\bEAG\b|\bSCU\b|\d{1,2}[A-Z]\b|\d{2}[FB]\b|\b\d{1,2}\b)/i.test(query)
 
-    if (looksLikeRack) {
-        results.push({ primary: query.toUpperCase(), secondary: 'Jump (not wired yet)', tag: 'Rack' })
-    }
-
+    if (looksLikeRack) results.push({ primary: query.toUpperCase(), secondary: 'Jump (not wired yet)', tag: 'Rack' })
     if (/uco/i.test(query)) results.push({ primary: 'UCO', secondary: 'Campus', tag: 'Location' })
     if (/eag/i.test(query)) results.push({ primary: 'EAG', secondary: 'Campus', tag: 'Location' })
     if (/scu/i.test(query)) results.push({ primary: 'SCU', secondary: 'Campus', tag: 'Location' })
@@ -514,7 +582,7 @@ function escapeHtml(s) {
 }
 
 function wireEvents() {
-    sideCollapse.addEventListener('click', toggleCollapsed)
+    if (sideCollapse) sideCollapse.addEventListener('click', toggleCollapsed)
 
     hamburger.addEventListener('click', () => {
         if (isSideMobileOpen()) closeSideMobile()
