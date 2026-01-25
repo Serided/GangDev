@@ -1,11 +1,9 @@
 const $ = (id) => document.getElementById(id)
 
 const side = $('side')
-const nav = $('nav')
 const hamburger = $('hamburger')
 const backdrop = $('backdrop')
-
-const sideCollapse = $('sideCollapse')
+const topbar = document.querySelector('.topbar')
 
 const activityPill = $('activityPill')
 const locationPill = $('locationPill')
@@ -113,6 +111,23 @@ function setBackdrop(on) {
     else backdrop.classList.remove('open')
 }
 
+function openSide() {
+    side.classList.add('open')
+    topbar.classList.add('menuOpen')
+    setBackdrop(true)
+}
+
+function closeSide() {
+    side.classList.remove('open')
+    topbar.classList.remove('menuOpen')
+    setBackdrop(false)
+}
+
+function toggleSide() {
+    if (side.classList.contains('open')) closeSide()
+    else openSide()
+}
+
 function openModal() {
     filterModal.setAttribute('aria-hidden', 'false')
     filterModal.classList.add('open')
@@ -125,168 +140,81 @@ function closeModal() {
     setBackdrop(false)
 }
 
-function isCollapsed() {
-    return side.dataset.collapsed === '1'
-}
-
-function setCollapsed(v) {
-    side.dataset.collapsed = v ? '1' : '0'
-    localStorage.setItem('dcops_side_collapsed', v ? '1' : '0')
-}
-
-function toggleCollapsed() {
-    setCollapsed(!isCollapsed())
-}
-
-function openSideMobile() {
-    side.classList.add('open')
-    setBackdrop(true)
-}
-
-function closeSideMobile() {
-    side.classList.remove('open')
-    setBackdrop(false)
-}
-
-function isSideMobileOpen() {
-    return side.classList.contains('open')
-}
-
 function closeAllOverlays() {
     closeModal()
-    if (isSideMobileOpen()) closeSideMobile()
-    if (searchResults) searchResults.classList.remove('open')
+    if (side.classList.contains('open')) closeSide()
+    searchResults.classList.remove('open')
+    searchResults.innerHTML = ''
 }
 
 function preventDisabledClicks() {
     document.querySelectorAll('[data-disabled="1"]').forEach(el => {
-        el.addEventListener('click', (e) => {
-            e.preventDefault()
-            e.stopPropagation()
-        })
+        el.addEventListener('click', (e) => e.preventDefault())
     })
 }
 
-function setChev(el, open) {
-    if (!el) return
-    el.textContent = open ? '−' : '+'
-}
-
-function syncGroupChev(group) {
-    const btn = group.querySelector('.navGroupBtn')
-    if (!btn) return
+function setChev(btn, open) {
     const chev = btn.querySelector('.chev')
     if (!chev) return
-    setChev(chev, group.classList.contains('open'))
+    chev.textContent = open ? '−' : '+'
 }
 
-function syncModuleChev(mod) {
-    const btn = mod.querySelector('.navModuleBtn')
-    if (!btn) return
-    const chev = btn.querySelector('.chev')
-    if (!chev) return
-    setChev(chev, mod.classList.contains('open'))
-}
+function initAccordion() {
+    const groups = Array.from(document.querySelectorAll('.navGroup'))
+    const modules = Array.from(document.querySelectorAll('.navModule'))
 
-function closeAllModulesInGroup(group) {
-    group.querySelectorAll('.navModule').forEach(m => {
-        m.classList.remove('open')
-        syncModuleChev(m)
-    })
-}
-
-function closeAllGroupsExcept(activeGroup) {
-    document.querySelectorAll('.navGroup').forEach(g => {
-        if (g === activeGroup) return
-        g.classList.remove('open')
-        syncGroupChev(g)
-        closeAllModulesInGroup(g)
-    })
-}
-
-function closeSiblingModules(mod) {
-    const group = mod.closest('.navGroup')
-    if (!group) return
-    group.querySelectorAll('.navModule').forEach(m => {
-        if (m === mod) return
-        m.classList.remove('open')
-        syncModuleChev(m)
-    })
-}
-
-function initNavExpand() {
-    document.querySelectorAll('.navGroup').forEach(group => {
-        const btn = group.querySelector('.navGroupBtn')
+    groups.forEach(g => {
+        const btn = g.querySelector('.navGroupBtn')
         if (!btn) return
-
-        syncGroupChev(group)
-
+        setChev(btn, g.classList.contains('open'))
         btn.addEventListener('click', () => {
-            const willOpen = !group.classList.contains('open')
-            closeAllGroupsExcept(group)
-            group.classList.toggle('open', willOpen)
-            syncGroupChev(group)
-            if (!willOpen) closeAllModulesInGroup(group)
-        })
-    })
+            const isOpen = g.classList.contains('open')
 
-    document.querySelectorAll('.navModule').forEach(mod => {
-        const btn = mod.querySelector('.navModuleBtn')
-        if (!btn) return
+            groups.forEach(x => {
+                x.classList.remove('open')
+                const b = x.querySelector('.navGroupBtn')
+                if (b) setChev(b, false)
+            })
 
-        syncModuleChev(mod)
+            modules.forEach(m => {
+                m.classList.remove('open')
+                const mb = m.querySelector('.navModuleBtn')
+                if (mb) setChev(mb, false)
+            })
 
-        btn.addEventListener('click', (e) => {
-            e.preventDefault()
-            e.stopPropagation()
-
-            const group = mod.closest('.navGroup')
-            if (group && !group.classList.contains('open')) {
-                closeAllGroupsExcept(group)
-                group.classList.add('open')
-                syncGroupChev(group)
+            if (!isOpen) {
+                g.classList.add('open')
+                setChev(btn, true)
             }
-
-            const willOpen = !mod.classList.contains('open')
-            closeSiblingModules(mod)
-            mod.classList.toggle('open', willOpen)
-            syncModuleChev(mod)
         })
     })
-}
 
-function loadState() {
-    const s = localStorage.getItem('dcops_side_collapsed')
-    if (s === '1') setCollapsed(true)
-    else setCollapsed(false)
+    modules.forEach(m => {
+        const btn = m.querySelector('.navModuleBtn')
+        if (!btn) return
+        setChev(btn, m.classList.contains('open'))
+        btn.addEventListener('click', () => {
+            const parentGroup = m.closest('.navGroup')
+            if (!parentGroup) return
+            const siblings = Array.from(parentGroup.querySelectorAll('.navModule'))
+            const isOpen = m.classList.contains('open')
 
-    const a = safeJson(localStorage.getItem(LS_ACTIVITIES), null)
-    const l = safeJson(localStorage.getItem(LS_LOCATIONS), null)
+            siblings.forEach(x => {
+                x.classList.remove('open')
+                const b = x.querySelector('.navModuleBtn')
+                if (b) setChev(b, false)
+            })
 
-    state.activities = Array.isArray(a) ? a : ['slc_audit']
-    state.locations = Array.isArray(l) ? l : ['uco']
-
-    normalizeSelections()
-    buildDecks()
-    state.activeDeckKey = localStorage.getItem(LS_DECK_KEY) || (state.decks[0]?.key ?? null)
-    if (!state.decks.some(d => d.key === state.activeDeckKey)) state.activeDeckKey = state.decks[0]?.key ?? null
-
-    renderFilterPills()
-    renderDeckTabs()
-    renderDeckArea()
-    renderPerf()
+            if (!isOpen) {
+                m.classList.add('open')
+                setChev(btn, true)
+            }
+        })
+    })
 }
 
 function safeJson(v, fallback) {
     try { return JSON.parse(v) } catch { return fallback }
-}
-
-function normalizeSelections() {
-    state.activities = dedupe(state.activities).filter(k => ACTIVITIES.some(a => a.key === k))
-    state.locations = dedupe(state.locations).filter(k => LOCATIONS.some(l => l.key === k))
-
-    if (state.activities.length === 0) state.activities = ['slc_audit']
-    if (state.locations.length === 0) state.locations = ['uco']
 }
 
 function dedupe(arr) {
@@ -300,12 +228,17 @@ function dedupe(arr) {
     return out
 }
 
+function normalizeSelections() {
+    state.activities = dedupe(state.activities).filter(k => ACTIVITIES.some(a => a.key === k))
+    state.locations = dedupe(state.locations).filter(k => LOCATIONS.some(l => l.key === k))
+    if (state.activities.length === 0) state.activities = ['slc_audit']
+    if (state.locations.length === 0) state.locations = ['scu']
+}
+
 function labelFor(keys, catalog, allLabel) {
     const allKeys = catalog.map(x => x.key)
     const selected = keys.filter(k => allKeys.includes(k))
-
     if (selected.length === allKeys.length) return allLabel
-
     const labels = selected.map(k => catalog.find(x => x.key === k)?.label ?? k)
     if (labels.length <= 2) return labels.join(', ')
     return `${labels.slice(0, 2).join(', ')} +${labels.length - 2}`
@@ -344,18 +277,21 @@ function setActiveDeck(key) {
 function renderFilterPills() {
     const aText = labelFor(state.activities, ACTIVITIES, 'All')
     const lText = labelFor(state.locations, LOCATIONS, 'All')
-
     activityValue.textContent = aText
     locationValue.textContent = lText
-
     kpiSubtitle.textContent = `${lText} locations`
     perfSubtitle.textContent = `Filtered by activity + location`
+}
+
+function syncModalChecks() {
+    filterList.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.checked = state.modalDraft.includes(cb.value)
+    })
 }
 
 function openFilter(mode) {
     state.filterMode = mode
     state.modalDraft = (mode === 'activity' ? state.activities.slice() : state.locations.slice())
-
     filterTitle.textContent = mode === 'activity' ? 'Activity' : 'Location'
 
     const list = mode === 'activity' ? ACTIVITIES : LOCATIONS
@@ -377,15 +313,12 @@ function openFilter(mode) {
     }).join('')}
 	`
 
-    const allBtn = $('filterAll')
-    const noneBtn = $('filterNone')
-
-    allBtn.addEventListener('click', () => {
+    $('filterAll').addEventListener('click', () => {
         state.modalDraft = allKeys.slice()
         syncModalChecks()
     })
 
-    noneBtn.addEventListener('click', () => {
+    $('filterNone').addEventListener('click', () => {
         state.modalDraft = []
         syncModalChecks()
     })
@@ -404,12 +337,6 @@ function openFilter(mode) {
     openModal()
 }
 
-function syncModalChecks() {
-    filterList.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-        cb.checked = state.modalDraft.includes(cb.value)
-    })
-}
-
 function applyFilterSave() {
     if (state.filterMode === 'activity') state.activities = state.modalDraft.slice()
     if (state.filterMode === 'location') state.locations = state.modalDraft.slice()
@@ -419,9 +346,7 @@ function applyFilterSave() {
     localStorage.setItem(LS_LOCATIONS, JSON.stringify(state.locations))
 
     buildDecks()
-    if (!state.decks.some(d => d.key === state.activeDeckKey)) {
-        state.activeDeckKey = state.decks[0]?.key ?? null
-    }
+    if (!state.decks.some(d => d.key === state.activeDeckKey)) state.activeDeckKey = state.decks[0]?.key ?? null
     if (state.activeDeckKey) localStorage.setItem(LS_DECK_KEY, state.activeDeckKey)
 
     renderFilterPills()
@@ -441,7 +366,6 @@ function renderDeckTabs() {
         b.addEventListener('click', () => setActiveDeck(d.key))
         deckTabs.appendChild(b)
     })
-
     const activeIndex = state.decks.findIndex(d => d.key === state.activeDeckKey)
     if (activeIndex >= 0) {
         const el = deckTabs.children[activeIndex]
@@ -455,9 +379,8 @@ function renderDeckArea() {
         deckArea.innerHTML = ''
         return
     }
-
     deckArea.innerHTML = `
-		<div class="tilesRail" id="tilesRail">
+		<div class="tilesRail">
 			${deck.tiles.map(t => `
 				<div class="kpiTileX">
 					<div class="kpiName">${escapeHtml(t.name)}</div>
@@ -493,24 +416,24 @@ function renderPerf() {
         ? ['Name', 'Transfers', 'Shipments', 'Returns', 'Issues']
         : ['Name', 'Re-SLC', 'Audited', 'Completed', 'Failures']
 
-    perfTable.innerHTML = `
-		<div class="perfHead">
-			${cols.map(c => `<div class="perfH">${escapeHtml(c)}</div>`).join('')}
-		</div>
-		<div class="perfBody">
-			${sorted.map(p => {
+    const rows = sorted.map(p => {
         const isSelf = p.email && selfEmail && p.email === selfEmail
         const rowClass = 'perfRow' + (isSelf ? ' self' : '')
         const cells = mode === 'movements'
             ? [p.name, '—', '—', '—', '—']
             : [p.name, String(p.reslc), String(p.audit), String(p.done), String(p.fail)]
         return `
-					<div class="${rowClass}">
-						${cells.map(v => `<div class="perfC">${escapeHtml(v)}</div>`).join('')}
-					</div>
-				`
-    }).join('')}
+			<div class="${rowClass}">
+				${cells.map(v => `<div class="perfC">${escapeHtml(v)}</div>`).join('')}
+			</div>
+		`
+    }).join('')
+
+    perfTable.innerHTML = `
+		<div class="perfHead">
+			${cols.map(c => `<div class="perfH">${escapeHtml(c)}</div>`).join('')}
 		</div>
+		<div class="perfBody">${rows}</div>
 	`
 }
 
@@ -538,14 +461,11 @@ function fakeSearch(q) {
     const query = normalizeQuery(q)
     if (!query) return []
     const results = []
-
     const looksLikeRack = /(\bUCO1\b|\bEAG\b|\bSCU\b|\d{1,2}[A-Z]\b|\d{2}[FB]\b|\b\d{1,2}\b)/i.test(query)
-
     if (looksLikeRack) results.push({ primary: query.toUpperCase(), secondary: 'Jump (not wired yet)', tag: 'Rack' })
     if (/uco/i.test(query)) results.push({ primary: 'UCO', secondary: 'Campus', tag: 'Location' })
     if (/eag/i.test(query)) results.push({ primary: 'EAG', secondary: 'Campus', tag: 'Location' })
     if (/scu/i.test(query)) results.push({ primary: 'SCU', secondary: 'Campus', tag: 'Location' })
-
     return results.slice(0, 6)
 }
 
@@ -581,14 +501,27 @@ function escapeHtml(s) {
         .replaceAll("'", '&#039;')
 }
 
+function loadState() {
+    const a = safeJson(localStorage.getItem(LS_ACTIVITIES), null)
+    const l = safeJson(localStorage.getItem(LS_LOCATIONS), null)
+
+    state.activities = Array.isArray(a) ? a : ['slc_audit']
+    state.locations = Array.isArray(l) ? l : ['scu']
+
+    normalizeSelections()
+    buildDecks()
+
+    state.activeDeckKey = localStorage.getItem(LS_DECK_KEY) || (state.decks[0]?.key ?? null)
+    if (!state.decks.some(d => d.key === state.activeDeckKey)) state.activeDeckKey = state.decks[0]?.key ?? null
+
+    renderFilterPills()
+    renderDeckTabs()
+    renderDeckArea()
+    renderPerf()
+}
+
 function wireEvents() {
-    if (sideCollapse) sideCollapse.addEventListener('click', toggleCollapsed)
-
-    hamburger.addEventListener('click', () => {
-        if (isSideMobileOpen()) closeSideMobile()
-        else openSideMobile()
-    })
-
+    hamburger.addEventListener('click', toggleSide)
     backdrop.addEventListener('click', closeAllOverlays)
 
     activityPill.addEventListener('click', () => openFilter('activity'))
@@ -619,6 +552,6 @@ function wireEvents() {
 }
 
 preventDisabledClicks()
-initNavExpand()
-wireEvents()
+initAccordion()
 loadState()
+wireEvents()
