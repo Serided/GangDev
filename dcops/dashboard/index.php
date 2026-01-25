@@ -24,9 +24,9 @@ $levelMap = [
 ];
 
 $level = $_SESSION['dcops_level'] ?? ($levelMap[$rank] ?? 'L1');
-$tenure = $_SESSION['dcops_tenure'] ?? '5 mo';
+$tenure = $_SESSION['dcops_tenure'] ?? '5 months';
 $role = $_SESSION['dcops_role'] ?? 'UCO SLC Audit Project Lead';
-$project = $_SESSION['dcops_project'] ?? 'UCO';
+$project = $_SESSION['dcops_project'] ?? 'SCU';
 ?>
 <!doctype html>
 <html lang="en">
@@ -51,8 +51,8 @@ $project = $_SESSION['dcops_project'] ?? 'UCO';
                 <button class="navGroupBtn" type="button">
                     <span class="ico">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M3 10.5 12 3l9 7.5"></path>
-                            <path d="M5 10.5V21h14V10.5"></path>
+                            <path d="M3 11.5 12 4l9 7.5"></path>
+                            <path d="M6 10.75V20h12v-9.25"></path>
                         </svg>
                     </span>
                     <span class="lbl">Dashboard</span>
@@ -67,11 +67,12 @@ $project = $_SESSION['dcops_project'] ?? 'UCO';
                 <button class="navGroupBtn" type="button">
                     <span class="ico">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 2l1.1 2.7 2.9.3-2.2 2 0 3  -2.8-1.5L8.2 10l.1-3-2.2-2 2.9-.3L12 2Z" opacity="0"></path>
+                            <path d="M19.4 15a7.9 7.9 0 0 0 0-6"></path>
+                            <path d="M4.6 9a7.9 7.9 0 0 0 0 6"></path>
+                            <path d="M15.6 4.4a8.4 8.4 0 0 0-7.2 0"></path>
+                            <path d="M8.4 19.6a8.4 8.4 0 0 0 7.2 0"></path>
                             <circle cx="12" cy="12" r="3"></circle>
-                            <path d="M19.4 15a7.8 7.8 0 0 0 .1-6"></path>
-                            <path d="M4.5 9a7.8 7.8 0 0 0 0 6"></path>
-                            <path d="M8.6 20a8.6 8.6 0 0 0 6.8 0"></path>
-                            <path d="M15.4 4a8.6 8.6 0 0 0-6.8 0"></path>
                         </svg>
                     </span>
                     <span class="lbl">Operations</span>
@@ -173,7 +174,9 @@ $project = $_SESSION['dcops_project'] ?? 'UCO';
                 <button class="navGroupBtn" type="button">
                     <span class="ico">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z"></path>
+                            <path d="M12 2v20"></path>
+                            <path d="M4.5 6.5l15 11"></path>
+                            <path d="M19.5 6.5l-15 11"></path>
                         </svg>
                     </span>
                     <span class="lbl">Admin</span>
