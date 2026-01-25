@@ -12,7 +12,9 @@ if ($org !== 'milestone') {
     exit;
 }
 
-$name = $_SESSION['dcops_name'] ?? '';
+$name = $_SESSION['dcops_name'] ?? 'Milestone';
+$email = $_SESSION['dcops_email'] ?? '';
+$rank = (int)($_SESSION['effective_rank'] ?? 0);
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,78 +26,134 @@ $name = $_SESSION['dcops_name'] ?? '';
 </head>
 <body>
 <div class="app">
-    <aside class="side" id="side">
+    <aside class="side" id="side" data-collapsed="0">
         <div class="sideTop">
-            <a class="brand" href="./">
-                <span class="dc">DC</span><span class="ops">OPS</span>
-            </a>
-            <button class="sideToggle" id="sideToggle" type="button" aria-label="Toggle menu">
-                <span></span><span></span><span></span>
+            <button class="brandBtn" id="sideCollapse" type="button" aria-label="Toggle sidebar">
+                <span class="brandMark">DO</span>
+                <span class="brandFull">
+						<span class="dc">DC</span><span class="ops">OPS</span>
+					</span>
             </button>
         </div>
 
-        <nav class="nav">
-            <a class="navItem active" href="./">
-                <span class="navDot"></span>
-                <span>Dashboard</span>
-            </a>
+        <nav class="nav" id="nav">
+            <div class="navGroup" data-group="dashboard">
+                <button class="navGroupBtn" type="button">
+                    <span class="ico">⌂</span>
+                    <span class="lbl">Dashboard</span>
+                    <span class="chev">+</span>
+                </button>
+                <div class="navGroupBody">
+                    <a class="navItem active" href="./"><span class="dot"></span><span class="txt">Overview</span></a>
+                </div>
+            </div>
 
-            <div class="navSection">Operations</div>
+            <div class="navGroup" data-group="operations">
+                <button class="navGroupBtn" type="button">
+                    <span class="ico">⚙</span>
+                    <span class="lbl">Operations</span>
+                    <span class="chev">+</span>
+                </button>
 
-            <a class="navItem" href="#" data-disabled="1">
-                <span class="navDot"></span>
-                <span>Movements</span>
-            </a>
+                <div class="navGroupBody">
+                    <div class="navModule" data-module="movements">
+                        <button class="navModuleBtn" type="button">
+                            <span class="dot"></span><span class="txt">Movements</span><span class="chev">+</span>
+                        </button>
+                        <div class="navModuleBody">
+                            <a class="navLeaf" href="#" data-disabled="1">Move Orders</a>
+                            <a class="navLeaf" href="#" data-disabled="1">Transfers</a>
+                            <a class="navLeaf" href="#" data-disabled="1">Shipments</a>
+                            <a class="navLeaf" href="#" data-disabled="1">Transport</a>
+                            <a class="navLeaf" href="#" data-disabled="1">Returns</a>
+                        </div>
+                    </div>
 
-            <a class="navItem" href="#" data-disabled="1">
-                <span class="navDot"></span>
-                <span>Rack Operations</span>
-            </a>
+                    <div class="navModule" data-module="rackops">
+                        <button class="navModuleBtn" type="button">
+                            <span class="dot"></span><span class="txt">Rack Operations</span><span class="chev">+</span>
+                        </button>
+                        <div class="navModuleBody">
+                            <a class="navLeaf" href="#" data-disabled="1">SLC</a>
+                            <a class="navLeaf" href="#" data-disabled="1">Verify</a>
+                            <a class="navLeaf" href="#" data-disabled="1">Re-SLC</a>
+                            <a class="navLeaf" href="#" data-disabled="1">Exceptions</a>
+                        </div>
+                    </div>
 
-            <a class="navItem" href="#" data-disabled="1">
-                <span class="navDot"></span>
-                <span>Audit</span>
-            </a>
+                    <div class="navModule" data-module="audit">
+                        <button class="navModuleBtn" type="button">
+                            <span class="dot"></span><span class="txt">Audit</span><span class="chev">+</span>
+                        </button>
+                        <div class="navModuleBody">
+                            <a class="navLeaf" href="#" data-disabled="1">Cycle Count</a>
+                            <a class="navLeaf" href="#" data-disabled="1">SLC Audit</a>
+                        </div>
+                    </div>
 
-            <a class="navItem" href="#" data-disabled="1">
-                <span class="navDot"></span>
-                <span>Issues</span>
-            </a>
+                    <div class="navModule" data-module="issues">
+                        <button class="navModuleBtn" type="button">
+                            <span class="dot"></span><span class="txt">Issues</span><span class="chev">+</span>
+                        </button>
+                        <div class="navModuleBody">
+                            <a class="navLeaf" href="#" data-disabled="1">Failed Racks</a>
+                            <a class="navLeaf" href="#" data-disabled="1">Holds</a>
+                            <a class="navLeaf" href="#" data-disabled="1">Blocked</a>
+                            <a class="navLeaf" href="#" data-disabled="1">Pending Action</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <div class="navSection">Tools</div>
+            <div class="navGroup" data-group="tools">
+                <button class="navGroupBtn" type="button">
+                    <span class="ico">▦</span>
+                    <span class="lbl">Tools</span>
+                    <span class="chev">+</span>
+                </button>
+                <div class="navGroupBody">
+                    <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Visualizer</span></a>
+                    <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Imports</span></a>
+                    <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Layouts</span></a>
+                </div>
+            </div>
 
-            <a class="navItem" href="#" data-disabled="1">
-                <span class="navDot"></span>
-                <span>Visualizer</span>
-            </a>
+            <div class="navGroup" data-group="team">
+                <button class="navGroupBtn" type="button">
+                    <span class="ico">⌁</span>
+                    <span class="lbl">Team</span>
+                    <span class="chev">+</span>
+                </button>
+                <div class="navGroupBody">
+                    <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Individual Performance</span></a>
+                    <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Leaderboards</span></a>
+                    <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Assigned Tasks</span></a>
+                    <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Assign Tasks</span></a>
+                </div>
+            </div>
 
-            <a class="navItem" href="#" data-disabled="1">
-                <span class="navDot"></span>
-                <span>Team</span>
-            </a>
-
-            <div class="navSection">Admin</div>
-
-            <a class="navItem" href="#" data-disabled="1">
-                <span class="navDot"></span>
-                <span>Layouts</span>
-            </a>
-
-            <a class="navItem" href="#" data-disabled="1">
-                <span class="navDot"></span>
-                <span>Imports</span>
-            </a>
-
-            <a class="navItem" href="#" data-disabled="1">
-                <span class="navDot"></span>
-                <span>Settings</span>
-            </a>
+            <div class="navGroup" data-group="admin">
+                <button class="navGroupBtn" type="button">
+                    <span class="ico">✶</span>
+                    <span class="lbl">Admin</span>
+                    <span class="chev">+</span>
+                </button>
+                <div class="navGroupBody">
+                    <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Settings</span></a>
+                    <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Permissions</span></a>
+                    <a class="navItem" href="#" data-disabled="1"><span class="dot"></span><span class="txt">Debug</span></a>
+                </div>
+            </div>
         </nav>
 
         <div class="sideBottom">
             <div class="userLine">
-                <span class="userName"><?= htmlspecialchars($name ?: 'Milestone') ?></span>
+                <span class="userName" title="<?= htmlspecialchars($email) ?>"><?= htmlspecialchars($name) ?></span>
                 <a class="accountLink" href="https://account.dcops.co/">Account</a>
+            </div>
+            <div class="userMeta">
+                <span class="pillMini">milestone</span>
+                <span class="pillMini">rank <?= (int)$rank ?></span>
             </div>
         </div>
     </aside>
@@ -120,29 +178,17 @@ $name = $_SESSION['dcops_name'] ?? '';
             </div>
 
             <div class="topRight">
-                <div class="pillGroup">
-                    <div class="pill">
-                        <span class="pillLabel">Activity</span>
-                        <select class="pillSelect" id="activitySelect">
-                            <option value="all">All</option>
-                            <option value="slc_audit">SLC Audit</option>
-                        </select>
-                    </div>
+                <div class="filterGroup">
+                    <button class="filterPill" id="activityPill" type="button" aria-haspopup="dialog" aria-expanded="false">
+                        <span class="filterLabel">Activity</span>
+                        <span class="filterValue" id="activityValue">All</span>
+                    </button>
 
-                    <div class="pill">
-                        <span class="pillLabel">Location</span>
-                        <select class="pillSelect" id="locationSelect">
-                            <option value="all">All</option>
-                            <option value="uco">UCO</option>
-                            <option value="eag">EAG</option>
-                            <option value="scu">SCU</option>
-                        </select>
-                    </div>
+                    <button class="filterPill" id="locationPill" type="button" aria-haspopup="dialog" aria-expanded="false">
+                        <span class="filterLabel">Location</span>
+                        <span class="filterValue" id="locationValue">All</span>
+                    </button>
                 </div>
-
-                <button class="iconBtn" id="teamBtn" type="button" aria-label="Team">
-                    Team
-                </button>
             </div>
         </header>
 
@@ -152,68 +198,19 @@ $name = $_SESSION['dcops_name'] ?? '';
                     <div class="panelTop">
                         <div>
                             <div class="panelTitle">KPIs</div>
-                            <div class="panelSub" id="kpiSubtitle">All activities · All locations</div>
+                            <div class="panelSub" id="kpiSubtitle">All locations</div>
                         </div>
                         <div class="panelActions">
-                            <button class="miniBtn" id="kpiPrev" type="button">‹</button>
-                            <button class="miniBtn" id="kpiNext" type="button">›</button>
+                            <button class="miniBtn" id="deckPrev" type="button">‹</button>
+                            <button class="miniBtn" id="deckNext" type="button">›</button>
                         </div>
                     </div>
 
-                    <div class="kpiWrap">
-                        <div class="kpiTrack" id="kpiTrack">
-                            <div class="kpiPage">
-                                <div class="kpiTile">
-                                    <div class="kpiName">Completed Today</div>
-                                    <div class="kpiValue" id="kpiDone">0</div>
-                                    <div class="kpiMeta">SLC + Audit</div>
-                                </div>
-                                <div class="kpiTile">
-                                    <div class="kpiName">Pending Audit</div>
-                                    <div class="kpiValue" id="kpiPendingAudit">0</div>
-                                    <div class="kpiMeta">Needs review</div>
-                                </div>
-                                <div class="kpiTile">
-                                    <div class="kpiName">Pending L2</div>
-                                    <div class="kpiValue" id="kpiPendingL2">0</div>
-                                    <div class="kpiMeta">In queue</div>
-                                </div>
-                                <div class="kpiTile">
-                                    <div class="kpiName">Failures</div>
-                                    <div class="kpiValue" id="kpiFail">0</div>
-                                    <div class="kpiMeta">Blocked / issues</div>
-                                </div>
-                            </div>
-
-                            <div class="kpiPage">
-                                <div class="kpiTile accent">
-                                    <div class="kpiName">UCO Focus</div>
-                                    <div class="kpiValue" id="kpiUco">0%</div>
-                                    <div class="kpiMeta">Completion</div>
-                                </div>
-                                <div class="kpiTile">
-                                    <div class="kpiName">Hot Halls</div>
-                                    <div class="kpiValue" id="kpiHotHalls">0</div>
-                                    <div class="kpiMeta">Most failures</div>
-                                </div>
-                                <div class="kpiTile">
-                                    <div class="kpiName">Avg per Rack</div>
-                                    <div class="kpiValue" id="kpiAvg">—</div>
-                                    <div class="kpiMeta">Time</div>
-                                </div>
-                                <div class="kpiTile">
-                                    <div class="kpiName">Team Online</div>
-                                    <div class="kpiValue" id="kpiOnline">0</div>
-                                    <div class="kpiMeta">Active now</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="dots" id="kpiDots">
-                            <button class="dot active" type="button" data-i="0" aria-label="Page 1"></button>
-                            <button class="dot" type="button" data-i="1" aria-label="Page 2"></button>
-                        </div>
+                    <div class="deckTabsWrap">
+                        <div class="deckTabs" id="deckTabs"></div>
                     </div>
+
+                    <div class="deckArea" id="deckArea"></div>
 
                     <div class="quickRow">
                         <a class="quick primary" href="#" data-disabled="1">Open UCO SLC Audit</a>
@@ -225,43 +222,30 @@ $name = $_SESSION['dcops_name'] ?? '';
                 <section class="panel">
                     <div class="panelTop">
                         <div>
-                            <div class="panelTitle">Locations</div>
-                            <div class="panelSub">Choose where you're working</div>
+                            <div class="panelTitle">Individual Performance</div>
+                            <div class="panelSub" id="perfSubtitle">Filtered by activity + location</div>
                         </div>
                     </div>
 
-                    <div class="locCards">
-                        <button class="locCard" type="button" data-loc="uco">
-                            <div class="locName">UCO</div>
-                            <div class="locMeta">Primary</div>
-                        </button>
-                        <button class="locCard" type="button" data-loc="eag">
-                            <div class="locName">EAG</div>
-                            <div class="locMeta">Disabled</div>
-                        </button>
-                        <button class="locCard" type="button" data-loc="scu">
-                            <div class="locName">SCU</div>
-                            <div class="locMeta">Disabled</div>
-                        </button>
-                    </div>
+                    <div class="perfTable" id="perfTable"></div>
                 </section>
 
                 <section class="panel panelWide">
                     <div class="panelTop">
                         <div>
                             <div class="panelTitle">Activity Feed</div>
-                            <div class="panelSub">Filtered by location + activity</div>
+                            <div class="panelSub">Filtered by activity + location</div>
                         </div>
                     </div>
 
                     <div class="feed" id="feed">
                         <div class="feedItem">
-                            <div class="feedTitle">Ready: UCO audit is the priority</div>
-                            <div class="feedMeta">This feed will show rack events once we wire the audit tool.</div>
+                            <div class="feedTitle">UCO audit is priority</div>
+                            <div class="feedMeta">Once we wire the audit workflow, this feed will become real-time.</div>
                         </div>
                         <div class="feedItem">
-                            <div class="feedTitle">Tip: search works globally</div>
-                            <div class="feedMeta">Try typing a rack label like UCO1.1A.03F.23</div>
+                            <div class="feedTitle">KPI sections are activity-scoped</div>
+                            <div class="feedMeta">Select multiple activities to unlock the Summary KPI section.</div>
                         </div>
                     </div>
                 </section>
@@ -269,32 +253,18 @@ $name = $_SESSION['dcops_name'] ?? '';
         </section>
     </main>
 
-    <div class="drawer" id="teamDrawer" aria-hidden="true">
-        <div class="drawerTop">
-            <div class="drawerTitle">Team</div>
-            <button class="drawerClose" id="teamClose" type="button" aria-label="Close">×</button>
-        </div>
-
-        <div class="drawerBody">
-            <div class="teamCard">
-                <div class="teamLine">
-                    <span class="teamDot online"></span>
-                    <span class="teamName">Online users</span>
-                    <span class="teamVal" id="teamOnline">0</span>
-                </div>
-                <div class="teamSub">Presence + stats will be wired after UCO audit tool is live.</div>
+    <div class="modal" id="filterModal" aria-hidden="true">
+        <div class="modalCard" role="dialog" aria-modal="true" aria-labelledby="filterTitle">
+            <div class="modalTop">
+                <div class="modalTitle" id="filterTitle">Filter</div>
+                <button class="modalClose" id="filterClose" type="button" aria-label="Close">×</button>
             </div>
-
-            <div class="teamCard">
-                <div class="teamLine">
-                    <span class="teamDot"></span>
-                    <span class="teamName">Actions</span>
-                </div>
-                <div class="teamActions">
-                    <button class="quick" type="button" data-disabled="1">View output</button>
-                    <button class="quick" type="button" data-disabled="1">Assign quota</button>
-                    <button class="quick" type="button" data-disabled="1">Ping</button>
-                </div>
+            <div class="modalBody">
+                <div class="modalList" id="filterList"></div>
+            </div>
+            <div class="modalBottom">
+                <button class="btnGhost" id="filterCancel" type="button">Cancel</button>
+                <button class="btnPrimary" id="filterSave" type="button">Save</button>
             </div>
         </div>
     </div>
@@ -302,6 +272,13 @@ $name = $_SESSION['dcops_name'] ?? '';
     <div class="backdrop" id="backdrop"></div>
 </div>
 
+<script>
+    window.DCOPS_DASH = {
+        userName: <?= json_encode($name) ?>,
+        userEmail: <?= json_encode($email) ?>,
+        userRank: <?= json_encode($rank) ?>
+    }
+</script>
 <script src="./script.js"></script>
 </body>
 </html>
