@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&display=swap");
+
+:root {
+    --bg: #f7f9fc;
+    --text: #0b1220;
+    --muted: rgba(11,18,32,.55);
+    --line: rgba(11,18,32,.14);
+
+    --dc: #4a0f1a;
+    --ops: #bfa14a;
+
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    --logo: "JetBrains Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.6 var(--mono);
+}
+
+.page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.brand {
+    font-family: var(--logo);
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.brand .dc { color: var(--dc); }
+.brand .ops { color: var(--ops); }
+
+.card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.row:last-child {
+    border-bottom: none;
+}
+
+.label {
+    color: var(--muted);
+}
+
+.value {
+    font-weight: 600;
+}
+
+.signOutBtn {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(11,18,32,.18);
+    background: rgba(11,18,32,.04);
+    font: 12px/1 var(--mono);
+    cursor: pointer;
+}
+
+.signOutBtn:hover {
+    background: rgba(11,18,32,.07);
+}
+
+.topActions {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.homeBtn {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(11, 18, 32, .18);
+    background: rgba(11, 18, 32, .04);
+    font: 12px/1 var(--mono);
+    color: var(--text);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.homeBtn:hover {
+    background: rgba(11, 18, 32, .07);
+}
