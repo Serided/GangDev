@@ -12,6 +12,24 @@ if (session_status() === PHP_SESSION_NONE) {
 	session_start();
 }
 
+require __DIR__ . '/../lib/composer/vendor/autoload.php';
+
+use Dotenv\Dotenv;
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+if (!isset($_ENV['DB_HOST']) && isset($_ENV['PG_HOST'])) $_ENV['DB_HOST'] = $_ENV['PG_HOST'];
+if (!isset($_ENV['DB_PORT']) && isset($_ENV['PG_PORT'])) $_ENV['DB_PORT'] = $_ENV['PG_PORT'];
+if (!isset($_ENV['DB_NAME']) && isset($_ENV['PG_DATABASE'])) $_ENV['DB_NAME'] = $_ENV['PG_DATABASE'];
+if (!isset($_ENV['DB_USER']) && isset($_ENV['PG_USER'])) $_ENV['DB_USER'] = $_ENV['PG_USER'];
+if (!isset($_ENV['DB_PASSWORD']) && isset($_ENV['PG_PASSWORD'])) $_ENV['DB_PASSWORD'] = $_ENV['PG_PASSWORD'];
+
+if (!isset($_ENV['DB_HOST'])) $_ENV['DB_HOST'] = getenv('DB_HOST') ?: '';
+if (!isset($_ENV['DB_PORT'])) $_ENV['DB_PORT'] = getenv('DB_PORT') ?: '';
+if (!isset($_ENV['DB_NAME'])) $_ENV['DB_NAME'] = getenv('DB_NAME') ?: '';
+if (!isset($_ENV['DB_USER'])) $_ENV['DB_USER'] = getenv('DB_USER') ?: '';
+if (!isset($_ENV['DB_PASSWORD'])) $_ENV['DB_PASSWORD'] = getenv('DB_PASSWORD') ?: '';
+
 require_once '/var/www/gangdev/shared/php/db.php';
 
 if (isset($_SESSION['candor_user_id'], $_SESSION['candor_session_token'])) {
