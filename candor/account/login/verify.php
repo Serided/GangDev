@@ -39,7 +39,7 @@ if ($token !== '') {
 	<link rel="stylesheet" href="/login/login.css">
 	<script src="/login/login.js" defer></script>
 </head>
-<body>
+<body class="is-verify">
 
 <div class="canvas">
 	<div class="shell">
@@ -48,7 +48,7 @@ if ($token !== '') {
 			<div class="brand">
 				<div class="brandMark"><span class="logoGlyph">C</span></div>
 				<div class="brandText">
-					<div class="brandTitle"><span class="brandName">CANDOR</span></div>
+					<div class="brandTitle"><span class="brandLead">your</span><span class="brandName">CANDOR</span></div>
 					<div class="meta">account</div>
 				</div>
 			</div>
@@ -58,7 +58,6 @@ if ($token !== '') {
 				<div class="pop">
 					<a href="https://account.gangdev.co/login/signin.php"><span>GangDev</span><span class="badge">main</span></a>
 					<a href="https://account.dcops.co/login/signin.php"><span>DCOPS</span><span class="badge">ops</span></a>
-					<a href="/login/signin.php"><span>Candor</span><span class="badge">here</span></a>
 				</div>
 			</div>
 		</div>

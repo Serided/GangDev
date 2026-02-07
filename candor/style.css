@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Unbounded:wght@500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap");
 
 :root {
 	color-scheme: light;
@@ -13,9 +13,12 @@
 	--line: #d7e2ed;
 	--shadow: 0 18px 48px rgba(15, 27, 45, 0.16);
 	--radius: 18px;
-	--font-body: "Bricolage Grotesque", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-	--font-display: "Fraunces", "Garamond", "Times New Roman", serif;
-	--font-brand: "Unbounded", "Impact", "Haettenschweiler", "Arial Narrow Bold", sans-serif;
+	--brand-candor: #7b3f22;
+	--brand-lead: #4b7fa8;
+	--font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+	--font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+	--font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+	--font-lead: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
 	--logo-image: none;
 	--logo-glyph-opacity: 1;
 }
@@ -68,9 +71,10 @@ a {
 }
 
 .page {
-	max-width: 1120px;
+	max-width: 1400px;
 	margin: 0 auto;
-	padding: 32px 24px 70px;
+	padding: 40px clamp(20px, 4vw, 64px) 90px;
+	min-height: 100vh;
 }
 
 .nav {
@@ -103,7 +107,7 @@ a {
 .logoGlyph {
 	font-family: var(--font-brand);
 	font-weight: 700;
-	font-size: 18px;
+	font-size: 20px;
 	color: var(--ink);
 	line-height: 1;
 	opacity: var(--logo-glyph-opacity);
@@ -127,26 +131,26 @@ a {
 .brandTitle {
 	display: flex;
 	align-items: baseline;
-	gap: 8px;
+	gap: 6px;
 	justify-content: center;
 }
 
 .brandLead {
-	font-size: 12px;
-	font-weight: 600;
+	font-size: 16px;
+	font-weight: 700;
 	text-transform: lowercase;
 	letter-spacing: 0.2px;
-	color: var(--blue-strong);
+	color: var(--brand-lead);
 	margin-right: 0;
-	font-family: var(--font-body);
+	font-family: var(--font-lead);
 }
 
 .brandName {
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: 700;
-	letter-spacing: 1.1px;
+	letter-spacing: 1.2px;
 	text-transform: uppercase;
-	color: var(--ink);
+	color: var(--brand-candor);
 	font-family: var(--font-brand);
 }
 
@@ -197,8 +201,8 @@ a {
 
 .hero {
 	display: grid;
-	grid-template-columns: 1.4fr 1fr;
-	gap: 24px;
+	grid-template-columns: 1.6fr 1fr;
+	gap: 32px;
 	align-items: center;
 	margin-top: 36px;
 }

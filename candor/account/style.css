@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Unbounded:wght@500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap");
 
 :root {
     color-scheme: light;
@@ -11,13 +11,17 @@
     --ink: #0f1b2d;
     --ink-soft: #2a3b52;
     --line: #d7e2ed;
+    --brand-candor: #7b3f22;
+    --brand-lead: #4b7fa8;
+    --brand-mark-size: 42px;
 
     --radius: 18px;
     --shadow: 0 18px 50px rgba(15, 27, 45, .14);
 
-    --font-body: "Bricolage Grotesque", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --font-display: "Fraunces", "Garamond", "Times New Roman", serif;
-    --font-brand: "Unbounded", "Impact", "Haettenschweiler", "Arial Narrow Bold", sans-serif;
+    --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-lead: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --logo-image: none;
     --logo-glyph-opacity: 1;
 }
@@ -34,9 +38,9 @@ body {
 }
 
 .page {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 28px;
 }
 
 .top {
@@ -54,8 +58,8 @@ body {
 }
 
 .brandMark {
-    width: 42px;
-    height: 42px;
+    width: var(--brand-mark-size);
+    height: var(--brand-mark-size);
     border-radius: 14px;
     display: grid;
     place-items: center;
@@ -67,35 +71,38 @@ body {
 }
 
 .brandText {
-    display: grid;
-    gap: 4px;
-    justify-items: center;
+    position: relative;
+    height: var(--brand-mark-size);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
 .brandTitle {
     display: flex;
     align-items: baseline;
-    gap: 8px;
+    gap: 6px;
     justify-content: center;
 }
 
 .brandLead {
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     text-transform: lowercase;
     letter-spacing: .2px;
-    color: var(--blue-strong);
+    color: var(--brand-lead);
     margin-right: 0;
-    font-family: var(--font-body);
+    font-family: var(--font-lead);
 }
 
 .brandName {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
-    letter-spacing: 1.1px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
-    color: var(--ink);
+    color: var(--brand-candor);
     font-family: var(--font-brand);
 }
 
@@ -103,6 +110,10 @@ body {
     color: var(--ink-soft);
     font-size: 12px;
     letter-spacing: .4px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .card {
@@ -184,7 +195,7 @@ body {
 .logoGlyph {
     font-family: var(--font-brand);
     font-weight: 700;
-    font-size: 18px;
+    font-size: 20px;
     color: var(--ink);
     line-height: 1;
     opacity: var(--logo-glyph-opacity);
