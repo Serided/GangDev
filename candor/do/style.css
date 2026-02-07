@@ -21,7 +21,7 @@
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("https://candor.you/files/img/favicon/favicon.ico");
+    --logo-image: url("/favicon.ico");
     --logo-glyph-opacity: 0;
 }
 
@@ -153,12 +153,14 @@ body.is-do .brandTitle {
 .actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
 .welcome {
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
     color: var(--ink-soft);
 }
 
@@ -167,15 +169,27 @@ body.is-do .brandTitle {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    min-height: 40px;
-    padding: 0 16px;
+    min-height: 44px;
+    padding: 0 18px;
     border-radius: 999px;
     border: 1px solid var(--line);
     background: var(--white);
     color: var(--ink);
     font-weight: 600;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1;
+    letter-spacing: 0.2px;
+    box-shadow: 0 8px 18px rgba(15, 27, 45, 0.16);
+    transition: transform 0.1s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px rgba(15, 27, 45, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
 }
 
 .btn.primary {
@@ -196,7 +210,8 @@ body.is-do .brandTitle {
 }
 
 .btn.ghost {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(15, 27, 45, 0.12);
 }
 
 .overview {
@@ -353,6 +368,16 @@ body.is-do .brandTitle {
     background: rgba(185, 219, 242, 0.2);
     border: 1px solid rgba(185, 219, 242, 0.6);
     font-size: 13px;
+}
+
+.item.is-done {
+    background: rgba(185, 219, 242, 0.12);
+    border-color: rgba(185, 219, 242, 0.35);
+}
+
+.item.is-done .check span {
+    color: var(--ink-soft);
+    text-decoration: line-through;
 }
 
 .itemText {

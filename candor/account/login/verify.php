@@ -35,7 +35,8 @@ if ($token !== '') {
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor - Verify email</title>
-	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
 	<link rel="stylesheet" href="/login/login.css">
 	<script src="/login/login.js" defer></script>
@@ -64,18 +65,19 @@ if ($token !== '') {
 		</div>
 
 		<div class="body">
-			<h1>Verify your email</h1>
-			<p>Check your inbox for a verification link.</p>
+			<div class="verifyPane">
+				<div class="formBadge">Verify</div>
+				<h1>Verify your email</h1>
+				<p>Check your inbox for a verification link. It can take a minute.</p>
 
-			<div class="row">
-				<div class="links">
-					<a href="/login/signin.php">Back to sign in</a>
+				<?php if ($error !== ''): ?>
+					<div class="error"><?= htmlspecialchars($error) ?></div>
+				<?php endif; ?>
+
+				<div class="verifyActions">
+					<a class="btn primary" href="/login/signin.php">Back to sign in</a>
 				</div>
 			</div>
-
-			<?php if ($error !== ''): ?>
-				<div class="error"><?= htmlspecialchars($error) ?></div>
-			<?php endif; ?>
 		</div>
 
 		<div class="footer">

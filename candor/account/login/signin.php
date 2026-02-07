@@ -10,7 +10,8 @@ $ok = $_GET['ok'] ?? '';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candor - Sign in</title>
-    <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/login/login.css">
     <script src="/login/login.js" defer></script>

@@ -53,7 +53,8 @@ if ($t !== '') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candor - Create account</title>
-    <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/login/login.css">
     <script src="/login/login.js" defer></script>
@@ -95,8 +96,7 @@ if ($t !== '') {
 						<div class="sectionTitle">Identity</div>
 						<div class="formIndent">
 							<div class="formSplit">
-								<div class="field">
-									<div class="label">Display name</div>
+								<div class="field fieldInlineLabel">
 									<div class="inputRow">
 										<input class="input" name="display_name" value="<?= htmlspecialchars($prefill['display_name']) ?>" required autocomplete="nickname" spellcheck="false" pattern="[A-Za-z0-9][A-Za-z0-9 _-]{2,19}" maxlength="20" id="displayNameInput" data-display-check>
 										<div class="hint">
@@ -104,6 +104,7 @@ if ($t !== '') {
 											<div class="hintPop">This is what everyone sees. It must be unique.</div>
 										</div>
 									</div>
+									<div class="label">Display name</div>
 								</div>
 
 								<div class="field fieldSpacer" aria-hidden="true"></div>

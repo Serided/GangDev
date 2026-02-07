@@ -16,7 +16,8 @@ $org   = $_SESSION['candor_org'] ?? '';
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Candor - Account</title>
-        <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
         <link rel="stylesheet" href="style.css">
     </head>

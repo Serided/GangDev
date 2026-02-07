@@ -14,11 +14,12 @@ $email = $user['email'] ?? '';
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>your Candor</title>
-	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
-<body class="is-do">
+<body class="is-do" data-user-key="<?= htmlspecialchars((string)$userId) ?>">
 
 <div class="page">
 	<header class="nav">
@@ -40,7 +41,6 @@ $email = $user['email'] ?? '';
 
 	<section class="overview">
 		<div class="card heroCard">
-			<div class="tag">Today</div>
 			<h1>Plan like a menace. Execute with precision.</h1>
 			<p>Your OS for decisive planning: constraints first, missed blocks collapse back into the backlog, and the day stays honest.</p>
 		</div>

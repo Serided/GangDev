@@ -24,7 +24,7 @@
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("https://candor.you/files/img/favicon/favicon.ico");
+    --logo-image: url("/favicon.ico");
     --logo-glyph-opacity: 0;
 }
 
@@ -178,6 +178,39 @@ body.is-signup .shell {
     align-items: center;
 }
 
+body.is-verify .shell {
+    background: linear-gradient(180deg, rgba(185, 219, 242, 0.22), rgba(255, 255, 255, 0.98));
+}
+
+body.is-verify .body {
+    padding: 34px 28px 40px;
+    text-align: center;
+}
+
+.verifyPane {
+    width: min(520px, 100%);
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+}
+
+.verifyPane p {
+    margin-bottom: 0;
+}
+
+.verifyPane .error {
+    width: 100%;
+    text-align: left;
+}
+
+.verifyActions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
 .formPane {
     display: grid;
     gap: 16px;
@@ -293,11 +326,33 @@ body.is-signup .formIndent {
     .formSplit { grid-template-columns: 1fr; }
     .formIndent { padding-left: 0; border-left: none; }
     .fieldSpacer { display: none; }
+    .fieldInlineLabel {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "label"
+            "input";
+    }
     .shell { border-radius: 18px; }
     .logoGlyph { font-size: 20px; }
 }
 
 .field { display: flex; flex-direction: column; gap: 6px; }
+
+.fieldInlineLabel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "input label";
+    align-items: center;
+    gap: 12px;
+}
+
+.fieldInlineLabel .inputRow { grid-area: input; }
+
+.fieldInlineLabel .label {
+    grid-area: label;
+    white-space: nowrap;
+    text-align: left;
+}
 
 .label {
     font-size: 12px;
