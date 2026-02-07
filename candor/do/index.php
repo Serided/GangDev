@@ -103,8 +103,8 @@ $email = $user['email'] ?? '';
 	</section>
 
 	<div class="footer">
-		<a class="footLink" href="https://updates.candor.you/#v0-0">Candor v0.0</a>
-		<a class="footLink" href="https://gangdev.co/">Built by GangDev</a>
+		<a class="footLink" href="https://updates.candor.you/#v0-0"><span class="footStrong">Candor</span> v0.0</a>
+		<a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
 	</div>
 </div>
 

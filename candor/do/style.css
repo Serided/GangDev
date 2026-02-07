@@ -436,6 +436,10 @@ body.is-do .brandTitle {
     transform: scaleX(1);
 }
 
+.footStrong {
+    font-weight: 700;
+}
+
 @media (max-width: 1020px) {
     .overview { grid-template-columns: 1fr; }
     .workspace { grid-template-columns: 1fr; }

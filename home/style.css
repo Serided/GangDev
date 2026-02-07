@@ -51,6 +51,9 @@
     width: 33.3333%;
     padding: calc(var(--scaling) * 2) calc(var(--scaling) * 0.75);
 }
+.sect.cont#products .columns.two .sect {
+    width: 50%;
+}
 .sect.cont#products .columns .sect .cont {
     width: 100%;
 }

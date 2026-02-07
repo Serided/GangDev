@@ -286,6 +286,10 @@ p {
     transform: scaleX(1);
 }
 
+.footStrong {
+    font-weight: 700;
+}
+
 .productSwitch {
     position: relative;
     display: inline-flex;

@@ -46,16 +46,18 @@
         </div>
 
         <div class="sect cont three" id="products">
-            <div class="columns">
+            <div class="columns two">
                 <div class="mods sect">
-                    <h2>Mods</h2>
+                    <h2>Products</h2>
                     <p class="desc">
                         <a href="https://mods.gangdev.co/minecraft/resource_packs">- Minecraft (Resource Packs) -</a><br>
                         <a href="https://mods.gangdev.co/minecraft/data_packs">- Minecraft (Data Packs) -</a><br>
+                        <a href="https://apps.gangdev.co/web/mmfGenerator/">- MMF Generator -</a><br>
+                        <a href="https://apps.gangdev.co/web/roastGenerator/">- Roast Generator -</a><br>
                     </p>
                 </div>
                 <div class="games sect">
-                    <h2>Games</h2>
+                    <h2>Labs</h2>
                     <div class="cont">
                         <div class="link">
                             <a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine -<br>(Alpha)</a>
@@ -76,15 +78,6 @@
                             <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">- Fighting Game -<br>(Beta)</a>
                         </div>
                     </div>
-                </div>
-                <div class="apps sect">
-                    <h2>Apps</h2>
-                    <p class="desc">
-                        <a href="https://candor.you/">- Candor -</a><br>
-                        <a href="https://apps.gangdev.co/web/mmfGenerator/">- MMF Generator -</a><br>
-                        <a href="https://apps.gangdev.co/web/roastGenerator/">- Roast Generator -</a><br>
-                        <!--<a href="https://apps.gangdev.co/universalChat/" target="_blank">- Universal Chat -</a><br>-->
-                    </p>
                 </div>
             </div>
         </div>

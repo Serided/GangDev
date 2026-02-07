@@ -78,8 +78,8 @@ if ($token !== '') {
 		</div>
 
 		<div class="footer">
-			<a class="footLink" href="https://gangdev.co/">GangDev</a>
-			<a class="footLink" href="https://candor.you/">Candor</a>
+			<a class="footLink" href="https://gangdev.co/"><span class="footStrong">GangDev</span></a>
+			<a class="footLink" href="https://candor.you/"><span class="footStrong">Candor</span></a>
 		</div>
 
 	</div>

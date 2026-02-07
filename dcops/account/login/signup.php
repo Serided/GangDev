@@ -108,8 +108,8 @@ if ($t !== '') {
         </div>
 
         <div class="footer">
-            <a class="footLink" href="https://gangdev.co/">GangDev</a>
-            <a class="footLink" href="https://dcops.co/">DCOPS</a>
+            <a class="footLink" href="https://gangdev.co/"><span class="footStrong">GangDev</span></a>
+            <a class="footLink" href="https://dcops.co/"><span class="footStrong">DCOPS</span></a>
         </div>
 
     </div>

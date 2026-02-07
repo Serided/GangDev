@@ -469,6 +469,10 @@ body.is-signup .formIndent {
     transform: scaleX(1);
 }
 
+.footStrong {
+    font-weight: 700;
+}
+
 .productSwitch {
     position: relative;
     display: inline-flex;
@@ -559,7 +563,8 @@ body.is-signup .formIndent {
 .hintPop {
     position: absolute;
     right: 0;
-    top: calc(100% + 10px);
+    top: auto;
+    bottom: calc(100% + 10px);
     width: min(320px, 80vw);
     padding: 10px 12px;
     border-radius: 12px;

@@ -43,6 +43,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
             <aside class="sidebar two">
                 <nav>
                     <a href="https://dcops.co/"><button class="hamburger-btn btnText two">dcops.co</button></a>
+                    <a href="https://candor.you/"><button class="hamburger-btn btnText two">candor.you</button></a>
                     <a href="https://inspectre.link/"><button class="hamburger-btn btnText two">inspectre</button></a>
                 </nav>
             </aside>
