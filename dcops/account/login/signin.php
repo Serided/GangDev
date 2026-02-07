@@ -72,8 +72,8 @@ $ok = $_GET['ok'] ?? '';
         </div>
 
         <div class="footer">
-            <span>GangDev</span>
-            <span>DCOPS</span>
+            <a class="footLink" href="https://gangdev.co/">GangDev</a>
+            <a class="footLink" href="https://dcops.co/">DCOPS</a>
         </div>
 
     </div>

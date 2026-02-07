@@ -41,7 +41,7 @@ $ok = $_GET['ok'] ?? '';
 			<form method="post" action="/login/process_signin.php" autocomplete="on" class="formPane">
 				<div class="formHeader">
 					<h1>Sign in</h1>
-					<p>Sign in to operate your personal OS.</p>
+					<p>Sign in to operate your <span class="osEm">personal OS</span>.</p>
 				</div>
 
 				<div class="formFields">
@@ -79,8 +79,8 @@ $ok = $_GET['ok'] ?? '';
         </div>
 
         <div class="footer">
-            <span>GangDev</span>
-            <span>Candor</span>
+            <a class="footLink" href="https://gangdev.co/">GangDev</a>
+            <a class="footLink" href="https://candor.you/">Candor</a>
         </div>
 
     </div>

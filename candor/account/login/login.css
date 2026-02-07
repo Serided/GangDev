@@ -55,6 +55,16 @@ p {
     font-size: 14px;
 }
 
+.osEm {
+    font-weight: 800;
+    color: var(--ink);
+    background-image: linear-gradient(90deg, rgba(243, 200, 115, 0.85), rgba(185, 219, 242, 0.85));
+    background-size: 100% 2px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    padding-bottom: 2px;
+}
+
 .canvas {
     min-height: 100%;
     display: grid;
@@ -425,6 +435,38 @@ body.is-signup .formIndent {
     color: var(--ink-soft);
     font-size: 12px;
     background: rgba(255, 255, 255, 0.75);
+}
+
+.footLink {
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+    padding-bottom: 2px;
+    transition: transform 0.12s ease, color 0.12s ease;
+}
+
+.footLink::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--blue-strong), var(--yellow));
+    opacity: 0;
+    transform: scaleX(0.6);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.footLink:hover {
+    color: var(--ink);
+    transform: translateY(-1px);
+}
+
+.footLink:hover::after {
+    opacity: 0.8;
+    transform: scaleX(1);
 }
 
 .productSwitch {

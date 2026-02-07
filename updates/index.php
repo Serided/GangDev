@@ -23,7 +23,7 @@
         </div>
         <div class="updatesMeta">
             <span class="metaBadge">v0.0</span>
-            <span class="metaText">Personal OS build log</span>
+            <span class="metaText"><span class="osEm">Personal OS</span> build log</span>
         </div>
     </header>
 
@@ -34,7 +34,7 @@
                 <span class="releaseState">Current</span>
             </div>
             <h1>Foundation release</h1>
-            <p class="releaseLead">Identity, access gates, and the base layout for the personal OS.</p>
+            <p class="releaseLead">Identity, access gates, and the base layout for the <span class="osEm">personal OS</span>.</p>
 
             <div class="filterRow">
                 <button class="filterBtn isActive" data-filter="all" type="button">All</button>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="feedItem" data-impact="low">
                     <span class="impact low">Low</span>
-                    <span class="feedText">Personal OS tagline treatment and spacing passes.</span>
+                    <span class="feedText"><span class="osEm">Personal OS</span> tagline treatment and spacing passes.</span>
                 </div>
             </div>
         </section>

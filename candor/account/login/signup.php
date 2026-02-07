@@ -86,7 +86,7 @@ if ($t !== '') {
 
 				<div class="formHeader">
 					<h1>Create your account</h1>
-					<p>Create your account to unlock your personal OS.</p>
+					<p>Create your account to unlock your <span class="osEm">personal OS</span>.</p>
 				</div>
 
 				<div class="formFields">
@@ -105,6 +105,8 @@ if ($t !== '') {
 									</div>
 								</div>
 
+								<div class="field fieldSpacer" aria-hidden="true"></div>
+
 								<div class="field">
 									<div class="label">Email</div>
 									<input class="input" name="email" value="<?= htmlspecialchars($prefill['email']) ?>" required autocomplete="email" inputmode="email">
@@ -114,8 +116,6 @@ if ($t !== '') {
 									<div class="label">Verify email</div>
 									<input class="input" name="confirm_email" value="<?= htmlspecialchars($prefill['email']) ?>" required autocomplete="email" inputmode="email">
 								</div>
-
-								<div class="field fieldSpacer" aria-hidden="true"></div>
 
 								<div class="status" id="displayNameStatus" aria-live="polite"></div>
 							</div>
@@ -176,8 +176,8 @@ if ($t !== '') {
         </div>
 
         <div class="footer">
-            <span>GangDev</span>
-            <span>Candor</span>
+            <a class="footLink" href="https://gangdev.co/">GangDev</a>
+            <a class="footLink" href="https://candor.you/">Candor</a>
         </div>
 
     </div>

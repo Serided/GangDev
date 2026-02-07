@@ -68,8 +68,8 @@ if (!isset($_SESSION['candor_login_user_id'])) {
 		</div>
 
 		<div class="footer">
-			<span>GangDev</span>
-			<span>Candor</span>
+			<a class="footLink" href="https://gangdev.co/">GangDev</a>
+			<a class="footLink" href="https://candor.you/">Candor</a>
 		</div>
 
 	</div>
