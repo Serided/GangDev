@@ -46,9 +46,9 @@ if ($token !== '') {
 
 		<div class="top">
 			<div class="brand">
-				<div class="brandMark">C</div>
+				<div class="brandMark"><span class="logoGlyph">C</span></div>
 				<div class="brandText">
-					<div class="brandTitle"><span class="brandLead">your</span><span class="brandName">CANDOR</span></div>
+					<div class="brandTitle"><span class="brandName">CANDOR</span></div>
 					<div class="meta">account</div>
 				</div>
 			</div>
@@ -56,7 +56,8 @@ if ($token !== '') {
 			<div class="productSwitch">
 				<button class="switchBtn" type="button">other sign-ins</button>
 				<div class="pop">
-					<a href="https://account.gangdev.co/login/"><span>GangDev</span><span class="badge">main</span></a>
+					<a href="https://account.gangdev.co/login/signin.php"><span>GangDev</span><span class="badge">main</span></a>
+					<a href="https://account.dcops.co/login/signin.php"><span>DCOPS</span><span class="badge">ops</span></a>
 					<a href="/login/signin.php"><span>Candor</span><span class="badge">here</span></a>
 				</div>
 			</div>

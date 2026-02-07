@@ -21,9 +21,9 @@ $authed = $userId && $user;
 <div class="page">
 	<header class="nav reveal" style="--d: 0ms;">
 		<div class="brand">
-			<div class="logo">C</div>
-			<div>
-				<div class="brandTitle"><span class="brandLead">your</span><span class="brandName">CANDOR</span></div>
+			<div class="logo"><span class="logoGlyph">C</span></div>
+			<div class="brandText">
+				<div class="brandTitle"><span class="brandName">CANDOR</span></div>
 				<div class="meta">personal OS</div>
 			</div>
 		</div>
@@ -45,15 +45,6 @@ $authed = $userId && $user;
 			<div class="badge">v0 build</div>
 			<h1>Clear today, without losing the long game.</h1>
 			<p>Candor is your personal operating system for tasks, notes, and a simple daily planner. Keep the day lightweight, keep the backlog honest, and move forward with intention.</p>
-			<div class="cta-row">
-				<?php if ($authed): ?>
-					<a class="btn primary" href="https://do.candor.you/">Go to Today</a>
-					<a class="btn ghost" href="https://account.candor.you/">Account center</a>
-				<?php else: ?>
-					<a class="btn primary" href="https://account.candor.you/login/signin.php">Sign in</a>
-					<a class="btn accent" href="https://account.candor.you/login/signup.php">Create account</a>
-				<?php endif; ?>
-			</div>
 		</div>
 
 		<div class="card panel reveal" style="--d: 160ms;">
@@ -65,14 +56,13 @@ $authed = $userId && $user;
 					<li><span>Account details</span><a class="btn slim" href="https://account.candor.you/">View</a></li>
 					<li><span>Sign out</span><a class="btn slim" href="https://account.candor.you/login/signout.php">Sign out</a></li>
 				<?php else: ?>
-					<li><span>Sign in</span><a class="btn slim" href="https://account.candor.you/login/signin.php">Go</a></li>
-					<li><span>Create account</span><a class="btn slim" href="https://account.candor.you/login/signup.php">Go</a></li>
+					<li><span>Tasks</span><span class="subtle">Status + rollover</span></li>
+					<li><span>Notes</span><span class="subtle">Fast capture</span></li>
+					<li><span>Planner</span><span class="subtle">Rule based</span></li>
 				<?php endif; ?>
 			</ul>
 			<?php if ($authed): ?>
 				<p class="subtle">Signed in as <?= htmlspecialchars($name !== '' ? $name : $email) ?></p>
-			<?php else: ?>
-				<p class="subtle">Use your email to activate your account.</p>
 			<?php endif; ?>
 		</div>
 	</section>

@@ -21,8 +21,8 @@ $authed = $userId && $user;
 <div class="page">
 	<header class="nav reveal" style="--d: 0ms;">
 		<div class="brand">
-			<div class="logo">C</div>
-			<div>
+			<div class="logo"><span class="logoGlyph">C</span></div>
+			<div class="brandText">
 				<div class="brandTitle"><span class="brandLead">your</span><span class="brandName">CANDOR</span></div>
 				<div class="meta">execution cockpit</div>
 			</div>
@@ -45,15 +45,6 @@ $authed = $userId && $user;
 			<div class="badge">Today</div>
 			<h1>Plan like a menace. Execute with precision.</h1>
 			<p>Candor adapts to your constraints, reshapes the day when things shift, and collapses misses back into the backlog.</p>
-			<div class="cta-row">
-				<?php if ($authed): ?>
-					<a class="btn primary" href="https://account.candor.you/">Account center</a>
-					<a class="btn ghost" href="https://candor.you/">Back to Candor</a>
-				<?php else: ?>
-					<a class="btn primary" href="https://account.candor.you/login/signin.php">Sign in to start</a>
-					<a class="btn ghost" href="https://account.candor.you/login/signup.php">Create account</a>
-				<?php endif; ?>
-			</div>
 		</div>
 
 		<div class="card panel reveal" style="--d: 160ms;">
@@ -89,8 +80,8 @@ $authed = $userId && $user;
 	</section>
 
 	<div class="footer">
-		<span>Candor</span>
-		<span>v0 test build</span>
+		<span>Candor v0</span>
+		<span>Built by GangDev</span>
 	</div>
 </div>
 

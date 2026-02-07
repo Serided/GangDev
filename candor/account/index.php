@@ -25,9 +25,9 @@ $org   = $_SESSION['candor_org'] ?? '';
 
             <div class="top">
             <div class="brand">
-                <div class="brandMark">C</div>
+                <div class="brandMark"><span class="logoGlyph">C</span></div>
                 <div class="brandText">
-                    <div class="brandTitle"><span class="brandLead">your</span><span class="brandName">CANDOR</span></div>
+                    <div class="brandTitle"><span class="brandName">CANDOR</span></div>
                     <div class="meta">account</div>
                 </div>
             </div>

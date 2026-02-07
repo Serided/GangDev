@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Unbounded:wght@500;700&display=swap");
 
 :root {
     color-scheme: light;
@@ -15,9 +15,11 @@
     --radius: 18px;
     --shadow: 0 18px 50px rgba(15, 27, 45, .14);
 
-    --font-body: "Manrope", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --font-display: "Cormorant Garamond", "Garamond", "Times New Roman", serif;
-    --font-brand: "Bebas Neue", "Impact", "Haettenschweiler", "Arial Narrow Bold", sans-serif;
+    --font-body: "Bricolage Grotesque", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-display: "Fraunces", "Garamond", "Times New Roman", serif;
+    --font-brand: "Unbounded", "Impact", "Haettenschweiler", "Arial Narrow Bold", sans-serif;
+    --logo-image: none;
+    --logo-glyph-opacity: 1;
 }
 
 * { box-sizing: border-box; }
@@ -57,39 +59,41 @@ body {
     border-radius: 14px;
     display: grid;
     place-items: center;
-    background: linear-gradient(135deg, rgba(185, 219, 242, 0.9), rgba(255, 255, 255, 0.95));
+    background: var(--logo-image) center/cover no-repeat,
+        linear-gradient(135deg, rgba(185, 219, 242, 0.9), rgba(255, 255, 255, 0.95));
     border: 1px solid var(--line);
-    font-weight: 700;
-    color: var(--ink);
-    font-family: var(--font-brand);
-    font-size: 20px;
+    overflow: hidden;
+    position: relative;
 }
 
 .brandText {
     display: grid;
-    gap: 2px;
+    gap: 4px;
+    justify-items: center;
+    text-align: center;
 }
 
 .brandTitle {
     display: flex;
     align-items: baseline;
-    gap: 2px;
+    gap: 8px;
+    justify-content: center;
 }
 
 .brandLead {
     font-size: 12px;
     font-weight: 600;
     text-transform: lowercase;
-    letter-spacing: .3px;
+    letter-spacing: .2px;
     color: var(--blue-strong);
-    margin-right: -4px;
+    margin-right: 0;
     font-family: var(--font-body);
 }
 
 .brandName {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
-    letter-spacing: 2.6px;
+    letter-spacing: 1.1px;
     text-transform: uppercase;
     color: var(--ink);
     font-family: var(--font-brand);
@@ -176,4 +180,12 @@ body {
     .topActions {
         width: 100%;
     }
+}
+.logoGlyph {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+    line-height: 1;
+    opacity: var(--logo-glyph-opacity);
 }
