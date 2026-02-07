@@ -21,7 +21,7 @@
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("/favicon.ico");
+    --logo-image: url("/favicon-128.png?v=2");
     --logo-glyph-opacity: 0;
 }
 
@@ -71,6 +71,11 @@ a { color: inherit; text-decoration: none; }
     align-items: center;
     gap: 14px;
     letter-spacing: 1px;
+}
+
+.brandLink {
+    text-decoration: none;
+    color: inherit;
 }
 
 .logo {

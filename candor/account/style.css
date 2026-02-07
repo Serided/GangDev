@@ -22,7 +22,7 @@
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("/favicon.ico");
+    --logo-image: url("/favicon-128.png?v=2");
     --logo-glyph-opacity: 0;
 }
 
@@ -38,13 +38,15 @@ body {
 }
 
 .page {
-    max-width: 1200px;
+    --page-gutter: clamp(16px, 3vw, 54px);
+    width: 100%;
+    max-width: none;
     margin: 0 auto;
-    padding: 32px;
+    padding: 52px var(--page-gutter);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 32px;
 }
 
 .top {
@@ -52,12 +54,18 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+    flex-wrap: wrap;
 }
 
 .brand {
     display: inline-flex;
     align-items: center;
     gap: 12px;
+}
+
+.brandLink {
+    text-decoration: none;
+    color: inherit;
 }
 
 .brandMark {
@@ -124,8 +132,44 @@ body {
     background: var(--white);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 18px;
+    padding: 22px;
     box-shadow: var(--shadow);
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(185, 219, 242, 0.5);
+    border: 1px solid rgba(185, 219, 242, 0.9);
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.heroCard h1 {
+    margin: 12px 0 10px;
+    font-family: var(--font-display);
+    font-size: clamp(24px, 3.6vw, 36px);
+    letter-spacing: -0.2px;
+}
+
+.heroCard p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.accountLayout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 20px;
+    align-items: start;
 }
 
 .row {
@@ -148,20 +192,6 @@ body {
     font-weight: 600;
 }
 
-.signOutBtn {
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: 1px solid var(--line);
-    background: var(--white);
-    font: 12px/1 var(--font-body);
-    line-height: 1;
-    cursor: pointer;
-}
-
-.signOutBtn:hover {
-    background: rgba(11,18,32,.07);
-}
-
 .topActions {
     display: inline-flex;
     align-items: center;
@@ -169,21 +199,38 @@ body {
     flex-wrap: wrap;
 }
 
-.homeBtn {
-    padding: 8px 12px;
-    border-radius: 10px;
-    border: 1px solid var(--line);
-    background: var(--white);
-    font: 12px/1 var(--font-body);
-    color: var(--ink);
-    text-decoration: none;
+.btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--white);
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14px;
     line-height: 1;
+    letter-spacing: 0.2px;
+    box-shadow: 0 8px 18px rgba(15, 27, 45, 0.16);
+    transition: transform 0.1s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
-.homeBtn:hover {
-    background: rgba(15, 27, 45, .06);
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px rgba(15, 27, 45, 0.22);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn.accent {
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    color: #2a1a0f;
+    border-color: #e1a36d;
 }
 
 @media (max-width: 720px) {
@@ -194,6 +241,10 @@ body {
 
     .topActions {
         width: 100%;
+    }
+
+    .accountLayout {
+        grid-template-columns: 1fr;
     }
 }
 .logoGlyph {

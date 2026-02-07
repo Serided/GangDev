@@ -13,8 +13,11 @@ $authed = $userId && $user;
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor</title>
-	<link rel="icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
+	<link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
+	<link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png?v=2">
+	<link rel="icon" type="image/png" sizes="128x128" href="/favicon-128.png?v=2">
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
@@ -22,17 +25,17 @@ $authed = $userId && $user;
 
 <div class="page">
 	<header class="nav reveal" style="--d: 0ms;">
-		<div class="brand">
+		<a class="brand brandLink" href="https://candor.you/">
 			<div class="logo"><span class="logoGlyph">C</span></div>
 			<div class="brandText">
 				<div class="brandTitle"><span class="brandName">Candor</span></div>
 				<div class="meta"><span class="osEm">personal OS</span></div>
 			</div>
-		</div>
+		</a>
 
 		<div class="actions">
 			<?php if ($authed): ?>
-				<a class="btn primary" href="https://do.candor.you/">Open Do</a>
+				<a class="btn primary" href="https://do.candor.you/">My OS</a>
 				<a class="btn ghost" href="https://account.candor.you/">Account</a>
 				<a class="btn accent" href="https://account.candor.you/login/signout.php">Sign out</a>
 			<?php else: ?>
@@ -53,9 +56,9 @@ $authed = $userId && $user;
 			<p class="subtle">Everything you need to move between planning and execution.</p>
 			<ul class="list">
 				<?php if ($authed): ?>
-					<li><span>Today workspace</span><a class="btn slim" href="https://do.candor.you/">Open</a></li>
-					<li><span>Account details</span><a class="btn slim" href="https://account.candor.you/">View</a></li>
-					<li><span>Sign out</span><a class="btn slim" href="https://account.candor.you/login/signout.php">Sign out</a></li>
+					<li><span>Tasks</span><span class="subtle">Status + rollover</span></li>
+					<li><span>Notes</span><span class="subtle">Fast capture</span></li>
+					<li><span>Planner</span><span class="subtle">Rule based</span></li>
 				<?php else: ?>
 					<li><span>Tasks</span><span class="subtle">Status + rollover</span></li>
 					<li><span>Notes</span><span class="subtle">Fast capture</span></li>

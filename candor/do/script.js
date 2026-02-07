@@ -20,9 +20,9 @@
     };
 
     const state = {
-        tasks: loadItems("tasks"),
-        notes: loadItems("notes"),
-        blocks: loadItems("blocks"),
+        tasks: [],
+        notes: [],
+        blocks: [],
     };
 
     const listEls = {
@@ -32,6 +32,85 @@
     };
 
     const makeId = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+
+    const persistLocal = () => {
+        saveItems("tasks", state.tasks);
+        saveItems("notes", state.notes);
+        saveItems("blocks", state.blocks);
+    };
+
+    const renderList = (name, list) => {
+        const el = listEls[name];
+        if (!el) return;
+        el.innerHTML = "";
+        list.forEach((item) => {
+            if (name === "tasks") {
+                addTask(el, item);
+            } else if (name === "notes") {
+                addNote(el, item);
+            } else {
+                addBlock(el, item);
+            }
+        });
+    };
+
+    const renderAll = () => {
+        renderList("tasks", state.tasks);
+        renderList("notes", state.notes);
+        renderList("blocks", state.blocks);
+    };
+
+    const apiFetch = async (payload, method = "POST") => {
+        const opts = {
+            method,
+            headers: { "Accept": "application/json" },
+            credentials: "same-origin",
+        };
+        let url = "api.php";
+        if (method === "GET") {
+            const params = new URLSearchParams(payload);
+            url += `?${params.toString()}`;
+        } else {
+            opts.headers["Content-Type"] = "application/json";
+            opts.body = JSON.stringify(payload);
+        }
+        const res = await fetch(url, opts);
+        if (!res.ok) {
+            throw new Error(`api ${res.status}`);
+        }
+        return res.json();
+    };
+
+    let storageMode = "remote";
+
+    const loadLocal = () => {
+        state.tasks = loadItems("tasks");
+        state.notes = loadItems("notes");
+        state.blocks = loadItems("blocks");
+        renderAll();
+    };
+
+    const switchToLocal = () => {
+        storageMode = "local";
+        persistLocal();
+    };
+
+    const loadRemote = async () => {
+        const data = await apiFetch({ action: "load" }, "GET");
+        state.tasks = Array.isArray(data.tasks) ? data.tasks : [];
+        state.notes = Array.isArray(data.notes) ? data.notes : [];
+        state.blocks = Array.isArray(data.blocks) ? data.blocks : [];
+        renderAll();
+    };
+
+    const init = async () => {
+        try {
+            await loadRemote();
+        } catch {
+            storageMode = "local";
+            loadLocal();
+        }
+    };
 
     const buildText = (text, time) => {
         const wrap = document.createElement("div");
@@ -104,26 +183,17 @@
         list.appendChild(li);
     };
 
-    const renderList = (name, list) => {
-        const el = listEls[name];
-        if (!el) return;
-        el.innerHTML = "";
-        list.forEach((item) => {
-            if (name === "tasks") {
-                addTask(el, item);
-            } else if (name === "notes") {
-                addNote(el, item);
-            } else {
-                addBlock(el, item);
-            }
-        });
+    const todayString = () => {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, "0");
+        const d = String(now.getDate()).padStart(2, "0");
+        return `${y}-${m}-${d}`;
     };
 
-    renderList("tasks", state.tasks);
-    renderList("notes", state.notes);
-    renderList("blocks", state.blocks);
+    init();
 
-    document.addEventListener("submit", (e) => {
+    document.addEventListener("submit", async (e) => {
         const form = e.target.closest("[data-add-target]");
         if (!form) return;
 
@@ -138,23 +208,46 @@
         if (text === "") return;
 
         const time = timeInput ? timeInput.value.trim() : "";
-        const id = makeId();
 
-        if (target === "tasks") {
-            const item = { id, text, done: false };
-            state.tasks.push(item);
-            saveItems("tasks", state.tasks);
-            addTask(list, item);
-        } else if (target === "notes") {
-            const item = { id, text };
-            state.notes.push(item);
-            saveItems("notes", state.notes);
-            addNote(list, item);
-        } else {
-            const item = { id, text, time };
-            state.blocks.push(item);
-            saveItems("blocks", state.blocks);
-            addBlock(list, item);
+        if (storageMode === "remote") {
+            try {
+                const payload = {
+                    action: "add",
+                    type: target,
+                    text,
+                };
+                if (target === "blocks") {
+                    payload.time = time;
+                    payload.date = todayString();
+                }
+                const data = await apiFetch(payload, "POST");
+                const item = data.item;
+                if (!item || !item.id) throw new Error("bad item");
+                if (target === "tasks") state.tasks.push(item);
+                if (target === "notes") state.notes.push(item);
+                if (target === "blocks") state.blocks.push(item);
+                renderList(target, state[target]);
+            } catch {
+                switchToLocal();
+            }
+        }
+
+        if (storageMode === "local") {
+            const id = makeId();
+            if (target === "tasks") {
+                const item = { id, text, done: false };
+                state.tasks.push(item);
+                addTask(list, item);
+            } else if (target === "notes") {
+                const item = { id, text };
+                state.notes.push(item);
+                addNote(list, item);
+            } else {
+                const item = { id, text, time };
+                state.blocks.push(item);
+                addBlock(list, item);
+            }
+            persistLocal();
         }
 
         textInput.value = "";
@@ -162,21 +255,29 @@
         textInput.focus();
     });
 
-    document.addEventListener("click", (e) => {
+    document.addEventListener("click", async (e) => {
         const btn = e.target.closest("[data-remove]");
         if (!btn) return;
         const item = btn.closest("li");
         if (!item) return;
         const listName = item.dataset.list;
         const itemId = item.dataset.itemId;
-        if (listName && itemId && state[listName]) {
-            state[listName] = state[listName].filter((entry) => entry.id !== itemId);
-            saveItems(listName, state[listName]);
+        if (!listName || !itemId) return;
+
+        if (storageMode === "remote") {
+            try {
+                await apiFetch({ action: "delete", type: listName, id: itemId }, "POST");
+            } catch {
+                switchToLocal();
+            }
         }
+
+        state[listName] = state[listName].filter((entry) => entry.id !== itemId);
         item.remove();
+        if (storageMode === "local") persistLocal();
     });
 
-    document.addEventListener("change", (e) => {
+    document.addEventListener("change", async (e) => {
         const cb = e.target.closest("[data-task-check]");
         if (!cb) return;
         const item = cb.closest("li");
@@ -185,7 +286,16 @@
         const entry = state.tasks.find((task) => task.id === itemId);
         if (!entry) return;
         entry.done = cb.checked;
-        saveItems("tasks", state.tasks);
         item.classList.toggle("is-done", cb.checked);
+
+        if (storageMode === "remote") {
+            try {
+                await apiFetch({ action: "toggle", type: "tasks", id: itemId, done: entry.done }, "POST");
+            } catch {
+                switchToLocal();
+            }
+        }
+
+        if (storageMode === "local") persistLocal();
     });
 })();
