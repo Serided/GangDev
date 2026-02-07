@@ -15,10 +15,11 @@
 	--radius: 18px;
 	--brand-candor: #7b3f22;
 	--brand-lead: #4b7fa8;
+	--brand-mark-size: 48px;
 	--font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
 	--font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
 	--font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-	--font-lead: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+	--font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
 	--logo-image: none;
 	--logo-glyph-opacity: 1;
 }
@@ -71,10 +72,13 @@ a {
 }
 
 .page {
-	max-width: 1400px;
+	max-width: 1480px;
 	margin: 0 auto;
-	padding: 40px clamp(20px, 4vw, 64px) 90px;
+	padding: 44px clamp(22px, 4vw, 80px) 16px;
 	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
 }
 
 .nav {
@@ -92,9 +96,9 @@ a {
 }
 
 .logo {
-	width: 44px;
-	height: 44px;
-	border-radius: 14px;
+	width: var(--brand-mark-size);
+	height: var(--brand-mark-size);
+	border-radius: 16px;
 	display: grid;
 	place-items: center;
 	background: var(--logo-image) center/cover no-repeat,
@@ -107,7 +111,7 @@ a {
 .logoGlyph {
 	font-family: var(--font-brand);
 	font-weight: 700;
-	font-size: 20px;
+	font-size: 22px;
 	color: var(--ink);
 	line-height: 1;
 	opacity: var(--logo-glyph-opacity);
@@ -119,36 +123,43 @@ a {
 	letter-spacing: 2px;
 	color: var(--ink-soft);
 	font-family: var(--font-body);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 .brandText {
-	display: grid;
-	gap: 4px;
-	justify-items: center;
+	position: relative;
+	height: var(--brand-mark-size);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	text-align: center;
 }
 
 .brandTitle {
 	display: flex;
 	align-items: baseline;
-	gap: 6px;
+	gap: 4px;
 	justify-content: center;
 }
 
 .brandLead {
-	font-size: 16px;
+	font-size: 12px;
 	font-weight: 700;
 	text-transform: lowercase;
-	letter-spacing: 0.2px;
+	letter-spacing: 0.1px;
 	color: var(--brand-lead);
 	margin-right: 0;
-	font-family: var(--font-lead);
+	font-family: var(--font-brand);
 }
 
 .brandName {
-	font-size: 20px;
+	font-size: 24px;
 	font-weight: 700;
-	letter-spacing: 1.2px;
+	letter-spacing: 1.3px;
 	text-transform: uppercase;
 	color: var(--brand-candor);
 	font-family: var(--font-brand);
@@ -177,6 +188,60 @@ a {
 	line-height: 1;
 }
 
+body.is-landing .btn {
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 10px 28px rgba(15, 27, 45, 0.18), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+	transition: transform 0.08s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+body.is-landing .btn::after {
+	content: "";
+	position: absolute;
+	left: 12%;
+	right: 12%;
+	bottom: 6px;
+	height: 1px;
+	background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+	opacity: 0.2;
+	transform: scaleX(0.75);
+	transition: opacity 0.18s ease, transform 0.22s ease;
+}
+
+body.is-landing .btn::before {
+	content: "";
+	position: absolute;
+	top: -40%;
+	left: -30%;
+	width: 60%;
+	height: 180%;
+	transform: rotate(18deg) translateX(-30%);
+	background: linear-gradient(90deg, transparent, rgba(230, 160, 106, 0.25), transparent);
+	opacity: 0;
+	transition: opacity 0.18s ease, transform 0.45s ease;
+	pointer-events: none;
+}
+
+body.is-landing .btn:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 16px 40px rgba(15, 27, 45, 0.28), 0 0 0 3px rgba(243, 200, 115, 0.16),
+		0 1px 0 rgba(255, 255, 255, 1) inset;
+}
+
+body.is-landing .btn:hover::after {
+	opacity: 0.55;
+	transform: scaleX(1);
+}
+
+body.is-landing .btn:hover::before {
+	opacity: 1;
+	transform: rotate(18deg) translateX(155%);
+}
+
+body.is-landing .btn:active {
+	transform: translateY(0);
+}
+
 .btn.primary {
 	background: var(--ink);
 	color: var(--smoke);
@@ -201,25 +266,24 @@ a {
 
 .hero {
 	display: grid;
-	grid-template-columns: 1.6fr 1fr;
+	grid-template-columns: 1.7fr 1fr;
 	gap: 32px;
 	align-items: center;
-	margin-top: 36px;
 }
 
 .hero h1 {
 	margin: 0 0 16px;
-	font-size: clamp(32px, 4vw, 48px);
+	font-size: clamp(36px, 5vw, 64px);
 	letter-spacing: -0.5px;
 	font-family: var(--font-display);
 }
 
 .hero p {
 	margin: 0 0 22px;
-	font-size: 16px;
+	font-size: 17px;
 	color: var(--ink-soft);
-	line-height: 1.6;
-	max-width: 560px;
+	line-height: 1.7;
+	max-width: 620px;
 }
 
 .cta-row {
@@ -247,8 +311,26 @@ a {
 	background: var(--white);
 	border: 1px solid var(--line);
 	border-radius: var(--radius);
-	padding: 20px;
+	padding: 24px;
 	box-shadow: var(--shadow);
+}
+
+body.is-landing .card,
+body.is-landing .list li {
+	transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+
+body.is-landing .card:hover {
+	transform: translateY(-6px);
+	border-color: rgba(90, 143, 185, 0.45);
+	box-shadow: 0 22px 54px rgba(15, 27, 45, 0.24);
+}
+
+body.is-landing .list li:hover {
+	transform: translateY(-3px);
+	border-color: rgba(90, 143, 185, 0.65);
+	background: rgba(185, 219, 242, 0.3);
+	box-shadow: 0 16px 32px rgba(15, 27, 45, 0.18);
 }
 
 .card h3 {
@@ -279,7 +361,7 @@ a {
 	display: grid;
 	gap: 18px;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
-	margin-top: 32px;
+	margin-top: 0;
 }
 
 .panel {
@@ -312,12 +394,14 @@ a {
 }
 
 .footer {
-	margin-top: 44px;
+	margin-top: auto;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	font-size: 12px;
 	color: var(--ink-soft);
+	padding-top: 28px;
+	padding-bottom: 8px;
 }
 
 .reveal {
@@ -345,6 +429,11 @@ a {
 }
 
 @media (max-width: 720px) {
+	.page {
+		padding: 32px 18px 12px;
+		gap: 24px;
+	}
+
 	.nav {
 		flex-direction: column;
 		align-items: flex-start;
@@ -364,9 +453,9 @@ a {
 	}
 
 	.footer {
-		flex-direction: column;
-		gap: 6px;
-		align-items: flex-start;
+		flex-direction: row;
+		align-items: center;
+		gap: 12px;
 	}
 }
 

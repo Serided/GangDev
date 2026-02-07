@@ -13,7 +13,7 @@
     --line: #d7e2ed;
     --brand-candor: #7b3f22;
     --brand-lead: #4b7fa8;
-    --brand-mark-size: 42px;
+    --brand-mark-size: 48px;
 
     --radius: 18px;
     --shadow: 0 18px 50px rgba(15, 27, 45, .14);
@@ -21,7 +21,7 @@
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --font-lead: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --logo-image: none;
     --logo-glyph-opacity: 1;
 }
@@ -38,16 +38,19 @@ body {
 }
 
 .page {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 28px;
+    padding: 32px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 18px;
     gap: 12px;
 }
 
@@ -83,24 +86,24 @@ body {
 .brandTitle {
     display: flex;
     align-items: baseline;
-    gap: 6px;
+    gap: 4px;
     justify-content: center;
 }
 
 .brandLead {
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 700;
     text-transform: lowercase;
-    letter-spacing: .2px;
+    letter-spacing: .1px;
     color: var(--brand-lead);
     margin-right: 0;
-    font-family: var(--font-lead);
+    font-family: var(--font-brand);
 }
 
 .brandName {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.3px;
     text-transform: uppercase;
     color: var(--brand-candor);
     font-family: var(--font-brand);
@@ -195,7 +198,7 @@ body {
 .logoGlyph {
     font-family: var(--font-brand);
     font-weight: 700;
-    font-size: 20px;
+    font-size: 22px;
     color: var(--ink);
     line-height: 1;
     opacity: var(--logo-glyph-opacity);

@@ -29,7 +29,7 @@ $ok = $_GET['ok'] ?? '';
                 <button class="switchBtn" type="button">other sign-ins</button>
                 <div class="pop">
                     <a href="https://account.gangdev.co/login/"><span>GangDev</span><span class="badge">main</span></a>
-                    <a href="/login/signin.php"><span>DCOPS</span><span class="badge">here</span></a>
+                    <a href="https://account.candor.you/login/signin.php"><span>Candor</span><span class="badge">product</span></a>
                 </div>
             </div>
         </div>

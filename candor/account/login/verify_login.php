@@ -37,7 +37,7 @@ if (!isset($_SESSION['candor_login_user_id'])) {
 				<button class="switchBtn" type="button">other sign-ins</button>
 				<div class="pop">
 					<a href="https://account.gangdev.co/login/signin.php"><span>GangDev</span><span class="badge">main</span></a>
-					<a href="https://account.dcops.co/login/signin.php"><span>DCOPS</span><span class="badge">ops</span></a>
+					<a href="https://account.dcops.co/login/signin.php"><span>DCOPS</span><span class="badge">product</span></a>
 				</div>
 			</div>
 		</div>

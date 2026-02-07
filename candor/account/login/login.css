@@ -13,7 +13,7 @@
     --line: #d7e2ed;
     --brand-candor: #7b3f22;
     --brand-lead: #4b7fa8;
-    --brand-mark-size: 42px;
+    --brand-mark-size: 48px;
 
     --radius: 18px;
     --shadow: 0 18px 50px rgba(15, 27, 45, .14);
@@ -21,7 +21,7 @@
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --font-lead: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --logo-image: none;
     --logo-glyph-opacity: 1;
 }
@@ -43,14 +43,14 @@ body {
 h1 {
     margin: 0 0 10px;
     font-family: var(--font-display);
-    font-size: 22px;
+    font-size: 24px;
     letter-spacing: .4px;
 }
 
 p {
     margin: 0 0 16px;
     color: var(--ink-soft);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .canvas {
@@ -65,7 +65,7 @@ p {
 }
 
 .shell {
-    width: min(980px, 100%);
+    width: min(1080px, 100%);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--white);
@@ -73,6 +73,7 @@ p {
     overflow: hidden;
     display: grid;
     grid-template-rows: auto 1fr auto;
+    min-height: 74vh;
 }
 
 .top {
@@ -116,24 +117,24 @@ p {
 .brandTitle {
     display: flex;
     align-items: baseline;
-    gap: 6px;
+    gap: 4px;
     justify-content: center;
 }
 
 .brandLead {
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 700;
     text-transform: lowercase;
-    letter-spacing: .2px;
+    letter-spacing: .1px;
     color: var(--brand-lead);
     margin-right: 0;
-    font-family: var(--font-lead);
+    font-family: var(--font-brand);
 }
 
 .brandName {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.3px;
     text-transform: uppercase;
     color: var(--brand-candor);
     font-family: var(--font-brand);
@@ -157,119 +158,28 @@ p {
 
 .bodyGrid {
     display: grid;
-    grid-template-columns: 1.05fr .95fr;
-    gap: 24px;
+    grid-template-columns: 1fr;
+    gap: 18px;
     align-items: center;
-}
-
-body.is-signin .bodyGrid {
-    grid-template-columns: 1.1fr .9fr;
-}
-
-body.is-signup .bodyGrid {
-    grid-template-columns: .9fr 1.1fr;
-}
-
-body.is-signup .sidePane {
-    order: -1;
 }
 
 .formPane {
     display: grid;
-    gap: 12px;
-}
-
-.sidePane {
-    display: grid;
-    gap: 16px;
-}
-
-.sideCard {
+    gap: 14px;
+    width: min(860px, 100%);
+    justify-self: center;
+    padding: 24px;
     border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 18px;
-    background: linear-gradient(180deg, rgba(185, 219, 242, 0.18), rgba(255, 255, 255, 0.95));
-    display: grid;
-    gap: 10px;
+    border-radius: 18px;
+    background: var(--white);
 }
 
-.sideCard.alt {
-    background: linear-gradient(180deg, rgba(243, 200, 115, 0.25), rgba(255, 255, 255, 0.98));
+body.is-signin .formPane {
+    background: linear-gradient(180deg, rgba(185, 219, 242, 0.22), rgba(255, 255, 255, 0.98));
 }
 
-.sideBadge {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 10px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .8px;
-    text-transform: uppercase;
-    background: rgba(185, 219, 242, .45);
-    border: 1px solid rgba(185, 219, 242, .8);
-}
-
-.sideCard h2 {
-    margin: 0;
-    font-size: 18px;
-    font-family: var(--font-display);
-    letter-spacing: .2px;
-}
-
-.sideCard p {
-    margin: 0;
-    color: var(--ink-soft);
-    font-size: 13px;
-}
-
-.sideList {
-    list-style: none;
-    padding: 0;
-    margin: 4px 0 0;
-    display: grid;
-    gap: 8px;
-    font-size: 12px;
-    color: var(--ink-soft);
-}
-
-.sideList li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 10px;
-    border-radius: 10px;
-    border: 1px solid rgba(185, 219, 242, .6);
-    background: rgba(185, 219, 242, .15);
-}
-
-.sideSteps {
-    display: grid;
-    gap: 8px;
-    font-size: 12px;
-    color: var(--ink-soft);
-}
-
-.sideStep {
-    display: grid;
-    grid-template-columns: 24px 1fr;
-    gap: 10px;
-    align-items: center;
-    padding: 8px 10px;
-    border-radius: 12px;
-    border: 1px dashed rgba(15, 27, 45, .18);
-}
-
-.sideStep span:first-child {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-size: 11px;
-    font-weight: 700;
-    background: rgba(230, 160, 106, .3);
-    color: rgba(15, 27, 45, .85);
+body.is-signup .formPane {
+    background: linear-gradient(180deg, rgba(243, 200, 115, 0.22), rgba(255, 255, 255, 0.98));
 }
 
 .grid {
@@ -283,7 +193,7 @@ body.is-signup .sidePane {
     .body { padding: 16px; }
     .grid { grid-template-columns: 1fr; }
     .bodyGrid { grid-template-columns: 1fr; }
-    body.is-signup .sidePane { order: 0; }
+    .formPane { width: 100%; padding: 16px; }
     .shell { border-radius: 18px; }
     .logoGlyph { font-size: 17px; }
 }
@@ -352,6 +262,20 @@ body.is-signup .sidePane {
     gap: 10px;
     margin-top: 14px;
     flex-wrap: wrap;
+}
+
+body.is-signin .row {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+body.is-signin .row .btn {
+    width: 100%;
+}
+
+body.is-signin .links {
+    width: 100%;
+    justify-content: flex-start;
 }
 
 .btn {
@@ -528,7 +452,7 @@ body.is-signup .sidePane {
 .logoGlyph {
     font-family: var(--font-brand);
     font-weight: 700;
-    font-size: 20px;
+    font-size: 22px;
     color: var(--ink);
     line-height: 1;
     opacity: var(--logo-glyph-opacity);

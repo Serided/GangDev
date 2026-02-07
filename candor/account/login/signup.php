@@ -48,7 +48,7 @@ if ($t !== '') {
                 <button class="switchBtn" type="button">other sign-ins</button>
                 <div class="pop">
 					<a href="https://account.gangdev.co/login/signin.php"><span>GangDev</span><span class="badge">main</span></a>
-					<a href="https://account.dcops.co/login/signin.php"><span>DCOPS</span><span class="badge">ops</span></a>
+					<a href="https://account.dcops.co/login/signin.php"><span>DCOPS</span><span class="badge">product</span></a>
 				</div>
 			</div>
 		</div>
@@ -57,7 +57,7 @@ if ($t !== '') {
 			<div class="bodyGrid">
 				<div class="formPane">
 					<h1>Create your account</h1>
-					<p>Set up your Candor workspace and jump into do.candor.you.</p>
+					<p>Create your account and open do.candor.you.</p>
 
 					<form method="post" action="/login/process_signup.php" autocomplete="on">
 						<input type="hidden" name="t" value="<?= htmlspecialchars($t) ?>">
@@ -110,19 +110,6 @@ if ($t !== '') {
 							<div class="ok"><?= htmlspecialchars($ok) ?></div>
 						<?php endif; ?>
 					</form>
-				</div>
-
-				<div class="sidePane">
-					<div class="sideCard alt">
-						<div class="sideBadge">Setup</div>
-						<h2>Build your operating system.</h2>
-						<p>Start clean. Candor keeps the day sharp and the backlog honest.</p>
-						<div class="sideSteps">
-							<div class="sideStep"><span>1</span><span>Create your account</span></div>
-							<div class="sideStep"><span>2</span><span>Open do.candor.you</span></div>
-							<div class="sideStep"><span>3</span><span>Plan and execute</span></div>
-						</div>
-					</div>
 				</div>
 			</div>
         </div>

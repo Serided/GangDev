@@ -16,7 +16,7 @@ $authed = $userId && $user;
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
-<body>
+<body class="is-landing">
 
 <div class="page">
 	<header class="nav reveal" style="--d: 0ms;">
@@ -42,7 +42,6 @@ $authed = $userId && $user;
 
 	<section class="hero">
 		<div class="reveal" style="--d: 80ms;">
-			<div class="badge">v0 build</div>
 			<h1>Clear today, without losing the long game.</h1>
 			<p>Candor is your personal operating system for tasks, notes, and a simple daily planner. Keep the day lightweight, keep the backlog honest, and move forward with intention.</p>
 		</div>

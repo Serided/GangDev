@@ -32,7 +32,7 @@ $ok = $_GET['ok'] ?? '';
                 <button class="switchBtn" type="button">other sign-ins</button>
                 <div class="pop">
 					<a href="https://account.gangdev.co/login/signin.php"><span>GangDev</span><span class="badge">main</span></a>
-					<a href="https://account.dcops.co/login/signin.php"><span>DCOPS</span><span class="badge">ops</span></a>
+					<a href="https://account.dcops.co/login/signin.php"><span>DCOPS</span><span class="badge">product</span></a>
 				</div>
 			</div>
 		</div>
@@ -41,7 +41,7 @@ $ok = $_GET['ok'] ?? '';
 			<div class="bodyGrid">
 				<div class="formPane">
 					<h1>Sign in</h1>
-					<p>Open your do.candor.you dashboard.</p>
+					<p>Sign in to open do.candor.you.</p>
 
 					<form method="post" action="/login/process_signin.php" autocomplete="on">
 						<div class="grid" style="grid-template-columns: 1fr;">
@@ -74,19 +74,6 @@ $ok = $_GET['ok'] ?? '';
 							<div class="ok"><?= htmlspecialchars($ok) ?></div>
 						<?php endif; ?>
 					</form>
-				</div>
-
-				<div class="sidePane">
-					<div class="sideCard">
-						<div class="sideBadge">Dashboard</div>
-						<h2>Execution cockpit, ready.</h2>
-						<p>Jump into do.candor.you and run today with precision.</p>
-						<ul class="sideList">
-							<li><span>Tasks</span><span>Live status</span></li>
-							<li><span>Notes</span><span>Fast capture</span></li>
-							<li><span>Planner</span><span>Constraint first</span></li>
-						</ul>
-					</div>
 				</div>
 			</div>
         </div>
