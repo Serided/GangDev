@@ -101,9 +101,25 @@ a {
 }
 
 .brandTitle {
-	font-size: 18px;
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+}
+
+.brandLead {
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: lowercase;
+	letter-spacing: 0.6px;
+	color: var(--blue-strong);
+}
+
+.brandName {
+	font-size: 20px;
 	font-weight: 700;
-	letter-spacing: 0.5px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: var(--ink);
 }
 
 .actions {

@@ -13,8 +13,8 @@ $authed = $userId && $user;
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor</title>
-	<link rel="stylesheet" href="/style.css">
-	<script src="/script.js" defer></script>
+	<link rel="stylesheet" href="style.css">
+	<script src="script.js" defer></script>
 </head>
 <body>
 
@@ -23,7 +23,7 @@ $authed = $userId && $user;
 		<div class="brand">
 			<div class="logo">C</div>
 			<div>
-				<div class="brandTitle">Candor</div>
+				<div class="brandTitle"><span class="brandLead">your</span><span class="brandName">CANDOR</span></div>
 				<div class="meta">personal OS</div>
 			</div>
 		</div>

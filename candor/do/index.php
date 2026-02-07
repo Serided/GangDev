@@ -12,18 +12,18 @@ $authed = $userId && $user;
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Candor Do</title>
-	<link rel="stylesheet" href="../style.css">
-	<script src="../script.js" defer></script>
+	<title>Candor</title>
+	<link rel="stylesheet" href="https://candor.you/style.css">
+	<script src="https://candor.you/script.js" defer></script>
 </head>
 <body class="is-do">
 
 <div class="page">
 	<header class="nav reveal" style="--d: 0ms;">
 		<div class="brand">
-			<div class="logo">D</div>
+			<div class="logo">C</div>
 			<div>
-				<div class="brandTitle">Candor Do</div>
+				<div class="brandTitle"><span class="brandLead">your</span><span class="brandName">CANDOR</span></div>
 				<div class="meta">today workspace</div>
 			</div>
 		</div>
@@ -89,7 +89,7 @@ $authed = $userId && $user;
 	</section>
 
 	<div class="footer">
-		<span>Candor Do</span>
+		<span>Candor</span>
 		<span>v0 test build</span>
 	</div>
 </div>
