@@ -250,6 +250,47 @@ a {
     gap: 12px;
 }
 
+.profileSection {
+    display: grid;
+    gap: 8px;
+}
+
+.sectionTitle {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--ink-soft);
+}
+
+.sectionHint {
+    font-size: 12px;
+    color: var(--ink-soft);
+    background: rgba(185, 219, 242, 0.18);
+    border: 1px dashed rgba(185, 219, 242, 0.7);
+    padding: 10px 12px;
+    border-radius: 12px;
+}
+
+.bulletGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px;
+}
+
+.bulletField {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(215, 226, 237, 0.9);
+    border-radius: 14px;
+    padding: 10px 12px;
+    display: grid;
+    gap: 8px;
+}
+
+.bulletField.is-compact {
+    max-width: 220px;
+    justify-self: start;
+}
+
 .field {
     display: grid;
     gap: 6px;
@@ -263,6 +304,12 @@ a {
     outline: none;
     font: 14px/1.2 var(--font-body);
     background: var(--white);
+}
+
+.input.compact {
+    padding: 8px 10px;
+    font-size: 12px;
+    border-radius: 10px;
 }
 
 .input:focus {
@@ -279,6 +326,37 @@ a {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 12px;
+}
+
+.rangeGroup {
+    display: grid;
+    gap: 6px;
+}
+
+.rangeGroup input[type="range"] {
+    width: 100%;
+    accent-color: var(--blue-strong);
+}
+
+.rangeValue {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.unitBadge {
+    font-size: 11px;
+    color: var(--ink-soft);
+    border: 1px solid rgba(215, 226, 237, 0.9);
+    padding: 4px 6px;
+    border-radius: 999px;
+    background: rgba(245, 245, 245, 0.8);
+}
+
+.heightSplit {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
 }
 
 .profileForm[data-unit="metric"] .unitFields[data-unit="imperial"],
@@ -301,6 +379,52 @@ a {
 .profileNote {
     font-size: 12px;
     color: var(--ink-soft);
+}
+
+.footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--ink-soft);
+    padding-top: 28px;
+}
+
+.footLink {
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+    padding-bottom: 2px;
+    transition: transform 0.12s ease, color 0.12s ease;
+}
+
+.footLink::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--blue-strong), var(--yellow));
+    opacity: 0;
+    transform: scaleX(0.6);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.footLink:hover {
+    color: var(--ink);
+    transform: translateY(-1px);
+}
+
+.footLink:hover::after {
+    opacity: 0.8;
+    transform: scaleX(1);
+}
+
+.footStrong {
+    font-weight: 600;
 }
 
 .alert {
@@ -365,6 +489,7 @@ a {
     letter-spacing: 0.2px;
     box-shadow: 0 8px 18px rgba(15, 27, 45, 0.16);
     transition: transform 0.1s ease, box-shadow 0.15s ease, background 0.15s ease;
+    text-decoration: none;
 }
 
 .btn:hover {
@@ -412,6 +537,16 @@ a {
     }
 
     .profileGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer {
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .heightSplit {
         grid-template-columns: 1fr;
     }
 }

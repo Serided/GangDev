@@ -96,7 +96,7 @@ function planned_value($type) {
 if ($action === 'load') {
 	$taskStatusType = column_type($pdo, 'tasks', 'status');
 	$tasksStmt = $pdo->prepare("
-		SELECT id, title, status, completed_at
+		SELECT id, title, status, completed_at, due_date, due_time
 		FROM candor.tasks
 		WHERE user_id = ?
 		ORDER BY created_at ASC, id ASC
@@ -114,15 +114,25 @@ if ($action === 'load') {
 				$done = in_array(strtolower($row['status']), ['done', 'complete', 'completed'], true);
 			}
 		}
+		$dateOut = '';
+		if (!empty($row['due_date'])) {
+			$dateOut = (string)$row['due_date'];
+		}
+		$timeOut = '';
+		if (!empty($row['due_time'])) {
+			$timeOut = substr((string)$row['due_time'], 0, 5);
+		}
 		$tasks[] = [
 			'id' => (string)$row['id'],
 			'text' => (string)$row['title'],
 			'done' => $done,
+			'date' => $dateOut,
+			'time' => $timeOut,
 		];
 	}
 
 	$notesStmt = $pdo->prepare("
-		SELECT id, title, body
+		SELECT id, title, body, created_at
 		FROM candor.notes
 		WHERE user_id = ?
 		ORDER BY created_at ASC, id ASC
@@ -135,11 +145,12 @@ if ($action === 'load') {
 		$notes[] = [
 			'id' => (string)$row['id'],
 			'text' => $text,
+			'created_at' => (string)($row['created_at'] ?? ''),
 		];
 	}
 
 	$blocksStmt = $pdo->prepare("
-		SELECT id, title, date, start_time
+		SELECT id, title, date, start_time, end_time
 		FROM candor.schedule_instances
 		WHERE user_id = ?
 		ORDER BY date ASC, start_time ASC NULLS LAST, id ASC
@@ -151,11 +162,17 @@ if ($action === 'load') {
 		if (!empty($row['start_time'])) {
 			$time = substr((string)$row['start_time'], 0, 5);
 		}
+		$endOut = '';
+		if (!empty($row['end_time'])) {
+			$endOut = substr((string)$row['end_time'], 0, 5);
+		}
 		$blocks[] = [
 			'id' => (string)$row['id'],
 			'text' => (string)$row['title'],
 			'time' => $time,
 			'date' => (string)($row['date'] ?? ''),
+			'start' => $time,
+			'end' => $endOut,
 		];
 	}
 
@@ -163,12 +180,16 @@ if ($action === 'load') {
 		'tasks' => $tasks,
 		'notes' => $notes,
 		'blocks' => $blocks,
+		'windows' => $blocks,
 	]);
 }
 
 if ($action === 'add') {
-	if (!in_array($type, ['tasks', 'notes', 'blocks'], true)) {
+	if (!in_array($type, ['tasks', 'notes', 'blocks', 'windows'], true)) {
 		respond(['error' => 'invalid_type'], 400);
+	}
+	if ($type === 'windows') {
+		$type = 'blocks';
 	}
 
 	$text = clamp_text($payload['text'] ?? '', 240);
@@ -182,6 +203,19 @@ if ($action === 'add') {
 		$columns = 'user_id, title, created_at';
 		$values = '?, ?, NOW()';
 		$params = [(int)$userId, $text];
+		$date = $payload['date'] ?? '';
+		$date = preg_match('/^\d{4}-\d{2}-\d{2}$/', (string)$date) ? $date : '';
+		$time = trim((string)($payload['time'] ?? ''));
+		if ($date !== '') {
+			$columns .= ', due_date';
+			$values .= ', ?';
+			$params[] = $date;
+		}
+		if ($time !== '' && preg_match('/^\d{2}:\d{2}$/', $time)) {
+			$columns .= ', due_time';
+			$values .= ', ?';
+			$params[] = $time;
+		}
 		if ($statusOpen !== null) {
 			$columns .= ', status';
 			$values .= ', ?';
@@ -196,11 +230,21 @@ if ($action === 'add') {
 		$stmt->execute($params);
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+		$dateOut = '';
+		if (!empty($row['due_date'])) {
+			$dateOut = (string)$row['due_date'];
+		}
+		$timeOut = '';
+		if (!empty($row['due_time'])) {
+			$timeOut = substr((string)$row['due_time'], 0, 5);
+		}
 		respond([
 			'item' => [
 				'id' => (string)$row['id'],
 				'text' => (string)$row['title'],
 				'done' => !empty($row['completed_at']),
+				'date' => $dateOut,
+				'time' => $timeOut,
 			],
 		]);
 	}
@@ -229,6 +273,7 @@ if ($action === 'add') {
 		$date = $payload['date'] ?? '';
 		$date = preg_match('/^\d{4}-\d{2}-\d{2}$/', (string)$date) ? $date : date('Y-m-d');
 		$time = trim((string)($payload['time'] ?? ''));
+		$endTime = trim((string)($payload['end_time'] ?? ''));
 		$columns = 'user_id, title, date, created_at';
 		$values = '?, ?, ?, NOW()';
 		$params = [(int)$userId, $text, $date];
@@ -237,6 +282,11 @@ if ($action === 'add') {
 			$columns .= ', start_time';
 			$values .= ', ?';
 			$params[] = $time;
+		}
+		if ($endTime !== '') {
+			$columns .= ', end_time';
+			$values .= ', ?';
+			$params[] = $endTime;
 		}
 		if ($statusPlanned !== null) {
 			$columns .= ', status';
@@ -255,6 +305,10 @@ if ($action === 'add') {
 		if (!empty($row['start_time'])) {
 			$timeOut = substr((string)$row['start_time'], 0, 5);
 		}
+		$endOut = '';
+		if (!empty($row['end_time'])) {
+			$endOut = substr((string)$row['end_time'], 0, 5);
+		}
 
 		respond([
 			'item' => [
@@ -262,6 +316,8 @@ if ($action === 'add') {
 				'text' => (string)$row['title'],
 				'time' => $timeOut,
 				'date' => (string)($row['date'] ?? ''),
+				'start' => $timeOut,
+				'end' => $endOut,
 			],
 		]);
 	}
@@ -292,8 +348,11 @@ if ($action === 'toggle' && $type === 'tasks') {
 }
 
 if ($action === 'delete') {
-	if (!in_array($type, ['tasks', 'notes', 'blocks'], true)) {
+	if (!in_array($type, ['tasks', 'notes', 'blocks', 'windows'], true)) {
 		respond(['error' => 'invalid_type'], 400);
+	}
+	if ($type === 'windows') {
+		$type = 'blocks';
 	}
 	$id = (int)($payload['id'] ?? 0);
 	if ($id <= 0) {

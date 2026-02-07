@@ -88,9 +88,9 @@ $consent = !empty($profile['consent_health']);
                 </div>
 
 				<div class="card profileCard">
-					<div class="tag">Baseline</div>
-					<h2>Build a smarter schedule.</h2>
-					<p>These details help tune sleep targets, workload balance, and long-term planning.</p>
+					<div class="tag">Customization</div>
+					<h2>Essentials first.</h2>
+					<p>Set the baseline now. Add refinements when you are ready.</p>
 
 					<?php if ($profileError !== ''): ?>
 						<div class="alert error"><?= htmlspecialchars($profileError) ?></div>
@@ -100,42 +100,78 @@ $consent = !empty($profile['consent_health']);
 
 					<form class="profileForm" method="post" action="/profile_update.php" data-unit="<?= htmlspecialchars($unitSystem) ?>">
 						<input type="hidden" name="redirect" value="https://account.candor.you/">
-						<div class="field">
-							<label class="label" for="account-unit">Units</label>
-							<select class="input select" id="account-unit" name="unit_system" data-unit-select>
-								<option value="metric" <?= $unitSystem === 'metric' ? 'selected' : '' ?>>Metric (cm / kg)</option>
-								<option value="imperial" <?= $unitSystem === 'imperial' ? 'selected' : '' ?>>Imperial (ft / lb)</option>
-							</select>
+						<div class="profileSection">
+							<div class="sectionTitle">Essentials</div>
+							<div class="bulletGrid">
+								<div class="bulletField is-compact">
+									<label class="label" for="account-unit">Units</label>
+									<select class="input compact select" id="account-unit" name="unit_system" data-unit-select>
+										<option value="metric" <?= $unitSystem === 'metric' ? 'selected' : '' ?>>Metric (cm / kg)</option>
+										<option value="imperial" <?= $unitSystem === 'imperial' ? 'selected' : '' ?>>Imperial (ft / lb)</option>
+									</select>
+								</div>
+								<div class="bulletField is-compact">
+									<label class="label" for="account-birthdate">Birthday</label>
+									<input class="input compact" id="account-birthdate" type="date" name="birthdate" required value="<?= htmlspecialchars((string)$birthdate) ?>">
+								</div>
+							</div>
+							<div class="unitFields bulletGrid" data-unit="metric">
+								<div class="bulletField">
+									<label class="label" for="account-height-cm">Height</label>
+									<div class="rangeGroup" data-range-group>
+										<input type="range" min="90" max="250" value="<?= htmlspecialchars((string)($heightCm !== '' && $heightCm !== null ? $heightCm : 170)) ?>" data-range>
+										<div class="rangeValue">
+											<input class="input compact" id="account-height-cm" type="number" name="height_cm" min="90" max="250" inputmode="numeric" value="<?= htmlspecialchars((string)$heightCm) ?>" data-range-output>
+											<span class="unitBadge">cm</span>
+										</div>
+									</div>
+								</div>
+								<div class="bulletField is-compact">
+									<label class="label" for="account-weight-kg">Weight</label>
+									<div class="rangeGroup" data-range-group>
+										<input type="range" min="30" max="300" step="0.1" value="<?= htmlspecialchars((string)($weightKg !== '' && $weightKg !== null ? $weightKg : 70)) ?>" data-range>
+										<div class="rangeValue">
+											<input class="input compact" id="account-weight-kg" type="number" name="weight_kg" min="30" max="300" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightKg) ?>" data-range-output>
+											<span class="unitBadge">kg</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="unitFields bulletGrid" data-unit="imperial">
+								<div class="bulletField">
+									<label class="label">Height</label>
+									<div class="heightSplit">
+										<div class="rangeGroup" data-range-group>
+											<input type="range" min="3" max="8" value="<?= htmlspecialchars((string)($heightFt !== '' && $heightFt !== null ? $heightFt : 5)) ?>" data-range>
+											<div class="rangeValue">
+												<input class="input compact" id="account-height-ft" type="number" name="height_ft" min="3" max="8" inputmode="numeric" value="<?= htmlspecialchars((string)$heightFt) ?>" data-range-output>
+												<span class="unitBadge">ft</span>
+											</div>
+										</div>
+										<div class="rangeGroup" data-range-group>
+											<input type="range" min="0" max="11" value="<?= htmlspecialchars((string)($heightIn !== '' && $heightIn !== null ? $heightIn : 8)) ?>" data-range>
+											<div class="rangeValue">
+												<input class="input compact" id="account-height-in" type="number" name="height_in" min="0" max="11" inputmode="numeric" value="<?= htmlspecialchars((string)$heightIn) ?>" data-range-output>
+												<span class="unitBadge">in</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="bulletField is-compact">
+									<label class="label" for="account-weight-lb">Weight</label>
+									<div class="rangeGroup" data-range-group>
+										<input type="range" min="66" max="660" step="0.1" value="<?= htmlspecialchars((string)($weightLb !== '' && $weightLb !== null ? $weightLb : 160)) ?>" data-range>
+										<div class="rangeValue">
+											<input class="input compact" id="account-weight-lb" type="number" name="weight_lb" min="66" max="660" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightLb) ?>" data-range-output>
+											<span class="unitBadge">lb</span>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="profileGrid">
-							<div class="field">
-								<label class="label" for="account-birthdate">Birthday</label>
-								<input class="input" id="account-birthdate" type="date" name="birthdate" required value="<?= htmlspecialchars((string)$birthdate) ?>">
-							</div>
-							<div class="unitFields" data-unit="metric">
-								<div class="field">
-									<label class="label" for="account-height-cm">Height (cm)</label>
-									<input class="input" id="account-height-cm" type="number" name="height_cm" min="90" max="250" inputmode="numeric" value="<?= htmlspecialchars((string)$heightCm) ?>">
-								</div>
-								<div class="field">
-									<label class="label" for="account-weight-kg">Weight (kg)</label>
-									<input class="input" id="account-weight-kg" type="number" name="weight_kg" min="30" max="300" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightKg) ?>">
-								</div>
-							</div>
-							<div class="unitFields" data-unit="imperial">
-								<div class="field">
-									<label class="label" for="account-height-ft">Height (ft)</label>
-									<input class="input" id="account-height-ft" type="number" name="height_ft" min="3" max="8" inputmode="numeric" value="<?= htmlspecialchars((string)$heightFt) ?>">
-								</div>
-								<div class="field">
-									<label class="label" for="account-height-in">Height (in)</label>
-									<input class="input" id="account-height-in" type="number" name="height_in" min="0" max="11" inputmode="numeric" value="<?= htmlspecialchars((string)$heightIn) ?>">
-								</div>
-								<div class="field">
-									<label class="label" for="account-weight-lb">Weight (lb)</label>
-									<input class="input" id="account-weight-lb" type="number" name="weight_lb" min="66" max="660" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightLb) ?>">
-								</div>
-							</div>
+						<div class="profileSection">
+							<div class="sectionTitle">Refinements</div>
+							<div class="sectionHint">More metrics land here once essentials are set.</div>
 						</div>
 
 						<label class="consentLine">
@@ -147,10 +183,15 @@ $consent = !empty($profile['consent_health']);
 							We only use this for personalization. You can update or remove it anytime.
 						</div>
 
-						<button class="btn primary" type="submit">Save baseline</button>
+						<button class="btn primary" type="submit">Save</button>
 					</form>
 				</div>
             </section>
+
+			<div class="footer">
+				<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.1</a>
+				<a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
+			</div>
 
         </div>
 
@@ -166,6 +207,23 @@ $consent = !empty($profile['consent_health']);
 					};
 					apply();
 					select.addEventListener('change', apply);
+				});
+
+				document.querySelectorAll('[data-range-group]').forEach((group) => {
+					const range = group.querySelector('[data-range]');
+					const output = group.querySelector('[data-range-output]');
+					if (!range || !output) return;
+					if (output.value !== '') {
+						range.value = output.value;
+					}
+					range.addEventListener('input', () => {
+						output.value = range.value;
+					});
+					output.addEventListener('input', () => {
+						if (output.value !== '') {
+							range.value = output.value;
+						}
+					});
 				});
 			})();
 		</script>

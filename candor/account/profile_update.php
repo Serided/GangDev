@@ -124,4 +124,4 @@ try {
 	candor_redirect(candor_with_param($redirect, 'profile_error', 'Unable to save baseline right now.'));
 }
 
-candor_redirect(candor_with_param($redirect, 'profile_ok', 'Baseline saved.'));
+candor_redirect(candor_with_param($redirect, 'profile_ok', 'Saved.'));

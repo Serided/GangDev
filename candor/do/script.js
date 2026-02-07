@@ -1,7 +1,7 @@
 (function () {
     const body = document.body;
-    const rawKey = body && body.dataset && body.dataset.userKey - body.dataset.userKey : "local";
-    const userKey = rawKey.trim() || "local";
+    const rawKey = body && body.dataset && body.dataset.userKey ? body.dataset.userKey : "local";
+    const userKey = String(rawKey || "local").trim() || "local";
     const keyFor = (name) => `candor_do_${userKey}_${name}`;
 
     const loadItems = (name) => {
@@ -9,7 +9,7 @@
         if (!raw) return [];
         try {
             const parsed = JSON.parse(raw);
-            return Array.isArray(parsed) - parsed : [];
+            return Array.isArray(parsed) ? parsed : [];
         } catch {
             return [];
         }
@@ -22,42 +22,38 @@
     const state = {
         tasks: [],
         notes: [],
-        blocks: [],
-    };
-
-    const listEls = {
-        tasks: document.querySelector('[data-list="tasks"]'),
-        notes: document.querySelector('[data-list="notes"]'),
-        blocks: document.querySelector('[data-list="blocks"]'),
+        windows: [],
     };
 
     const makeId = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 
+    const normalizeText = (value) => String(value ?? "").trim();
+
+    const normalizeTask = (item) => ({
+        id: String(item.id ?? makeId()),
+        text: normalizeText(item.text ?? item.title ?? ""),
+        done: Boolean(item.done ?? item.completed ?? false),
+        date: normalizeText(item.date ?? item.due_date ?? ""),
+        time: normalizeText(item.time ?? item.due_time ?? ""),
+    });
+
+    const normalizeNote = (item) => ({
+        id: String(item.id ?? makeId()),
+        text: normalizeText(item.text ?? item.body ?? item.title ?? ""),
+    });
+
+    const normalizeWindow = (item) => ({
+        id: String(item.id ?? makeId()),
+        text: normalizeText(item.text ?? item.title ?? ""),
+        date: normalizeText(item.date ?? ""),
+        start: normalizeText(item.start ?? item.time ?? ""),
+        end: normalizeText(item.end ?? item.end_time ?? ""),
+    });
+
     const persistLocal = () => {
         saveItems("tasks", state.tasks);
         saveItems("notes", state.notes);
-        saveItems("blocks", state.blocks);
-    };
-
-    const renderList = (name, list) => {
-        const el = listEls[name];
-        if (!el) return;
-        el.innerHTML = "";
-        list.forEach((item) => {
-            if (name === "tasks") {
-                addTask(el, item);
-            } else if (name === "notes") {
-                addNote(el, item);
-            } else {
-                addBlock(el, item);
-            }
-        });
-    };
-
-    const renderAll = () => {
-        renderList("tasks", state.tasks);
-        renderList("notes", state.notes);
-        renderList("blocks", state.blocks);
+        saveItems("windows", state.windows);
     };
 
     const apiFetch = async (payload, method = "POST") => {
@@ -69,7 +65,7 @@
         let url = "api.php";
         if (method === "GET") {
             const params = new URLSearchParams(payload);
-            url += `-${params.toString()}`;
+            url += `?${params.toString()}`;
         } else {
             opts.headers["Content-Type"] = "application/json";
             opts.body = JSON.stringify(payload);
@@ -86,8 +82,7 @@
     const loadLocal = () => {
         state.tasks = loadItems("tasks");
         state.notes = loadItems("notes");
-        state.blocks = loadItems("blocks");
-        renderAll();
+        state.windows = loadItems("windows");
     };
 
     const switchToLocal = () => {
@@ -97,10 +92,12 @@
 
     const loadRemote = async () => {
         const data = await apiFetch({ action: "load" }, "GET");
-        state.tasks = Array.isArray(data.tasks) - data.tasks : [];
-        state.notes = Array.isArray(data.notes) - data.notes : [];
-        state.blocks = Array.isArray(data.blocks) - data.blocks : [];
-        renderAll();
+        state.tasks = Array.isArray(data.tasks) ? data.tasks.map(normalizeTask) : [];
+        state.notes = Array.isArray(data.notes) ? data.notes.map(normalizeNote) : [];
+        const windowItems = Array.isArray(data.windows)
+            ? data.windows
+            : (Array.isArray(data.blocks) ? data.blocks : []);
+        state.windows = windowItems.map(normalizeWindow);
     };
 
     const init = async () => {
@@ -110,196 +107,47 @@
             storageMode = "local";
             loadLocal();
         }
+        refreshUI(true);
     };
 
-    const buildText = (text, time) => {
-        const wrap = document.createElement("div");
-        wrap.className = "itemText";
-
-        if (time) {
-            const t = document.createElement("span");
-            t.className = "itemTime";
-            t.textContent = time;
-            wrap.appendChild(t);
-        }
-
-        const s = document.createElement("span");
-        s.textContent = text;
-        wrap.appendChild(s);
-        return wrap;
-    };
-
-    const buildRemove = () => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "removeBtn";
-        btn.setAttribute("data-remove", "1");
-        btn.textContent = "remove";
-        return btn;
-    };
-
-    const addTask = (list, item) => {
-        const li = document.createElement("li");
-        li.className = "item";
-        li.dataset.itemId = item.id;
-        li.dataset.list = "tasks";
-
-        const label = document.createElement("label");
-        label.className = "check";
-
-        const cb = document.createElement("input");
-        cb.type = "checkbox";
-        cb.checked = Boolean(item.done);
-        cb.setAttribute("data-task-check", "1");
-
-        const s = document.createElement("span");
-        s.textContent = item.text;
-
-        label.appendChild(cb);
-        label.appendChild(s);
-        li.appendChild(label);
-        li.appendChild(buildRemove());
-        li.classList.toggle("is-done", cb.checked);
-        list.appendChild(li);
-    };
-
-    const addNote = (list, item) => {
-        const li = document.createElement("li");
-        li.className = "item";
-        li.dataset.itemId = item.id;
-        li.dataset.list = "notes";
-        li.appendChild(buildText(item.text, ""));
-        li.appendChild(buildRemove());
-        list.appendChild(li);
-    };
-
-    const addBlock = (list, item) => {
-        const li = document.createElement("li");
-        li.className = "item";
-        li.dataset.itemId = item.id;
-        li.dataset.list = "blocks";
-        li.appendChild(buildText(item.text, item.time || ""));
-        li.appendChild(buildRemove());
-        list.appendChild(li);
-    };
-
-    const todayString = () => {
-        const now = new Date();
-        const y = now.getFullYear();
-        const m = String(now.getMonth() + 1).padStart(2, "0");
-        const d = String(now.getDate()).padStart(2, "0");
+    const dateKey = (date) => {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, "0");
+        const d = String(date.getDate()).padStart(2, "0");
         return `${y}-${m}-${d}`;
     };
 
-    init();
+    const parseKey = (key) => {
+        const [y, m, d] = key.split("-").map((part) => parseInt(part, 10));
+        return new Date(y, m - 1, d);
+    };
 
-    document.addEventListener("submit", async (e) => {
-        const form = e.target.closest("[data-add-target]");
-        if (!form) return;
+    const isSameDay = (a, b) =>
+        a.getFullYear() === b.getFullYear() &&
+        a.getMonth() === b.getMonth() &&
+        a.getDate() === b.getDate();
 
-        e.preventDefault();
-        const target = form.getAttribute("data-add-target");
-        const list = document.querySelector(`[data-list="${target}"]`);
-        const textInput = form.querySelector("[data-input]");
-        const timeInput = form.querySelector("[data-time]");
+    const getISOWeek = (date) => {
+        const tmp = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        const dayNum = tmp.getUTCDay() || 7;
+        tmp.setUTCDate(tmp.getUTCDate() + 4 - dayNum);
+        const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(), 0, 1));
+        return Math.ceil((((tmp - yearStart) / 86400000) + 1) / 7);
+    };
 
-        if (!list || !textInput) return;
-        const text = textInput.value.trim();
-        if (text === "") return;
-
-        const time = timeInput - timeInput.value.trim() : "";
-
-        if (storageMode === "remote") {
-            try {
-                const payload = {
-                    action: "add",
-                    type: target,
-                    text,
-                };
-                if (target === "blocks") {
-                    payload.time = time;
-                    payload.date = todayString();
-                }
-                const data = await apiFetch(payload, "POST");
-                const item = data.item;
-                if (!item || !item.id) throw new Error("bad item");
-                if (target === "tasks") state.tasks.push(item);
-                if (target === "notes") state.notes.push(item);
-                if (target === "blocks") state.blocks.push(item);
-                renderList(target, state[target]);
-            } catch {
-                switchToLocal();
-            }
-        }
-
-        if (storageMode === "local") {
-            const id = makeId();
-            if (target === "tasks") {
-                const item = { id, text, done: false };
-                state.tasks.push(item);
-                addTask(list, item);
-            } else if (target === "notes") {
-                const item = { id, text };
-                state.notes.push(item);
-                addNote(list, item);
-            } else {
-                const item = { id, text, time };
-                state.blocks.push(item);
-                addBlock(list, item);
-            }
-            persistLocal();
-        }
-
-        textInput.value = "";
-        if (timeInput) timeInput.value = "";
-        textInput.focus();
-    });
-
-    document.addEventListener("click", async (e) => {
-        const btn = e.target.closest("[data-remove]");
-        if (!btn) return;
-        const item = btn.closest("li");
-        if (!item) return;
-        const listName = item.dataset.list;
-        const itemId = item.dataset.itemId;
-        if (!listName || !itemId) return;
-
-        if (storageMode === "remote") {
-            try {
-                await apiFetch({ action: "delete", type: listName, id: itemId }, "POST");
-            } catch {
-                switchToLocal();
-            }
-        }
-
-        state[listName] = state[listName].filter((entry) => entry.id !== itemId);
-        item.remove();
-        if (storageMode === "local") persistLocal();
-    });
-
-    document.addEventListener("change", async (e) => {
-        const cb = e.target.closest("[data-task-check]");
-        if (!cb) return;
-        const item = cb.closest("li");
-        if (!item) return;
-        const itemId = item.dataset.itemId;
-        const entry = state.tasks.find((task) => task.id === itemId);
-        if (!entry) return;
-        entry.done = cb.checked;
-        item.classList.toggle("is-done", cb.checked);
-
-        if (storageMode === "remote") {
-            try {
-                await apiFetch({ action: "toggle", type: "tasks", id: itemId, done: entry.done }, "POST");
-            } catch {
-                switchToLocal();
-            }
-        }
-
-        if (storageMode === "local") persistLocal();
-    });
+    const parseMinutes = (time) => {
+        if (!time) return null;
+        const parts = time.split(":");
+        if (parts.length < 2) return null;
+        const hours = parseInt(parts[0], 10);
+        const minutes = parseInt(parts[1], 10);
+        if (Number.isNaN(hours) || Number.isNaN(minutes)) return null;
+        return (hours * 60) + minutes;
+    };
 
     const calendarRoot = document.querySelector(".calendarShell");
+    let calendarApi = null;
+
     if (calendarRoot) {
         const monthTitle = calendarRoot.querySelector("[data-month-title]");
         const monthGrid = calendarRoot.querySelector("[data-month-grid]");
@@ -307,6 +155,8 @@
         const daySub = calendarRoot.querySelector("[data-day-sub]");
         const dayShort = calendarRoot.querySelector("[data-day-short]");
         const dayGrid = calendarRoot.querySelector("[data-day-grid]");
+        const taskRail = calendarRoot.querySelector("[data-task-rail]");
+        const noteRail = calendarRoot.querySelector("[data-note-rail]");
 
         const now = new Date();
         const stateCal = {
@@ -320,26 +170,6 @@
             "July", "August", "September", "October", "November", "December"
         ];
 
-        const pad = (num) => String(num).padStart(2, "0");
-        const dateKey = (date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-        const parseKey = (key) => {
-            const [y, m, d] = key.split("-").map((part) => parseInt(part, 10));
-            return new Date(y, m - 1, d);
-        };
-
-        const isSameDay = (a, b) =>
-            a.getFullYear() === b.getFullYear() &&
-            a.getMonth() === b.getMonth() &&
-            a.getDate() === b.getDate();
-
-        const getISOWeek = (date) => {
-            const tmp = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-            const dayNum = tmp.getUTCDay() || 7;
-            tmp.setUTCDate(tmp.getUTCDate() + 4 - dayNum);
-            const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(), 0, 1));
-            return Math.ceil((((tmp - yearStart) / 86400000) + 1) / 7);
-        };
-
         const renderDayHeader = () => {
             if (!dayTitle || !daySub || !dayShort) return;
             const optsLong = { weekday: "long", month: "long", day: "numeric" };
@@ -351,18 +181,63 @@
 
         const renderDayGrid = (autoScroll) => {
             if (!dayGrid) return;
+            const dayStart = 5;
+            const dayEnd = 24;
             dayGrid.innerHTML = "";
-            for (let hour = 0; hour < 24; hour += 1) {
+            const rows = [];
+            for (let hour = dayStart; hour < dayEnd; hour += 1) {
                 const row = document.createElement("div");
                 row.className = "timeRow";
+                row.dataset.hour = String(hour);
+
                 const label = document.createElement("div");
-                label.textContent = `${pad(hour)}:00`;
+                label.textContent = `${String(hour).padStart(2, "0")}:00`;
+
                 const slot = document.createElement("div");
                 slot.className = "timeSlot";
+                slot.dataset.hour = String(hour);
+
                 row.appendChild(label);
                 row.appendChild(slot);
                 dayGrid.appendChild(row);
+                rows.push({ hour, slot });
             }
+
+            const windows = state.windows
+                .filter((item) => item.date === dateKey(stateCal.selected))
+                .sort((a, b) => (parseMinutes(a.start) ?? 0) - (parseMinutes(b.start) ?? 0));
+
+            windows.forEach((window) => {
+                const minutes = parseMinutes(window.start);
+                if (minutes === null) return;
+                const hour = Math.floor(minutes / 60);
+                const row = rows.find((entry) => entry.hour === hour);
+                if (!row) return;
+
+                const chip = document.createElement("div");
+                chip.className = "slotChip";
+                chip.dataset.windowId = window.id;
+
+                const time = document.createElement("span");
+                time.className = "chipTime";
+                time.textContent = window.end ? `${window.start}-${window.end}` : window.start;
+
+                const title = document.createElement("span");
+                title.className = "chipText";
+                title.textContent = window.text;
+
+                const remove = document.createElement("button");
+                remove.type = "button";
+                remove.className = "chipRemove";
+                remove.dataset.removeId = window.id;
+                remove.dataset.removeType = "windows";
+                remove.textContent = "x";
+
+                chip.appendChild(time);
+                chip.appendChild(title);
+                chip.appendChild(remove);
+                row.slot.appendChild(chip);
+            });
 
             if (isSameDay(stateCal.selected, new Date())) {
                 const marker = document.createElement("div");
@@ -370,13 +245,95 @@
                 const hourHeight = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--hour-height")) || 42;
                 const liveNow = new Date();
                 const minutes = liveNow.getHours() * 60 + liveNow.getMinutes();
-                const top = (minutes / 60) * hourHeight;
-                marker.style.top = `${top}px`;
-                dayGrid.appendChild(marker);
-                if (autoScroll) {
-                    dayGrid.scrollTop = Math.max(0, top - dayGrid.clientHeight * 0.4);
+                const startMinutes = dayStart * 60;
+                const endMinutes = dayEnd * 60;
+                if (minutes >= startMinutes && minutes <= endMinutes) {
+                    const top = ((minutes - startMinutes) / 60) * hourHeight;
+                    marker.style.top = `${top}px`;
+                    dayGrid.appendChild(marker);
+                    if (autoScroll) {
+                        dayGrid.scrollTop = Math.max(0, top - dayGrid.clientHeight * 0.4);
+                    }
                 }
             }
+        };
+
+        const renderTaskRail = () => {
+            if (!taskRail) return;
+            taskRail.innerHTML = "";
+            const selectedKey = dateKey(stateCal.selected);
+            const tasks = state.tasks
+                .filter((task) => task.date === selectedKey)
+                .sort((a, b) => (parseMinutes(a.time) ?? 0) - (parseMinutes(b.time) ?? 0));
+            if (tasks.length === 0) {
+                const empty = document.createElement("span");
+                empty.className = "railEmpty";
+                empty.textContent = "No priority tasks yet.";
+                taskRail.appendChild(empty);
+                return;
+            }
+
+            tasks.forEach((task) => {
+                const chip = document.createElement("div");
+                chip.className = `chip taskChip${task.done ? " is-done" : ""}`;
+                chip.dataset.taskId = task.id;
+
+                const text = document.createElement("span");
+                text.className = "chipText";
+                text.textContent = task.text;
+
+                if (task.time) {
+                    const time = document.createElement("span");
+                    time.className = "chipTime";
+                    time.textContent = task.time;
+                    chip.appendChild(time);
+                }
+
+                const remove = document.createElement("button");
+                remove.type = "button";
+                remove.className = "chipRemove";
+                remove.dataset.removeId = task.id;
+                remove.dataset.removeType = "tasks";
+                remove.textContent = "x";
+
+                chip.appendChild(text);
+                chip.appendChild(remove);
+                taskRail.appendChild(chip);
+            });
+        };
+
+        const renderNoteRail = () => {
+            if (!noteRail) return;
+            noteRail.innerHTML = "";
+            const notes = state.notes.slice(-6).reverse();
+            if (notes.length === 0) {
+                const empty = document.createElement("span");
+                empty.className = "railEmpty";
+                empty.textContent = "Capture a note to keep context.";
+                noteRail.appendChild(empty);
+                return;
+            }
+
+            notes.forEach((note) => {
+                const chip = document.createElement("div");
+                chip.className = "chip noteChip";
+                chip.dataset.noteId = note.id;
+
+                const text = document.createElement("span");
+                text.className = "chipText";
+                text.textContent = note.text;
+
+                const remove = document.createElement("button");
+                remove.type = "button";
+                remove.className = "chipRemove";
+                remove.dataset.removeId = note.id;
+                remove.dataset.removeType = "notes";
+                remove.textContent = "x";
+
+                chip.appendChild(text);
+                chip.appendChild(remove);
+                noteRail.appendChild(chip);
+            });
         };
 
         const renderMonth = () => {
@@ -389,6 +346,18 @@
             const daysInMonth = new Date(stateCal.viewYear, stateCal.viewMonth + 1, 0).getDate();
             const prevMonthDays = new Date(stateCal.viewYear, stateCal.viewMonth, 0).getDate();
             const totalCells = Math.ceil((startWeekday + daysInMonth) / 7) * 7;
+
+            const tasksByDate = state.tasks.reduce((acc, task) => {
+                if (task.date) {
+                    if (!acc[task.date]) acc[task.date] = [];
+                    acc[task.date].push(task);
+                }
+                return acc;
+            }, {});
+
+            Object.values(tasksByDate).forEach((list) => {
+                list.sort((a, b) => (parseMinutes(a.time) ?? 0) - (parseMinutes(b.time) ?? 0));
+            });
 
             for (let i = 0; i < totalCells; i += 1) {
                 let cellYear = stateCal.viewYear;
@@ -412,10 +381,11 @@
                 }
 
                 const cellDate = new Date(cellYear, cellMonth, dayNum);
+                const key = dateKey(cellDate);
                 const btn = document.createElement("button");
                 btn.type = "button";
                 btn.className = "monthCell";
-                btn.dataset.date = dateKey(cellDate);
+                btn.dataset.date = key;
 
                 const number = document.createElement("span");
                 number.className = "monthNumber";
@@ -423,6 +393,19 @@
 
                 const tasks = document.createElement("div");
                 tasks.className = "monthTasks";
+                const dayTasks = (tasksByDate[key] || []).slice(0, 2);
+                dayTasks.forEach((task) => {
+                    const pill = document.createElement("div");
+                    pill.className = `monthPill${task.done ? " is-done" : ""}`;
+                    pill.textContent = task.text;
+                    tasks.appendChild(pill);
+                });
+                if ((tasksByDate[key] || []).length > 2) {
+                    const more = document.createElement("div");
+                    more.className = "monthMore";
+                    more.textContent = `+${tasksByDate[key].length - 2} more`;
+                    tasks.appendChild(more);
+                }
 
                 btn.appendChild(number);
                 btn.appendChild(tasks);
@@ -441,9 +424,11 @@
             }
         };
 
-        const syncCalendar = () => {
+        const renderAll = (autoScroll) => {
             renderDayHeader();
-            renderDayGrid(true);
+            renderDayGrid(autoScroll);
+            renderTaskRail();
+            renderNoteRail();
             renderMonth();
         };
 
@@ -456,7 +441,7 @@
                     stateCal.viewYear = fresh.getFullYear();
                     stateCal.viewMonth = fresh.getMonth();
                     stateCal.selected = new Date(fresh.getFullYear(), fresh.getMonth(), fresh.getDate());
-                    syncCalendar();
+                    renderAll(true);
                     return;
                 }
                 stateCal.viewMonth += dir === "next" ? 1 : -1;
@@ -471,7 +456,7 @@
                 const daysInView = new Date(stateCal.viewYear, stateCal.viewMonth + 1, 0).getDate();
                 const safeDay = Math.min(stateCal.selected.getDate(), daysInView);
                 stateCal.selected = new Date(stateCal.viewYear, stateCal.viewMonth, safeDay);
-                syncCalendar();
+                renderAll(true);
                 return;
             }
 
@@ -481,16 +466,208 @@
             stateCal.selected = nextDate;
             stateCal.viewYear = nextDate.getFullYear();
             stateCal.viewMonth = nextDate.getMonth();
-            syncCalendar();
+            renderAll(true);
         });
 
-        syncCalendar();
+        calendarApi = {
+            renderAll,
+            getSelectedKey: () => dateKey(stateCal.selected),
+        };
+
+        renderAll(true);
         setInterval(() => {
             if (isSameDay(stateCal.selected, new Date())) {
                 renderDayGrid(false);
             }
         }, 60000);
     }
+
+    const refreshUI = (autoScroll) => {
+        if (calendarApi) {
+            calendarApi.renderAll(autoScroll);
+        }
+    };
+
+    const overlay = document.querySelector("[data-create-overlay]");
+    const createForm = overlay ? overlay.querySelector("[data-create-form]") : null;
+    const createKind = overlay ? overlay.querySelector("[data-create-kind]") : null;
+    const createTitle = overlay ? overlay.querySelector("#create-title") : null;
+    const createNote = overlay ? overlay.querySelector("#create-note") : null;
+    const createTime = overlay ? overlay.querySelector("#create-time") : null;
+    const createEnd = overlay ? overlay.querySelector("#create-end-time") : null;
+    const createDateLabel = overlay ? overlay.querySelector("[data-create-date]") : null;
+    const createDateInput = overlay ? overlay.querySelector("[data-create-date-input]") : null;
+
+    const setCreateKind = (kind) => {
+        if (!createKind || !overlay) return;
+        createKind.value = kind;
+        overlay.querySelectorAll("[data-kind]").forEach((field) => {
+            const allowed = field.dataset.kind === kind;
+            field.style.display = allowed ? "grid" : "none";
+        });
+        if (createTime) {
+            createTime.required = kind === "window";
+        }
+    };
+
+    const openCreate = (kind) => {
+        if (!overlay) return;
+        const selectedKey = calendarApi ? calendarApi.getSelectedKey() : dateKey(new Date());
+        if (createDateLabel) {
+            const date = parseKey(selectedKey);
+            createDateLabel.textContent = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+        }
+        if (createDateInput) {
+            createDateInput.value = selectedKey;
+        }
+        if (createTitle) createTitle.value = "";
+        if (createNote) createNote.value = "";
+        if (createTime) createTime.value = "";
+        if (createEnd) createEnd.value = "";
+        const safeKind = ["task", "note", "window"].includes(kind) ? kind : "task";
+        setCreateKind(safeKind);
+        overlay.classList.add("is-open");
+        if (createTitle) createTitle.focus();
+    };
+
+    const closeCreate = () => {
+        if (!overlay) return;
+        overlay.classList.remove("is-open");
+    };
+
+    document.addEventListener("click", (event) => {
+        const addBtn = event.target.closest("[data-add-kind]");
+        if (addBtn) {
+            const kind = addBtn.getAttribute("data-add-kind") || "task";
+            openCreate(kind);
+            return;
+        }
+
+        const closeBtn = event.target.closest("[data-create-close]");
+        if (closeBtn) {
+            closeCreate();
+            return;
+        }
+
+        if (overlay && event.target === overlay) {
+            closeCreate();
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            closeCreate();
+        }
+    });
+
+    if (createKind) {
+        createKind.addEventListener("change", () => setCreateKind(createKind.value));
+    }
+
+    if (createForm) {
+        createForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const kind = createKind ? createKind.value : "task";
+            const title = normalizeText(createTitle ? createTitle.value : "");
+            const noteBody = normalizeText(createNote ? createNote.value : "");
+            if (kind === "note" && !noteBody && !title) return;
+            if (kind !== "note" && !title) return;
+            const date = createDateInput ? createDateInput.value : "";
+            const start = normalizeText(createTime ? createTime.value : "");
+            const end = normalizeText(createEnd ? createEnd.value : "");
+
+            const typeMap = { task: "tasks", note: "notes", window: "windows" };
+            const type = typeMap[kind] || "tasks";
+            const payload = {
+                action: "add",
+                type,
+                text: kind === "note" ? (noteBody || title) : title,
+            };
+            if (kind === "task") {
+                payload.date = date;
+            }
+            if (kind === "window") {
+                payload.date = date;
+                payload.time = start;
+                if (end) payload.end_time = end;
+            }
+
+            if (storageMode === "remote") {
+                try {
+                    const data = await apiFetch(payload, "POST");
+                    const item = data.item;
+                    if (!item || !item.id) throw new Error("bad item");
+                    if (type === "tasks") state.tasks.push(normalizeTask(item));
+                    if (type === "notes") state.notes.push(normalizeNote(item));
+                    if (type === "windows") state.windows.push(normalizeWindow(item));
+                } catch {
+                    switchToLocal();
+                }
+            }
+
+            if (storageMode === "local") {
+                const id = makeId();
+                if (type === "tasks") {
+                    state.tasks.push({ id, text: title, done: false, date, time: "" });
+                } else if (type === "notes") {
+                    state.notes.push({ id, text: noteBody || title });
+                } else {
+                    state.windows.push({ id, text: title, date, start, end });
+                }
+                persistLocal();
+            }
+
+            refreshUI(false);
+            closeCreate();
+        });
+    }
+
+    document.addEventListener("click", async (event) => {
+        const removeBtn = event.target.closest("[data-remove-id]");
+        if (removeBtn) {
+            const id = removeBtn.dataset.removeId;
+            const type = removeBtn.dataset.removeType;
+            if (!id || !type) return;
+            if (storageMode === "remote") {
+                try {
+                    await apiFetch({ action: "delete", type, id }, "POST");
+                } catch {
+                    switchToLocal();
+                }
+            }
+            if (type === "tasks") {
+                state.tasks = state.tasks.filter((item) => item.id !== id);
+            } else if (type === "notes") {
+                state.notes = state.notes.filter((item) => item.id !== id);
+            } else {
+                state.windows = state.windows.filter((item) => item.id !== id);
+            }
+            if (storageMode === "local") {
+                persistLocal();
+            }
+            refreshUI(false);
+            return;
+        }
+
+        const taskChip = event.target.closest(".taskChip");
+        if (taskChip && !event.target.closest(".chipRemove")) {
+            const id = taskChip.dataset.taskId;
+            const task = state.tasks.find((item) => item.id === id);
+            if (!task) return;
+            task.done = !task.done;
+            if (storageMode === "remote") {
+                try {
+                    await apiFetch({ action: "toggle", type: "tasks", id: task.id, done: task.done }, "POST");
+                } catch {
+                    switchToLocal();
+                }
+            }
+            if (storageMode === "local") {
+                persistLocal();
+            }
+            refreshUI(false);
+        }
+    });
 
     document.querySelectorAll("[data-unit-select]").forEach((select) => {
         const form = select.closest("form");
@@ -502,4 +679,23 @@
         apply();
         select.addEventListener("change", apply);
     });
+
+    document.querySelectorAll("[data-range-group]").forEach((group) => {
+        const range = group.querySelector("[data-range]");
+        const output = group.querySelector("[data-range-output]");
+        if (!range || !output) return;
+        if (output.value !== "") {
+            range.value = output.value;
+        }
+        range.addEventListener("input", () => {
+            output.value = range.value;
+        });
+        output.addEventListener("input", () => {
+            if (output.value !== "") {
+                range.value = output.value;
+            }
+        });
+    });
+
+    init();
 })();
