@@ -53,6 +53,7 @@ if ($t !== '') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candor - Create account</title>
+    <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico">
 
     <link rel="stylesheet" href="/login/login.css">
     <script src="/login/login.js" defer></script>

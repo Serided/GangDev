@@ -15,6 +15,7 @@ if (!isset($_SESSION['candor_login_user_id'])) {
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor - Verify sign-in</title>
+	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico">
 
 	<link rel="stylesheet" href="/login/login.css">
 	<script src="/login/login.js" defer></script>

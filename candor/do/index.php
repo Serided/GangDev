@@ -14,6 +14,7 @@ $email = $user['email'] ?? '';
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>your Candor</title>
+	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico">
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
