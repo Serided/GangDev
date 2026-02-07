@@ -141,6 +141,8 @@ body.is-signup .shell {
     justify-content: center;
     align-items: center;
     text-align: center;
+    transition: transform 0.16s ease;
+    transform-origin: center;
 }
 
 .brandTitle {
@@ -172,18 +174,18 @@ body.is-signup .shell {
 
 .brandName,
 .brandLead {
-    transition: transform 0.16s ease, text-shadow 0.16s ease, letter-spacing 0.16s ease;
-    transform-origin: center;
+    transition: text-shadow 0.16s ease;
+}
+
+.brandLink:hover .brandText {
+    transform: scale(1.03);
 }
 
 .brandLink:hover .brandName {
-    transform: scale(1.04);
-    letter-spacing: 0.7px;
     text-shadow: 0 6px 16px rgba(123, 63, 34, 0.24);
 }
 
 .brandLink:hover .brandLead {
-    transform: scale(1.04);
     text-shadow: 0 6px 16px rgba(75, 127, 168, 0.22);
 }
 
