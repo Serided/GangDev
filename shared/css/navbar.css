@@ -181,29 +181,37 @@ div.profile p {
 
 .productBtn {
     border: 1px solid transparent;
+    font-weight: 700;
+    letter-spacing: 0.2px;
 }
 
 .productCandor {
-    background: linear-gradient(135deg, #f7fbff, #fff6ee);
+    background:
+        radial-gradient(140px 90px at 18% 20%, rgba(185, 219, 242, 0.7), transparent 60%),
+        radial-gradient(160px 110px at 84% 78%, rgba(230, 160, 106, 0.35), transparent 65%),
+        linear-gradient(180deg, #f8fbff 0%, #f5f5f5 55%, #fff6ee 100%);
     border-color: #d7e2ed;
 }
 
 .productDcops {
-    background: linear-gradient(180deg, #ffffff, #f1f4f8);
-    border-color: rgba(11, 18, 32, .14);
+    background:
+        linear-gradient(180deg, #ffffff 0%, #f7f9fc 55%, #eef2f6 100%);
+    border-color: rgba(11, 18, 32, .18);
 }
 
 .productInspectre {
     background:
-        radial-gradient(120px 60px at 20% 30%, rgba(107, 107, 255, 0.22), transparent 60%),
-        #07070c;
-    border-color: rgba(255, 255, 255, .16);
+        radial-gradient(140px 90px at 26% 24%, rgba(107, 107, 255, 0.28), transparent 65%),
+        radial-gradient(160px 110px at 74% 76%, rgba(176, 124, 255, 0.24), transparent 70%),
+        linear-gradient(180deg, #0b0b12 0%, #07070c 100%);
+    border-color: rgba(255, 255, 255, .18);
 }
 
 .brandCandor {
     font-family: "Comfortaa", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     color: #7b3f22;
     letter-spacing: 0.4px;
+    font-weight: 700;
 }
 
 .brandDc,
@@ -213,15 +221,36 @@ div.profile p {
     letter-spacing: 0.6px;
 }
 
-.brandDc { color: #4a0f1a; }
-.brandOps { color: #bfa14a; }
+.brandDc {
+    color: #4a0f1a;
+    font-weight: 800;
+}
 
-.brandInspectre {
-    text-transform: lowercase;
-    background: linear-gradient(135deg, #7fb4ff, #b07cff);
+.brandOps {
+    font-weight: 700;
+    background: linear-gradient(
+        180deg,
+        #eddc9a 0%,
+        #d4bb63 30%,
+        #bfa14a 52%,
+        #a48732 72%,
+        #8a6f24 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    text-shadow:
+        0 0 0.4px rgba(230, 200, 120, .55),
+        0 1px 1px rgba(120, 95, 30, .25);
+}
+
+.brandInspectre {
+    text-transform: lowercase;
+    background: linear-gradient(135deg, #6b6bff, #b07cff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
 }
 
 .selected {
