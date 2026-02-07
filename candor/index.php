@@ -67,7 +67,6 @@ $authed = $userId && $user;
 				<?php else: ?>
 					<li><span>Sign in</span><a class="btn slim" href="https://account.candor.you/login/signin.php">Go</a></li>
 					<li><span>Create account</span><a class="btn slim" href="https://account.candor.you/login/signup.php">Go</a></li>
-					<li><span>Verify email</span><a class="btn slim" href="https://account.candor.you/login/verify.php">Check</a></li>
 				<?php endif; ?>
 			</ul>
 			<?php if ($authed): ?>

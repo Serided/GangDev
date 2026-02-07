@@ -24,9 +24,13 @@ $org   = $_SESSION['candor_org'] ?? '';
         <div class="page">
 
             <div class="top">
-                <div class="brand">
-                    <span class="dc">DC</span><span class="ops">OPS</span>
+            <div class="brand">
+                <div class="brandMark">C</div>
+                <div class="brandText">
+                    <div class="brandTitle"><span class="brandLead">your</span><span class="brandName">CANDOR</span></div>
+                    <div class="meta">account</div>
                 </div>
+            </div>
 
                 <div class="topActions">
                     <a class="homeBtn" href="https://candor.you/">Home</a>

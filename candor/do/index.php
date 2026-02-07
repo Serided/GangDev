@@ -13,8 +13,8 @@ $authed = $userId && $user;
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor</title>
-	<link rel="stylesheet" href="https://candor.you/style.css">
-	<script src="https://candor.you/script.js" defer></script>
+	<link rel="stylesheet" href="../style.css">
+	<script src="../script.js" defer></script>
 </head>
 <body class="is-do">
 
@@ -24,7 +24,7 @@ $authed = $userId && $user;
 			<div class="logo">C</div>
 			<div>
 				<div class="brandTitle"><span class="brandLead">your</span><span class="brandName">CANDOR</span></div>
-				<div class="meta">today workspace</div>
+				<div class="meta">execution cockpit</div>
 			</div>
 		</div>
 
@@ -43,15 +43,15 @@ $authed = $userId && $user;
 	<section class="hero">
 		<div class="reveal" style="--d: 80ms;">
 			<div class="badge">Today</div>
-			<h1>Start with the next honest block.</h1>
-			<p>Keep the day lightweight and real. Capture what matters, schedule what fits, and move the rest to the backlog without guilt.</p>
+			<h1>Plan like a menace. Execute with precision.</h1>
+			<p>Candor adapts to your constraints, reshapes the day when things shift, and collapses misses back into the backlog.</p>
 			<div class="cta-row">
 				<?php if ($authed): ?>
 					<a class="btn primary" href="https://account.candor.you/">Account center</a>
 					<a class="btn ghost" href="https://candor.you/">Back to Candor</a>
 				<?php else: ?>
 					<a class="btn primary" href="https://account.candor.you/login/signin.php">Sign in to start</a>
-					<a class="btn ghost" href="https://account.candor.you/login/verify.php">Verify email</a>
+					<a class="btn ghost" href="https://account.candor.you/login/signup.php">Create account</a>
 				<?php endif; ?>
 			</div>
 		</div>
@@ -60,9 +60,9 @@ $authed = $userId && $user;
 			<h3>Session status</h3>
 			<p class="subtle"><?= $authed ? 'Workspace ready.' : 'Sign in to unlock your workspace.' ?></p>
 			<ul class="list">
-				<li><span>Tasks</span><span class="subtle">Simple status</span></li>
-				<li><span>Notes</span><span class="subtle">Fast capture</span></li>
-				<li><span>Planner</span><span class="subtle">Rule based</span></li>
+				<li><span>Tasks</span><span class="subtle">Precision status</span></li>
+				<li><span>Notes</span><span class="subtle">Rapid capture</span></li>
+				<li><span>Planner</span><span class="subtle">Constraint driven</span></li>
 			</ul>
 			<?php if ($authed): ?>
 				<p class="subtle">Signed in as <?= htmlspecialchars($name !== '' ? $name : $email) ?></p>
@@ -73,18 +73,18 @@ $authed = $userId && $user;
 	<section class="grid">
 		<div class="card reveal" style="--d: 220ms;">
 			<div class="chip">Focus</div>
-			<h3>Lightweight blocks</h3>
-			<p>Plan only what you can finish. Everything else stays safely in the backlog.</p>
+			<h3>Constraint-first blocks</h3>
+			<p>Schedule against real constraints and collapse misses back into the backlog.</p>
 		</div>
 		<div class="card reveal" style="--d: 280ms;">
 			<div class="chip">Capture</div>
-			<h3>Notes that stay close</h3>
-			<p>Keep notes attached to the day so nothing drifts away from context.</p>
+			<h3>Notes that drive action</h3>
+			<p>Keep notes attached to the day so they feed the next plan.</p>
 		</div>
 		<div class="card reveal" style="--d: 340ms;">
-			<div class="chip">Account</div>
-			<h3>Verification once</h3>
-			<p>Verify your email a single time, then focus on execution.</p>
+			<div class="chip">Momentum</div>
+			<h3>Adaptive scheduler</h3>
+			<p>Built to reflow the day without stacking missed blocks.</p>
 		</div>
 	</section>
 
