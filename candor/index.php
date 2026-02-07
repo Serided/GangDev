@@ -85,8 +85,8 @@ $authed = $userId && $user;
 	</section>
 
 	<div class="footer">
-		<span>Candor v0</span>
-		<span>Built by GangDev</span>
+		<a href="https://candor.you/updates/#v0-0">Candor v0.0</a>
+		<a href="https://gangdev.co/">Built by GangDev</a>
 	</div>
 </div>
 

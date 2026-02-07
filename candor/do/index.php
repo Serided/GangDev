@@ -13,7 +13,7 @@ $email = $user['email'] ?? '';
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Candor - Do</title>
+	<title>yourCANDOR</title>
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
@@ -103,8 +103,8 @@ $email = $user['email'] ?? '';
 	</section>
 
 	<div class="footer">
-		<span>Candor v0</span>
-		<span>Built by GangDev</span>
+		<a href="https://candor.you/updates/#v0-0">Candor v0.0</a>
+		<a href="https://gangdev.co/">Built by GangDev</a>
 	</div>
 </div>
 

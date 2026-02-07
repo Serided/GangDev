@@ -22,7 +22,7 @@ if (isset($_GET['check']) && $_GET['check'] === '1') {
 
 	echo json_encode([
 		'available' => !$exists,
-		'message' => $exists ? 'Username taken.' : 'Username available.'
+		'message' => $exists ? 'Display name taken.' : 'Display name available.'
 	]);
 	exit;
 }
@@ -93,18 +93,18 @@ if ($t !== '') {
 					<div class="formSection">
 						<div class="sectionTitle">Identity</div>
 						<div class="formIndent">
-							<div class="field">
-								<div class="labelRow">
+							<div class="formSplit">
+								<div class="field">
 									<div class="label">Display name</div>
-									<div class="hint">
-										<button class="hintBtn" type="button" aria-label="Display name info">?</button>
-										<div class="hintPop">This is what everyone sees. It must be unique.</div>
+									<div class="inputRow">
+										<input class="input" name="display_name" value="<?= htmlspecialchars($prefill['display_name']) ?>" required autocomplete="nickname" spellcheck="false" pattern="[A-Za-z0-9][A-Za-z0-9 _-]{2,19}" maxlength="20" id="displayNameInput" data-display-check>
+										<div class="hint">
+											<button class="hintBtn" type="button" aria-label="Display name info">?</button>
+											<div class="hintPop">This is what everyone sees. It must be unique.</div>
+										</div>
 									</div>
 								</div>
-								<input class="input" name="display_name" value="<?= htmlspecialchars($prefill['display_name']) ?>" required autocomplete="nickname" spellcheck="false" pattern="[A-Za-z0-9][A-Za-z0-9 _-]{2,19}" maxlength="20" id="displayNameInput" data-display-check>
-							</div>
 
-							<div class="formSplit">
 								<div class="field">
 									<div class="label">Email</div>
 									<input class="input" name="email" value="<?= htmlspecialchars($prefill['email']) ?>" required autocomplete="email" inputmode="email">
@@ -114,27 +114,31 @@ if ($t !== '') {
 									<div class="label">Verify email</div>
 									<input class="input" name="confirm_email" value="<?= htmlspecialchars($prefill['email']) ?>" required autocomplete="email" inputmode="email">
 								</div>
-							</div>
 
-							<div class="status" id="displayNameStatus" aria-live="polite"></div>
+								<div class="field fieldSpacer" aria-hidden="true"></div>
+
+								<div class="status" id="displayNameStatus" aria-live="polite"></div>
+							</div>
 						</div>
 					</div>
 
 					<div class="formSection">
 						<div class="sectionTitle">Security</div>
 						<div class="formIndent">
-							<div class="field">
-								<div class="labelRow">
+							<div class="formSplit">
+								<div class="field">
 									<div class="label">Username</div>
-									<div class="hint">
-										<button class="hintBtn" type="button" aria-label="Username info">?</button>
-										<div class="hintPop">Used only for sign-in and security. Keep it private and hard to guess.</div>
+									<div class="inputRow">
+										<input class="input" name="username" value="<?= htmlspecialchars($prefill['username']) ?>" required autocomplete="username" autocapitalize="none" spellcheck="false" pattern="[A-Za-z0-9_-]{3,20}" maxlength="20">
+										<div class="hint">
+											<button class="hintBtn" type="button" aria-label="Username info">?</button>
+											<div class="hintPop">Used only for sign-in and security. Keep it private and hard to guess.</div>
+										</div>
 									</div>
 								</div>
-								<input class="input" name="username" value="<?= htmlspecialchars($prefill['username']) ?>" required autocomplete="username" autocapitalize="none" spellcheck="false" pattern="[A-Za-z0-9_-]{3,20}" maxlength="20">
-							</div>
 
-							<div class="formSplit">
+								<div class="field fieldSpacer" aria-hidden="true"></div>
+
 								<div class="field">
 									<div class="label">Password</div>
 									<div class="pwWrap">
@@ -153,9 +157,11 @@ if ($t !== '') {
 				</div>
 
 				<div class="formActions">
-					<div class="actionRow">
+					<div class="row">
 						<button class="btn primary" type="submit">Create account</button>
-						<a class="btn secondary" href="/login/signin.php">Sign in</a>
+						<div class="links">
+							<a href="/login/signin.php">Sign in</a>
+						</div>
 					</div>
 				</div>
 

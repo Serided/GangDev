@@ -87,7 +87,7 @@ $htmlBody = '
   <div style="max-width:720px; margin:0 auto; background:#ffffff; border:1px solid rgba(11,18,32,.14); border-radius:16px; overflow:hidden;">
     <div style="padding:18px; border-bottom:1px solid rgba(11,18,32,.14);">
       <div style="font-weight:800; font-size:18px; letter-spacing:1px;">
-        <span style="color:#4a0f1a;">DC</span><span style="color:#bfa14a;">OPS</span>
+        <span style="color:#4b7fa8; text-transform:lowercase;">your</span><span style="color:#7b3f22;">CANDOR</span>
       </div>
       <div style="color:rgba(11,18,32,.55); font-size:12px; margin-top:6px;">' . $headerLineEsc . '</div>
     </div>
@@ -100,7 +100,7 @@ $htmlBody = '
 
       <div style="margin-top:16px;">
         <a href="' . $verifyUrlEsc . '" target="_blank" rel="noopener noreferrer"
-           style="display:inline-block; padding:12px 14px; border-radius:12px; border:1px solid rgba(11,18,32,.14); background:rgba(74,15,26,.06); color:#0b1220; text-decoration:none;">
+           style="display:inline-block; padding:12px 14px; border-radius:12px; border:1px solid rgba(123,63,34,.25); background:rgba(123,63,34,.08); color:#0b1220; text-decoration:none;">
           Verify email
         </a>
       </div>

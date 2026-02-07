@@ -16,6 +16,8 @@
     --brand-candor: #7b3f22;
     --brand-lead: #4b7fa8;
     --brand-mark-size: 52px;
+    --brand-name-size: 36px;
+    --brand-lead-size: calc(var(--brand-name-size) * 0.5);
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
@@ -96,12 +98,12 @@ a { color: inherit; text-decoration: none; }
 .brandTitle {
     display: flex;
     align-items: baseline;
-    gap: 1px;
+    gap: 0;
     justify-content: center;
 }
 
 .brandLead {
-    font-size: 18px;
+    font-size: var(--brand-lead-size);
     font-weight: 700;
     text-transform: lowercase;
     letter-spacing: 0.2px;
@@ -112,7 +114,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brandName {
-    font-size: 36px;
+    font-size: var(--brand-name-size);
     font-weight: 700;
     letter-spacing: 0.4px;
     text-transform: uppercase;
