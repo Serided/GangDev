@@ -298,4 +298,180 @@
 
         if (storageMode === "local") persistLocal();
     });
+
+    const calendarRoot = document.querySelector(".calendarShell");
+    if (calendarRoot) {
+        const monthTitle = calendarRoot.querySelector("[data-month-title]");
+        const monthGrid = calendarRoot.querySelector("[data-month-grid]");
+        const dayTitle = calendarRoot.querySelector("[data-day-title]");
+        const daySub = calendarRoot.querySelector("[data-day-sub]");
+        const dayShort = calendarRoot.querySelector("[data-day-short]");
+        const dayGrid = calendarRoot.querySelector("[data-day-grid]");
+
+        const now = new Date();
+        const stateCal = {
+            selected: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+            viewYear: now.getFullYear(),
+            viewMonth: now.getMonth(),
+        };
+
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        const pad = (num) => String(num).padStart(2, "0");
+        const dateKey = (date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+        const parseKey = (key) => {
+            const [y, m, d] = key.split("-").map((part) => parseInt(part, 10));
+            return new Date(y, m - 1, d);
+        };
+
+        const isSameDay = (a, b) =>
+            a.getFullYear() === b.getFullYear() &&
+            a.getMonth() === b.getMonth() &&
+            a.getDate() === b.getDate();
+
+        const getISOWeek = (date) => {
+            const tmp = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+            const dayNum = tmp.getUTCDay() || 7;
+            tmp.setUTCDate(tmp.getUTCDate() + 4 - dayNum);
+            const yearStart = new Date(Date.UTC(tmp.getUTCFullYear(), 0, 1));
+            return Math.ceil((((tmp - yearStart) / 86400000) + 1) / 7);
+        };
+
+        const renderDayHeader = () => {
+            if (!dayTitle || !daySub || !dayShort) return;
+            const optsLong = { weekday: "long", month: "long", day: "numeric" };
+            dayTitle.textContent = stateCal.selected.toLocaleDateString("en-US", optsLong);
+            const week = getISOWeek(stateCal.selected);
+            daySub.textContent = `Week ${week} • ${stateCal.selected.getFullYear()}`;
+            dayShort.textContent = stateCal.selected.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+        };
+
+        const renderDayGrid = (autoScroll) => {
+            if (!dayGrid) return;
+            dayGrid.innerHTML = "";
+            for (let hour = 0; hour < 24; hour += 1) {
+                const row = document.createElement("div");
+                row.className = "timeRow";
+                const label = document.createElement("div");
+                label.textContent = `${pad(hour)}:00`;
+                const slot = document.createElement("div");
+                slot.className = "timeSlot";
+                row.appendChild(label);
+                row.appendChild(slot);
+                dayGrid.appendChild(row);
+            }
+
+            if (isSameDay(stateCal.selected, new Date())) {
+                const marker = document.createElement("div");
+                marker.className = "timeMarker";
+                const hourHeight = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--hour-height")) || 42;
+                const liveNow = new Date();
+                const minutes = liveNow.getHours() * 60 + liveNow.getMinutes();
+                const top = (minutes / 60) * hourHeight;
+                marker.style.top = `${top}px`;
+                dayGrid.appendChild(marker);
+                if (autoScroll) {
+                    dayGrid.scrollTop = Math.max(0, top - dayGrid.clientHeight * 0.4);
+                }
+            }
+        };
+
+        const renderMonth = () => {
+            if (!monthTitle || !monthGrid) return;
+            monthTitle.textContent = `${monthNames[stateCal.viewMonth]} ${stateCal.viewYear}`;
+            monthGrid.innerHTML = "";
+
+            const firstOfMonth = new Date(stateCal.viewYear, stateCal.viewMonth, 1);
+            const startWeekday = (firstOfMonth.getDay() + 6) % 7;
+            const daysInMonth = new Date(stateCal.viewYear, stateCal.viewMonth + 1, 0).getDate();
+            const prevMonthDays = new Date(stateCal.viewYear, stateCal.viewMonth, 0).getDate();
+            const totalCells = Math.ceil((startWeekday + daysInMonth) / 7) * 7;
+
+            for (let i = 0; i < totalCells; i += 1) {
+                let cellYear = stateCal.viewYear;
+                let cellMonth = stateCal.viewMonth;
+                let dayNum = i - startWeekday + 1;
+
+                if (dayNum <= 0) {
+                    cellMonth -= 1;
+                    if (cellMonth < 0) {
+                        cellMonth = 11;
+                        cellYear -= 1;
+                    }
+                    dayNum = prevMonthDays + dayNum;
+                } else if (dayNum > daysInMonth) {
+                    dayNum -= daysInMonth;
+                    cellMonth += 1;
+                    if (cellMonth > 11) {
+                        cellMonth = 0;
+                        cellYear += 1;
+                    }
+                }
+
+                const cellDate = new Date(cellYear, cellMonth, dayNum);
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "monthCell";
+                btn.textContent = String(dayNum);
+                btn.dataset.date = dateKey(cellDate);
+
+                if (cellMonth !== stateCal.viewMonth) {
+                    btn.classList.add("is-muted");
+                }
+                if (isSameDay(cellDate, new Date())) {
+                    btn.classList.add("is-today");
+                }
+                if (isSameDay(cellDate, stateCal.selected)) {
+                    btn.classList.add("is-selected");
+                }
+
+                monthGrid.appendChild(btn);
+            }
+        };
+
+        const syncCalendar = () => {
+            renderDayHeader();
+            renderDayGrid(true);
+            renderMonth();
+        };
+
+        calendarRoot.addEventListener("click", (event) => {
+            const nav = event.target.closest("[data-month-nav]");
+            if (nav) {
+                const dir = nav.getAttribute("data-month-nav");
+                stateCal.viewMonth += dir === "next" ? 1 : -1;
+                if (stateCal.viewMonth < 0) {
+                    stateCal.viewMonth = 11;
+                    stateCal.viewYear -= 1;
+                }
+                if (stateCal.viewMonth > 11) {
+                    stateCal.viewMonth = 0;
+                    stateCal.viewYear += 1;
+                }
+                const daysInView = new Date(stateCal.viewYear, stateCal.viewMonth + 1, 0).getDate();
+                const safeDay = Math.min(stateCal.selected.getDate(), daysInView);
+                stateCal.selected = new Date(stateCal.viewYear, stateCal.viewMonth, safeDay);
+                syncCalendar();
+                return;
+            }
+
+            const cell = event.target.closest(".monthCell");
+            if (!cell || !cell.dataset.date) return;
+            const nextDate = parseKey(cell.dataset.date);
+            stateCal.selected = nextDate;
+            stateCal.viewYear = nextDate.getFullYear();
+            stateCal.viewMonth = nextDate.getMonth();
+            syncCalendar();
+        });
+
+        syncCalendar();
+        setInterval(() => {
+            if (isSameDay(stateCal.selected, new Date())) {
+                renderDayGrid(false);
+            }
+        }, 60000);
+    }
 })();

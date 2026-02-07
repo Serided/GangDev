@@ -272,6 +272,277 @@ body.is-do .brandTitle {
     border-color: rgba(15, 27, 45, 0.12);
 }
 
+.calendarShell {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 18px;
+    flex: 1;
+}
+
+.calendarPanel {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    overflow: hidden;
+}
+
+.dayHeader {
+    display: grid;
+    gap: 16px;
+}
+
+.dayIntro {
+    display: grid;
+    gap: 6px;
+}
+
+.dayTag {
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 0.4px;
+}
+
+.dayTitle {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 4vw, 42px);
+    letter-spacing: -0.4px;
+    font-weight: 700;
+}
+
+.dayMeta {
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.focusStrip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.focusCard {
+    border-radius: 14px;
+    border: 1px solid rgba(185, 219, 242, 0.55);
+    background: rgba(185, 219, 242, 0.18);
+    padding: 12px 14px;
+    display: grid;
+    gap: 4px;
+    min-height: 88px;
+}
+
+.focusLabel {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--ink-soft);
+}
+
+.focusValue {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.focusSub {
+    font-size: 12px;
+    color: var(--ink-soft);
+}
+
+.dayTimeline {
+    display: grid;
+    gap: 12px;
+}
+
+.timelineHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.timelineGrid {
+    --hour-height: 42px;
+    --timeline-label-width: 72px;
+    position: relative;
+    display: grid;
+    grid-auto-rows: var(--hour-height);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.9);
+    max-height: 520px;
+    overflow-y: auto;
+}
+
+.timeRow {
+    display: grid;
+    grid-template-columns: var(--timeline-label-width) 1fr;
+    align-items: center;
+    gap: 12px;
+    padding: 0 14px;
+    border-top: 1px solid rgba(215, 226, 237, 0.8);
+    color: var(--ink-soft);
+    font-size: 12px;
+}
+
+.timeRow:first-child {
+    border-top: none;
+}
+
+.timeSlot {
+    height: 100%;
+    border-left: 1px dashed rgba(185, 219, 242, 0.6);
+}
+
+.timeMarker {
+    position: absolute;
+    left: var(--timeline-label-width);
+    right: 16px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--orange), var(--yellow));
+    border-radius: 999px;
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+.timeMarker::before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: var(--orange);
+    box-shadow: 0 0 10px rgba(230, 160, 106, 0.6);
+}
+
+.monthHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.monthTitle {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.monthNav {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    border: 1px solid rgba(185, 219, 242, 0.7);
+    background: rgba(185, 219, 242, 0.3);
+    color: var(--ink);
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.monthNav:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(90, 143, 185, 0.2);
+    background: rgba(185, 219, 242, 0.45);
+}
+
+.weekdayRow {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: center;
+}
+
+.monthGrid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.monthCell {
+    min-height: 38px;
+    border-radius: 12px;
+    border: 1px solid rgba(185, 219, 242, 0.65);
+    background: rgba(185, 219, 242, 0.2);
+    color: var(--ink);
+    font-weight: 600;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.monthCell:hover {
+    transform: translateY(-1px);
+    border-color: rgba(90, 143, 185, 0.6);
+    box-shadow: 0 12px 20px rgba(90, 143, 185, 0.2);
+}
+
+.monthCell.is-muted {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(215, 226, 237, 0.8);
+    color: rgba(42, 59, 82, 0.6);
+    font-weight: 500;
+}
+
+.monthCell.is-today {
+    border-color: rgba(230, 160, 106, 0.7);
+    background: rgba(230, 160, 106, 0.18);
+}
+
+.monthCell.is-selected {
+    background: linear-gradient(135deg, rgba(230, 160, 106, 0.45), rgba(243, 200, 115, 0.45));
+    border-color: rgba(230, 160, 106, 0.75);
+    color: #2a1a0f;
+}
+
+.fab {
+    position: fixed;
+    right: clamp(18px, 3vw, 36px);
+    bottom: clamp(18px, 3vw, 36px);
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 1px solid rgba(230, 160, 106, 0.6);
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    color: #2a1a0f;
+    font-size: 28px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 18px 32px rgba(230, 160, 106, 0.35);
+    display: grid;
+    place-items: center;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    z-index: 20;
+}
+
+.fab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 38px rgba(230, 160, 106, 0.45);
+}
+
+.fab:active {
+    transform: translateY(0);
+}
+
 .overview {
     display: grid;
     grid-template-columns: 1.3fr 0.7fr;
@@ -523,8 +794,9 @@ body.is-do .brandTitle {
 }
 
 @media (max-width: 1020px) {
-    .overview { grid-template-columns: 1fr; }
-    .workspace { grid-template-columns: 1fr; }
+    .calendarShell { grid-template-columns: 1fr; }
+    .focusStrip { grid-template-columns: 1fr; }
+    .timelineGrid { max-height: 420px; }
 }
 
 @media (max-width: 720px) {
@@ -537,5 +809,9 @@ body.is-do .brandTitle {
     .quickForm { grid-template-columns: 1fr; }
     .quickForm.is-planner { grid-template-columns: 1fr; }
     .focusRow { grid-template-columns: 1fr; }
+    .calendarPanel { padding: 18px; }
+    .dayTitle { font-size: clamp(22px, 6vw, 32px); }
+    .timelineGrid { --hour-height: 38px; max-height: 360px; }
+    .monthGrid { gap: 6px; }
     .footer { flex-direction: row; align-items: center; gap: 12px; }
 }

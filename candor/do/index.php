@@ -40,69 +40,62 @@ $email = $user['email'] ?? '';
 		</div>
 	</header>
 
-	<section class="overview">
-		<div class="card heroCard">
-			<h1>Plan like a menace. Execute with precision.</h1>
-			<p>Your OS for decisive planning: constraints first, missed blocks collapse back into the backlog, and the day stays honest.</p>
-		</div>
-		<div class="card focusCard">
-			<h2>Daily focus</h2>
-			<div class="focusRow">
-				<div>
-					<div class="focusLabel">Priorities</div>
-					<div class="focusValue">3 targets</div>
+	<section class="calendarShell">
+		<div class="calendarPanel dayPanel">
+			<div class="dayHeader">
+				<div class="dayIntro">
+					<div class="dayTag">Plan like a menace. Execute with precision.</div>
+					<div class="dayTitle" data-day-title>Today</div>
+					<div class="dayMeta" data-day-sub></div>
 				</div>
-				<div>
-					<div class="focusLabel">Blocks</div>
-					<div class="focusValue">2 windows</div>
-				</div>
-				<div>
-					<div class="focusLabel">Backlog</div>
-					<div class="focusValue">Ready</div>
+				<div class="focusStrip">
+					<div class="focusCard">
+						<div class="focusLabel">Current run</div>
+						<div class="focusValue" data-focus-current>Ready</div>
+						<div class="focusSub">No active run yet.</div>
+					</div>
+					<div class="focusCard">
+						<div class="focusLabel">Capacity balance</div>
+						<div class="focusValue" data-focus-capacity>0h / 8h</div>
+						<div class="focusSub">Open capacity remains.</div>
+					</div>
+					<div class="focusCard">
+						<div class="focusLabel">Momentum</div>
+						<div class="focusValue" data-focus-momentum>0%</div>
+						<div class="focusSub">Keep the streak alive.</div>
+					</div>
 				</div>
 			</div>
-			<p class="subtle">Set the next block, then move.</p>
+
+			<div class="dayTimeline">
+				<div class="timelineHeader">
+					<span>Day timeline</span>
+					<span class="timelineMeta" data-day-short></span>
+				</div>
+				<div class="timelineGrid" data-day-grid></div>
+			</div>
+		</div>
+
+		<div class="calendarPanel monthPanel">
+			<div class="monthHeader">
+				<button class="monthNav" type="button" data-month-nav="prev" aria-label="Previous month">‹</button>
+				<div class="monthTitle" data-month-title></div>
+				<button class="monthNav" type="button" data-month-nav="next" aria-label="Next month">›</button>
+			</div>
+			<div class="weekdayRow">
+				<span>Mon</span>
+				<span>Tue</span>
+				<span>Wed</span>
+				<span>Thu</span>
+				<span>Fri</span>
+				<span>Sat</span>
+				<span>Sun</span>
+			</div>
+			<div class="monthGrid" data-month-grid></div>
 		</div>
 	</section>
 
-	<section class="workspace">
-		<div class="panel">
-			<div class="panelHeader">
-				<h2>Tasks</h2>
-				<span class="panelHint">status + rollover</span>
-			</div>
-			<form class="quickForm" data-add-target="tasks" autocomplete="off">
-				<input class="input" data-input placeholder="Add a task">
-				<button class="btn primary" type="submit">Add</button>
-			</form>
-			<ul class="list" data-list="tasks"></ul>
-		</div>
-
-		<div class="panel">
-			<div class="panelHeader">
-				<h2>Notes</h2>
-				<span class="panelHint">fast capture</span>
-			</div>
-			<form class="quickForm" data-add-target="notes" autocomplete="off">
-				<input class="input" data-input placeholder="Capture a note">
-				<button class="btn primary" type="submit">Save</button>
-			</form>
-			<ul class="list" data-list="notes"></ul>
-		</div>
-
-		<div class="panel">
-			<div class="panelHeader">
-				<h2>Planner</h2>
-				<span class="panelHint">rule based</span>
-			</div>
-			<form class="quickForm is-planner" data-add-target="blocks" autocomplete="off">
-				<input class="input time" type="time" data-time>
-				<input class="input" data-input placeholder="Block title">
-				<button class="btn primary" type="submit">Add</button>
-			</form>
-			<ul class="list" data-list="blocks"></ul>
-		</div>
-	</section>
+	<button class="fab" type="button" aria-label="Create">+</button>
 
 	<div class="footer">
 		<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.1</a>
