@@ -3,7 +3,7 @@ require_once '/var/www/gangdev/shared/php/init_candor.php';
 
 $userId = candor_current_user_id();
 $user = $userId ? candor_user_row($userId) : null;
-$name = $user['username'] ?? '';
+$name = $user['display_name'] ?? ($user['username'] ?? '');
 $email = $user['email'] ?? '';
 $authed = $userId && $user;
 ?>

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap");
 
 :root {
 	color-scheme: light;
@@ -16,10 +16,10 @@
 	--brand-candor: #7b3f22;
 	--brand-lead: #4b7fa8;
 	--brand-mark-size: 56px;
-	--font-body: "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-	--font-display: "Bricolage Grotesque", "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-	--font-brand: "Bricolage Grotesque", "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-	--font-lead: "Bricolage Grotesque", "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+	--font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+	--font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+	--font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+	--font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
 	--logo-image: none;
 	--logo-glyph-opacity: 1;
 }
@@ -72,11 +72,11 @@ a {
 }
 
 .page {
-	--page-gutter: clamp(12px, 2.4vw, 48px);
+	--page-gutter: clamp(14px, 2.6vw, 54px);
 	width: 100%;
 	max-width: none;
 	margin: 0;
-	padding: 52px var(--page-gutter) 0;
+	padding: 52px var(--page-gutter);
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
@@ -134,16 +134,23 @@ a {
 body.is-landing .brand .meta {
 	text-transform: none;
 	font-style: italic;
-	letter-spacing: 1.8px;
+	letter-spacing: 1.4px;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	gap: 6px;
+	padding: 3px 12px;
+	border-radius: 999px;
+	background: linear-gradient(120deg, rgba(185, 219, 242, 0.6), rgba(243, 200, 115, 0.4));
+	border: 1px solid rgba(90, 143, 185, 0.25);
+	box-shadow: 0 8px 18px rgba(90, 143, 185, 0.22);
+	color: #1f2b3b;
+	font-weight: 700;
 }
 
 body.is-landing .brand .meta::before,
 body.is-landing .brand .meta::after {
-	content: "-";
+	content: "";
 }
 
 .brandText {
@@ -445,10 +452,10 @@ body.is-landing .list li:hover::after {
 	color: var(--ink-soft);
 	padding-top: 28px;
 	padding-bottom: 0;
-	margin-left: calc(-1 * var(--page-gutter));
-	margin-right: calc(-1 * var(--page-gutter));
-	padding-left: env(safe-area-inset-left);
-	padding-right: env(safe-area-inset-right);
+	margin-left: 0;
+	margin-right: 0;
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .reveal {
@@ -478,7 +485,7 @@ body.is-landing .list li:hover::after {
 @media (max-width: 720px) {
 	.page {
 		--page-gutter: 12px;
-		padding: 36px var(--page-gutter) 0;
+		padding: 36px var(--page-gutter);
 		gap: 24px;
 	}
 

@@ -3,11 +3,11 @@ require_once '/var/www/gangdev/shared/php/init_candor.php';
 
 if (isset($_GET['check']) && $_GET['check'] === '1') {
 	header('Content-Type: application/json');
-	$username = trim($_GET['username'] ?? '');
-	$valid = preg_match('/^[a-zA-Z0-9_-]{3,20}$/', $username) === 1;
+	$displayName = trim($_GET['display_name'] ?? '');
+	$valid = preg_match('/^[a-zA-Z0-9][a-zA-Z0-9 _-]{2,19}$/', $displayName) === 1;
 
-	if ($username === '' || !$valid) {
-		echo json_encode(['available' => false, 'message' => 'Use 3-20 letters, numbers, _ or -.']);
+	if ($displayName === '' || !$valid) {
+		echo json_encode(['available' => false, 'message' => 'Use 3-20 letters, numbers, spaces, _ or -.']);
 		exit;
 	}
 
@@ -16,8 +16,8 @@ if (isset($_GET['check']) && $_GET['check'] === '1') {
 		exit;
 	}
 
-	$stmt = $pdo->prepare("SELECT 1 FROM candor.users WHERE LOWER(username) = LOWER(?) LIMIT 1");
-	$stmt->execute([$username]);
+	$stmt = $pdo->prepare("SELECT 1 FROM candor.users WHERE LOWER(display_name) = LOWER(?) LIMIT 1");
+	$stmt->execute([$displayName]);
 	$exists = (bool)$stmt->fetchColumn();
 
 	echo json_encode([
@@ -32,6 +32,7 @@ $ok = $_GET['ok'] ?? '';
 $t = $_GET['t'] ?? '';
 
 $prefill = [
+	'display_name' => '',
 	'username' => '',
 	'email' => '',
 ];
@@ -41,7 +42,7 @@ if ($t !== '') {
     $stmt->execute([$t]);
     $row = $stmt->fetch();
     if ($row) {
-        $prefill['username'] = $row['real_name'] ?? '';
+        $prefill['display_name'] = $row['real_name'] ?? '';
         $prefill['email'] = $row['email'] ?? '';
     }
 }
@@ -84,52 +85,77 @@ if ($t !== '') {
 				<input type="hidden" name="t" value="<?= htmlspecialchars($t) ?>">
 
 				<div class="formHeader">
-					<div class="formBadge">Create</div>
 					<h1>Create your account</h1>
-					<p>Create your account to unlock your workspace.</p>
+					<p>Create your account to unlock your personal OS.</p>
 				</div>
 
 				<div class="formFields">
 					<div class="formSection">
 						<div class="sectionTitle">Identity</div>
-						<div class="formSplit">
+						<div class="formIndent">
 							<div class="field">
-								<div class="label">Username</div>
-								<input class="input" name="username" value="<?= htmlspecialchars($prefill['username']) ?>" required autocomplete="username" autocapitalize="none" spellcheck="false" pattern="[A-Za-z0-9_-]{3,20}" maxlength="20" id="usernameInput" data-username-check>
+								<div class="labelRow">
+									<div class="label">Display name</div>
+									<div class="hint">
+										<button class="hintBtn" type="button" aria-label="Display name info">?</button>
+										<div class="hintPop">This is what everyone sees. It must be unique.</div>
+									</div>
+								</div>
+								<input class="input" name="display_name" value="<?= htmlspecialchars($prefill['display_name']) ?>" required autocomplete="nickname" spellcheck="false" pattern="[A-Za-z0-9][A-Za-z0-9 _-]{2,19}" maxlength="20" id="displayNameInput" data-display-check>
 							</div>
 
-							<div class="field">
-								<div class="label">Email</div>
-								<input class="input" name="email" value="<?= htmlspecialchars($prefill['email']) ?>" required autocomplete="email" inputmode="email">
+							<div class="formSplit">
+								<div class="field">
+									<div class="label">Email</div>
+									<input class="input" name="email" value="<?= htmlspecialchars($prefill['email']) ?>" required autocomplete="email" inputmode="email">
+								</div>
+
+								<div class="field">
+									<div class="label">Verify email</div>
+									<input class="input" name="confirm_email" value="<?= htmlspecialchars($prefill['email']) ?>" required autocomplete="email" inputmode="email">
+								</div>
 							</div>
 
-							<div class="status" id="usernameStatus" aria-live="polite"></div>
+							<div class="status" id="displayNameStatus" aria-live="polite"></div>
 						</div>
 					</div>
 
 					<div class="formSection">
 						<div class="sectionTitle">Security</div>
-						<div class="formSplit">
+						<div class="formIndent">
 							<div class="field">
-								<div class="label">Password</div>
-								<div class="pwWrap">
-									<input class="input pw" type="password" name="password" required autocomplete="new-password" id="pw1">
-									<button class="pwBtn" type="button" data-toggle-password="#pw1">show</button>
+								<div class="labelRow">
+									<div class="label">Username</div>
+									<div class="hint">
+										<button class="hintBtn" type="button" aria-label="Username info">?</button>
+										<div class="hintPop">Used only for sign-in and security. Keep it private and hard to guess.</div>
+									</div>
 								</div>
+								<input class="input" name="username" value="<?= htmlspecialchars($prefill['username']) ?>" required autocomplete="username" autocapitalize="none" spellcheck="false" pattern="[A-Za-z0-9_-]{3,20}" maxlength="20">
 							</div>
 
-							<div class="field">
-								<div class="label">Confirm password</div>
-								<input class="input" type="password" name="confirm_password" required autocomplete="new-password">
+							<div class="formSplit">
+								<div class="field">
+									<div class="label">Password</div>
+									<div class="pwWrap">
+										<input class="input pw" type="password" name="password" required autocomplete="new-password" id="pw1">
+										<button class="pwBtn" type="button" data-toggle-password="#pw1">show</button>
+									</div>
+								</div>
+
+								<div class="field">
+									<div class="label">Confirm password</div>
+									<input class="input" type="password" name="confirm_password" required autocomplete="new-password">
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="formActions">
-					<button class="btn primary" type="submit">Create account</button>
-					<div class="links">
-						<a href="/login/signin.php">Sign in</a>
+					<div class="actionRow">
+						<button class="btn primary" type="submit">Create account</button>
+						<a class="btn secondary" href="/login/signin.php">Sign in</a>
 					</div>
 				</div>
 

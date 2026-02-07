@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap");
 
 :root {
     color-scheme: light;
@@ -18,10 +18,10 @@
     --radius: 18px;
     --shadow: 0 18px 50px rgba(15, 27, 45, .14);
 
-    --font-body: "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --font-display: "Bricolage Grotesque", "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --font-brand: "Bricolage Grotesque", "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --font-lead: "Bricolage Grotesque", "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --logo-image: none;
     --logo-glyph-opacity: 1;
 }

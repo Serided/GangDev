@@ -7,13 +7,25 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 	exit;
 }
 
+$displayName = trim($_POST['display_name'] ?? '');
 $username = trim($_POST['username'] ?? '');
 $email = strtolower(trim($_POST['email'] ?? ''));
+$confirmEmail = strtolower(trim($_POST['confirm_email'] ?? ''));
 $password = $_POST['password'] ?? '';
 $confirm = $_POST['confirm_password'] ?? '';
 
-if ($username === '' || $email === '' || $password === '' || $confirm === '') {
+if ($displayName === '' || $username === '' || $email === '' || $confirmEmail === '' || $password === '' || $confirm === '') {
 	header('Location: /login/signup.php?error=' . urlencode('All fields are required.'));
+	exit;
+}
+
+if ($email !== $confirmEmail) {
+	header('Location: /login/signup.php?error=' . urlencode('Emails do not match.'));
+	exit;
+}
+
+if (!preg_match('/^[a-zA-Z0-9][a-zA-Z0-9 _-]{2,19}$/', $displayName)) {
+	header('Location: /login/signup.php?error=' . urlencode('Display name must be 3-20 letters, numbers, spaces, _ or -.'));
 	exit;
 }
 
@@ -28,12 +40,12 @@ if ($password !== $confirm) {
 }
 
 $stmt = $pdo->prepare(
-	"SELECT 1 FROM candor.users WHERE LOWER(email) = LOWER(?) OR LOWER(username) = LOWER(?) LIMIT 1"
+	"SELECT 1 FROM candor.users WHERE LOWER(email) = LOWER(?) OR LOWER(username) = LOWER(?) OR LOWER(display_name) = LOWER(?) LIMIT 1"
 );
-$stmt->execute([$email, $username]);
+$stmt->execute([$email, $username, $displayName]);
 
 if ($stmt->fetchColumn()) {
-	header('Location: /login/signup.php?error=' . urlencode('Username or email already in use.'));
+	header('Location: /login/signup.php?error=' . urlencode('Display name, username, or email already in use.'));
 	exit;
 }
 
@@ -42,14 +54,15 @@ $token = bin2hex(random_bytes(32));
 $expiresAt = (new DateTimeImmutable('+60 minutes'))->format('Y-m-d H:i:s');
 
 $stmt = $pdo->prepare("
-	INSERT INTO candor.users (email, username, password_hash, email_verified, verify_token, verify_expires_at, last_verification_sent_at)
-	VALUES (?, ?, ?, FALSE, ?, ?, NOW())
+	INSERT INTO candor.users (email, username, display_name, password_hash, email_verified, verify_token, verify_expires_at, last_verification_sent_at)
+	VALUES (?, ?, ?, ?, FALSE, ?, ?, NOW())
 	RETURNING id
 ");
 
 $stmt->execute([
 	$email,
 	$username,
+	$displayName,
 	$hash,
 	$token,
 	$expiresAt
@@ -60,7 +73,7 @@ $user_id = $stmt->fetchColumn();
 $verifyUrl = 'https://account.candor.you/login/verify.php?token=' . urlencode($token);
 
 $verifyUrlEsc = htmlspecialchars($verifyUrl, ENT_QUOTES, 'UTF-8');
-$nameEsc = htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
+$nameEsc = htmlspecialchars($displayName, ENT_QUOTES, 'UTF-8');
 
 $fromEmail = 'company@gangdev.co';
 $fromName = 'GangDev / Candor';
@@ -114,11 +127,11 @@ $htmlBody = '
 $altBody =
 	"Candor - Verify your email\n\n" .
 	$headerLine . "\n\n" .
-	"Hi {$username},\n\n" .
+	"Hi {$displayName},\n\n" .
 	"Verify your email to activate your account:\n{$verifyUrl}\n\n" .
 	"This link expires in 60 minutes.\n";
 
-$sent = sendMail($fromEmail, $fromName, $email, $username, $subject, $htmlBody, $altBody);
+$sent = sendMail($fromEmail, $fromName, $email, $displayName, $subject, $htmlBody, $altBody);
 
 if (!$sent) {
 	header('Location: /login/signup.php?error=' . urlencode('Email failed to send. Try again.'));

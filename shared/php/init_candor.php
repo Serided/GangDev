@@ -79,7 +79,8 @@ function candor_login($user_id) {
 	$u = candor_user_row($user_id);
 	if ($u) {
 		$_SESSION['candor_email'] = $u['email'];
-		$_SESSION['candor_name'] = $u['username'] ?? '';
+		$_SESSION['candor_name'] = $u['display_name'] ?? ($u['username'] ?? '');
+		$_SESSION['candor_username'] = $u['username'] ?? '';
 	}
 }
 
@@ -100,7 +101,7 @@ function candor_redirect($url) {
 
 function candor_user_row($user_id) {
 	global $pdo;
-	$stmt = $pdo->prepare("SELECT id, email, username, email_verified::int AS email_verified FROM candor.users WHERE id = :id");
+	$stmt = $pdo->prepare("SELECT id, email, username, display_name, email_verified::int AS email_verified FROM candor.users WHERE id = :id");
 	$stmt->execute(['id' => $user_id]);
 	return $stmt->fetch();
 }

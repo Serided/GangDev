@@ -40,15 +40,14 @@ $ok = $_GET['ok'] ?? '';
         <div class="body">
 			<form method="post" action="/login/process_signin.php" autocomplete="on" class="formPane">
 				<div class="formHeader">
-					<div class="formBadge">Access</div>
 					<h1>Sign in</h1>
-					<p>Sign in to open your workspace.</p>
+					<p>Sign in to open your personal OS.</p>
 				</div>
 
 				<div class="formFields">
 					<div class="field">
-						<div class="label">Email</div>
-						<input class="input" name="email" required autocomplete="email" inputmode="email">
+						<div class="label">Username</div>
+						<input class="input" name="username" required autocomplete="username" autocapitalize="none" spellcheck="false">
 					</div>
 
 					<div class="field">
@@ -61,9 +60,9 @@ $ok = $_GET['ok'] ?? '';
 				</div>
 
 				<div class="formActions">
-					<button class="btn primary" type="submit">Continue</button>
-					<div class="links">
-						<a href="/login/signup.php">Create account</a>
+					<div class="actionRow">
+						<button class="btn primary" type="submit">Sign in</button>
+						<a class="btn secondary" href="/login/signup.php">Create account</a>
 					</div>
 				</div>
 

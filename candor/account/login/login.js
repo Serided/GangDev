@@ -23,10 +23,10 @@
         e.stopPropagation();
     });
 
-    const usernameInput = document.querySelector("[data-username-check]");
-    if (usernameInput) {
-        const status = document.getElementById("usernameStatus");
-        const pattern = /^[a-zA-Z0-9_-]{3,20}$/;
+    const displayInput = document.querySelector("[data-display-check]");
+    if (displayInput) {
+        const status = document.getElementById("displayNameStatus");
+        const pattern = /^[a-zA-Z0-9][a-zA-Z0-9 _-]{2,19}$/;
         let timer = null;
         let seq = 0;
 
@@ -43,12 +43,12 @@
                 return;
             }
             if (!pattern.test(value)) {
-                setStatus("Use 3-20 letters, numbers, _ or -.", "bad");
+                setStatus("Use 3-20 letters, numbers, spaces, _ or -.", "bad");
                 return;
             }
 
             const current = ++seq;
-            fetch(`/login/signup.php?check=1&username=${encodeURIComponent(value)}`, {
+            fetch(`/login/signup.php?check=1&display_name=${encodeURIComponent(value)}`, {
                 headers: { "Accept": "application/json" }
             })
                 .then(r => r.ok ? r.json() : null)
@@ -62,13 +62,13 @@
                 });
         };
 
-        usernameInput.addEventListener("input", () => {
+        displayInput.addEventListener("input", () => {
             clearTimeout(timer);
-            timer = setTimeout(() => runCheck(usernameInput.value), 240);
+            timer = setTimeout(() => runCheck(displayInput.value), 240);
         });
 
-        usernameInput.addEventListener("blur", () => {
-            runCheck(usernameInput.value);
+        displayInput.addEventListener("blur", () => {
+            runCheck(displayInput.value);
         });
     }
 })();
