@@ -24,7 +24,7 @@
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("/favicon-128.png?v=2");
+    --logo-image: url("/files/img/favicon/favicon-128.png?v=3");
     --logo-glyph-opacity: 0;
 }
 
@@ -340,6 +340,10 @@ body.is-signup .formIndent {
     visibility: hidden;
 }
 
+.fieldFull {
+    grid-column: 1 / -1;
+}
+
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -365,6 +369,18 @@ body.is-signup .formIndent {
 }
 
 .field { display: flex; flex-direction: column; gap: 6px; }
+
+.consentLine {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--ink-soft);
+}
+
+.consentLine input {
+    margin-top: 2px;
+}
 
 .fieldInlineLabel {
     display: grid;

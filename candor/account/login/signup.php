@@ -35,6 +35,7 @@ $prefill = [
 	'display_name' => '',
 	'username' => '',
 	'email' => '',
+	'birthdate' => '',
 ];
 
 if ($t !== '') {
@@ -53,11 +54,11 @@ if ($t !== '') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candor - Create account</title>
-    <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
-    <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
-    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png?v=2">
-    <link rel="icon" type="image/png" sizes="128x128" href="/favicon-128.png?v=2">
+    <link rel="icon" href="/files/img/favicon/favicon.ico?v=3" type="image/x-icon">
+    <link rel="shortcut icon" href="/files/img/favicon/favicon.ico?v=3" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/files/img/favicon/favicon-32.png?v=3">
+    <link rel="icon" type="image/png" sizes="64x64" href="/files/img/favicon/favicon-64.png?v=3">
+    <link rel="icon" type="image/png" sizes="128x128" href="/files/img/favicon/favicon-128.png?v=3">
 
     <link rel="stylesheet" href="/login/login.css">
     <script src="/login/login.js" defer></script>
@@ -120,6 +121,18 @@ if ($t !== '') {
 								<div class="field">
 									<div class="label">Verify email</div>
 									<input class="input" name="confirm_email" value="<?= htmlspecialchars($prefill['email']) ?>" required autocomplete="email" inputmode="email">
+								</div>
+
+								<div class="field">
+									<div class="label">Birthday</div>
+									<input class="input" type="date" name="birthdate" value="<?= htmlspecialchars($prefill['birthdate']) ?>">
+								</div>
+
+								<div class="field fieldFull">
+									<label class="consentLine">
+										<input type="checkbox" name="consent_health" value="1">
+										<span>I agree to store my birthday for scheduling and sleep personalization.</span>
+									</label>
 								</div>
 
 								<div class="status" id="displayNameStatus" aria-live="polite"></div>

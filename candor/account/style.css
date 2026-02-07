@@ -22,7 +22,7 @@
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("/favicon-128.png?v=2");
+    --logo-image: url("/files/img/favicon/favicon-128.png?v=3");
     --logo-glyph-opacity: 0;
 }
 
@@ -201,6 +201,24 @@ a {
     align-items: start;
 }
 
+.profileCard {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 14px;
+}
+
+.profileCard h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 20px;
+}
+
+.profileCard p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 14px;
+}
+
 .row {
     display: flex;
     justify-content: space-between;
@@ -219,6 +237,88 @@ a {
 
 .value {
     font-weight: 600;
+}
+
+.profileForm {
+    display: grid;
+    gap: 14px;
+}
+
+.profileGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.field {
+    display: grid;
+    gap: 6px;
+}
+
+.input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    outline: none;
+    font: 14px/1.2 var(--font-body);
+    background: var(--white);
+}
+
+.input:focus {
+    border-color: rgba(90, 143, 185, 0.55);
+    box-shadow: 0 0 0 4px rgba(185, 219, 242, 0.45);
+}
+
+.select {
+    appearance: none;
+    background: var(--white);
+}
+
+.unitFields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+.profileForm[data-unit="metric"] .unitFields[data-unit="imperial"],
+.profileForm[data-unit="imperial"] .unitFields[data-unit="metric"] {
+    display: none;
+}
+
+.consentLine {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--ink-soft);
+}
+
+.consentLine input {
+    margin-top: 2px;
+}
+
+.profileNote {
+    font-size: 12px;
+    color: var(--ink-soft);
+}
+
+.alert {
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.alert.error {
+    background: rgba(160, 30, 30, 0.08);
+    border: 1px solid rgba(160, 30, 30, 0.25);
+    color: rgba(120, 15, 20, 0.92);
+}
+
+.alert.ok {
+    background: rgba(20, 120, 60, 0.08);
+    border: 1px solid rgba(20, 120, 60, 0.25);
+    color: rgba(10, 90, 45, 0.92);
 }
 
 .topActions {
@@ -308,6 +408,10 @@ a {
     }
 
     .accountLayout {
+        grid-template-columns: 1fr;
+    }
+
+    .profileGrid {
         grid-template-columns: 1fr;
     }
 }

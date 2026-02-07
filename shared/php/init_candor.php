@@ -106,6 +106,42 @@ function candor_user_row($user_id) {
 	return $stmt->fetch();
 }
 
+function candor_profile_row($user_id) {
+	global $pdo;
+	if (!isset($pdo)) {
+		return null;
+	}
+	try {
+		$stmt = $pdo->prepare("
+			SELECT user_id, birthdate, height_cm, weight_kg,
+			       unit_system,
+			       consent_health::int AS consent_health,
+			       onboarding_completed_at
+			FROM candor.user_profiles
+			WHERE user_id = :id
+			LIMIT 1
+		");
+		$stmt->execute(['id' => $user_id]);
+		return $stmt->fetch();
+	} catch (Throwable $e) {
+		return null;
+	}
+}
+
+function candor_profile_needs_setup($user_id) {
+	$profile = candor_profile_row($user_id);
+	if (!$profile) {
+		return true;
+	}
+	if (empty($profile['birthdate'])) {
+		return true;
+	}
+	if (empty($profile['consent_health'])) {
+		return true;
+	}
+	return false;
+}
+
 function candor_require_login() {
 	if (!candor_current_user_id()) {
 		candor_redirect('https://account.candor.you/login/signin.php');

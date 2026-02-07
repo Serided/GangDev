@@ -13,11 +13,11 @@ $authed = $userId && $user;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candor - Updates</title>
-    <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
-    <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
-    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png?v=2">
-    <link rel="icon" type="image/png" sizes="128x128" href="/favicon-128.png?v=2">
+    <link rel="icon" href="/files/img/favicon/favicon.ico?v=3" type="image/x-icon">
+    <link rel="shortcut icon" href="/files/img/favicon/favicon.ico?v=3" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/files/img/favicon/favicon-32.png?v=3">
+    <link rel="icon" type="image/png" sizes="64x64" href="/files/img/favicon/favicon-64.png?v=3">
+    <link rel="icon" type="image/png" sizes="128x128" href="/files/img/favicon/favicon-128.png?v=3">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="is-updates">

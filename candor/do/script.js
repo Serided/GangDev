@@ -1,6 +1,6 @@
 (function () {
     const body = document.body;
-    const rawKey = body && body.dataset && body.dataset.userKey ? body.dataset.userKey : "local";
+    const rawKey = body && body.dataset && body.dataset.userKey - body.dataset.userKey : "local";
     const userKey = rawKey.trim() || "local";
     const keyFor = (name) => `candor_do_${userKey}_${name}`;
 
@@ -9,7 +9,7 @@
         if (!raw) return [];
         try {
             const parsed = JSON.parse(raw);
-            return Array.isArray(parsed) ? parsed : [];
+            return Array.isArray(parsed) - parsed : [];
         } catch {
             return [];
         }
@@ -69,7 +69,7 @@
         let url = "api.php";
         if (method === "GET") {
             const params = new URLSearchParams(payload);
-            url += `?${params.toString()}`;
+            url += `-${params.toString()}`;
         } else {
             opts.headers["Content-Type"] = "application/json";
             opts.body = JSON.stringify(payload);
@@ -97,9 +97,9 @@
 
     const loadRemote = async () => {
         const data = await apiFetch({ action: "load" }, "GET");
-        state.tasks = Array.isArray(data.tasks) ? data.tasks : [];
-        state.notes = Array.isArray(data.notes) ? data.notes : [];
-        state.blocks = Array.isArray(data.blocks) ? data.blocks : [];
+        state.tasks = Array.isArray(data.tasks) - data.tasks : [];
+        state.notes = Array.isArray(data.notes) - data.notes : [];
+        state.blocks = Array.isArray(data.blocks) - data.blocks : [];
         renderAll();
     };
 
@@ -207,7 +207,7 @@
         const text = textInput.value.trim();
         if (text === "") return;
 
-        const time = timeInput ? timeInput.value.trim() : "";
+        const time = timeInput - timeInput.value.trim() : "";
 
         if (storageMode === "remote") {
             try {
@@ -345,7 +345,7 @@
             const optsLong = { weekday: "long", month: "long", day: "numeric" };
             dayTitle.textContent = stateCal.selected.toLocaleDateString("en-US", optsLong);
             const week = getISOWeek(stateCal.selected);
-            daySub.textContent = `Week ${week} • ${stateCal.selected.getFullYear()}`;
+            daySub.textContent = `Week ${week} - ${stateCal.selected.getFullYear()}`;
             dayShort.textContent = stateCal.selected.toLocaleDateString("en-US", { month: "short", day: "numeric" });
         };
 
@@ -415,8 +415,17 @@
                 const btn = document.createElement("button");
                 btn.type = "button";
                 btn.className = "monthCell";
-                btn.textContent = String(dayNum);
                 btn.dataset.date = dateKey(cellDate);
+
+                const number = document.createElement("span");
+                number.className = "monthNumber";
+                number.textContent = String(dayNum);
+
+                const tasks = document.createElement("div");
+                tasks.className = "monthTasks";
+
+                btn.appendChild(number);
+                btn.appendChild(tasks);
 
                 if (cellMonth !== stateCal.viewMonth) {
                     btn.classList.add("is-muted");
@@ -442,6 +451,14 @@
             const nav = event.target.closest("[data-month-nav]");
             if (nav) {
                 const dir = nav.getAttribute("data-month-nav");
+                if (dir === "today") {
+                    const fresh = new Date();
+                    stateCal.viewYear = fresh.getFullYear();
+                    stateCal.viewMonth = fresh.getMonth();
+                    stateCal.selected = new Date(fresh.getFullYear(), fresh.getMonth(), fresh.getDate());
+                    syncCalendar();
+                    return;
+                }
                 stateCal.viewMonth += dir === "next" ? 1 : -1;
                 if (stateCal.viewMonth < 0) {
                     stateCal.viewMonth = 11;
@@ -474,4 +491,15 @@
             }
         }, 60000);
     }
+
+    document.querySelectorAll("[data-unit-select]").forEach((select) => {
+        const form = select.closest("form");
+        if (!form) return;
+        const apply = () => {
+            const value = select.value === "imperial" ? "imperial" : "metric";
+            form.dataset.unit = value;
+        };
+        apply();
+        select.addEventListener("change", apply);
+    });
 })();

@@ -13,6 +13,8 @@ $email = strtolower(trim($_POST['email'] ?? ''));
 $confirmEmail = strtolower(trim($_POST['confirm_email'] ?? ''));
 $password = $_POST['password'] ?? '';
 $confirm = $_POST['confirm_password'] ?? '';
+$birthdate = trim($_POST['birthdate'] ?? '');
+$consentHealth = isset($_POST['consent_health']) && $_POST['consent_health'] === '1';
 
 if ($displayName === '' || $username === '' || $email === '' || $confirmEmail === '' || $password === '' || $confirm === '') {
 	header('Location: /login/signup.php?error=' . urlencode('All fields are required.'));
@@ -36,6 +38,24 @@ if (!preg_match('/^[a-zA-Z0-9_-]{3,20}$/', $username)) {
 
 if ($password !== $confirm) {
 	header('Location: /login/signup.php?error=' . urlencode('Passwords do not match.'));
+	exit;
+}
+
+if ($birthdate !== '') {
+	if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $birthdate)) {
+		header('Location: /login/signup.php?error=' . urlencode('Birthday must use YYYY-MM-DD.'));
+		exit;
+	}
+	if ($birthdate > date('Y-m-d')) {
+		header('Location: /login/signup.php?error=' . urlencode('Birthday cannot be in the future.'));
+		exit;
+	}
+	if (!$consentHealth) {
+		header('Location: /login/signup.php?error=' . urlencode('Consent is required to store your birthday.'));
+		exit;
+	}
+} elseif ($consentHealth) {
+	header('Location: /login/signup.php?error=' . urlencode('Birthday is required when consent is checked.'));
 	exit;
 }
 
@@ -69,6 +89,24 @@ $stmt->execute([
 ]);
 
 $user_id = $stmt->fetchColumn();
+
+if ($birthdate !== '' && $consentHealth) {
+	try {
+		$profileStmt = $pdo->prepare("
+			INSERT INTO candor.user_profiles (user_id, birthdate, unit_system, consent_health, consent_at, created_at, updated_at, onboarding_completed_at)
+			VALUES (?, ?, 'metric', TRUE, NOW(), NOW(), NOW(), NOW())
+			ON CONFLICT (user_id) DO UPDATE SET
+				birthdate = EXCLUDED.birthdate,
+				unit_system = EXCLUDED.unit_system,
+				consent_health = TRUE,
+				consent_at = NOW(),
+				updated_at = NOW(),
+				onboarding_completed_at = COALESCE(candor.user_profiles.onboarding_completed_at, NOW())
+		");
+		$profileStmt->execute([(int)$user_id, $birthdate]);
+	} catch (Throwable $e) {
+	}
+}
 
 $verifyUrl = 'https://account.candor.you/login/verify.php?token=' . urlencode($token);
 
