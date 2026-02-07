@@ -156,7 +156,6 @@ body.is-signup .shell {
     font-size: var(--brand-name-size);
     font-weight: 700;
     letter-spacing: .4px;
-    text-transform: uppercase;
     color: var(--brand-candor);
     font-family: var(--font-brand);
     line-height: 1;
@@ -470,7 +469,7 @@ body.is-signup .formIndent {
 }
 
 .footStrong {
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .productSwitch {
@@ -574,7 +573,7 @@ body.is-signup .formIndent {
     color: var(--ink-soft);
     font-size: 12px;
     display: none;
-    z-index: 30;
+    z-index: 40;
 }
 
 .hint.open .hintPop {

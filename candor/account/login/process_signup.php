@@ -87,7 +87,7 @@ $htmlBody = '
   <div style="max-width:720px; margin:0 auto; background:#ffffff; border:1px solid rgba(11,18,32,.14); border-radius:16px; overflow:hidden;">
     <div style="padding:18px; border-bottom:1px solid rgba(11,18,32,.14);">
       <div style="font-weight:800; font-size:18px; letter-spacing:1px;">
-        <span style="color:#4b7fa8; text-transform:lowercase;">your</span><span style="color:#7b3f22;">CANDOR</span>
+        <span style="color:#7b3f22;">Candor</span>
       </div>
       <div style="color:rgba(11,18,32,.55); font-size:12px; margin-top:6px;">' . $headerLineEsc . '</div>
     </div>

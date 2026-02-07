@@ -13,7 +13,7 @@ $email = $user['email'] ?? '';
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>yourCANDOR</title>
+	<title>your Candor</title>
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
@@ -24,7 +24,7 @@ $email = $user['email'] ?? '';
 		<div class="brand">
 			<div class="logo"><span class="logoGlyph">C</span></div>
 			<div class="brandText">
-				<div class="brandTitle"><span class="brandLead">your</span><span class="brandName">CANDOR</span></div>
+				<div class="brandTitle"><span class="brandLead">your</span><span class="brandName">Candor</span></div>
 				<div class="meta"><span class="osEm">personal OS</span></div>
 			</div>
 		</div>
@@ -103,7 +103,7 @@ $email = $user['email'] ?? '';
 	</section>
 
 	<div class="footer">
-		<a class="footLink" href="https://updates.candor.you/#v0-0"><span class="footStrong">Candor</span> v0.0</a>
+		<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.0</a>
 		<a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
 	</div>
 </div>

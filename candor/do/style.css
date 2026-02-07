@@ -135,7 +135,6 @@ body.is-do .brandTitle {
     font-size: var(--brand-name-size);
     font-weight: 700;
     letter-spacing: 0.4px;
-    text-transform: uppercase;
     color: var(--brand-candor);
     font-family: var(--font-brand);
     line-height: 1;
@@ -437,7 +436,7 @@ body.is-do .brandTitle {
 }
 
 .footStrong {
-    font-weight: 700;
+    font-weight: 600;
 }
 
 @media (max-width: 1020px) {

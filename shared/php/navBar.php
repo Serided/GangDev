@@ -42,8 +42,8 @@ require_once '/var/www/gangdev/shared/php/init.php';
             <label for="products" class="hamburger-btn btnText one">Products</label>
             <aside class="sidebar two">
                 <nav>
-                    <a href="https://dcops.co/"><button class="hamburger-btn btnText two">dcops.co</button></a>
-                    <a href="https://candor.you/"><button class="hamburger-btn btnText two">candor.you</button></a>
+                    <a href="https://candor.you/"><button class="hamburger-btn btnText two"><span style="color: #7b3f22;">Candor</span><span>.you</span></button></a>
+                    <a href="https://dcops.co/"><button class="hamburger-btn btnText two"><span style="color: #4a0f1a;">DC</span><span style="color: #bfa14a;">OPS</span><span>.co</span></button></a>
                     <a href="https://inspectre.link/"><button class="hamburger-btn btnText two">inspectre</button></a>
                 </nav>
             </aside>

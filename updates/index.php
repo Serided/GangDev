@@ -17,7 +17,7 @@
         <div class="brand">
             <div class="logo"><span class="logoGlyph">C</span></div>
             <div class="brandText">
-                <div class="brandTitle"><span class="brandLead">your</span><span class="brandName">CANDOR</span></div>
+                <div class="brandTitle"><span class="brandName">Candor</span></div>
                 <div class="meta">updates</div>
             </div>
         </div>

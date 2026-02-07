@@ -23,7 +23,7 @@ $authed = $userId && $user;
 		<div class="brand">
 			<div class="logo"><span class="logoGlyph">C</span></div>
 			<div class="brandText">
-				<div class="brandTitle"><span class="brandLead">your</span><span class="brandName">CANDOR</span></div>
+				<div class="brandTitle"><span class="brandName">Candor</span></div>
 				<div class="meta"><span class="osEm">personal OS</span></div>
 			</div>
 		</div>
@@ -68,24 +68,24 @@ $authed = $userId && $user;
 
 	<section class="grid">
 		<div class="card reveal" style="--d: 220ms;">
-			<div class="chip">Tasks</div>
+			<div class="chip chipTasks">Tasks</div>
 			<h3>Precision tasks, no pileups</h3>
 			<p>Track tasks with clear status and firm rollover rules. Missed blocks collapse back into the backlog.</p>
 		</div>
 		<div class="card reveal" style="--d: 280ms;">
-			<div class="chip">Notes</div>
+			<div class="chip chipNotes">Notes</div>
 			<h3>Notes that stay in play</h3>
 			<p>Capture fast and keep context attached to the day, ready for the next planning pass.</p>
 		</div>
 		<div class="card reveal" style="--d: 340ms;">
-			<div class="chip">Planner</div>
+			<div class="chip chipPlanner">Planner</div>
 			<h3>Constraint-first planning</h3>
 			<p>Rule-based daily plans now, adaptive reflow and smart scheduling later.</p>
 		</div>
 	</section>
 
 	<div class="footer">
-		<a class="footLink" href="https://updates.candor.you/#v0-0"><span class="footStrong">Candor</span> v0.0</a>
+		<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.0</a>
 		<a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
 	</div>
 </div>
