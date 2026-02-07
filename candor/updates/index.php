@@ -1,3 +1,12 @@
+<?php
+require_once '/var/www/gangdev/shared/php/init_candor.php';
+
+$userId = candor_current_user_id();
+$user = $userId ? candor_user_row($userId) : null;
+$name = $user['display_name'] ?? ($user['username'] ?? '');
+$email = $user['email'] ?? '';
+$authed = $userId && $user;
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,50 +28,82 @@
             <div class="logo"><span class="logoGlyph">C</span></div>
             <div class="brandText">
                 <div class="brandTitle"><span class="brandName">Candor</span></div>
-                <div class="meta"><span class="osEm">updates</span></div>
+                <div class="meta minimal">updates</div>
             </div>
         </a>
+
+        <div class="actions">
+            <?php if ($authed): ?>
+                <span class="welcome">Welcome, <a class="accountLink" href="https://account.candor.you/"><?= htmlspecialchars($name !== '' ? $name : $email) ?></a></span>
+                <a class="btn primary" href="https://do.candor.you/">My OS</a>
+                <a class="btn accent" href="https://account.candor.you/login/signout.php">Sign out</a>
+            <?php else: ?>
+                <a class="btn primary" href="https://account.candor.you/login/signin.php">Sign in</a>
+                <a class="btn accent" href="https://account.candor.you/login/signup.php">Create account</a>
+            <?php endif; ?>
+        </div>
     </header>
 
     <section class="hero">
         <div class="heroText">
-            <h1>Shipping notes and progress.</h1>
-            <p>Short, clear updates on what is landing in Candor and what we are building next.</p>
+            <h1>Product updates, delivered.</h1>
+            <p>Short, clear updates on what shipped, what improved, and how Candor keeps evolving.</p>
             <div class="cta">
-                <a class="btn accent" href="https://candor.you/">Visit Candor</a>
-                <a class="btn ghost" href="https://account.candor.you/">Manage account</a>
+                <a class="btn accent" href="https://candor.you/">Home</a>
             </div>
         </div>
 
-        <div class="card timeline">
-            <div class="tag">Latest</div>
-            <h3>No public updates yet</h3>
-            <p>We are building the next slice of Candor. Check back soon.</p>
-            <div class="timelineMeta">
-                <span>Candor v0.0</span>
-                <span>Built by GangDev</span>
+        <div class="card updatesCard">
+            <div class="miniCaption">public updates</div>
+            <div class="updatesFeed">
+                <article class="updateCard">
+                    <div class="updateHeader">
+                        <span class="tag">v0.1</span>
+                        <span class="updateMeta">Current</span>
+                    </div>
+                    <h3>Account + My OS foundation</h3>
+                    <ul class="updateList">
+                        <li>Unified account flow with verification and refreshed account layout.</li>
+                        <li>My OS dashboard with tasks, notes, and planner blocks (add, remove, complete).</li>
+                        <li>Data now persists across reloads using the Candor DB.</li>
+                        <li>Navigation standardized with Welcome link, My OS, and consistent sign-out.</li>
+                        <li>Updates feed, branding, and favicon polish across Candor pages.</li>
+                    </ul>
+                </article>
+
+                <article class="updateCard">
+                    <div class="updateHeader">
+                        <span class="tag">v0.0</span>
+                        <span class="updateMeta">Base build</span>
+                    </div>
+                    <h3>Design system + layout foundations</h3>
+                    <ul class="updateList">
+                        <li>Initial home, account, and My OS layouts.</li>
+                        <li>Core visual language, typography, and gradients.</li>
+                        <li>Quick access structure and feature framing.</li>
+                    </ul>
+                </article>
             </div>
         </div>
     </section>
 
     <section class="grid">
         <div class="card">
-            <h3>In the works</h3>
-            <p>Planner polish, faster capture flows, and smarter rollover rules.</p>
+            <h3>Core tools</h3>
+            <p>Tasks, notes, and planner blocks stay close to the day so planning stays honest.</p>
+        </div>
+        <div class="card">
+            <h3>Account + access</h3>
+            <p>Unified sign-in and verification keep your personal OS secure.</p>
         </div>
         <div class="card">
             <h3>Release cadence</h3>
-            <p>Major updates will be posted here with a short breakdown.</p>
-        </div>
-        <div class="card">
-            <h3>Found something?</h3>
-            <p>Send feedback through your Candor account page.</p>
-            <a class="link" href="https://account.candor.you/">Go to account</a>
+            <p>Major updates are posted here with short, clear breakdowns.</p>
         </div>
     </section>
 
     <footer class="footer">
-        <a class="footLink" href="https://candor.you/"><span class="footStrong">Candor</span> v0.0</a>
+        <a class="footLink" href="https://candor.you/"><span class="footStrong">Candor</span> v0.1</a>
         <a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
     </footer>
 </div>

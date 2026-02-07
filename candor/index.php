@@ -35,8 +35,8 @@ $authed = $userId && $user;
 
 		<div class="actions">
 			<?php if ($authed): ?>
+				<span class="welcome">Welcome, <a class="accountLink" href="https://account.candor.you/"><?= htmlspecialchars($name !== '' ? $name : $email) ?></a></span>
 				<a class="btn primary" href="https://do.candor.you/">My OS</a>
-				<a class="btn ghost" href="https://account.candor.you/">Account</a>
 				<a class="btn accent" href="https://account.candor.you/login/signout.php">Sign out</a>
 			<?php else: ?>
 				<a class="btn primary" href="https://account.candor.you/login/signin.php">Sign in</a>
@@ -90,7 +90,7 @@ $authed = $userId && $user;
 	</section>
 
 	<div class="footer">
-		<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.0</a>
+		<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.1</a>
 		<a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
 	</div>
 </div>

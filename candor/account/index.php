@@ -37,6 +37,8 @@ $email = $_SESSION['candor_email'] ?? '';
             </a>
 
                 <div class="topActions">
+                    <span class="welcome">Welcome, <a class="accountLink" href="https://account.candor.you/"><?= htmlspecialchars($name !== '' ? $name : $email) ?></a></span>
+                    <a class="btn primary" href="https://do.candor.you/">My OS</a>
                     <form method="post" action="/login/signout.php">
                         <button type="submit" class="btn accent">Sign out</button>
                     </form>

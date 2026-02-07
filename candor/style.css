@@ -125,6 +125,29 @@ body.is-landing .page {
 	color: inherit;
 }
 
+.brandTitle {
+	position: relative;
+}
+
+.brandLink .brandTitle::after {
+	content: "";
+	position: absolute;
+	left: 6px;
+	right: 6px;
+	bottom: -6px;
+	height: 2px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--blue-strong), var(--yellow));
+	opacity: 0;
+	transform: scaleX(0.6);
+	transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.brandLink:hover .brandTitle::after {
+	opacity: 1;
+	transform: scaleX(1);
+}
+
 .logo {
 	width: var(--brand-mark-size);
 	height: var(--brand-mark-size);
@@ -226,6 +249,26 @@ body.is-landing .brandTitle {
 	flex-wrap: wrap;
 	gap: 10px;
 	align-items: center;
+}
+
+.welcome {
+	font-size: 17px;
+	font-weight: 600;
+	letter-spacing: 0.2px;
+	color: var(--ink-soft);
+}
+
+.accountLink {
+	color: var(--ink);
+	font-weight: 700;
+	font-size: 18px;
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+	padding-bottom: 2px;
+}
+
+.accountLink:hover {
+	border-bottom-color: var(--brand-candor);
 }
 
 .btn {

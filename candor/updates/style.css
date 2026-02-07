@@ -50,12 +50,16 @@ a { color: inherit; text-decoration: none; }
 }
 
 .page {
-    --page-gutter: clamp(16px, 3vw, 54px);
+    --page-gutter: clamp(14px, 2.6vw, 54px);
     min-height: 100vh;
     padding: 52px var(--page-gutter);
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 36px;
+}
+
+body.is-updates .page {
+    padding-bottom: clamp(10px, calc(var(--page-gutter) * 0.4), 24px);
 }
 
 .nav {
@@ -76,6 +80,29 @@ a { color: inherit; text-decoration: none; }
 .brandLink {
     text-decoration: none;
     color: inherit;
+}
+
+.brandTitle {
+    position: relative;
+}
+
+.brandLink .brandTitle::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    bottom: -6px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--blue-strong), var(--yellow));
+    opacity: 0;
+    transform: scaleX(0.6);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.brandLink:hover .brandTitle::after {
+    opacity: 1;
+    transform: scaleX(1);
 }
 
 .logo {
@@ -137,11 +164,46 @@ a { color: inherit; text-decoration: none; }
     right: 0;
 }
 
+.meta.minimal {
+    text-transform: none;
+    letter-spacing: 1.2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
+.meta.minimal::before,
+.meta.minimal::after {
+    content: "-";
+}
+
 .actions {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     align-items: center;
+}
+
+.welcome {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: var(--ink-soft);
+}
+
+.accountLink {
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
+}
+
+.accountLink:hover {
+    border-bottom-color: var(--brand-candor);
 }
 
 .btn {
@@ -221,6 +283,65 @@ a { color: inherit; text-decoration: none; }
     gap: 10px;
 }
 
+.updatesCard {
+    display: grid;
+    gap: 14px;
+}
+
+.miniCaption {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+}
+
+.miniCaption::before,
+.miniCaption::after {
+    content: "-";
+}
+
+.updatesFeed {
+    display: grid;
+    gap: 12px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.updateCard {
+    border-radius: 14px;
+    border: 1px solid rgba(185, 219, 242, 0.65);
+    background: rgba(185, 219, 242, 0.18);
+    padding: 14px;
+    display: grid;
+    gap: 8px;
+}
+
+.updateHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.updateMeta {
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.4px;
+}
+
+.updateList {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    font-size: 13px;
+}
+
 .card {
     background: var(--white);
     border: 1px solid var(--line);
@@ -295,7 +416,7 @@ a { color: inherit; text-decoration: none; }
     align-items: center;
     font-size: 12px;
     color: var(--ink-soft);
-    padding-top: 16px;
+    padding-top: 28px;
 }
 
 .footLink {
@@ -327,7 +448,7 @@ a { color: inherit; text-decoration: none; }
 
 .footStrong {
     color: var(--ink);
-    font-weight: 700;
+    font-weight: 600;
 }
 
 @media (max-width: 980px) {
@@ -336,8 +457,15 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 680px) {
-    .page { padding-top: 36px; }
+    .page {
+        --page-gutter: 12px;
+        padding: 36px var(--page-gutter);
+        gap: 24px;
+    }
+    .nav { flex-direction: column; align-items: flex-start; }
+    .actions { width: 100%; align-items: center; }
+    .actions .btn { flex: 1 1 140px; }
     .brandText { align-items: flex-start; text-align: left; }
     .meta { position: static; margin-top: 4px; }
-    .footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .footer { flex-direction: row; align-items: center; gap: 12px; }
 }

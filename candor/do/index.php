@@ -30,7 +30,7 @@ $email = $user['email'] ?? '';
 			<div class="logo"><span class="logoGlyph">C</span></div>
 			<div class="brandText">
 				<div class="brandTitle"><span class="brandLead">your</span><span class="brandName">Candor</span></div>
-				<div class="meta"><span class="osEm">personal OS</span></div>
+				<div class="meta minimal">personal OS</div>
 			</div>
 		</a>
 
@@ -105,7 +105,7 @@ $email = $user['email'] ?? '';
 	</section>
 
 	<div class="footer">
-		<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.0</a>
+		<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.1</a>
 		<a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
 	</div>
 </div>
