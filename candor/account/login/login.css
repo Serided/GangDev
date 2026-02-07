@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap");
 
 :root {
     color-scheme: light;
@@ -13,15 +13,15 @@
     --line: #d7e2ed;
     --brand-candor: #7b3f22;
     --brand-lead: #4b7fa8;
-    --brand-mark-size: 48px;
+    --brand-mark-size: 56px;
 
     --radius: 18px;
     --shadow: 0 18px 50px rgba(15, 27, 45, .14);
 
-    --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-body: "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-display: "Bricolage Grotesque", "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-brand: "Bricolage Grotesque", "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    --font-lead: "Bricolage Grotesque", "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --logo-image: none;
     --logo-glyph-opacity: 1;
 }
@@ -43,8 +43,8 @@ body {
 h1 {
     margin: 0 0 10px;
     font-family: var(--font-display);
-    font-size: 24px;
-    letter-spacing: .4px;
+    font-size: 28px;
+    letter-spacing: .2px;
 }
 
 p {
@@ -65,7 +65,7 @@ p {
 }
 
 .shell {
-    width: min(1080px, 100%);
+    width: min(1120px, 100%);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--white);
@@ -73,7 +73,15 @@ p {
     overflow: hidden;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    min-height: 74vh;
+    min-height: 92vh;
+}
+
+body.is-signin .shell {
+    background: linear-gradient(180deg, rgba(185, 219, 242, 0.3), rgba(255, 255, 255, 0.98));
+}
+
+body.is-signup .shell {
+    background: linear-gradient(180deg, rgba(243, 200, 115, 0.32), rgba(255, 255, 255, 0.98));
 }
 
 .top {
@@ -83,6 +91,7 @@ p {
     padding: 18px;
     border-bottom: 1px solid var(--line);
     gap: 12px;
+    background: rgba(255, 255, 255, 0.75);
 }
 
 .brand {
@@ -117,27 +126,29 @@ p {
 .brandTitle {
     display: flex;
     align-items: baseline;
-    gap: 4px;
+    gap: 1px;
     justify-content: center;
 }
 
 .brandLead {
-    font-size: 12px;
+    font-size: 18px;
     font-weight: 700;
     text-transform: lowercase;
-    letter-spacing: .1px;
+    letter-spacing: .2px;
     color: var(--brand-lead);
     margin-right: 0;
     font-family: var(--font-brand);
+    line-height: 1;
 }
 
 .brandName {
-    font-size: 24px;
+    font-size: 36px;
     font-weight: 700;
-    letter-spacing: 1.3px;
+    letter-spacing: .4px;
     text-transform: uppercase;
     color: var(--brand-candor);
     font-family: var(--font-brand);
+    line-height: 1;
 }
 
 .meta {
@@ -145,41 +156,110 @@ p {
     font-size: 12px;
     letter-spacing: .4px;
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     left: 0;
     right: 0;
 }
 
 .body {
-    padding: 24px;
+    padding: 34px 30px 38px;
     display: grid;
-    align-content: center;
-}
-
-.bodyGrid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 18px;
-    align-items: center;
+    justify-items: stretch;
+    align-items: start;
 }
 
 .formPane {
     display: grid;
-    gap: 14px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 220px);
+    grid-template-areas:
+        "header actions"
+        "fields actions";
+    gap: 18px 24px;
     width: min(860px, 100%);
-    justify-self: center;
-    padding: 24px;
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    background: var(--white);
+    margin: 0 auto;
+    align-items: start;
 }
 
-body.is-signin .formPane {
-    background: linear-gradient(180deg, rgba(185, 219, 242, 0.22), rgba(255, 255, 255, 0.98));
+.formHeader {
+    display: grid;
+    gap: 6px;
+    grid-area: header;
 }
 
-body.is-signup .formPane {
-    background: linear-gradient(180deg, rgba(243, 200, 115, 0.22), rgba(255, 255, 255, 0.98));
+.formBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(185, 219, 242, 0.6);
+    border: 1px solid rgba(185, 219, 242, 0.9);
+    width: fit-content;
+}
+
+body.is-signup .formBadge {
+    background: rgba(243, 200, 115, 0.55);
+    border-color: rgba(230, 160, 106, 0.6);
+}
+
+.formFields {
+    display: grid;
+    gap: 14px;
+    grid-area: fields;
+}
+
+.formSection {
+    display: grid;
+    gap: 12px;
+}
+
+.sectionTitle {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    color: var(--ink-soft);
+}
+
+.formSplit {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.formActions {
+    display: grid;
+    gap: 12px;
+    align-content: start;
+    grid-area: actions;
+    padding-left: 18px;
+    border-left: 1px dashed rgba(90, 143, 185, .4);
+}
+
+body.is-signup .formActions {
+    border-left-color: rgba(230, 160, 106, .5);
+}
+
+.formActions .btn {
+    width: 100%;
+}
+
+.status {
+    grid-column: 1 / -1;
+    min-height: 18px;
+    font-size: 12px;
+    color: var(--ink-soft);
+}
+
+.status.good {
+    color: rgba(10, 90, 45, 0.92);
+}
+
+.status.bad {
+    color: rgba(120, 15, 20, 0.92);
 }
 
 .grid {
@@ -188,14 +268,29 @@ body.is-signup .formPane {
     gap: 12px;
 }
 
+@media (max-width: 860px) {
+    .formPane {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "fields"
+            "actions";
+    }
+
+    .formActions {
+        padding-left: 0;
+        border-left: none;
+    }
+}
+
 @media (max-width: 680px) {
     .top { padding: 16px; }
-    .body { padding: 16px; }
+    .body { padding: 24px 16px 28px; }
     .grid { grid-template-columns: 1fr; }
-    .bodyGrid { grid-template-columns: 1fr; }
-    .formPane { width: 100%; padding: 16px; }
+    .formPane { width: 100%; }
+    .formSplit { grid-template-columns: 1fr; }
     .shell { border-radius: 18px; }
-    .logoGlyph { font-size: 17px; }
+    .logoGlyph { font-size: 20px; }
 }
 
 .field { display: flex; flex-direction: column; gap: 6px; }
@@ -264,41 +359,30 @@ body.is-signup .formPane {
     flex-wrap: wrap;
 }
 
-body.is-signin .row {
-    flex-direction: column;
-    align-items: stretch;
-}
-
-body.is-signin .row .btn {
-    width: 100%;
-}
-
-body.is-signin .links {
-    width: 100%;
-    justify-content: flex-start;
-}
-
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 40px;
-    padding: 0 14px;
+    min-height: 44px;
+    padding: 0 16px;
     border-radius: 12px;
     border: 1px solid var(--line);
     background: var(--white);
     font: 14px/1 var(--font-body);
     line-height: 1;
+    letter-spacing: .2px;
     cursor: pointer;
 }
 
 .btn.primary {
-    border-color: rgba(90, 143, 185, .4);
-    background: linear-gradient(180deg, rgba(185, 219, 242, .5), rgba(185, 219, 242, .2));
+    border-color: rgba(90, 143, 185, .5);
+    background: linear-gradient(180deg, rgba(185, 219, 242, .9), rgba(185, 219, 242, .35));
+    box-shadow: 0 12px 24px rgba(90, 143, 185, .22), 0 1px 0 rgba(255, 255, 255, .9) inset;
 }
 
 .btn.primary:hover {
-    background: linear-gradient(180deg, rgba(185, 219, 242, .7), rgba(185, 219, 242, .25));
+    background: linear-gradient(180deg, rgba(185, 219, 242, .95), rgba(185, 219, 242, .45));
+    box-shadow: 0 16px 30px rgba(90, 143, 185, .28), 0 1px 0 rgba(255, 255, 255, 1) inset;
 }
 
 .links {
@@ -306,6 +390,12 @@ body.is-signin .links {
     gap: 12px;
     color: var(--ink-soft);
     font-size: 12px;
+}
+
+.formActions .links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
 }
 
 .links a {
@@ -319,6 +409,7 @@ body.is-signin .links {
     padding: 10px 12px;
     border-radius: 12px;
     font-size: 12px;
+    grid-column: 1 / -1;
 }
 
 .error {
@@ -340,6 +431,7 @@ body.is-signin .links {
     border-top: 1px solid var(--line);
     color: var(--ink-soft);
     font-size: 12px;
+    background: rgba(255, 255, 255, 0.75);
 }
 
 .productSwitch {
@@ -452,7 +544,7 @@ body.is-signin .links {
 .logoGlyph {
     font-family: var(--font-brand);
     font-weight: 700;
-    font-size: 22px;
+    font-size: 24px;
     color: var(--ink);
     line-height: 1;
     opacity: var(--logo-glyph-opacity);

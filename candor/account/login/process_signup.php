@@ -7,13 +7,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 	exit;
 }
 
-$name = trim($_POST['name'] ?? '');
+$username = trim($_POST['username'] ?? '');
 $email = strtolower(trim($_POST['email'] ?? ''));
 $password = $_POST['password'] ?? '';
 $confirm = $_POST['confirm_password'] ?? '';
 
-if ($name === '' || $email === '' || $password === '' || $confirm === '') {
+if ($username === '' || $email === '' || $password === '' || $confirm === '') {
 	header('Location: /login/signup.php?error=' . urlencode('All fields are required.'));
+	exit;
+}
+
+if (!preg_match('/^[a-zA-Z0-9_-]{3,20}$/', $username)) {
+	header('Location: /login/signup.php?error=' . urlencode('Username must be 3-20 letters, numbers, _ or -.'));
 	exit;
 }
 
@@ -23,12 +28,12 @@ if ($password !== $confirm) {
 }
 
 $stmt = $pdo->prepare(
-	"SELECT 1 FROM candor.users WHERE email = ? OR username = ? LIMIT 1"
+	"SELECT 1 FROM candor.users WHERE LOWER(email) = LOWER(?) OR LOWER(username) = LOWER(?) LIMIT 1"
 );
-$stmt->execute([$email, $name]);
+$stmt->execute([$email, $username]);
 
 if ($stmt->fetchColumn()) {
-	header('Location: /login/signin.php?error=' . urlencode('Account already exists. Sign in.'));
+	header('Location: /login/signup.php?error=' . urlencode('Username or email already in use.'));
 	exit;
 }
 
@@ -44,7 +49,7 @@ $stmt = $pdo->prepare("
 
 $stmt->execute([
 	$email,
-	$name,
+	$username,
 	$hash,
 	$token,
 	$expiresAt
@@ -55,7 +60,7 @@ $user_id = $stmt->fetchColumn();
 $verifyUrl = 'https://account.candor.you/login/verify.php?token=' . urlencode($token);
 
 $verifyUrlEsc = htmlspecialchars($verifyUrl, ENT_QUOTES, 'UTF-8');
-$nameEsc = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+$nameEsc = htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
 
 $fromEmail = 'company@gangdev.co';
 $fromName = 'GangDev / Candor';
@@ -109,11 +114,11 @@ $htmlBody = '
 $altBody =
 	"Candor - Verify your email\n\n" .
 	$headerLine . "\n\n" .
-	"Hi {$name},\n\n" .
+	"Hi {$username},\n\n" .
 	"Verify your email to activate your account:\n{$verifyUrl}\n\n" .
 	"This link expires in 60 minutes.\n";
 
-$sent = sendMail($fromEmail, $fromName, $email, $name, $subject, $htmlBody, $altBody);
+$sent = sendMail($fromEmail, $fromName, $email, $username, $subject, $htmlBody, $altBody);
 
 if (!$sent) {
 	header('Location: /login/signup.php?error=' . urlencode('Email failed to send. Try again.'));

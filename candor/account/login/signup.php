@@ -1,13 +1,39 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init_candor.php';
 
+if (isset($_GET['check']) && $_GET['check'] === '1') {
+	header('Content-Type: application/json');
+	$username = trim($_GET['username'] ?? '');
+	$valid = preg_match('/^[a-zA-Z0-9_-]{3,20}$/', $username) === 1;
+
+	if ($username === '' || !$valid) {
+		echo json_encode(['available' => false, 'message' => 'Use 3-20 letters, numbers, _ or -.']);
+		exit;
+	}
+
+	if (!isset($pdo)) {
+		echo json_encode(['available' => false, 'message' => 'Unable to check right now.']);
+		exit;
+	}
+
+	$stmt = $pdo->prepare("SELECT 1 FROM candor.users WHERE LOWER(username) = LOWER(?) LIMIT 1");
+	$stmt->execute([$username]);
+	$exists = (bool)$stmt->fetchColumn();
+
+	echo json_encode([
+		'available' => !$exists,
+		'message' => $exists ? 'Username taken.' : 'Username available.'
+	]);
+	exit;
+}
+
 $error = $_GET['error'] ?? '';
 $ok = $_GET['ok'] ?? '';
 $t = $_GET['t'] ?? '';
 
 $prefill = [
-        'name' => '',
-        'email' => '',
+	'username' => '',
+	'email' => '',
 ];
 
 if ($t !== '') {
@@ -15,7 +41,7 @@ if ($t !== '') {
     $stmt->execute([$t]);
     $row = $stmt->fetch();
     if ($row) {
-        $prefill['name'] = $row['real_name'] ?? '';
+        $prefill['username'] = $row['real_name'] ?? '';
         $prefill['email'] = $row['email'] ?? '';
     }
 }
@@ -54,33 +80,36 @@ if ($t !== '') {
 		</div>
 
         <div class="body">
-			<div class="bodyGrid">
-				<div class="formPane">
+			<form method="post" action="/login/process_signup.php" autocomplete="on" class="formPane">
+				<input type="hidden" name="t" value="<?= htmlspecialchars($t) ?>">
+
+				<div class="formHeader">
+					<div class="formBadge">Create</div>
 					<h1>Create your account</h1>
-					<p>Create your account and open do.candor.you.</p>
+					<p>Create your account to unlock your workspace.</p>
+				</div>
 
-					<form method="post" action="/login/process_signup.php" autocomplete="on">
-						<input type="hidden" name="t" value="<?= htmlspecialchars($t) ?>">
-
-						<div class="grid">
-							<div class="field" style="grid-column: 1 / -1;">
-								<div class="label">Name</div>
-								<input class="input" name="name" value="<?= htmlspecialchars($prefill['name']) ?>" required autocomplete="name">
+				<div class="formFields">
+					<div class="formSection">
+						<div class="sectionTitle">Identity</div>
+						<div class="formSplit">
+							<div class="field">
+								<div class="label">Username</div>
+								<input class="input" name="username" value="<?= htmlspecialchars($prefill['username']) ?>" required autocomplete="username" autocapitalize="none" spellcheck="false" pattern="[A-Za-z0-9_-]{3,20}" maxlength="20" id="usernameInput" data-username-check>
 							</div>
 
-							<div class="field" style="grid-column: 1 / -1;">
-								<div class="labelRow">
-									<div class="label">Email</div>
-									<div class="hint">
-										<button class="hintBtn" type="button" aria-label="Why email matters">?</button>
-										<div class="hintPop">
-											Used for account access and recovery.
-										</div>
-									</div>
-								</div>
+							<div class="field">
+								<div class="label">Email</div>
 								<input class="input" name="email" value="<?= htmlspecialchars($prefill['email']) ?>" required autocomplete="email" inputmode="email">
 							</div>
 
+							<div class="status" id="usernameStatus" aria-live="polite"></div>
+						</div>
+					</div>
+
+					<div class="formSection">
+						<div class="sectionTitle">Security</div>
+						<div class="formSplit">
 							<div class="field">
 								<div class="label">Password</div>
 								<div class="pwWrap">
@@ -94,24 +123,24 @@ if ($t !== '') {
 								<input class="input" type="password" name="confirm_password" required autocomplete="new-password">
 							</div>
 						</div>
-
-						<div class="row">
-							<button class="btn primary" type="submit">Create account</button>
-							<div class="links">
-								<a href="/login/signin.php">Sign in</a>
-							</div>
-						</div>
-
-						<?php if ($error !== ''): ?>
-							<div class="error"><?= htmlspecialchars($error) ?></div>
-						<?php endif; ?>
-
-						<?php if ($ok !== ''): ?>
-							<div class="ok"><?= htmlspecialchars($ok) ?></div>
-						<?php endif; ?>
-					</form>
+					</div>
 				</div>
-			</div>
+
+				<div class="formActions">
+					<button class="btn primary" type="submit">Create account</button>
+					<div class="links">
+						<a href="/login/signin.php">Sign in</a>
+					</div>
+				</div>
+
+				<?php if ($error !== ''): ?>
+					<div class="error"><?= htmlspecialchars($error) ?></div>
+				<?php endif; ?>
+
+				<?php if ($ok !== ''): ?>
+					<div class="ok"><?= htmlspecialchars($ok) ?></div>
+				<?php endif; ?>
+			</form>
         </div>
 
         <div class="footer">

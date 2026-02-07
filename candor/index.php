@@ -42,8 +42,8 @@ $authed = $userId && $user;
 
 	<section class="hero">
 		<div class="reveal" style="--d: 80ms;">
-			<h1>Clear today, without losing the long game.</h1>
-			<p>Candor is your personal operating system for tasks, notes, and a simple daily planner. Keep the day lightweight, keep the backlog honest, and move forward with intention.</p>
+			<h1>Own today. Keep the backlog honest.</h1>
+			<p>Candor is your personal operating system for tasks, notes, and a simple daily planner. It respects constraints, collapses misses back into the backlog, and keeps execution clean.</p>
 		</div>
 
 		<div class="card panel reveal" style="--d: 160ms;">
@@ -69,18 +69,18 @@ $authed = $userId && $user;
 	<section class="grid">
 		<div class="card reveal" style="--d: 220ms;">
 			<div class="chip">Tasks</div>
-			<h3>Daily focus, no pileups</h3>
-			<p>Track tasks with clear status and gentle rollover rules. Missed blocks collapse back into the backlog.</p>
+			<h3>Precision tasks, no pileups</h3>
+			<p>Track tasks with clear status and firm rollover rules. Missed blocks collapse back into the backlog.</p>
 		</div>
 		<div class="card reveal" style="--d: 280ms;">
 			<div class="chip">Notes</div>
-			<h3>Capture without clutter</h3>
-			<p>Notes stay attached to context, ready for the next planning pass.</p>
+			<h3>Notes that stay in play</h3>
+			<p>Capture fast and keep context attached to the day, ready for the next planning pass.</p>
 		</div>
 		<div class="card reveal" style="--d: 340ms;">
 			<div class="chip">Planner</div>
-			<h3>Lightweight daily plans</h3>
-			<p>Start with a simple daily planner and grow into smart scheduling later.</p>
+			<h3>Constraint-first planning</h3>
+			<p>Rule-based daily plans now, adaptive reflow and smart scheduling later.</p>
 		</div>
 	</section>
 

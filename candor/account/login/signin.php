@@ -35,47 +35,46 @@ $ok = $_GET['ok'] ?? '';
 					<a href="https://account.dcops.co/login/signin.php"><span>DCOPS</span><span class="badge">product</span></a>
 				</div>
 			</div>
-		</div>
+        </div>
 
         <div class="body">
-			<div class="bodyGrid">
-				<div class="formPane">
+			<form method="post" action="/login/process_signin.php" autocomplete="on" class="formPane">
+				<div class="formHeader">
+					<div class="formBadge">Access</div>
 					<h1>Sign in</h1>
-					<p>Sign in to open do.candor.you.</p>
-
-					<form method="post" action="/login/process_signin.php" autocomplete="on">
-						<div class="grid" style="grid-template-columns: 1fr;">
-							<div class="field">
-								<div class="label">Email</div>
-								<input class="input" name="email" required autocomplete="email" inputmode="email">
-							</div>
-
-							<div class="field">
-								<div class="label">Password</div>
-								<div class="pwWrap">
-									<input class="input pw" type="password" name="password" required autocomplete="current-password" id="pwLogin">
-									<button class="pwBtn" type="button" data-toggle-password="#pwLogin">show</button>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<button class="btn primary" type="submit">Continue</button>
-							<div class="links">
-								<a href="/login/signup.php">Create account</a>
-							</div>
-						</div>
-
-						<?php if ($error !== ''): ?>
-							<div class="error"><?= htmlspecialchars($error) ?></div>
-						<?php endif; ?>
-
-						<?php if ($ok !== ''): ?>
-							<div class="ok"><?= htmlspecialchars($ok) ?></div>
-						<?php endif; ?>
-					</form>
+					<p>Sign in to open your workspace.</p>
 				</div>
-			</div>
+
+				<div class="formFields">
+					<div class="field">
+						<div class="label">Email</div>
+						<input class="input" name="email" required autocomplete="email" inputmode="email">
+					</div>
+
+					<div class="field">
+						<div class="label">Password</div>
+						<div class="pwWrap">
+							<input class="input pw" type="password" name="password" required autocomplete="current-password" id="pwLogin">
+							<button class="pwBtn" type="button" data-toggle-password="#pwLogin">show</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="formActions">
+					<button class="btn primary" type="submit">Continue</button>
+					<div class="links">
+						<a href="/login/signup.php">Create account</a>
+					</div>
+				</div>
+
+				<?php if ($error !== ''): ?>
+					<div class="error"><?= htmlspecialchars($error) ?></div>
+				<?php endif; ?>
+
+				<?php if ($ok !== ''): ?>
+					<div class="ok"><?= htmlspecialchars($ok) ?></div>
+				<?php endif; ?>
+			</form>
         </div>
 
         <div class="footer">

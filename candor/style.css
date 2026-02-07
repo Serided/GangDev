@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap");
 
 :root {
 	color-scheme: light;
@@ -15,11 +15,11 @@
 	--radius: 18px;
 	--brand-candor: #7b3f22;
 	--brand-lead: #4b7fa8;
-	--brand-mark-size: 48px;
-	--font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-	--font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-	--font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-	--font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+	--brand-mark-size: 56px;
+	--font-body: "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+	--font-display: "Bricolage Grotesque", "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+	--font-brand: "Bricolage Grotesque", "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+	--font-lead: "Bricolage Grotesque", "M PLUS Rounded 1c", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
 	--logo-image: none;
 	--logo-glyph-opacity: 1;
 }
@@ -72,13 +72,15 @@ a {
 }
 
 .page {
-	max-width: 1480px;
-	margin: 0 auto;
-	padding: 44px clamp(22px, 4vw, 80px) 16px;
+	--page-gutter: clamp(12px, 2.4vw, 48px);
+	width: 100%;
+	max-width: none;
+	margin: 0;
+	padding: 52px var(--page-gutter) 0;
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	gap: 32px;
+	gap: 36px;
 }
 
 .nav {
@@ -111,7 +113,7 @@ a {
 .logoGlyph {
 	font-family: var(--font-brand);
 	font-weight: 700;
-	font-size: 22px;
+	font-size: 24px;
 	color: var(--ink);
 	line-height: 1;
 	opacity: var(--logo-glyph-opacity);
@@ -129,6 +131,21 @@ a {
 	right: 0;
 }
 
+body.is-landing .brand .meta {
+	text-transform: none;
+	font-style: italic;
+	letter-spacing: 1.8px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+}
+
+body.is-landing .brand .meta::before,
+body.is-landing .brand .meta::after {
+	content: "-";
+}
+
 .brandText {
 	position: relative;
 	height: var(--brand-mark-size);
@@ -142,27 +159,29 @@ a {
 .brandTitle {
 	display: flex;
 	align-items: baseline;
-	gap: 4px;
+	gap: 1px;
 	justify-content: center;
 }
 
 .brandLead {
-	font-size: 12px;
+	font-size: 18px;
 	font-weight: 700;
 	text-transform: lowercase;
-	letter-spacing: 0.1px;
+	letter-spacing: 0.2px;
 	color: var(--brand-lead);
 	margin-right: 0;
 	font-family: var(--font-brand);
+	line-height: 1;
 }
 
 .brandName {
-	font-size: 24px;
+	font-size: 36px;
 	font-weight: 700;
-	letter-spacing: 1.3px;
+	letter-spacing: 0.4px;
 	text-transform: uppercase;
 	color: var(--brand-candor);
 	font-family: var(--font-brand);
+	line-height: 1;
 }
 
 .actions {
@@ -177,8 +196,8 @@ a {
 	align-items: center;
 	justify-content: center;
 	gap: 8px;
-	min-height: 40px;
-	padding: 0 16px;
+	min-height: 44px;
+	padding: 0 18px;
 	border-radius: 999px;
 	border: 1px solid var(--line);
 	background: var(--white);
@@ -186,6 +205,7 @@ a {
 	font-weight: 600;
 	font-size: 14px;
 	line-height: 1;
+	letter-spacing: 0.2px;
 }
 
 body.is-landing .btn {
@@ -266,21 +286,21 @@ body.is-landing .btn:active {
 
 .hero {
 	display: grid;
-	grid-template-columns: 1.7fr 1fr;
-	gap: 32px;
+	grid-template-columns: 1.6fr 1fr;
+	gap: 36px;
 	align-items: center;
 }
 
 .hero h1 {
 	margin: 0 0 16px;
-	font-size: clamp(36px, 5vw, 64px);
-	letter-spacing: -0.5px;
+	font-size: clamp(38px, 6vw, 72px);
+	letter-spacing: -0.6px;
 	font-family: var(--font-display);
 }
 
 .hero p {
 	margin: 0 0 22px;
-	font-size: 17px;
+	font-size: 18px;
 	color: var(--ink-soft);
 	line-height: 1.7;
 	max-width: 620px;
@@ -317,6 +337,8 @@ body.is-landing .btn:active {
 
 body.is-landing .card,
 body.is-landing .list li {
+	position: relative;
+	overflow: hidden;
 	transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
 }
 
@@ -331,6 +353,27 @@ body.is-landing .list li:hover {
 	border-color: rgba(90, 143, 185, 0.65);
 	background: rgba(185, 219, 242, 0.3);
 	box-shadow: 0 16px 32px rgba(15, 27, 45, 0.18);
+}
+
+body.is-landing .card::after,
+body.is-landing .list li::after {
+	content: "";
+	position: absolute;
+	top: -50%;
+	left: -70%;
+	width: 60%;
+	height: 200%;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+	opacity: 0;
+	transform: rotate(14deg) translateX(-30%);
+	transition: opacity 0.2s ease, transform 0.5s ease;
+	pointer-events: none;
+}
+
+body.is-landing .card:hover::after,
+body.is-landing .list li:hover::after {
+	opacity: 0.6;
+	transform: rotate(14deg) translateX(180%);
 }
 
 .card h3 {
@@ -354,7 +397,7 @@ body.is-landing .list li:hover {
 	border: 1px solid rgba(230, 160, 106, 0.5);
 	font-weight: 600;
 	font-size: 12px;
-	margin: -10px 0 8px -10px;
+	margin: -14px 0 8px -14px;
 }
 
 .grid {
@@ -401,7 +444,11 @@ body.is-landing .list li:hover {
 	font-size: 12px;
 	color: var(--ink-soft);
 	padding-top: 28px;
-	padding-bottom: 8px;
+	padding-bottom: 0;
+	margin-left: calc(-1 * var(--page-gutter));
+	margin-right: calc(-1 * var(--page-gutter));
+	padding-left: env(safe-area-inset-left);
+	padding-right: env(safe-area-inset-right);
 }
 
 .reveal {
@@ -430,7 +477,8 @@ body.is-landing .list li:hover {
 
 @media (max-width: 720px) {
 	.page {
-		padding: 32px 18px 12px;
+		--page-gutter: 12px;
+		padding: 36px var(--page-gutter) 0;
 		gap: 24px;
 	}
 
@@ -450,6 +498,10 @@ body.is-landing .list li:hover {
 
 	.cta-row .btn {
 		flex: 1 1 160px;
+	}
+
+	.hero .panel {
+		display: none;
 	}
 
 	.footer {
