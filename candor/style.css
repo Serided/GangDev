@@ -92,10 +92,11 @@ body.is-landing .brand .meta .osEm {
 
 .page {
 	--page-gutter: clamp(14px, 2.6vw, 54px);
+	--edge-pad: clamp(10px, calc(var(--page-gutter) * 0.4), 24px);
 	width: 100%;
 	max-width: none;
 	margin: 0;
-	padding: 44px var(--page-gutter);
+	padding: var(--edge-pad) var(--page-gutter);
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
@@ -571,7 +572,7 @@ body.is-landing .list li:hover::after {
 @media (max-width: 720px) {
 	.page {
 		--page-gutter: 12px;
-		padding: 36px var(--page-gutter);
+		padding: var(--edge-pad) var(--page-gutter);
 		gap: 24px;
 	}
 
