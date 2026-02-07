@@ -24,8 +24,8 @@
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: none;
-    --logo-glyph-opacity: 1;
+    --logo-image: url("https://candor.you/files/img/favicon/favicon.ico");
+    --logo-glyph-opacity: 0;
 }
 
 * { box-sizing: border-box; }
@@ -384,13 +384,13 @@ body.is-signup .formIndent {
 
 .btn.primary {
     border-color: rgba(90, 143, 185, .5);
-    background: linear-gradient(180deg, rgba(185, 219, 242, .8), rgba(185, 219, 242, .35));
-    box-shadow: 0 8px 18px rgba(90, 143, 185, .18), 0 1px 0 rgba(255, 255, 255, .9) inset;
+    background: rgba(185, 219, 242, .7);
+    box-shadow: 0 8px 18px rgba(90, 143, 185, .18);
 }
 
 .btn.primary:hover {
-    background: linear-gradient(180deg, rgba(185, 219, 242, .92), rgba(185, 219, 242, .45));
-    box-shadow: 0 12px 22px rgba(90, 143, 185, .22), 0 1px 0 rgba(255, 255, 255, 1) inset;
+    background: rgba(185, 219, 242, .82);
+    box-shadow: 0 12px 22px rgba(90, 143, 185, .22);
 }
 
 .links {

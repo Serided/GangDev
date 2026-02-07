@@ -50,10 +50,9 @@
                 <div class="mods sect">
                     <h2>Products</h2>
                     <p class="desc">
-                        <a href="https://mods.gangdev.co/minecraft/resource_packs">- Minecraft (Resource Packs) -</a><br>
-                        <a href="https://mods.gangdev.co/minecraft/data_packs">- Minecraft (Data Packs) -</a><br>
-                        <a href="https://apps.gangdev.co/web/mmfGenerator/">- MMF Generator -</a><br>
-                        <a href="https://apps.gangdev.co/web/roastGenerator/">- Roast Generator -</a><br>
+                        <a href="https://candor.you/">- Candor -</a><br>
+                        <a href="https://dcops.co/">- DCOPS -</a><br>
+                        <a href="https://inspectre.link/">- inspectre -</a><br>
                     </p>
                 </div>
                 <div class="games sect">
@@ -62,20 +61,17 @@
                         <div class="link">
                             <a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine -<br>(Alpha)</a>
                         </div>
-                        <!--<div class="link">
-                            <a href="https://gaming.gangdev.co/basicCubeGame" target="_blank">- The Bouncing Cube -<br>(Alpha)</a>
-                        </div>
                         <div class="link">
-                            <a href="https://gaming.gangdev.co/ultimatePong" target="_blank">- Ultimate Pong -<br>(Alpha)</a>
+                            <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">- Fighting Game -<br>(Beta)</a>
                         </div>
-                        <div class="link">
-                            <a href="https://gaming.gangdev.co/basicPlatformerGame" target="_blank">- Platformer Game -<br>(Alpha)</a>
-                        </div>-->
                         <div class="link">
                             <a href="https://crust.gangdev.co/game1" target="_blank">- Crust -<br>(Alpha) <b>[Online]</b></a>
                         </div>
                         <div class="link">
-                            <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">- Fighting Game -<br>(Beta)</a>
+                            <a href="https://apps.gangdev.co/web/roastGenerator/">- Roast Generator -<br>(Alpha)</a>
+                        </div>
+                        <div class="link">
+                            <a href="https://apps.gangdev.co/web/mmfGenerator/">- MMF Generator -<br>(Beta)</a>
                         </div>
                     </div>
                 </div>

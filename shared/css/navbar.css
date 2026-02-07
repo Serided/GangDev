@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap");
+
 :root {
     --bar-width: 8vh;
     --bar-height: 1.5vh;
@@ -175,6 +177,51 @@ div.profile p {
     background-color: darkgray;
     font-size: 4vh;
     text-align: center;
+}
+
+.productBtn {
+    border: 1px solid transparent;
+}
+
+.productCandor {
+    background: linear-gradient(135deg, #f7fbff, #fff6ee);
+    border-color: #d7e2ed;
+}
+
+.productDcops {
+    background: linear-gradient(180deg, #ffffff, #f1f4f8);
+    border-color: rgba(11, 18, 32, .14);
+}
+
+.productInspectre {
+    background:
+        radial-gradient(120px 60px at 20% 30%, rgba(107, 107, 255, 0.22), transparent 60%),
+        #07070c;
+    border-color: rgba(255, 255, 255, .16);
+}
+
+.brandCandor {
+    font-family: "Comfortaa", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
+    color: #7b3f22;
+    letter-spacing: 0.4px;
+}
+
+.brandDc,
+.brandOps,
+.brandInspectre {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    letter-spacing: 0.6px;
+}
+
+.brandDc { color: #4a0f1a; }
+.brandOps { color: #bfa14a; }
+
+.brandInspectre {
+    text-transform: lowercase;
+    background: linear-gradient(135deg, #7fb4ff, #b07cff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .selected {
