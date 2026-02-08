@@ -41,6 +41,13 @@ body {
     overflow: hidden;
 }
 
+@supports (height: 100svh) {
+    body {
+        min-height: 100svh;
+        height: 100svh;
+    }
+}
+
 a { color: inherit; text-decoration: none; }
 
 .osEm {
@@ -307,6 +314,7 @@ body.is-do .brandTitle {
 .dayHeader {
     display: grid;
     gap: 14px;
+    min-height: 0;
 }
 
 .dayIntroRow {
@@ -1385,16 +1393,73 @@ body.is-do .brandTitle {
     .page {
         --page-gutter: 12px;
         padding: var(--edge-pad) var(--page-gutter);
-        gap: 24px;
+        gap: 16px;
+        height: 100%;
+        overflow: hidden;
     }
+    .nav { flex-direction: column; align-items: flex-start; gap: 10px; }
     .actions { width: 100%; }
+    .welcome { font-size: 16px; }
+    .accountLink { font-size: 17px; }
     .quickForm { grid-template-columns: 1fr; }
     .quickForm.is-planner { grid-template-columns: 1fr; }
     .focusRow { grid-template-columns: 1fr; }
-    .calendarPanel { padding: 18px; }
+    .calendarPanel { padding: 16px; padding-bottom: 84px; }
     .dayTitle { font-size: clamp(22px, 6vw, 32px); }
-    .timelineGrid { --hour-height: 38px; max-height: none; }
-    .monthGrid { gap: 6px; }
+    .dayMeta { display: none; }
+    .dayHeader { gap: 10px; }
+    .dayTag { font-size: 12px; }
+    .timelineGrid { --hour-height: 36px; max-height: none; }
+    .calendarShell {
+        grid-template-rows: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        gap: 12px;
+    }
+    .dayPanel,
+    .monthPanel {
+        min-height: 0;
+    }
+    .focusStrip {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(110px, 1fr);
+        grid-template-columns: none;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        gap: 10px;
+    }
+    .focusCard {
+        min-height: 96px;
+        aspect-ratio: 1 / 1;
+        padding: 10px;
+        gap: 6px;
+    }
+    .focusLabel { font-size: 10px; }
+    .focusValue { font-size: 15px; }
+    .focusSub { display: none; }
+    .monthGrid {
+        gap: 4px;
+        overflow-y: auto;
+    }
+    .monthCell {
+        min-height: 56px;
+        padding: 6px;
+    }
+    .monthNumber { font-size: 11px; }
+    .monthTasks {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    .monthPill {
+        width: 6px;
+        height: 6px;
+        padding: 0;
+        border-radius: 50%;
+        font-size: 0;
+    }
+    .monthPill.is-done {
+        opacity: 0.45;
+    }
+    .monthMore { display: none; }
     .footer { flex-direction: row; align-items: center; gap: 12px; }
     .heightSplit { grid-template-columns: 1fr; }
 }
