@@ -342,6 +342,24 @@ a { color: inherit; text-decoration: none; }
     padding-right: 2px;
 }
 
+.routineCard {
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    gap: 8px;
+}
+
+.routineCard .savedSection {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.routineCard .savedScroll {
+    max-height: none;
+    flex: 1;
+    min-height: 0;
+}
+
 .cardHead {
     display: flex;
     align-items: baseline;
@@ -502,6 +520,31 @@ a { color: inherit; text-decoration: none; }
 .routineMeta {
     display: grid;
     gap: 8px;
+}
+
+.dayMulti {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+}
+
+.dayOption {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(215, 226, 237, 0.9);
+    background: rgba(185, 219, 242, 0.2);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    user-select: none;
+}
+
+.dayOption input {
+    margin: 0;
 }
 
 .taskHeader {
@@ -969,6 +1012,14 @@ a { color: inherit; text-decoration: none; }
     .scheduleCard .dialInput {
         width: 24px;
         font-size: 10px;
+    }
+    .dayMulti {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+    .dayOption {
+        padding: 4px 4px;
+        font-size: 10px;
+        justify-content: center;
     }
     .sleepSummary .itemList {
         display: flex;

@@ -5,8 +5,10 @@ candor_require_verified();
 
 $userId = candor_current_user_id();
 $user = $userId ? candor_user_row($userId) : null;
+$profile = $userId ? candor_profile_row($userId) : null;
 $name = $user['display_name'] ?? ($user['username'] ?? '');
 $email = $user['email'] ?? '';
+$birthdate = $profile['birthdate'] ?? '';
 $cookieKey = 'candor_time_format_' . $userId;
 $candorMeta = 'create';
 $candorLead = '';
@@ -34,7 +36,7 @@ $candorVersion = 'v0.2';
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
-<body class="is-create" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>">
+<body class="is-create" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>">
 
 <div class="page">
 	<?php require '/var/www/gangdev/candor/files/php/nav.php'; ?>
@@ -160,16 +162,37 @@ $candorVersion = 'v0.2';
 								</select>
 							</div>
 							<div class="field" data-routine-day-field>
-								<label class="label" for="routine-day">Day</label>
-								<select class="input compact select" id="routine-day" name="day">
-									<option value="0">Sunday</option>
-									<option value="1">Monday</option>
-									<option value="2">Tuesday</option>
-									<option value="3">Wednesday</option>
-									<option value="4">Thursday</option>
-									<option value="5">Friday</option>
-									<option value="6">Saturday</option>
-								</select>
+								<label class="label">Days</label>
+								<div class="dayMulti">
+									<label class="dayOption">
+										<input type="checkbox" value="0" data-routine-day>
+										<span>Sun</span>
+									</label>
+									<label class="dayOption">
+										<input type="checkbox" value="1" data-routine-day>
+										<span>Mon</span>
+									</label>
+									<label class="dayOption">
+										<input type="checkbox" value="2" data-routine-day>
+										<span>Tue</span>
+									</label>
+									<label class="dayOption">
+										<input type="checkbox" value="3" data-routine-day>
+										<span>Wed</span>
+									</label>
+									<label class="dayOption">
+										<input type="checkbox" value="4" data-routine-day>
+										<span>Thu</span>
+									</label>
+									<label class="dayOption">
+										<input type="checkbox" value="5" data-routine-day>
+										<span>Fri</span>
+									</label>
+									<label class="dayOption">
+										<input type="checkbox" value="6" data-routine-day>
+										<span>Sat</span>
+									</label>
+								</div>
 							</div>
 						</div>
 						<div class="routineTasks">
@@ -336,4 +359,3 @@ $candorVersion = 'v0.2';
 
 </body>
 </html>
-

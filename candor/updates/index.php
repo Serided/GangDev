@@ -59,6 +59,8 @@ $candorVersion = 'v0.2';
                         <li>Routine tasks now track estimated minutes for total duration.</li>
                         <li>Week template expands to show routines and repeat tasks by day.</li>
                         <li>Custom time dials (minute-level) follow your clock preference across My OS + Create.</li>
+                        <li>Sleep schedules now auto-calc end time from age with a weekend boost.</li>
+                        <li>Routine “specific days” supports multi-day selection.</li>
                         <li>New repeat-task plus keeps weekly chores in the cadence builder.</li>
                         <li>Sleep schedule layout tightens on mobile with one-line controls + scrollable active bubbles.</li>
                         <li>Routine builder now prioritizes setup first with task stacks that scroll inside the card.</li>

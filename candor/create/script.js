@@ -5,6 +5,7 @@
     const clockCookieKey = body && body.dataset && body.dataset.clockCookie
         ? body.dataset.clockCookie
         : `candor_time_format_${userKey}`;
+    const birthdateRaw = body && body.dataset && body.dataset.birthdate ? body.dataset.birthdate : "";
     const keyFor = (name) => `candor_create_${userKey}_${name}`;
 
     const loadItems = (name) => {
@@ -38,6 +39,33 @@
 
     let clockMode = getCookie(clockCookieKey) === "12" ? "12" : "24";
 
+    const getAgeYears = (value) => {
+        if (!value) return null;
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return null;
+        const now = new Date();
+        let age = now.getFullYear() - date.getFullYear();
+        const monthDelta = now.getMonth() - date.getMonth();
+        if (monthDelta < 0 || (monthDelta === 0 && now.getDate() < date.getDate())) {
+            age -= 1;
+        }
+        return age >= 0 ? age : null;
+    };
+
+    const ageYears = getAgeYears(birthdateRaw);
+
+    const recommendedSleepMinutes = (age) => {
+        if (age === null) return Math.round(8.5 * 60);
+        if (age < 1) return 15 * 60;
+        if (age <= 2) return Math.round(13.5 * 60);
+        if (age <= 5) return 12 * 60;
+        if (age <= 13) return Math.round(10.5 * 60);
+        if (age <= 17) return Math.round(9.5 * 60);
+        if (age <= 25) return 9 * 60;
+        if (age <= 64) return Math.round(8.5 * 60);
+        return 8 * 60;
+    };
+
     const parseMinutes = (value) => {
         if (!value) return null;
         const parts = String(value).split(":");
@@ -61,6 +89,16 @@
         hours = hours % 12;
         if (hours === 0) hours = 12;
         return `${hours}:${String(mins).padStart(2, "0")}`;
+    };
+
+    const addMinutes = (time, minutes) => {
+        const base = parseMinutes(time);
+        if (base === null) return "";
+        const total = (base + minutes) % (24 * 60);
+        const safe = total < 0 ? total + (24 * 60) : total;
+        const hours = Math.floor(safe / 60);
+        const mins = safe % 60;
+        return `${pad2(hours)}:${pad2(mins)}`;
     };
 
     const pad2 = (value) => String(value).padStart(2, "0");
@@ -102,6 +140,9 @@
         const hourInput = dial.querySelector("[data-dial-hour]");
         const minuteInput = dial.querySelector("[data-dial-minute]");
         if (!output || !hourInput || !minuteInput) return;
+        const emitChange = () => {
+            dial.dispatchEvent(new CustomEvent("timechange", { bubbles: true }));
+        };
         if (!Number.isFinite(hour) || !Number.isFinite(minute)) {
             output.value = "";
             dial.dataset.hour = "";
@@ -109,6 +150,7 @@
             hourInput.value = "";
             minuteInput.value = "";
             dial.classList.add("is-empty");
+            emitChange();
             return;
         }
         const safeHour = clamp(Math.round(hour), 0, 23);
@@ -119,6 +161,7 @@
         hourInput.value = formatDialHour(safeHour);
         minuteInput.value = pad2(safeMinute);
         dial.classList.remove("is-empty");
+        emitChange();
     };
 
     const syncDialFromOutput = (dial) => {
@@ -280,10 +323,41 @@
         return [];
     };
 
+    const normalizeDays = (value) => {
+        if (Array.isArray(value)) {
+            const days = value
+                .map((item) => (typeof item === "number" ? item : parseInt(item, 10)))
+                .filter((item) => Number.isFinite(item) && item >= 0 && item <= 6);
+            return Array.from(new Set(days)).sort((a, b) => a - b);
+        }
+        if (typeof value === "number") {
+            return Number.isFinite(value) ? [value] : [];
+        }
+        if (typeof value === "string") {
+            const trimmed = value.trim();
+            if (!trimmed) return [];
+            if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+                try {
+                    const parsed = JSON.parse(trimmed);
+                    return normalizeDays(parsed);
+                } catch {
+                    return [];
+                }
+            }
+            const days = trimmed
+                .split(",")
+                .map((item) => parseInt(item.trim(), 10))
+                .filter((item) => Number.isFinite(item) && item >= 0 && item <= 6);
+            return Array.from(new Set(days)).sort((a, b) => a - b);
+        }
+        return [];
+    };
+
     const normalizeRoutine = (item) => {
         const repeatValue = normalizeText(item.repeat ?? item.repeat_rule ?? "daily");
         const dayValue = item.day ?? item.day_of_week;
         const parsedDay = typeof dayValue === "number" ? dayValue : parseInt(dayValue, 10);
+        const days = normalizeDays(item.days ?? item.days_json ?? item.days_of_week ?? dayValue);
         const allowed = ["daily", "weekdays", "weekends", "day"];
         const repeat = allowed.includes(repeatValue) ? repeatValue : "daily";
         return {
@@ -292,7 +366,8 @@
             time: normalizeText(item.time ?? item.routine_time ?? ""),
             tasks: normalizeRoutineTasks(item.tasks ?? item.tasks_json ?? ""),
             repeat,
-            day: Number.isFinite(parsedDay) ? parsedDay : null,
+            day: Number.isFinite(parsedDay) ? parsedDay : (days[0] ?? null),
+            days,
         };
     };
 
@@ -355,17 +430,23 @@
         splitRules();
     };
 
-    const formatRepeatRule = (repeat, day) => {
+    const formatRepeatRule = (repeat, day, days = []) => {
         if (repeat === "weekdays") return "Weekdays";
         if (repeat === "weekends") return "Weekends";
         if (repeat === "daily") return "Daily";
-        if (repeat === "day" && Number.isFinite(day)) {
-            return dayNames[day] || "Day";
+        if (repeat === "day") {
+            const list = (Array.isArray(days) && days.length)
+                ? days
+                : (Number.isFinite(day) ? [day] : []);
+            if (list.length) {
+                return list.map((value) => dayNames[value] || "Day").join(", ");
+            }
+            return "Specific days";
         }
         return "Custom";
     };
 
-    const formatRepeat = (rule) => formatRepeatRule(rule.repeat, rule.day);
+    const formatRepeat = (rule) => formatRepeatRule(rule.repeat, rule.day, rule.days);
 
     const sleepList = document.querySelector("[data-sleep-list]");
     const sleepEmpty = document.querySelector("[data-sleep-empty]");
@@ -471,7 +552,7 @@
             const meta = document.createElement("div");
             meta.className = "itemMeta";
             const time = routine.time ? formatTime(routine.time) : "Anytime";
-            const repeat = formatRepeatRule(routine.repeat, routine.day);
+            const repeat = formatRepeatRule(routine.repeat, routine.day, routine.days);
             const tasks = Array.isArray(routine.tasks) ? routine.tasks : [];
             const total = routineDuration(routine);
             const detail = total > 0 ? `${total} min` : (tasks.length ? `${tasks.length} tasks` : "No tasks");
@@ -500,18 +581,23 @@
         renderWeekTemplate();
     };
 
-    const appliesToDay = (repeat, dayValue, targetDay) => {
+    const appliesToDay = (repeat, dayValue, daysValue, targetDay) => {
         if (repeat === "daily") return true;
         if (repeat === "weekdays") return targetDay >= 1 && targetDay <= 5;
         if (repeat === "weekends") return targetDay === 0 || targetDay === 6;
-        if (repeat === "day") return Number.isFinite(dayValue) && dayValue === targetDay;
+        if (repeat === "day") {
+            if (Array.isArray(daysValue) && daysValue.length) {
+                return daysValue.includes(targetDay);
+            }
+            return Number.isFinite(dayValue) && dayValue === targetDay;
+        }
         return false;
     };
 
     const getWeekItems = (targetDay) => {
         const items = [];
         state.routines.forEach((routine) => {
-            if (!appliesToDay(routine.repeat, routine.day, targetDay)) return;
+            if (!appliesToDay(routine.repeat, routine.day, routine.days, targetDay)) return;
             items.push({
                 type: "routine",
                 title: routine.title || "Routine",
@@ -520,7 +606,7 @@
             });
         });
         state.tasks.forEach((rule) => {
-            if (!appliesToDay(rule.repeat, rule.day, targetDay)) return;
+            if (!appliesToDay(rule.repeat, rule.day, [], targetDay)) return;
             items.push({
                 type: "task",
                 title: rule.title || "Repeat task",
@@ -692,9 +778,46 @@
     };
 
     const sleepForm = document.querySelector("[data-sleep-form]");
+    const sleepStartInput = sleepForm ? sleepForm.querySelector("#sleep-start") : null;
+    const sleepEndInput = sleepForm ? sleepForm.querySelector("#sleep-end") : null;
+    const sleepStartDial = sleepStartInput ? sleepStartInput.closest("[data-time-dial]") : null;
+    const sleepEndDial = sleepEndInput ? sleepEndInput.closest("[data-time-dial]") : null;
+    const sleepRepeatSelect = sleepForm ? sleepForm.querySelector("[data-repeat-select]") : null;
+    const sleepDaySelect = sleepForm ? sleepForm.querySelector("#sleep-day") : null;
+
+    const sleepMinutesForRepeat = () => {
+        const repeat = sleepRepeatSelect ? normalizeText(sleepRepeatSelect.value) : "";
+        const dayValue = sleepDaySelect ? parseInt(sleepDaySelect.value, 10) : null;
+        const base = recommendedSleepMinutes(ageYears);
+        const weekendBonus = 120;
+        if (repeat === "weekends") {
+            return base + weekendBonus;
+        }
+        if (repeat === "day" && Number.isFinite(dayValue)) {
+            if (dayValue === 0 || dayValue === 6) {
+                return base + weekendBonus;
+            }
+        }
+        return base;
+    };
+
+    const updateSleepEnd = () => {
+        if (!sleepStartInput || !sleepEndDial) return;
+        const start = normalizeText(sleepStartInput.value);
+        if (!start) {
+            setDialValue(sleepEndDial, null, null);
+            return;
+        }
+        const duration = sleepMinutesForRepeat();
+        const endValue = addMinutes(start, duration);
+        const parsed = parseTimeValue(endValue);
+        if (!parsed) return;
+        setDialValue(sleepEndDial, parsed.hour, parsed.minute);
+    };
     if (sleepForm) {
         sleepForm.addEventListener("submit", (event) => {
             event.preventDefault();
+            updateSleepEnd();
             const formData = new FormData(sleepForm);
             const start = normalizeText(formData.get("start"));
             const end = normalizeText(formData.get("end"));
@@ -717,9 +840,32 @@
         });
     }
 
+    if (sleepStartDial) {
+        sleepStartDial.addEventListener("timechange", updateSleepEnd);
+    }
+    if (sleepRepeatSelect) {
+        sleepRepeatSelect.addEventListener("change", () => {
+            updateSleepEnd();
+        });
+    }
+    if (sleepDaySelect) {
+        sleepDaySelect.addEventListener("change", () => {
+            updateSleepEnd();
+        });
+    }
+
     const sleepClear = document.querySelector("[data-sleep-clear]");
     if (sleepClear) {
-        sleepClear.addEventListener("click", () => clearRules("sleep"));
+        sleepClear.addEventListener("click", () => {
+            clearRules("sleep");
+            if (sleepForm) {
+                sleepForm.reset();
+                clearTimeDials(sleepForm);
+                const sleepRepeat = sleepForm.querySelector("[data-repeat-select]");
+                const sleepDayField = sleepForm.querySelector("[data-day-field]");
+                applyRepeatToggle(sleepRepeat, sleepDayField);
+            }
+        });
     }
 
     const routineForm = document.querySelector("[data-routine-form]");
@@ -731,7 +877,12 @@
             if (!title) return;
             const time = normalizeText(formData.get("time"));
             const repeat = normalizeText(formData.get("repeat")) || "daily";
-            const day = normalizeText(formData.get("day"));
+            const dayInputs = Array.from(routineForm.querySelectorAll("[data-routine-day]"));
+            const days = dayInputs
+                .filter((input) => input.checked)
+                .map((input) => parseInt(input.value, 10))
+                .filter((value) => Number.isFinite(value) && value >= 0 && value <= 6);
+            if (repeat === "day" && days.length === 0) return;
             const tasks = Array.from(routineForm.querySelectorAll("[data-task-row]"))
                 .map((row) => {
                     const titleField = row.querySelector("[data-task-title]");
@@ -747,7 +898,8 @@
                 title,
                 time,
                 repeat,
-                day,
+                day: days[0],
+                days,
                 tasks,
             });
             routineForm.reset();
@@ -755,6 +907,9 @@
             const routineRepeat = routineForm.querySelector("[data-routine-repeat]");
             const routineDayField = routineForm.querySelector("[data-routine-day-field]");
             applyRepeatToggle(routineRepeat, routineDayField);
+            dayInputs.forEach((input) => {
+                input.checked = false;
+            });
             clearRoutineTasks();
         });
     }
@@ -925,6 +1080,7 @@
             loadLocal();
         }
         renderAll();
+        updateSleepEnd();
     };
 
     init();
