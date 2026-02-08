@@ -3,6 +3,9 @@
     const rawKey = body && body.dataset && body.dataset.userKey ? body.dataset.userKey : "local";
     const userKey = String(rawKey || "local").trim() || "local";
     const keyFor = (name) => `candor_do_${userKey}_${name}`;
+    const clockCookieKey = body && body.dataset && body.dataset.clockCookie
+        ? body.dataset.clockCookie
+        : "candor_time_format";
 
     const loadItems = (name) => {
         const raw = localStorage.getItem(keyFor(name));
@@ -150,7 +153,7 @@
         return match ? decodeURIComponent(match.split("=").slice(1).join("=")) : "";
     };
 
-    let clockMode = getCookie("candor_time_format") === "12" ? "12" : "24";
+    let clockMode = getCookie(clockCookieKey) === "12" ? "12" : "24";
 
     const formatTime = (time) => {
         if (!time) return "";
@@ -162,17 +165,16 @@
         }
         let hours = Math.floor(minutes / 60);
         const mins = minutes % 60;
-        const suffix = hours >= 12 ? "PM" : "AM";
         hours = hours % 12;
         if (hours === 0) hours = 12;
-        return `${hours}:${String(mins).padStart(2, "0")} ${suffix}`;
+        return `${hours}:${String(mins).padStart(2, "0")}`;
     };
 
     const formatHour = (hour) => formatTime(`${String(hour).padStart(2, "0")}:00`);
 
     const setClockMode = (value) => {
         clockMode = value === "12" ? "12" : "24";
-        document.cookie = `candor_time_format=${clockMode}; path=/; domain=.candor.you; max-age=31536000`;
+        document.cookie = `${clockCookieKey}=${clockMode}; path=/; domain=.candor.you; max-age=31536000`;
     };
 
     const calendarRoot = document.querySelector(".calendarShell");
@@ -211,7 +213,7 @@
 
         const renderDayGrid = (autoScroll) => {
             if (!dayGrid) return;
-            const dayStart = 5;
+            const dayStart = 6;
             const dayEnd = 24;
             dayGrid.innerHTML = "";
             const rows = [];

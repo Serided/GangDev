@@ -30,7 +30,8 @@ if ($unitSystem === 'imperial') {
 }
 $unitSystem = $unitSystem === 'imperial' ? 'imperial' : 'metric';
 $consent = !empty($profile['consent_health']);
-$timeFormat = $_COOKIE['candor_time_format'] ?? '24';
+$cookieKey = 'candor_time_format_' . $userId;
+$timeFormat = $_COOKIE[$cookieKey] ?? '24';
 $timeFormat = $timeFormat === '12' ? '12' : '24';
 ?>
 <!doctype html>
@@ -39,15 +40,15 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>your Candor</title>
-	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=4" type="image/x-icon">
-	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=4" type="image/x-icon">
-	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=4">
-	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=4">
-	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=4">
+	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=5" type="image/x-icon">
+	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=5" type="image/x-icon">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=5">
+	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=5">
+	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=5">
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
-<body class="is-do" data-user-key="<?= htmlspecialchars((string)$userId) ?>">
+<body class="is-do" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>">
 
 <div class="page">
 	<header class="nav">
@@ -70,28 +71,28 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 			<div class="dayHeader">
 				<div class="dayIntroRow">
 					<div class="dayIntro">
-						<div class="dayTag">Strive for perfect days. Let intent lead.</div>
+						<div class="dayTag">Your strive for perfection.</div>
 						<div class="dayTitle" data-day-title>Today</div>
 						<div class="dayMeta" data-day-sub></div>
 					</div>
-					<button class="panelAdd" type="button" data-add-kind="window">+ New</button>
+					<button class="panelAdd" type="button" data-add-kind="window" aria-label="Add window">+</button>
 				</div>
 				<div class="focusStrip">
 					<div class="focusCard">
 						<div class="focusLabel">Execution pace</div>
-						<div class="focusValue" data-focus-pace>Steady</div>
+						<div class="focusValue" data-focus-pace>On pace</div>
 						<div class="paceTrack"><span class="paceDot is-on"></span></div>
-						<div class="focusSub">Margin based: ahead, steady, behind.</div>
+						<div class="focusSub">Margin check: ahead, on pace, behind.</div>
 					</div>
 					<div class="focusCard">
 						<div class="focusLabel">24h balance</div>
-						<div class="focusValue" data-focus-balance>8h / 8h / 8h</div>
+						<div class="focusValue" data-focus-balance>8h sleep / 8h focus / 8h life</div>
 						<div class="balanceBar">
 							<span class="balanceSegment is-sleep"></span>
 							<span class="balanceSegment is-focus"></span>
 							<span class="balanceSegment is-life"></span>
 						</div>
-						<div class="focusSub">Tracking your sleep, focus, life split.</div>
+						<div class="focusSub">24h split, adjustable by goal.</div>
 					</div>
 					<div class="focusCard">
 						<div class="focusLabel">Momentum</div>
@@ -103,7 +104,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 							<span class="dot"></span>
 							<span class="dot"></span>
 						</div>
-						<div class="focusSub">Streak grows with each completed window.</div>
+						<div class="focusSub">Momentum grows with each completed window.</div>
 					</div>
 				</div>
 				<div class="railStack">
@@ -131,8 +132,6 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 			<div class="monthHeader">
 				<button class="monthNav" type="button" data-month-nav="prev" aria-label="Previous month">&lsaquo;</button>
 				<div class="monthTitle" data-month-title></div>
-				<button class="monthToday" type="button" data-month-nav="today">Today</button>
-				<button class="panelAdd" type="button" data-add-kind="task">+ New</button>
 				<button class="monthNav" type="button" data-month-nav="next" aria-label="Next month">&rsaquo;</button>
 			</div>
 			<div class="weekdayRow">
@@ -145,6 +144,8 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 				<span>Sun</span>
 			</div>
 			<div class="monthGrid" data-month-grid></div>
+			<button class="monthToday" type="button" data-month-nav="today">Today</button>
+			<button class="panelAdd" type="button" data-add-kind="task" aria-label="Add task">+</button>
 		</div>
 	</section>
 
@@ -233,13 +234,13 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 					<div class="bulletField is-compact">
 						<label class="label" for="profile-clock">Clock</label>
 						<select class="input compact select" id="profile-clock" name="clock_format" data-clock-select>
-							<option value="12" <?= $timeFormat === '12' ? 'selected' : '' ?>>12-hour</option>
 							<option value="24" <?= $timeFormat === '24' ? 'selected' : '' ?>>24-hour (military)</option>
+							<option value="12" <?= $timeFormat === '12' ? 'selected' : '' ?>>12-hour (no AM/PM)</option>
 						</select>
 					</div>
 				</div>
 				<div class="unitFields bulletGrid" data-unit="metric">
-					<div class="bulletField">
+					<div class="bulletField is-compact">
 						<label class="label" for="profile-height-cm">Height</label>
 						<div class="rangeValue">
 							<input class="input compact" id="profile-height-cm" type="number" name="height_cm" min="90" max="250" inputmode="numeric" value="<?= htmlspecialchars((string)$heightCm) ?>">
@@ -255,7 +256,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 					</div>
 				</div>
 				<div class="unitFields bulletGrid" data-unit="imperial">
-					<div class="bulletField">
+					<div class="bulletField is-compact">
 						<label class="label">Height</label>
 						<div class="heightSplit">
 							<div class="rangeValue">

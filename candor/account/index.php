@@ -38,7 +38,8 @@ if ($unitSystem === 'imperial') {
 }
 $unitSystem = $unitSystem === 'imperial' ? 'imperial' : 'metric';
 $consent = !empty($profile['consent_health']);
-$timeFormat = $_COOKIE['candor_time_format'] ?? '24';
+$cookieKey = 'candor_time_format_' . $userId;
+$timeFormat = $_COOKIE[$cookieKey] ?? '24';
 $timeFormat = $timeFormat === '12' ? '12' : '24';
 ?>
 <!doctype html>
@@ -47,11 +48,11 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Candor - Account</title>
-        <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=4" type="image/x-icon">
-        <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=4" type="image/x-icon">
-        <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=4">
-        <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=4">
-        <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=4">
+        <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=5" type="image/x-icon">
+        <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=5" type="image/x-icon">
+        <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=5">
+        <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=5">
+        <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=5">
 
         <link rel="stylesheet" href="style.css">
     </head>
@@ -123,13 +124,13 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 								<div class="bulletField is-compact">
 									<label class="label" for="account-clock">Clock</label>
 									<select class="input compact select" id="account-clock" name="clock_format" data-clock-select>
-										<option value="12" <?= $timeFormat === '12' ? 'selected' : '' ?>>12-hour</option>
 										<option value="24" <?= $timeFormat === '24' ? 'selected' : '' ?>>24-hour (military)</option>
+										<option value="12" <?= $timeFormat === '12' ? 'selected' : '' ?>>12-hour (no AM/PM)</option>
 									</select>
 								</div>
 							</div>
 							<div class="unitFields bulletGrid" data-unit="metric">
-								<div class="bulletField">
+								<div class="bulletField is-compact">
 									<label class="label" for="account-height-cm">Height</label>
 									<div class="rangeValue">
 										<input class="input compact" id="account-height-cm" type="number" name="height_cm" min="90" max="250" inputmode="numeric" value="<?= htmlspecialchars((string)$heightCm) ?>">
@@ -145,7 +146,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 								</div>
 							</div>
 							<div class="unitFields bulletGrid" data-unit="imperial">
-								<div class="bulletField">
+								<div class="bulletField is-compact">
 									<label class="label">Height</label>
 									<div class="heightSplit">
 										<div class="rangeValue">
@@ -210,9 +211,10 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 					select.addEventListener('change', apply);
 				});
 
+				const clockCookieKey = <?= json_encode($cookieKey) ?>;
 				const setClockCookie = (value) => {
 					const mode = value === '12' ? '12' : '24';
-					document.cookie = `candor_time_format=${mode}; path=/; domain=.candor.you; max-age=31536000`;
+					document.cookie = `${clockCookieKey}=${mode}; path=/; domain=.candor.you; max-age=31536000`;
 				};
 				document.querySelectorAll('[data-clock-select]').forEach((select) => {
 					setClockCookie(select.value);

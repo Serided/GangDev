@@ -15,11 +15,11 @@ if (!isset($_SESSION['candor_login_user_id'])) {
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor - Verify sign-in</title>
-	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=4" type="image/x-icon">
-	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=4" type="image/x-icon">
-	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=4">
-	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=4">
-	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=4">
+	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=5" type="image/x-icon">
+	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=5" type="image/x-icon">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=5">
+	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=5">
+	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=5">
 
 	<link rel="stylesheet" href="/login/login.css">
 	<script src="/login/login.js" defer></script>

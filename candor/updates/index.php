@@ -13,11 +13,11 @@ $authed = $userId && $user;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candor - Updates</title>
-    <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=4" type="image/x-icon">
-    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=4" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=4">
-    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=4">
-    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=4">
+    <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=5" type="image/x-icon">
+    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=5" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=5">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=5">
+    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=5">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="is-updates">
@@ -63,11 +63,11 @@ $authed = $userId && $user;
                     </div>
                     <h3>Account + My OS foundation</h3>
                     <ul class="updateList">
-                        <li>Unified account flow with verification and refreshed account layout.</li>
-                        <li>My OS dashboard with tasks, notes, and planner blocks (add, remove, complete).</li>
-                        <li>Data now persists across reloads using the Candor DB.</li>
-                        <li>Navigation standardized with Welcome link, My OS, and consistent sign-out.</li>
-                        <li>Updates feed, branding, and favicon polish across Candor pages.</li>
+                        <li>My OS calendar view with a daily timeline, monthly grid, and priority rails.</li>
+                        <li>Create tasks, notes, and focus windows in one overlay with remove controls.</li>
+                        <li>Tasks, notes, and windows now persist across reloads via the Candor DB.</li>
+                        <li>Account onboarding captures baseline profile data with consent and unit choices.</li>
+                        <li>Per-user clock preferences, nav consistency, and favicon/branding polish.</li>
                     </ul>
                 </article>
 

@@ -13,11 +13,11 @@ $authed = $userId && $user;
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor</title>
-	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=4" type="image/x-icon">
-	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=4" type="image/x-icon">
-	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=4">
-	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=4">
-	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=4">
+	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=5" type="image/x-icon">
+	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=5" type="image/x-icon">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=5">
+	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=5">
+	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=5">
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
@@ -65,9 +65,6 @@ $authed = $userId && $user;
 					<li><span>Planner</span><span class="subtle">Rule based</span></li>
 				<?php endif; ?>
 			</ul>
-			<?php if ($authed): ?>
-				<p class="subtle">Signed in as <?= htmlspecialchars($name !== '' ? $name : $email) ?></p>
-			<?php endif; ?>
 		</div>
 	</section>
 
