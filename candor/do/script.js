@@ -319,6 +319,7 @@
         }
     };
 
+
     const timeOverlay = document.querySelector("[data-time-overlay]");
     const timeTitle = timeOverlay ? timeOverlay.querySelector("[data-time-title]") : null;
     const timeHourWheel = timeOverlay ? timeOverlay.querySelector('[data-time-wheel="hour"]') : null;
@@ -328,33 +329,57 @@
     const timeApply = timeOverlay ? timeOverlay.querySelector("[data-time-apply]") : null;
     const timeCancel = timeOverlay ? timeOverlay.querySelector("[data-time-cancel]") : null;
     const timeClose = timeOverlay ? timeOverlay.querySelector("[data-time-close]") : null;
+    const timeManualHour = timeOverlay ? timeOverlay.querySelector("[data-time-manual-hour]") : null;
+    const timeManualMinute = timeOverlay ? timeOverlay.querySelector("[data-time-manual-minute]") : null;
+    const timeMeridiem = timeOverlay ? timeOverlay.querySelector("[data-time-meridiem]") : null;
+    const timeMeridiemButtons = timeOverlay ? Array.from(timeOverlay.querySelectorAll("[data-meridiem]")) : [];
 
     let activeTimeField = null;
     let activeHour = 0;
     let activeMinute = 0;
+    let activeMeridiem = "am";
 
-    const formatHourLabel = (hour) => {
-        if (clockMode === "24") return pad2(hour);
-        let display = hour % 12;
-        if (display === 0) display = 12;
-        return String(display);
-    };
+    const formatHourLabel = (hour) => (clockMode === "24" ? pad2(hour) : String(hour));
 
-    const buildWheel = (track, count, formatter) => {
+    const buildWheel = (track, values, formatter) => {
         if (!track) return;
         track.innerHTML = "";
-        for (let value = 0; value < count; value += 1) {
+        values.forEach((value) => {
             const item = document.createElement("div");
             item.className = "timeWheelItem";
             item.dataset.timeValue = String(value);
             item.textContent = formatter(value);
             track.appendChild(item);
-        }
+        });
     };
 
     const buildTimeWheels = () => {
-        buildWheel(timeHourTrack, 24, formatHourLabel);
-        buildWheel(timeMinuteTrack, 60, (value) => pad2(value));
+        const hourValues = clockMode === "24"
+            ? Array.from({ length: 24 }, (_, i) => i)
+            : Array.from({ length: 12 }, (_, i) => i + 1);
+        buildWheel(timeHourTrack, hourValues, formatHourLabel);
+        buildWheel(timeMinuteTrack, Array.from({ length: 60 }, (_, i) => i), (value) => pad2(value));
+        if (timeMeridiem) {
+            timeMeridiem.style.display = clockMode === "12" ? "flex" : "none";
+        }
+    };
+
+    const displayHourFromActive = () => {
+        if (clockMode === "24") return activeHour;
+        const raw = activeHour % 12;
+        return raw === 0 ? 12 : raw;
+    };
+
+    const setActiveHourFromDisplay = (displayHour) => {
+        if (clockMode === "24") {
+            activeHour = clamp(displayHour, 0, 23);
+            return;
+        }
+        const safe = clamp(displayHour, 1, 12);
+        activeHour = safe % 12;
+        if (activeMeridiem === "pm") {
+            activeHour += 12;
+        }
     };
 
     const getWheelItems = (wheel) => (wheel ? Array.from(wheel.querySelectorAll(".timeWheelItem")) : []);
@@ -386,15 +411,37 @@
         setWheelActive(wheel, value);
     };
 
+    const updateMeridiemButtons = () => {
+        if (!timeMeridiemButtons.length) return;
+        timeMeridiemButtons.forEach((button) => {
+            button.classList.toggle("is-active", button.dataset.meridiem === activeMeridiem);
+        });
+    };
+
+    const updateManualInputs = () => {
+        if (timeManualHour) {
+            const displayHour = displayHourFromActive();
+            timeManualHour.value = clockMode === "24" ? pad2(displayHour) : String(displayHour);
+        }
+        if (timeManualMinute) {
+            timeManualMinute.value = pad2(activeMinute);
+        }
+        updateMeridiemButtons();
+    };
+
     const bindWheel = (wheel, onChange) => {
         if (!wheel || wheel.dataset.bound === "true") return;
         wheel.dataset.bound = "true";
         let raf = null;
+        let dragActive = false;
+        let dragStartY = 0;
+        let dragStartScroll = 0;
         const handleScroll = () => {
             raf = null;
             const value = readWheelValue(wheel);
             onChange(value);
             setWheelActive(wheel, value);
+            updateManualInputs();
         };
         wheel.addEventListener("scroll", () => {
             if (raf) return;
@@ -407,7 +454,45 @@
             if (!Number.isFinite(value)) return;
             scrollWheelTo(wheel, value);
             onChange(value);
+            updateManualInputs();
         });
+        wheel.addEventListener("wheel", (event) => {
+            event.preventDefault();
+            const items = getWheelItems(wheel);
+            if (!items.length) return;
+            const current = readWheelValue(wheel);
+            const index = items.findIndex((item) => parseInt(item.dataset.timeValue, 10) === current);
+            const direction = event.deltaY > 0 ? 1 : -1;
+            const nextIndex = clamp(index + direction, 0, items.length - 1);
+            const nextValue = parseInt(items[nextIndex].dataset.timeValue, 10);
+            if (!Number.isFinite(nextValue)) return;
+            scrollWheelTo(wheel, nextValue);
+            onChange(nextValue);
+            updateManualInputs();
+        }, { passive: false });
+        wheel.addEventListener("pointerdown", (event) => {
+            dragActive = true;
+            dragStartY = event.clientY;
+            dragStartScroll = wheel.scrollTop;
+            wheel.setPointerCapture(event.pointerId);
+            wheel.classList.add("is-dragging");
+            event.preventDefault();
+        });
+        wheel.addEventListener("pointermove", (event) => {
+            if (!dragActive) return;
+            const delta = event.clientY - dragStartY;
+            wheel.scrollTop = dragStartScroll - delta;
+        });
+        const endDrag = (event) => {
+            if (!dragActive) return;
+            dragActive = false;
+            wheel.classList.remove("is-dragging");
+            if (event && event.pointerId !== undefined) {
+                wheel.releasePointerCapture(event.pointerId);
+            }
+        };
+        wheel.addEventListener("pointerup", endDrag);
+        wheel.addEventListener("pointercancel", endDrag);
     };
 
     const openTimePicker = (field) => {
@@ -420,11 +505,16 @@
         const parsed = output ? parseTimeValue(output.value) : null;
         activeHour = parsed ? parsed.hour : 0;
         activeMinute = parsed ? parsed.minute : 0;
+        activeMeridiem = activeHour >= 12 ? "pm" : "am";
         timeOverlay.classList.add("is-open");
         requestAnimationFrame(() => {
-            if (timeHourWheel) scrollWheelTo(timeHourWheel, activeHour);
+            if (timeHourWheel) {
+                const hourValue = displayHourFromActive();
+                scrollWheelTo(timeHourWheel, hourValue);
+            }
             if (timeMinuteWheel) scrollWheelTo(timeMinuteWheel, activeMinute);
         });
+        updateManualInputs();
     };
 
     const closeTimePicker = () => {
@@ -443,11 +533,49 @@
         if (!timeOverlay) return;
         buildTimeWheels();
         bindWheel(timeHourWheel, (value) => {
-            activeHour = value;
+            setActiveHourFromDisplay(value);
         });
         bindWheel(timeMinuteWheel, (value) => {
             activeMinute = value;
         });
+        if (timeMeridiemButtons.length) {
+            timeMeridiemButtons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    activeMeridiem = button.dataset.meridiem === "pm" ? "pm" : "am";
+                    setActiveHourFromDisplay(displayHourFromActive());
+                    updateMeridiemButtons();
+                });
+            });
+        }
+        if (timeManualHour) {
+            const applyManualHour = (raw) => {
+                const safe = clockMode === "24" ? clamp(raw, 0, 23) : clamp(raw, 1, 12);
+                setActiveHourFromDisplay(safe);
+                if (timeHourWheel) scrollWheelTo(timeHourWheel, safe);
+                updateManualInputs();
+            };
+            timeManualHour.addEventListener("input", () => {
+                const raw = parseInt(timeManualHour.value, 10);
+                if (Number.isFinite(raw)) {
+                    applyManualHour(raw);
+                }
+            });
+            timeManualHour.addEventListener("blur", updateManualInputs);
+        }
+        if (timeManualMinute) {
+            const applyManualMinute = (raw) => {
+                activeMinute = clamp(raw, 0, 59);
+                if (timeMinuteWheel) scrollWheelTo(timeMinuteWheel, activeMinute);
+                updateManualInputs();
+            };
+            timeManualMinute.addEventListener("input", () => {
+                const raw = parseInt(timeManualMinute.value, 10);
+                if (Number.isFinite(raw)) {
+                    applyManualMinute(raw);
+                }
+            });
+            timeManualMinute.addEventListener("blur", updateManualInputs);
+        }
         if (timeApply) {
             timeApply.addEventListener("click", () => {
                 applyTimePicker();
@@ -492,6 +620,7 @@
         clockMode = value === "12" ? "12" : "24";
         document.cookie = `${clockCookieKey}=${clockMode}; path=/; domain=.candor.you; max-age=31536000`;
         buildTimeWheels();
+        updateManualInputs();
         refreshTimeFields();
     };
 

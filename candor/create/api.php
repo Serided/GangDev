@@ -54,6 +54,18 @@ function clean_time($value) {
 	return $time;
 }
 
+function clean_block_type($value) {
+	$raw = trim((string)$value);
+	$allowed = ['routine', 'work', 'focus'];
+	return in_array($raw, $allowed, true) ? $raw : 'routine';
+}
+
+function clean_anchor($value) {
+	$raw = trim((string)$value);
+	$allowed = ['morning', 'evening', 'custom'];
+	return in_array($raw, $allowed, true) ? $raw : 'custom';
+}
+
 function clean_days($value) {
 	$days = [];
 	$push = function ($day) use (&$days) {
@@ -161,6 +173,8 @@ function ensure_routines_table(PDO $pdo) {
 			user_id INTEGER NOT NULL,
 			title TEXT NOT NULL,
 			routine_time TIME,
+			block_type VARCHAR(16),
+			anchor VARCHAR(16),
 			repeat_rule VARCHAR(16),
 			day_of_week SMALLINT,
 			days_json TEXT,
@@ -172,6 +186,8 @@ function ensure_routines_table(PDO $pdo) {
 	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS day_of_week SMALLINT");
 	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS days_json TEXT");
 	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS tasks_json TEXT");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS block_type VARCHAR(16)");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS anchor VARCHAR(16)");
 }
 
 try {
@@ -212,7 +228,7 @@ if ($action === 'load') {
 		];
 	}
 	$stmt = $pdo->prepare("
-		SELECT id, title, routine_time, repeat_rule, day_of_week, days_json, tasks_json
+		SELECT id, title, routine_time, repeat_rule, day_of_week, days_json, tasks_json, block_type, anchor
 		FROM candor.routines
 		WHERE user_id = ?
 		ORDER BY created_at ASC, id ASC
@@ -262,6 +278,8 @@ if ($action === 'load') {
 			'day' => $days ? $days[0] : (isset($row['day_of_week']) ? (int)$row['day_of_week'] : null),
 			'days' => $days,
 			'tasks' => $tasks,
+			'block_type' => (string)($row['block_type'] ?? 'routine'),
+			'anchor' => (string)($row['anchor'] ?? 'custom'),
 		];
 	}
 	respond(['rules' => $rules, 'routines' => $routines]);
@@ -348,6 +366,14 @@ if ($action === 'add_routine') {
 		respond(['error' => 'missing_title'], 400);
 	}
 	$time = clean_time($payload['time'] ?? ($payload['routine_time'] ?? ''));
+	$blockType = clean_block_type($payload['block_type'] ?? ($payload['type'] ?? 'routine'));
+	$anchor = clean_anchor($payload['anchor'] ?? ($payload['routine_anchor'] ?? 'custom'));
+	if ($blockType !== 'routine') {
+		$anchor = 'custom';
+	}
+	if ($blockType === 'routine' && $anchor !== 'custom') {
+		$time = '';
+	}
 	$repeat = $payload['repeat'] ?? ($payload['repeat_rule'] ?? 'daily');
 	$repeat = in_array($repeat, $allowedRepeats, true) ? $repeat : 'daily';
 	$day = null;
@@ -366,14 +392,16 @@ if ($action === 'add_routine') {
 
 	$stmt = $pdo->prepare("
 		INSERT INTO candor.routines
-			(user_id, title, routine_time, repeat_rule, day_of_week, days_json, tasks_json, created_at)
-		VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
-		RETURNING id, title, routine_time, repeat_rule, day_of_week, days_json, tasks_json
+			(user_id, title, routine_time, block_type, anchor, repeat_rule, day_of_week, days_json, tasks_json, created_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+		RETURNING id, title, routine_time, block_type, anchor, repeat_rule, day_of_week, days_json, tasks_json
 	");
 	$stmt->execute([
 		(int)$userId,
 		$title,
 		$time !== '' ? $time : null,
+		$blockType,
+		$anchor,
 		$repeat,
 		$day,
 		$daysJson,
@@ -420,6 +448,114 @@ if ($action === 'add_routine') {
 			'id' => (string)$row['id'],
 			'title' => (string)($row['title'] ?? ''),
 			'time' => $timeOut,
+			'block_type' => (string)($row['block_type'] ?? $blockType),
+			'anchor' => (string)($row['anchor'] ?? $anchor),
+			'repeat' => (string)($row['repeat_rule'] ?? ''),
+			'day' => $daysOut ? $daysOut[0] : (isset($row['day_of_week']) ? (int)$row['day_of_week'] : null),
+			'days' => $daysOut,
+			'tasks' => $tasksOut,
+		],
+	]);
+}
+
+if ($action === 'update_routine') {
+	$id = (int)($payload['id'] ?? 0);
+	if ($id <= 0) {
+		respond(['error' => 'invalid_id'], 400);
+	}
+	$title = clean_text($payload['title'] ?? '', 160);
+	if ($title === '') {
+		respond(['error' => 'missing_title'], 400);
+	}
+	$time = clean_time($payload['time'] ?? ($payload['routine_time'] ?? ''));
+	$blockType = clean_block_type($payload['block_type'] ?? ($payload['type'] ?? 'routine'));
+	$anchor = clean_anchor($payload['anchor'] ?? ($payload['routine_anchor'] ?? 'custom'));
+	if ($blockType !== 'routine') {
+		$anchor = 'custom';
+	}
+	if ($blockType === 'routine' && $anchor !== 'custom') {
+		$time = '';
+	}
+	$repeat = $payload['repeat'] ?? ($payload['repeat_rule'] ?? 'daily');
+	$repeat = in_array($repeat, $allowedRepeats, true) ? $repeat : 'daily';
+	$day = null;
+	$days = [];
+	if ($repeat === 'day') {
+		$rawDays = $payload['days'] ?? ($payload['day'] ?? ($payload['day_of_week'] ?? ''));
+		$days = clean_days($rawDays);
+		if (!$days) {
+			respond(['error' => 'invalid_day'], 400);
+		}
+		$day = $days[0];
+	}
+	$tasks = clean_tasks($payload['tasks'] ?? ($payload['tasks_json'] ?? ''));
+	$tasksJson = $tasks ? json_encode($tasks) : null;
+	$daysJson = $days ? json_encode($days) : null;
+
+	$stmt = $pdo->prepare("
+		UPDATE candor.routines
+		SET title = ?, routine_time = ?, block_type = ?, anchor = ?, repeat_rule = ?, day_of_week = ?, days_json = ?, tasks_json = ?
+		WHERE id = ? AND user_id = ?
+		RETURNING id, title, routine_time, block_type, anchor, repeat_rule, day_of_week, days_json, tasks_json
+	");
+	$stmt->execute([
+		$title,
+		$time !== '' ? $time : null,
+		$blockType,
+		$anchor,
+		$repeat,
+		$day,
+		$daysJson,
+		$tasksJson,
+		$id,
+		(int)$userId,
+	]);
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	if (!$row) {
+		respond(['error' => 'not_found'], 404);
+	}
+	$timeOut = '';
+	if (!empty($row['routine_time'])) {
+		$timeOut = substr((string)$row['routine_time'], 0, 5);
+	}
+	$tasksOut = [];
+	if (!empty($row['tasks_json'])) {
+		$decoded = json_decode((string)$row['tasks_json'], true);
+		if (is_array($decoded)) {
+			foreach ($decoded as $item) {
+				if (is_array($item)) {
+					$title = clean_text($item['title'] ?? ($item['text'] ?? ''), 120);
+					if ($title === '') continue;
+					$minutes = isset($item['minutes']) && is_numeric($item['minutes']) ? (int)$item['minutes'] : null;
+					if ($minutes !== null && $minutes <= 0) $minutes = null;
+					$tasksOut[] = ['title' => $title, 'minutes' => $minutes];
+				} else {
+					$clean = clean_text($item, 120);
+					if ($clean !== '') {
+						$tasksOut[] = ['title' => $clean, 'minutes' => null];
+					}
+				}
+			}
+		}
+	}
+	$daysOut = [];
+	if (!empty($row['days_json'])) {
+		$decodedDays = json_decode((string)$row['days_json'], true);
+		if (is_array($decodedDays)) {
+			$daysOut = clean_days($decodedDays);
+		}
+	}
+	if (!$daysOut && isset($row['day_of_week'])) {
+		$daysOut = clean_days((int)$row['day_of_week']);
+	}
+
+	respond([
+		'routine' => [
+			'id' => (string)$row['id'],
+			'title' => (string)($row['title'] ?? ''),
+			'time' => $timeOut,
+			'block_type' => (string)($row['block_type'] ?? $blockType),
+			'anchor' => (string)($row['anchor'] ?? $anchor),
 			'repeat' => (string)($row['repeat_rule'] ?? ''),
 			'day' => $daysOut ? $daysOut[0] : (isset($row['day_of_week']) ? (int)$row['day_of_week'] : null),
 			'days' => $daysOut,

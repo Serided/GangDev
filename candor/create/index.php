@@ -23,16 +23,7 @@ $candorVersion = 'v0.2';
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor - Create</title>
-	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=13" type="image/x-icon">
-	<link rel="icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=13" type="image/x-icon" media="(prefers-color-scheme: dark)">
-	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=13" type="image/x-icon">
-	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=13" type="image/x-icon" media="(prefers-color-scheme: dark)">
-	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=13">
-	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-dark-32.png?v=13" media="(prefers-color-scheme: dark)">
-	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=13">
-	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-dark-64.png?v=13" media="(prefers-color-scheme: dark)">
-	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=13">
-	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-dark-128.png?v=13" media="(prefers-color-scheme: dark)">
+	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
@@ -105,21 +96,43 @@ $candorVersion = 'v0.2';
 
 			<div class="card routineCard">
 				<div class="cardHead">
-					<h2>Routines</h2>
-					<span class="cardHint">Build reusable stacks with child tasks.</span>
+					<h2>Cadence blocks</h2>
+					<span class="cardHint">Build repeatable blocks for routines, work, and focus.</span>
 				</div>
 				<div class="routineLayout">
 					<div class="routineBuild">
 						<form class="routineForm" data-routine-form>
 							<div class="routineGrid">
+								<div class="routineTasks">
+									<div class="label routineTasksLabel">Tasks</div>
+									<div class="taskStack" data-routine-tasks></div>
+									<button class="taskAdd" type="button" data-routine-add-task aria-label="Add task">+</button>
+									<div class="routineTotal" data-routine-total>Estimated: 0 min</div>
+								</div>
 								<div class="routineMeta">
 									<div class="field">
-										<label class="label" for="routine-title">Routine</label>
-										<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Morning reset" required>
+										<label class="label" for="block-type">Block type</label>
+										<select class="input compact select" id="block-type" name="block_type" data-block-type>
+											<option value="routine">Routine</option>
+											<option value="work">Work</option>
+											<option value="focus">Focus</option>
+										</select>
 									</div>
-									<div class="field">
+									<div class="field" data-anchor-field>
+										<label class="label" for="routine-anchor">Routine timing</label>
+										<select class="input compact select" id="routine-anchor" name="anchor" data-anchor-select>
+											<option value="morning">Morning</option>
+											<option value="evening">Evening</option>
+											<option value="custom">Custom</option>
+										</select>
+									</div>
+									<div class="field" data-title-field>
+										<label class="label" for="routine-title">Name</label>
+										<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Deep work sprint">
+									</div>
+									<div class="field" data-time-field-wrap>
 										<label class="label" for="routine-time-hour">Start time</label>
-										<div class="timeField" data-time-field data-time-label="Routine start" data-time-empty="--:--">
+										<div class="timeField" data-time-field data-time-label="Block start" data-time-empty="--:--">
 											<input type="hidden" id="routine-time" name="time" data-time-output>
 											<button class="timeButton" type="button" data-time-display>--:--</button>
 										</div>
@@ -166,18 +179,12 @@ $candorVersion = 'v0.2';
 											</label>
 										</div>
 									</div>
-								</div>
-								<div class="routineTasks">
-									<div class="taskHeader">
-										<span class="label">Tasks</span>
-										<button class="btn ghost mini taskAdd" type="button" data-routine-add-task>+</button>
-									</div>
-									<div class="taskStack" data-routine-tasks></div>
-									<div class="routineTotal" data-routine-total>Estimated: 0 min</div>
+									<div class="fieldHint" data-anchor-note></div>
 								</div>
 							</div>
 							<div class="formActions">
-								<button class="btn primary" type="submit">Add routine</button>
+								<button class="btn primary" type="submit" data-routine-submit>Add block</button>
+								<button class="btn ghost" type="button" data-routine-cancel style="display: none;">Cancel edit</button>
 							</div>
 						</form>
 					</div>
@@ -333,6 +340,17 @@ $candorVersion = 'v0.2';
 					<div class="timeWheelTrack" data-time-minutes></div>
 				</div>
 			</div>
+			<div class="timePickerManual">
+				<div class="timeManualInputs">
+					<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-hour>
+					<span>:</span>
+					<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-minute>
+				</div>
+				<div class="timeMeridiem" data-time-meridiem>
+					<button class="meridiemBtn" type="button" data-meridiem="am">AM</button>
+					<button class="meridiemBtn" type="button" data-meridiem="pm">PM</button>
+				</div>
+			</div>
 			<div class="timePickerActions">
 				<button class="btn ghost" type="button" data-time-cancel>Cancel</button>
 				<button class="btn primary" type="button" data-time-apply>Set</button>
@@ -345,3 +363,4 @@ $candorVersion = 'v0.2';
 
 </body>
 </html>
+

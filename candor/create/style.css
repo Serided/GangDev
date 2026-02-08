@@ -317,7 +317,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .builderRow.is-top {
-    grid-template-columns: minmax(0, 0.35fr) minmax(0, 1.65fr);
+    grid-template-columns: minmax(0, 0.5fr) minmax(0, 1.5fr);
 }
 
 .builderRow.is-full {
@@ -344,7 +344,7 @@ a { color: inherit; text-decoration: none; }
 
 .routineCard {
     display: grid;
-    grid-template-rows: auto auto minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
     gap: 8px;
 }
 
@@ -411,7 +411,8 @@ a { color: inherit; text-decoration: none; }
 
 .input {
     width: 100%;
-    padding: 12px;
+    min-height: 38px;
+    padding: 10px 12px;
     border: 1px solid var(--line);
     border-radius: 12px;
     outline: none;
@@ -420,18 +421,19 @@ a { color: inherit; text-decoration: none; }
 }
 
 .input.compact {
-    padding: 8px 10px;
+    min-height: 34px;
+    padding: 6px 10px;
     font-size: 12px;
     border-radius: 10px;
 }
 
 .timeField {
     width: 100%;
-    min-height: 32px;
+    min-height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 8px;
+    padding: 0 10px;
     border: 1px solid var(--line);
     border-radius: 12px;
     background: var(--white);
@@ -442,7 +444,7 @@ a { color: inherit; text-decoration: none; }
     min-height: 30px;
     border: none;
     background: transparent;
-    font: 600 13px/1 var(--font-body);
+    font: 600 12px/1 var(--font-body);
     color: var(--ink);
     text-align: center;
     cursor: pointer;
@@ -476,21 +478,41 @@ a { color: inherit; text-decoration: none; }
     gap: 10px;
 }
 
+.routineLayout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    gap: 12px;
+    align-items: start;
+    min-height: 0;
+}
+
+.routineBuild {
+    min-height: 0;
+}
+
 .routineGrid {
     display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 10px;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 12px;
     align-items: start;
 }
 
 .routineTasks {
     display: grid;
-    gap: 2px;
+    gap: 6px;
+    align-content: start;
 }
 
 .routineMeta {
     display: grid;
     gap: 8px;
+}
+
+.routineTasksLabel {
+    margin: 0;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.4px;
 }
 
 .dayMulti {
@@ -518,38 +540,59 @@ a { color: inherit; text-decoration: none; }
     margin: 0;
 }
 
-.taskHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    min-height: 16px;
-}
-
-.taskHeader .label {
-    font-size: 12px;
-    line-height: 1;
-}
-
 .taskAdd {
-    min-height: 18px;
-    padding: 0;
-    width: 18px;
+    margin-top: 6px;
+    width: 100%;
+    min-height: 32px;
     border-radius: 999px;
-    font-size: 11px;
-    line-height: 1;
+    border: 1px solid rgba(230, 160, 106, 0.6);
+    background: rgba(243, 200, 115, 0.3);
+    color: #2a1a0f;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.2s ease, background 0.2s ease;
+    transform-origin: top;
+}
+
+.taskAdd:hover {
+    transform: scaleY(1.08);
+    box-shadow: 0 12px 20px rgba(230, 160, 106, 0.18);
+    background: rgba(243, 200, 115, 0.4);
 }
 
 .taskStack {
     display: grid;
     gap: 6px;
+    max-height: 180px;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    padding-right: 2px;
 }
 
 .taskRow {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 64px auto;
-    gap: 6px;
+    grid-template-columns: 18px minmax(0, 1fr) 72px 28px;
+    gap: 8px;
     align-items: center;
+}
+
+.taskDrag {
+    width: 16px;
+    height: 24px;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 27, 45, 0.16);
+    background: rgba(15, 27, 45, 0.06);
+    color: var(--ink-soft);
+    font-size: 12px;
+    display: grid;
+    place-items: center;
+    cursor: grab;
+    user-select: none;
+}
+
+.taskRow.is-dragging {
+    opacity: 0.6;
 }
 
 .taskMinutes {
@@ -575,6 +618,11 @@ a { color: inherit; text-decoration: none; }
     font-size: 11px;
     color: var(--ink-soft);
     text-align: right;
+}
+
+.fieldHint {
+    font-size: 11px;
+    color: var(--ink-soft);
 }
 
 .input:focus {
@@ -645,6 +693,26 @@ a { color: inherit; text-decoration: none; }
 .itemMeta {
     font-size: 12px;
     color: var(--ink-soft);
+}
+
+.itemActions {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.itemEdit {
+    border: 1px solid rgba(90, 143, 185, 0.55);
+    background: rgba(185, 219, 242, 0.35);
+    color: var(--ink);
+    border-radius: 10px;
+    padding: 6px 8px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.itemEdit:hover {
+    background: rgba(185, 219, 242, 0.55);
 }
 
 .itemRemove {
@@ -761,6 +829,21 @@ a { color: inherit; text-decoration: none; }
 .weekItem.is-task {
     border-color: rgba(90, 143, 185, 0.55);
     background: rgba(185, 219, 242, 0.22);
+}
+
+.weekItem.is-work {
+    border-color: rgba(90, 143, 185, 0.6);
+    background: rgba(185, 219, 242, 0.32);
+}
+
+.weekItem.is-focus {
+    border-color: rgba(230, 160, 106, 0.65);
+    background: rgba(243, 200, 115, 0.3);
+}
+
+.weekItem.is-sleep {
+    border-color: rgba(90, 143, 185, 0.5);
+    background: rgba(90, 143, 185, 0.2);
 }
 
 .weekItemTitle {
@@ -892,17 +975,36 @@ a { color: inherit; text-decoration: none; }
     pointer-events: none;
 }
 
+.timePickerBody::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(245, 245, 245, 0.9) 0%, rgba(245, 245, 245, 0) 28%, rgba(245, 245, 245, 0) 72%, rgba(245, 245, 245, 0.9) 100%);
+    pointer-events: none;
+}
+
 .timeWheel {
     width: 110px;
     height: 180px;
     overflow-y: auto;
     padding: 60px 0;
     scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
     scrollbar-width: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    cursor: grab;
+    overscroll-behavior: contain;
 }
 
 .timeWheel::-webkit-scrollbar {
     display: none;
+}
+
+.timeWheel.is-dragging {
+    cursor: grabbing;
 }
 
 .timeWheelTrack {
@@ -920,6 +1022,7 @@ a { color: inherit; text-decoration: none; }
     font-variant-numeric: tabular-nums;
     scroll-snap-align: center;
     cursor: pointer;
+    user-select: none;
 }
 
 .timeWheelItem.is-active {
@@ -932,6 +1035,58 @@ a { color: inherit; text-decoration: none; }
     font-weight: 700;
     color: var(--ink-soft);
     margin-bottom: 6px;
+}
+
+.timePickerManual {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.timeManualInputs {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 34px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(215, 226, 237, 0.9);
+    background: rgba(255, 255, 255, 0.85);
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.timeManualInput {
+    width: 34px;
+    border: none;
+    background: transparent;
+    font: 600 14px/1 var(--font-body);
+    text-align: center;
+    outline: none;
+    font-variant-numeric: tabular-nums;
+}
+
+.timeMeridiem {
+    display: none;
+    gap: 6px;
+}
+
+.meridiemBtn {
+    min-height: 30px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(215, 226, 237, 0.9);
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.meridiemBtn.is-active {
+    border-color: rgba(230, 160, 106, 0.7);
+    background: rgba(243, 200, 115, 0.45);
+    color: #2a1a0f;
 }
 
 .timePickerActions {
@@ -1090,6 +1245,9 @@ a { color: inherit; text-decoration: none; }
         justify-content: flex-end;
         gap: 8px;
     }
+    .routineLayout {
+        grid-template-columns: 1fr;
+    }
     .routineGrid {
         grid-template-columns: 1fr;
     }
@@ -1101,14 +1259,14 @@ a { color: inherit; text-decoration: none; }
         gap: 4px;
     }
     .scheduleCard .label {
-        font-size: 10px;
+        font-size: 11px;
     }
     .scheduleCard .timeField {
-        min-height: 30px;
+        min-height: 32px;
         padding: 0 6px;
     }
     .scheduleCard .timeButton {
-        font-size: 11px;
+        font-size: 12px;
     }
     .dayMulti {
         grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -1134,6 +1292,10 @@ a { color: inherit; text-decoration: none; }
         overflow-y: auto;
         scrollbar-gutter: stable;
         padding-right: 2px;
+    }
+    .sleepSummary,
+    .savedSection {
+        display: none;
     }
     .routineTotal {
         text-align: left;

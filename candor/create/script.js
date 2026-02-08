@@ -157,33 +157,57 @@
     const timeApply = timeOverlay ? timeOverlay.querySelector("[data-time-apply]") : null;
     const timeCancel = timeOverlay ? timeOverlay.querySelector("[data-time-cancel]") : null;
     const timeClose = timeOverlay ? timeOverlay.querySelector("[data-time-close]") : null;
+    const timeManualHour = timeOverlay ? timeOverlay.querySelector("[data-time-manual-hour]") : null;
+    const timeManualMinute = timeOverlay ? timeOverlay.querySelector("[data-time-manual-minute]") : null;
+    const timeMeridiem = timeOverlay ? timeOverlay.querySelector("[data-time-meridiem]") : null;
+    const timeMeridiemButtons = timeOverlay ? Array.from(timeOverlay.querySelectorAll("[data-meridiem]")) : [];
 
     let activeTimeField = null;
     let activeHour = 0;
     let activeMinute = 0;
+    let activeMeridiem = "am";
 
-    const formatHourLabel = (hour) => {
-        if (clockMode === "24") return pad2(hour);
-        let display = hour % 12;
-        if (display === 0) display = 12;
-        return String(display);
-    };
+    const formatHourLabel = (hour) => (clockMode === "24" ? pad2(hour) : String(hour));
 
-    const buildWheel = (track, count, formatter) => {
+    const buildWheel = (track, values, formatter) => {
         if (!track) return;
         track.innerHTML = "";
-        for (let value = 0; value < count; value += 1) {
+        values.forEach((value) => {
             const item = document.createElement("div");
             item.className = "timeWheelItem";
             item.dataset.timeValue = String(value);
             item.textContent = formatter(value);
             track.appendChild(item);
-        }
+        });
     };
 
     const buildTimeWheels = () => {
-        buildWheel(timeHourTrack, 24, formatHourLabel);
-        buildWheel(timeMinuteTrack, 60, (value) => pad2(value));
+        const hourValues = clockMode === "24"
+            ? Array.from({ length: 24 }, (_, i) => i)
+            : Array.from({ length: 12 }, (_, i) => i + 1);
+        buildWheel(timeHourTrack, hourValues, formatHourLabel);
+        buildWheel(timeMinuteTrack, Array.from({ length: 60 }, (_, i) => i), (value) => pad2(value));
+        if (timeMeridiem) {
+            timeMeridiem.style.display = clockMode === "12" ? "flex" : "none";
+        }
+    };
+
+    const displayHourFromActive = () => {
+        if (clockMode === "24") return activeHour;
+        const raw = activeHour % 12;
+        return raw === 0 ? 12 : raw;
+    };
+
+    const setActiveHourFromDisplay = (displayHour) => {
+        if (clockMode === "24") {
+            activeHour = clamp(displayHour, 0, 23);
+            return;
+        }
+        const safe = clamp(displayHour, 1, 12);
+        activeHour = safe % 12;
+        if (activeMeridiem === "pm") {
+            activeHour += 12;
+        }
     };
 
     const getWheelItems = (wheel) => (wheel ? Array.from(wheel.querySelectorAll(".timeWheelItem")) : []);
@@ -215,15 +239,37 @@
         setWheelActive(wheel, value);
     };
 
+    const updateMeridiemButtons = () => {
+        if (!timeMeridiemButtons.length) return;
+        timeMeridiemButtons.forEach((button) => {
+            button.classList.toggle("is-active", button.dataset.meridiem === activeMeridiem);
+        });
+    };
+
+    const updateManualInputs = () => {
+        if (timeManualHour) {
+            const displayHour = displayHourFromActive();
+            timeManualHour.value = clockMode === "24" ? pad2(displayHour) : String(displayHour);
+        }
+        if (timeManualMinute) {
+            timeManualMinute.value = pad2(activeMinute);
+        }
+        updateMeridiemButtons();
+    };
+
     const bindWheel = (wheel, onChange) => {
         if (!wheel || wheel.dataset.bound === "true") return;
         wheel.dataset.bound = "true";
         let raf = null;
+        let dragActive = false;
+        let dragStartY = 0;
+        let dragStartScroll = 0;
         const handleScroll = () => {
             raf = null;
             const value = readWheelValue(wheel);
             onChange(value);
             setWheelActive(wheel, value);
+            updateManualInputs();
         };
         wheel.addEventListener("scroll", () => {
             if (raf) return;
@@ -236,7 +282,45 @@
             if (!Number.isFinite(value)) return;
             scrollWheelTo(wheel, value);
             onChange(value);
+            updateManualInputs();
         });
+        wheel.addEventListener("wheel", (event) => {
+            event.preventDefault();
+            const items = getWheelItems(wheel);
+            if (!items.length) return;
+            const current = readWheelValue(wheel);
+            const index = items.findIndex((item) => parseInt(item.dataset.timeValue, 10) === current);
+            const direction = event.deltaY > 0 ? 1 : -1;
+            const nextIndex = clamp(index + direction, 0, items.length - 1);
+            const nextValue = parseInt(items[nextIndex].dataset.timeValue, 10);
+            if (!Number.isFinite(nextValue)) return;
+            scrollWheelTo(wheel, nextValue);
+            onChange(nextValue);
+            updateManualInputs();
+        }, { passive: false });
+        wheel.addEventListener("pointerdown", (event) => {
+            dragActive = true;
+            dragStartY = event.clientY;
+            dragStartScroll = wheel.scrollTop;
+            wheel.setPointerCapture(event.pointerId);
+            wheel.classList.add("is-dragging");
+            event.preventDefault();
+        });
+        wheel.addEventListener("pointermove", (event) => {
+            if (!dragActive) return;
+            const delta = event.clientY - dragStartY;
+            wheel.scrollTop = dragStartScroll - delta;
+        });
+        const endDrag = (event) => {
+            if (!dragActive) return;
+            dragActive = false;
+            wheel.classList.remove("is-dragging");
+            if (event && event.pointerId !== undefined) {
+                wheel.releasePointerCapture(event.pointerId);
+            }
+        };
+        wheel.addEventListener("pointerup", endDrag);
+        wheel.addEventListener("pointercancel", endDrag);
     };
 
     const openTimePicker = (field) => {
@@ -249,11 +333,16 @@
         const parsed = output ? parseTimeValue(output.value) : null;
         activeHour = parsed ? parsed.hour : 0;
         activeMinute = parsed ? parsed.minute : 0;
+        activeMeridiem = activeHour >= 12 ? "pm" : "am";
         timeOverlay.classList.add("is-open");
         requestAnimationFrame(() => {
-            if (timeHourWheel) scrollWheelTo(timeHourWheel, activeHour);
+            if (timeHourWheel) {
+                const hourValue = displayHourFromActive();
+                scrollWheelTo(timeHourWheel, hourValue);
+            }
             if (timeMinuteWheel) scrollWheelTo(timeMinuteWheel, activeMinute);
         });
+        updateManualInputs();
     };
 
     const closeTimePicker = () => {
@@ -272,11 +361,49 @@
         if (!timeOverlay) return;
         buildTimeWheels();
         bindWheel(timeHourWheel, (value) => {
-            activeHour = value;
+            setActiveHourFromDisplay(value);
         });
         bindWheel(timeMinuteWheel, (value) => {
             activeMinute = value;
         });
+        if (timeMeridiemButtons.length) {
+            timeMeridiemButtons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    activeMeridiem = button.dataset.meridiem === "pm" ? "pm" : "am";
+                    setActiveHourFromDisplay(displayHourFromActive());
+                    updateMeridiemButtons();
+                });
+            });
+        }
+        if (timeManualHour) {
+            const applyManualHour = (raw) => {
+                const safe = clockMode === "24" ? clamp(raw, 0, 23) : clamp(raw, 1, 12);
+                setActiveHourFromDisplay(safe);
+                if (timeHourWheel) scrollWheelTo(timeHourWheel, safe);
+                updateManualInputs();
+            };
+            timeManualHour.addEventListener("input", () => {
+                const raw = parseInt(timeManualHour.value, 10);
+                if (Number.isFinite(raw)) {
+                    applyManualHour(raw);
+                }
+            });
+            timeManualHour.addEventListener("blur", updateManualInputs);
+        }
+        if (timeManualMinute) {
+            const applyManualMinute = (raw) => {
+                activeMinute = clamp(raw, 0, 59);
+                if (timeMinuteWheel) scrollWheelTo(timeMinuteWheel, activeMinute);
+                updateManualInputs();
+            };
+            timeManualMinute.addEventListener("input", () => {
+                const raw = parseInt(timeManualMinute.value, 10);
+                if (Number.isFinite(raw)) {
+                    applyManualMinute(raw);
+                }
+            });
+            timeManualMinute.addEventListener("blur", updateManualInputs);
+        }
         if (timeApply) {
             timeApply.addEventListener("click", () => {
                 applyTimePicker();
@@ -394,13 +521,19 @@
         const dayValue = item.day ?? item.day_of_week;
         const parsedDay = typeof dayValue === "number" ? dayValue : parseInt(dayValue, 10);
         const days = normalizeDays(item.days ?? item.days_json ?? item.days_of_week ?? dayValue);
+        const typeValue = normalizeText(item.block_type ?? item.type ?? "routine");
+        const anchorValue = normalizeText(item.anchor ?? item.routine_anchor ?? "custom");
         const allowed = ["daily", "weekdays", "weekends", "day"];
         const repeat = allowed.includes(repeatValue) ? repeatValue : "daily";
+        const type = ["routine", "work", "focus"].includes(typeValue) ? typeValue : "routine";
+        const anchor = ["morning", "evening", "custom"].includes(anchorValue) ? anchorValue : "custom";
         return {
             id: String(item.id ?? ""),
             title: normalizeText(item.title ?? ""),
             time: normalizeText(item.time ?? item.routine_time ?? ""),
             tasks: normalizeRoutineTasks(item.tasks ?? item.tasks_json ?? ""),
+            type,
+            anchor,
             repeat,
             day: Number.isFinite(parsedDay) ? parsedDay : (days[0] ?? null),
             days,
@@ -583,19 +716,33 @@
             const text = document.createElement("div");
             const title = document.createElement("div");
             title.className = "itemTitle";
-            title.textContent = routine.title || "Routine";
+            const typeLabel = routine.type === "work" ? "Work" : (routine.type === "focus" ? "Focus" : "Routine");
+            title.textContent = routine.title || `${typeLabel} block`;
 
             const meta = document.createElement("div");
             meta.className = "itemMeta";
-            const time = routine.time ? formatTime(routine.time) : "Anytime";
+            let time = routine.time ? formatTime(routine.time) : "Anytime";
+            if (!routine.time && routine.type === "routine") {
+                if (routine.anchor === "morning") time = "Wake time";
+                if (routine.anchor === "evening") time = "Bedtime";
+            }
             const repeat = formatRepeatRule(routine.repeat, routine.day, routine.days);
             const tasks = Array.isArray(routine.tasks) ? routine.tasks : [];
             const total = routineDuration(routine);
             const detail = total > 0 ? `${total} min` : (tasks.length ? `${tasks.length} tasks` : "No tasks");
-            meta.textContent = `${time} - ${repeat} - ${detail}`;
+            meta.textContent = `${typeLabel} - ${time} - ${repeat} - ${detail}`;
 
             text.appendChild(title);
             text.appendChild(meta);
+
+            const actions = document.createElement("div");
+            actions.className = "itemActions";
+
+            const edit = document.createElement("button");
+            edit.type = "button";
+            edit.className = "itemEdit";
+            edit.dataset.editId = routine.id;
+            edit.textContent = "Edit";
 
             const remove = document.createElement("button");
             remove.type = "button";
@@ -604,8 +751,11 @@
             remove.dataset.removeKind = "routine";
             remove.textContent = "Remove";
 
+            actions.appendChild(edit);
+            actions.appendChild(remove);
+
             row.appendChild(text);
-            row.appendChild(remove);
+            row.appendChild(actions);
             routineList.appendChild(row);
         });
     };
@@ -630,21 +780,64 @@
         return false;
     };
 
+    const pickSleepRuleForDay = (targetDay) => {
+        const matches = state.sleep.filter((rule) =>
+            appliesToDay(rule.repeat, rule.day, [], targetDay)
+        );
+        if (!matches.length) return null;
+        const priority = ["day", "weekdays", "weekends", "daily"];
+        matches.sort((a, b) => priority.indexOf(a.repeat) - priority.indexOf(b.repeat));
+        return matches[0];
+    };
+
+    const resolveRoutineTime = (routine, sleepRule) => {
+        if (!routine) return "";
+        if (routine.type === "routine" && routine.anchor && routine.anchor !== "custom") {
+            if (!sleepRule) return "";
+            if (routine.anchor === "morning") {
+                return sleepRule.end || "";
+            }
+            if (routine.anchor === "evening") {
+                if (!sleepRule.start) return "";
+                const duration = routineDuration(routine);
+                return duration > 0 ? addMinutes(sleepRule.start, -duration) : sleepRule.start;
+            }
+        }
+        return routine.time || "";
+    };
+
     const getWeekItems = (targetDay) => {
         const items = [];
+        const sleepRule = pickSleepRuleForDay(targetDay);
+        if (sleepRule) {
+            if (sleepRule.end) {
+                items.push({
+                    kind: "sleep",
+                    title: "Wake",
+                    time: sleepRule.end,
+                });
+            }
+            if (sleepRule.start) {
+                items.push({
+                    kind: "sleep",
+                    title: "Bed",
+                    time: sleepRule.start,
+                });
+            }
+        }
         state.routines.forEach((routine) => {
             if (!appliesToDay(routine.repeat, routine.day, routine.days, targetDay)) return;
             items.push({
-                type: "routine",
+                kind: routine.type || "routine",
                 title: routine.title || "Routine",
-                time: routine.time,
+                time: resolveRoutineTime(routine, sleepRule),
                 duration: routineDuration(routine),
             });
         });
         state.tasks.forEach((rule) => {
             if (!appliesToDay(rule.repeat, rule.day, [], targetDay)) return;
             items.push({
-                type: "task",
+                kind: "task",
                 title: rule.title || "Repeat task",
                 time: rule.start,
             });
@@ -668,7 +861,14 @@
             const items = getWeekItems(Number.isFinite(day) ? day : 0);
             items.forEach((item) => {
                 const row = document.createElement("div");
-                row.className = `weekItem ${item.type === "routine" ? "is-routine" : "is-task"}`;
+                const kindClass = item.kind === "sleep"
+                    ? "is-sleep"
+                    : (item.kind === "work"
+                        ? "is-work"
+                        : (item.kind === "focus"
+                            ? "is-focus"
+                            : (item.kind === "task" ? "is-task" : "is-routine")));
+                row.className = `weekItem ${kindClass}`;
 
                 const title = document.createElement("div");
                 title.className = "weekItemTitle";
@@ -738,12 +938,21 @@
         }
     };
 
+    const upsertRoutine = (routine) => {
+        const index = state.routines.findIndex((item) => item.id === routine.id);
+        if (index >= 0) {
+            state.routines[index] = routine;
+        } else {
+            state.routines.push(routine);
+        }
+    };
+
     const addRoutine = async (payload) => {
         if (storageMode === "remote") {
             try {
                 const data = await apiFetch(payload, "POST");
                 if (data && data.routine) {
-                    state.routines.push(normalizeRoutine(data.routine));
+                    upsertRoutine(normalizeRoutine(data.routine));
                     renderAll();
                     return;
                 }
@@ -753,9 +962,9 @@
         }
 
         if (storageMode === "local") {
-            const id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+            const id = payload.id || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
             const localRoutine = normalizeRoutine({ id, ...payload });
-            state.routines.push(localRoutine);
+            upsertRoutine(localRoutine);
             persistLocal();
             renderAll();
         }
@@ -792,6 +1001,13 @@
         state.routines = state.routines.filter((routine) => routine.id !== id);
         if (storageMode === "local") {
             persistLocal();
+        }
+        if (editingRoutineId && editingRoutineId === id && routineForm) {
+            routineForm.reset();
+            clearTimeFields(routineForm);
+            clearRoutineTasks();
+            setRoutineEditState(null);
+            updateRoutineFormVisibility();
         }
         renderAll();
     };
@@ -893,6 +1109,8 @@
     const sleepClear = document.querySelector("[data-sleep-clear]");
     if (sleepClear) {
         sleepClear.addEventListener("click", () => {
+            if (sleepStartField) setFieldValue(sleepStartField, "", { emit: false });
+            if (sleepEndField) setFieldValue(sleepEndField, "", { emit: false });
             clearRules("sleep");
             if (sleepForm) {
                 sleepForm.reset();
@@ -905,11 +1123,94 @@
     }
 
     const routineForm = document.querySelector("[data-routine-form]");
+    const routineTypeSelect = routineForm ? routineForm.querySelector("[data-block-type]") : null;
+    const routineAnchorSelect = routineForm ? routineForm.querySelector("[data-anchor-select]") : null;
+    const routineTitleField = routineForm ? routineForm.querySelector("[data-title-field]") : null;
+    const routineTitleInput = routineForm ? routineForm.querySelector("#routine-title") : null;
+    const routineTimeFieldWrap = routineForm ? routineForm.querySelector("[data-time-field-wrap]") : null;
+    const routineAnchorField = routineForm ? routineForm.querySelector("[data-anchor-field]") : null;
+    const routineAnchorNote = routineForm ? routineForm.querySelector("[data-anchor-note]") : null;
+    const routineSubmit = routineForm ? routineForm.querySelector("[data-routine-submit]") : null;
+    const routineCancel = routineForm ? routineForm.querySelector("[data-routine-cancel]") : null;
+    let editingRoutineId = null;
+
+    const anchorTitle = (anchor) => {
+        if (anchor === "morning") return "Morning routine";
+        if (anchor === "evening") return "Evening routine";
+        return "Routine";
+    };
+
+    const setRoutineEditState = (routine) => {
+        editingRoutineId = routine ? routine.id : null;
+        if (routineSubmit) {
+            routineSubmit.textContent = routine ? "Update block" : "Add block";
+        }
+        if (routineCancel) {
+            routineCancel.style.display = routine ? "inline-flex" : "none";
+        }
+    };
+
+    const updateRoutineFormVisibility = () => {
+        if (!routineForm) return;
+        const type = routineTypeSelect ? routineTypeSelect.value : "routine";
+        const isRoutine = type === "routine";
+        if (routineAnchorField) {
+            routineAnchorField.style.display = isRoutine ? "grid" : "none";
+        }
+        const anchor = isRoutine && routineAnchorSelect ? routineAnchorSelect.value : "custom";
+        const needsCustomTitle = !isRoutine || anchor === "custom";
+        if (routineTitleField) {
+            routineTitleField.style.display = needsCustomTitle ? "grid" : "none";
+        }
+        if (routineTimeFieldWrap) {
+            routineTimeFieldWrap.style.display = (!isRoutine || anchor === "custom") ? "grid" : "none";
+        }
+        if (routineTitleInput) {
+            routineTitleInput.required = needsCustomTitle;
+        }
+        if (routineAnchorNote) {
+            routineAnchorNote.textContent = "";
+            routineAnchorNote.style.display = isRoutine ? "block" : "none";
+            if (isRoutine && anchor !== "custom") {
+                routineAnchorNote.textContent = anchor === "morning"
+                    ? "Anchored to wake time after your sleep schedule."
+                    : "Ends at bedtime based on your sleep schedule.";
+            }
+        }
+    };
+
+    if (routineTypeSelect) {
+        routineTypeSelect.addEventListener("change", updateRoutineFormVisibility);
+    }
+    if (routineAnchorSelect) {
+        routineAnchorSelect.addEventListener("change", updateRoutineFormVisibility);
+    }
+
+    if (routineCancel) {
+        routineCancel.addEventListener("click", () => {
+            if (!routineForm) return;
+            routineForm.reset();
+            clearTimeFields(routineForm);
+            const routineRepeat = routineForm.querySelector("[data-routine-repeat]");
+            const routineDayField = routineForm.querySelector("[data-routine-day-field]");
+            applyRepeatToggle(routineRepeat, routineDayField);
+            routineForm.querySelectorAll("[data-routine-day]").forEach((input) => {
+                input.checked = false;
+            });
+            clearRoutineTasks();
+            setRoutineEditState(null);
+            updateRoutineFormVisibility();
+        });
+    }
+
     if (routineForm) {
         routineForm.addEventListener("submit", (event) => {
             event.preventDefault();
             const formData = new FormData(routineForm);
-            const title = normalizeText(formData.get("title"));
+            const type = routineTypeSelect ? routineTypeSelect.value : "routine";
+            const anchor = type === "routine" && routineAnchorSelect ? routineAnchorSelect.value : "custom";
+            const customTitle = normalizeText(formData.get("title"));
+            const title = type === "routine" && anchor !== "custom" ? anchorTitle(anchor) : customTitle;
             if (!title) return;
             const time = normalizeText(formData.get("time"));
             const repeat = normalizeText(formData.get("repeat")) || "daily";
@@ -919,6 +1220,7 @@
                 .map((input) => parseInt(input.value, 10))
                 .filter((value) => Number.isFinite(value) && value >= 0 && value <= 6);
             if (repeat === "day" && days.length === 0) return;
+            if ((type !== "routine" || anchor === "custom") && !time) return;
             const tasks = Array.from(routineForm.querySelectorAll("[data-task-row]"))
                 .map((row) => {
                     const titleField = row.querySelector("[data-task-title]");
@@ -929,15 +1231,19 @@
                     return taskTitle ? { title: taskTitle, minutes } : null;
                 })
                 .filter((item) => item && item.title !== "");
-            addRoutine({
-                action: "add_routine",
+            const payload = {
+                action: editingRoutineId ? "update_routine" : "add_routine",
+                id: editingRoutineId,
                 title,
-                time,
+                time: type === "routine" && anchor !== "custom" ? "" : time,
                 repeat,
                 day: days[0],
                 days,
                 tasks,
-            });
+                block_type: type,
+                anchor,
+            };
+            addRoutine(payload);
             routineForm.reset();
             clearTimeFields(routineForm);
             const routineRepeat = routineForm.querySelector("[data-routine-repeat]");
@@ -947,17 +1253,28 @@
                 input.checked = false;
             });
             clearRoutineTasks();
+            setRoutineEditState(null);
+            updateRoutineFormVisibility();
         });
     }
 
     const routineTaskStack = document.querySelector("[data-routine-tasks]");
     const routineAddTask = document.querySelector("[data-routine-add-task]");
     const routineTotal = document.querySelector("[data-routine-total]");
+    let draggedTaskRow = null;
 
     const buildRoutineTaskRow = (task = {}) => {
         const row = document.createElement("div");
         row.className = "taskRow";
         row.dataset.taskRow = "true";
+        row.draggable = true;
+
+        const drag = document.createElement("button");
+        drag.type = "button";
+        drag.className = "taskDrag";
+        drag.dataset.taskDrag = "true";
+        drag.textContent = "||";
+        drag.setAttribute("aria-label", "Drag to reorder");
 
         const input = document.createElement("input");
         input.className = "input compact";
@@ -984,6 +1301,7 @@
         remove.dataset.routineTaskRemove = "true";
         remove.textContent = "x";
 
+        row.appendChild(drag);
         row.appendChild(input);
         row.appendChild(minutes);
         row.appendChild(remove);
@@ -1015,6 +1333,97 @@
         }, 0);
         routineTotal.textContent = `Estimated: ${total || 0} min`;
     };
+
+    const fillRoutineTasks = (tasks) => {
+        if (!routineTaskStack) return;
+        routineTaskStack.innerHTML = "";
+        if (Array.isArray(tasks) && tasks.length > 0) {
+            tasks.forEach((task) => {
+                routineTaskStack.appendChild(buildRoutineTaskRow(task));
+            });
+        } else {
+            routineTaskStack.appendChild(buildRoutineTaskRow());
+        }
+        updateRoutineTotal();
+    };
+
+    const startRoutineEdit = (routine) => {
+        if (!routineForm || !routine) return;
+        if (routineTypeSelect) routineTypeSelect.value = routine.type || "routine";
+        if (routineAnchorSelect) routineAnchorSelect.value = routine.anchor || "custom";
+        if (routineTitleInput) routineTitleInput.value = routine.title || "";
+        const timeField = routineForm.querySelector("#routine-time");
+        if (timeField) {
+            const fieldWrap = timeField.closest("[data-time-field]");
+            setFieldValue(fieldWrap, routine.time || "");
+        }
+        const repeatSelect = routineForm.querySelector("[data-routine-repeat]");
+        if (repeatSelect) repeatSelect.value = routine.repeat || "daily";
+        const dayInputs = Array.from(routineForm.querySelectorAll("[data-routine-day]"));
+        dayInputs.forEach((input) => {
+            const value = parseInt(input.value, 10);
+            input.checked = Array.isArray(routine.days) ? routine.days.includes(value) : value === routine.day;
+        });
+        applyRepeatToggle(repeatSelect, routineForm.querySelector("[data-routine-day-field]"));
+        fillRoutineTasks(routine.tasks);
+        setRoutineEditState(routine);
+        updateRoutineFormVisibility();
+    };
+
+    const getTaskRowAfter = (container, y) => {
+        const rows = Array.from(container.querySelectorAll(".taskRow:not(.is-dragging)"));
+        return rows.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset, element: child };
+            }
+            return closest;
+        }, { offset: Number.NEGATIVE_INFINITY, element: null }).element;
+    };
+
+    if (routineTaskStack) {
+        routineTaskStack.addEventListener("dragstart", (event) => {
+            const row = event.target.closest("[data-task-row]");
+            if (!row) return;
+            if (!event.target.closest("[data-task-drag]")) {
+                event.preventDefault();
+                return;
+            }
+            draggedTaskRow = row;
+            row.classList.add("is-dragging");
+            if (event.dataTransfer) {
+                event.dataTransfer.effectAllowed = "move";
+                event.dataTransfer.setData("text/plain", "task");
+            }
+        });
+
+        routineTaskStack.addEventListener("dragover", (event) => {
+            if (!draggedTaskRow) return;
+            event.preventDefault();
+            const after = getTaskRowAfter(routineTaskStack, event.clientY);
+            if (after === null) {
+                routineTaskStack.appendChild(draggedTaskRow);
+            } else {
+                routineTaskStack.insertBefore(draggedTaskRow, after);
+            }
+        });
+
+        routineTaskStack.addEventListener("drop", (event) => {
+            if (!draggedTaskRow) return;
+            event.preventDefault();
+            draggedTaskRow.classList.remove("is-dragging");
+            draggedTaskRow = null;
+            updateRoutineTotal();
+        });
+
+        routineTaskStack.addEventListener("dragend", () => {
+            if (draggedTaskRow) {
+                draggedTaskRow.classList.remove("is-dragging");
+            }
+            draggedTaskRow = null;
+        });
+    }
 
     if (routineAddTask) {
         routineAddTask.addEventListener("click", () => {
@@ -1048,6 +1457,15 @@
             }
             row.remove();
             updateRoutineTotal();
+            return;
+        }
+        const editBtn = event.target.closest("[data-edit-id]");
+        if (editBtn) {
+            const id = editBtn.dataset.editId;
+            const routine = state.routines.find((item) => item.id === id);
+            if (routine) {
+                startRoutineEdit(routine);
+            }
             return;
         }
         const removeBtn = event.target.closest("[data-remove-id]");
@@ -1110,6 +1528,7 @@
         initTimeFields();
         ensureRoutineTaskRow();
         updateRoutineTotal();
+        updateRoutineFormVisibility();
         try {
             await loadRemote();
         } catch {

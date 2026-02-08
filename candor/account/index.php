@@ -54,16 +54,7 @@ $candorVersion = 'v0.2';
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Candor - Account</title>
-        <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=13" type="image/x-icon">
-        <link rel="icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=13" type="image/x-icon" media="(prefers-color-scheme: dark)">
-        <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=13" type="image/x-icon">
-        <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=13" type="image/x-icon" media="(prefers-color-scheme: dark)">
-        <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=13">
-        <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-dark-32.png?v=13" media="(prefers-color-scheme: dark)">
-        <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=13">
-        <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-dark-64.png?v=13" media="(prefers-color-scheme: dark)">
-        <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=13">
-        <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-dark-128.png?v=13" media="(prefers-color-scheme: dark)">
+	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
 
         <link rel="stylesheet" href="style.css">
     </head>
@@ -120,7 +111,7 @@ $candorVersion = 'v0.2';
 									<label class="label" for="account-clock">Clock</label>
 									<select class="input compact select" id="account-clock" name="clock_format" data-clock-select>
 										<option value="24" <?= $timeFormat === '24' ? 'selected' : '' ?>>24-hour (military)</option>
-										<option value="12" <?= $timeFormat === '12' ? 'selected' : '' ?>>12-hour (no AM/PM)</option>
+										<option value="12" <?= $timeFormat === '12' ? 'selected' : '' ?>>12-hour (AM/PM)</option>
 									</select>
 								</div>
 								<div class="unitFields" data-unit="metric">
@@ -218,6 +209,7 @@ $candorVersion = 'v0.2';
 		</script>
     </body>
 </html>
+
 
 
 

@@ -19,16 +19,7 @@ $candorVersion = 'v0.2';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candor - Updates</title>
-    <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=13" type="image/x-icon">
-    <link rel="icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=13" type="image/x-icon" media="(prefers-color-scheme: dark)">
-    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=13" type="image/x-icon">
-    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=13" type="image/x-icon" media="(prefers-color-scheme: dark)">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=13">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-dark-32.png?v=13" media="(prefers-color-scheme: dark)">
-    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=13">
-    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-dark-64.png?v=13" media="(prefers-color-scheme: dark)">
-    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=13">
-    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-dark-128.png?v=13" media="(prefers-color-scheme: dark)">
+	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="is-updates">
@@ -53,20 +44,20 @@ $candorVersion = 'v0.2';
                         <span class="updateVersion">v0.2</span>
                         <span class="updateMeta">Current</span>
                     </div>
-                    <h3>Create cadence + sleep structure</h3>
-                    <ul class="updateList">
-							<li>Create now centers on routines with child tasks and inline schedule lines.</li>
-							<li>Routine tasks track estimated minutes for total duration.</li>
-							<li>Week template fills with routines and repeat tasks by day.</li>
-							<li>Pop-open time picker (scroll wheels) follows your clock preference across My OS + Create.</li>
-							<li>Sleep schedules auto-calc end time from age with a weekend boost.</li>
-							<li>Specific-day routines now support multi-day selection.</li>
-							<li>Repeat-task plus keeps weekly chores in the cadence builder.</li>
-							<li>Month header adds plan-ahead date picking and day popovers for extras.</li>
-							<li>Birthday events auto-populate yearly.</li>
-							<li>Timeline windows align to the slot line and stack flush when overlapping.</li>
-							<li>Refreshed logo mark plus transparent favicons across all Candor pages.</li>
-						</ul>
+					<h3>Create cadence + sleep structure</h3>
+					<ul class="updateList">
+						<li>Create now centers on cadence blocks (routine, work, focus) with child tasks.</li>
+						<li>Routine editor supports drag reordering, quick edits, and inline task minutes.</li>
+						<li>Week template fills with wake/bed times, block times, and repeat tasks by day.</li>
+						<li>Pop-open time picker uses scroll wheels, drag, and manual entry across My OS + Create.</li>
+						<li>Sleep schedules auto-calc end time from age with a weekend boost.</li>
+						<li>Specific-day routines now support multi-day selection.</li>
+						<li>Repeat-task plus keeps weekly chores in the cadence builder.</li>
+						<li>Month header adds plan-ahead date picking and day popovers for extras.</li>
+						<li>Birthday events auto-populate yearly.</li>
+						<li>Timeline windows align to the slot line and stack flush when overlapping.</li>
+						<li>Shared head includes keep favicon links centralized.</li>
+					</ul>
                 </article>
 
                 <article class="updateCard">
@@ -101,18 +92,18 @@ $candorVersion = 'v0.2';
     </section>
 
     <section class="grid">
-        <div class="card">
-            <h3>Core tools</h3>
-            <p>Daily timeline for windows/events, a monthly grid for planning ahead, and cadence building for sleep + routines.</p>
-        </div>
-        <div class="card">
-            <h3>Account + access</h3>
-            <p>Verified sign-in with baseline profile data (units, birthday, clock) to personalize sleep and scheduling.</p>
-        </div>
-        <div class="card">
-            <h3>Release cadence</h3>
-            <p>Public changelog tracks every version so new capabilities stay clear and traceable.</p>
-        </div>
+		<div class="card">
+			<h3>Core tools</h3>
+			<p>Daily timeline for windows/events, monthly planning for future adds, and cadence building for sleep + routines.</p>
+		</div>
+		<div class="card">
+			<h3>Account + access</h3>
+			<p>Verified sign-in with baseline profile data (units, birthday, clock) to personalize sleep and schedules.</p>
+		</div>
+		<div class="card">
+			<h3>Release cadence</h3>
+			<p>Public changelog tracks each version so new capabilities stay clear and traceable.</p>
+		</div>
     </section>
 
     <?php require '/var/www/gangdev/candor/files/php/footer.php'; ?>
@@ -120,6 +111,7 @@ $candorVersion = 'v0.2';
 
 </body>
 </html>
+
 
 
 

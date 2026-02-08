@@ -1220,18 +1220,19 @@ body.is-do .welcome {
 }
 
 .input.compact {
-    padding: 7px 10px;
+    min-height: 34px;
+    padding: 6px 10px;
     font-size: 12px;
     border-radius: 10px;
 }
 
 .timeField {
     width: 100%;
-    min-height: 32px;
+    min-height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 8px;
+    padding: 0 10px;
     border: 1px solid var(--line);
     border-radius: 12px;
     background: var(--white);
@@ -1242,7 +1243,7 @@ body.is-do .welcome {
     min-height: 30px;
     border: none;
     background: transparent;
-    font: 600 13px/1 var(--font-body);
+    font: 600 12px/1 var(--font-body);
     color: var(--ink);
     text-align: center;
     cursor: pointer;
@@ -1416,7 +1417,8 @@ body.is-do .welcome {
 
 .input {
     width: 100%;
-    padding: 12px;
+    min-height: 38px;
+    padding: 10px 12px;
     border: 1px solid var(--line);
     border-radius: 12px;
     outline: none;
@@ -1719,17 +1721,36 @@ body.is-do .welcome {
     pointer-events: none;
 }
 
+.timePickerBody::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(245, 245, 245, 0.9) 0%, rgba(245, 245, 245, 0) 28%, rgba(245, 245, 245, 0) 72%, rgba(245, 245, 245, 0.9) 100%);
+    pointer-events: none;
+}
+
 .timeWheel {
     width: 110px;
     height: 180px;
     overflow-y: auto;
     padding: 60px 0;
     scroll-snap-type: y mandatory;
+    scroll-snap-stop: always;
     scrollbar-width: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    cursor: grab;
+    overscroll-behavior: contain;
 }
 
 .timeWheel::-webkit-scrollbar {
     display: none;
+}
+
+.timeWheel.is-dragging {
+    cursor: grabbing;
 }
 
 .timeWheelTrack {
@@ -1747,6 +1768,7 @@ body.is-do .welcome {
     font-variant-numeric: tabular-nums;
     scroll-snap-align: center;
     cursor: pointer;
+    user-select: none;
 }
 
 .timeWheelItem.is-active {
@@ -1759,6 +1781,58 @@ body.is-do .welcome {
     font-weight: 700;
     color: var(--ink-soft);
     margin-bottom: 6px;
+}
+
+.timePickerManual {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.timeManualInputs {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 34px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(215, 226, 237, 0.9);
+    background: rgba(255, 255, 255, 0.85);
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.timeManualInput {
+    width: 34px;
+    border: none;
+    background: transparent;
+    font: 600 14px/1 var(--font-body);
+    text-align: center;
+    outline: none;
+    font-variant-numeric: tabular-nums;
+}
+
+.timeMeridiem {
+    display: none;
+    gap: 6px;
+}
+
+.meridiemBtn {
+    min-height: 30px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(215, 226, 237, 0.9);
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.meridiemBtn.is-active {
+    border-color: rgba(230, 160, 106, 0.7);
+    background: rgba(243, 200, 115, 0.45);
+    color: #2a1a0f;
 }
 
 .timePickerActions {

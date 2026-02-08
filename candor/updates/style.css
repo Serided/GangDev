@@ -69,7 +69,7 @@ body.is-updates .page {
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     --brand-mark-size: 84px;
     --brand-name-size: 36px;
     --brand-lead-size: calc(var(--brand-name-size) * 0.5);
@@ -163,18 +163,19 @@ body.is-updates .page {
     text-shadow: 0 6px 16px rgba(75, 127, 168, 0.22);
 }
 
-.meta {
+.brand .meta {
     font-size: 12px;
     letter-spacing: 0.4px;
     color: var(--ink-soft);
     text-transform: none;
+    font-family: var(--font-body);
     position: absolute;
     bottom: 4px;
     left: 0;
     right: 0;
 }
 
-.meta.minimal {
+.brand .meta.minimal {
     text-transform: none;
     letter-spacing: 1.2px;
     display: inline-flex;
@@ -184,8 +185,8 @@ body.is-updates .page {
     font-weight: 600;
 }
 
-.meta.minimal::before,
-.meta.minimal::after {
+.brand .meta.minimal::before,
+.brand .meta.minimal::after {
     content: "-";
 }
 
