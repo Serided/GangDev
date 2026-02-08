@@ -61,7 +61,7 @@ a {
     overflow: hidden;
 }
 
-.top {
+.nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -84,7 +84,8 @@ a {
     position: relative;
 }
 
-.brandMark {
+.brandMark,
+.logo {
     width: var(--brand-mark-size);
     height: var(--brand-mark-size);
     aspect-ratio: 1 / 1;
@@ -350,6 +351,16 @@ a {
     background: var(--white);
 }
 
+.input[type="number"] {
+    appearance: textfield;
+}
+
+.input[type="number"]::-webkit-outer-spin-button,
+.input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .input.compact {
     padding: 7px 10px;
     font-size: 12px;
@@ -516,7 +527,7 @@ a {
     color: rgba(10, 90, 45, 0.92);
 }
 
-.topActions {
+.actions {
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -590,16 +601,16 @@ a {
         padding: var(--edge-pad) var(--page-gutter);
         gap: 24px;
     }
-    .top {
+    .nav {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .topActions {
+    .actions {
         width: 100%;
     }
 
-    .topActions .btn {
+    .actions .btn {
         flex: 1 1 140px;
     }
 

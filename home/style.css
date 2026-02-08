@@ -63,6 +63,13 @@
     font-size: calc(var(--scaling) * 0.9);
     line-height: calc(var(--scaling) * 0.9);
 }
+.sect.cont#products .columns .sect .cont .link .sub {
+    display: block;
+    font-size: calc(var(--scaling) * 0.6);
+    line-height: calc(var(--scaling) * 0.8);
+    color: #cdd7e6;
+    margin-top: calc(var(--scaling) * 0.2);
+}
 .sect.cont#products .columns .games h2 {
     font-size: calc(var(--scaling) * 2.7);
 }

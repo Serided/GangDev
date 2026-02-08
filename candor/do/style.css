@@ -859,10 +859,12 @@ body.is-do .welcome {
     gap: 10px;
 }
 
-.monthControls {
+.monthTitleWrap {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
+    justify-self: center;
 }
 
 .monthTitle {
@@ -891,8 +893,8 @@ body.is-do .welcome {
     background: rgba(185, 219, 242, 0.45);
 }
 
-.monthToday {
-    width: auto;
+.monthAction {
+    min-width: 60px;
     height: 34px;
     padding: 0 12px;
     border-radius: 12px;
@@ -906,16 +908,22 @@ body.is-do .welcome {
     font-family: var(--font-body);
     cursor: pointer;
     display: inline-flex;
-    place-items: center;
+    align-items: center;
+    justify-content: center;
     line-height: 1;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     z-index: 2;
 }
 
-.monthToday:hover {
+.monthAction:hover {
     transform: translateY(-1px);
     box-shadow: 0 16px 28px rgba(230, 160, 106, 0.4);
     background: linear-gradient(135deg, rgba(230, 160, 106, 0.95), rgba(243, 200, 115, 0.95));
+}
+
+.monthAdd {
+    font-size: 18px;
+    letter-spacing: 0;
 }
 
 .weekdayRow {
@@ -1388,6 +1396,16 @@ body.is-do .welcome {
     background: var(--white);
 }
 
+.input[type="number"] {
+    appearance: textfield;
+}
+
+.input[type="number"]::-webkit-outer-spin-button,
+.input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .input:focus {
     border-color: rgba(90, 143, 185, 0.55);
     box-shadow: 0 0 0 4px rgba(185, 219, 242, 0.45);
@@ -1574,6 +1592,75 @@ body.is-do .welcome {
     color: var(--ink-soft);
 }
 
+[data-create-date-field] {
+    display: none;
+}
+
+.monthPopover {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    width: min(280px, 90%);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 12px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 5;
+}
+
+.monthPopover.is-open {
+    display: grid;
+}
+
+.monthPopoverHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.monthPopoverTitle {
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.monthPopoverList {
+    display: grid;
+    gap: 8px;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.monthPopoverItem {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--ink);
+    padding: 6px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(185, 219, 242, 0.6);
+    background: rgba(185, 219, 242, 0.18);
+}
+
+.monthPopoverItem .itemType {
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-size: 10px;
+}
+
+.monthPopoverItem .itemText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .metaLabel {
     text-transform: uppercase;
     letter-spacing: 1.2px;
@@ -1711,13 +1798,20 @@ body.is-do .welcome {
     .monthHeader { gap: 4px; }
     .monthTitle { font-size: 16px; }
     .monthNav { width: 28px; height: 28px; font-size: 14px; }
-    .monthToday {
+    .monthAction {
+        min-width: 48px;
         height: 28px;
         padding: 0 8px;
         font-size: 9px;
         letter-spacing: 0.6px;
     }
-    .monthControls { gap: 6px; }
+    .monthAdd { font-size: 14px; }
+    .monthTitleWrap { gap: 6px; }
+    .monthPopover {
+        right: 10px;
+        bottom: 10px;
+        width: min(240px, 90%);
+    }
     .weekdayRow { font-size: 8px; gap: 1px; }
     .monthGrid {
         gap: 3px;

@@ -6,6 +6,12 @@ $user = $userId ? candor_user_row($userId) : null;
 $name = $user['display_name'] ?? ($user['username'] ?? '');
 $email = $user['email'] ?? '';
 $authed = $userId && $user;
+$candorMeta = 'updates';
+$candorLead = '';
+$candorAuthed = $authed;
+$candorName = $name !== '' ? $name : $email;
+$candorShowMyOs = $authed;
+$candorVersion = 'v0.2';
 ?>
 <!doctype html>
 <html lang="en">
@@ -28,26 +34,7 @@ $authed = $userId && $user;
 <body class="is-updates">
 
 <div class="page">
-    <header class="nav">
-        <a class="brand brandLink" href="https://candor.you/">
-            <div class="logo"><span class="logoGlyph">C</span></div>
-            <div class="brandText">
-                <div class="brandTitle"><span class="brandName">Candor</span></div>
-                <div class="meta minimal">updates</div>
-            </div>
-        </a>
-
-        <div class="actions">
-            <?php if ($authed): ?>
-                <span class="welcome">Welcome, <a class="accountLink" href="https://account.candor.you/"><?= htmlspecialchars($name !== '' ? $name : $email) ?></a></span>
-                <a class="btn primary" href="https://do.candor.you/">My OS</a>
-                <a class="btn accent" href="https://account.candor.you/login/signout.php">Sign out</a>
-            <?php else: ?>
-                <a class="btn primary" href="https://account.candor.you/login/signin.php">Sign in</a>
-                <a class="btn accent" href="https://account.candor.you/login/signup.php">Create account</a>
-            <?php endif; ?>
-        </div>
-    </header>
+    <?php require '/var/www/gangdev/candor/files/php/nav.php'; ?>
 
     <section class="hero">
         <div class="heroText">
@@ -69,9 +56,12 @@ $authed = $userId && $user;
                     <h3>Create cadence + sleep structure</h3>
                     <ul class="updateList">
                         <li>Create now centers on routines with child tasks and inline schedule lines.</li>
+                        <li>Routine tasks now track estimated minutes for total duration.</li>
                         <li>Week template expands to show routines and repeat tasks by day.</li>
                         <li>Sleep schedule inputs now support minute-level entry.</li>
                         <li>New repeat-task plus keeps weekly chores in the cadence builder.</li>
+                        <li>Month header adds a plan-ahead button with date picking.</li>
+                        <li>Tap a selected day again to see extra items without repeats.</li>
                         <li>Timeline windows align to the slot line and stack flush when overlapping.</li>
                         <li>Time selectors respect your clock preference across My OS and Create.</li>
                         <li>Mobile month grid tuned to keep the daily timeline visible with larger date bubbles.</li>
@@ -125,10 +115,7 @@ $authed = $userId && $user;
         </div>
     </section>
 
-    <footer class="footer">
-        <a class="footLink" href="https://candor.you/"><span class="footStrong">Candor</span> v0.2</a>
-        <a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
-    </footer>
+    <?php require '/var/www/gangdev/candor/files/php/footer.php'; ?>
 </div>
 
 </body>

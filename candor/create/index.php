@@ -8,6 +8,12 @@ $user = $userId ? candor_user_row($userId) : null;
 $name = $user['display_name'] ?? ($user['username'] ?? '');
 $email = $user['email'] ?? '';
 $cookieKey = 'candor_time_format_' . $userId;
+$candorMeta = 'create';
+$candorLead = '';
+$candorAuthed = true;
+$candorName = $name !== '' ? $name : $email;
+$candorShowMyOs = true;
+$candorVersion = 'v0.2';
 ?>
 <!doctype html>
 <html lang="en">
@@ -31,21 +37,7 @@ $cookieKey = 'candor_time_format_' . $userId;
 <body class="is-create" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>">
 
 <div class="page">
-	<header class="nav">
-		<a class="brand brandLink" href="https://candor.you/">
-			<div class="logo"><span class="logoGlyph">C</span></div>
-			<div class="brandText">
-				<div class="brandTitle"><span class="brandName">Candor</span></div>
-				<div class="meta minimal">create</div>
-			</div>
-		</a>
-
-		<div class="actions">
-			<span class="welcome">Welcome, <a class="accountLink" href="https://account.candor.you/"><?= htmlspecialchars($name !== '' ? $name : $email) ?></a></span>
-			<a class="btn primary" href="https://do.candor.you/">My OS</a>
-			<a class="btn accent" href="https://account.candor.you/login/signout.php">Sign out</a>
-		</div>
-	</header>
+	<?php require '/var/www/gangdev/candor/files/php/nav.php'; ?>
 
 	<section class="hero">
 		<div class="heroCopy">
@@ -108,40 +100,47 @@ $cookieKey = 'candor_time_format_' . $userId;
 					<h2>Routines</h2>
 					<span class="cardHint">Build reusable stacks with child tasks.</span>
 				</div>
-				<form class="formGrid routineForm" data-routine-form>
-					<div class="field">
-						<label class="label" for="routine-title">Routine</label>
-						<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Morning reset" required>
-					</div>
-					<div class="field">
-						<label class="label" for="routine-time">Time (optional)</label>
-						<input class="input compact" id="routine-time" type="time" name="time" step="60">
-					</div>
-					<div class="field">
-						<label class="label" for="routine-repeat">Repeat</label>
-						<select class="input compact select" id="routine-repeat" name="repeat" data-routine-repeat>
-							<option value="daily">Daily</option>
-							<option value="weekdays">Weekdays</option>
-							<option value="weekends">Weekends</option>
-							<option value="day">Specific day</option>
-						</select>
-					</div>
-					<div class="field" data-routine-day-field>
-						<label class="label" for="routine-day">Day</label>
-						<select class="input compact select" id="routine-day" name="day">
-							<option value="0">Sunday</option>
-							<option value="1">Monday</option>
-							<option value="2">Tuesday</option>
-							<option value="3">Wednesday</option>
-							<option value="4">Thursday</option>
-							<option value="5">Friday</option>
-							<option value="6">Saturday</option>
-						</select>
-					</div>
-					<div class="field fieldWide">
-						<label class="label">Routine tasks</label>
-						<div class="taskStack" data-routine-tasks></div>
-						<button class="btn ghost mini" type="button" data-routine-add-task>+ Task</button>
+				<form class="routineForm" data-routine-form>
+					<div class="routineGrid">
+						<div class="routineTasks">
+							<div class="taskHeader">
+								<span class="label">Tasks</span>
+								<button class="btn ghost mini" type="button" data-routine-add-task>+</button>
+							</div>
+							<div class="taskStack" data-routine-tasks></div>
+							<div class="routineTotal" data-routine-total>Estimated: 0 min</div>
+						</div>
+						<div class="routineMeta">
+							<div class="field">
+								<label class="label" for="routine-title">Routine</label>
+								<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Morning reset" required>
+							</div>
+							<div class="field">
+								<label class="label" for="routine-time">Start time</label>
+								<input class="input compact" id="routine-time" type="time" name="time" step="60">
+							</div>
+							<div class="field">
+								<label class="label" for="routine-repeat">Repeat</label>
+								<select class="input compact select" id="routine-repeat" name="repeat" data-routine-repeat>
+									<option value="daily">Daily</option>
+									<option value="weekdays">Weekdays</option>
+									<option value="weekends">Weekends</option>
+									<option value="day">Specific day</option>
+								</select>
+							</div>
+							<div class="field" data-routine-day-field>
+								<label class="label" for="routine-day">Day</label>
+								<select class="input compact select" id="routine-day" name="day">
+									<option value="0">Sunday</option>
+									<option value="1">Monday</option>
+									<option value="2">Tuesday</option>
+									<option value="3">Wednesday</option>
+									<option value="4">Thursday</option>
+									<option value="5">Friday</option>
+									<option value="6">Saturday</option>
+								</select>
+							</div>
+						</div>
 					</div>
 					<div class="formActions">
 						<button class="btn primary" type="submit">Add routine</button>
@@ -280,10 +279,7 @@ $cookieKey = 'candor_time_format_' . $userId;
 		</div>
 	</div>
 
-	<div class="footer">
-		<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.2</a>
-		<a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
-	</div>
+	<?php require '/var/www/gangdev/candor/files/php/footer.php'; ?>
 </div>
 
 </body>

@@ -33,6 +33,12 @@ $consent = !empty($profile['consent_health']);
 $cookieKey = 'candor_time_format_' . $userId;
 $timeFormat = $_COOKIE[$cookieKey] ?? '24';
 $timeFormat = $timeFormat === '12' ? '12' : '24';
+$candorMeta = 'personal OS';
+$candorLead = 'your';
+$candorAuthed = true;
+$candorName = $name !== '' ? $name : $email;
+$candorShowMyOs = false;
+$candorVersion = 'v0.2';
 ?>
 <!doctype html>
 <html lang="en">
@@ -56,20 +62,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 <body class="is-do" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-user-name="<?= htmlspecialchars($name !== '' ? $name : $email) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>">
 
 <div class="page">
-	<header class="nav">
-		<a class="brand brandLink" href="https://candor.you/">
-			<div class="logo"><span class="logoGlyph">C</span></div>
-			<div class="brandText">
-				<div class="brandTitle"><span class="brandLead">your</span><span class="brandName">Candor</span></div>
-				<div class="meta minimal">personal OS</div>
-			</div>
-		</a>
-
-		<div class="actions">
-			<span class="welcome">Welcome, <a class="accountLink" href="https://account.candor.you/"><?= htmlspecialchars($name !== '' ? $name : $email) ?></a></span>
-			<a class="btn accent" href="https://account.candor.you/login/signout.php">Sign out</a>
-		</div>
-	</header>
+	<?php require '/var/www/gangdev/candor/files/php/nav.php'; ?>
 
 	<section class="calendarShell">
 		<div class="calendarPanel dayPanel">
@@ -155,12 +148,13 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 
 		<div class="calendarPanel monthPanel">
 			<div class="monthHeader">
-				<button class="monthNav" type="button" data-month-nav="prev" aria-label="Previous month">&lsaquo;</button>
-				<div class="monthTitle" data-month-title></div>
-				<div class="monthControls">
-					<button class="monthToday" type="button" data-month-nav="today">Today</button>
+				<button class="monthAction monthToday" type="button" data-month-nav="today">Today</button>
+				<div class="monthTitleWrap">
+					<button class="monthNav" type="button" data-month-nav="prev" aria-label="Previous month">&lsaquo;</button>
+					<div class="monthTitle" data-month-title></div>
 					<button class="monthNav" type="button" data-month-nav="next" aria-label="Next month">&rsaquo;</button>
 				</div>
+				<button class="monthAction monthAdd" type="button" data-month-add aria-label="Plan ahead">+</button>
 			</div>
 			<div class="weekdayRow">
 				<span>Sun</span>
@@ -172,13 +166,17 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 				<span>Sat</span>
 			</div>
 			<div class="monthGrid" data-month-grid></div>
+			<div class="monthPopover" data-month-popover>
+				<div class="monthPopoverHead">
+					<div class="monthPopoverTitle" data-popover-title></div>
+					<button class="iconBtn" type="button" data-popover-close aria-label="Close">&times;</button>
+				</div>
+				<div class="monthPopoverList" data-popover-list></div>
+			</div>
 		</div>
 	</section>
 
-	<div class="footer">
-		<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.2</a>
-		<a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
-	</div>
+	<?php require '/var/www/gangdev/candor/files/php/footer.php'; ?>
 </div>
 
 <div class="createOverlay" data-create-overlay>
@@ -235,6 +233,11 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 			<div class="createField" data-kind="window,event" data-event-time>
 				<label class="label" for="create-end-time">End time (optional)</label>
 				<select class="input compact select" id="create-end-time" name="end_time" data-time-select data-time-empty="End"></select>
+			</div>
+
+			<div class="createField" data-create-date-field>
+				<label class="label" for="create-date">Date</label>
+				<input class="input compact" id="create-date" type="date" data-create-date-picker>
 			</div>
 
 			<div class="createMeta">
@@ -309,7 +312,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 									<span class="unitBadge">ft</span>
 								</div>
 								<div class="rangeValue">
-									<input class="input compact" id="profile-height-in" type="number" name="height_in" min="0" max="11" inputmode="numeric" value="<?= htmlspecialchars((string)$heightIn) ?>">
+									<input class="input compact" id="profile-height-in" type="number" name="height_in" min="0" max="11" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$heightIn) ?>">
 									<span class="unitBadge">in</span>
 								</div>
 							</div>

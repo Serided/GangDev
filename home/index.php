@@ -49,11 +49,17 @@
             <div class="columns two">
                 <div class="mods sect">
                     <h2>Products</h2>
-                    <p class="desc">
-                        <a href="https://candor.you/">- Candor -</a><br>
-                        <a href="https://dcops.co/">- DCOPS -</a><br>
-                        <a href="https://inspectre.link/">- inspectre -</a><br>
-                    </p>
+                    <div class="cont">
+                        <div class="link">
+                            <a href="https://candor.you/">- Candor -<br><span class="sub">Personal OS for tasks, notes, routines, and a daily timeline.</span></a>
+                        </div>
+                        <div class="link">
+                            <a href="https://dcops.co/">- DCOPS -<br><span class="sub">Automation and ops tooling for clean execution.</span></a>
+                        </div>
+                        <div class="link">
+                            <a href="https://inspectre.link/">- inspectre -<br><span class="sub">Instant browser tweaking for demos, mockups, and satire.</span></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="games sect">
                     <h2>Labs</h2>

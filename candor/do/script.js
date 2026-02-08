@@ -332,6 +332,11 @@
         const taskRail = calendarRoot.querySelector("[data-task-rail]");
         const noteRail = calendarRoot.querySelector("[data-note-rail]");
         const daySchedule = calendarRoot.querySelector("[data-day-schedule]");
+        const monthPopover = calendarRoot.querySelector("[data-month-popover]");
+        const popoverTitle = calendarRoot.querySelector("[data-popover-title]");
+        const popoverList = calendarRoot.querySelector("[data-popover-list]");
+        const popoverClose = calendarRoot.querySelector("[data-popover-close]");
+        let popoverDateKey = "";
 
         const now = new Date();
         const stateCal = {
@@ -655,7 +660,7 @@
                 const core = document.createElement("a");
                 core.className = "chip coreChip";
                 core.href = "https://create.candor.you/";
-                core.textContent = "Create base schedule";
+                core.textContent = "Create core schedule";
                 taskRail.appendChild(core);
             }
             if (tasks.length === 0) {
@@ -846,6 +851,88 @@
             }
         };
 
+        const closePopover = () => {
+            if (!monthPopover) return;
+            monthPopover.classList.remove("is-open");
+            popoverDateKey = "";
+        };
+
+        const renderPopover = (key) => {
+            if (!monthPopover || !popoverTitle || !popoverList) return;
+            const date = parseKey(key);
+            popoverTitle.textContent = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+            popoverList.innerHTML = "";
+
+            const items = [];
+            const tasks = state.tasks.filter((task) => task.date === key);
+            tasks.forEach((task) => {
+                items.push({
+                    type: "Task",
+                    text: task.text,
+                    time: task.time,
+                    duration: task.duration,
+                });
+            });
+
+            const windows = state.windows.filter((item) => item.date === key);
+            windows.forEach((item) => {
+                items.push({
+                    type: item.kind === "event" ? "Event" : "Window",
+                    text: item.text,
+                    time: item.start,
+                    duration: null,
+                });
+            });
+
+            const birthdayEvent = birthdayEventFor(date);
+            if (birthdayEvent) {
+                items.push({
+                    type: "Event",
+                    text: birthdayEvent.text,
+                    time: "00:00",
+                    duration: null,
+                });
+            }
+
+            items.sort((a, b) => {
+                const aTime = parseMinutes(a.time) ?? 9999;
+                const bTime = parseMinutes(b.time) ?? 9999;
+                if (aTime !== bTime) return aTime - bTime;
+                return a.text.localeCompare(b.text);
+            });
+
+            if (items.length === 0) {
+                const empty = document.createElement("div");
+                empty.className = "railEmpty";
+                empty.textContent = "No extra items yet.";
+                popoverList.appendChild(empty);
+            } else {
+                items.forEach((item) => {
+                    const row = document.createElement("div");
+                    row.className = "monthPopoverItem";
+
+                    const type = document.createElement("div");
+                    type.className = "itemType";
+                    type.textContent = item.type;
+
+                    const text = document.createElement("div");
+                    text.className = "itemText";
+                    const meta = [];
+                    if (item.time) meta.push(formatTime(item.time));
+                    if (item.duration) meta.push(`${item.duration}m`);
+                    const metaText = meta.length ? ` (${meta.join(" ")})` : "";
+                    text.textContent = `${item.text}${metaText}`;
+
+                    row.appendChild(type);
+                    row.appendChild(text);
+                    popoverList.appendChild(row);
+                });
+            }
+
+            monthPopover.classList.add("is-open");
+            popoverDateKey = key;
+        };
+
         const renderAll = (autoScroll) => {
             renderDayHeader();
             renderDayGrid(autoScroll);
@@ -864,6 +951,7 @@
                     stateCal.viewMonth = fresh.getMonth();
                     stateCal.selected = new Date(fresh.getFullYear(), fresh.getMonth(), fresh.getDate());
                     renderAll(true);
+                    closePopover();
                     return;
                 }
                 stateCal.viewMonth += dir === "next" ? 1 : -1;
@@ -879,16 +967,40 @@
                 const safeDay = Math.min(stateCal.selected.getDate(), daysInView);
                 stateCal.selected = new Date(stateCal.viewYear, stateCal.viewMonth, safeDay);
                 renderAll(true);
+                closePopover();
                 return;
             }
 
             const cell = event.target.closest(".monthCell");
             if (!cell || !cell.dataset.date) return;
             const nextDate = parseKey(cell.dataset.date);
+            const key = cell.dataset.date;
+            if (isSameDay(nextDate, stateCal.selected)) {
+                if (popoverDateKey === key) {
+                    closePopover();
+                } else {
+                    renderPopover(key);
+                }
+                return;
+            }
             stateCal.selected = nextDate;
             stateCal.viewYear = nextDate.getFullYear();
             stateCal.viewMonth = nextDate.getMonth();
             renderAll(true);
+            closePopover();
+        });
+
+        if (popoverClose) {
+            popoverClose.addEventListener("click", closePopover);
+        }
+
+        document.addEventListener("click", (event) => {
+            if (!monthPopover || !monthPopover.classList.contains("is-open")) return;
+            if (event.target.closest(".monthPopover")) return;
+            if (event.target.closest(".monthCell")) return;
+            if (event.target.closest("[data-month-nav]")) return;
+            if (event.target.closest("[data-month-add]")) return;
+            closePopover();
         });
 
         calendarApi = {
@@ -923,6 +1035,9 @@
     const createEventTime = overlay ? overlay.querySelectorAll("[data-event-time]") : [];
     const createDateLabel = overlay ? overlay.querySelector("[data-create-date]") : null;
     const createDateInput = overlay ? overlay.querySelector("[data-create-date-input]") : null;
+    const createDateField = overlay ? overlay.querySelector("[data-create-date-field]") : null;
+    const createDatePicker = overlay ? overlay.querySelector("[data-create-date-picker]") : null;
+    const createMeta = overlay ? overlay.querySelector(".createMeta") : null;
 
     const updateEventTimeVisibility = () => {
         if (!createEventTime || createEventTime.length === 0) return;
@@ -951,16 +1066,30 @@
         updateEventTimeVisibility();
     };
 
-    const openCreate = (kind) => {
-        if (!overlay) return;
-        const selectedKey = calendarApi ? calendarApi.getSelectedKey() : dateKey(new Date());
+    const setCreateDate = (key) => {
+        if (!key) return;
+        if (createDateInput) createDateInput.value = key;
+        if (createDatePicker) createDatePicker.value = key;
         if (createDateLabel) {
-            const date = parseKey(selectedKey);
+            const date = parseKey(key);
             createDateLabel.textContent = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
         }
-        if (createDateInput) {
-            createDateInput.value = selectedKey;
+    };
+
+    const setCreateDateMode = (allowPick) => {
+        if (createDateField) {
+            createDateField.style.display = allowPick ? "grid" : "none";
         }
+        if (createMeta) {
+            createMeta.style.display = allowPick ? "none" : "flex";
+        }
+    };
+
+    const openCreate = (kind, options = {}) => {
+        if (!overlay) return;
+        const selectedKey = options.dateKey || (calendarApi ? calendarApi.getSelectedKey() : dateKey(new Date()));
+        setCreateDate(selectedKey);
+        setCreateDateMode(Boolean(options.allowDatePick));
         if (createTitle) createTitle.value = "";
         if (createNote) createNote.value = "";
         if (createTime) createTime.value = "";
@@ -970,7 +1099,7 @@
             createColor.value = createColor.dataset.default;
         }
         if (createAllDay) createAllDay.checked = false;
-        const safeKind = ["task", "note", "window"].includes(kind) ? kind : "task";
+        const safeKind = ["task", "note", "window", "event"].includes(kind) ? kind : "task";
         setCreateKind(safeKind);
         overlay.classList.add("is-open");
         if (createTitle) createTitle.focus();
@@ -989,6 +1118,12 @@
             return;
         }
 
+        const monthAdd = event.target.closest("[data-month-add]");
+        if (monthAdd) {
+            openCreate("task", { allowDatePick: true });
+            return;
+        }
+
         const closeBtn = event.target.closest("[data-create-close]");
         if (closeBtn) {
             closeCreate();
@@ -999,6 +1134,7 @@
             closeCreate();
         }
     });
+
 
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
@@ -1017,6 +1153,14 @@
                 const kind = createKind ? createKind.value : "";
                 const isEvent = kind === "event";
                 createTime.required = kind === "window" || (isEvent && !createAllDay.checked);
+            }
+        });
+    }
+
+    if (createDatePicker) {
+        createDatePicker.addEventListener("change", () => {
+            if (createDatePicker.value) {
+                setCreateDate(createDatePicker.value);
             }
         });
     }

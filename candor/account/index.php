@@ -41,6 +41,12 @@ $consent = !empty($profile['consent_health']);
 $cookieKey = 'candor_time_format_' . $userId;
 $timeFormat = $_COOKIE[$cookieKey] ?? '24';
 $timeFormat = $timeFormat === '12' ? '12' : '24';
+$candorMeta = 'account';
+$candorLead = '';
+$candorAuthed = true;
+$candorName = $name !== '' ? $name : $email;
+$candorShowMyOs = true;
+$candorVersion = 'v0.2';
 ?>
 <!doctype html>
 <html lang="en">
@@ -65,23 +71,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 
         <div class="page">
 
-            <div class="top">
-            <a class="brand brandLink" href="https://candor.you/">
-                <div class="brandMark"><span class="logoGlyph">C</span></div>
-                <div class="brandText">
-                    <div class="brandTitle"><span class="brandName">Candor</span></div>
-                    <div class="meta minimal">account</div>
-                </div>
-            </a>
-
-                <div class="topActions">
-                    <span class="welcome">Welcome, <a class="accountLink" href="https://account.candor.you/"><?= htmlspecialchars($name !== '' ? $name : $email) ?></a></span>
-                    <a class="btn primary" href="https://do.candor.you/">My OS</a>
-                    <form method="post" action="/login/signout.php">
-                        <button type="submit" class="btn accent">Sign out</button>
-                    </form>
-                </div>
-            </div>
+            <?php require '/var/www/gangdev/candor/files/php/nav.php'; ?>
 
             <section class="accountLayout">
                 <div class="card heroCard">
@@ -158,7 +148,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 											<span class="unitBadge">ft</span>
 										</div>
 										<div class="rangeValue">
-											<input class="input compact" id="account-height-in" type="number" name="height_in" min="0" max="11" inputmode="numeric" value="<?= htmlspecialchars((string)$heightIn) ?>">
+											<input class="input compact" id="account-height-in" type="number" name="height_in" min="0" max="11" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$heightIn) ?>">
 											<span class="unitBadge">in</span>
 										</div>
 									</div>
@@ -197,10 +187,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 				</div>
             </section>
 
-			<div class="footer">
-				<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.2</a>
-				<a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
-			</div>
+			<?php require '/var/www/gangdev/candor/files/php/footer.php'; ?>
 
         </div>
 

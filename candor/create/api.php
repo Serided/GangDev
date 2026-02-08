@@ -56,11 +56,22 @@ function clean_time($value) {
 
 function clean_tasks($value) {
 	$items = [];
+	$push = function ($title, $minutes = null) use (&$items) {
+		$clean = clean_text($title, 120);
+		if ($clean === '') return;
+		$mins = is_numeric($minutes) ? (int)$minutes : null;
+		if ($mins !== null && $mins <= 0) {
+			$mins = null;
+		}
+		$items[] = ['title' => $clean, 'minutes' => $mins];
+	};
+
 	if (is_array($value)) {
 		foreach ($value as $item) {
-			$clean = clean_text($item, 120);
-			if ($clean !== '') {
-				$items[] = $clean;
+			if (is_array($item)) {
+				$push($item['title'] ?? ($item['text'] ?? ''), $item['minutes'] ?? ($item['duration'] ?? null));
+			} else {
+				$push($item, null);
 			}
 			if (count($items) >= 24) break;
 		}
@@ -72,24 +83,14 @@ function clean_tasks($value) {
 	if ($raw[0] === '[') {
 		$decoded = json_decode($raw, true);
 		if (is_array($decoded)) {
-			foreach ($decoded as $item) {
-				$clean = clean_text($item, 120);
-				if ($clean !== '') {
-					$items[] = $clean;
-				}
-				if (count($items) >= 24) break;
-			}
-			return $items;
+			return clean_tasks($decoded);
 		}
 	}
 
 	$parts = preg_split('/[\r\n,]+/', $raw);
 	if (!$parts) return [];
 	foreach ($parts as $part) {
-		$clean = clean_text($part, 120);
-		if ($clean !== '') {
-			$items[] = $clean;
-		}
+		$push($part, null);
 		if (count($items) >= 24) break;
 	}
 	return $items;
@@ -184,9 +185,17 @@ if ($action === 'load') {
 			$decoded = json_decode((string)$row['tasks_json'], true);
 			if (is_array($decoded)) {
 				foreach ($decoded as $item) {
-					$clean = clean_text($item, 120);
-					if ($clean !== '') {
-						$tasks[] = $clean;
+					if (is_array($item)) {
+						$title = clean_text($item['title'] ?? ($item['text'] ?? ''), 120);
+						if ($title === '') continue;
+						$minutes = isset($item['minutes']) && is_numeric($item['minutes']) ? (int)$item['minutes'] : null;
+						if ($minutes !== null && $minutes <= 0) $minutes = null;
+						$tasks[] = ['title' => $title, 'minutes' => $minutes];
+					} else {
+						$clean = clean_text($item, 120);
+						if ($clean !== '') {
+							$tasks[] = ['title' => $clean, 'minutes' => null];
+						}
 					}
 				}
 			}
@@ -322,9 +331,17 @@ if ($action === 'add_routine') {
 		$decoded = json_decode((string)$row['tasks_json'], true);
 		if (is_array($decoded)) {
 			foreach ($decoded as $item) {
-				$clean = clean_text($item, 120);
-				if ($clean !== '') {
-					$tasksOut[] = $clean;
+				if (is_array($item)) {
+					$title = clean_text($item['title'] ?? ($item['text'] ?? ''), 120);
+					if ($title === '') continue;
+					$minutes = isset($item['minutes']) && is_numeric($item['minutes']) ? (int)$item['minutes'] : null;
+					if ($minutes !== null && $minutes <= 0) $minutes = null;
+					$tasksOut[] = ['title' => $title, 'minutes' => $minutes];
+				} else {
+					$clean = clean_text($item, 120);
+					if ($clean !== '') {
+						$tasksOut[] = ['title' => $clean, 'minutes' => null];
+					}
 				}
 			}
 		}

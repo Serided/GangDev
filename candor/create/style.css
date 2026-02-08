@@ -317,7 +317,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .builderRow.is-top {
-    grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr);
+    grid-template-columns: minmax(0, 0.35fr) minmax(0, 1.65fr);
 }
 
 .builderRow.is-full {
@@ -336,7 +336,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .savedScroll {
-    max-height: clamp(70px, 16vh, 140px);
+    max-height: clamp(60px, 14vh, 120px);
     overflow-y: auto;
     scrollbar-gutter: stable;
     padding-right: 2px;
@@ -365,6 +365,11 @@ a { color: inherit; text-decoration: none; }
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 6px;
+}
+
+.scheduleCard .formGrid {
+    max-width: 240px;
+    width: 100%;
 }
 
 .routineForm {
@@ -397,13 +402,13 @@ a { color: inherit; text-decoration: none; }
 }
 
 .input.compact {
-    padding: 9px 10px;
-    font-size: 12px;
+    padding: 7px 8px;
+    font-size: 11px;
     border-radius: 10px;
 }
 
 .btn.mini {
-    min-height: 28px;
+    min-height: 26px;
     padding: 0 10px;
     font-size: 11px;
     border-radius: 999px;
@@ -415,6 +420,40 @@ a { color: inherit; text-decoration: none; }
     gap: 4px;
 }
 
+.sleepSummary .itemRow {
+    padding: 6px 8px;
+    font-size: 11px;
+}
+
+.routineForm {
+    display: grid;
+    gap: 10px;
+}
+
+.routineGrid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 10px;
+    align-items: start;
+}
+
+.routineTasks {
+    display: grid;
+    gap: 6px;
+}
+
+.routineMeta {
+    display: grid;
+    gap: 8px;
+}
+
+.taskHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
 .taskStack {
     display: grid;
     gap: 6px;
@@ -422,9 +461,13 @@ a { color: inherit; text-decoration: none; }
 
 .taskRow {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) 64px auto;
     gap: 6px;
     align-items: center;
+}
+
+.taskMinutes {
+    text-align: center;
 }
 
 .taskRemove {
@@ -432,14 +475,20 @@ a { color: inherit; text-decoration: none; }
     background: rgba(11, 18, 32, 0.04);
     color: var(--ink-soft);
     border-radius: 10px;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     font-size: 16px;
     cursor: pointer;
 }
 
 .taskRemove:hover {
     background: rgba(11, 18, 32, 0.08);
+}
+
+.routineTotal {
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-align: right;
 }
 
 .input:focus {
@@ -647,7 +696,6 @@ a { color: inherit; text-decoration: none; }
     display: flex;
     flex-direction: column;
     min-height: 0;
-    padding-bottom: 68px;
 }
 
 .weekAdd {
@@ -666,8 +714,8 @@ a { color: inherit; text-decoration: none; }
     place-items: center;
     line-height: 1;
     position: absolute;
-    right: 16px;
-    bottom: 16px;
+    right: 12px;
+    bottom: 12px;
     box-shadow: 0 12px 24px rgba(230, 160, 106, 0.35);
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
 }
@@ -843,8 +891,11 @@ a { color: inherit; text-decoration: none; }
         justify-content: flex-end;
         gap: 8px;
     }
-    .routineForm {
+    .routineGrid {
         grid-template-columns: 1fr;
+    }
+    .routineTotal {
+        text-align: left;
     }
     .weekGrid {
         gap: 2px;

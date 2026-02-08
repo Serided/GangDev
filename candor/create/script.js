@@ -121,7 +121,18 @@
 
     const normalizeRoutineTasks = (value) => {
         if (Array.isArray(value)) {
-            return value.map((item) => normalizeText(item)).filter((item) => item !== "");
+            return value.map((item) => {
+                if (typeof item === "string") {
+                    return { title: normalizeText(item), minutes: null };
+                }
+                if (item && typeof item === "object") {
+                    const title = normalizeText(item.title ?? item.text ?? "");
+                    const minutesRaw = item.minutes ?? item.duration ?? item.time;
+                    const minutes = Number.isFinite(parseInt(minutesRaw, 10)) ? parseInt(minutesRaw, 10) : null;
+                    return { title, minutes };
+                }
+                return null;
+            }).filter((item) => item && item.title !== "");
         }
         if (typeof value === "string") {
             const trimmed = value.trim();
@@ -130,13 +141,13 @@
                 try {
                     const parsed = JSON.parse(trimmed);
                     if (Array.isArray(parsed)) {
-                        return parsed.map((item) => normalizeText(item)).filter((item) => item !== "");
+                        return normalizeRoutineTasks(parsed);
                     }
                 } catch {
-                    return splitList(trimmed);
+                    return splitList(trimmed).map((item) => ({ title: item, minutes: null }));
                 }
             }
-            return splitList(trimmed);
+            return splitList(trimmed).map((item) => ({ title: item, minutes: null }));
         }
         return [];
     };
@@ -155,6 +166,14 @@
             repeat,
             day: Number.isFinite(parsedDay) ? parsedDay : null,
         };
+    };
+
+    const routineDuration = (routine) => {
+        if (!routine || !Array.isArray(routine.tasks)) return 0;
+        return routine.tasks.reduce((sum, task) => {
+            const minutes = Number.isFinite(task.minutes) ? task.minutes : 0;
+            return sum + minutes;
+        }, 0);
     };
 
     const splitRules = () => {
@@ -326,7 +345,8 @@
             const time = routine.time ? formatTime(routine.time) : "Anytime";
             const repeat = formatRepeatRule(routine.repeat, routine.day);
             const tasks = Array.isArray(routine.tasks) ? routine.tasks : [];
-            const detail = tasks.length ? `${tasks.length} tasks` : "No tasks";
+            const total = routineDuration(routine);
+            const detail = total > 0 ? `${total} min` : (tasks.length ? `${tasks.length} tasks` : "No tasks");
             meta.textContent = `${time} - ${repeat} - ${detail}`;
 
             text.appendChild(title);
@@ -368,6 +388,7 @@
                 type: "routine",
                 title: routine.title || "Routine",
                 time: routine.time,
+                duration: routineDuration(routine),
             });
         });
         state.tasks.forEach((rule) => {
@@ -405,12 +426,16 @@
 
                 row.appendChild(title);
 
+                const time = document.createElement("div");
+                time.className = "weekItemTime";
                 if (item.time) {
-                    const time = document.createElement("div");
-                    time.className = "weekItemTime";
                     time.textContent = formatTime(item.time);
-                    row.appendChild(time);
+                } else if (item.duration) {
+                    time.textContent = `${item.duration}m`;
+                } else {
+                    time.textContent = "";
                 }
+                row.appendChild(time);
 
                 list.appendChild(row);
             });
@@ -579,9 +604,16 @@
             const time = normalizeText(formData.get("time"));
             const repeat = normalizeText(formData.get("repeat")) || "daily";
             const day = normalizeText(formData.get("day"));
-            const tasks = Array.from(routineForm.querySelectorAll('input[name="task[]"]'))
-                .map((input) => normalizeText(input.value))
-                .filter((value) => value !== "");
+            const tasks = Array.from(routineForm.querySelectorAll("[data-task-row]"))
+                .map((row) => {
+                    const titleField = row.querySelector("[data-task-title]");
+                    const minutesField = row.querySelector("[data-task-minutes]");
+                    const taskTitle = normalizeText(titleField ? titleField.value : "");
+                    const rawMinutes = minutesField ? parseInt(minutesField.value, 10) : NaN;
+                    const minutes = Number.isFinite(rawMinutes) && rawMinutes > 0 ? rawMinutes : null;
+                    return taskTitle ? { title: taskTitle, minutes } : null;
+                })
+                .filter((item) => item && item.title !== "");
             addRoutine({
                 action: "add_routine",
                 title,
@@ -600,25 +632,40 @@
 
     const routineTaskStack = document.querySelector("[data-routine-tasks]");
     const routineAddTask = document.querySelector("[data-routine-add-task]");
+    const routineTotal = document.querySelector("[data-routine-total]");
 
-    const buildRoutineTaskRow = (value = "") => {
+    const buildRoutineTaskRow = (task = {}) => {
         const row = document.createElement("div");
         row.className = "taskRow";
+        row.dataset.taskRow = "true";
 
         const input = document.createElement("input");
         input.className = "input compact";
         input.type = "text";
-        input.name = "task[]";
         input.placeholder = "Task";
-        input.value = value;
+        input.dataset.taskTitle = "true";
+        input.value = task.title || "";
+
+        const minutes = document.createElement("input");
+        minutes.className = "input compact taskMinutes";
+        minutes.type = "number";
+        minutes.inputMode = "numeric";
+        minutes.min = "1";
+        minutes.step = "1";
+        minutes.placeholder = "Min";
+        minutes.dataset.taskMinutes = "true";
+        if (Number.isFinite(task.minutes)) {
+            minutes.value = String(task.minutes);
+        }
 
         const remove = document.createElement("button");
         remove.type = "button";
         remove.className = "taskRemove";
         remove.dataset.routineTaskRemove = "true";
-        remove.textContent = "×";
+        remove.textContent = "x";
 
         row.appendChild(input);
+        row.appendChild(minutes);
         row.appendChild(remove);
         return row;
     };
@@ -634,12 +681,34 @@
         if (!routineTaskStack) return;
         routineTaskStack.innerHTML = "";
         ensureRoutineTaskRow();
+        updateRoutineTotal();
+    };
+
+    const updateRoutineTotal = () => {
+        if (!routineTotal || !routineTaskStack) return;
+        const rows = Array.from(routineTaskStack.querySelectorAll("[data-task-row]"));
+        const total = rows.reduce((sum, row) => {
+            const minutesField = row.querySelector("[data-task-minutes]");
+            const value = minutesField ? parseInt(minutesField.value, 10) : NaN;
+            if (!Number.isFinite(value) || value <= 0) return sum;
+            return sum + value;
+        }, 0);
+        routineTotal.textContent = `Estimated: ${total || 0} min`;
     };
 
     if (routineAddTask) {
         routineAddTask.addEventListener("click", () => {
             if (!routineTaskStack) return;
             routineTaskStack.appendChild(buildRoutineTaskRow());
+            updateRoutineTotal();
+        });
+    }
+
+    if (routineTaskStack) {
+        routineTaskStack.addEventListener("input", (event) => {
+            if (event.target && event.target.matches("[data-task-title], [data-task-minutes]")) {
+                updateRoutineTotal();
+            }
         });
     }
 
@@ -652,9 +721,13 @@
             if (rows.length <= 1) {
                 const input = row.querySelector("input");
                 if (input) input.value = "";
+                const minutes = row.querySelector("[data-task-minutes]");
+                if (minutes) minutes.value = "";
+                updateRoutineTotal();
                 return;
             }
             row.remove();
+            updateRoutineTotal();
             return;
         }
         const removeBtn = event.target.closest("[data-remove-id]");
@@ -714,6 +787,7 @@
         initRepeatSelects();
         refreshTimeSelects();
         ensureRoutineTaskRow();
+        updateRoutineTotal();
         try {
             await loadRemote();
         } catch {
