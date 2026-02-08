@@ -93,6 +93,22 @@ function planned_value($type) {
 	return 'planned';
 }
 
+function ensure_schedule_rules_table(PDO $pdo) {
+	$pdo->exec("
+		CREATE TABLE IF NOT EXISTS candor.schedule_rules (
+			id BIGSERIAL PRIMARY KEY,
+			user_id INTEGER NOT NULL,
+			kind VARCHAR(32) NOT NULL,
+			title TEXT,
+			start_time TIME,
+			end_time TIME,
+			repeat_rule VARCHAR(16) NOT NULL,
+			day_of_week SMALLINT,
+			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
+		)
+	");
+}
+
 if ($action === 'load') {
 	$taskStatusType = column_type($pdo, 'tasks', 'status');
 	$tasksStmt = $pdo->prepare("
@@ -176,11 +192,45 @@ if ($action === 'load') {
 		];
 	}
 
+	$rules = [];
+	try {
+		ensure_schedule_rules_table($pdo);
+		$rulesStmt = $pdo->prepare("
+			SELECT id, kind, title, start_time, end_time, repeat_rule, day_of_week
+			FROM candor.schedule_rules
+			WHERE user_id = ?
+			ORDER BY created_at ASC, id ASC
+		");
+		$rulesStmt->execute([(int)$userId]);
+		while ($row = $rulesStmt->fetch(PDO::FETCH_ASSOC)) {
+			$start = '';
+			if (!empty($row['start_time'])) {
+				$start = substr((string)$row['start_time'], 0, 5);
+			}
+			$end = '';
+			if (!empty($row['end_time'])) {
+				$end = substr((string)$row['end_time'], 0, 5);
+			}
+			$rules[] = [
+				'id' => (string)$row['id'],
+				'kind' => (string)($row['kind'] ?? ''),
+				'title' => (string)($row['title'] ?? ''),
+				'start' => $start,
+				'end' => $end,
+				'repeat' => (string)($row['repeat_rule'] ?? ''),
+				'day' => isset($row['day_of_week']) ? (int)$row['day_of_week'] : null,
+			];
+		}
+	} catch (Throwable $e) {
+		$rules = [];
+	}
+
 	respond([
 		'tasks' => $tasks,
 		'notes' => $notes,
 		'blocks' => $blocks,
 		'windows' => $blocks,
+		'rules' => $rules,
 	]);
 }
 

@@ -216,6 +216,7 @@ body.is-do .brandTitle {
     gap: 10px;
     flex-wrap: wrap;
     margin-left: auto;
+    justify-content: flex-end;
 }
 
 .welcome {
@@ -334,6 +335,16 @@ body.is-do .brandTitle {
     font-size: 13px;
     color: var(--ink-soft);
     letter-spacing: 0.4px;
+}
+
+.daySchedule {
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.4px;
+}
+
+.daySchedule.is-empty {
+    display: none;
 }
 
 .panelAdd {
@@ -624,6 +635,8 @@ body.is-do .brandTitle {
     border-top: 1px solid rgba(215, 226, 237, 0.8);
     color: var(--ink-soft);
     font-size: 12px;
+    position: relative;
+    z-index: 1;
 }
 
 .timeRow:first-child {
@@ -696,6 +709,27 @@ body.is-do .brandTitle {
     border-radius: 50%;
     background: var(--orange);
     box-shadow: 0 0 10px rgba(230, 160, 106, 0.6);
+}
+
+.sleepBlock {
+    position: absolute;
+    left: var(--timeline-label-width);
+    right: 16px;
+    border-radius: 14px;
+    border: 1px dashed rgba(90, 143, 185, 0.5);
+    background: rgba(90, 143, 185, 0.16);
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sleepLabel {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 6px 10px;
 }
 
 .monthHeader {
@@ -1422,9 +1456,10 @@ body.is-do .brandTitle {
     .dayMeta { display: none; }
     .dayHeader { gap: 8px; }
     .dayTag { font-size: 12px; }
+    .daySchedule { font-size: 11px; }
     .timelineGrid { --hour-height: 36px; max-height: none; }
     .calendarShell {
-        grid-template-rows: minmax(0, 1.55fr) minmax(0, 0.45fr);
+        grid-template-rows: minmax(0, 1.65fr) minmax(0, 0.35fr);
         gap: 8px;
     }
     .dayPanel,
@@ -1434,19 +1469,19 @@ body.is-do .brandTitle {
     .focusStrip {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         overflow: hidden;
-        gap: 6px;
+        gap: 4px;
     }
     .focusCard {
-        height: 52px;
-        min-height: 52px;
-        padding: 4px 6px 4px;
-        gap: 2px;
+        height: 44px;
+        min-height: 44px;
+        padding: 2px 4px 2px;
+        gap: 1px;
         justify-items: center;
         text-align: center;
     }
-    .focusLabel { font-size: 9px; }
-    .focusLabel { text-transform: none; letter-spacing: 0.4px; line-height: 1; }
-    .focusValue { font-size: 12px; line-height: 1; white-space: nowrap; }
+    .focusLabel { font-size: 8px; }
+    .focusLabel { text-transform: none; letter-spacing: 0.2px; line-height: 1; }
+    .focusValue { font-size: 11px; line-height: 1; white-space: nowrap; }
     .focusSub { display: none; }
     .focusLabel .labelLong,
     .focusValue .valueLong {
@@ -1456,11 +1491,11 @@ body.is-do .brandTitle {
     .focusValue .valueShort {
         display: inline;
     }
-    .balanceBar { width: 100%; height: 4px; }
-    .paceTrack { width: 100%; height: 4px; margin-top: 2px; }
-    .paceDot { width: 8px; height: 8px; }
-    .momentumDots { gap: 4px; margin-top: 2px; }
-    .momentumDots .dot { width: 6px; height: 6px; }
+    .balanceBar { width: 100%; height: 3px; }
+    .paceTrack { width: 100%; height: 3px; margin-top: 1px; }
+    .paceDot { width: 6px; height: 6px; }
+    .momentumDots { gap: 3px; margin-top: 1px; }
+    .momentumDots .dot { width: 4px; height: 4px; }
     .monthGrid {
         gap: 3px;
         overflow-y: auto;

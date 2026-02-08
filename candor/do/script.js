@@ -26,6 +26,7 @@
         tasks: [],
         notes: [],
         windows: [],
+        rules: [],
     };
 
     const makeId = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -53,10 +54,25 @@
         end: normalizeText(item.end ?? item.end_time ?? ""),
     });
 
+    const normalizeRule = (item) => {
+        const dayValue = item.day ?? item.day_of_week;
+        const parsedDay = typeof dayValue === "number" ? dayValue : parseInt(dayValue, 10);
+        return {
+            id: String(item.id ?? makeId()),
+            kind: item.kind === "task" ? "task" : "sleep",
+            title: normalizeText(item.title ?? ""),
+            start: normalizeText(item.start ?? item.start_time ?? item.time ?? ""),
+            end: normalizeText(item.end ?? item.end_time ?? ""),
+            repeat: normalizeText(item.repeat ?? item.repeat_rule ?? ""),
+            day: Number.isFinite(parsedDay) ? parsedDay : null,
+        };
+    };
+
     const persistLocal = () => {
         saveItems("tasks", state.tasks);
         saveItems("notes", state.notes);
         saveItems("windows", state.windows);
+        saveItems("rules", state.rules);
     };
 
     const apiFetch = async (payload, method = "POST") => {
@@ -86,6 +102,7 @@
         state.tasks = loadItems("tasks");
         state.notes = loadItems("notes");
         state.windows = loadItems("windows");
+        state.rules = loadItems("rules").map(normalizeRule);
     };
 
     const switchToLocal = () => {
@@ -101,6 +118,7 @@
             ? data.windows
             : (Array.isArray(data.blocks) ? data.blocks : []);
         state.windows = windowItems.map(normalizeWindow);
+        state.rules = Array.isArray(data.rules) ? data.rules.map(normalizeRule) : [];
     };
 
     const init = async () => {
@@ -148,6 +166,40 @@
         return (hours * 60) + minutes;
     };
 
+    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    const ruleApplies = (rule, date) => {
+        const dow = date.getDay();
+        if (rule.repeat === "daily") return true;
+        if (rule.repeat === "weekdays") return dow >= 1 && dow <= 5;
+        if (rule.repeat === "weekends") return dow === 0 || dow === 6;
+        if (rule.repeat === "day") return Number.isFinite(rule.day) && rule.day === dow;
+        return false;
+    };
+
+    const pickSleepRule = (date) => {
+        const rules = state.rules.filter((rule) => rule.kind === "sleep" && ruleApplies(rule, date));
+        if (rules.length === 0) return null;
+        const pickOrder = ["day", "weekdays", "weekends", "daily"];
+        const sorted = rules.slice().sort((a, b) => {
+            const aScore = pickOrder.indexOf(a.repeat);
+            const bScore = pickOrder.indexOf(b.repeat);
+            return aScore - bScore;
+        });
+        return sorted[0];
+    };
+
+    const formatRepeat = (rule) => {
+        if (!rule) return "";
+        if (rule.repeat === "weekdays") return "Weekdays";
+        if (rule.repeat === "weekends") return "Weekends";
+        if (rule.repeat === "daily") return "Daily";
+        if (rule.repeat === "day" && Number.isFinite(rule.day)) {
+            return dayNames[rule.day] || "Day";
+        }
+        return "Custom";
+    };
+
     const getCookie = (name) => {
         const match = document.cookie.split("; ").find((row) => row.startsWith(`${name}=`));
         return match ? decodeURIComponent(match.split("=").slice(1).join("=")) : "";
@@ -189,6 +241,7 @@
         const dayGrid = calendarRoot.querySelector("[data-day-grid]");
         const taskRail = calendarRoot.querySelector("[data-task-rail]");
         const noteRail = calendarRoot.querySelector("[data-note-rail]");
+        const daySchedule = calendarRoot.querySelector("[data-day-schedule]");
 
         const now = new Date();
         const stateCal = {
@@ -209,6 +262,17 @@
             const week = getISOWeek(stateCal.selected);
             daySub.textContent = `Week ${week} - ${stateCal.selected.getFullYear()}`;
             dayShort.textContent = stateCal.selected.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+            if (daySchedule) {
+                const rule = pickSleepRule(stateCal.selected);
+                if (rule && rule.start && rule.end) {
+                    const range = `${formatTime(rule.start)}-${formatTime(rule.end)}`;
+                    daySchedule.textContent = `Sleep ${range} · ${formatRepeat(rule)}`;
+                    daySchedule.classList.remove("is-empty");
+                } else {
+                    daySchedule.textContent = "";
+                    daySchedule.classList.add("is-empty");
+                }
+            }
         };
 
         const renderDayGrid = (autoScroll) => {
@@ -216,6 +280,7 @@
             const dayStart = 0;
             const dayEnd = 24;
             dayGrid.innerHTML = "";
+            const hourHeight = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--hour-height")) || 42;
             const rows = [];
             for (let hour = dayStart; hour < dayEnd; hour += 1) {
                 const row = document.createElement("div");
@@ -282,10 +347,41 @@
                 });
             });
 
+            const sleepRule = pickSleepRule(stateCal.selected);
+            if (sleepRule && sleepRule.start && sleepRule.end) {
+                const startMinutes = parseMinutes(sleepRule.start);
+                const endMinutes = parseMinutes(sleepRule.end);
+                if (startMinutes !== null && endMinutes !== null) {
+                    const windows = [];
+                    if (endMinutes <= startMinutes) {
+                        windows.push({ start: startMinutes, end: dayEnd * 60 });
+                        if (endMinutes > dayStart * 60) {
+                            windows.push({ start: dayStart * 60, end: endMinutes });
+                        }
+                    } else {
+                        windows.push({ start: startMinutes, end: endMinutes });
+                    }
+                    windows.forEach((window) => {
+                        const block = document.createElement("div");
+                        block.className = "sleepBlock";
+                        const top = ((window.start - dayStart * 60) / 60) * hourHeight;
+                        const height = ((window.end - window.start) / 60) * hourHeight;
+                        block.style.top = `${top}px`;
+                        block.style.height = `${height}px`;
+
+                        const label = document.createElement("span");
+                        label.className = "sleepLabel";
+                        label.textContent = "Sleep";
+                        block.appendChild(label);
+
+                        dayGrid.appendChild(block);
+                    });
+                }
+            }
+
             if (isSameDay(stateCal.selected, new Date())) {
                 const marker = document.createElement("div");
                 marker.className = "timeMarker";
-                const hourHeight = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--hour-height")) || 42;
                 const liveNow = new Date();
                 const minutes = liveNow.getHours() * 60 + liveNow.getMinutes();
                 const startMinutes = dayStart * 60;

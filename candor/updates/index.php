@@ -63,24 +63,38 @@ $authed = $userId && $user;
             <div class="updatesFeed">
                 <article class="updateCard">
                     <div class="updateHeader">
-                        <span class="tag">v0.1</span>
+                        <span class="updateVersion">v0.2</span>
                         <span class="updateMeta">Current</span>
                     </div>
-                    <h3>Account + My OS foundation</h3>
+                    <h3>Create cadence + sleep structure</h3>
                     <ul class="updateList">
-                        <li>My OS calendar view with a daily timeline, monthly grid, and priority rails.</li>
-                        <li>Mobile layout tightened with stacked panels, compact focus tiles, and task dots.</li>
-                        <li>Create page foundation added for building recurring schedules and essentials.</li>
-                        <li>Create tasks, notes, and focus windows in one overlay with remove controls.</li>
-                        <li>Tasks, notes, and windows now persist across reloads via the Candor DB.</li>
-                        <li>Account onboarding captures baseline profile data with consent, units, and clock choice.</li>
-                        <li>Updated favicon assets and raw logo treatment across Candor pages.</li>
+                        <li>Create workspace launched for building weekly cadence and recurring rules.</li>
+                        <li>Sleep schedules now support weekdays, weekends, daily, or specific-day repeats.</li>
+                        <li>Sleep schedule renders on the My OS timeline so today stays grounded.</li>
+                        <li>Daily task templates added in Create for recurring essentials.</li>
+                        <li>Mobile focus tiles and calendar panels compressed for cleaner phone flow.</li>
+                        <li>Favicon assets and circular logo treatment refreshed across Candor pages.</li>
                     </ul>
                 </article>
 
                 <article class="updateCard">
                     <div class="updateHeader">
-                        <span class="tag">v0.0</span>
+                        <span class="updateVersion">v0.1</span>
+                        <span class="updateMeta">Shipped</span>
+                    </div>
+                    <h3>Account + My OS foundation</h3>
+                    <ul class="updateList">
+                        <li>My OS calendar view with a daily timeline, monthly grid, and priority rails.</li>
+                        <li>Create tasks, notes, and focus windows in one overlay with remove controls.</li>
+                        <li>Tasks, notes, and windows persist across reloads via the Candor DB.</li>
+                        <li>Account onboarding captures baseline profile data with consent, units, and clock choice.</li>
+                        <li>Mobile layout tightened with stacked panels and task dots.</li>
+                    </ul>
+                </article>
+
+                <article class="updateCard">
+                    <div class="updateHeader">
+                        <span class="updateVersion">v0.0</span>
                         <span class="updateMeta">Base build</span>
                     </div>
                     <h3>Design system + layout foundations</h3>
@@ -110,7 +124,7 @@ $authed = $userId && $user;
     </section>
 
     <footer class="footer">
-        <a class="footLink" href="https://candor.you/"><span class="footStrong">Candor</span> v0.1</a>
+        <a class="footLink" href="https://candor.you/"><span class="footStrong">Candor</span> v0.2</a>
         <a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
     </footer>
 </div>

@@ -77,6 +77,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 				<div class="dayIntroRow">
 					<div class="dayIntro">
 						<div class="dayTag">Your strive for perfection.</div>
+						<div class="daySchedule is-empty" data-day-schedule></div>
 						<div class="dayTitle" data-day-title>Today</div>
 						<div class="dayMeta" data-day-sub></div>
 					</div>
@@ -173,7 +174,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 	</section>
 
 	<div class="footer">
-		<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.1</a>
+		<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.2</a>
 		<a class="footLink" href="https://gangdev.co/">Built by <span class="footStrong">GangDev</span></a>
 	</div>
 </div>

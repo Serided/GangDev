@@ -334,6 +334,14 @@ body.is-updates .page {
     gap: 10px;
 }
 
+.updateVersion {
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--ink);
+}
+
 .updateMeta {
     font-size: 11px;
     color: var(--ink-soft);
@@ -356,20 +364,6 @@ body.is-updates .page {
     box-shadow: var(--shadow);
 }
 
-.tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    background: rgba(185, 219, 242, 0.5);
-    border: 1px solid rgba(185, 219, 242, 0.9);
-    color: var(--ink);
-    font-weight: 600;
-    font-size: 11px;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-}
 
 .timeline h3 {
     margin: 14px 0 10px;
