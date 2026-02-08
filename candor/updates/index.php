@@ -68,9 +68,10 @@ $authed = $userId && $user;
                     </div>
                     <h3>Create cadence + sleep structure</h3>
                     <ul class="updateList">
-                        <li>Create adds routines with child tasks alongside sleep + daily task builders.</li>
+                        <li>Create now centers on routines with child tasks and inline schedule lines.</li>
+                        <li>Week template expands to show routines and repeat tasks by day.</li>
                         <li>Sleep schedule inputs now support minute-level entry.</li>
-                        <li>Saved cadence tracks schedules, routines, and tasks with scroll-safe lists.</li>
+                        <li>New repeat-task plus keeps weekly chores in the cadence builder.</li>
                         <li>Timeline windows align to the slot line and stack flush when overlapping.</li>
                         <li>Time selectors respect your clock preference across My OS and Create.</li>
                         <li>Mobile month grid tuned to keep the daily timeline visible with larger date bubbles.</li>

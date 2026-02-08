@@ -157,7 +157,10 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 			<div class="monthHeader">
 				<button class="monthNav" type="button" data-month-nav="prev" aria-label="Previous month">&lsaquo;</button>
 				<div class="monthTitle" data-month-title></div>
-				<button class="monthNav" type="button" data-month-nav="next" aria-label="Next month">&rsaquo;</button>
+				<div class="monthControls">
+					<button class="monthToday" type="button" data-month-nav="today">Today</button>
+					<button class="monthNav" type="button" data-month-nav="next" aria-label="Next month">&rsaquo;</button>
+				</div>
 			</div>
 			<div class="weekdayRow">
 				<span>Sun</span>
@@ -169,7 +172,6 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 				<span>Sat</span>
 			</div>
 			<div class="monthGrid" data-month-grid></div>
-			<button class="monthToday" type="button" data-month-nav="today">Today</button>
 		</div>
 	</section>
 

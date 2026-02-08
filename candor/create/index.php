@@ -55,7 +55,7 @@ $cookieKey = 'candor_time_format_' . $userId;
 	</section>
 
 	<section class="builder">
-		<div class="builderRow">
+		<div class="builderRow is-top">
 			<div class="card scheduleCard">
 				<div class="cardHead">
 					<h2>Sleep schedule</h2>
@@ -64,15 +64,15 @@ $cookieKey = 'candor_time_format_' . $userId;
 				<form class="formGrid" data-sleep-form>
 					<div class="field">
 						<label class="label" for="sleep-start">Start</label>
-						<input class="input" id="sleep-start" type="time" name="start" step="60" required>
+						<input class="input compact" id="sleep-start" type="time" name="start" step="60" required>
 					</div>
 					<div class="field">
 						<label class="label" for="sleep-end">End</label>
-						<input class="input" id="sleep-end" type="time" name="end" step="60" required>
+						<input class="input compact" id="sleep-end" type="time" name="end" step="60" required>
 					</div>
 					<div class="field">
 						<label class="label" for="sleep-repeat">Repeat</label>
-						<select class="input select" id="sleep-repeat" name="repeat" data-repeat-select>
+						<select class="input compact select" id="sleep-repeat" name="repeat" data-repeat-select>
 							<option value="weekdays">Weekdays</option>
 							<option value="weekends">Weekends</option>
 							<option value="daily">Daily</option>
@@ -81,7 +81,7 @@ $cookieKey = 'candor_time_format_' . $userId;
 					</div>
 					<div class="field" data-day-field>
 						<label class="label" for="sleep-day">Day</label>
-						<select class="input select" id="sleep-day" name="day">
+						<select class="input compact select" id="sleep-day" name="day">
 							<option value="0">Sunday</option>
 							<option value="1">Monday</option>
 							<option value="2">Tuesday</option>
@@ -96,48 +96,18 @@ $cookieKey = 'candor_time_format_' . $userId;
 						<button class="btn ghost" type="button" data-sleep-clear>Clear</button>
 					</div>
 				</form>
+				<div class="sleepSummary">
+					<div class="listHeader">Active schedules</div>
+					<div class="listEmpty" data-sleep-empty>No sleep schedule yet.</div>
+					<div class="itemList savedScroll" data-sleep-list></div>
+				</div>
 			</div>
 
-			<div class="card tasksCard">
+			<div class="card routineCard">
 				<div class="cardHead">
-					<h2>Daily tasks</h2>
-					<span class="cardHint">Recurring tasks that preload in My OS.</span>
+					<h2>Routines</h2>
+					<span class="cardHint">Build reusable stacks with child tasks.</span>
 				</div>
-				<form class="formGrid" data-task-form>
-					<div class="field fieldWide">
-						<label class="label" for="task-title">Task</label>
-						<input class="input" id="task-title" type="text" name="title" placeholder="e.g. Morning review" required>
-					</div>
-					<div class="field">
-						<label class="label" for="task-time">Time (optional)</label>
-						<select class="input select" id="task-time" name="time" data-time-select data-time-empty="Anytime"></select>
-					</div>
-					<div class="field">
-						<label class="label" for="task-repeat">Repeat</label>
-						<select class="input select" id="task-repeat" name="repeat" data-task-repeat>
-							<option value="daily">Daily</option>
-							<option value="weekdays">Weekdays</option>
-							<option value="weekends">Weekends</option>
-							<option value="day">Specific day</option>
-						</select>
-					</div>
-					<div class="field" data-task-day-field>
-						<label class="label" for="task-day">Day</label>
-						<select class="input select" id="task-day" name="day">
-							<option value="0">Sunday</option>
-							<option value="1">Monday</option>
-							<option value="2">Tuesday</option>
-							<option value="3">Wednesday</option>
-							<option value="4">Thursday</option>
-							<option value="5">Friday</option>
-							<option value="6">Saturday</option>
-						</select>
-					</div>
-					<div class="formActions">
-						<button class="btn primary" type="submit">Add task</button>
-					</div>
-				</form>
-				<div class="subHead">Routines</div>
 				<form class="formGrid routineForm" data-routine-form>
 					<div class="field">
 						<label class="label" for="routine-title">Routine</label>
@@ -147,106 +117,168 @@ $cookieKey = 'candor_time_format_' . $userId;
 						<label class="label" for="routine-time">Time (optional)</label>
 						<input class="input compact" id="routine-time" type="time" name="time" step="60">
 					</div>
+					<div class="field">
+						<label class="label" for="routine-repeat">Repeat</label>
+						<select class="input compact select" id="routine-repeat" name="repeat" data-routine-repeat>
+							<option value="daily">Daily</option>
+							<option value="weekdays">Weekdays</option>
+							<option value="weekends">Weekends</option>
+							<option value="day">Specific day</option>
+						</select>
+					</div>
+					<div class="field" data-routine-day-field>
+						<label class="label" for="routine-day">Day</label>
+						<select class="input compact select" id="routine-day" name="day">
+							<option value="0">Sunday</option>
+							<option value="1">Monday</option>
+							<option value="2">Tuesday</option>
+							<option value="3">Wednesday</option>
+							<option value="4">Thursday</option>
+							<option value="5">Friday</option>
+							<option value="6">Saturday</option>
+						</select>
+					</div>
 					<div class="field fieldWide">
-						<label class="label" for="routine-tasks">Child tasks</label>
-						<input class="input compact" id="routine-tasks" type="text" name="tasks" placeholder="Task 1, Task 2">
+						<label class="label">Routine tasks</label>
+						<div class="taskStack" data-routine-tasks></div>
+						<button class="btn ghost mini" type="button" data-routine-add-task>+ Task</button>
 					</div>
 					<div class="formActions">
 						<button class="btn primary" type="submit">Add routine</button>
 					</div>
 				</form>
-			</div>
-		</div>
-
-		<div class="builderRow">
-			<div class="card weekCard">
-				<div class="cardHead">
-					<h2>Week template</h2>
-					<span class="cardHint">Draft your cadence across the week.</span>
-				</div>
-				<div class="weekGrid">
-					<div class="weekColumn">
-						<div class="weekDay">Sun</div>
-						<div class="weekStack">
-							<div class="weekBlock is-sleep">Sleep</div>
-							<div class="weekBlock is-focus">Focus</div>
-							<div class="weekBlock is-life">Life</div>
-						</div>
-					</div>
-					<div class="weekColumn">
-						<div class="weekDay">Mon</div>
-						<div class="weekStack">
-							<div class="weekBlock is-sleep">Sleep</div>
-							<div class="weekBlock is-focus">Focus</div>
-							<div class="weekBlock is-life">Life</div>
-						</div>
-					</div>
-					<div class="weekColumn">
-						<div class="weekDay">Tue</div>
-						<div class="weekStack">
-							<div class="weekBlock is-sleep">Sleep</div>
-							<div class="weekBlock is-focus">Focus</div>
-							<div class="weekBlock is-life">Life</div>
-						</div>
-					</div>
-					<div class="weekColumn">
-						<div class="weekDay">Wed</div>
-						<div class="weekStack">
-							<div class="weekBlock is-sleep">Sleep</div>
-							<div class="weekBlock is-focus">Focus</div>
-							<div class="weekBlock is-life">Life</div>
-						</div>
-					</div>
-					<div class="weekColumn">
-						<div class="weekDay">Thu</div>
-						<div class="weekStack">
-							<div class="weekBlock is-sleep">Sleep</div>
-							<div class="weekBlock is-focus">Focus</div>
-							<div class="weekBlock is-life">Life</div>
-						</div>
-					</div>
-					<div class="weekColumn">
-						<div class="weekDay">Fri</div>
-						<div class="weekStack">
-							<div class="weekBlock is-sleep">Sleep</div>
-							<div class="weekBlock is-focus">Focus</div>
-							<div class="weekBlock is-life">Life</div>
-						</div>
-					</div>
-					<div class="weekColumn">
-						<div class="weekDay">Sat</div>
-						<div class="weekStack">
-							<div class="weekBlock is-sleep">Sleep</div>
-							<div class="weekBlock is-focus">Focus</div>
-							<div class="weekBlock is-life">Life</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="card savedCard">
-				<div class="cardHead">
-					<h2>Saved cadence</h2>
-					<span class="cardHint">Active schedules, routines, and daily tasks.</span>
-				</div>
 				<div class="savedSection">
-					<div class="listHeader">Active schedules</div>
-					<div class="listEmpty" data-sleep-empty>No sleep schedule yet.</div>
-					<div class="itemList savedScroll" data-sleep-list></div>
-				</div>
-				<div class="savedSection">
-					<div class="listHeader">Saved tasks</div>
-					<div class="listEmpty" data-task-empty>No recurring tasks yet.</div>
-					<div class="itemList savedScroll" data-task-list></div>
-				</div>
-				<div class="savedSection">
-					<div class="listHeader">Routines</div>
+					<div class="listHeader">Saved routines</div>
 					<div class="listEmpty" data-routine-empty>No routines yet.</div>
 					<div class="itemList savedScroll" data-routine-list></div>
 				</div>
 			</div>
 		</div>
+
+		<div class="builderRow is-full">
+			<div class="card weekCard">
+				<div class="cardHead">
+					<h2>Week template</h2>
+					<span class="cardHint">Draft the full week so routines land under each day.</span>
+				</div>
+				<div class="weekGrid" data-week-grid>
+					<div class="weekColumn" data-week-day="0">
+						<div class="weekDay">Sun</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-morning">Morning routine</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-evening">Evening routine</div>
+							<div class="weekBlock is-sleep">Sleep</div>
+						</div>
+						<div class="weekRoutines" data-week-list></div>
+					</div>
+					<div class="weekColumn" data-week-day="1">
+						<div class="weekDay">Mon</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-morning">Morning routine</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-evening">Evening routine</div>
+							<div class="weekBlock is-sleep">Sleep</div>
+						</div>
+						<div class="weekRoutines" data-week-list></div>
+					</div>
+					<div class="weekColumn" data-week-day="2">
+						<div class="weekDay">Tue</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-morning">Morning routine</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-evening">Evening routine</div>
+							<div class="weekBlock is-sleep">Sleep</div>
+						</div>
+						<div class="weekRoutines" data-week-list></div>
+					</div>
+					<div class="weekColumn" data-week-day="3">
+						<div class="weekDay">Wed</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-morning">Morning routine</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-evening">Evening routine</div>
+							<div class="weekBlock is-sleep">Sleep</div>
+						</div>
+						<div class="weekRoutines" data-week-list></div>
+					</div>
+					<div class="weekColumn" data-week-day="4">
+						<div class="weekDay">Thu</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-morning">Morning routine</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-evening">Evening routine</div>
+							<div class="weekBlock is-sleep">Sleep</div>
+						</div>
+						<div class="weekRoutines" data-week-list></div>
+					</div>
+					<div class="weekColumn" data-week-day="5">
+						<div class="weekDay">Fri</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-morning">Morning routine</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-evening">Evening routine</div>
+							<div class="weekBlock is-sleep">Sleep</div>
+						</div>
+						<div class="weekRoutines" data-week-list></div>
+					</div>
+					<div class="weekColumn" data-week-day="6">
+						<div class="weekDay">Sat</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-morning">Morning routine</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-evening">Evening routine</div>
+							<div class="weekBlock is-sleep">Sleep</div>
+						</div>
+						<div class="weekRoutines" data-week-list></div>
+					</div>
+				</div>
+				<button class="weekAdd" type="button" data-repeat-open aria-label="Add repeat task">+</button>
+			</div>
+		</div>
 	</section>
+
+	<div class="repeatOverlay" data-repeat-overlay>
+		<div class="repeatCard">
+			<div class="repeatHeader">
+				<div class="repeatTitle">Repeat task</div>
+				<button class="iconBtn" type="button" data-repeat-close aria-label="Close">&times;</button>
+			</div>
+			<form class="repeatForm" data-repeat-form>
+				<div class="field">
+					<label class="label" for="repeat-title">Task</label>
+					<input class="input compact" id="repeat-title" type="text" name="title" placeholder="Laundry, dishes, reset" required>
+				</div>
+				<div class="field">
+					<label class="label" for="repeat-day">Day</label>
+					<select class="input compact select" id="repeat-day" name="day">
+						<option value="0">Sunday</option>
+						<option value="1">Monday</option>
+						<option value="2">Tuesday</option>
+						<option value="3">Wednesday</option>
+						<option value="4">Thursday</option>
+						<option value="5">Friday</option>
+						<option value="6">Saturday</option>
+					</select>
+				</div>
+				<div class="field">
+					<label class="label" for="repeat-time">Time (optional)</label>
+					<input class="input compact" id="repeat-time" type="time" name="time" step="60">
+				</div>
+				<div class="formActions">
+					<button class="btn primary" type="submit">Add repeat task</button>
+					<button class="btn ghost" type="button" data-repeat-close>Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
 
 	<div class="footer">
 		<a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> v0.2</a>

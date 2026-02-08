@@ -118,10 +118,15 @@ function ensure_routines_table(PDO $pdo) {
 			user_id INTEGER NOT NULL,
 			title TEXT NOT NULL,
 			routine_time TIME,
+			repeat_rule VARCHAR(16),
+			day_of_week SMALLINT,
 			tasks_json TEXT,
 			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
 		)
 	");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS repeat_rule VARCHAR(16)");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS day_of_week SMALLINT");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS tasks_json TEXT");
 }
 
 try {
@@ -162,7 +167,7 @@ if ($action === 'load') {
 		];
 	}
 	$stmt = $pdo->prepare("
-		SELECT id, title, routine_time, tasks_json
+		SELECT id, title, routine_time, repeat_rule, day_of_week, tasks_json
 		FROM candor.routines
 		WHERE user_id = ?
 		ORDER BY created_at ASC, id ASC
@@ -190,6 +195,8 @@ if ($action === 'load') {
 			'id' => (string)$row['id'],
 			'title' => (string)($row['title'] ?? ''),
 			'time' => $time,
+			'repeat' => (string)($row['repeat_rule'] ?? ''),
+			'day' => isset($row['day_of_week']) ? (int)$row['day_of_week'] : null,
 			'tasks' => $tasks,
 		];
 	}
@@ -277,19 +284,32 @@ if ($action === 'add_routine') {
 		respond(['error' => 'missing_title'], 400);
 	}
 	$time = clean_time($payload['time'] ?? ($payload['routine_time'] ?? ''));
+	$repeat = $payload['repeat'] ?? ($payload['repeat_rule'] ?? 'daily');
+	$repeat = in_array($repeat, $allowedRepeats, true) ? $repeat : 'daily';
+	$day = null;
+	if ($repeat === 'day') {
+		$rawDay = $payload['day'] ?? ($payload['day_of_week'] ?? '');
+		$dayValue = is_numeric($rawDay) ? (int)$rawDay : -1;
+		if ($dayValue < 0 || $dayValue > 6) {
+			respond(['error' => 'invalid_day'], 400);
+		}
+		$day = $dayValue;
+	}
 	$tasks = clean_tasks($payload['tasks'] ?? ($payload['tasks_json'] ?? ''));
 	$tasksJson = $tasks ? json_encode($tasks) : null;
 
 	$stmt = $pdo->prepare("
 		INSERT INTO candor.routines
-			(user_id, title, routine_time, tasks_json, created_at)
-		VALUES (?, ?, ?, ?, NOW())
-		RETURNING id, title, routine_time, tasks_json
+			(user_id, title, routine_time, repeat_rule, day_of_week, tasks_json, created_at)
+		VALUES (?, ?, ?, ?, ?, ?, NOW())
+		RETURNING id, title, routine_time, repeat_rule, day_of_week, tasks_json
 	");
 	$stmt->execute([
 		(int)$userId,
 		$title,
 		$time !== '' ? $time : null,
+		$repeat,
+		$day,
 		$tasksJson,
 	]);
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -315,6 +335,8 @@ if ($action === 'add_routine') {
 			'id' => (string)$row['id'],
 			'title' => (string)($row['title'] ?? ''),
 			'time' => $timeOut,
+			'repeat' => (string)($row['repeat_rule'] ?? ''),
+			'day' => isset($row['day_of_week']) ? (int)$row['day_of_week'] : null,
 			'tasks' => $tasksOut,
 		],
 	]);

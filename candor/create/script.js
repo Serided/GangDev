@@ -141,12 +141,21 @@
         return [];
     };
 
-    const normalizeRoutine = (item) => ({
-        id: String(item.id ?? ""),
-        title: normalizeText(item.title ?? ""),
-        time: normalizeText(item.time ?? item.routine_time ?? ""),
-        tasks: normalizeRoutineTasks(item.tasks ?? item.tasks_json ?? ""),
-    });
+    const normalizeRoutine = (item) => {
+        const repeatValue = normalizeText(item.repeat ?? item.repeat_rule ?? "daily");
+        const dayValue = item.day ?? item.day_of_week;
+        const parsedDay = typeof dayValue === "number" ? dayValue : parseInt(dayValue, 10);
+        const allowed = ["daily", "weekdays", "weekends", "day"];
+        const repeat = allowed.includes(repeatValue) ? repeatValue : "daily";
+        return {
+            id: String(item.id ?? ""),
+            title: normalizeText(item.title ?? ""),
+            time: normalizeText(item.time ?? item.routine_time ?? ""),
+            tasks: normalizeRoutineTasks(item.tasks ?? item.tasks_json ?? ""),
+            repeat,
+            day: Number.isFinite(parsedDay) ? parsedDay : null,
+        };
+    };
 
     const splitRules = () => {
         state.sleep = state.rules.filter((rule) => rule.kind === "sleep");
@@ -199,15 +208,17 @@
         splitRules();
     };
 
-    const formatRepeat = (rule) => {
-        if (rule.repeat === "weekdays") return "Weekdays";
-        if (rule.repeat === "weekends") return "Weekends";
-        if (rule.repeat === "daily") return "Daily";
-        if (rule.repeat === "day" && Number.isFinite(rule.day)) {
-            return dayNames[rule.day] || "Day";
+    const formatRepeatRule = (repeat, day) => {
+        if (repeat === "weekdays") return "Weekdays";
+        if (repeat === "weekends") return "Weekends";
+        if (repeat === "daily") return "Daily";
+        if (repeat === "day" && Number.isFinite(day)) {
+            return dayNames[day] || "Day";
         }
         return "Custom";
     };
+
+    const formatRepeat = (rule) => formatRepeatRule(rule.repeat, rule.day);
 
     const sleepList = document.querySelector("[data-sleep-list]");
     const sleepEmpty = document.querySelector("[data-sleep-empty]");
@@ -215,6 +226,7 @@
     const taskEmpty = document.querySelector("[data-task-empty]");
     const routineList = document.querySelector("[data-routine-list]");
     const routineEmpty = document.querySelector("[data-routine-empty]");
+    const weekColumns = Array.from(document.querySelectorAll("[data-week-day]"));
 
     const renderSleep = () => {
         if (!sleepList || !sleepEmpty) return;
@@ -312,11 +324,10 @@
             const meta = document.createElement("div");
             meta.className = "itemMeta";
             const time = routine.time ? formatTime(routine.time) : "Anytime";
+            const repeat = formatRepeatRule(routine.repeat, routine.day);
             const tasks = Array.isArray(routine.tasks) ? routine.tasks : [];
-            const preview = tasks.slice(0, 3).join(" • ");
-            const extra = tasks.length > 3 ? ` +${tasks.length - 3}` : "";
-            const detail = tasks.length ? `${preview}${extra}` : "No tasks yet";
-            meta.textContent = `${time} - ${detail}`;
+            const detail = tasks.length ? `${tasks.length} tasks` : "No tasks";
+            meta.textContent = `${time} - ${repeat} - ${detail}`;
 
             text.appendChild(title);
             text.appendChild(meta);
@@ -338,6 +349,72 @@
         renderSleep();
         renderTasks();
         renderRoutines();
+        renderWeekTemplate();
+    };
+
+    const appliesToDay = (repeat, dayValue, targetDay) => {
+        if (repeat === "daily") return true;
+        if (repeat === "weekdays") return targetDay >= 1 && targetDay <= 5;
+        if (repeat === "weekends") return targetDay === 0 || targetDay === 6;
+        if (repeat === "day") return Number.isFinite(dayValue) && dayValue === targetDay;
+        return false;
+    };
+
+    const getWeekItems = (targetDay) => {
+        const items = [];
+        state.routines.forEach((routine) => {
+            if (!appliesToDay(routine.repeat, routine.day, targetDay)) return;
+            items.push({
+                type: "routine",
+                title: routine.title || "Routine",
+                time: routine.time,
+            });
+        });
+        state.tasks.forEach((rule) => {
+            if (!appliesToDay(rule.repeat, rule.day, targetDay)) return;
+            items.push({
+                type: "task",
+                title: rule.title || "Repeat task",
+                time: rule.start,
+            });
+        });
+        items.sort((a, b) => {
+            const aTime = parseMinutes(a.time) ?? 9999;
+            const bTime = parseMinutes(b.time) ?? 9999;
+            if (aTime !== bTime) return aTime - bTime;
+            return a.title.localeCompare(b.title);
+        });
+        return items;
+    };
+
+    const renderWeekTemplate = () => {
+        if (!weekColumns.length) return;
+        weekColumns.forEach((column) => {
+            const day = parseInt(column.dataset.weekDay, 10);
+            const list = column.querySelector("[data-week-list]");
+            if (!list) return;
+            list.innerHTML = "";
+            const items = getWeekItems(Number.isFinite(day) ? day : 0);
+            items.forEach((item) => {
+                const row = document.createElement("div");
+                row.className = `weekItem ${item.type === "routine" ? "is-routine" : "is-task"}`;
+
+                const title = document.createElement("div");
+                title.className = "weekItemTitle";
+                title.textContent = item.title;
+
+                row.appendChild(title);
+
+                if (item.time) {
+                    const time = document.createElement("div");
+                    time.className = "weekItemTime";
+                    time.textContent = formatTime(item.time);
+                    row.appendChild(time);
+                }
+
+                list.appendChild(row);
+            });
+        });
     };
 
     const applyRepeatToggle = (select, field) => {
@@ -353,11 +430,11 @@
             sleepRepeat.addEventListener("change", () => applyRepeatToggle(sleepRepeat, sleepDayField));
         }
 
-        const taskRepeat = document.querySelector("[data-task-repeat]");
-        const taskDayField = document.querySelector("[data-task-day-field]");
-        if (taskRepeat && taskDayField) {
-            applyRepeatToggle(taskRepeat, taskDayField);
-            taskRepeat.addEventListener("change", () => applyRepeatToggle(taskRepeat, taskDayField));
+        const routineRepeat = document.querySelector("[data-routine-repeat]");
+        const routineDayField = document.querySelector("[data-routine-day-field]");
+        if (routineRepeat && routineDayField) {
+            applyRepeatToggle(routineRepeat, routineDayField);
+            routineRepeat.addEventListener("change", () => applyRepeatToggle(routineRepeat, routineDayField));
         }
     };
 
@@ -392,7 +469,7 @@
                 const data = await apiFetch(payload, "POST");
                 if (data && data.routine) {
                     state.routines.push(normalizeRoutine(data.routine));
-                    renderRoutines();
+                    renderAll();
                     return;
                 }
             } catch {
@@ -405,7 +482,7 @@
             const localRoutine = normalizeRoutine({ id, ...payload });
             state.routines.push(localRoutine);
             persistLocal();
-            renderRoutines();
+            renderAll();
         }
     };
 
@@ -441,7 +518,7 @@
         if (storageMode === "local") {
             persistLocal();
         }
-        renderRoutines();
+        renderAll();
     };
 
     const clearRules = async (kind) => {
@@ -492,32 +569,6 @@
         sleepClear.addEventListener("click", () => clearRules("sleep"));
     }
 
-    const taskForm = document.querySelector("[data-task-form]");
-    if (taskForm) {
-        taskForm.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const formData = new FormData(taskForm);
-            const title = normalizeText(formData.get("title"));
-            if (!title) return;
-            const time = normalizeText(formData.get("time"));
-            const repeat = normalizeText(formData.get("repeat"));
-            const day = normalizeText(formData.get("day"));
-            addRule({
-                action: "add",
-                kind: "task",
-                title,
-                time,
-                repeat,
-                day,
-            });
-            taskForm.reset();
-            refreshTimeSelects();
-            const taskRepeat = taskForm.querySelector("[data-task-repeat]");
-            const taskDayField = taskForm.querySelector("[data-task-day-field]");
-            applyRepeatToggle(taskRepeat, taskDayField);
-        });
-    }
-
     const routineForm = document.querySelector("[data-routine-form]");
     if (routineForm) {
         routineForm.addEventListener("submit", (event) => {
@@ -526,18 +577,86 @@
             const title = normalizeText(formData.get("title"));
             if (!title) return;
             const time = normalizeText(formData.get("time"));
-            const tasks = normalizeRoutineTasks(formData.get("tasks"));
+            const repeat = normalizeText(formData.get("repeat")) || "daily";
+            const day = normalizeText(formData.get("day"));
+            const tasks = Array.from(routineForm.querySelectorAll('input[name="task[]"]'))
+                .map((input) => normalizeText(input.value))
+                .filter((value) => value !== "");
             addRoutine({
                 action: "add_routine",
                 title,
                 time,
+                repeat,
+                day,
                 tasks,
             });
             routineForm.reset();
+            const routineRepeat = routineForm.querySelector("[data-routine-repeat]");
+            const routineDayField = routineForm.querySelector("[data-routine-day-field]");
+            applyRepeatToggle(routineRepeat, routineDayField);
+            clearRoutineTasks();
+        });
+    }
+
+    const routineTaskStack = document.querySelector("[data-routine-tasks]");
+    const routineAddTask = document.querySelector("[data-routine-add-task]");
+
+    const buildRoutineTaskRow = (value = "") => {
+        const row = document.createElement("div");
+        row.className = "taskRow";
+
+        const input = document.createElement("input");
+        input.className = "input compact";
+        input.type = "text";
+        input.name = "task[]";
+        input.placeholder = "Task";
+        input.value = value;
+
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "taskRemove";
+        remove.dataset.routineTaskRemove = "true";
+        remove.textContent = "×";
+
+        row.appendChild(input);
+        row.appendChild(remove);
+        return row;
+    };
+
+    const ensureRoutineTaskRow = () => {
+        if (!routineTaskStack) return;
+        if (routineTaskStack.children.length === 0) {
+            routineTaskStack.appendChild(buildRoutineTaskRow());
+        }
+    };
+
+    const clearRoutineTasks = () => {
+        if (!routineTaskStack) return;
+        routineTaskStack.innerHTML = "";
+        ensureRoutineTaskRow();
+    };
+
+    if (routineAddTask) {
+        routineAddTask.addEventListener("click", () => {
+            if (!routineTaskStack) return;
+            routineTaskStack.appendChild(buildRoutineTaskRow());
         });
     }
 
     document.addEventListener("click", (event) => {
+        const routineRemove = event.target.closest("[data-routine-task-remove]");
+        if (routineRemove && routineTaskStack) {
+            const rows = routineTaskStack.querySelectorAll(".taskRow");
+            const row = routineRemove.closest(".taskRow");
+            if (!row) return;
+            if (rows.length <= 1) {
+                const input = row.querySelector("input");
+                if (input) input.value = "";
+                return;
+            }
+            row.remove();
+            return;
+        }
         const removeBtn = event.target.closest("[data-remove-id]");
         if (removeBtn) {
             const id = removeBtn.dataset.removeId;
@@ -549,9 +668,52 @@
         }
     });
 
+    const repeatOverlay = document.querySelector("[data-repeat-overlay]");
+    const repeatOpen = document.querySelector("[data-repeat-open]");
+    const repeatClose = document.querySelectorAll("[data-repeat-close]");
+    const repeatForm = document.querySelector("[data-repeat-form]");
+
+    const openRepeatOverlay = () => {
+        if (repeatOverlay) repeatOverlay.classList.add("is-open");
+    };
+
+    const closeRepeatOverlay = () => {
+        if (repeatOverlay) repeatOverlay.classList.remove("is-open");
+    };
+
+    if (repeatOpen) {
+        repeatOpen.addEventListener("click", openRepeatOverlay);
+    }
+
+    repeatClose.forEach((btn) => {
+        btn.addEventListener("click", closeRepeatOverlay);
+    });
+
+    if (repeatForm) {
+        repeatForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(repeatForm);
+            const title = normalizeText(formData.get("title"));
+            if (!title) return;
+            const day = normalizeText(formData.get("day"));
+            const time = normalizeText(formData.get("time"));
+            addRule({
+                action: "add",
+                kind: "task",
+                title,
+                time,
+                repeat: "day",
+                day,
+            });
+            repeatForm.reset();
+            closeRepeatOverlay();
+        });
+    }
+
     const init = async () => {
         initRepeatSelects();
         refreshTimeSelects();
+        ensureRoutineTaskRow();
         try {
             await loadRemote();
         } catch {

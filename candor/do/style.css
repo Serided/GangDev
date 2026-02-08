@@ -859,6 +859,12 @@ body.is-do .welcome {
     gap: 10px;
 }
 
+.monthControls {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .monthTitle {
     font-family: var(--font-display);
     font-size: 20px;
@@ -886,27 +892,23 @@ body.is-do .welcome {
 }
 
 .monthToday {
-    width: 60px;
-    height: 60px;
-    padding: 0;
-    border-radius: 50%;
+    width: auto;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 12px;
     border: 1px solid #e1a36d;
     background: linear-gradient(135deg, var(--orange), var(--yellow));
     color: #2a1a0f;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.8px;
     font-family: var(--font-body);
     cursor: pointer;
-    display: grid;
+    display: inline-flex;
     place-items: center;
     line-height: 1;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    position: absolute;
-    right: auto;
-    left: 18px;
-    bottom: 18px;
     z-index: 2;
 }
 
@@ -1709,6 +1711,13 @@ body.is-do .welcome {
     .monthHeader { gap: 4px; }
     .monthTitle { font-size: 16px; }
     .monthNav { width: 28px; height: 28px; font-size: 14px; }
+    .monthToday {
+        height: 28px;
+        padding: 0 8px;
+        font-size: 9px;
+        letter-spacing: 0.6px;
+    }
+    .monthControls { gap: 6px; }
     .weekdayRow { font-size: 8px; gap: 1px; }
     .monthGrid {
         gap: 3px;
@@ -1748,13 +1757,6 @@ body.is-do .welcome {
     }
     .panelAction {
         right: auto;
-        left: 12px;
-        bottom: 12px;
-        width: 54px;
-        height: 54px;
-        font-size: 11px;
-    }
-    .monthToday {
         left: 12px;
         bottom: 12px;
         width: 54px;

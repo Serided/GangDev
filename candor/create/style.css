@@ -50,7 +50,7 @@ a { color: inherit; text-decoration: none; }
     padding: var(--edge-pad) var(--page-gutter);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     overflow: hidden;
 }
 
@@ -231,7 +231,7 @@ a { color: inherit; text-decoration: none; }
     grid-template-columns: 1fr;
     gap: 6px;
     align-items: flex-start;
-    margin-top: 6px;
+    margin-top: 10px;
 }
 
 .sectionCaption {
@@ -311,23 +311,23 @@ a { color: inherit; text-decoration: none; }
 
 .builderRow {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
     align-items: stretch;
     min-height: 0;
 }
 
-.scheduleCard,
-.tasksCard,
-.weekCard,
-.savedCard {
-    min-height: 0;
+.builderRow.is-top {
+    grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr);
 }
 
-.savedCard {
-    display: grid;
-    gap: 8px;
-    align-content: start;
+.builderRow.is-full {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.scheduleCard,
+.routineCard,
+.weekCard {
+    min-height: 0;
 }
 
 .savedSection {
@@ -336,7 +336,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .savedScroll {
-    max-height: clamp(70px, 14vh, 120px);
+    max-height: clamp(70px, 16vh, 140px);
     overflow-y: auto;
     scrollbar-gutter: stable;
     padding-right: 2px;
@@ -368,7 +368,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .routineForm {
-    grid-template-columns: minmax(0, 1fr) 140px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .field {
@@ -400,6 +400,46 @@ a { color: inherit; text-decoration: none; }
     padding: 9px 10px;
     font-size: 12px;
     border-radius: 10px;
+}
+
+.btn.mini {
+    min-height: 28px;
+    padding: 0 10px;
+    font-size: 11px;
+    border-radius: 999px;
+}
+
+.sleepSummary {
+    margin-top: 8px;
+    display: grid;
+    gap: 4px;
+}
+
+.taskStack {
+    display: grid;
+    gap: 6px;
+}
+
+.taskRow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px;
+    align-items: center;
+}
+
+.taskRemove {
+    border: 1px solid rgba(11, 18, 32, 0.16);
+    background: rgba(11, 18, 32, 0.04);
+    color: var(--ink-soft);
+    border-radius: 10px;
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.taskRemove:hover {
+    background: rgba(11, 18, 32, 0.08);
 }
 
 .input:focus {
@@ -490,6 +530,11 @@ a { color: inherit; text-decoration: none; }
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 3px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    padding-right: 2px;
 }
 
 .weekColumn {
@@ -499,7 +544,8 @@ a { color: inherit; text-decoration: none; }
     padding: 3px;
     display: grid;
     gap: 3px;
-    min-height: 64px;
+    min-height: 140px;
+    align-content: start;
 }
 
 .weekDay {
@@ -529,6 +575,11 @@ a { color: inherit; text-decoration: none; }
     border-color: rgba(90, 143, 185, 0.5);
 }
 
+.weekBlock.is-morning {
+    background: rgba(185, 219, 242, 0.4);
+    border-color: rgba(185, 219, 242, 0.7);
+}
+
 .weekBlock.is-anchor {
     background: rgba(243, 200, 115, 0.35);
     border-color: rgba(243, 200, 115, 0.55);
@@ -539,9 +590,147 @@ a { color: inherit; text-decoration: none; }
     border-color: rgba(230, 160, 106, 0.55);
 }
 
+.weekBlock.is-evening {
+    background: rgba(243, 200, 115, 0.35);
+    border-color: rgba(243, 200, 115, 0.65);
+}
+
 .weekBlock.is-life {
     background: rgba(243, 200, 115, 0.28);
     border-color: rgba(243, 200, 115, 0.55);
+}
+
+.weekRoutines {
+    display: grid;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.weekItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 4px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    border: 1px solid rgba(215, 226, 237, 0.9);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.weekItem.is-routine {
+    border-color: rgba(230, 160, 106, 0.6);
+    background: rgba(243, 200, 115, 0.22);
+}
+
+.weekItem.is-task {
+    border-color: rgba(90, 143, 185, 0.55);
+    background: rgba(185, 219, 242, 0.22);
+}
+
+.weekItemTitle {
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.weekItemTime {
+    font-weight: 700;
+    color: var(--brand-candor);
+    flex: 0 0 auto;
+    font-size: 9px;
+}
+
+.weekCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding-bottom: 68px;
+}
+
+.weekAdd {
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid #e1a36d;
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    color: #2a1a0f;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    line-height: 1;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    box-shadow: 0 12px 24px rgba(230, 160, 106, 0.35);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.weekAdd:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(230, 160, 106, 0.4);
+    background: linear-gradient(135deg, rgba(230, 160, 106, 0.95), rgba(243, 200, 115, 0.95));
+}
+
+.repeatOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 27, 45, 0.18);
+    backdrop-filter: blur(6px);
+    display: none;
+    place-items: center;
+    padding: 24px;
+    z-index: 30;
+}
+
+.repeatOverlay.is-open {
+    display: grid;
+}
+
+.repeatCard {
+    width: min(420px, 94vw);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(15, 27, 45, 0.25);
+    padding: 18px;
+    display: grid;
+    gap: 12px;
+}
+
+.repeatHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.repeatTitle {
+    font-size: 18px;
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+.repeatForm {
+    display: grid;
+    gap: 10px;
+}
+
+.iconBtn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid rgba(215, 226, 237, 0.9);
+    background: rgba(245, 245, 245, 0.9);
+    color: var(--ink);
+    font-size: 18px;
+    cursor: pointer;
 }
 
 .ruleList {
@@ -656,6 +845,19 @@ a { color: inherit; text-decoration: none; }
     }
     .routineForm {
         grid-template-columns: 1fr;
+    }
+    .weekGrid {
+        gap: 2px;
+    }
+    .weekColumn {
+        min-height: 120px;
+    }
+    .weekItem {
+        font-size: 9px;
+        padding: 3px 4px;
+    }
+    .weekItemTime {
+        font-size: 8px;
     }
     .weekColumn { min-height: 60px; }
     .footer { flex-direction: row; align-items: center; gap: 12px; }
