@@ -145,6 +145,36 @@
         return (hours * 60) + minutes;
     };
 
+    const getCookie = (name) => {
+        const match = document.cookie.split("; ").find((row) => row.startsWith(`${name}=`));
+        return match ? decodeURIComponent(match.split("=").slice(1).join("=")) : "";
+    };
+
+    let clockMode = getCookie("candor_time_format") === "12" ? "12" : "24";
+
+    const formatTime = (time) => {
+        if (!time) return "";
+        const minutes = parseMinutes(time);
+        if (minutes === null) return time;
+        if (clockMode === "24") {
+            const hours = Math.floor(minutes / 60);
+            return `${String(hours).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
+        }
+        let hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        const suffix = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12;
+        if (hours === 0) hours = 12;
+        return `${hours}:${String(mins).padStart(2, "0")} ${suffix}`;
+    };
+
+    const formatHour = (hour) => formatTime(`${String(hour).padStart(2, "0")}:00`);
+
+    const setClockMode = (value) => {
+        clockMode = value === "12" ? "12" : "24";
+        document.cookie = `candor_time_format=${clockMode}; path=/; domain=.candor.you; max-age=31536000`;
+    };
+
     const calendarRoot = document.querySelector(".calendarShell");
     let calendarApi = null;
 
@@ -191,7 +221,7 @@
                 row.dataset.hour = String(hour);
 
                 const label = document.createElement("div");
-                label.textContent = `${String(hour).padStart(2, "0")}:00`;
+                label.textContent = formatHour(hour);
 
                 const slot = document.createElement("div");
                 slot.className = "timeSlot";
@@ -207,36 +237,47 @@
                 .filter((item) => item.date === dateKey(stateCal.selected))
                 .sort((a, b) => (parseMinutes(a.start) ?? 0) - (parseMinutes(b.start) ?? 0));
 
-            windows.forEach((window) => {
+            const windowsByHour = windows.reduce((acc, window) => {
                 const minutes = parseMinutes(window.start);
-                if (minutes === null) return;
+                if (minutes === null) return acc;
                 const hour = Math.floor(minutes / 60);
-                const row = rows.find((entry) => entry.hour === hour);
-                if (!row) return;
+                if (!acc[hour]) acc[hour] = [];
+                acc[hour].push(window);
+                return acc;
+            }, {});
 
-                const chip = document.createElement("div");
-                chip.className = "slotChip";
-                chip.dataset.windowId = window.id;
+            rows.forEach(({ hour, slot }) => {
+                const list = windowsByHour[hour] || [];
+                if (list.length > 1) {
+                    slot.classList.add("is-multi");
+                }
+                list.forEach((window) => {
+                    const chip = document.createElement("div");
+                    chip.className = "slotChip";
+                    chip.dataset.windowId = window.id;
 
-                const time = document.createElement("span");
-                time.className = "chipTime";
-                time.textContent = window.end ? `${window.start}-${window.end}` : window.start;
+                    const time = document.createElement("span");
+                    time.className = "chipTime";
+                    const startText = formatTime(window.start);
+                    const endText = window.end ? formatTime(window.end) : "";
+                    time.textContent = endText ? `${startText}-${endText}` : startText;
 
-                const title = document.createElement("span");
-                title.className = "chipText";
-                title.textContent = window.text;
+                    const title = document.createElement("span");
+                    title.className = "chipText";
+                    title.textContent = window.text;
 
-                const remove = document.createElement("button");
-                remove.type = "button";
-                remove.className = "chipRemove";
-                remove.dataset.removeId = window.id;
-                remove.dataset.removeType = "windows";
-                remove.textContent = "x";
+                    const remove = document.createElement("button");
+                    remove.type = "button";
+                    remove.className = "chipRemove";
+                    remove.dataset.removeId = window.id;
+                    remove.dataset.removeType = "windows";
+                    remove.textContent = "x";
 
-                chip.appendChild(time);
-                chip.appendChild(title);
-                chip.appendChild(remove);
-                row.slot.appendChild(chip);
+                    chip.appendChild(time);
+                    chip.appendChild(title);
+                    chip.appendChild(remove);
+                    slot.appendChild(chip);
+                });
             });
 
             if (isSameDay(stateCal.selected, new Date())) {
@@ -285,7 +326,7 @@
                 if (task.time) {
                     const time = document.createElement("span");
                     time.className = "chipTime";
-                    time.textContent = task.time;
+                    time.textContent = formatTime(task.time);
                     chip.appendChild(time);
                 }
 
@@ -680,20 +721,10 @@
         select.addEventListener("change", apply);
     });
 
-    document.querySelectorAll("[data-range-group]").forEach((group) => {
-        const range = group.querySelector("[data-range]");
-        const output = group.querySelector("[data-range-output]");
-        if (!range || !output) return;
-        if (output.value !== "") {
-            range.value = output.value;
-        }
-        range.addEventListener("input", () => {
-            output.value = range.value;
-        });
-        output.addEventListener("input", () => {
-            if (output.value !== "") {
-                range.value = output.value;
-            }
+    document.querySelectorAll("[data-clock-select]").forEach((select) => {
+        select.addEventListener("change", () => {
+            setClockMode(select.value);
+            refreshUI(false);
         });
     });
 

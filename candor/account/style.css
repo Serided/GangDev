@@ -400,6 +400,16 @@ a {
     color: var(--ink-soft);
 }
 
+.saveHint {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.saveHint.ok {
+    color: rgba(10, 110, 55, 0.9);
+}
+
 .footer {
     margin-top: auto;
     display: flex;

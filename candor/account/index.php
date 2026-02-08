@@ -13,6 +13,13 @@ $profile = $userId ? candor_profile_row($userId) : null;
 $profileError = $_GET['profile_error'] ?? '';
 $profileOk = $_GET['profile_ok'] ?? '';
 $birthdate = $profile['birthdate'] ?? '';
+$birthDisplay = 'Not set';
+if ($birthdate !== '') {
+    $ts = strtotime((string)$birthdate);
+    if ($ts !== false) {
+        $birthDisplay = date('M j, Y', $ts);
+    }
+}
 $heightCm = $profile['height_cm'] ?? '';
 $weightKg = $profile['weight_kg'] ?? '';
 $unitSystem = $profile['unit_system'] ?? 'metric';
@@ -31,6 +38,8 @@ if ($unitSystem === 'imperial') {
 }
 $unitSystem = $unitSystem === 'imperial' ? 'imperial' : 'metric';
 $consent = !empty($profile['consent_health']);
+$timeFormat = $_COOKIE['candor_time_format'] ?? '24';
+$timeFormat = $timeFormat === '12' ? '12' : '24';
 ?>
 <!doctype html>
 <html lang="en">
@@ -84,6 +93,11 @@ $consent = !empty($profile['consent_health']);
                         <span class="label">Email</span>
                         <span class="value"><?= htmlspecialchars($email) ?></span>
                     </div>
+
+                    <div class="row">
+                        <span class="label">Birthday</span>
+                        <span class="value"><?= htmlspecialchars($birthDisplay) ?></span>
+                    </div>
                 </div>
 
 				<div class="card profileCard">
@@ -92,8 +106,6 @@ $consent = !empty($profile['consent_health']);
 
 					<?php if ($profileError !== ''): ?>
 						<div class="alert error"><?= htmlspecialchars($profileError) ?></div>
-					<?php elseif ($profileOk !== ''): ?>
-						<div class="alert ok"><?= htmlspecialchars($profileOk) ?></div>
 					<?php endif; ?>
 
 					<form class="profileForm" method="post" action="/profile_update.php" data-unit="<?= htmlspecialchars($unitSystem) ?>">
@@ -109,29 +121,26 @@ $consent = !empty($profile['consent_health']);
 									</select>
 								</div>
 								<div class="bulletField is-compact">
-									<label class="label" for="account-birthdate">Birthday</label>
-									<input class="input compact" id="account-birthdate" type="date" name="birthdate" required value="<?= htmlspecialchars((string)$birthdate) ?>">
+									<label class="label" for="account-clock">Clock</label>
+									<select class="input compact select" id="account-clock" name="clock_format" data-clock-select>
+										<option value="12" <?= $timeFormat === '12' ? 'selected' : '' ?>>12-hour</option>
+										<option value="24" <?= $timeFormat === '24' ? 'selected' : '' ?>>24-hour (military)</option>
+									</select>
 								</div>
 							</div>
 							<div class="unitFields bulletGrid" data-unit="metric">
 								<div class="bulletField">
 									<label class="label" for="account-height-cm">Height</label>
-									<div class="rangeGroup" data-range-group>
-										<input type="range" min="90" max="250" value="<?= htmlspecialchars((string)($heightCm !== '' && $heightCm !== null ? $heightCm : 170)) ?>" data-range>
-										<div class="rangeValue">
-											<input class="input compact" id="account-height-cm" type="number" name="height_cm" min="90" max="250" inputmode="numeric" value="<?= htmlspecialchars((string)$heightCm) ?>" data-range-output>
-											<span class="unitBadge">cm</span>
-										</div>
+									<div class="rangeValue">
+										<input class="input compact" id="account-height-cm" type="number" name="height_cm" min="90" max="250" inputmode="numeric" value="<?= htmlspecialchars((string)$heightCm) ?>">
+										<span class="unitBadge">cm</span>
 									</div>
 								</div>
 								<div class="bulletField is-compact">
 									<label class="label" for="account-weight-kg">Weight</label>
-									<div class="rangeGroup" data-range-group>
-										<input type="range" min="30" max="300" step="0.1" value="<?= htmlspecialchars((string)($weightKg !== '' && $weightKg !== null ? $weightKg : 70)) ?>" data-range>
-										<div class="rangeValue">
-											<input class="input compact" id="account-weight-kg" type="number" name="weight_kg" min="30" max="300" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightKg) ?>" data-range-output>
-											<span class="unitBadge">kg</span>
-										</div>
+									<div class="rangeValue">
+										<input class="input compact" id="account-weight-kg" type="number" name="weight_kg" min="30" max="300" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightKg) ?>">
+										<span class="unitBadge">kg</span>
 									</div>
 								</div>
 							</div>
@@ -139,30 +148,21 @@ $consent = !empty($profile['consent_health']);
 								<div class="bulletField">
 									<label class="label">Height</label>
 									<div class="heightSplit">
-										<div class="rangeGroup" data-range-group>
-											<input type="range" min="3" max="8" value="<?= htmlspecialchars((string)($heightFt !== '' && $heightFt !== null ? $heightFt : 5)) ?>" data-range>
-											<div class="rangeValue">
-												<input class="input compact" id="account-height-ft" type="number" name="height_ft" min="3" max="8" inputmode="numeric" value="<?= htmlspecialchars((string)$heightFt) ?>" data-range-output>
-												<span class="unitBadge">ft</span>
-											</div>
+										<div class="rangeValue">
+											<input class="input compact" id="account-height-ft" type="number" name="height_ft" min="3" max="8" inputmode="numeric" value="<?= htmlspecialchars((string)$heightFt) ?>">
+											<span class="unitBadge">ft</span>
 										</div>
-										<div class="rangeGroup" data-range-group>
-											<input type="range" min="0" max="11" value="<?= htmlspecialchars((string)($heightIn !== '' && $heightIn !== null ? $heightIn : 8)) ?>" data-range>
-											<div class="rangeValue">
-												<input class="input compact" id="account-height-in" type="number" name="height_in" min="0" max="11" inputmode="numeric" value="<?= htmlspecialchars((string)$heightIn) ?>" data-range-output>
-												<span class="unitBadge">in</span>
-											</div>
+										<div class="rangeValue">
+											<input class="input compact" id="account-height-in" type="number" name="height_in" min="0" max="11" inputmode="numeric" value="<?= htmlspecialchars((string)$heightIn) ?>">
+											<span class="unitBadge">in</span>
 										</div>
 									</div>
 								</div>
 								<div class="bulletField is-compact">
 									<label class="label" for="account-weight-lb">Weight</label>
-									<div class="rangeGroup" data-range-group>
-										<input type="range" min="66" max="660" step="0.1" value="<?= htmlspecialchars((string)($weightLb !== '' && $weightLb !== null ? $weightLb : 160)) ?>" data-range>
-										<div class="rangeValue">
-											<input class="input compact" id="account-weight-lb" type="number" name="weight_lb" min="66" max="660" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightLb) ?>" data-range-output>
-											<span class="unitBadge">lb</span>
-										</div>
+									<div class="rangeValue">
+										<input class="input compact" id="account-weight-lb" type="number" name="weight_lb" min="66" max="660" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightLb) ?>">
+										<span class="unitBadge">lb</span>
 									</div>
 								</div>
 							</div>
@@ -182,6 +182,9 @@ $consent = !empty($profile['consent_health']);
 						</div>
 
 						<button class="btn primary" type="submit">Save</button>
+						<?php if ($profileOk !== ''): ?>
+							<div class="saveHint ok"><?= htmlspecialchars($profileOk) ?></div>
+						<?php endif; ?>
 					</form>
 				</div>
             </section>
@@ -207,21 +210,12 @@ $consent = !empty($profile['consent_health']);
 					select.addEventListener('change', apply);
 				});
 
-				document.querySelectorAll('[data-range-group]').forEach((group) => {
-					const range = group.querySelector('[data-range]');
-					const output = group.querySelector('[data-range-output]');
-					if (!range || !output) return;
-					if (output.value !== '') {
-						range.value = output.value;
-					}
-					range.addEventListener('input', () => {
-						output.value = range.value;
-					});
-					output.addEventListener('input', () => {
-						if (output.value !== '') {
-							range.value = output.value;
-						}
-					});
+				const setClockCookie = (value) => {
+					const mode = value === '12' ? '12' : '24';
+					document.cookie = `candor_time_format=${mode}; path=/; domain=.candor.you; max-age=31536000`;
+				};
+				document.querySelectorAll('[data-clock-select]').forEach((select) => {
+					select.addEventListener('change', () => setClockCookie(select.value));
 				});
 			})();
 		</script>

@@ -294,6 +294,7 @@ body.is-do .brandTitle {
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: 20px;
+    padding-bottom: 72px;
     box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
@@ -330,21 +331,26 @@ body.is-do .brandTitle {
     min-height: 34px;
     padding: 0 14px;
     border-radius: 999px;
-    border: 1px solid rgba(185, 219, 242, 0.7);
-    background: rgba(185, 219, 242, 0.25);
-    color: var(--ink);
+    border: 1px solid #e1a36d;
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    color: #2a1a0f;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.3px;
     cursor: pointer;
     white-space: nowrap;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    z-index: 2;
+    box-shadow: 0 12px 24px rgba(230, 160, 106, 0.35);
 }
 
 .panelAdd:hover {
     transform: translateY(-1px);
-    box-shadow: 0 10px 20px rgba(90, 143, 185, 0.2);
-    background: rgba(185, 219, 242, 0.4);
+    box-shadow: 0 16px 28px rgba(230, 160, 106, 0.4);
+    background: linear-gradient(135deg, rgba(230, 160, 106, 0.95), rgba(243, 200, 115, 0.95));
 }
 
 .dayTitle {
@@ -617,6 +623,13 @@ body.is-do .brandTitle {
     padding: 6px 0;
 }
 
+.timeSlot.is-multi {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    align-items: center;
+}
+
 .slotChip {
     display: flex;
     align-items: center;
@@ -627,6 +640,15 @@ body.is-do .brandTitle {
     background: rgba(243, 200, 115, 0.25);
     font-size: 12px;
     color: var(--ink);
+    min-width: 0;
+}
+
+.slotChip .chipText {
+    min-width: 0;
+}
+
+.slotChip .chipRemove {
+    margin-left: auto;
 }
 
 .timeMarker {
@@ -911,6 +933,16 @@ body.is-do .brandTitle {
 .onboardNote {
     font-size: 12px;
     color: var(--ink-soft);
+}
+
+.saveHint {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.saveHint.ok {
+    color: rgba(10, 110, 55, 0.9);
 }
 
 .profileSection {
