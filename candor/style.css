@@ -185,30 +185,6 @@ body.is-landing .page {
 	content: "-";
 }
 
-body.is-landing .brand .meta {
-	text-transform: none;
-	letter-spacing: 1.2px;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: 6px;
-	font-weight: 600;
-	padding: 0;
-	border-radius: 0;
-	background: none;
-	border: none;
-	box-shadow: none;
-	color: var(--ink-soft);
-}
-
-body.is-landing .brand .meta::before,
-body.is-landing .brand .meta::after {
-	content: "-";
-}
-
-body.is-landing .brandTitle {
-	transform: none;
-}
 
 .brandText {
 	position: relative;

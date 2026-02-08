@@ -226,37 +226,19 @@ $candorVersion = 'v0.2';
 				</label>
 			</div>
 
-			<div class="createField" data-kind="window,event" data-event-time>
-				<label class="label" for="create-time-hour">Start time</label>
-				<div class="timeDial" data-time-dial>
-					<input type="hidden" id="create-time" name="time" data-time-output>
-					<div class="timeDialUnit">
-						<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="-1" aria-label="Decrease hour">-</button>
-						<input class="dialInput" id="create-time-hour" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-hour>
-						<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="1" aria-label="Increase hour">+</button>
-					</div>
-					<span class="dialSep">:</span>
-					<div class="timeDialUnit">
-						<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="-1" aria-label="Decrease minute">-</button>
-						<input class="dialInput" id="create-time-minute" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-minute>
-						<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="1" aria-label="Increase minute">+</button>
+			<div class="createRow timeRow" data-kind="window,event" data-event-time>
+				<div class="createField">
+					<label class="label" for="create-time">Start time</label>
+					<div class="timeField" data-time-field data-time-label="Start time" data-time-empty="--:--">
+						<input type="hidden" id="create-time" name="time" data-time-output>
+						<button class="timeButton" type="button" data-time-display>--:--</button>
 					</div>
 				</div>
-			</div>
-			<div class="createField" data-kind="window,event" data-event-time>
-				<label class="label" for="create-end-time-hour">End time (optional)</label>
-				<div class="timeDial" data-time-dial>
-					<input type="hidden" id="create-end-time" name="end_time" data-time-output>
-					<div class="timeDialUnit">
-						<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="-1" aria-label="Decrease hour">-</button>
-						<input class="dialInput" id="create-end-time-hour" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-hour>
-						<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="1" aria-label="Increase hour">+</button>
-					</div>
-					<span class="dialSep">:</span>
-					<div class="timeDialUnit">
-						<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="-1" aria-label="Decrease minute">-</button>
-						<input class="dialInput" id="create-end-time-minute" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-minute>
-						<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="1" aria-label="Increase minute">+</button>
+				<div class="createField">
+					<label class="label" for="create-end-time">End time (optional)</label>
+					<div class="timeField" data-time-field data-time-label="End time" data-time-empty="--:--">
+						<input type="hidden" id="create-end-time" name="end_time" data-time-output>
+						<button class="timeButton" type="button" data-time-display>--:--</button>
 					</div>
 				</div>
 			</div>
@@ -275,6 +257,28 @@ $candorVersion = 'v0.2';
 
 			<button class="btn primary" type="submit">Create</button>
 		</form>
+	</div>
+</div>
+
+<div class="timePickerOverlay" data-time-overlay>
+	<div class="timePickerCard">
+		<div class="timePickerHeader">
+			<div class="timePickerTitle" data-time-title>Set time</div>
+			<button class="iconBtn" type="button" data-time-close aria-label="Close">&times;</button>
+		</div>
+		<div class="timePickerBody">
+			<div class="timeWheel" data-time-wheel="hour">
+				<div class="timeWheelTrack" data-time-hours></div>
+			</div>
+			<div class="timeWheelDivider">:</div>
+			<div class="timeWheel" data-time-wheel="minute">
+				<div class="timeWheelTrack" data-time-minutes></div>
+			</div>
+		</div>
+		<div class="timePickerActions">
+			<button class="btn ghost" type="button" data-time-cancel>Cancel</button>
+			<button class="btn primary" type="button" data-time-apply>Set</button>
+		</div>
 	</div>
 </div>
 

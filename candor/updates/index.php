@@ -55,21 +55,18 @@ $candorVersion = 'v0.2';
                     </div>
                     <h3>Create cadence + sleep structure</h3>
                     <ul class="updateList">
-                        <li>Create now centers on routines with child tasks and inline schedule lines.</li>
-                        <li>Routine tasks now track estimated minutes for total duration.</li>
-                        <li>Week template expands to show routines and repeat tasks by day.</li>
-                        <li>Custom time dials (minute-level) follow your clock preference across My OS + Create.</li>
-                        <li>Sleep schedules now auto-calc end time from age with a weekend boost.</li>
-                        <li>Routine “specific days” supports multi-day selection.</li>
-                        <li>New repeat-task plus keeps weekly chores in the cadence builder.</li>
-                        <li>Sleep schedule layout tightens on mobile with one-line controls + scrollable active bubbles.</li>
-                        <li>Routine builder now prioritizes setup first with task stacks that scroll inside the card.</li>
-                        <li>Month header adds a plan-ahead button with date picking.</li>
-                        <li>Tap a selected day again to see extra items without repeats.</li>
-                        <li>Timeline windows align to the slot line and stack flush when overlapping.</li>
-                        <li>Mobile month grid tuned to keep the daily timeline visible with larger date bubbles.</li>
-                        <li>Refreshed logo mark plus transparent favicons across all Candor pages.</li>
-                    </ul>
+							<li>Create now centers on routines with child tasks and inline schedule lines.</li>
+							<li>Routine tasks track estimated minutes for total duration.</li>
+							<li>Week template fills with routines and repeat tasks by day.</li>
+							<li>Pop-open time picker (scroll wheels) follows your clock preference across My OS + Create.</li>
+							<li>Sleep schedules auto-calc end time from age with a weekend boost.</li>
+							<li>Specific-day routines now support multi-day selection.</li>
+							<li>Repeat-task plus keeps weekly chores in the cadence builder.</li>
+							<li>Month header adds plan-ahead date picking and day popovers for extras.</li>
+							<li>Birthday events auto-populate yearly.</li>
+							<li>Timeline windows align to the slot line and stack flush when overlapping.</li>
+							<li>Refreshed logo mark plus transparent favicons across all Candor pages.</li>
+						</ul>
                 </article>
 
                 <article class="updateCard">
@@ -106,15 +103,15 @@ $candorVersion = 'v0.2';
     <section class="grid">
         <div class="card">
             <h3>Core tools</h3>
-            <p>Tasks, notes, and planner blocks stay close to the day so planning stays honest.</p>
+            <p>Daily timeline for windows/events, a monthly grid for planning ahead, and cadence building for sleep + routines.</p>
         </div>
         <div class="card">
             <h3>Account + access</h3>
-            <p>Unified sign-in and verification keep your personal OS secure.</p>
+            <p>Verified sign-in with baseline profile data (units, birthday, clock) to personalize sleep and scheduling.</p>
         </div>
         <div class="card">
             <h3>Release cadence</h3>
-            <p>Major updates are posted here with short, clear breakdowns.</p>
+            <p>Public changelog tracks every version so new capabilities stay clear and traceable.</p>
         </div>
     </section>
 

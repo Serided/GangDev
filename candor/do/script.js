@@ -137,7 +137,8 @@
             storageMode = "local";
             loadLocal();
         }
-        initTimeDials();
+        initTimePicker();
+        initTimeFields();
         refreshUI(true);
     };
 
@@ -270,13 +271,6 @@
 
     const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
-    const formatDialHour = (hour) => {
-        if (!Number.isFinite(hour)) return "";
-        if (clockMode === "24") return pad2(hour);
-        let display = hour % 12;
-        if (display === 0) display = 12;
-        return String(display);
-    };
 
     const parseTimeValue = (value) => {
         const match = String(value || "").match(/^(\d{2}):(\d{2})$/);
@@ -287,148 +281,196 @@
         return { hour, minute };
     };
 
-    const getDialState = (dial) => {
-        const hour = dial.dataset.hour !== undefined && dial.dataset.hour !== ""
-            ? parseInt(dial.dataset.hour, 10)
-            : null;
-        const minute = dial.dataset.minute !== undefined && dial.dataset.minute !== ""
-            ? parseInt(dial.dataset.minute, 10)
-            : null;
-        return {
-            hour: Number.isFinite(hour) ? hour : null,
-            minute: Number.isFinite(minute) ? minute : null,
-        };
-    };
-
-    const setDialValue = (dial, hour, minute) => {
-        const output = dial.querySelector("[data-time-output]");
-        const hourInput = dial.querySelector("[data-dial-hour]");
-        const minuteInput = dial.querySelector("[data-dial-minute]");
-        if (!output || !hourInput || !minuteInput) return;
-        if (!Number.isFinite(hour) || !Number.isFinite(minute)) {
-            output.value = "";
-            dial.dataset.hour = "";
-            dial.dataset.minute = "";
-            hourInput.value = "";
-            minuteInput.value = "";
-            dial.classList.add("is-empty");
-            return;
+    const setFieldValue = (field, value, options = {}) => {
+        if (!field) return;
+        const output = field.querySelector("[data-time-output]");
+        const display = field.querySelector("[data-time-display]");
+        const empty = field.dataset.timeEmpty || "--:--";
+        const emit = options.emit !== false;
+        const nextValue = value ? String(value) : "";
+        if (output) output.value = nextValue;
+        if (display) {
+            display.textContent = nextValue ? formatTime(nextValue) : empty;
         }
-        const safeHour = clamp(Math.round(hour), 0, 23);
-        const safeMinute = clamp(Math.round(minute), 0, 59);
-        output.value = `${pad2(safeHour)}:${pad2(safeMinute)}`;
-        dial.dataset.hour = String(safeHour);
-        dial.dataset.minute = String(safeMinute);
-        hourInput.value = formatDialHour(safeHour);
-        minuteInput.value = pad2(safeMinute);
-        dial.classList.remove("is-empty");
-    };
-
-    const syncDialFromOutput = (dial) => {
-        const output = dial.querySelector("[data-time-output]");
-        if (!output) return;
-        const parsed = parseTimeValue(output.value);
-        if (!parsed) {
-            setDialValue(dial, null, null);
-            return;
+        field.classList.toggle("is-empty", !nextValue);
+        if (emit) {
+            field.dispatchEvent(new CustomEvent("timechange", { bubbles: true }));
         }
-        setDialValue(dial, parsed.hour, parsed.minute);
     };
 
-    const sanitizeInput = (input) => {
-        if (!input) return "";
-        const cleaned = input.value.replace(/[^\d]/g, "");
-        if (cleaned !== input.value) {
-            input.value = cleaned;
-        }
-        return cleaned;
+    const refreshTimeField = (field) => {
+        if (!field) return;
+        const output = field.querySelector("[data-time-output]");
+        const value = output ? output.value : "";
+        setFieldValue(field, value, { emit: false });
     };
 
-    const updateDialFromInputs = (dial) => {
-        const hourInput = dial.querySelector("[data-dial-hour]");
-        const minuteInput = dial.querySelector("[data-dial-minute]");
-        if (!hourInput || !minuteInput) return;
-        const rawHour = sanitizeInput(hourInput);
-        const rawMinute = sanitizeInput(minuteInput);
-        const { hour: currentHour, minute: currentMinute } = getDialState(dial);
-
-        const hourValue = rawHour === "" ? currentHour : parseInt(rawHour, 10);
-        const minuteValue = rawMinute === "" ? currentMinute : parseInt(rawMinute, 10);
-
-        const hasHour = Number.isFinite(hourValue);
-        const hasMinute = Number.isFinite(minuteValue);
-
-        if (!hasHour && !hasMinute) {
-            setDialValue(dial, null, null);
-            return;
-        }
-
-        const safeHour = hasHour ? clamp(hourValue, 0, 23) : 0;
-        const safeMinute = hasMinute ? clamp(minuteValue, 0, 59) : 0;
-        setDialValue(dial, safeHour, safeMinute);
+    const refreshTimeFields = (scope = document) => {
+        scope.querySelectorAll("[data-time-field]").forEach((field) => refreshTimeField(field));
     };
 
-    const stepDial = (dial, unit, dir) => {
-        const state = getDialState(dial);
-        let hour = Number.isFinite(state.hour) ? state.hour : 0;
-        let minute = Number.isFinite(state.minute) ? state.minute : 0;
-        if (unit === "hour") {
-            hour = (hour + dir + 24) % 24;
-        } else {
-            let nextMinute = minute + dir;
-            if (nextMinute > 59) {
-                nextMinute = 0;
-                hour = (hour + 1) % 24;
-            } else if (nextMinute < 0) {
-                nextMinute = 59;
-                hour = (hour + 23) % 24;
-            }
-            minute = nextMinute;
-        }
-        setDialValue(dial, hour, minute);
-    };
-
-    const bindTimeDial = (dial) => {
-        if (!dial || dial.dataset.bound === "true") return;
-        dial.dataset.bound = "true";
-        syncDialFromOutput(dial);
-        const hourInput = dial.querySelector("[data-dial-hour]");
-        const minuteInput = dial.querySelector("[data-dial-minute]");
-        if (hourInput) {
-            hourInput.addEventListener("input", () => updateDialFromInputs(dial));
-            hourInput.addEventListener("blur", () => syncDialFromOutput(dial));
-        }
-        if (minuteInput) {
-            minuteInput.addEventListener("input", () => updateDialFromInputs(dial));
-            minuteInput.addEventListener("blur", () => syncDialFromOutput(dial));
-        }
-        dial.addEventListener("click", (event) => {
-            const btn = event.target.closest("[data-dial-step]");
-            if (!btn) return;
-            const unit = btn.dataset.dialStep;
-            const dir = parseInt(btn.dataset.dialDir, 10) || 0;
-            if (unit !== "hour" && unit !== "minute") return;
-            if (!dir) return;
-            stepDial(dial, unit, dir);
-        });
-    };
-
-    const initTimeDials = (scope = document) => {
-        scope.querySelectorAll("[data-time-dial]").forEach((dial) => bindTimeDial(dial));
-    };
-
-    const refreshTimeDials = () => {
-        document.querySelectorAll("[data-time-dial]").forEach((dial) => syncDialFromOutput(dial));
-    };
-
-    const clearTimeDial = (input) => {
+    const clearTimeField = (input) => {
         if (!input) return;
-        const dial = input.closest("[data-time-dial]");
-        if (dial) {
-            setDialValue(dial, null, null);
+        const field = input.closest("[data-time-field]");
+        if (field) {
+            setFieldValue(field, "", { emit: false });
         } else {
             input.value = "";
         }
+    };
+
+    const timeOverlay = document.querySelector("[data-time-overlay]");
+    const timeTitle = timeOverlay ? timeOverlay.querySelector("[data-time-title]") : null;
+    const timeHourWheel = timeOverlay ? timeOverlay.querySelector('[data-time-wheel="hour"]') : null;
+    const timeMinuteWheel = timeOverlay ? timeOverlay.querySelector('[data-time-wheel="minute"]') : null;
+    const timeHourTrack = timeOverlay ? timeOverlay.querySelector("[data-time-hours]") : null;
+    const timeMinuteTrack = timeOverlay ? timeOverlay.querySelector("[data-time-minutes]") : null;
+    const timeApply = timeOverlay ? timeOverlay.querySelector("[data-time-apply]") : null;
+    const timeCancel = timeOverlay ? timeOverlay.querySelector("[data-time-cancel]") : null;
+    const timeClose = timeOverlay ? timeOverlay.querySelector("[data-time-close]") : null;
+
+    let activeTimeField = null;
+    let activeHour = 0;
+    let activeMinute = 0;
+
+    const formatHourLabel = (hour) => {
+        if (clockMode === "24") return pad2(hour);
+        let display = hour % 12;
+        if (display === 0) display = 12;
+        return String(display);
+    };
+
+    const buildWheel = (track, count, formatter) => {
+        if (!track) return;
+        track.innerHTML = "";
+        for (let value = 0; value < count; value += 1) {
+            const item = document.createElement("div");
+            item.className = "timeWheelItem";
+            item.dataset.timeValue = String(value);
+            item.textContent = formatter(value);
+            track.appendChild(item);
+        }
+    };
+
+    const buildTimeWheels = () => {
+        buildWheel(timeHourTrack, 24, formatHourLabel);
+        buildWheel(timeMinuteTrack, 60, (value) => pad2(value));
+    };
+
+    const getWheelItems = (wheel) => (wheel ? Array.from(wheel.querySelectorAll(".timeWheelItem")) : []);
+
+    const setWheelActive = (wheel, value) => {
+        const items = getWheelItems(wheel);
+        items.forEach((item) => {
+            item.classList.toggle("is-active", parseInt(item.dataset.timeValue, 10) === value);
+        });
+    };
+
+    const readWheelValue = (wheel) => {
+        const items = getWheelItems(wheel);
+        if (!items.length) return 0;
+        const itemHeight = items[0].offsetHeight || 32;
+        const paddingTop = parseFloat(getComputedStyle(wheel).paddingTop) || 0;
+        const index = Math.round((wheel.scrollTop - paddingTop) / itemHeight);
+        const safeIndex = clamp(index, 0, items.length - 1);
+        const value = parseInt(items[safeIndex].dataset.timeValue, 10);
+        return Number.isFinite(value) ? value : 0;
+    };
+
+    const scrollWheelTo = (wheel, value) => {
+        const items = getWheelItems(wheel);
+        if (!items.length) return;
+        const target = items.find((item) => parseInt(item.dataset.timeValue, 10) === value) || items[0];
+        const offset = target.offsetTop - (wheel.clientHeight / 2) + (target.offsetHeight / 2);
+        wheel.scrollTop = offset;
+        setWheelActive(wheel, value);
+    };
+
+    const bindWheel = (wheel, onChange) => {
+        if (!wheel || wheel.dataset.bound === "true") return;
+        wheel.dataset.bound = "true";
+        let raf = null;
+        const handleScroll = () => {
+            raf = null;
+            const value = readWheelValue(wheel);
+            onChange(value);
+            setWheelActive(wheel, value);
+        };
+        wheel.addEventListener("scroll", () => {
+            if (raf) return;
+            raf = requestAnimationFrame(handleScroll);
+        });
+        wheel.addEventListener("click", (event) => {
+            const item = event.target.closest(".timeWheelItem");
+            if (!item) return;
+            const value = parseInt(item.dataset.timeValue, 10);
+            if (!Number.isFinite(value)) return;
+            scrollWheelTo(wheel, value);
+            onChange(value);
+        });
+    };
+
+    const openTimePicker = (field) => {
+        if (!timeOverlay || !field) return;
+        activeTimeField = field;
+        const label = field.dataset.timeLabel || "Set time";
+        if (timeTitle) timeTitle.textContent = label;
+        buildTimeWheels();
+        const output = field.querySelector("[data-time-output]");
+        const parsed = output ? parseTimeValue(output.value) : null;
+        activeHour = parsed ? parsed.hour : 0;
+        activeMinute = parsed ? parsed.minute : 0;
+        timeOverlay.classList.add("is-open");
+        requestAnimationFrame(() => {
+            if (timeHourWheel) scrollWheelTo(timeHourWheel, activeHour);
+            if (timeMinuteWheel) scrollWheelTo(timeMinuteWheel, activeMinute);
+        });
+    };
+
+    const closeTimePicker = () => {
+        if (!timeOverlay) return;
+        timeOverlay.classList.remove("is-open");
+        activeTimeField = null;
+    };
+
+    const applyTimePicker = () => {
+        if (!activeTimeField) return;
+        const value = `${pad2(activeHour)}:${pad2(activeMinute)}`;
+        setFieldValue(activeTimeField, value);
+    };
+
+    const initTimePicker = () => {
+        if (!timeOverlay) return;
+        buildTimeWheels();
+        bindWheel(timeHourWheel, (value) => {
+            activeHour = value;
+        });
+        bindWheel(timeMinuteWheel, (value) => {
+            activeMinute = value;
+        });
+        if (timeApply) {
+            timeApply.addEventListener("click", () => {
+                applyTimePicker();
+                closeTimePicker();
+            });
+        }
+        if (timeCancel) timeCancel.addEventListener("click", closeTimePicker);
+        if (timeClose) timeClose.addEventListener("click", closeTimePicker);
+        timeOverlay.addEventListener("click", (event) => {
+            if (event.target === timeOverlay) closeTimePicker();
+        });
+    };
+
+    const initTimeFields = (scope = document) => {
+        scope.querySelectorAll("[data-time-field]").forEach((field) => {
+            if (field.dataset.bound === "true") return;
+            field.dataset.bound = "true";
+            const button = field.querySelector("[data-time-display]");
+            if (button) {
+                button.addEventListener("click", () => openTimePicker(field));
+            }
+            refreshTimeField(field);
+        });
     };
 
     const colorToRgba = (hex, alpha) => {
@@ -449,7 +491,8 @@
     const setClockMode = (value) => {
         clockMode = value === "12" ? "12" : "24";
         document.cookie = `${clockCookieKey}=${clockMode}; path=/; domain=.candor.you; max-age=31536000`;
-        refreshTimeDials();
+        buildTimeWheels();
+        refreshTimeFields();
     };
 
     const calendarRoot = document.querySelector(".calendarShell");
@@ -1225,8 +1268,8 @@
         setCreateDateMode(Boolean(options.allowDatePick));
         if (createTitle) createTitle.value = "";
         if (createNote) createNote.value = "";
-        clearTimeDial(createTime);
-        clearTimeDial(createEnd);
+        clearTimeField(createTime);
+        clearTimeField(createEnd);
         if (createDuration) createDuration.value = "";
         if (createColor && createColor.dataset && createColor.dataset.default) {
             createColor.value = createColor.dataset.default;

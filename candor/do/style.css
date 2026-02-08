@@ -1225,59 +1225,32 @@ body.is-do .welcome {
     border-radius: 10px;
 }
 
-.timeDial {
-    display: inline-flex;
+.timeField {
+    width: 100%;
+    min-height: 32px;
+    display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 8px;
+    justify-content: center;
+    padding: 0 8px;
     border: 1px solid var(--line);
     border-radius: 12px;
     background: var(--white);
-    min-height: 36px;
 }
 
-.timeDialUnit {
-    display: grid;
-    grid-template-rows: auto auto auto;
-    align-items: center;
-    gap: 2px;
-}
-
-.dialBtn {
-    width: 22px;
-    height: 18px;
-    border-radius: 8px;
-    border: 1px solid rgba(15, 27, 45, 0.18);
-    background: rgba(15, 27, 45, 0.04);
-    color: var(--ink);
-    font-size: 12px;
-    line-height: 1;
-    cursor: pointer;
-}
-
-.dialBtn:hover {
-    background: rgba(15, 27, 45, 0.1);
-}
-
-.dialInput {
-    width: 28px;
-    text-align: center;
+.timeButton {
+    width: 100%;
+    min-height: 30px;
     border: none;
     background: transparent;
-    font: 12px/1 var(--font-body);
-    font-weight: 600;
+    font: 600 13px/1 var(--font-body);
     color: var(--ink);
+    text-align: center;
+    cursor: pointer;
     font-variant-numeric: tabular-nums;
-    outline: none;
 }
 
-.dialInput::placeholder {
-    color: rgba(15, 27, 45, 0.35);
-}
-
-.dialSep {
-    font-weight: 700;
-    color: var(--ink-soft);
+.timeField.is-empty .timeButton {
+    color: rgba(42, 59, 82, 0.55);
 }
 
 .rangeGroup {
@@ -1600,6 +1573,16 @@ body.is-do .welcome {
     gap: 10px;
 }
 
+.createRow.timeRow {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.createRow.timeRow .createField {
+    min-width: 0;
+}
+
 .createTitleField {
     flex: 1 1 auto;
 }
@@ -1669,6 +1652,119 @@ body.is-do .welcome {
 
 .monthPopover.is-open {
     display: grid;
+}
+
+.timePickerOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 27, 45, 0.2);
+    backdrop-filter: blur(6px);
+    display: none;
+    place-items: center;
+    padding: 24px;
+    z-index: 60;
+}
+
+.timePickerOverlay.is-open {
+    display: grid;
+}
+
+.timePickerCard {
+    width: min(360px, 94vw);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(15, 27, 45, 0.25);
+    padding: 18px;
+    display: grid;
+    gap: 12px;
+}
+
+.timePickerHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.timePickerTitle {
+    font-size: 18px;
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+.timePickerBody {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(185, 219, 242, 0.22);
+    border: 1px solid rgba(185, 219, 242, 0.6);
+}
+
+.timePickerBody::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 50%;
+    height: 34px;
+    transform: translateY(-50%);
+    border-radius: 12px;
+    border: 1px solid rgba(185, 219, 242, 0.8);
+    background: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+}
+
+.timeWheel {
+    width: 110px;
+    height: 180px;
+    overflow-y: auto;
+    padding: 60px 0;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+}
+
+.timeWheel::-webkit-scrollbar {
+    display: none;
+}
+
+.timeWheelTrack {
+    display: grid;
+}
+
+.timeWheelItem {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+    scroll-snap-align: center;
+    cursor: pointer;
+}
+
+.timeWheelItem.is-active {
+    color: var(--brand-candor);
+    font-weight: 700;
+}
+
+.timeWheelDivider {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+}
+
+.timePickerActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
 }
 
 .monthPopoverHead {

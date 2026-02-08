@@ -58,36 +58,16 @@ $candorVersion = 'v0.2';
 				<form class="formGrid" data-sleep-form>
 					<div class="field">
 						<label class="label" for="sleep-start-hour">Start</label>
-						<div class="timeDial" data-time-dial>
+						<div class="timeField" data-time-field data-time-label="Sleep start" data-time-empty="--:--">
 							<input type="hidden" id="sleep-start" name="start" data-time-output>
-							<div class="timeDialUnit">
-								<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="-1" aria-label="Decrease hour">-</button>
-								<input class="dialInput" id="sleep-start-hour" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-hour>
-								<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="1" aria-label="Increase hour">+</button>
-							</div>
-							<span class="dialSep">:</span>
-							<div class="timeDialUnit">
-								<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="-1" aria-label="Decrease minute">-</button>
-								<input class="dialInput" id="sleep-start-minute" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-minute>
-								<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="1" aria-label="Increase minute">+</button>
-							</div>
+							<button class="timeButton" type="button" data-time-display>--:--</button>
 						</div>
 					</div>
 					<div class="field">
 						<label class="label" for="sleep-end-hour">End</label>
-						<div class="timeDial" data-time-dial>
+						<div class="timeField" data-time-field data-time-label="Sleep end" data-time-empty="--:--">
 							<input type="hidden" id="sleep-end" name="end" data-time-output>
-							<div class="timeDialUnit">
-								<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="-1" aria-label="Decrease hour">-</button>
-								<input class="dialInput" id="sleep-end-hour" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-hour>
-								<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="1" aria-label="Increase hour">+</button>
-							</div>
-							<span class="dialSep">:</span>
-							<div class="timeDialUnit">
-								<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="-1" aria-label="Decrease minute">-</button>
-								<input class="dialInput" id="sleep-end-minute" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-minute>
-								<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="1" aria-label="Increase minute">+</button>
-							</div>
+							<button class="timeButton" type="button" data-time-display>--:--</button>
 						</div>
 					</div>
 					<div class="field">
@@ -128,90 +108,84 @@ $candorVersion = 'v0.2';
 					<h2>Routines</h2>
 					<span class="cardHint">Build reusable stacks with child tasks.</span>
 				</div>
-				<form class="routineForm" data-routine-form>
-					<div class="routineGrid">
-						<div class="routineMeta">
-							<div class="field">
-								<label class="label" for="routine-title">Routine</label>
-								<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Morning reset" required>
-							</div>
-							<div class="field">
-								<label class="label" for="routine-time-hour">Start time</label>
-								<div class="timeDial" data-time-dial>
-									<input type="hidden" id="routine-time" name="time" data-time-output>
-									<div class="timeDialUnit">
-										<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="-1" aria-label="Decrease hour">-</button>
-										<input class="dialInput" id="routine-time-hour" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-hour>
-										<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="1" aria-label="Increase hour">+</button>
+				<div class="routineLayout">
+					<div class="routineBuild">
+						<form class="routineForm" data-routine-form>
+							<div class="routineGrid">
+								<div class="routineMeta">
+									<div class="field">
+										<label class="label" for="routine-title">Routine</label>
+										<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Morning reset" required>
 									</div>
-									<span class="dialSep">:</span>
-									<div class="timeDialUnit">
-										<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="-1" aria-label="Decrease minute">-</button>
-										<input class="dialInput" id="routine-time-minute" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-minute>
-										<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="1" aria-label="Increase minute">+</button>
+									<div class="field">
+										<label class="label" for="routine-time-hour">Start time</label>
+										<div class="timeField" data-time-field data-time-label="Routine start" data-time-empty="--:--">
+											<input type="hidden" id="routine-time" name="time" data-time-output>
+											<button class="timeButton" type="button" data-time-display>--:--</button>
+										</div>
+									</div>
+									<div class="field">
+										<label class="label" for="routine-repeat">Repeat</label>
+										<select class="input compact select" id="routine-repeat" name="repeat" data-routine-repeat>
+											<option value="daily">Daily</option>
+											<option value="weekdays">Weekdays</option>
+											<option value="weekends">Weekends</option>
+											<option value="day">Specific day</option>
+										</select>
+									</div>
+									<div class="field" data-routine-day-field>
+										<label class="label">Days</label>
+										<div class="dayMulti">
+											<label class="dayOption">
+												<input type="checkbox" value="0" data-routine-day>
+												<span>Sun</span>
+											</label>
+											<label class="dayOption">
+												<input type="checkbox" value="1" data-routine-day>
+												<span>Mon</span>
+											</label>
+											<label class="dayOption">
+												<input type="checkbox" value="2" data-routine-day>
+												<span>Tue</span>
+											</label>
+											<label class="dayOption">
+												<input type="checkbox" value="3" data-routine-day>
+												<span>Wed</span>
+											</label>
+											<label class="dayOption">
+												<input type="checkbox" value="4" data-routine-day>
+												<span>Thu</span>
+											</label>
+											<label class="dayOption">
+												<input type="checkbox" value="5" data-routine-day>
+												<span>Fri</span>
+											</label>
+											<label class="dayOption">
+												<input type="checkbox" value="6" data-routine-day>
+												<span>Sat</span>
+											</label>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="field">
-								<label class="label" for="routine-repeat">Repeat</label>
-								<select class="input compact select" id="routine-repeat" name="repeat" data-routine-repeat>
-									<option value="daily">Daily</option>
-									<option value="weekdays">Weekdays</option>
-									<option value="weekends">Weekends</option>
-									<option value="day">Specific day</option>
-								</select>
-							</div>
-							<div class="field" data-routine-day-field>
-								<label class="label">Days</label>
-								<div class="dayMulti">
-									<label class="dayOption">
-										<input type="checkbox" value="0" data-routine-day>
-										<span>Sun</span>
-									</label>
-									<label class="dayOption">
-										<input type="checkbox" value="1" data-routine-day>
-										<span>Mon</span>
-									</label>
-									<label class="dayOption">
-										<input type="checkbox" value="2" data-routine-day>
-										<span>Tue</span>
-									</label>
-									<label class="dayOption">
-										<input type="checkbox" value="3" data-routine-day>
-										<span>Wed</span>
-									</label>
-									<label class="dayOption">
-										<input type="checkbox" value="4" data-routine-day>
-										<span>Thu</span>
-									</label>
-									<label class="dayOption">
-										<input type="checkbox" value="5" data-routine-day>
-										<span>Fri</span>
-									</label>
-									<label class="dayOption">
-										<input type="checkbox" value="6" data-routine-day>
-										<span>Sat</span>
-									</label>
+								<div class="routineTasks">
+									<div class="taskHeader">
+										<span class="label">Tasks</span>
+										<button class="btn ghost mini taskAdd" type="button" data-routine-add-task>+</button>
+									</div>
+									<div class="taskStack" data-routine-tasks></div>
+									<div class="routineTotal" data-routine-total>Estimated: 0 min</div>
 								</div>
 							</div>
-						</div>
-						<div class="routineTasks">
-							<div class="taskHeader">
-								<span class="label">Tasks</span>
-								<button class="btn ghost mini" type="button" data-routine-add-task>+</button>
+							<div class="formActions">
+								<button class="btn primary" type="submit">Add routine</button>
 							</div>
-							<div class="taskStack" data-routine-tasks></div>
-							<div class="routineTotal" data-routine-total>Estimated: 0 min</div>
-						</div>
+						</form>
 					</div>
-					<div class="formActions">
-						<button class="btn primary" type="submit">Add routine</button>
+					<div class="savedSection">
+						<div class="listHeader">Saved routines</div>
+						<div class="listEmpty" data-routine-empty>No routines yet.</div>
+						<div class="itemList savedScroll" data-routine-list></div>
 					</div>
-				</form>
-				<div class="savedSection">
-					<div class="listHeader">Saved routines</div>
-					<div class="listEmpty" data-routine-empty>No routines yet.</div>
-					<div class="itemList savedScroll" data-routine-list></div>
 				</div>
 			</div>
 		</div>
@@ -331,19 +305,9 @@ $candorVersion = 'v0.2';
 				</div>
 				<div class="field">
 					<label class="label" for="repeat-time-hour">Time (optional)</label>
-					<div class="timeDial" data-time-dial>
+					<div class="timeField" data-time-field data-time-label="Repeat task time" data-time-empty="--:--">
 						<input type="hidden" id="repeat-time" name="time" data-time-output>
-						<div class="timeDialUnit">
-							<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="-1" aria-label="Decrease hour">-</button>
-							<input class="dialInput" id="repeat-time-hour" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-hour>
-							<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="1" aria-label="Increase hour">+</button>
-						</div>
-						<span class="dialSep">:</span>
-						<div class="timeDialUnit">
-							<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="-1" aria-label="Decrease minute">-</button>
-							<input class="dialInput" id="repeat-time-minute" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-minute>
-							<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="1" aria-label="Increase minute">+</button>
-						</div>
+						<button class="timeButton" type="button" data-time-display>--:--</button>
 					</div>
 				</div>
 				<div class="formActions">
@@ -351,6 +315,28 @@ $candorVersion = 'v0.2';
 					<button class="btn ghost" type="button" data-repeat-close>Cancel</button>
 				</div>
 			</form>
+		</div>
+	</div>
+
+	<div class="timePickerOverlay" data-time-overlay>
+		<div class="timePickerCard">
+			<div class="timePickerHeader">
+				<div class="timePickerTitle" data-time-title>Set time</div>
+				<button class="iconBtn" type="button" data-time-close aria-label="Close">&times;</button>
+			</div>
+			<div class="timePickerBody">
+				<div class="timeWheel" data-time-wheel="hour">
+					<div class="timeWheelTrack" data-time-hours></div>
+				</div>
+				<div class="timeWheelDivider">:</div>
+				<div class="timeWheel" data-time-wheel="minute">
+					<div class="timeWheelTrack" data-time-minutes></div>
+				</div>
+			</div>
+			<div class="timePickerActions">
+				<button class="btn ghost" type="button" data-time-cancel>Cancel</button>
+				<button class="btn primary" type="button" data-time-apply>Set</button>
+			</div>
 		</div>
 	</div>
 
