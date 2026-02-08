@@ -54,6 +54,47 @@ function clean_time($value) {
 	return $time;
 }
 
+function clean_tasks($value) {
+	$items = [];
+	if (is_array($value)) {
+		foreach ($value as $item) {
+			$clean = clean_text($item, 120);
+			if ($clean !== '') {
+				$items[] = $clean;
+			}
+			if (count($items) >= 24) break;
+		}
+		return $items;
+	}
+
+	$raw = trim((string)$value);
+	if ($raw === '') return [];
+	if ($raw[0] === '[') {
+		$decoded = json_decode($raw, true);
+		if (is_array($decoded)) {
+			foreach ($decoded as $item) {
+				$clean = clean_text($item, 120);
+				if ($clean !== '') {
+					$items[] = $clean;
+				}
+				if (count($items) >= 24) break;
+			}
+			return $items;
+		}
+	}
+
+	$parts = preg_split('/[\r\n,]+/', $raw);
+	if (!$parts) return [];
+	foreach ($parts as $part) {
+		$clean = clean_text($part, 120);
+		if ($clean !== '') {
+			$items[] = $clean;
+		}
+		if (count($items) >= 24) break;
+	}
+	return $items;
+}
+
 function ensure_schedule_rules_table(PDO $pdo) {
 	$pdo->exec("
 		CREATE TABLE IF NOT EXISTS candor.schedule_rules (
@@ -70,8 +111,22 @@ function ensure_schedule_rules_table(PDO $pdo) {
 	");
 }
 
+function ensure_routines_table(PDO $pdo) {
+	$pdo->exec("
+		CREATE TABLE IF NOT EXISTS candor.routines (
+			id BIGSERIAL PRIMARY KEY,
+			user_id INTEGER NOT NULL,
+			title TEXT NOT NULL,
+			routine_time TIME,
+			tasks_json TEXT,
+			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
+		)
+	");
+}
+
 try {
 	ensure_schedule_rules_table($pdo);
+	ensure_routines_table($pdo);
 } catch (Throwable $e) {
 	respond(['error' => 'table_unavailable'], 500);
 }
@@ -106,7 +161,39 @@ if ($action === 'load') {
 			'day' => isset($row['day_of_week']) ? (int)$row['day_of_week'] : null,
 		];
 	}
-	respond(['rules' => $rules]);
+	$stmt = $pdo->prepare("
+		SELECT id, title, routine_time, tasks_json
+		FROM candor.routines
+		WHERE user_id = ?
+		ORDER BY created_at ASC, id ASC
+	");
+	$stmt->execute([(int)$userId]);
+	$routines = [];
+	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		$time = '';
+		if (!empty($row['routine_time'])) {
+			$time = substr((string)$row['routine_time'], 0, 5);
+		}
+		$tasks = [];
+		if (!empty($row['tasks_json'])) {
+			$decoded = json_decode((string)$row['tasks_json'], true);
+			if (is_array($decoded)) {
+				foreach ($decoded as $item) {
+					$clean = clean_text($item, 120);
+					if ($clean !== '') {
+						$tasks[] = $clean;
+					}
+				}
+			}
+		}
+		$routines[] = [
+			'id' => (string)$row['id'],
+			'title' => (string)($row['title'] ?? ''),
+			'time' => $time,
+			'tasks' => $tasks,
+		];
+	}
+	respond(['rules' => $rules, 'routines' => $routines]);
 }
 
 if ($action === 'add') {
@@ -184,12 +271,71 @@ if ($action === 'add') {
 	]);
 }
 
+if ($action === 'add_routine') {
+	$title = clean_text($payload['title'] ?? '', 160);
+	if ($title === '') {
+		respond(['error' => 'missing_title'], 400);
+	}
+	$time = clean_time($payload['time'] ?? ($payload['routine_time'] ?? ''));
+	$tasks = clean_tasks($payload['tasks'] ?? ($payload['tasks_json'] ?? ''));
+	$tasksJson = $tasks ? json_encode($tasks) : null;
+
+	$stmt = $pdo->prepare("
+		INSERT INTO candor.routines
+			(user_id, title, routine_time, tasks_json, created_at)
+		VALUES (?, ?, ?, ?, NOW())
+		RETURNING id, title, routine_time, tasks_json
+	");
+	$stmt->execute([
+		(int)$userId,
+		$title,
+		$time !== '' ? $time : null,
+		$tasksJson,
+	]);
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	$timeOut = '';
+	if (!empty($row['routine_time'])) {
+		$timeOut = substr((string)$row['routine_time'], 0, 5);
+	}
+	$tasksOut = [];
+	if (!empty($row['tasks_json'])) {
+		$decoded = json_decode((string)$row['tasks_json'], true);
+		if (is_array($decoded)) {
+			foreach ($decoded as $item) {
+				$clean = clean_text($item, 120);
+				if ($clean !== '') {
+					$tasksOut[] = $clean;
+				}
+			}
+		}
+	}
+
+	respond([
+		'routine' => [
+			'id' => (string)$row['id'],
+			'title' => (string)($row['title'] ?? ''),
+			'time' => $timeOut,
+			'tasks' => $tasksOut,
+		],
+	]);
+}
+
 if ($action === 'delete') {
 	$id = (int)($payload['id'] ?? 0);
 	if ($id <= 0) {
 		respond(['error' => 'invalid_id'], 400);
 	}
 	$stmt = $pdo->prepare("DELETE FROM candor.schedule_rules WHERE id = ? AND user_id = ?");
+	$stmt->execute([$id, (int)$userId]);
+	respond(['ok' => true]);
+}
+
+if ($action === 'delete_routine') {
+	$id = (int)($payload['id'] ?? 0);
+	if ($id <= 0) {
+		respond(['error' => 'invalid_id'], 400);
+	}
+	$stmt = $pdo->prepare("DELETE FROM candor.routines WHERE id = ? AND user_id = ?");
 	$stmt->execute([$id, (int)$userId]);
 	respond(['ok' => true]);
 }

@@ -222,15 +222,12 @@ body.is-do .brandTitle {
 }
 
 body.is-do .nav {
-    align-items: flex-start;
+    align-items: center;
 }
 
 body.is-do .actions {
-    display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 12px;
-    flex-wrap: wrap;
 }
 
 body.is-do .actions .btn {
@@ -238,7 +235,7 @@ body.is-do .actions .btn {
 }
 
 body.is-do .welcome {
-    text-align: right;
+    text-align: left;
 }
 
 .welcome {

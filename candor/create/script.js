@@ -26,6 +26,7 @@
         rules: [],
         sleep: [],
         tasks: [],
+        routines: [],
     };
 
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -96,6 +97,14 @@
 
     const normalizeText = (value) => String(value ?? "").trim();
 
+    const splitList = (value) => {
+        if (!value) return [];
+        return String(value)
+            .split(/[\r\n,]+/)
+            .map((item) => item.trim())
+            .filter((item) => item !== "");
+    };
+
     const normalizeRule = (item) => {
         const dayValue = item.day ?? item.day_of_week;
         const parsedDay = typeof dayValue === "number" ? dayValue : parseInt(dayValue, 10);
@@ -110,6 +119,35 @@
         };
     };
 
+    const normalizeRoutineTasks = (value) => {
+        if (Array.isArray(value)) {
+            return value.map((item) => normalizeText(item)).filter((item) => item !== "");
+        }
+        if (typeof value === "string") {
+            const trimmed = value.trim();
+            if (trimmed === "") return [];
+            if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+                try {
+                    const parsed = JSON.parse(trimmed);
+                    if (Array.isArray(parsed)) {
+                        return parsed.map((item) => normalizeText(item)).filter((item) => item !== "");
+                    }
+                } catch {
+                    return splitList(trimmed);
+                }
+            }
+            return splitList(trimmed);
+        }
+        return [];
+    };
+
+    const normalizeRoutine = (item) => ({
+        id: String(item.id ?? ""),
+        title: normalizeText(item.title ?? ""),
+        time: normalizeText(item.time ?? item.routine_time ?? ""),
+        tasks: normalizeRoutineTasks(item.tasks ?? item.tasks_json ?? ""),
+    });
+
     const splitRules = () => {
         state.sleep = state.rules.filter((rule) => rule.kind === "sleep");
         state.tasks = state.rules.filter((rule) => rule.kind === "task");
@@ -117,6 +155,7 @@
 
     const persistLocal = () => {
         saveItems("rules", state.rules);
+        saveItems("routines", state.routines);
     };
 
     const apiFetch = async (payload, method = "POST") => {
@@ -144,6 +183,7 @@
 
     const loadLocal = () => {
         state.rules = loadItems("rules").map(normalizeRule);
+        state.routines = loadItems("routines").map(normalizeRoutine);
         splitRules();
     };
 
@@ -155,6 +195,7 @@
     const loadRemote = async () => {
         const data = await apiFetch({ action: "load" }, "GET");
         state.rules = Array.isArray(data.rules) ? data.rules.map(normalizeRule) : [];
+        state.routines = Array.isArray(data.routines) ? data.routines.map(normalizeRoutine) : [];
         splitRules();
     };
 
@@ -172,6 +213,8 @@
     const sleepEmpty = document.querySelector("[data-sleep-empty]");
     const taskList = document.querySelector("[data-task-list]");
     const taskEmpty = document.querySelector("[data-task-empty]");
+    const routineList = document.querySelector("[data-routine-list]");
+    const routineEmpty = document.querySelector("[data-routine-empty]");
 
     const renderSleep = () => {
         if (!sleepList || !sleepEmpty) return;
@@ -249,9 +292,52 @@
         });
     };
 
+    const renderRoutines = () => {
+        if (!routineList || !routineEmpty) return;
+        routineList.innerHTML = "";
+        if (state.routines.length === 0) {
+            routineEmpty.style.display = "block";
+            return;
+        }
+        routineEmpty.style.display = "none";
+        state.routines.forEach((routine) => {
+            const row = document.createElement("div");
+            row.className = "itemRow";
+
+            const text = document.createElement("div");
+            const title = document.createElement("div");
+            title.className = "itemTitle";
+            title.textContent = routine.title || "Routine";
+
+            const meta = document.createElement("div");
+            meta.className = "itemMeta";
+            const time = routine.time ? formatTime(routine.time) : "Anytime";
+            const tasks = Array.isArray(routine.tasks) ? routine.tasks : [];
+            const preview = tasks.slice(0, 3).join(" • ");
+            const extra = tasks.length > 3 ? ` +${tasks.length - 3}` : "";
+            const detail = tasks.length ? `${preview}${extra}` : "No tasks yet";
+            meta.textContent = `${time} - ${detail}`;
+
+            text.appendChild(title);
+            text.appendChild(meta);
+
+            const remove = document.createElement("button");
+            remove.type = "button";
+            remove.className = "itemRemove";
+            remove.dataset.removeId = routine.id;
+            remove.dataset.removeKind = "routine";
+            remove.textContent = "Remove";
+
+            row.appendChild(text);
+            row.appendChild(remove);
+            routineList.appendChild(row);
+        });
+    };
+
     const renderAll = () => {
         renderSleep();
         renderTasks();
+        renderRoutines();
     };
 
     const applyRepeatToggle = (select, field) => {
@@ -300,6 +386,29 @@
         }
     };
 
+    const addRoutine = async (payload) => {
+        if (storageMode === "remote") {
+            try {
+                const data = await apiFetch(payload, "POST");
+                if (data && data.routine) {
+                    state.routines.push(normalizeRoutine(data.routine));
+                    renderRoutines();
+                    return;
+                }
+            } catch {
+                switchToLocal();
+            }
+        }
+
+        if (storageMode === "local") {
+            const id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+            const localRoutine = normalizeRoutine({ id, ...payload });
+            state.routines.push(localRoutine);
+            persistLocal();
+            renderRoutines();
+        }
+    };
+
     const removeRule = async (id) => {
         if (!id) return;
         if (storageMode === "remote") {
@@ -316,6 +425,23 @@
             persistLocal();
         }
         renderAll();
+    };
+
+    const removeRoutine = async (id) => {
+        if (!id) return;
+        if (storageMode === "remote") {
+            try {
+                await apiFetch({ action: "delete_routine", id }, "POST");
+            } catch {
+                switchToLocal();
+            }
+        }
+
+        state.routines = state.routines.filter((routine) => routine.id !== id);
+        if (storageMode === "local") {
+            persistLocal();
+        }
+        renderRoutines();
     };
 
     const clearRules = async (kind) => {
@@ -392,10 +518,33 @@
         });
     }
 
+    const routineForm = document.querySelector("[data-routine-form]");
+    if (routineForm) {
+        routineForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const formData = new FormData(routineForm);
+            const title = normalizeText(formData.get("title"));
+            if (!title) return;
+            const time = normalizeText(formData.get("time"));
+            const tasks = normalizeRoutineTasks(formData.get("tasks"));
+            addRoutine({
+                action: "add_routine",
+                title,
+                time,
+                tasks,
+            });
+            routineForm.reset();
+        });
+    }
+
     document.addEventListener("click", (event) => {
         const removeBtn = event.target.closest("[data-remove-id]");
         if (removeBtn) {
             const id = removeBtn.dataset.removeId;
+            if (removeBtn.dataset.removeKind === "routine") {
+                removeRoutine(id);
+                return;
+            }
             removeRule(id);
         }
     });

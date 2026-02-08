@@ -50,13 +50,7 @@ $cookieKey = 'candor_time_format_' . $userId;
 	<section class="hero">
 		<div class="heroCopy">
 			<h1>Build your cadence.</h1>
-			<p>Design the repeating structure behind your perfect days. Drop sleep, essentials, and recurring tasks into a weekly template that powers your OS.</p>
-		</div>
-		<div class="card heroCard">
-			<div class="heroLabel">Starting point</div>
-			<h3>Weekly template</h3>
-			<p>Set a baseline week, then let Candor adapt the day-to-day execution in My OS.</p>
-			<div class="legendList">Sleep - Focus - Life</div>
+			<p>Design the repeating structure behind your perfect days. Map sleep, focus, and life into a weekly template so My OS can adapt the execution.</p>
 		</div>
 	</section>
 
@@ -70,11 +64,11 @@ $cookieKey = 'candor_time_format_' . $userId;
 				<form class="formGrid" data-sleep-form>
 					<div class="field">
 						<label class="label" for="sleep-start">Start</label>
-						<select class="input select" id="sleep-start" name="start" required data-time-select data-time-empty="Start"></select>
+						<input class="input" id="sleep-start" type="time" name="start" step="60" required>
 					</div>
 					<div class="field">
 						<label class="label" for="sleep-end">End</label>
-						<select class="input select" id="sleep-end" name="end" required data-time-select data-time-empty="End"></select>
+						<input class="input" id="sleep-end" type="time" name="end" step="60" required>
 					</div>
 					<div class="field">
 						<label class="label" for="sleep-repeat">Repeat</label>
@@ -98,7 +92,7 @@ $cookieKey = 'candor_time_format_' . $userId;
 						</select>
 					</div>
 					<div class="formActions">
-						<button class="btn primary" type="submit">Save sleep schedule</button>
+						<button class="btn primary" type="submit">Save</button>
 						<button class="btn ghost" type="button" data-sleep-clear>Clear</button>
 					</div>
 				</form>
@@ -141,6 +135,24 @@ $cookieKey = 'candor_time_format_' . $userId;
 					</div>
 					<div class="formActions">
 						<button class="btn primary" type="submit">Add task</button>
+					</div>
+				</form>
+				<div class="subHead">Routines</div>
+				<form class="formGrid routineForm" data-routine-form>
+					<div class="field">
+						<label class="label" for="routine-title">Routine</label>
+						<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Morning reset" required>
+					</div>
+					<div class="field">
+						<label class="label" for="routine-time">Time (optional)</label>
+						<input class="input compact" id="routine-time" type="time" name="time" step="60">
+					</div>
+					<div class="field fieldWide">
+						<label class="label" for="routine-tasks">Child tasks</label>
+						<input class="input compact" id="routine-tasks" type="text" name="tasks" placeholder="Task 1, Task 2">
+					</div>
+					<div class="formActions">
+						<button class="btn primary" type="submit">Add routine</button>
 					</div>
 				</form>
 			</div>
@@ -215,7 +227,7 @@ $cookieKey = 'candor_time_format_' . $userId;
 			<div class="card savedCard">
 				<div class="cardHead">
 					<h2>Saved cadence</h2>
-					<span class="cardHint">Active schedules + daily tasks.</span>
+					<span class="cardHint">Active schedules, routines, and daily tasks.</span>
 				</div>
 				<div class="savedSection">
 					<div class="listHeader">Active schedules</div>
@@ -226,6 +238,11 @@ $cookieKey = 'candor_time_format_' . $userId;
 					<div class="listHeader">Saved tasks</div>
 					<div class="listEmpty" data-task-empty>No recurring tasks yet.</div>
 					<div class="itemList savedScroll" data-task-list></div>
+				</div>
+				<div class="savedSection">
+					<div class="listHeader">Routines</div>
+					<div class="listEmpty" data-routine-empty>No routines yet.</div>
+					<div class="itemList savedScroll" data-routine-list></div>
 				</div>
 			</div>
 		</div>

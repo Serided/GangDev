@@ -50,7 +50,7 @@ a { color: inherit; text-decoration: none; }
     padding: var(--edge-pad) var(--page-gutter);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     overflow: hidden;
 }
 
@@ -228,9 +228,10 @@ a { color: inherit; text-decoration: none; }
 
 .hero {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 8px;
+    grid-template-columns: 1fr;
+    gap: 6px;
     align-items: flex-start;
+    margin-top: 6px;
 }
 
 .sectionCaption {
@@ -273,6 +274,14 @@ a { color: inherit; text-decoration: none; }
     box-shadow: var(--shadow);
 }
 
+.subHead {
+    margin-top: 10px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--ink-soft);
+}
+
 .heroCard h3 {
     margin: 6px 0 4px;
     font-size: 16px;
@@ -295,7 +304,7 @@ a { color: inherit; text-decoration: none; }
 .builder {
     display: grid;
     grid-template-rows: auto minmax(0, 1fr);
-    gap: 8px;
+    gap: 6px;
     flex: 1;
     min-height: 0;
 }
@@ -317,17 +326,17 @@ a { color: inherit; text-decoration: none; }
 
 .savedCard {
     display: grid;
-    gap: 10px;
+    gap: 8px;
     align-content: start;
 }
 
 .savedSection {
     display: grid;
-    gap: 6px;
+    gap: 4px;
 }
 
 .savedScroll {
-    max-height: clamp(90px, 18vh, 160px);
+    max-height: clamp(70px, 14vh, 120px);
     overflow-y: auto;
     scrollbar-gutter: stable;
     padding-right: 2px;
@@ -338,7 +347,7 @@ a { color: inherit; text-decoration: none; }
     align-items: baseline;
     justify-content: space-between;
     gap: 8px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .cardHead h2 {
@@ -355,7 +364,11 @@ a { color: inherit; text-decoration: none; }
 .formGrid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    gap: 6px;
+}
+
+.routineForm {
+    grid-template-columns: minmax(0, 1fr) 140px;
 }
 
 .field {
@@ -381,6 +394,12 @@ a { color: inherit; text-decoration: none; }
     outline: none;
     font: 14px/1.2 var(--font-body);
     background: var(--white);
+}
+
+.input.compact {
+    padding: 9px 10px;
+    font-size: 12px;
+    border-radius: 10px;
 }
 
 .input:focus {
@@ -634,6 +653,9 @@ a { color: inherit; text-decoration: none; }
         align-items: center;
         justify-content: flex-end;
         gap: 8px;
+    }
+    .routineForm {
+        grid-template-columns: 1fr;
     }
     .weekColumn { min-height: 60px; }
     .footer { flex-direction: row; align-items: center; gap: 12px; }
