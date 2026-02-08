@@ -213,7 +213,7 @@
 
         const renderDayGrid = (autoScroll) => {
             if (!dayGrid) return;
-            const dayStart = 6;
+            const dayStart = 0;
             const dayEnd = 24;
             dayGrid.innerHTML = "";
             const rows = [];

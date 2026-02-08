@@ -301,7 +301,7 @@ body.is-do .brandTitle {
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: 20px;
-    padding-bottom: 96px;
+    padding-bottom: 20px;
     box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
@@ -1404,14 +1404,14 @@ body.is-do .brandTitle {
     .quickForm { grid-template-columns: 1fr; }
     .quickForm.is-planner { grid-template-columns: 1fr; }
     .focusRow { grid-template-columns: 1fr; }
-    .calendarPanel { padding: 16px; padding-bottom: 84px; }
+    .calendarPanel { padding: 16px; padding-bottom: 16px; }
     .dayTitle { font-size: clamp(22px, 6vw, 32px); }
     .dayMeta { display: none; }
     .dayHeader { gap: 10px; }
     .dayTag { font-size: 12px; }
     .timelineGrid { --hour-height: 36px; max-height: none; }
     .calendarShell {
-        grid-template-rows: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        grid-template-rows: minmax(0, 1.35fr) minmax(0, 0.65fr);
         gap: 12px;
     }
     .dayPanel,
@@ -1419,22 +1419,23 @@ body.is-do .brandTitle {
         min-height: 0;
     }
     .focusStrip {
-        grid-auto-flow: column;
-        grid-auto-columns: minmax(110px, 1fr);
-        grid-template-columns: none;
-        overflow-x: auto;
-        padding-bottom: 4px;
-        gap: 10px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        overflow: hidden;
+        gap: 8px;
     }
     .focusCard {
-        min-height: 96px;
         aspect-ratio: 1 / 1;
-        padding: 10px;
+        min-height: 70px;
+        padding: 8px;
         gap: 6px;
+        justify-items: center;
+        text-align: center;
     }
     .focusLabel { font-size: 10px; }
-    .focusValue { font-size: 15px; }
+    .focusValue { font-size: 14px; }
     .focusSub { display: none; }
+    .balanceBar { width: 100%; }
+    .paceTrack { width: 100%; }
     .monthGrid {
         gap: 4px;
         overflow-y: auto;
@@ -1460,6 +1461,26 @@ body.is-do .brandTitle {
         opacity: 0.45;
     }
     .monthMore { display: none; }
+    .railStack {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+    .rail {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+    .railLabel { font-size: 10px; }
+    .railList {
+        flex-wrap: wrap;
+        gap: 6px;
+        overflow: hidden;
+        max-height: 52px;
+    }
+    .chip {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
     .footer { flex-direction: row; align-items: center; gap: 12px; }
     .heightSplit { grid-template-columns: 1fr; }
 }
