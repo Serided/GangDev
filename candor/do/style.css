@@ -386,9 +386,10 @@ body.is-do .welcome {
     line-height: 1;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     position: absolute;
-    left: 18px;
+    left: auto;
+    right: 28px;
     bottom: 18px;
-    z-index: 2;
+    z-index: 6;
     box-shadow: 0 12px 24px rgba(230, 160, 106, 0.35);
 }
 
@@ -417,9 +418,10 @@ body.is-do .welcome {
     text-decoration: none;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     position: absolute;
-    right: 28px;
+    right: auto;
+    left: 18px;
     bottom: 18px;
-    z-index: 5;
+    z-index: 6;
     box-shadow: 0 12px 24px rgba(230, 160, 106, 0.35);
 }
 
@@ -681,6 +683,12 @@ body.is-do .welcome {
 .timelineGrid {
     --hour-height: 46px;
     --timeline-label-width: 72px;
+    --timeline-gap: 12px;
+    --timeline-inline-pad: 14px;
+    --timeline-slot-left: calc(var(--timeline-label-width) + var(--timeline-gap) + var(--timeline-inline-pad));
+    --timeline-slot-right: var(--timeline-inline-pad);
+    --timeline-block-gap: 8px;
+    --timeline-block-inset: 8px;
     position: relative;
     display: grid;
     grid-auto-rows: var(--hour-height);
@@ -698,8 +706,8 @@ body.is-do .welcome {
     display: grid;
     grid-template-columns: var(--timeline-label-width) 1fr;
     align-items: stretch;
-    gap: 12px;
-    padding: 0 14px;
+    gap: var(--timeline-gap);
+    padding: 0 var(--timeline-inline-pad);
     border-top: 1px solid rgba(215, 226, 237, 0.8);
     color: var(--ink-soft);
     font-size: 12px;
@@ -802,8 +810,8 @@ body.is-do .welcome {
 
 .timeMarker {
     position: absolute;
-    left: var(--timeline-label-width);
-    right: 16px;
+    left: var(--timeline-slot-left);
+    right: var(--timeline-slot-right);
     height: 2px;
     background: linear-gradient(90deg, var(--orange), var(--yellow));
     border-radius: 999px;
@@ -826,8 +834,8 @@ body.is-do .welcome {
 
 .sleepBlock {
     position: absolute;
-    left: var(--timeline-label-width);
-    right: 16px;
+    left: var(--timeline-slot-left);
+    right: var(--timeline-slot-right);
     border-radius: 14px;
     border: 1px dashed rgba(90, 143, 185, 0.5);
     background: rgba(90, 143, 185, 0.16);
@@ -894,7 +902,8 @@ body.is-do .welcome {
     line-height: 1;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     position: absolute;
-    right: 18px;
+    right: auto;
+    left: 18px;
     bottom: 18px;
     z-index: 2;
 }
@@ -1154,32 +1163,41 @@ body.is-do .welcome {
 }
 
 .bulletGrid {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(180px, 1fr);
-    gap: 12px;
+    --bullet-width: 140px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
     overflow-x: auto;
     padding-bottom: 4px;
+    align-items: stretch;
 }
 
 .bulletField {
     background: rgba(255, 255, 255, 0.95);
     border: 1px solid rgba(215, 226, 237, 0.9);
     border-radius: 14px;
-    padding: 10px 12px;
+    padding: 8px 10px;
     display: grid;
-    gap: 8px;
-    min-width: 180px;
+    gap: 6px;
+    flex: 0 0 var(--bullet-width);
+    max-width: var(--bullet-width);
+    min-width: var(--bullet-width);
 }
 
 .bulletField.is-compact {
-    min-width: 160px;
+    min-width: 0;
+}
+
+.bulletField.is-height {
+    flex-basis: 120px;
+    max-width: 120px;
+    min-width: 120px;
 }
 
 .input.compact {
-    padding: 8px 10px;
-    font-size: 12px;
-    border-radius: 10px;
+    padding: 6px 8px;
+    font-size: 11px;
+    border-radius: 9px;
 }
 
 .rangeGroup {
@@ -1195,14 +1213,19 @@ body.is-do .welcome {
 .rangeValue {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
+}
+
+.rangeValue .input {
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 .unitBadge {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--ink-soft);
     border: 1px solid rgba(215, 226, 237, 0.9);
-    padding: 4px 6px;
+    padding: 3px 5px;
     border-radius: 999px;
     background: rgba(245, 245, 245, 0.8);
 }
@@ -1210,7 +1233,11 @@ body.is-do .welcome {
 .heightSplit {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    gap: 6px;
+}
+
+.unitFields {
+    display: contents;
 }
 
 .overview {
@@ -1698,7 +1725,8 @@ body.is-do .welcome {
         bottom: 2px;
     }
     .panelAdd {
-        right: 18px;
+        right: 26px;
+        left: auto;
         bottom: 12px;
         width: 54px;
         height: 54px;
@@ -1706,6 +1734,7 @@ body.is-do .welcome {
     }
     .panelAction {
         left: 12px;
+        right: auto;
         bottom: 12px;
         width: 54px;
         height: 54px;

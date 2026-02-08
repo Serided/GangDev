@@ -133,9 +133,8 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 										<option value="12" <?= $timeFormat === '12' ? 'selected' : '' ?>>12-hour (no AM/PM)</option>
 									</select>
 								</div>
-							</div>
-							<div class="unitFields bulletGrid" data-unit="metric">
-								<div class="bulletField is-compact">
+								<div class="unitFields" data-unit="metric">
+									<div class="bulletField is-compact is-height">
 									<label class="label" for="account-height-cm">Height</label>
 									<div class="rangeValue">
 										<input class="input compact" id="account-height-cm" type="number" name="height_cm" min="90" max="250" inputmode="numeric" value="<?= htmlspecialchars((string)$heightCm) ?>">
@@ -149,9 +148,9 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 										<span class="unitBadge">kg</span>
 									</div>
 								</div>
-							</div>
-							<div class="unitFields bulletGrid" data-unit="imperial">
-								<div class="bulletField is-compact">
+								</div>
+								<div class="unitFields" data-unit="imperial">
+									<div class="bulletField is-compact is-height">
 									<label class="label">Height</label>
 									<div class="heightSplit">
 										<div class="rangeValue">
@@ -170,6 +169,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 										<input class="input compact" id="account-weight-lb" type="number" name="weight_lb" min="66" max="660" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightLb) ?>">
 										<span class="unitBadge">lb</span>
 									</div>
+								</div>
 								</div>
 							</div>
 						</div>

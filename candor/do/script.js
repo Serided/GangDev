@@ -137,6 +137,7 @@
             storageMode = "local";
             loadLocal();
         }
+        refreshTimeSelects();
         refreshUI(true);
     };
 
@@ -265,6 +266,38 @@
 
     const formatHour = (hour) => formatTime(`${String(hour).padStart(2, "0")}:00`);
 
+    const buildTimeSelect = (select) => {
+        if (!select) return;
+        const current = select.value;
+        const emptyLabel = select.dataset.timeEmpty || "";
+        select.innerHTML = "";
+        if (emptyLabel) {
+            const empty = document.createElement("option");
+            empty.value = "";
+            empty.textContent = emptyLabel;
+            if (current === "" || current === null) empty.selected = true;
+            select.appendChild(empty);
+        }
+        const step = 30;
+        for (let minutes = 0; minutes < 24 * 60; minutes += step) {
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            const value = `${String(hours).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
+            const option = document.createElement("option");
+            option.value = value;
+            option.textContent = formatTime(value);
+            if (value === current) option.selected = true;
+            select.appendChild(option);
+        }
+        if (current) {
+            select.value = current;
+        }
+    };
+
+    const refreshTimeSelects = () => {
+        document.querySelectorAll("[data-time-select]").forEach((select) => buildTimeSelect(select));
+    };
+
     const colorToRgba = (hex, alpha) => {
         if (!hex) return "";
         const clean = hex.replace("#", "").trim();
@@ -283,6 +316,7 @@
     const setClockMode = (value) => {
         clockMode = value === "12" ? "12" : "24";
         document.cookie = `${clockCookieKey}=${clockMode}; path=/; domain=.candor.you; max-age=31536000`;
+        refreshTimeSelects();
     };
 
     const calendarRoot = document.querySelector(".calendarShell");
@@ -427,6 +461,7 @@
                 });
             });
 
+            const blockSegments = [];
             blockWindows.forEach((window) => {
                 const segments = [];
                 if (window.isAllDay) {
@@ -439,44 +474,110 @@
                 } else {
                     segments.push({ start: window.startMinutes, end: window.endMinutes });
                 }
-
                 segments.forEach((segment) => {
-                    const block = document.createElement("div");
-                    block.className = `slotBlock${window.kind === "event" ? " is-event" : ""}${segment.allDay ? " is-all-day" : ""}`;
-
-                    const tint = colorToRgba(window.color || "#f3c873", window.kind === "event" ? 0.2 : 0.25);
-                    block.style.borderColor = window.color || "#f3c873";
-                    if (tint) block.style.background = tint;
-
-                    const top = segment.allDay ? 6 : ((segment.start - dayStart * 60) / 60) * hourHeight;
-                    const height = segment.allDay
-                        ? Math.max(26, hourHeight * 0.75)
-                        : ((segment.end - segment.start) / 60) * hourHeight;
-                    block.style.top = `${top}px`;
-                    block.style.height = `${height}px`;
-
-                    const time = document.createElement("span");
-                    time.className = "blockTime";
-                    const startText = formatTime(window.start);
-                    const endText = window.end ? formatTime(window.end) : "";
-                    time.textContent = segment.allDay ? "All day" : (endText ? `${startText}-${endText}` : startText);
-
-                    const title = document.createElement("span");
-                    title.className = "blockText";
-                    title.textContent = window.text;
-
-                    const remove = document.createElement("button");
-                    remove.type = "button";
-                    remove.className = "blockRemove";
-                    remove.dataset.removeId = window.id;
-                    remove.dataset.removeType = "windows";
-                    remove.textContent = "x";
-
-                    block.appendChild(time);
-                    block.appendChild(title);
-                    block.appendChild(remove);
-                    dayGrid.appendChild(block);
+                    blockSegments.push({
+                        window,
+                        start: segment.start,
+                        end: segment.end,
+                        allDay: !!segment.allDay,
+                    });
                 });
+            });
+
+            const layoutSegments = (segments) => {
+                const sorted = segments.slice().sort((a, b) => {
+                    if (a.start !== b.start) return a.start - b.start;
+                    return a.end - b.end;
+                });
+                const groups = [];
+                let current = null;
+                sorted.forEach((segment) => {
+                    if (!current || segment.start >= current.end) {
+                        current = { items: [], end: segment.end };
+                        groups.push(current);
+                    } else if (segment.end > current.end) {
+                        current.end = segment.end;
+                    }
+                    current.items.push(segment);
+                });
+                groups.forEach((group) => {
+                    const active = [];
+                    group.maxCols = 0;
+                    group.items.forEach((segment) => {
+                        for (let i = active.length - 1; i >= 0; i -= 1) {
+                            if (active[i].end <= segment.start) {
+                                active.splice(i, 1);
+                            }
+                        }
+                        const used = new Set(active.map((item) => item.col));
+                        let col = 0;
+                        while (used.has(col)) col += 1;
+                        segment.col = col;
+                        active.push(segment);
+                        group.maxCols = Math.max(group.maxCols, active.length);
+                    });
+                    group.items.forEach((segment) => {
+                        segment.maxCols = group.maxCols;
+                    });
+                });
+                return sorted;
+            };
+
+            const labelWidth = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--timeline-label-width")) || 72;
+            const slotLeft = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--timeline-slot-left"));
+            const slotRight = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--timeline-slot-right"));
+            const blockGap = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--timeline-block-gap"));
+            const blockInset = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--timeline-block-inset"));
+            const safeInset = Number.isFinite(blockInset) ? blockInset : 0;
+            const leftBase = (Number.isFinite(slotLeft) ? slotLeft : (labelWidth + 12)) + safeInset;
+            const rightBase = (Number.isFinite(slotRight) ? slotRight : 16) + safeInset;
+            const columnGap = Number.isFinite(blockGap) ? blockGap : 8;
+            const usableWidth = Math.max(0, dayGrid.clientWidth - leftBase - rightBase);
+
+            layoutSegments(blockSegments).forEach((segment) => {
+                const { window } = segment;
+                const block = document.createElement("div");
+                block.className = `slotBlock${window.kind === "event" ? " is-event" : ""}${segment.allDay ? " is-all-day" : ""}`;
+
+                const tint = colorToRgba(window.color || "#f3c873", window.kind === "event" ? 0.2 : 0.25);
+                block.style.borderColor = window.color || "#f3c873";
+                if (tint) block.style.background = tint;
+
+                const top = segment.allDay ? 6 : ((segment.start - dayStart * 60) / 60) * hourHeight;
+                const height = segment.allDay
+                    ? Math.max(26, hourHeight * 0.75)
+                    : ((segment.end - segment.start) / 60) * hourHeight;
+                block.style.top = `${top}px`;
+                block.style.height = `${height}px`;
+
+                const columns = Math.max(1, segment.maxCols || 1);
+                const totalGap = columnGap * (columns - 1);
+                const columnWidth = columns > 0 ? Math.max(0, (usableWidth - totalGap) / columns) : usableWidth;
+                const left = leftBase + segment.col * (columnWidth + columnGap);
+                block.style.left = `${left}px`;
+                block.style.width = `${columnWidth}px`;
+
+                const time = document.createElement("span");
+                time.className = "blockTime";
+                const startText = formatTime(window.start);
+                const endText = window.end ? formatTime(window.end) : "";
+                time.textContent = segment.allDay ? "All day" : (endText ? `${startText}-${endText}` : startText);
+
+                const title = document.createElement("span");
+                title.className = "blockText";
+                title.textContent = window.text;
+
+                const remove = document.createElement("button");
+                remove.type = "button";
+                remove.className = "blockRemove";
+                remove.dataset.removeId = window.id;
+                remove.dataset.removeType = "windows";
+                remove.textContent = "x";
+
+                block.appendChild(time);
+                block.appendChild(title);
+                block.appendChild(remove);
+                dayGrid.appendChild(block);
             });
 
             const sleepRule = pickSleepRule(stateCal.selected);

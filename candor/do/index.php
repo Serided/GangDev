@@ -282,42 +282,42 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 							<option value="12" <?= $timeFormat === '12' ? 'selected' : '' ?>>12-hour (no AM/PM)</option>
 						</select>
 					</div>
-				</div>
-				<div class="unitFields bulletGrid" data-unit="metric">
-					<div class="bulletField is-compact">
-						<label class="label" for="profile-height-cm">Height</label>
-						<div class="rangeValue">
-							<input class="input compact" id="profile-height-cm" type="number" name="height_cm" min="90" max="250" inputmode="numeric" value="<?= htmlspecialchars((string)$heightCm) ?>">
-							<span class="unitBadge">cm</span>
-						</div>
-					</div>
-					<div class="bulletField is-compact">
-						<label class="label" for="profile-weight-kg">Weight</label>
-						<div class="rangeValue">
-							<input class="input compact" id="profile-weight-kg" type="number" name="weight_kg" min="30" max="300" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightKg) ?>">
-							<span class="unitBadge">kg</span>
-						</div>
-					</div>
-				</div>
-				<div class="unitFields bulletGrid" data-unit="imperial">
-					<div class="bulletField is-compact">
-						<label class="label">Height</label>
-						<div class="heightSplit">
+					<div class="unitFields" data-unit="metric">
+						<div class="bulletField is-compact is-height">
+							<label class="label" for="profile-height-cm">Height</label>
 							<div class="rangeValue">
-								<input class="input compact" id="profile-height-ft" type="number" name="height_ft" min="3" max="8" inputmode="numeric" value="<?= htmlspecialchars((string)$heightFt) ?>">
-								<span class="unitBadge">ft</span>
+								<input class="input compact" id="profile-height-cm" type="number" name="height_cm" min="90" max="250" inputmode="numeric" value="<?= htmlspecialchars((string)$heightCm) ?>">
+								<span class="unitBadge">cm</span>
 							</div>
+						</div>
+						<div class="bulletField is-compact">
+							<label class="label" for="profile-weight-kg">Weight</label>
 							<div class="rangeValue">
-								<input class="input compact" id="profile-height-in" type="number" name="height_in" min="0" max="11" inputmode="numeric" value="<?= htmlspecialchars((string)$heightIn) ?>">
-								<span class="unitBadge">in</span>
+								<input class="input compact" id="profile-weight-kg" type="number" name="weight_kg" min="30" max="300" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightKg) ?>">
+								<span class="unitBadge">kg</span>
 							</div>
 						</div>
 					</div>
-					<div class="bulletField is-compact">
-						<label class="label" for="profile-weight-lb">Weight</label>
-						<div class="rangeValue">
-							<input class="input compact" id="profile-weight-lb" type="number" name="weight_lb" min="66" max="660" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightLb) ?>">
-							<span class="unitBadge">lb</span>
+					<div class="unitFields" data-unit="imperial">
+						<div class="bulletField is-compact is-height">
+							<label class="label">Height</label>
+							<div class="heightSplit">
+								<div class="rangeValue">
+									<input class="input compact" id="profile-height-ft" type="number" name="height_ft" min="3" max="8" inputmode="numeric" value="<?= htmlspecialchars((string)$heightFt) ?>">
+									<span class="unitBadge">ft</span>
+								</div>
+								<div class="rangeValue">
+									<input class="input compact" id="profile-height-in" type="number" name="height_in" min="0" max="11" inputmode="numeric" value="<?= htmlspecialchars((string)$heightIn) ?>">
+									<span class="unitBadge">in</span>
+								</div>
+							</div>
+						</div>
+						<div class="bulletField is-compact">
+							<label class="label" for="profile-weight-lb">Weight</label>
+							<div class="rangeValue">
+								<input class="input compact" id="profile-weight-lb" type="number" name="weight_lb" min="66" max="660" step="0.1" inputmode="decimal" value="<?= htmlspecialchars((string)$weightLb) ?>">
+								<span class="unitBadge">lb</span>
+							</div>
 						</div>
 					</div>
 				</div>

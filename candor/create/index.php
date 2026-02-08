@@ -7,6 +7,7 @@ $userId = candor_current_user_id();
 $user = $userId ? candor_user_row($userId) : null;
 $name = $user['display_name'] ?? ($user['username'] ?? '');
 $email = $user['email'] ?? '';
+$cookieKey = 'candor_time_format_' . $userId;
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,7 +28,7 @@ $email = $user['email'] ?? '';
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
-<body class="is-create" data-user-key="<?= htmlspecialchars((string)$userId) ?>">
+<body class="is-create" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>">
 
 <div class="page">
 	<header class="nav">
@@ -55,7 +56,7 @@ $email = $user['email'] ?? '';
 			<div class="heroLabel">Starting point</div>
 			<h3>Weekly template</h3>
 			<p>Set a baseline week, then let Candor adapt the day-to-day execution in My OS.</p>
-			<div class="legendList">Sleep - Anchors - Focus</div>
+			<div class="legendList">Sleep - Focus - Life</div>
 		</div>
 	</section>
 
@@ -69,11 +70,11 @@ $email = $user['email'] ?? '';
 				<form class="formGrid" data-sleep-form>
 					<div class="field">
 						<label class="label" for="sleep-start">Start</label>
-						<input class="input" id="sleep-start" type="time" name="start" required>
+						<select class="input select" id="sleep-start" name="start" required data-time-select data-time-empty="Start"></select>
 					</div>
 					<div class="field">
 						<label class="label" for="sleep-end">End</label>
-						<input class="input" id="sleep-end" type="time" name="end" required>
+						<select class="input select" id="sleep-end" name="end" required data-time-select data-time-empty="End"></select>
 					</div>
 					<div class="field">
 						<label class="label" for="sleep-repeat">Repeat</label>
@@ -87,13 +88,13 @@ $email = $user['email'] ?? '';
 					<div class="field" data-day-field>
 						<label class="label" for="sleep-day">Day</label>
 						<select class="input select" id="sleep-day" name="day">
+							<option value="0">Sunday</option>
 							<option value="1">Monday</option>
 							<option value="2">Tuesday</option>
 							<option value="3">Wednesday</option>
 							<option value="4">Thursday</option>
 							<option value="5">Friday</option>
 							<option value="6">Saturday</option>
-							<option value="0">Sunday</option>
 						</select>
 					</div>
 					<div class="formActions">
@@ -122,7 +123,7 @@ $email = $user['email'] ?? '';
 					</div>
 					<div class="field">
 						<label class="label" for="task-time">Time (optional)</label>
-						<input class="input" id="task-time" type="time" name="time">
+						<select class="input select" id="task-time" name="time" data-time-select data-time-empty="Anytime"></select>
 					</div>
 					<div class="field">
 						<label class="label" for="task-repeat">Repeat</label>
@@ -136,13 +137,13 @@ $email = $user['email'] ?? '';
 					<div class="field" data-task-day-field>
 						<label class="label" for="task-day">Day</label>
 						<select class="input select" id="task-day" name="day">
+							<option value="0">Sunday</option>
 							<option value="1">Monday</option>
 							<option value="2">Tuesday</option>
 							<option value="3">Wednesday</option>
 							<option value="4">Thursday</option>
 							<option value="5">Friday</option>
 							<option value="6">Saturday</option>
-							<option value="0">Sunday</option>
 						</select>
 					</div>
 					<div class="formActions">
@@ -162,59 +163,59 @@ $email = $user['email'] ?? '';
 			</div>
 			<div class="weekGrid">
 				<div class="weekColumn">
+					<div class="weekDay">Sun</div>
+					<div class="weekStack">
+						<div class="weekBlock is-sleep">Sleep</div>
+						<div class="weekBlock is-focus">Focus</div>
+						<div class="weekBlock is-life">Life</div>
+					</div>
+				</div>
+				<div class="weekColumn">
 					<div class="weekDay">Mon</div>
 					<div class="weekStack">
 						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-anchor">Morning anchor</div>
-						<div class="weekBlock is-focus">Focus block</div>
+						<div class="weekBlock is-focus">Focus</div>
+						<div class="weekBlock is-life">Life</div>
 					</div>
 				</div>
 				<div class="weekColumn">
 					<div class="weekDay">Tue</div>
 					<div class="weekStack">
 						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-anchor">Daily anchor</div>
-						<div class="weekBlock is-focus">Deep work</div>
+						<div class="weekBlock is-focus">Focus</div>
+						<div class="weekBlock is-life">Life</div>
 					</div>
 				</div>
 				<div class="weekColumn">
 					<div class="weekDay">Wed</div>
 					<div class="weekStack">
 						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-anchor">Midweek reset</div>
-						<div class="weekBlock is-focus">Creative work</div>
+						<div class="weekBlock is-focus">Focus</div>
+						<div class="weekBlock is-life">Life</div>
 					</div>
 				</div>
 				<div class="weekColumn">
 					<div class="weekDay">Thu</div>
 					<div class="weekStack">
 						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-anchor">Daily anchor</div>
-						<div class="weekBlock is-focus">Execution</div>
+						<div class="weekBlock is-focus">Focus</div>
+						<div class="weekBlock is-life">Life</div>
 					</div>
 				</div>
 				<div class="weekColumn">
 					<div class="weekDay">Fri</div>
 					<div class="weekStack">
 						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-anchor">Wrap up</div>
-						<div class="weekBlock is-focus">Finish line</div>
+						<div class="weekBlock is-focus">Focus</div>
+						<div class="weekBlock is-life">Life</div>
 					</div>
 				</div>
 				<div class="weekColumn">
 					<div class="weekDay">Sat</div>
 					<div class="weekStack">
 						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-anchor">Recovery</div>
-						<div class="weekBlock is-focus">Personal time</div>
-					</div>
-				</div>
-				<div class="weekColumn">
-					<div class="weekDay">Sun</div>
-					<div class="weekStack">
-						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-anchor">Weekly reset</div>
-						<div class="weekBlock is-focus">Plan</div>
+						<div class="weekBlock is-focus">Focus</div>
+						<div class="weekBlock is-life">Life</div>
 					</div>
 				</div>
 			</div>

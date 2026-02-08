@@ -1,7 +1,10 @@
 (() => {
     const body = document.body;
-    const rawKey = body && body.dataset && body.dataset.userKey - body.dataset.userKey : "local";
+    const rawKey = body && body.dataset && body.dataset.userKey ? body.dataset.userKey : "local";
     const userKey = String(rawKey || "local").trim() || "local";
+    const clockCookieKey = body && body.dataset && body.dataset.clockCookie
+        ? body.dataset.clockCookie
+        : `candor_time_format_${userKey}`;
     const keyFor = (name) => `candor_create_${userKey}_${name}`;
 
     const loadItems = (name) => {
@@ -9,7 +12,7 @@
         if (!raw) return [];
         try {
             const parsed = JSON.parse(raw);
-            return Array.isArray(parsed) - parsed : [];
+            return Array.isArray(parsed) ? parsed : [];
         } catch {
             return [];
         }
@@ -27,19 +30,83 @@
 
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-    const normalizeText = (value) => String(value -- "").trim();
+    const getCookie = (name) => {
+        const match = document.cookie.split("; ").find((row) => row.startsWith(`${name}=`));
+        return match ? decodeURIComponent(match.split("=").slice(1).join("=")) : "";
+    };
+
+    let clockMode = getCookie(clockCookieKey) === "12" ? "12" : "24";
+
+    const parseMinutes = (value) => {
+        if (!value) return null;
+        const parts = String(value).split(":");
+        if (parts.length < 2) return null;
+        const hours = parseInt(parts[0], 10);
+        const minutes = parseInt(parts[1], 10);
+        if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return null;
+        return hours * 60 + minutes;
+    };
+
+    const formatTime = (value) => {
+        if (!value) return "";
+        const minutes = parseMinutes(value);
+        if (minutes === null) return value;
+        if (clockMode === "24") {
+            const hours = Math.floor(minutes / 60);
+            return `${String(hours).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
+        }
+        let hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        hours = hours % 12;
+        if (hours === 0) hours = 12;
+        return `${hours}:${String(mins).padStart(2, "0")}`;
+    };
+
+    const buildTimeSelect = (select) => {
+        if (!select) return;
+        const current = select.value;
+        const emptyLabel = select.dataset.timeEmpty || "";
+        select.innerHTML = "";
+        if (emptyLabel) {
+            const empty = document.createElement("option");
+            empty.value = "";
+            empty.textContent = emptyLabel;
+            if (current === "" || current === null) empty.selected = true;
+            select.appendChild(empty);
+        }
+        const step = 30;
+        for (let minutes = 0; minutes < 24 * 60; minutes += step) {
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            const value = `${String(hours).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
+            const option = document.createElement("option");
+            option.value = value;
+            option.textContent = formatTime(value);
+            if (value === current) option.selected = true;
+            select.appendChild(option);
+        }
+        if (current) {
+            select.value = current;
+        }
+    };
+
+    const refreshTimeSelects = () => {
+        document.querySelectorAll("[data-time-select]").forEach((select) => buildTimeSelect(select));
+    };
+
+    const normalizeText = (value) => String(value ?? "").trim();
 
     const normalizeRule = (item) => {
-        const dayValue = item.day -- item.day_of_week;
-        const parsedDay = typeof dayValue === "number" - dayValue : parseInt(dayValue, 10);
+        const dayValue = item.day ?? item.day_of_week;
+        const parsedDay = typeof dayValue === "number" ? dayValue : parseInt(dayValue, 10);
         return {
-            id: String(item.id -- ""),
-            kind: item.kind === "task" - "task" : "sleep",
-            title: normalizeText(item.title -- ""),
-            start: normalizeText(item.start -- item.start_time -- item.time -- ""),
-            end: normalizeText(item.end -- item.end_time -- ""),
-            repeat: normalizeText(item.repeat -- item.repeat_rule -- ""),
-            day: Number.isFinite(parsedDay) - parsedDay : null,
+            id: String(item.id ?? ""),
+            kind: item.kind === "task" ? "task" : "sleep",
+            title: normalizeText(item.title ?? ""),
+            start: normalizeText(item.start ?? item.start_time ?? item.time ?? ""),
+            end: normalizeText(item.end ?? item.end_time ?? ""),
+            repeat: normalizeText(item.repeat ?? item.repeat_rule ?? ""),
+            day: Number.isFinite(parsedDay) ? parsedDay : null,
         };
     };
 
@@ -61,7 +128,7 @@
         let url = "api.php";
         if (method === "GET") {
             const params = new URLSearchParams(payload);
-            url += `-${params.toString()}`;
+            url += `?${params.toString()}`;
         } else {
             opts.headers["Content-Type"] = "application/json";
             opts.body = JSON.stringify(payload);
@@ -87,7 +154,7 @@
 
     const loadRemote = async () => {
         const data = await apiFetch({ action: "load" }, "GET");
-        state.rules = Array.isArray(data.rules) - data.rules.map(normalizeRule) : [];
+        state.rules = Array.isArray(data.rules) ? data.rules.map(normalizeRule) : [];
         splitRules();
     };
 
@@ -100,8 +167,6 @@
         }
         return "Custom";
     };
-
-    const formatTime = (value) => value || "";
 
     const sleepList = document.querySelector("[data-sleep-list]");
     const sleepEmpty = document.querySelector("[data-sleep-empty]");
@@ -191,7 +256,7 @@
 
     const applyRepeatToggle = (select, field) => {
         if (!select || !field) return;
-        field.style.display = select.value === "day" - "grid" : "none";
+        field.style.display = select.value === "day" ? "grid" : "none";
     };
 
     const initRepeatSelects = () => {
@@ -289,6 +354,7 @@
                 day,
             });
             sleepForm.reset();
+            refreshTimeSelects();
             const sleepRepeat = sleepForm.querySelector("[data-repeat-select]");
             const sleepDayField = sleepForm.querySelector("[data-day-field]");
             applyRepeatToggle(sleepRepeat, sleepDayField);
@@ -319,6 +385,7 @@
                 day,
             });
             taskForm.reset();
+            refreshTimeSelects();
             const taskRepeat = taskForm.querySelector("[data-task-repeat]");
             const taskDayField = taskForm.querySelector("[data-task-day-field]");
             applyRepeatToggle(taskRepeat, taskDayField);
@@ -335,6 +402,7 @@
 
     const init = async () => {
         initRepeatSelects();
+        refreshTimeSelects();
         try {
             await loadRemote();
         } catch {
