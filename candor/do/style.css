@@ -21,7 +21,7 @@
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=5");
+    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=6");
     --logo-zoom: 150%;
     --logo-glyph-opacity: 0;
 }
@@ -103,15 +103,15 @@ body.is-do .page {
 .logo {
     width: var(--brand-mark-size);
     height: var(--brand-mark-size);
-    border-radius: 18px;
+    border-radius: 0;
     display: grid;
     place-items: center;
-    background: var(--logo-image) center/cover no-repeat,
-        linear-gradient(135deg, rgba(185, 219, 242, 0.9), rgba(255, 255, 255, 0.95));
-    background-size: var(--logo-zoom) var(--logo-zoom), cover;
-    background-position: center, center;
+    background-color: transparent;
+    background-image: var(--logo-image);
+    background-size: var(--logo-zoom) var(--logo-zoom);
+    background-position: center;
     background-repeat: no-repeat;
-    border: 1px solid var(--line);
+    border: none;
     overflow: hidden;
     position: relative;
 }
@@ -399,6 +399,11 @@ body.is-do .brandTitle {
     text-transform: uppercase;
     letter-spacing: 1.2px;
     color: var(--ink-soft);
+}
+
+.focusLabel .labelShort,
+.focusValue .valueShort {
+    display: none;
 }
 
 .focusValue {
@@ -1393,26 +1398,26 @@ body.is-do .brandTitle {
     .page {
         --page-gutter: 12px;
         padding: var(--edge-pad) var(--page-gutter);
-        gap: 16px;
+        gap: 12px;
         height: 100%;
         overflow: hidden;
     }
     .nav { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .actions { width: 100%; }
+    .actions { width: 100%; flex-direction: column; align-items: flex-start; gap: 6px; }
     .welcome { font-size: 16px; }
     .accountLink { font-size: 17px; }
     .quickForm { grid-template-columns: 1fr; }
     .quickForm.is-planner { grid-template-columns: 1fr; }
     .focusRow { grid-template-columns: 1fr; }
-    .calendarPanel { padding: 16px; padding-bottom: 16px; }
+    .calendarPanel { padding: 14px; padding-bottom: 14px; gap: 10px; }
     .dayTitle { font-size: clamp(22px, 6vw, 32px); }
     .dayMeta { display: none; }
     .dayHeader { gap: 10px; }
     .dayTag { font-size: 12px; }
     .timelineGrid { --hour-height: 36px; max-height: none; }
     .calendarShell {
-        grid-template-rows: minmax(0, 1.35fr) minmax(0, 0.65fr);
-        gap: 12px;
+        grid-template-rows: minmax(0, 1.4fr) minmax(0, 0.6fr);
+        gap: 10px;
     }
     .dayPanel,
     .monthPanel {
@@ -1432,8 +1437,17 @@ body.is-do .brandTitle {
         text-align: center;
     }
     .focusLabel { font-size: 10px; }
+    .focusLabel { text-transform: none; letter-spacing: 0.6px; }
     .focusValue { font-size: 14px; }
     .focusSub { display: none; }
+    .focusLabel .labelLong,
+    .focusValue .valueLong {
+        display: none;
+    }
+    .focusLabel .labelShort,
+    .focusValue .valueShort {
+        display: inline;
+    }
     .balanceBar { width: 100%; }
     .paceTrack { width: 100%; }
     .monthGrid {
@@ -1461,6 +1475,17 @@ body.is-do .brandTitle {
         opacity: 0.45;
     }
     .monthMore { display: none; }
+    .panelAdd {
+        right: 14px;
+        bottom: 14px;
+        width: 52px;
+        height: 52px;
+        font-size: 26px;
+    }
+    .monthToday {
+        left: 14px;
+        bottom: 14px;
+    }
     .railStack {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;

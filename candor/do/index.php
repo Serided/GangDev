@@ -40,11 +40,11 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>your Candor</title>
-	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=5" type="image/x-icon">
-	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=5" type="image/x-icon">
-	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=5">
-	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=5">
-	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=5">
+	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=6" type="image/x-icon">
+	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=6" type="image/x-icon">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=6">
+	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=6">
+	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=6">
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
@@ -79,14 +79,26 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 				</div>
 				<div class="focusStrip">
 					<div class="focusCard">
-						<div class="focusLabel">Execution pace</div>
-						<div class="focusValue" data-focus-pace>On pace</div>
+						<div class="focusLabel">
+							<span class="labelLong">Execution pace</span>
+							<span class="labelShort">Pace</span>
+						</div>
+						<div class="focusValue" data-focus-pace>
+							<span class="valueLong">On pace</span>
+							<span class="valueShort">On pace</span>
+						</div>
 						<div class="paceTrack"><span class="paceDot is-on"></span></div>
 						<div class="focusSub">Margin check: ahead, on pace, behind.</div>
 					</div>
 					<div class="focusCard">
-						<div class="focusLabel">24h balance</div>
-						<div class="focusValue" data-focus-balance>8h sleep / 8h focus / 8h life</div>
+						<div class="focusLabel">
+							<span class="labelLong">24h balance</span>
+							<span class="labelShort">24h</span>
+						</div>
+						<div class="focusValue" data-focus-balance>
+							<span class="valueLong">8h sleep / 8h focus / 8h life</span>
+							<span class="valueShort">8h/8h/8h</span>
+						</div>
 						<div class="balanceBar">
 							<span class="balanceSegment is-sleep"></span>
 							<span class="balanceSegment is-focus"></span>
@@ -95,8 +107,14 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 						<div class="focusSub">24h split, adjustable by goal.</div>
 					</div>
 					<div class="focusCard">
-						<div class="focusLabel">Momentum</div>
-						<div class="focusValue" data-focus-momentum>0-day momentum</div>
+						<div class="focusLabel">
+							<span class="labelLong">Momentum</span>
+							<span class="labelShort">Momentum</span>
+						</div>
+						<div class="focusValue" data-focus-momentum>
+							<span class="valueLong">0-day momentum</span>
+							<span class="valueShort">0-day</span>
+						</div>
 						<div class="momentumDots">
 							<span class="dot is-on"></span>
 							<span class="dot"></span>
