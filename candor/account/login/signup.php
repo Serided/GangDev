@@ -54,11 +54,11 @@ if ($t !== '') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candor - Create account</title>
-    <link rel="icon" href="/files/img/favicon/favicon.ico?v=3" type="image/x-icon">
-    <link rel="shortcut icon" href="/files/img/favicon/favicon.ico?v=3" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/files/img/favicon/favicon-32.png?v=3">
-    <link rel="icon" type="image/png" sizes="64x64" href="/files/img/favicon/favicon-64.png?v=3">
-    <link rel="icon" type="image/png" sizes="128x128" href="/files/img/favicon/favicon-128.png?v=3">
+    <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=4" type="image/x-icon">
+    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=4" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=4">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=4">
+    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=4">
 
     <link rel="stylesheet" href="/login/login.css">
     <script src="/login/login.js" defer></script>
@@ -73,7 +73,7 @@ if ($t !== '') {
 				<div class="brandMark"><span class="logoGlyph">C</span></div>
 				<div class="brandText">
 					<div class="brandTitle"><span class="brandName">Candor</span></div>
-					<div class="meta">account</div>
+					<div class="meta minimal">account</div>
 				</div>
 			</a>
 

@@ -24,7 +24,8 @@
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("/files/img/favicon/favicon-128.png?v=3");
+    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=4");
+    --logo-zoom: 120%;
     --logo-glyph-opacity: 0;
 }
 
@@ -128,6 +129,9 @@ body.is-signup .shell {
     place-items: center;
     background: var(--logo-image) center/cover no-repeat,
         linear-gradient(135deg, rgba(185, 219, 242, 0.9), rgba(255, 255, 255, 0.95));
+    background-size: var(--logo-zoom), cover;
+    background-position: center, center;
+    background-repeat: no-repeat;
     border: 1px solid var(--line);
     overflow: hidden;
     position: relative;
@@ -194,9 +198,24 @@ body.is-signup .shell {
     font-size: 12px;
     letter-spacing: .4px;
     position: absolute;
-    bottom: -2px;
+    bottom: 0;
     left: 0;
     right: 0;
+}
+
+.meta.minimal {
+    text-transform: none;
+    letter-spacing: 1.2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
+.meta.minimal::before,
+.meta.minimal::after {
+    content: "-";
 }
 
 .body {

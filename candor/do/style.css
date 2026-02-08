@@ -21,7 +21,8 @@
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("/files/img/favicon/favicon-128.png?v=3");
+    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=4");
+    --logo-zoom: 120%;
     --logo-glyph-opacity: 0;
 }
 
@@ -100,6 +101,9 @@ body.is-do .page {
     place-items: center;
     background: var(--logo-image) center/cover no-repeat,
         linear-gradient(135deg, rgba(185, 219, 242, 0.9), rgba(255, 255, 255, 0.95));
+    background-size: var(--logo-zoom), cover;
+    background-position: center, center;
+    background-repeat: no-repeat;
     border: 1px solid var(--line);
     overflow: hidden;
     position: relative;
