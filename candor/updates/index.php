@@ -58,12 +58,13 @@ $candorVersion = 'v0.2';
                         <li>Create now centers on routines with child tasks and inline schedule lines.</li>
                         <li>Routine tasks now track estimated minutes for total duration.</li>
                         <li>Week template expands to show routines and repeat tasks by day.</li>
-                        <li>Sleep schedule inputs now support minute-level entry.</li>
+                        <li>Custom time dials (minute-level) follow your clock preference across My OS + Create.</li>
                         <li>New repeat-task plus keeps weekly chores in the cadence builder.</li>
+                        <li>Sleep schedule layout tightens on mobile with one-line controls + scrollable active bubbles.</li>
+                        <li>Routine builder now prioritizes setup first with task stacks that scroll inside the card.</li>
                         <li>Month header adds a plan-ahead button with date picking.</li>
                         <li>Tap a selected day again to see extra items without repeats.</li>
                         <li>Timeline windows align to the slot line and stack flush when overlapping.</li>
-                        <li>Time selectors respect your clock preference across My OS and Create.</li>
                         <li>Mobile month grid tuned to keep the daily timeline visible with larger date bubbles.</li>
                         <li>Refreshed logo mark plus transparent favicons across all Candor pages.</li>
                     </ul>

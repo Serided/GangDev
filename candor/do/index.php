@@ -227,12 +227,38 @@ $candorVersion = 'v0.2';
 			</div>
 
 			<div class="createField" data-kind="window,event" data-event-time>
-				<label class="label" for="create-time">Start time</label>
-				<select class="input compact select" id="create-time" name="time" data-time-select data-time-empty="Start"></select>
+				<label class="label" for="create-time-hour">Start time</label>
+				<div class="timeDial" data-time-dial>
+					<input type="hidden" id="create-time" name="time" data-time-output>
+					<div class="timeDialUnit">
+						<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="-1" aria-label="Decrease hour">-</button>
+						<input class="dialInput" id="create-time-hour" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-hour>
+						<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="1" aria-label="Increase hour">+</button>
+					</div>
+					<span class="dialSep">:</span>
+					<div class="timeDialUnit">
+						<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="-1" aria-label="Decrease minute">-</button>
+						<input class="dialInput" id="create-time-minute" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-minute>
+						<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="1" aria-label="Increase minute">+</button>
+					</div>
+				</div>
 			</div>
 			<div class="createField" data-kind="window,event" data-event-time>
-				<label class="label" for="create-end-time">End time (optional)</label>
-				<select class="input compact select" id="create-end-time" name="end_time" data-time-select data-time-empty="End"></select>
+				<label class="label" for="create-end-time-hour">End time (optional)</label>
+				<div class="timeDial" data-time-dial>
+					<input type="hidden" id="create-end-time" name="end_time" data-time-output>
+					<div class="timeDialUnit">
+						<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="-1" aria-label="Decrease hour">-</button>
+						<input class="dialInput" id="create-end-time-hour" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-hour>
+						<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="1" aria-label="Increase hour">+</button>
+					</div>
+					<span class="dialSep">:</span>
+					<div class="timeDialUnit">
+						<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="-1" aria-label="Decrease minute">-</button>
+						<input class="dialInput" id="create-end-time-minute" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-minute>
+						<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="1" aria-label="Increase minute">+</button>
+					</div>
+				</div>
 			</div>
 
 			<div class="createField" data-create-date-field>

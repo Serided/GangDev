@@ -7,7 +7,7 @@ $candorShowMyOs = !empty($candorShowMyOs);
 $candorNavClass = isset($candorNavClass) ? trim((string)$candorNavClass) : '';
 $navClass = 'nav' . ($candorNavClass !== '' ? ' ' . $candorNavClass : '');
 ?>
-<header class="<?= htmlspecialchars($navClass) ?>">
+<header class="<?= htmlspecialchars($navClass) ?>" style="--brand-mark-size: 84px; --brand-name-size: 36px; --brand-lead-size: calc(var(--brand-name-size) * 0.5);">
     <a class="brand brandLink" href="https://candor.you/">
         <div class="logo"><span class="logoGlyph">C</span></div>
         <div class="brandText">

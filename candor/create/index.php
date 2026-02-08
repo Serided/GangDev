@@ -55,12 +55,38 @@ $candorVersion = 'v0.2';
 				</div>
 				<form class="formGrid" data-sleep-form>
 					<div class="field">
-						<label class="label" for="sleep-start">Start</label>
-						<input class="input compact" id="sleep-start" type="time" name="start" step="60" required>
+						<label class="label" for="sleep-start-hour">Start</label>
+						<div class="timeDial" data-time-dial>
+							<input type="hidden" id="sleep-start" name="start" data-time-output>
+							<div class="timeDialUnit">
+								<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="-1" aria-label="Decrease hour">-</button>
+								<input class="dialInput" id="sleep-start-hour" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-hour>
+								<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="1" aria-label="Increase hour">+</button>
+							</div>
+							<span class="dialSep">:</span>
+							<div class="timeDialUnit">
+								<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="-1" aria-label="Decrease minute">-</button>
+								<input class="dialInput" id="sleep-start-minute" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-minute>
+								<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="1" aria-label="Increase minute">+</button>
+							</div>
+						</div>
 					</div>
 					<div class="field">
-						<label class="label" for="sleep-end">End</label>
-						<input class="input compact" id="sleep-end" type="time" name="end" step="60" required>
+						<label class="label" for="sleep-end-hour">End</label>
+						<div class="timeDial" data-time-dial>
+							<input type="hidden" id="sleep-end" name="end" data-time-output>
+							<div class="timeDialUnit">
+								<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="-1" aria-label="Decrease hour">-</button>
+								<input class="dialInput" id="sleep-end-hour" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-hour>
+								<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="1" aria-label="Increase hour">+</button>
+							</div>
+							<span class="dialSep">:</span>
+							<div class="timeDialUnit">
+								<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="-1" aria-label="Decrease minute">-</button>
+								<input class="dialInput" id="sleep-end-minute" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-minute>
+								<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="1" aria-label="Increase minute">+</button>
+							</div>
+						</div>
 					</div>
 					<div class="field">
 						<label class="label" for="sleep-repeat">Repeat</label>
@@ -102,22 +128,27 @@ $candorVersion = 'v0.2';
 				</div>
 				<form class="routineForm" data-routine-form>
 					<div class="routineGrid">
-						<div class="routineTasks">
-							<div class="taskHeader">
-								<span class="label">Tasks</span>
-								<button class="btn ghost mini" type="button" data-routine-add-task>+</button>
-							</div>
-							<div class="taskStack" data-routine-tasks></div>
-							<div class="routineTotal" data-routine-total>Estimated: 0 min</div>
-						</div>
 						<div class="routineMeta">
 							<div class="field">
 								<label class="label" for="routine-title">Routine</label>
 								<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Morning reset" required>
 							</div>
 							<div class="field">
-								<label class="label" for="routine-time">Start time</label>
-								<input class="input compact" id="routine-time" type="time" name="time" step="60">
+								<label class="label" for="routine-time-hour">Start time</label>
+								<div class="timeDial" data-time-dial>
+									<input type="hidden" id="routine-time" name="time" data-time-output>
+									<div class="timeDialUnit">
+										<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="-1" aria-label="Decrease hour">-</button>
+										<input class="dialInput" id="routine-time-hour" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-hour>
+										<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="1" aria-label="Increase hour">+</button>
+									</div>
+									<span class="dialSep">:</span>
+									<div class="timeDialUnit">
+										<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="-1" aria-label="Decrease minute">-</button>
+										<input class="dialInput" id="routine-time-minute" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-minute>
+										<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="1" aria-label="Increase minute">+</button>
+									</div>
+								</div>
 							</div>
 							<div class="field">
 								<label class="label" for="routine-repeat">Repeat</label>
@@ -140,6 +171,14 @@ $candorVersion = 'v0.2';
 									<option value="6">Saturday</option>
 								</select>
 							</div>
+						</div>
+						<div class="routineTasks">
+							<div class="taskHeader">
+								<span class="label">Tasks</span>
+								<button class="btn ghost mini" type="button" data-routine-add-task>+</button>
+							</div>
+							<div class="taskStack" data-routine-tasks></div>
+							<div class="routineTotal" data-routine-total>Estimated: 0 min</div>
 						</div>
 					</div>
 					<div class="formActions">
@@ -268,8 +307,21 @@ $candorVersion = 'v0.2';
 					</select>
 				</div>
 				<div class="field">
-					<label class="label" for="repeat-time">Time (optional)</label>
-					<input class="input compact" id="repeat-time" type="time" name="time" step="60">
+					<label class="label" for="repeat-time-hour">Time (optional)</label>
+					<div class="timeDial" data-time-dial>
+						<input type="hidden" id="repeat-time" name="time" data-time-output>
+						<div class="timeDialUnit">
+							<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="-1" aria-label="Decrease hour">-</button>
+							<input class="dialInput" id="repeat-time-hour" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-hour>
+							<button class="dialBtn" type="button" data-dial-step="hour" data-dial-dir="1" aria-label="Increase hour">+</button>
+						</div>
+						<span class="dialSep">:</span>
+						<div class="timeDialUnit">
+							<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="-1" aria-label="Decrease minute">-</button>
+							<input class="dialInput" id="repeat-time-minute" type="text" inputmode="numeric" maxlength="2" placeholder="--" data-dial-minute>
+							<button class="dialBtn" type="button" data-dial-step="minute" data-dial-dir="1" aria-label="Increase minute">+</button>
+						</div>
+					</div>
 				</div>
 				<div class="formActions">
 					<button class="btn primary" type="submit">Add repeat task</button>
@@ -284,7 +336,4 @@ $candorVersion = 'v0.2';
 
 </body>
 </html>
-
-
-
 

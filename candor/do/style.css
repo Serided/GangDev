@@ -1225,6 +1225,61 @@ body.is-do .welcome {
     border-radius: 10px;
 }
 
+.timeDial {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--white);
+    min-height: 36px;
+}
+
+.timeDialUnit {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    align-items: center;
+    gap: 2px;
+}
+
+.dialBtn {
+    width: 22px;
+    height: 18px;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 27, 45, 0.18);
+    background: rgba(15, 27, 45, 0.04);
+    color: var(--ink);
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.dialBtn:hover {
+    background: rgba(15, 27, 45, 0.1);
+}
+
+.dialInput {
+    width: 28px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font: 12px/1 var(--font-body);
+    font-weight: 600;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    outline: none;
+}
+
+.dialInput::placeholder {
+    color: rgba(15, 27, 45, 0.35);
+}
+
+.dialSep {
+    font-weight: 700;
+    color: var(--ink-soft);
+}
+
 .rangeGroup {
     display: grid;
     gap: 6px;
