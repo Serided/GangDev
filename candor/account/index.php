@@ -215,6 +215,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 					document.cookie = `candor_time_format=${mode}; path=/; domain=.candor.you; max-age=31536000`;
 				};
 				document.querySelectorAll('[data-clock-select]').forEach((select) => {
+					setClockCookie(select.value);
 					select.addEventListener('change', () => setClockCookie(select.value));
 				});
 			})();

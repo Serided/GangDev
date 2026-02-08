@@ -404,6 +404,7 @@ a {
     text-align: center;
     font-size: 12px;
     margin-top: 6px;
+    justify-self: center;
 }
 
 .saveHint.ok {

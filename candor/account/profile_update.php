@@ -38,6 +38,11 @@ function candor_with_param($url, $key, $value) {
 
 $redirect = candor_safe_redirect($redirect, 'https://account.candor.you/');
 
+$existingProfile = candor_profile_row($userId);
+if ($birthdate === '' && !empty($existingProfile['birthdate'])) {
+	$birthdate = (string)$existingProfile['birthdate'];
+}
+
 if ($birthdate === '' || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $birthdate)) {
 	candor_redirect(candor_with_param($redirect, 'profile_error', 'Please enter a valid birthday.'));
 }
