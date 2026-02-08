@@ -15,14 +15,14 @@
     --radius: 18px;
     --brand-candor: #7b3f22;
     --brand-lead: #4b7fa8;
-    --brand-mark-size: 56px;
+    --brand-mark-size: 64px;
     --brand-name-size: 36px;
     --brand-lead-size: calc(var(--brand-name-size) * 0.5);
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=7");
-    --logo-zoom: 150%;
+    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=8");
+    --logo-zoom: 100%;
     --logo-glyph-opacity: 0;
 }
 
@@ -1457,9 +1457,9 @@ body.is-do .brandTitle {
     .dayHeader { gap: 8px; }
     .dayTag { font-size: 12px; }
     .daySchedule { font-size: 11px; }
-    .timelineGrid { --hour-height: 36px; max-height: none; }
+    .timelineGrid { --hour-height: 30px; max-height: none; }
     .calendarShell {
-        grid-template-rows: minmax(0, 1.65fr) minmax(0, 0.35fr);
+        grid-template-rows: minmax(0, 0.95fr) minmax(0, 1.05fr);
         gap: 8px;
     }
     .dayPanel,
@@ -1496,30 +1496,24 @@ body.is-do .brandTitle {
     .paceDot { width: 6px; height: 6px; }
     .momentumDots { gap: 3px; margin-top: 1px; }
     .momentumDots .dot { width: 4px; height: 4px; }
+    .monthHeader { gap: 6px; }
+    .monthTitle { font-size: 18px; }
+    .monthNav { width: 32px; height: 32px; font-size: 16px; }
+    .weekdayRow { font-size: 9px; gap: 2px; }
     .monthGrid {
-        gap: 3px;
-        overflow-y: auto;
+        gap: 2px;
+        overflow: hidden;
     }
     .monthCell {
-        min-height: 46px;
-        padding: 5px;
+        min-height: 0;
+        padding: 2px 0;
+        gap: 0;
+        align-items: center;
+        justify-content: center;
     }
-    .monthNumber { font-size: 11px; }
-    .monthTasks {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
-    }
-    .monthPill {
-        width: 6px;
-        height: 6px;
-        padding: 0;
-        border-radius: 50%;
-        font-size: 0;
-    }
-    .monthPill.is-done {
-        opacity: 0.45;
-    }
+    .monthNumber { font-size: 10px; }
+    .monthTasks { display: none; }
+    .monthPill { display: none; }
     .monthMore { display: none; }
     .panelAdd {
         right: 14px;
@@ -1555,3 +1549,5 @@ body.is-do .brandTitle {
     .footer { flex-direction: row; align-items: center; gap: 12px; }
     .heightSplit { grid-template-columns: 1fr; }
 }
+
+

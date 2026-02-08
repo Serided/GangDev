@@ -13,7 +13,7 @@
     --line: #d7e2ed;
     --brand-candor: #7b3f22;
     --brand-lead: #4b7fa8;
-    --brand-mark-size: 56px;
+    --brand-mark-size: 64px;
 
     --radius: 18px;
     --shadow: 0 18px 50px rgba(15, 27, 45, .14);
@@ -22,8 +22,8 @@
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=7");
-    --logo-zoom: 150%;
+    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=8");
+    --logo-zoom: 100%;
     --logo-glyph-opacity: 0;
 }
 
@@ -588,3 +588,5 @@ a {
     line-height: 1;
     opacity: var(--logo-glyph-opacity);
 }
+
+
