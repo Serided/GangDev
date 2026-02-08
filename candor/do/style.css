@@ -15,14 +15,14 @@
     --radius: 18px;
     --brand-candor: #7b3f22;
     --brand-lead: #4b7fa8;
-    --brand-mark-size: 64px;
+    --brand-mark-size: 72px;
     --brand-name-size: 36px;
     --brand-lead-size: calc(var(--brand-name-size) * 0.5);
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=8");
-    --logo-zoom: 100%;
+    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=9");
+    --logo-zoom: 110%;
     --logo-glyph-opacity: 0;
 }
 
@@ -299,7 +299,7 @@ body.is-do .brandTitle {
 }
 
 .calendarPanel {
-    background: rgba(255, 255, 255, 0.94);
+    background: var(--white);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: 20px;
@@ -687,6 +687,51 @@ body.is-do .brandTitle {
     margin-left: auto;
 }
 
+.slotBlock {
+    position: absolute;
+    left: var(--timeline-label-width);
+    right: 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(243, 200, 115, 0.7);
+    background: rgba(243, 200, 115, 0.25);
+    padding: 8px 12px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--ink);
+    z-index: 2;
+}
+
+.slotBlock.is-event {
+    border-color: rgba(90, 143, 185, 0.7);
+    background: rgba(90, 143, 185, 0.2);
+}
+
+.blockTime {
+    font-weight: 700;
+    color: var(--brand-candor);
+}
+
+.blockText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.blockRemove {
+    border: none;
+    background: transparent;
+    color: rgba(42, 59, 82, 0.6);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.blockRemove:hover {
+    color: var(--ink);
+}
+
 .timeMarker {
     position: absolute;
     left: var(--timeline-label-width);
@@ -766,26 +811,30 @@ body.is-do .brandTitle {
 }
 
 .monthToday {
-    min-height: 36px;
-    padding: 0 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(230, 160, 106, 0.6);
-    background: rgba(230, 160, 106, 0.2);
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid #e1a36d;
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
     color: #2a1a0f;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
+    display: grid;
+    place-items: center;
+    line-height: 1;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     position: absolute;
-    left: 18px;
+    right: 18px;
     bottom: 18px;
     z-index: 2;
 }
 
 .monthToday:hover {
     transform: translateY(-1px);
-    box-shadow: 0 10px 20px rgba(230, 160, 106, 0.25);
-    background: rgba(230, 160, 106, 0.3);
+    box-shadow: 0 16px 28px rgba(230, 160, 106, 0.4);
+    background: linear-gradient(135deg, rgba(230, 160, 106, 0.95), rgba(243, 200, 115, 0.95));
 }
 
 .weekdayRow {
@@ -878,6 +927,11 @@ body.is-do .brandTitle {
     text-decoration: line-through;
     color: rgba(42, 59, 82, 0.6);
     background: rgba(185, 219, 242, 0.35);
+}
+
+.monthPill.is-event {
+    background: rgba(90, 143, 185, 0.35);
+    border: 1px solid rgba(90, 143, 185, 0.6);
 }
 
 .monthMore {
@@ -1031,9 +1085,12 @@ body.is-do .brandTitle {
 }
 
 .bulletGrid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(180px, 1fr);
     gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 4px;
 }
 
 .bulletField {
@@ -1043,11 +1100,11 @@ body.is-do .brandTitle {
     padding: 10px 12px;
     display: grid;
     gap: 8px;
-    flex: 0 1 220px;
+    min-width: 180px;
 }
 
 .bulletField.is-compact {
-    flex-basis: 200px;
+    min-width: 160px;
 }
 
 .input.compact {
@@ -1356,6 +1413,19 @@ body.is-do .brandTitle {
     gap: 6px;
 }
 
+.toggleLine {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--ink-soft);
+}
+
+.input.color {
+    height: 42px;
+    padding: 6px;
+}
+
 .textarea {
     min-height: 90px;
     resize: vertical;
@@ -1454,12 +1524,12 @@ body.is-do .brandTitle {
     .calendarPanel { padding: 12px; padding-bottom: 12px; gap: 8px; }
     .dayTitle { font-size: clamp(22px, 6vw, 32px); }
     .dayMeta { display: none; }
-    .dayHeader { gap: 8px; }
+    .dayHeader { gap: 6px; }
     .dayTag { font-size: 12px; }
     .daySchedule { font-size: 11px; }
-    .timelineGrid { --hour-height: 30px; max-height: none; }
+    .timelineGrid { --hour-height: 24px; max-height: none; }
     .calendarShell {
-        grid-template-rows: minmax(0, 0.95fr) minmax(0, 1.05fr);
+        grid-template-rows: minmax(0, 0.68fr) minmax(0, 1.32fr);
         gap: 8px;
     }
     .dayPanel,
@@ -1506,12 +1576,12 @@ body.is-do .brandTitle {
     }
     .monthCell {
         min-height: 0;
-        padding: 2px 0;
+        padding: 0;
         gap: 0;
         align-items: center;
         justify-content: center;
     }
-    .monthNumber { font-size: 10px; }
+    .monthNumber { font-size: 10px; line-height: 1; }
     .monthTasks { display: none; }
     .monthPill { display: none; }
     .monthMore { display: none; }
@@ -1523,8 +1593,11 @@ body.is-do .brandTitle {
         font-size: 26px;
     }
     .monthToday {
-        left: 14px;
+        right: 14px;
         bottom: 14px;
+        width: 52px;
+        height: 52px;
+        font-size: 11px;
     }
     .railStack {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1549,5 +1622,7 @@ body.is-do .brandTitle {
     .footer { flex-direction: row; align-items: center; gap: 12px; }
     .heightSplit { grid-template-columns: 1fr; }
 }
+
+
 
 

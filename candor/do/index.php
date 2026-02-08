@@ -40,20 +40,20 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>your Candor</title>
-	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=8" type="image/x-icon">
-	<link rel="icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=8" type="image/x-icon" media="(prefers-color-scheme: dark)">
-	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=8" type="image/x-icon">
-	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=8" type="image/x-icon" media="(prefers-color-scheme: dark)">
-	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=8">
-	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-dark-32.png?v=8" media="(prefers-color-scheme: dark)">
-	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=8">
-	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-dark-64.png?v=8" media="(prefers-color-scheme: dark)">
-	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=8">
-	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-dark-128.png?v=8" media="(prefers-color-scheme: dark)">
+	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=9" type="image/x-icon">
+	<link rel="icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=9" type="image/x-icon" media="(prefers-color-scheme: dark)">
+	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=9" type="image/x-icon">
+	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=9" type="image/x-icon" media="(prefers-color-scheme: dark)">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=9">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-dark-32.png?v=9" media="(prefers-color-scheme: dark)">
+	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=9">
+	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-dark-64.png?v=9" media="(prefers-color-scheme: dark)">
+	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=9">
+	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-dark-128.png?v=9" media="(prefers-color-scheme: dark)">
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
-<body class="is-do" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>">
+<body class="is-do" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-user-name="<?= htmlspecialchars($name !== '' ? $name : $email) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>">
 
 <div class="page">
 	<header class="nav">
@@ -159,17 +159,16 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 				<button class="monthNav" type="button" data-month-nav="next" aria-label="Next month">&rsaquo;</button>
 			</div>
 			<div class="weekdayRow">
+				<span>Sun</span>
 				<span>Mon</span>
 				<span>Tue</span>
 				<span>Wed</span>
 				<span>Thu</span>
 				<span>Fri</span>
 				<span>Sat</span>
-				<span>Sun</span>
 			</div>
 			<div class="monthGrid" data-month-grid></div>
 			<button class="monthToday" type="button" data-month-nav="today">Today</button>
-			<button class="panelAdd" type="button" data-add-kind="task" aria-label="Add task">+</button>
 		</div>
 	</section>
 
@@ -193,6 +192,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 			<select class="input compact select" id="create-kind" name="kind" data-create-kind>
 				<option value="task">Task</option>
 				<option value="note">Note</option>
+				<option value="event">Event</option>
 				<option value="window">Window</option>
 			</select>
 
@@ -206,13 +206,30 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 				<textarea class="input textarea" id="create-note" name="note" rows="3" placeholder="Capture the detail."></textarea>
 			</div>
 
-			<div class="createField" data-kind="window">
+			<div class="createField" data-kind="task">
+				<label class="label" for="create-duration">Time required (min)</label>
+				<input class="input compact" id="create-duration" type="number" name="duration" min="5" step="5" inputmode="numeric" placeholder="45">
+			</div>
+
+			<div class="createField" data-kind="event">
+				<label class="label" for="create-all-day">All day</label>
+				<label class="toggleLine">
+					<input type="checkbox" id="create-all-day" name="all_day">
+					<span>All day event</span>
+				</label>
+			</div>
+
+			<div class="createField" data-kind="window,event" data-event-time>
 				<label class="label" for="create-time">Start time</label>
 				<input class="input compact" id="create-time" type="time" name="time">
 			</div>
-			<div class="createField" data-kind="window">
+			<div class="createField" data-kind="window,event" data-event-time>
 				<label class="label" for="create-end-time">End time (optional)</label>
 				<input class="input compact" id="create-end-time" type="time" name="end_time">
+			</div>
+			<div class="createField" data-kind="window,event">
+				<label class="label" for="create-color">Color</label>
+				<input class="input color" id="create-color" type="color" name="color" value="#f3c873" data-default="#f3c873">
 			</div>
 
 			<div class="createMeta">
@@ -327,4 +344,5 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 
 </body>
 </html>
+
 

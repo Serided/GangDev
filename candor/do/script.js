@@ -6,6 +6,8 @@
     const clockCookieKey = body && body.dataset && body.dataset.clockCookie
         ? body.dataset.clockCookie
         : "candor_time_format";
+    const birthdateRaw = body && body.dataset && body.dataset.birthdate ? body.dataset.birthdate : "";
+    const userNameRaw = body && body.dataset && body.dataset.userName ? body.dataset.userName : "";
 
     const loadItems = (name) => {
         const raw = localStorage.getItem(keyFor(name));
@@ -33,13 +35,18 @@
 
     const normalizeText = (value) => String(value ?? "").trim();
 
-    const normalizeTask = (item) => ({
-        id: String(item.id ?? makeId()),
-        text: normalizeText(item.text ?? item.title ?? ""),
-        done: Boolean(item.done ?? item.completed ?? false),
-        date: normalizeText(item.date ?? item.due_date ?? ""),
-        time: normalizeText(item.time ?? item.due_time ?? ""),
-    });
+    const normalizeTask = (item) => {
+        const rawDuration = item.duration ?? item.estimated_minutes ?? "";
+        const parsedDuration = parseInt(rawDuration, 10);
+        return {
+            id: String(item.id ?? makeId()),
+            text: normalizeText(item.text ?? item.title ?? ""),
+            done: Boolean(item.done ?? item.completed ?? false),
+            date: normalizeText(item.date ?? item.due_date ?? ""),
+            time: normalizeText(item.time ?? item.due_time ?? ""),
+            duration: Number.isFinite(parsedDuration) && parsedDuration > 0 ? parsedDuration : null,
+        };
+    };
 
     const normalizeNote = (item) => ({
         id: String(item.id ?? makeId()),
@@ -52,6 +59,8 @@
         date: normalizeText(item.date ?? ""),
         start: normalizeText(item.start ?? item.time ?? ""),
         end: normalizeText(item.end ?? item.end_time ?? ""),
+        kind: item.kind === "event" ? "event" : "window",
+        color: normalizeText(item.color ?? ""),
     });
 
     const normalizeRule = (item) => {
@@ -99,9 +108,9 @@
     let storageMode = "remote";
 
     const loadLocal = () => {
-        state.tasks = loadItems("tasks");
-        state.notes = loadItems("notes");
-        state.windows = loadItems("windows");
+        state.tasks = loadItems("tasks").map(normalizeTask);
+        state.notes = loadItems("notes").map(normalizeNote);
+        state.windows = loadItems("windows").map(normalizeWindow);
         state.rules = loadItems("rules").map(normalizeRule);
     };
 
@@ -166,6 +175,38 @@
         return (hours * 60) + minutes;
     };
 
+    const parseBirthdate = (value) => {
+        const parts = String(value || "").split("-");
+        if (parts.length < 3) return null;
+        const month = parseInt(parts[1], 10);
+        const day = parseInt(parts[2], 10);
+        if (!Number.isFinite(month) || !Number.isFinite(day)) return null;
+        return { month, day };
+    };
+
+    const birthdayInfo = parseBirthdate(birthdateRaw);
+    const userName = normalizeText(userNameRaw);
+
+    const birthdayTitle = () => {
+        const name = userName || "User";
+        const endsWithS = name.toLowerCase().endsWith("s");
+        return endsWithS ? `${name}' Birthday` : `${name}'s Birthday`;
+    };
+
+    const birthdayEventFor = (date) => {
+        if (!birthdayInfo) return null;
+        if ((date.getMonth() + 1) !== birthdayInfo.month || date.getDate() !== birthdayInfo.day) return null;
+        return {
+            id: `birthday-${date.getFullYear()}`,
+            text: birthdayTitle(),
+            date: dateKey(date),
+            start: "00:00",
+            end: "23:59",
+            kind: "event",
+            color: "#f3c873",
+        };
+    };
+
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     const ruleApplies = (rule, date) => {
@@ -224,6 +265,21 @@
 
     const formatHour = (hour) => formatTime(`${String(hour).padStart(2, "0")}:00`);
 
+    const colorToRgba = (hex, alpha) => {
+        if (!hex) return "";
+        const clean = hex.replace("#", "").trim();
+        const value = clean.length === 3
+            ? clean.split("").map((c) => c + c).join("")
+            : clean;
+        if (value.length !== 6) return "";
+        const r = parseInt(value.slice(0, 2), 16);
+        const g = parseInt(value.slice(2, 4), 16);
+        const b = parseInt(value.slice(4, 6), 16);
+        if ([r, g, b].some((v) => Number.isNaN(v))) return "";
+        const safeAlpha = Math.max(0, Math.min(1, alpha));
+        return `rgba(${r}, ${g}, ${b}, ${safeAlpha})`;
+    };
+
     const setClockMode = (value) => {
         clockMode = value === "12" ? "12" : "24";
         document.cookie = `${clockCookieKey}=${clockMode}; path=/; domain=.candor.you; max-age=31536000`;
@@ -266,7 +322,7 @@
                 const rule = pickSleepRule(stateCal.selected);
                 if (rule && rule.start && rule.end) {
                     const range = `${formatTime(rule.start)}-${formatTime(rule.end)}`;
-                    daySchedule.textContent = `Sleep ${range} · ${formatRepeat(rule)}`;
+                    daySchedule.textContent = `Sleep ${range} - ${formatRepeat(rule)}`;
                     daySchedule.classList.remove("is-empty");
                 } else {
                     daySchedule.textContent = "";
@@ -301,17 +357,34 @@
             }
 
             const windows = state.windows
-                .filter((item) => item.date === dateKey(stateCal.selected))
-                .sort((a, b) => (parseMinutes(a.start) ?? 0) - (parseMinutes(b.start) ?? 0));
+                .filter((item) => item.date === dateKey(stateCal.selected));
+            const birthdayEvent = birthdayEventFor(stateCal.selected);
+            if (birthdayEvent) {
+                windows.push(birthdayEvent);
+            }
+            windows.sort((a, b) => (parseMinutes(a.start) ?? 0) - (parseMinutes(b.start) ?? 0));
 
-            const windowsByHour = windows.reduce((acc, window) => {
+            const windowsByHour = {};
+            const blockWindows = [];
+
+            windows.forEach((window) => {
                 const minutes = parseMinutes(window.start);
-                if (minutes === null) return acc;
+                if (minutes === null) return;
+                const endMinutes = parseMinutes(window.end);
+                const isAllDay = window.kind === "event" && window.start === "00:00" && window.end === "23:59";
+                if (endMinutes !== null) {
+                    blockWindows.push({
+                        ...window,
+                        startMinutes: minutes,
+                        endMinutes,
+                        isAllDay,
+                    });
+                    return;
+                }
                 const hour = Math.floor(minutes / 60);
-                if (!acc[hour]) acc[hour] = [];
-                acc[hour].push(window);
-                return acc;
-            }, {});
+                if (!windowsByHour[hour]) windowsByHour[hour] = [];
+                windowsByHour[hour].push(window);
+            });
 
             rows.forEach(({ hour, slot }) => {
                 const list = windowsByHour[hour] || [];
@@ -322,6 +395,13 @@
                     const chip = document.createElement("div");
                     chip.className = "slotChip";
                     chip.dataset.windowId = window.id;
+                    if (window.color) {
+                        const tint = colorToRgba(window.color, 0.2);
+                        if (tint) {
+                            chip.style.background = tint;
+                            chip.style.borderColor = window.color;
+                        }
+                    }
 
                     const time = document.createElement("span");
                     time.className = "chipTime";
@@ -344,6 +424,58 @@
                     chip.appendChild(title);
                     chip.appendChild(remove);
                     slot.appendChild(chip);
+                });
+            });
+
+            blockWindows.forEach((window) => {
+                const segments = [];
+                if (window.isAllDay) {
+                    segments.push({ start: dayStart * 60, end: dayStart * 60 + 60, allDay: true });
+                } else if (window.endMinutes <= window.startMinutes) {
+                    segments.push({ start: window.startMinutes, end: dayEnd * 60 });
+                    if (window.endMinutes > dayStart * 60) {
+                        segments.push({ start: dayStart * 60, end: window.endMinutes });
+                    }
+                } else {
+                    segments.push({ start: window.startMinutes, end: window.endMinutes });
+                }
+
+                segments.forEach((segment) => {
+                    const block = document.createElement("div");
+                    block.className = `slotBlock${window.kind === "event" ? " is-event" : ""}${segment.allDay ? " is-all-day" : ""}`;
+
+                    const tint = colorToRgba(window.color || "#f3c873", window.kind === "event" ? 0.2 : 0.25);
+                    block.style.borderColor = window.color || "#f3c873";
+                    if (tint) block.style.background = tint;
+
+                    const top = segment.allDay ? 6 : ((segment.start - dayStart * 60) / 60) * hourHeight;
+                    const height = segment.allDay
+                        ? Math.max(26, hourHeight * 0.75)
+                        : ((segment.end - segment.start) / 60) * hourHeight;
+                    block.style.top = `${top}px`;
+                    block.style.height = `${height}px`;
+
+                    const time = document.createElement("span");
+                    time.className = "blockTime";
+                    const startText = formatTime(window.start);
+                    const endText = window.end ? formatTime(window.end) : "";
+                    time.textContent = segment.allDay ? "All day" : (endText ? `${startText}-${endText}` : startText);
+
+                    const title = document.createElement("span");
+                    title.className = "blockText";
+                    title.textContent = window.text;
+
+                    const remove = document.createElement("button");
+                    remove.type = "button";
+                    remove.className = "blockRemove";
+                    remove.dataset.removeId = window.id;
+                    remove.dataset.removeType = "windows";
+                    remove.textContent = "x";
+
+                    block.appendChild(time);
+                    block.appendChild(title);
+                    block.appendChild(remove);
+                    dayGrid.appendChild(block);
                 });
             });
 
@@ -421,10 +553,12 @@
                 text.className = "chipText";
                 text.textContent = task.text;
 
-                if (task.time) {
+                if (task.time || task.duration) {
                     const time = document.createElement("span");
                     time.className = "chipTime";
-                    time.textContent = formatTime(task.time);
+                    const timeText = task.time ? formatTime(task.time) : "";
+                    const durText = task.duration ? `${task.duration}m` : "";
+                    time.textContent = timeText && durText ? `${timeText} - ${durText}` : (timeText || durText);
                     chip.appendChild(time);
                 }
 
@@ -481,7 +615,7 @@
             monthGrid.innerHTML = "";
 
             const firstOfMonth = new Date(stateCal.viewYear, stateCal.viewMonth, 1);
-            const startWeekday = (firstOfMonth.getDay() + 6) % 7;
+            const startWeekday = firstOfMonth.getDay();
             const daysInMonth = new Date(stateCal.viewYear, stateCal.viewMonth + 1, 0).getDate();
             const prevMonthDays = new Date(stateCal.viewYear, stateCal.viewMonth, 0).getDate();
             const totalCells = Math.ceil((startWeekday + daysInMonth) / 7) * 7;
@@ -497,6 +631,27 @@
             Object.values(tasksByDate).forEach((list) => {
                 list.sort((a, b) => (parseMinutes(a.time) ?? 0) - (parseMinutes(b.time) ?? 0));
             });
+
+            const eventsByDate = state.windows.reduce((acc, item) => {
+                if (item.kind === "event" && item.date) {
+                    if (!acc[item.date]) acc[item.date] = [];
+                    acc[item.date].push({ ...item, isEvent: true });
+                }
+                return acc;
+            }, {});
+
+            if (birthdayInfo) {
+                const birthDate = new Date(stateCal.viewYear, birthdayInfo.month - 1, birthdayInfo.day);
+                if (!Number.isNaN(birthDate.getTime())) {
+                    const key = dateKey(birthDate);
+                    if (!eventsByDate[key]) eventsByDate[key] = [];
+                    eventsByDate[key].push({
+                        id: `birthday-${stateCal.viewYear}`,
+                        text: birthdayTitle(),
+                        isEvent: true,
+                    });
+                }
+            }
 
             for (let i = 0; i < totalCells; i += 1) {
                 let cellYear = stateCal.viewYear;
@@ -532,17 +687,18 @@
 
                 const tasks = document.createElement("div");
                 tasks.className = "monthTasks";
-                const dayTasks = (tasksByDate[key] || []).slice(0, 2);
-                dayTasks.forEach((task) => {
+                const dayItems = [...(tasksByDate[key] || []), ...(eventsByDate[key] || [])];
+                dayItems.slice(0, 2).forEach((task) => {
                     const pill = document.createElement("div");
-                    pill.className = `monthPill${task.done ? " is-done" : ""}`;
+                    const eventClass = task.isEvent ? " is-event" : "";
+                    pill.className = `monthPill${task.done ? " is-done" : ""}${eventClass}`;
                     pill.textContent = task.text;
                     tasks.appendChild(pill);
                 });
-                if ((tasksByDate[key] || []).length > 2) {
+                if (dayItems.length > 2) {
                     const more = document.createElement("div");
                     more.className = "monthMore";
-                    more.textContent = `+${tasksByDate[key].length - 2} more`;
+                    more.textContent = `+${dayItems.length - 2} more`;
                     tasks.appendChild(more);
                 }
 
@@ -634,19 +790,38 @@
     const createNote = overlay ? overlay.querySelector("#create-note") : null;
     const createTime = overlay ? overlay.querySelector("#create-time") : null;
     const createEnd = overlay ? overlay.querySelector("#create-end-time") : null;
+    const createDuration = overlay ? overlay.querySelector("#create-duration") : null;
+    const createColor = overlay ? overlay.querySelector("#create-color") : null;
+    const createAllDay = overlay ? overlay.querySelector("#create-all-day") : null;
+    const createEventTime = overlay ? overlay.querySelectorAll("[data-event-time]") : [];
     const createDateLabel = overlay ? overlay.querySelector("[data-create-date]") : null;
     const createDateInput = overlay ? overlay.querySelector("[data-create-date-input]") : null;
+
+    const updateEventTimeVisibility = () => {
+        if (!createEventTime || createEventTime.length === 0) return;
+        const isEvent = createKind && createKind.value === "event";
+        const allDay = createAllDay && createAllDay.checked;
+        if (!isEvent) return;
+        createEventTime.forEach((field) => {
+            field.style.display = allDay ? "none" : "grid";
+        });
+    };
 
     const setCreateKind = (kind) => {
         if (!createKind || !overlay) return;
         createKind.value = kind;
         overlay.querySelectorAll("[data-kind]").forEach((field) => {
-            const allowed = field.dataset.kind === kind;
+            const raw = field.dataset.kind || "";
+            const allowedKinds = raw.split(",").map((value) => value.trim()).filter(Boolean);
+            const allowed = allowedKinds.includes(kind);
             field.style.display = allowed ? "grid" : "none";
         });
         if (createTime) {
-            createTime.required = kind === "window";
+            const isEvent = kind === "event";
+            const allDay = createAllDay && createAllDay.checked;
+            createTime.required = kind === "window" || (isEvent && !allDay);
         }
+        updateEventTimeVisibility();
     };
 
     const openCreate = (kind) => {
@@ -663,6 +838,11 @@
         if (createNote) createNote.value = "";
         if (createTime) createTime.value = "";
         if (createEnd) createEnd.value = "";
+        if (createDuration) createDuration.value = "";
+        if (createColor && createColor.dataset && createColor.dataset.default) {
+            createColor.value = createColor.dataset.default;
+        }
+        if (createAllDay) createAllDay.checked = false;
         const safeKind = ["task", "note", "window"].includes(kind) ? kind : "task";
         setCreateKind(safeKind);
         overlay.classList.add("is-open");
@@ -703,6 +883,17 @@
         createKind.addEventListener("change", () => setCreateKind(createKind.value));
     }
 
+    if (createAllDay) {
+        createAllDay.addEventListener("change", () => {
+            updateEventTimeVisibility();
+            if (createTime) {
+                const kind = createKind ? createKind.value : "";
+                const isEvent = kind === "event";
+                createTime.required = kind === "window" || (isEvent && !createAllDay.checked);
+            }
+        });
+    }
+
     if (createForm) {
         createForm.addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -712,10 +903,15 @@
             if (kind === "note" && !noteBody && !title) return;
             if (kind !== "note" && !title) return;
             const date = createDateInput ? createDateInput.value : "";
-            const start = normalizeText(createTime ? createTime.value : "");
-            const end = normalizeText(createEnd ? createEnd.value : "");
+            const startRaw = normalizeText(createTime ? createTime.value : "");
+            const endRaw = normalizeText(createEnd ? createEnd.value : "");
+            const durationRaw = normalizeText(createDuration ? createDuration.value : "");
+            const color = normalizeText(createColor ? createColor.value : "");
+            const allDay = Boolean(createAllDay && createAllDay.checked);
+            const start = kind === "event" && allDay ? "00:00" : startRaw;
+            const end = kind === "event" && allDay ? "23:59" : endRaw;
 
-            const typeMap = { task: "tasks", note: "notes", window: "windows" };
+            const typeMap = { task: "tasks", note: "notes", window: "windows", event: "windows" };
             const type = typeMap[kind] || "tasks";
             const payload = {
                 action: "add",
@@ -724,11 +920,14 @@
             };
             if (kind === "task") {
                 payload.date = date;
+                if (durationRaw) payload.duration = durationRaw;
             }
-            if (kind === "window") {
+            if (kind === "window" || kind === "event") {
                 payload.date = date;
                 payload.time = start;
                 if (end) payload.end_time = end;
+                payload.kind = kind;
+                if (color) payload.color = color;
             }
 
             if (storageMode === "remote") {
@@ -747,11 +946,19 @@
             if (storageMode === "local") {
                 const id = makeId();
                 if (type === "tasks") {
-                    state.tasks.push({ id, text: title, done: false, date, time: "" });
+                    const parsedDuration = parseInt(durationRaw, 10);
+                    state.tasks.push({
+                        id,
+                        text: title,
+                        done: false,
+                        date,
+                        time: "",
+                        duration: Number.isFinite(parsedDuration) && parsedDuration > 0 ? parsedDuration : null,
+                    });
                 } else if (type === "notes") {
                     state.notes.push({ id, text: noteBody || title });
                 } else {
-                    state.windows.push({ id, text: title, date, start, end });
+                    state.windows.push({ id, text: title, date, start, end, kind: kind === "event" ? "event" : "window", color });
                 }
                 persistLocal();
             }

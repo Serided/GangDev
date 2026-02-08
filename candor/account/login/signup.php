@@ -54,16 +54,16 @@ if ($t !== '') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candor - Create account</title>
-    <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=8" type="image/x-icon">
-    <link rel="icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=8" type="image/x-icon" media="(prefers-color-scheme: dark)">
-    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=8" type="image/x-icon">
-    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=8" type="image/x-icon" media="(prefers-color-scheme: dark)">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=8">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-dark-32.png?v=8" media="(prefers-color-scheme: dark)">
-    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=8">
-    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-dark-64.png?v=8" media="(prefers-color-scheme: dark)">
-    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=8">
-    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-dark-128.png?v=8" media="(prefers-color-scheme: dark)">
+    <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=9" type="image/x-icon">
+    <link rel="icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=9" type="image/x-icon" media="(prefers-color-scheme: dark)">
+    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=9" type="image/x-icon">
+    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=9" type="image/x-icon" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=9">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-dark-32.png?v=9" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=9">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-dark-64.png?v=9" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=9">
+    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-dark-128.png?v=9" media="(prefers-color-scheme: dark)">
 
     <link rel="stylesheet" href="/login/login.css">
     <script src="/login/login.js" defer></script>
@@ -105,7 +105,8 @@ if ($t !== '') {
 						<div class="sectionTitle">Identity</div>
 						<div class="formIndent">
 							<div class="formSplit">
-								<div class="field fieldInlineLabel">
+								<div class="field">
+									<div class="label">Display name</div>
 									<div class="inputRow">
 										<input class="input" name="display_name" value="<?= htmlspecialchars($prefill['display_name']) ?>" required autocomplete="nickname" spellcheck="false" pattern="[A-Za-z0-9][A-Za-z0-9 _-]{2,19}" maxlength="20" id="displayNameInput" data-display-check>
 										<div class="hint">
@@ -113,10 +114,12 @@ if ($t !== '') {
 											<div class="hintPop">This is what everyone sees. It must be unique.</div>
 										</div>
 									</div>
-									<div class="label">Display name</div>
 								</div>
 
-								<div class="field fieldSpacer" aria-hidden="true"></div>
+								<div class="field">
+									<div class="label">Birthday</div>
+									<input class="input" type="date" name="birthdate" value="<?= htmlspecialchars($prefill['birthdate']) ?>">
+								</div>
 
 								<div class="field">
 									<div class="label">Email</div>
@@ -126,11 +129,6 @@ if ($t !== '') {
 								<div class="field">
 									<div class="label">Verify email</div>
 									<input class="input" name="confirm_email" value="<?= htmlspecialchars($prefill['email']) ?>" required autocomplete="email" inputmode="email">
-								</div>
-
-								<div class="field">
-									<div class="label">Birthday</div>
-									<input class="input" type="date" name="birthdate" value="<?= htmlspecialchars($prefill['birthdate']) ?>">
 								</div>
 
 								<div class="field fieldFull">
@@ -208,4 +206,5 @@ if ($t !== '') {
 
 </body>
 </html>
+
 

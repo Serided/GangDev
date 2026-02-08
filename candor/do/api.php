@@ -93,6 +93,15 @@ function planned_value($type) {
 	return 'planned';
 }
 
+function ensure_task_duration_column(PDO $pdo) {
+	$pdo->exec("ALTER TABLE candor.tasks ADD COLUMN IF NOT EXISTS estimated_minutes INTEGER");
+}
+
+function ensure_schedule_instance_columns(PDO $pdo) {
+	$pdo->exec("ALTER TABLE candor.schedule_instances ADD COLUMN IF NOT EXISTS kind VARCHAR(16)");
+	$pdo->exec("ALTER TABLE candor.schedule_instances ADD COLUMN IF NOT EXISTS color VARCHAR(16)");
+}
+
 function ensure_schedule_rules_table(PDO $pdo) {
 	$pdo->exec("
 		CREATE TABLE IF NOT EXISTS candor.schedule_rules (
@@ -110,9 +119,15 @@ function ensure_schedule_rules_table(PDO $pdo) {
 }
 
 if ($action === 'load') {
+	try {
+		ensure_task_duration_column($pdo);
+		ensure_schedule_instance_columns($pdo);
+	} catch (Throwable $e) {
+		// Ignore schema update failures; return available data.
+	}
 	$taskStatusType = column_type($pdo, 'tasks', 'status');
 	$tasksStmt = $pdo->prepare("
-		SELECT id, title, status, completed_at, due_date, due_time
+		SELECT id, title, status, completed_at, due_date, due_time, estimated_minutes
 		FROM candor.tasks
 		WHERE user_id = ?
 		ORDER BY created_at ASC, id ASC
@@ -138,12 +153,17 @@ if ($action === 'load') {
 		if (!empty($row['due_time'])) {
 			$timeOut = substr((string)$row['due_time'], 0, 5);
 		}
+		$durationOut = null;
+		if (isset($row['estimated_minutes']) && $row['estimated_minutes'] !== null) {
+			$durationOut = (int)$row['estimated_minutes'];
+		}
 		$tasks[] = [
 			'id' => (string)$row['id'],
 			'text' => (string)$row['title'],
 			'done' => $done,
 			'date' => $dateOut,
 			'time' => $timeOut,
+			'duration' => $durationOut,
 		];
 	}
 
@@ -166,7 +186,7 @@ if ($action === 'load') {
 	}
 
 	$blocksStmt = $pdo->prepare("
-		SELECT id, title, date, start_time, end_time
+		SELECT id, title, date, start_time, end_time, kind, color
 		FROM candor.schedule_instances
 		WHERE user_id = ?
 		ORDER BY date ASC, start_time ASC NULLS LAST, id ASC
@@ -189,6 +209,8 @@ if ($action === 'load') {
 			'date' => (string)($row['date'] ?? ''),
 			'start' => $time,
 			'end' => $endOut,
+			'kind' => (string)($row['kind'] ?? 'window'),
+			'color' => (string)($row['color'] ?? ''),
 		];
 	}
 
@@ -248,6 +270,11 @@ if ($action === 'add') {
 	}
 
 	if ($type === 'tasks') {
+		try {
+			ensure_task_duration_column($pdo);
+		} catch (Throwable $e) {
+			// Ignore schema update failures.
+		}
 		$statusType = column_type($pdo, 'tasks', 'status');
 		$statusOpen = status_value($statusType, false);
 		$columns = 'user_id, title, created_at';
@@ -271,11 +298,17 @@ if ($action === 'add') {
 			$values .= ', ?';
 			$params[] = $statusOpen;
 		}
+		$duration = isset($payload['duration']) ? (int)$payload['duration'] : 0;
+		if ($duration > 0) {
+			$columns .= ', estimated_minutes';
+			$values .= ', ?';
+			$params[] = $duration;
+		}
 
 		$stmt = $pdo->prepare("
 			INSERT INTO candor.tasks ($columns)
 			VALUES ($values)
-			RETURNING id, title, status, completed_at
+			RETURNING id, title, status, completed_at, estimated_minutes
 		");
 		$stmt->execute($params);
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -295,6 +328,7 @@ if ($action === 'add') {
 				'done' => !empty($row['completed_at']),
 				'date' => $dateOut,
 				'time' => $timeOut,
+				'duration' => isset($row['estimated_minutes']) ? (int)$row['estimated_minutes'] : null,
 			],
 		]);
 	}
@@ -318,6 +352,11 @@ if ($action === 'add') {
 	}
 
 	if ($type === 'blocks') {
+		try {
+			ensure_schedule_instance_columns($pdo);
+		} catch (Throwable $e) {
+			// Ignore schema update failures.
+		}
 		$statusType = column_type($pdo, 'schedule_instances', 'status');
 		$statusPlanned = planned_value($statusType);
 		$date = $payload['date'] ?? '';
@@ -327,6 +366,14 @@ if ($action === 'add') {
 		$columns = 'user_id, title, date, created_at';
 		$values = '?, ?, ?, NOW()';
 		$params = [(int)$userId, $text, $date];
+		$kind = isset($payload['kind']) && $payload['kind'] === 'event' ? 'event' : 'window';
+		$color = trim((string)($payload['color'] ?? ''));
+		if ($color !== '' && !preg_match('/^#?[0-9a-fA-F]{6}$/', $color)) {
+			$color = '';
+		}
+		if ($color !== '' && $color[0] !== '#') {
+			$color = '#' . $color;
+		}
 
 		if ($time !== '') {
 			$columns .= ', start_time';
@@ -343,11 +390,19 @@ if ($action === 'add') {
 			$values .= ', ?';
 			$params[] = $statusPlanned;
 		}
+		$columns .= ', kind';
+		$values .= ', ?';
+		$params[] = $kind;
+		if ($color !== '') {
+			$columns .= ', color';
+			$values .= ', ?';
+			$params[] = $color;
+		}
 
 		$stmt = $pdo->prepare("
 			INSERT INTO candor.schedule_instances ($columns)
 			VALUES ($values)
-			RETURNING id, title, date, start_time
+			RETURNING id, title, date, start_time, end_time, kind, color
 		");
 		$stmt->execute($params);
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -368,6 +423,8 @@ if ($action === 'add') {
 				'date' => (string)($row['date'] ?? ''),
 				'start' => $timeOut,
 				'end' => $endOut,
+				'kind' => (string)($row['kind'] ?? $kind),
+				'color' => (string)($row['color'] ?? $color),
 			],
 		]);
 	}
