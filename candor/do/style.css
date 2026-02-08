@@ -21,8 +21,8 @@
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("https://candor.you/files/img/logo/candor-mark.png?v=12");
-    --logo-zoom: 125%;
+    --logo-image: url("https://candor.you/files/img/logo/candor-mark.png?v=13");
+    --logo-zoom: 100% 100%;
     --logo-glyph-opacity: 0;
 }
 
@@ -104,7 +104,7 @@ body.is-do .page {
     width: var(--brand-mark-size);
     height: var(--brand-mark-size);
     aspect-ratio: 1 / 1;
-    border-radius: 50%;
+    border-radius: 0;
     display: grid;
     place-items: center;
     background-color: transparent;
@@ -113,7 +113,7 @@ body.is-do .page {
     background-position: center;
     background-repeat: no-repeat;
     border: none;
-    overflow: hidden;
+    overflow: visible;
     position: relative;
     flex: 0 0 auto;
 }
@@ -386,8 +386,8 @@ body.is-do .welcome {
     line-height: 1;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     position: absolute;
-    left: auto;
-    right: 28px;
+    left: 18px;
+    right: auto;
     bottom: 18px;
     z-index: 6;
     box-shadow: 0 12px 24px rgba(230, 160, 106, 0.35);
@@ -418,8 +418,8 @@ body.is-do .welcome {
     text-decoration: none;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     position: absolute;
-    right: auto;
-    left: 18px;
+    right: 28px;
+    left: auto;
     bottom: 18px;
     z-index: 6;
     box-shadow: 0 12px 24px rgba(230, 160, 106, 0.35);
@@ -687,8 +687,8 @@ body.is-do .welcome {
     --timeline-inline-pad: 14px;
     --timeline-slot-left: calc(var(--timeline-label-width) + var(--timeline-gap) + var(--timeline-inline-pad));
     --timeline-slot-right: var(--timeline-inline-pad);
-    --timeline-block-gap: 8px;
-    --timeline-block-inset: 8px;
+    --timeline-block-gap: 0;
+    --timeline-block-inset: 0;
     position: relative;
     display: grid;
     grid-auto-rows: var(--hour-height);
@@ -896,6 +896,8 @@ body.is-do .welcome {
     color: #2a1a0f;
     font-size: 12px;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
     cursor: pointer;
     display: grid;
     place-items: center;
@@ -1133,12 +1135,25 @@ body.is-do .welcome {
 .saveHint {
     text-align: center;
     font-size: 12px;
-    margin-top: 6px;
+    margin: 0;
     justify-self: center;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    pointer-events: none;
 }
 
 .saveHint.ok {
     color: rgba(10, 110, 55, 0.9);
+}
+
+.saveWrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
 }
 
 .profileSection {
@@ -1189,9 +1204,9 @@ body.is-do .welcome {
 }
 
 .bulletField.is-height {
-    flex-basis: 120px;
-    max-width: 120px;
-    min-width: 120px;
+    flex-basis: var(--bullet-width);
+    max-width: var(--bullet-width);
+    min-width: var(--bullet-width);
 }
 
 .input.compact {
@@ -1725,16 +1740,16 @@ body.is-do .welcome {
         bottom: 2px;
     }
     .panelAdd {
-        right: 26px;
-        left: auto;
+        left: 12px;
+        right: auto;
         bottom: 12px;
         width: 54px;
         height: 54px;
         font-size: 26px;
     }
     .panelAction {
-        left: 12px;
-        right: auto;
+        right: 12px;
+        left: auto;
         bottom: 12px;
         width: 54px;
         height: 54px;

@@ -22,8 +22,8 @@
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("https://candor.you/files/img/logo/candor-mark.png?v=12");
-    --logo-zoom: 125%;
+    --logo-image: url("https://candor.you/files/img/logo/candor-mark.png?v=13");
+    --logo-zoom: 100% 100%;
     --logo-glyph-opacity: 0;
 }
 
@@ -88,7 +88,7 @@ a {
     width: var(--brand-mark-size);
     height: var(--brand-mark-size);
     aspect-ratio: 1 / 1;
-    border-radius: 50%;
+    border-radius: 0;
     display: grid;
     place-items: center;
     background-color: transparent;
@@ -97,7 +97,7 @@ a {
     background-position: center;
     background-repeat: no-repeat;
     border: none;
-    overflow: hidden;
+    overflow: visible;
     position: relative;
     flex: 0 0 auto;
 }
@@ -330,9 +330,9 @@ a {
 }
 
 .bulletField.is-height {
-    flex-basis: 120px;
-    max-width: 120px;
-    min-width: 120px;
+    flex-basis: var(--bullet-width);
+    max-width: var(--bullet-width);
+    min-width: var(--bullet-width);
 }
 
 .field {
@@ -431,12 +431,25 @@ a {
 .saveHint {
     text-align: center;
     font-size: 12px;
-    margin-top: 6px;
+    margin: 0;
     justify-self: center;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    pointer-events: none;
 }
 
 .saveHint.ok {
     color: rgba(10, 110, 55, 0.9);
+}
+
+.saveWrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
 }
 
 .footer {

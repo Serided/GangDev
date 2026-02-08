@@ -524,14 +524,27 @@
             };
 
             const labelWidth = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--timeline-label-width")) || 72;
-            const slotLeft = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--timeline-slot-left"));
-            const slotRight = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--timeline-slot-right"));
+            const slotLeftVar = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--timeline-slot-left"));
+            const slotRightVar = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--timeline-slot-right"));
             const blockGap = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--timeline-block-gap"));
             const blockInset = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--timeline-block-inset"));
+            let slotLeft = null;
+            let slotRight = null;
+            const sampleSlot = dayGrid.querySelector(".timeSlot");
+            if (sampleSlot) {
+                const gridRect = dayGrid.getBoundingClientRect();
+                const slotRect = sampleSlot.getBoundingClientRect();
+                slotLeft = slotRect.left - gridRect.left;
+                slotRight = gridRect.right - slotRect.right;
+            }
             const safeInset = Number.isFinite(blockInset) ? blockInset : 0;
-            const leftBase = (Number.isFinite(slotLeft) ? slotLeft : (labelWidth + 12)) + safeInset;
-            const rightBase = (Number.isFinite(slotRight) ? slotRight : 16) + safeInset;
-            const columnGap = Number.isFinite(blockGap) ? blockGap : 8;
+            const leftBase = (Number.isFinite(slotLeft)
+                ? slotLeft
+                : (Number.isFinite(slotLeftVar) ? slotLeftVar : (labelWidth + 12))) + safeInset;
+            const rightBase = (Number.isFinite(slotRight)
+                ? slotRight
+                : (Number.isFinite(slotRightVar) ? slotRightVar : 16)) + safeInset;
+            const columnGap = Number.isFinite(blockGap) ? blockGap : 0;
             const usableWidth = Math.max(0, dayGrid.clientWidth - leftBase - rightBase);
 
             layoutSegments(blockSegments).forEach((segment) => {
