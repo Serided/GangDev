@@ -40,16 +40,16 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>your Candor</title>
-	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=9" type="image/x-icon">
-	<link rel="icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=9" type="image/x-icon" media="(prefers-color-scheme: dark)">
-	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=9" type="image/x-icon">
-	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=9" type="image/x-icon" media="(prefers-color-scheme: dark)">
-	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=9">
-	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-dark-32.png?v=9" media="(prefers-color-scheme: dark)">
-	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=9">
-	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-dark-64.png?v=9" media="(prefers-color-scheme: dark)">
-	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=9">
-	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-dark-128.png?v=9" media="(prefers-color-scheme: dark)">
+	<link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=12" type="image/x-icon">
+	<link rel="icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=12" type="image/x-icon" media="(prefers-color-scheme: dark)">
+	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=12" type="image/x-icon">
+	<link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=12" type="image/x-icon" media="(prefers-color-scheme: dark)">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=12">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-dark-32.png?v=12" media="(prefers-color-scheme: dark)">
+	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=12">
+	<link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-dark-64.png?v=12" media="(prefers-color-scheme: dark)">
+	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=12">
+	<link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-dark-128.png?v=12" media="(prefers-color-scheme: dark)">
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
@@ -150,6 +150,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 				</div>
 				<div class="timelineGrid" data-day-grid></div>
 			</div>
+			<a class="panelAction panelCore" href="https://create.candor.you/">Core</a>
 		</div>
 
 		<div class="calendarPanel monthPanel">
@@ -196,9 +197,15 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 				<option value="window">Window</option>
 			</select>
 
-			<div class="createField">
-				<label class="label" for="create-title">Title</label>
-				<input class="input" id="create-title" type="text" name="title" placeholder="What are you doing?">
+			<div class="createRow">
+				<div class="createField createTitleField">
+					<label class="label" for="create-title">Title</label>
+					<input class="input" id="create-title" type="text" name="title" placeholder="What are you doing?">
+				</div>
+				<div class="createField createColorField" data-kind="window,event">
+					<label class="label" for="create-color">Color</label>
+					<input class="input color" id="create-color" type="color" name="color" value="#f3c873" data-default="#f3c873">
+				</div>
 			</div>
 
 			<div class="createField" data-kind="note">
@@ -221,15 +228,11 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 
 			<div class="createField" data-kind="window,event" data-event-time>
 				<label class="label" for="create-time">Start time</label>
-				<input class="input compact" id="create-time" type="time" name="time">
+				<select class="input compact select" id="create-time" name="time" data-time-select data-time-empty="Start"></select>
 			</div>
 			<div class="createField" data-kind="window,event" data-event-time>
 				<label class="label" for="create-end-time">End time (optional)</label>
-				<input class="input compact" id="create-end-time" type="time" name="end_time">
-			</div>
-			<div class="createField" data-kind="window,event">
-				<label class="label" for="create-color">Color</label>
-				<input class="input color" id="create-color" type="color" name="color" value="#f3c873" data-default="#f3c873">
+				<select class="input compact select" id="create-end-time" name="end_time" data-time-select data-time-empty="End"></select>
 			</div>
 
 			<div class="createMeta">
@@ -344,5 +347,7 @@ $timeFormat = $timeFormat === '12' ? '12' : '24';
 
 </body>
 </html>
+
+
 
 

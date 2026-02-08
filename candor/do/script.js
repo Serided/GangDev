@@ -536,11 +536,21 @@
             const tasks = state.tasks
                 .filter((task) => task.date === selectedKey)
                 .sort((a, b) => (parseMinutes(a.time) ?? 0) - (parseMinutes(b.time) ?? 0));
+            const needsBase = state.rules.length === 0;
+            if (needsBase) {
+                const core = document.createElement("a");
+                core.className = "chip coreChip";
+                core.href = "https://create.candor.you/";
+                core.textContent = "Create base schedule";
+                taskRail.appendChild(core);
+            }
             if (tasks.length === 0) {
-                const empty = document.createElement("span");
-                empty.className = "railEmpty";
-                empty.textContent = "No priority tasks yet.";
-                taskRail.appendChild(empty);
+                if (!needsBase) {
+                    const empty = document.createElement("span");
+                    empty.className = "railEmpty";
+                    empty.textContent = "No priority tasks yet.";
+                    taskRail.appendChild(empty);
+                }
                 return;
             }
 
@@ -688,6 +698,9 @@
                 const tasks = document.createElement("div");
                 tasks.className = "monthTasks";
                 const dayItems = [...(tasksByDate[key] || []), ...(eventsByDate[key] || [])];
+                if (dayItems.length > 0) {
+                    btn.classList.add("has-items");
+                }
                 dayItems.slice(0, 2).forEach((task) => {
                     const pill = document.createElement("div");
                     const eventClass = task.isEvent ? " is-event" : "";

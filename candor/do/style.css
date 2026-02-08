@@ -15,14 +15,14 @@
     --radius: 18px;
     --brand-candor: #7b3f22;
     --brand-lead: #4b7fa8;
-    --brand-mark-size: 72px;
+    --brand-mark-size: 84px;
     --brand-name-size: 36px;
     --brand-lead-size: calc(var(--brand-name-size) * 0.5);
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=9");
-    --logo-zoom: 110%;
+    --logo-image: url("https://candor.you/files/img/logo/candor-mark.png?v=12");
+    --logo-zoom: 125%;
     --logo-glyph-opacity: 0;
 }
 
@@ -103,6 +103,7 @@ body.is-do .page {
 .logo {
     width: var(--brand-mark-size);
     height: var(--brand-mark-size);
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     display: grid;
     place-items: center;
@@ -114,6 +115,7 @@ body.is-do .page {
     border: none;
     overflow: hidden;
     position: relative;
+    flex: 0 0 auto;
 }
 
 .logoGlyph {
@@ -217,6 +219,26 @@ body.is-do .brandTitle {
     flex-wrap: wrap;
     margin-left: auto;
     justify-content: flex-end;
+}
+
+body.is-do .nav {
+    align-items: flex-start;
+}
+
+body.is-do .actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+body.is-do .actions .btn {
+    width: auto;
+}
+
+body.is-do .welcome {
+    text-align: right;
 }
 
 .welcome {
@@ -348,14 +370,14 @@ body.is-do .brandTitle {
 }
 
 .panelAdd {
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     padding: 0;
     border-radius: 50%;
     border: 1px solid #e1a36d;
     background: linear-gradient(135deg, var(--orange), var(--yellow));
     color: #2a1a0f;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 700;
     letter-spacing: 0;
     cursor: pointer;
@@ -364,13 +386,44 @@ body.is-do .brandTitle {
     line-height: 1;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     position: absolute;
-    right: 18px;
+    left: 18px;
     bottom: 18px;
     z-index: 2;
     box-shadow: 0 12px 24px rgba(230, 160, 106, 0.35);
 }
 
 .panelAdd:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(230, 160, 106, 0.4);
+    background: linear-gradient(135deg, rgba(230, 160, 106, 0.95), rgba(243, 200, 115, 0.95));
+}
+
+.panelAction {
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid #e1a36d;
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    color: #2a1a0f;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    line-height: 1;
+    text-decoration: none;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    position: absolute;
+    right: 28px;
+    bottom: 18px;
+    z-index: 5;
+    box-shadow: 0 12px 24px rgba(230, 160, 106, 0.35);
+}
+
+.panelAction:hover {
     transform: translateY(-1px);
     box-shadow: 0 16px 28px rgba(230, 160, 106, 0.4);
     background: linear-gradient(135deg, rgba(230, 160, 106, 0.95), rgba(243, 200, 115, 0.95));
@@ -524,6 +577,20 @@ body.is-do .brandTitle {
     white-space: nowrap;
 }
 
+.coreChip {
+    background: rgba(243, 200, 115, 0.3);
+    border-color: rgba(230, 160, 106, 0.65);
+    color: #2a1a0f;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.coreChip:hover {
+    border-color: rgba(230, 160, 106, 0.85);
+    box-shadow: 0 8px 16px rgba(230, 160, 106, 0.18);
+}
+
 .taskChip {
     cursor: pointer;
 }
@@ -624,6 +691,7 @@ body.is-do .brandTitle {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
+    scrollbar-gutter: stable;
 }
 
 .timeRow {
@@ -689,8 +757,8 @@ body.is-do .brandTitle {
 
 .slotBlock {
     position: absolute;
-    left: var(--timeline-label-width);
-    right: 16px;
+    left: 0;
+    right: auto;
     border-radius: 14px;
     border: 1px solid rgba(243, 200, 115, 0.7);
     background: rgba(243, 200, 115, 0.25);
@@ -811,8 +879,8 @@ body.is-do .brandTitle {
 }
 
 .monthToday {
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     padding: 0;
     border-radius: 50%;
     border: 1px solid #e1a36d;
@@ -874,6 +942,7 @@ body.is-do .brandTitle {
     text-align: left;
     cursor: pointer;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+    position: relative;
 }
 
 .monthCell:hover {
@@ -1408,6 +1477,26 @@ body.is-do .brandTitle {
     gap: 12px;
 }
 
+.createRow {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.createTitleField {
+    flex: 1 1 auto;
+}
+
+.createColorField {
+    flex: 0 0 auto;
+    align-items: center;
+}
+
+.createColorField .label {
+    font-size: 10px;
+    text-align: center;
+}
+
 .createField {
     display: grid;
     gap: 6px;
@@ -1422,8 +1511,10 @@ body.is-do .brandTitle {
 }
 
 .input.color {
+    width: 42px;
     height: 42px;
-    padding: 6px;
+    padding: 0;
+    border-radius: 10px;
 }
 
 .textarea {
@@ -1503,7 +1594,7 @@ body.is-do .brandTitle {
     .page {
         --page-gutter: 12px;
         padding: var(--edge-pad) var(--page-gutter);
-        gap: 10px;
+        gap: 8px;
         height: 100%;
         overflow: hidden;
     }
@@ -1516,21 +1607,30 @@ body.is-do .brandTitle {
         gap: 8px;
         align-self: flex-end;
     }
+    body.is-do .actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+    body.is-do .actions .btn {
+        width: auto;
+    }
     .welcome { font-size: 16px; }
     .accountLink { font-size: 17px; }
     .quickForm { grid-template-columns: 1fr; }
     .quickForm.is-planner { grid-template-columns: 1fr; }
     .focusRow { grid-template-columns: 1fr; }
-    .calendarPanel { padding: 12px; padding-bottom: 12px; gap: 8px; }
-    .dayTitle { font-size: clamp(22px, 6vw, 32px); }
+    .calendarPanel { padding: 10px; padding-bottom: 10px; gap: 6px; }
+    .dayTitle { font-size: clamp(20px, 6vw, 30px); }
     .dayMeta { display: none; }
-    .dayHeader { gap: 6px; }
-    .dayTag { font-size: 12px; }
+    .dayHeader { gap: 4px; }
+    .dayTag { font-size: 11px; }
     .daySchedule { font-size: 11px; }
-    .timelineGrid { --hour-height: 24px; max-height: none; }
+    .timelineGrid { --hour-height: 20px; max-height: none; }
     .calendarShell {
-        grid-template-rows: minmax(0, 0.68fr) minmax(0, 1.32fr);
-        gap: 8px;
+        grid-template-rows: minmax(0, 0.46fr) minmax(0, 1.54fr);
+        gap: 6px;
     }
     .dayPanel,
     .monthPanel {
@@ -1539,19 +1639,18 @@ body.is-do .brandTitle {
     .focusStrip {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         overflow: hidden;
-        gap: 4px;
+        gap: 2px;
     }
     .focusCard {
-        height: 44px;
-        min-height: 44px;
-        padding: 2px 4px 2px;
+        height: 28px;
+        min-height: 28px;
+        padding: 1px 3px;
         gap: 1px;
         justify-items: center;
         text-align: center;
     }
-    .focusLabel { font-size: 8px; }
-    .focusLabel { text-transform: none; letter-spacing: 0.2px; line-height: 1; }
-    .focusValue { font-size: 11px; line-height: 1; white-space: nowrap; }
+    .focusLabel { font-size: 7px; text-transform: none; letter-spacing: 0.2px; line-height: 1; }
+    .focusValue { font-size: 9px; line-height: 1; white-space: nowrap; }
     .focusSub { display: none; }
     .focusLabel .labelLong,
     .focusValue .valueLong {
@@ -1561,42 +1660,62 @@ body.is-do .brandTitle {
     .focusValue .valueShort {
         display: inline;
     }
-    .balanceBar { width: 100%; height: 3px; }
-    .paceTrack { width: 100%; height: 3px; margin-top: 1px; }
-    .paceDot { width: 6px; height: 6px; }
-    .momentumDots { gap: 3px; margin-top: 1px; }
-    .momentumDots .dot { width: 4px; height: 4px; }
-    .monthHeader { gap: 6px; }
-    .monthTitle { font-size: 18px; }
-    .monthNav { width: 32px; height: 32px; font-size: 16px; }
-    .weekdayRow { font-size: 9px; gap: 2px; }
+    .balanceBar { width: 100%; height: 2px; }
+    .paceTrack { width: 100%; height: 2px; margin-top: 0; }
+    .paceDot { width: 4px; height: 4px; }
+    .momentumDots { gap: 1px; margin-top: 0; }
+    .momentumDots .dot { width: 2px; height: 2px; }
+    .monthHeader { gap: 4px; }
+    .monthTitle { font-size: 16px; }
+    .monthNav { width: 28px; height: 28px; font-size: 14px; }
+    .weekdayRow { font-size: 8px; gap: 1px; }
     .monthGrid {
         gap: 2px;
         overflow: hidden;
+        flex: 0 1 auto;
+        grid-auto-rows: minmax(18px, 20px);
+        align-content: start;
     }
     .monthCell {
         min-height: 0;
-        padding: 0;
+        padding: 1px 0;
         gap: 0;
         align-items: center;
         justify-content: center;
     }
-    .monthNumber { font-size: 10px; line-height: 1; }
+    .monthNumber { font-size: 9px; line-height: 1; }
     .monthTasks { display: none; }
     .monthPill { display: none; }
     .monthMore { display: none; }
+    .monthCell.has-items::after {
+        content: "";
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 999px;
+        background: var(--orange);
+        right: 2px;
+        bottom: 2px;
+    }
     .panelAdd {
-        right: 14px;
-        bottom: 14px;
-        width: 52px;
-        height: 52px;
+        right: 18px;
+        bottom: 12px;
+        width: 54px;
+        height: 54px;
         font-size: 26px;
     }
+    .panelAction {
+        left: 12px;
+        bottom: 12px;
+        width: 54px;
+        height: 54px;
+        font-size: 11px;
+    }
     .monthToday {
-        right: 14px;
-        bottom: 14px;
-        width: 52px;
-        height: 52px;
+        left: 12px;
+        bottom: 12px;
+        width: 54px;
+        height: 54px;
         font-size: 11px;
     }
     .railStack {
@@ -1622,6 +1741,10 @@ body.is-do .brandTitle {
     .footer { flex-direction: row; align-items: center; gap: 12px; }
     .heightSplit { grid-template-columns: 1fr; }
 }
+
+
+
+
 
 
 

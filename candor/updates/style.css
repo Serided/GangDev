@@ -15,14 +15,14 @@
     --radius: 18px;
     --brand-candor: #7b3f22;
     --brand-lead: #4b7fa8;
-    --brand-mark-size: 72px;
+    --brand-mark-size: 84px;
     --brand-name-size: 36px;
     --brand-lead-size: calc(var(--brand-name-size) * 0.5);
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=9");
-    --logo-zoom: 110%;
+    --logo-image: url("https://candor.you/files/img/logo/candor-mark.png?v=12");
+    --logo-zoom: 125%;
     --logo-glyph-opacity: 0;
 }
 
@@ -91,6 +91,7 @@ body.is-updates .page {
 .logo {
     width: var(--brand-mark-size);
     height: var(--brand-mark-size);
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     display: grid;
     place-items: center;
@@ -102,6 +103,7 @@ body.is-updates .page {
     border: none;
     overflow: hidden;
     position: relative;
+    flex: 0 0 auto;
 }
 
 .logoGlyph {
@@ -469,6 +471,10 @@ body.is-updates .page {
     .meta { position: static; margin-top: 4px; }
     .footer { flex-direction: row; align-items: center; gap: 12px; }
 }
+
+
+
+
 
 
 

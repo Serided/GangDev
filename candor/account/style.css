@@ -13,7 +13,7 @@
     --line: #d7e2ed;
     --brand-candor: #7b3f22;
     --brand-lead: #4b7fa8;
-    --brand-mark-size: 72px;
+    --brand-mark-size: 84px;
 
     --radius: 18px;
     --shadow: 0 18px 50px rgba(15, 27, 45, .14);
@@ -22,8 +22,8 @@
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-lead: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("https://candor.you/files/img/favicon/favicon-128.png?v=9");
-    --logo-zoom: 110%;
+    --logo-image: url("https://candor.you/files/img/logo/candor-mark.png?v=12");
+    --logo-zoom: 125%;
     --logo-glyph-opacity: 0;
 }
 
@@ -57,7 +57,7 @@ a {
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 18px;
     overflow: hidden;
 }
 
@@ -87,6 +87,7 @@ a {
 .brandMark {
     width: var(--brand-mark-size);
     height: var(--brand-mark-size);
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     display: grid;
     place-items: center;
@@ -98,6 +99,7 @@ a {
     border: none;
     overflow: hidden;
     position: relative;
+    flex: 0 0 auto;
 }
 
 .brandText {
@@ -221,6 +223,7 @@ a {
 .accountLayout {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    grid-template-rows: auto minmax(0, 1fr);
     gap: 20px;
     align-items: start;
     flex: 1;
@@ -231,7 +234,7 @@ a {
 .profileCard {
     grid-column: 1 / -1;
     display: grid;
-    gap: 14px;
+    gap: 12px;
     min-height: 0;
     overflow-y: auto;
 }
@@ -601,6 +604,10 @@ a {
     line-height: 1;
     opacity: var(--logo-glyph-opacity);
 }
+
+
+
+
 
 
 

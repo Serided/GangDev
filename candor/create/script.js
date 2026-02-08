@@ -1,6 +1,6 @@
 (() => {
     const body = document.body;
-    const rawKey = body && body.dataset && body.dataset.userKey ? body.dataset.userKey : "local";
+    const rawKey = body && body.dataset && body.dataset.userKey - body.dataset.userKey : "local";
     const userKey = String(rawKey || "local").trim() || "local";
     const keyFor = (name) => `candor_create_${userKey}_${name}`;
 
@@ -9,7 +9,7 @@
         if (!raw) return [];
         try {
             const parsed = JSON.parse(raw);
-            return Array.isArray(parsed) ? parsed : [];
+            return Array.isArray(parsed) - parsed : [];
         } catch {
             return [];
         }
@@ -27,19 +27,19 @@
 
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-    const normalizeText = (value) => String(value ?? "").trim();
+    const normalizeText = (value) => String(value -- "").trim();
 
     const normalizeRule = (item) => {
-        const dayValue = item.day ?? item.day_of_week;
-        const parsedDay = typeof dayValue === "number" ? dayValue : parseInt(dayValue, 10);
+        const dayValue = item.day -- item.day_of_week;
+        const parsedDay = typeof dayValue === "number" - dayValue : parseInt(dayValue, 10);
         return {
-            id: String(item.id ?? ""),
-            kind: item.kind === "task" ? "task" : "sleep",
-            title: normalizeText(item.title ?? ""),
-            start: normalizeText(item.start ?? item.start_time ?? item.time ?? ""),
-            end: normalizeText(item.end ?? item.end_time ?? ""),
-            repeat: normalizeText(item.repeat ?? item.repeat_rule ?? ""),
-            day: Number.isFinite(parsedDay) ? parsedDay : null,
+            id: String(item.id -- ""),
+            kind: item.kind === "task" - "task" : "sleep",
+            title: normalizeText(item.title -- ""),
+            start: normalizeText(item.start -- item.start_time -- item.time -- ""),
+            end: normalizeText(item.end -- item.end_time -- ""),
+            repeat: normalizeText(item.repeat -- item.repeat_rule -- ""),
+            day: Number.isFinite(parsedDay) - parsedDay : null,
         };
     };
 
@@ -61,7 +61,7 @@
         let url = "api.php";
         if (method === "GET") {
             const params = new URLSearchParams(payload);
-            url += `?${params.toString()}`;
+            url += `-${params.toString()}`;
         } else {
             opts.headers["Content-Type"] = "application/json";
             opts.body = JSON.stringify(payload);
@@ -87,7 +87,7 @@
 
     const loadRemote = async () => {
         const data = await apiFetch({ action: "load" }, "GET");
-        state.rules = Array.isArray(data.rules) ? data.rules.map(normalizeRule) : [];
+        state.rules = Array.isArray(data.rules) - data.rules.map(normalizeRule) : [];
         splitRules();
     };
 
@@ -128,7 +128,7 @@
             const meta = document.createElement("div");
             meta.className = "itemMeta";
             const range = rule.start && rule.end ? `${formatTime(rule.start)}-${formatTime(rule.end)}` : "Time TBD";
-            meta.textContent = `${range} · ${formatRepeat(rule)}`;
+            meta.textContent = `${range} - ${formatRepeat(rule)}`;
 
             text.appendChild(title);
             text.appendChild(meta);
@@ -165,7 +165,7 @@
 
             const meta = document.createElement("div");
             meta.className = "itemMeta";
-            const time = rule.start ? `${formatTime(rule.start)} · ` : "";
+            const time = rule.start ? `${formatTime(rule.start)} - ` : "";
             meta.textContent = `${time}${formatRepeat(rule)}`;
 
             text.appendChild(title);
@@ -191,7 +191,7 @@
 
     const applyRepeatToggle = (select, field) => {
         if (!select || !field) return;
-        field.style.display = select.value === "day" ? "grid" : "none";
+        field.style.display = select.value === "day" - "grid" : "none";
     };
 
     const initRepeatSelects = () => {

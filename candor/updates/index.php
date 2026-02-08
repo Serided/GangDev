@@ -13,16 +13,16 @@ $authed = $userId && $user;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candor - Updates</title>
-    <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=9" type="image/x-icon">
-    <link rel="icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=9" type="image/x-icon" media="(prefers-color-scheme: dark)">
-    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=9" type="image/x-icon">
-    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=9" type="image/x-icon" media="(prefers-color-scheme: dark)">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=9">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-dark-32.png?v=9" media="(prefers-color-scheme: dark)">
-    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=9">
-    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-dark-64.png?v=9" media="(prefers-color-scheme: dark)">
-    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=9">
-    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-dark-128.png?v=9" media="(prefers-color-scheme: dark)">
+    <link rel="icon" href="https://candor.you/files/img/favicon/favicon.ico?v=12" type="image/x-icon">
+    <link rel="icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=12" type="image/x-icon" media="(prefers-color-scheme: dark)">
+    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon.ico?v=12" type="image/x-icon">
+    <link rel="shortcut icon" href="https://candor.you/files/img/favicon/favicon-dark.ico?v=12" type="image/x-icon" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-32.png?v=12">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://candor.you/files/img/favicon/favicon-dark-32.png?v=12" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-64.png?v=12">
+    <link rel="icon" type="image/png" sizes="64x64" href="https://candor.you/files/img/favicon/favicon-dark-64.png?v=12" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-128.png?v=12">
+    <link rel="icon" type="image/png" sizes="128x128" href="https://candor.you/files/img/favicon/favicon-dark-128.png?v=12" media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="is-updates">
@@ -68,12 +68,12 @@ $authed = $userId && $user;
                     </div>
                     <h3>Create cadence + sleep structure</h3>
                     <ul class="updateList">
-                        <li>Create workspace launched for building weekly cadence and recurring rules.</li>
-                        <li>Sleep schedules now support weekdays, weekends, daily, or specific-day repeats.</li>
-                        <li>Sleep schedule renders on the My OS timeline so today stays grounded.</li>
-                        <li>Daily task templates added in Create for recurring essentials.</li>
-                        <li>Mobile focus tiles and calendar panels compressed for cleaner phone flow.</li>
-                        <li>Favicon assets and circular logo treatment refreshed across Candor pages.</li>
+                        <li>Create workspace launched for cadence planning with sleep rules and recurring tasks.</li>
+                        <li>Core shortcut + base schedule nudge in My OS link directly into Create.</li>
+                        <li>Sleep schedules render in the day header and on the timeline as sleep windows.</li>
+                        <li>Floating add/today controls and mobile calendar dots keep schedules readable.</li>
+                        <li>Mobile focus tiles and calendar grids compressed to stay fully on-screen.</li>
+                        <li>Refreshed logo mark plus light/dark favicon set across all Candor pages.</li>
                     </ul>
                 </article>
 
@@ -131,5 +131,7 @@ $authed = $userId && $user;
 
 </body>
 </html>
+
+
 
 
