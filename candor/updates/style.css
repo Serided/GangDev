@@ -162,11 +162,11 @@ body.is-updates .page {
 
 .meta {
     font-size: 12px;
-    letter-spacing: 1.2px;
+    letter-spacing: 0.4px;
     color: var(--ink-soft);
-    text-transform: lowercase;
+    text-transform: none;
     position: absolute;
-    bottom: 0;
+    bottom: 4px;
     left: 0;
     right: 0;
 }

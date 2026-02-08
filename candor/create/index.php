@@ -61,7 +61,7 @@ $cookieKey = 'candor_time_format_' . $userId;
 	</section>
 
 	<section class="builder">
-		<div class="builderColumn">
+		<div class="builderRow">
 			<div class="card scheduleCard">
 				<div class="cardHead">
 					<h2>Sleep schedule</h2>
@@ -102,13 +102,6 @@ $cookieKey = 'candor_time_format_' . $userId;
 						<button class="btn ghost" type="button" data-sleep-clear>Clear</button>
 					</div>
 				</form>
-				<div class="listHeader">Active schedules</div>
-				<div class="listEmpty" data-sleep-empty>No sleep schedule yet.</div>
-				<div class="itemList" data-sleep-list></div>
-				<div class="noteCard">
-					<div class="noteTitle">Create vs. My OS</div>
-					<p>Create is for the big structure. My OS is for fast adjustments and daily execution.</p>
-				</div>
 			</div>
 
 			<div class="card tasksCard">
@@ -150,73 +143,89 @@ $cookieKey = 'candor_time_format_' . $userId;
 						<button class="btn primary" type="submit">Add task</button>
 					</div>
 				</form>
-				<div class="listHeader">Saved tasks</div>
-				<div class="listEmpty" data-task-empty>No recurring tasks yet.</div>
-				<div class="itemList" data-task-list></div>
 			</div>
 		</div>
 
-		<div class="card weekCard">
-			<div class="cardHead">
-				<h2>Week template</h2>
-				<span class="cardHint">Draft your cadence across the week.</span>
+		<div class="builderRow">
+			<div class="card weekCard">
+				<div class="cardHead">
+					<h2>Week template</h2>
+					<span class="cardHint">Draft your cadence across the week.</span>
+				</div>
+				<div class="weekGrid">
+					<div class="weekColumn">
+						<div class="weekDay">Sun</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-life">Life</div>
+						</div>
+					</div>
+					<div class="weekColumn">
+						<div class="weekDay">Mon</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-life">Life</div>
+						</div>
+					</div>
+					<div class="weekColumn">
+						<div class="weekDay">Tue</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-life">Life</div>
+						</div>
+					</div>
+					<div class="weekColumn">
+						<div class="weekDay">Wed</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-life">Life</div>
+						</div>
+					</div>
+					<div class="weekColumn">
+						<div class="weekDay">Thu</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-life">Life</div>
+						</div>
+					</div>
+					<div class="weekColumn">
+						<div class="weekDay">Fri</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-life">Life</div>
+						</div>
+					</div>
+					<div class="weekColumn">
+						<div class="weekDay">Sat</div>
+						<div class="weekStack">
+							<div class="weekBlock is-sleep">Sleep</div>
+							<div class="weekBlock is-focus">Focus</div>
+							<div class="weekBlock is-life">Life</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="weekGrid">
-				<div class="weekColumn">
-					<div class="weekDay">Sun</div>
-					<div class="weekStack">
-						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-focus">Focus</div>
-						<div class="weekBlock is-life">Life</div>
-					</div>
+
+			<div class="card savedCard">
+				<div class="cardHead">
+					<h2>Saved cadence</h2>
+					<span class="cardHint">Active schedules + daily tasks.</span>
 				</div>
-				<div class="weekColumn">
-					<div class="weekDay">Mon</div>
-					<div class="weekStack">
-						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-focus">Focus</div>
-						<div class="weekBlock is-life">Life</div>
-					</div>
+				<div class="savedSection">
+					<div class="listHeader">Active schedules</div>
+					<div class="listEmpty" data-sleep-empty>No sleep schedule yet.</div>
+					<div class="itemList savedScroll" data-sleep-list></div>
 				</div>
-				<div class="weekColumn">
-					<div class="weekDay">Tue</div>
-					<div class="weekStack">
-						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-focus">Focus</div>
-						<div class="weekBlock is-life">Life</div>
-					</div>
-				</div>
-				<div class="weekColumn">
-					<div class="weekDay">Wed</div>
-					<div class="weekStack">
-						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-focus">Focus</div>
-						<div class="weekBlock is-life">Life</div>
-					</div>
-				</div>
-				<div class="weekColumn">
-					<div class="weekDay">Thu</div>
-					<div class="weekStack">
-						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-focus">Focus</div>
-						<div class="weekBlock is-life">Life</div>
-					</div>
-				</div>
-				<div class="weekColumn">
-					<div class="weekDay">Fri</div>
-					<div class="weekStack">
-						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-focus">Focus</div>
-						<div class="weekBlock is-life">Life</div>
-					</div>
-				</div>
-				<div class="weekColumn">
-					<div class="weekDay">Sat</div>
-					<div class="weekStack">
-						<div class="weekBlock is-sleep">Sleep</div>
-						<div class="weekBlock is-focus">Focus</div>
-						<div class="weekBlock is-life">Life</div>
-					</div>
+				<div class="savedSection">
+					<div class="listHeader">Saved tasks</div>
+					<div class="listEmpty" data-task-empty>No recurring tasks yet.</div>
+					<div class="itemList savedScroll" data-task-list></div>
 				</div>
 			</div>
 		</div>

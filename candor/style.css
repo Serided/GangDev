@@ -165,7 +165,7 @@ body.is-landing .page {
 	color: var(--ink-soft);
 	font-family: var(--font-body);
 	position: absolute;
-	bottom: 0;
+	bottom: 4px;
 	left: 0;
 	right: 0;
 }

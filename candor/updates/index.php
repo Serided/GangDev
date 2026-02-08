@@ -68,13 +68,13 @@ $authed = $userId && $user;
                     </div>
                     <h3>Create cadence + sleep structure</h3>
                     <ul class="updateList">
-                        <li>Create workspace launched for cadence planning with sleep rules and recurring tasks.</li>
-                        <li>Core shortcut + base schedule nudge in My OS link directly into Create.</li>
-                        <li>Sleep schedules render in the day header and timeline with windows stacking side-by-side.</li>
+                        <li>Create now splits sleep + daily tasks on top with week template and saved cadence below.</li>
+                        <li>Saved cadence lists scroll independently so the Create page stays fixed.</li>
+                        <li>Timeline windows align to the slot line and stack flush when overlapping.</li>
                         <li>Time selectors respect your clock preference across My OS and Create.</li>
-                        <li>Essentials profile cards tightened into a single scroll row for units, clock, height, and weight.</li>
-                        <li>Mobile focus tiles and calendar grids compressed to stay fully on-screen.</li>
-                        <li>Refreshed logo mark plus light/dark favicon set across all Candor pages.</li>
+                        <li>Essentials profile fields resized for clearer imperial height and weight entry.</li>
+                        <li>Mobile month grid tuned to keep the daily timeline visible with larger date bubbles.</li>
+                        <li>Refreshed logo mark plus transparent favicons across all Candor pages.</li>
                     </ul>
                 </article>
 

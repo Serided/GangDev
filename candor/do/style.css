@@ -192,7 +192,7 @@ body.is-do .brandTitle {
     font-size: 12px;
     letter-spacing: 0.4px;
     position: absolute;
-    bottom: 0;
+    bottom: 4px;
     left: 0;
     right: 0;
 }
@@ -380,14 +380,15 @@ body.is-do .welcome {
     font-size: 30px;
     font-weight: 700;
     letter-spacing: 0;
+    font-family: var(--font-body);
     cursor: pointer;
     display: grid;
     place-items: center;
     line-height: 1;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     position: absolute;
-    left: 18px;
-    right: auto;
+    left: auto;
+    right: 28px;
     bottom: 18px;
     z-index: 6;
     box-shadow: 0 12px 24px rgba(230, 160, 106, 0.35);
@@ -411,6 +412,7 @@ body.is-do .welcome {
     font-weight: 700;
     letter-spacing: 0.6px;
     text-transform: uppercase;
+    font-family: var(--font-body);
     cursor: pointer;
     display: grid;
     place-items: center;
@@ -418,8 +420,8 @@ body.is-do .welcome {
     text-decoration: none;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
     position: absolute;
-    right: 28px;
-    left: auto;
+    right: auto;
+    left: 18px;
     bottom: 18px;
     z-index: 6;
     box-shadow: 0 12px 24px rgba(230, 160, 106, 0.35);
@@ -688,7 +690,7 @@ body.is-do .welcome {
     --timeline-slot-left: calc(var(--timeline-label-width) + var(--timeline-gap) + var(--timeline-inline-pad));
     --timeline-slot-right: var(--timeline-inline-pad);
     --timeline-block-gap: 0;
-    --timeline-block-inset: 0;
+    --timeline-block-inset: 6px;
     position: relative;
     display: grid;
     grid-auto-rows: var(--hour-height);
@@ -810,8 +812,8 @@ body.is-do .welcome {
 
 .timeMarker {
     position: absolute;
-    left: var(--timeline-slot-left);
-    right: var(--timeline-slot-right);
+    left: calc(var(--timeline-slot-left) + var(--timeline-block-inset));
+    right: calc(var(--timeline-slot-right) + var(--timeline-block-inset));
     height: 2px;
     background: linear-gradient(90deg, var(--orange), var(--yellow));
     border-radius: 999px;
@@ -834,8 +836,8 @@ body.is-do .welcome {
 
 .sleepBlock {
     position: absolute;
-    left: var(--timeline-slot-left);
-    right: var(--timeline-slot-right);
+    left: calc(var(--timeline-slot-left) + var(--timeline-block-inset));
+    right: calc(var(--timeline-slot-right) + var(--timeline-block-inset));
     border-radius: 14px;
     border: 1px dashed rgba(90, 143, 185, 0.5);
     background: rgba(90, 143, 185, 0.16);
@@ -898,6 +900,7 @@ body.is-do .welcome {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.8px;
+    font-family: var(--font-body);
     cursor: pointer;
     display: grid;
     place-items: center;
@@ -1178,7 +1181,7 @@ body.is-do .welcome {
 }
 
 .bulletGrid {
-    --bullet-width: 140px;
+    --bullet-width: 160px;
     display: flex;
     flex-wrap: nowrap;
     gap: 8px;
@@ -1210,9 +1213,9 @@ body.is-do .welcome {
 }
 
 .input.compact {
-    padding: 6px 8px;
-    font-size: 11px;
-    border-radius: 9px;
+    padding: 7px 10px;
+    font-size: 12px;
+    border-radius: 10px;
 }
 
 .rangeGroup {
@@ -1248,7 +1251,7 @@ body.is-do .welcome {
 .heightSplit {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
+    gap: 8px;
 }
 
 .unitFields {
@@ -1640,19 +1643,18 @@ body.is-do .welcome {
         height: 100%;
         overflow: hidden;
     }
-    .nav { flex-direction: row; align-items: center; gap: 10px; }
+    .nav { flex-direction: column; align-items: flex-start; gap: 10px; }
     .actions {
-        width: auto;
+        width: 100%;
         flex-direction: row;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: flex-start;
         gap: 8px;
-        align-self: flex-end;
     }
     body.is-do .actions {
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: flex-start;
         gap: 8px;
     }
     body.is-do .actions .btn {
@@ -1671,7 +1673,7 @@ body.is-do .welcome {
     .daySchedule { font-size: 11px; }
     .timelineGrid { --hour-height: 20px; max-height: none; }
     .calendarShell {
-        grid-template-rows: minmax(0, 0.46fr) minmax(0, 1.54fr);
+        grid-template-rows: minmax(0, 1fr) auto;
         gap: 6px;
     }
     .dayPanel,
@@ -1712,10 +1714,10 @@ body.is-do .welcome {
     .monthNav { width: 28px; height: 28px; font-size: 14px; }
     .weekdayRow { font-size: 8px; gap: 1px; }
     .monthGrid {
-        gap: 2px;
+        gap: 3px;
         overflow: hidden;
         flex: 0 1 auto;
-        grid-auto-rows: minmax(18px, 20px);
+        grid-auto-rows: minmax(20px, 22px);
         align-content: start;
     }
     .monthCell {
@@ -1725,7 +1727,7 @@ body.is-do .welcome {
         align-items: center;
         justify-content: center;
     }
-    .monthNumber { font-size: 9px; line-height: 1; }
+    .monthNumber { font-size: 10px; line-height: 1; }
     .monthTasks { display: none; }
     .monthPill { display: none; }
     .monthMore { display: none; }
@@ -1740,16 +1742,16 @@ body.is-do .welcome {
         bottom: 2px;
     }
     .panelAdd {
-        left: 12px;
-        right: auto;
+        left: auto;
+        right: 12px;
         bottom: 12px;
         width: 54px;
         height: 54px;
         font-size: 26px;
     }
     .panelAction {
-        right: 12px;
-        left: auto;
+        right: auto;
+        left: 12px;
         bottom: 12px;
         width: 54px;
         height: 54px;

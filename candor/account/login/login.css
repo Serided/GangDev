@@ -200,7 +200,7 @@ body.is-signup .shell {
     font-size: 12px;
     letter-spacing: .4px;
     position: absolute;
-    bottom: 0;
+    bottom: 4px;
     left: 0;
     right: 0;
 }

@@ -163,7 +163,7 @@ a {
     font-size: 12px;
     letter-spacing: .4px;
     position: absolute;
-    bottom: 0;
+    bottom: 4px;
     left: 0;
     right: 0;
 }
@@ -304,7 +304,7 @@ a {
 }
 
 .bulletGrid {
-    --bullet-width: 140px;
+    --bullet-width: 160px;
     display: flex;
     flex-wrap: nowrap;
     gap: 8px;
@@ -351,9 +351,9 @@ a {
 }
 
 .input.compact {
-    padding: 6px 8px;
-    font-size: 11px;
-    border-radius: 9px;
+    padding: 7px 10px;
+    font-size: 12px;
+    border-radius: 10px;
 }
 
 .input:focus {
@@ -403,7 +403,7 @@ a {
 .heightSplit {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
+    gap: 8px;
 }
 
 .profileForm[data-unit="metric"] .unitFields[data-unit="imperial"],
