@@ -46,15 +46,13 @@ $candorVersion = 'v0.2';
                     </div>
 					<h3>Create cadence + sleep structure</h3>
 					<ul class="updateList">
-						<li>Create now centers on cadence windows (routine, work, focus) with child tasks.</li>
-						<li>Sleep schedules auto-calc end time from age with a weekend boost.</li>
-						<li>Scroll-wheel time picker supports drag, manual entry, and 12/24-hour display.</li>
-						<li>Daily timeline items open an edit panel with start/finish now + time delta.</li>
-						<li>All-day events sit in a pinned strip (including auto birthday entries).</li>
-						<li>24h balance now reflects your sleep hours (9h weekdays, 11h weekends by default).</li>
-						<li>Month header keeps fixed nav positions plus plan-ahead date picking.</li>
-						<li>Account now includes a time zone selector for precise scheduling.</li>
-						<li>Shared head includes keep favicon links centralized.</li>
+						<li>Create expands cadence windows with work shifts (commute included) and quick-use shift fills.</li>
+						<li>Sleep schedules auto-calc end time from age; Saturday catch-up rolls missed sleep under 8h up to a 12h cap.</li>
+						<li>Daily timeline adds sleep recovery toggles (+1h/+2h) with editable sleep logs.</li>
+						<li>Work shifts appear as locked windows and can be overridden per day.</li>
+						<li>Scroll-wheel time picker refined for drag, wheel, manual entry, and 12/24-hour modes.</li>
+						<li>Notes open in a detail overlay and tasks capture estimated time.</li>
+						<li>All-day events stay pinned (birthday) with month plan-ahead date picks.</li>
 					</ul>
                 </article>
 
@@ -92,11 +90,11 @@ $candorVersion = 'v0.2';
     <section class="grid">
 		<div class="card">
 			<h3>Core tools</h3>
-			<p>Daily timeline with edit + start/finish controls, monthly planning for future adds, and cadence building for sleep + windows.</p>
+			<p>Daily timeline with edit controls, locked shift windows, monthly planning, and cadence building for sleep + windows.</p>
 		</div>
 		<div class="card">
 			<h3>Account + access</h3>
-			<p>Verified sign-in with baseline profile data (units, birthday, time zone, clock) to personalize sleep and schedules.</p>
+			<p>Verified sign-in with profile essentials (units, birthday, time zone, clock) to personalize sleep, shifts, and schedules.</p>
 		</div>
 		<div class="card">
 			<h3>Release cadence</h3>

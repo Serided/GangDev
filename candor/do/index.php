@@ -69,6 +69,10 @@ $candorVersion = 'v0.2';
 						<div class="daySchedule is-empty" data-day-schedule></div>
 						<div class="dayTitle" data-day-title>Today</div>
 						<div class="dayMeta" data-day-sub></div>
+						<div class="dayShiftRow" data-day-shift-row>
+							<span class="dayShiftLabel">Shift</span>
+							<select class="input compact select shiftSelect" data-shift-select></select>
+						</div>
 					</div>
 					<button class="panelAdd" type="button" data-add-kind="window" aria-label="Add window">+</button>
 				</div>
@@ -139,7 +143,19 @@ $candorVersion = 'v0.2';
 			<div class="dayTimeline">
 				<div class="timelineHeader">
 					<span>Today timeline</span>
-					<span class="timelineMeta" data-day-short></span>
+					<div class="timelineMeta">
+						<span data-day-short></span>
+						<div class="timelineToggles" data-sleep-extras>
+							<label class="toggleChip">
+								<input type="checkbox" data-sleep-extra="60">
+								<span>Sick +1h</span>
+							</label>
+							<label class="toggleChip">
+								<input type="checkbox" data-sleep-extra="120">
+								<span>Sick +2h</span>
+							</label>
+						</div>
+					</div>
 				</div>
 				<div class="timelineGrid" data-day-grid></div>
 			</div>
@@ -255,7 +271,7 @@ $candorVersion = 'v0.2';
 
 			<input type="hidden" name="date" data-create-date-input>
 
-			<button class="btn primary" type="submit">Create</button>
+			<button class="btn primary" type="submit">Save</button>
 		</form>
 	</div>
 </div>

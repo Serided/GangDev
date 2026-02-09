@@ -24,13 +24,33 @@
         localStorage.setItem(keyFor(name), JSON.stringify(items));
     };
 
+    const loadJson = (name, fallback) => {
+        const raw = localStorage.getItem(keyFor(name));
+        if (!raw) return fallback;
+        try {
+            return JSON.parse(raw);
+        } catch {
+            return fallback;
+        }
+    };
+
+    const saveJson = (name, value) => {
+        localStorage.setItem(keyFor(name), JSON.stringify(value));
+    };
+
     const state = {
         tasks: [],
         notes: [],
         windows: [],
         rules: [],
         routineCount: 0,
+        sleepLogs: [],
+        shifts: [],
+        shiftOverrides: {},
     };
+
+    const sleepExtras = loadJson("sleep_extras", {});
+    const shiftOverridesLocal = loadJson("shift_overrides", {});
 
     const makeId = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 
@@ -80,11 +100,35 @@
         };
     };
 
+    const normalizeSleepLog = (item) => ({
+        date: normalizeText(item.date ?? item.day ?? ""),
+        start: normalizeText(item.start ?? item.start_time ?? ""),
+        end: normalizeText(item.end ?? item.end_time ?? ""),
+    });
+
+    const normalizeShift = (item) => ({
+        id: String(item.id ?? ""),
+        name: normalizeText(item.name ?? ""),
+        start: normalizeText(item.start ?? item.start_time ?? ""),
+        end: normalizeText(item.end ?? item.end_time ?? ""),
+        commuteBefore: Number.isFinite(item.commute_before) ? item.commute_before : parseInt(item.commute_before ?? "0", 10) || 0,
+        commuteAfter: Number.isFinite(item.commute_after) ? item.commute_after : parseInt(item.commute_after ?? "0", 10) || 0,
+        isDefault: Boolean(item.is_default),
+    });
+
+    const normalizeShiftOverride = (item) => ({
+        date: normalizeText(item.date ?? ""),
+        shiftId: item.shift_id ?? item.shiftId ?? null,
+    });
+
     const persistLocal = () => {
         saveItems("tasks", state.tasks);
         saveItems("notes", state.notes);
         saveItems("windows", state.windows);
         saveItems("rules", state.rules);
+        saveItems("sleep_logs", state.sleepLogs);
+        saveItems("shifts", state.shifts);
+        saveJson("shift_overrides", state.shiftOverrides);
     };
 
     const apiFetch = async (payload, method = "POST") => {
@@ -115,6 +159,9 @@
         state.notes = loadItems("notes").map(normalizeNote);
         state.windows = loadItems("windows").map(normalizeWindow);
         state.rules = loadItems("rules").map(normalizeRule);
+        state.sleepLogs = loadItems("sleep_logs").map(normalizeSleepLog);
+        state.shifts = loadItems("shifts").map(normalizeShift);
+        state.shiftOverrides = { ...shiftOverridesLocal };
         state.routineCount = 0;
     };
 
@@ -132,6 +179,13 @@
             : (Array.isArray(data.blocks) ? data.blocks : []);
         state.windows = windowItems.map(normalizeWindow);
         state.rules = Array.isArray(data.rules) ? data.rules.map(normalizeRule) : [];
+        state.sleepLogs = Array.isArray(data.sleep_logs) ? data.sleep_logs.map(normalizeSleepLog) : [];
+        state.shifts = Array.isArray(data.shifts) ? data.shifts.map(normalizeShift) : [];
+        const overrides = Array.isArray(data.shift_overrides) ? data.shift_overrides.map(normalizeShiftOverride) : [];
+        state.shiftOverrides = overrides.reduce((acc, item) => {
+            if (item.date) acc[item.date] = item.shiftId;
+            return acc;
+        }, {});
         const routineCount = parseInt(data.routine_count ?? "", 10);
         state.routineCount = Number.isFinite(routineCount) ? routineCount : 0;
     };
@@ -183,6 +237,31 @@
         return (hours * 60) + minutes;
     };
 
+    const getAgeYears = (value) => {
+        if (!value) return null;
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return null;
+        const now = new Date();
+        let age = now.getFullYear() - date.getFullYear();
+        const monthDelta = now.getMonth() - date.getMonth();
+        if (monthDelta < 0 || (monthDelta === 0 && now.getDate() < date.getDate())) {
+            age -= 1;
+        }
+        return age >= 0 ? age : null;
+    };
+
+    const recommendedSleepMinutes = (age) => {
+        if (age === null) return Math.round(8.5 * 60);
+        if (age < 1) return 15 * 60;
+        if (age <= 2) return Math.round(13.5 * 60);
+        if (age <= 5) return 12 * 60;
+        if (age <= 13) return Math.round(10.5 * 60);
+        if (age <= 17) return Math.round(9.5 * 60);
+        if (age <= 25) return 9 * 60;
+        if (age <= 64) return Math.round(8.5 * 60);
+        return 8 * 60;
+    };
+
     const durationMinutes = (start, end) => {
         const startMin = parseMinutes(start);
         const endMin = parseMinutes(end);
@@ -190,6 +269,16 @@
         let diff = endMin - startMin;
         if (diff < 0) diff += 24 * 60;
         return diff;
+    };
+
+    const addMinutesToTime = (time, delta) => {
+        const base = parseMinutes(time);
+        if (base === null) return "";
+        let total = (base + delta) % (24 * 60);
+        if (total < 0) total += 24 * 60;
+        const hours = Math.floor(total / 60);
+        const minutes = total % 60;
+        return `${pad2(hours)}:${pad2(minutes)}`;
     };
 
     const parseBirthdate = (value) => {
@@ -203,6 +292,7 @@
 
     const birthdayInfo = parseBirthdate(birthdateRaw);
     const userName = normalizeText(userNameRaw);
+    const ageYears = getAgeYears(birthdateRaw);
 
     const birthdayTitle = () => {
         const name = userName || "User";
@@ -423,9 +513,13 @@
     const scrollWheelTo = (wheel, value) => {
         const items = getWheelItems(wheel);
         if (!items.length) return;
-        const target = items.find((item) => parseInt(item.dataset.timeValue, 10) === value) || items[0];
-        const offset = target.offsetTop - (wheel.clientHeight / 2) + (target.offsetHeight / 2);
-        wheel.scrollTop = offset;
+        const index = items.findIndex((item) => parseInt(item.dataset.timeValue, 10) === value);
+        const targetIndex = index >= 0 ? index : 0;
+        const itemHeight = items[0].offsetHeight || 32;
+        const paddingTop = parseFloat(getComputedStyle(wheel).paddingTop) || 0;
+        const offset = paddingTop + (targetIndex * itemHeight) - (wheel.clientHeight / 2) + (itemHeight / 2);
+        const maxScroll = Math.max(0, wheel.scrollHeight - wheel.clientHeight);
+        wheel.scrollTop = clamp(offset, 0, maxScroll);
         setWheelActive(wheel, value);
     };
 
@@ -456,17 +550,31 @@
         let dragActive = false;
         let dragStartY = 0;
         let dragStartScroll = 0;
+        let snapTimer = null;
         const handleScroll = () => {
             raf = null;
             const value = readWheelValue(wheel);
             onChange(value);
             setWheelActive(wheel, value);
             updateManualInputs();
+            if (!dragActive) scheduleSnap();
+        };
+        const scheduleSnap = () => {
+            if (snapTimer) window.clearTimeout(snapTimer);
+            snapTimer = window.setTimeout(() => {
+                const value = readWheelValue(wheel);
+                scrollWheelTo(wheel, value);
+            }, 120);
         };
         wheel.addEventListener("scroll", () => {
             if (raf) return;
             raf = requestAnimationFrame(handleScroll);
         });
+        wheel.addEventListener("wheel", (event) => {
+            event.preventDefault();
+            wheel.scrollTop += event.deltaY;
+            scheduleSnap();
+        }, { passive: false });
         wheel.addEventListener("click", (event) => {
             const item = event.target.closest(".timeWheelItem");
             if (!item) return;
@@ -496,6 +604,7 @@
             if (event && event.pointerId !== undefined) {
                 wheel.releasePointerCapture(event.pointerId);
             }
+            scheduleSnap();
         };
         wheel.addEventListener("pointerup", endDrag);
         wheel.addEventListener("pointercancel", endDrag);
@@ -675,6 +784,12 @@
         const daySchedule = calendarRoot.querySelector("[data-day-schedule]");
         const dayAllDay = calendarRoot.querySelector("[data-day-all-day]");
         const dayAllDayList = calendarRoot.querySelector("[data-day-all-day-list]");
+        const dayShiftRow = calendarRoot.querySelector("[data-day-shift-row]");
+        const shiftSelect = calendarRoot.querySelector("[data-shift-select]");
+        const sleepExtrasWrap = calendarRoot.querySelector("[data-sleep-extras]");
+        const sleepExtraInputs = sleepExtrasWrap
+            ? Array.from(sleepExtrasWrap.querySelectorAll("[data-sleep-extra]"))
+            : [];
         const focusPace = calendarRoot.querySelector("[data-focus-pace]");
         const focusBalance = calendarRoot.querySelector("[data-focus-balance]");
         const focusMomentum = calendarRoot.querySelector("[data-focus-momentum]");
@@ -711,23 +826,127 @@
             }
         };
 
+        const syncSleepExtras = () => {
+            if (!sleepExtraInputs.length) return;
+            const key = dateKey(stateCal.selected);
+            const selected = getRecoveryExtra(key);
+            sleepExtraInputs.forEach((input) => {
+                const minutes = parseInt(input.dataset.sleepExtra || "0", 10);
+                input.checked = selected === minutes && minutes > 0;
+            });
+        };
+
+        const renderShiftSelect = () => {
+            if (!dayShiftRow || !shiftSelect) return;
+            if (!state.shifts.length) {
+                dayShiftRow.style.display = "none";
+                return;
+            }
+            dayShiftRow.style.display = "inline-flex";
+            const defaultShift = getDefaultShift();
+            shiftSelect.innerHTML = "";
+            const noneOption = document.createElement("option");
+            noneOption.value = "";
+            noneOption.textContent = "No work";
+            shiftSelect.appendChild(noneOption);
+            state.shifts.forEach((shift) => {
+                const option = document.createElement("option");
+                const label = shift.name || "Work";
+                option.value = shift.id;
+                option.textContent = shift.isDefault ? `${label} (default)` : label;
+                shiftSelect.appendChild(option);
+            });
+            const key = dateKey(stateCal.selected);
+            const overrideId = state.shiftOverrides[key];
+            const selectedId = overrideId !== undefined
+                ? (overrideId ?? "")
+                : (defaultShift ? defaultShift.id : "");
+            shiftSelect.value = selectedId ? String(selectedId) : "";
+        };
+
         const formatHours = (value) => {
             if (!Number.isFinite(value)) return "0";
             const rounded = Math.round(value * 10) / 10;
             return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
         };
 
-        const defaultSleepHours = (date) => {
-            const dow = date.getDay();
-            return dow === 0 || dow === 6 ? 11 : 9;
+        const getSleepLogFor = (key) =>
+            state.sleepLogs.find((log) => log.date === key);
+
+        const getRecoveryExtra = (key) => {
+            const raw = sleepExtras[key];
+            const value = Number.isFinite(raw) ? raw : parseInt(raw ?? "0", 10);
+            if (value === 120) return 120;
+            if (value === 60) return 60;
+            return 0;
         };
 
-        const getSleepHours = (date) => {
+        const setRecoveryExtra = (key, minutes) => {
+            if (!key) return;
+            if (minutes) {
+                sleepExtras[key] = minutes;
+            } else {
+                delete sleepExtras[key];
+            }
+            saveJson("sleep_extras", sleepExtras);
+        };
+
+        const getPlannedSleepMinutes = (date) => {
             const rule = pickSleepRule(date);
-            if (!rule || !rule.start || !rule.end) return null;
-            const minutes = durationMinutes(rule.start, rule.end);
-            if (minutes === null) return null;
-            return minutes / 60;
+            if (rule && rule.start && rule.end) {
+                const minutes = durationMinutes(rule.start, rule.end);
+                if (minutes !== null) return minutes;
+            }
+            return recommendedSleepMinutes(ageYears);
+        };
+
+        const getActualSleepMinutes = (date) => {
+            const key = dateKey(date);
+            const log = getSleepLogFor(key);
+            if (log && log.start && log.end) {
+                const minutes = durationMinutes(log.start, log.end);
+                if (minutes !== null) return minutes;
+            }
+            return getPlannedSleepMinutes(date);
+        };
+
+        const getSleepDeficitMinutes = (date) => {
+            const actual = getActualSleepMinutes(date);
+            if (actual === null) return 0;
+            return Math.max(0, (8 * 60) - actual);
+        };
+
+        const getCatchUpMinutes = (date) => {
+            if (date.getDay() !== 6) return 0;
+            let deficit = 0;
+            for (let i = 1; i <= 6; i += 1) {
+                const prev = new Date(date);
+                prev.setDate(prev.getDate() - i);
+                deficit += getSleepDeficitMinutes(prev);
+            }
+            const base = getPlannedSleepMinutes(date);
+            const maxExtra = Math.max(0, (12 * 60) - base);
+            return Math.min(deficit, maxExtra);
+        };
+
+        const getTargetSleepMinutes = (date) => {
+            const base = getPlannedSleepMinutes(date);
+            const catchUp = getCatchUpMinutes(date);
+            const extra = getRecoveryExtra(dateKey(date));
+            return base + catchUp + extra;
+        };
+
+        const getDefaultShift = () => state.shifts.find((shift) => shift.isDefault) || null;
+
+        const getShiftForDate = (date) => {
+            if (!date) return null;
+            const key = dateKey(date);
+            const overrideId = state.shiftOverrides[key];
+            if (overrideId === null) return null;
+            if (overrideId !== undefined) {
+                return state.shifts.find((shift) => String(shift.id) === String(overrideId)) || null;
+            }
+            return getDefaultShift();
         };
 
         const computeMomentum = () => {
@@ -754,9 +973,8 @@
         };
 
         const renderFocus = () => {
-            const sleepHours = getSleepHours(stateCal.selected);
-            const fallbackSleep = defaultSleepHours(stateCal.selected);
-            const baseSleep = Number.isFinite(sleepHours) ? sleepHours : fallbackSleep;
+            const sleepMinutes = getTargetSleepMinutes(stateCal.selected);
+            const baseSleep = sleepMinutes / 60;
             const remaining = Math.max(0, 24 - baseSleep);
             const focusHours = remaining / 2;
             const lifeHours = remaining - focusHours;
@@ -851,11 +1069,27 @@
                 rows.push({ hour, slot });
             }
 
+            const selectedKey = dateKey(stateCal.selected);
             const windows = state.windows
-                .filter((item) => item.date === dateKey(stateCal.selected));
+                .filter((item) => item.date === selectedKey);
             const birthdayEvent = birthdayEventFor(stateCal.selected);
             if (birthdayEvent) {
                 windows.push(birthdayEvent);
+            }
+            const shift = getShiftForDate(stateCal.selected);
+            if (shift && shift.start && shift.end) {
+                const startActual = addMinutesToTime(shift.start, -(shift.commuteBefore || 0));
+                const endActual = addMinutesToTime(shift.end, shift.commuteAfter || 0);
+                windows.push({
+                    id: `shift-${selectedKey}`,
+                    text: shift.name || "Work",
+                    date: selectedKey,
+                    start: startActual,
+                    end: endActual,
+                    kind: "window",
+                    color: "#b9dbf2",
+                    locked: true,
+                });
             }
             windows.sort((a, b) => (parseMinutes(a.start) ?? 0) - (parseMinutes(b.start) ?? 0));
 
@@ -1060,9 +1294,15 @@
             });
 
             const sleepRule = pickSleepRule(stateCal.selected);
-            if (sleepRule && sleepRule.start && sleepRule.end) {
-                const startMinutes = parseMinutes(sleepRule.start);
-                const endMinutes = parseMinutes(sleepRule.end);
+            const sleepKey = dateKey(stateCal.selected);
+            const sleepLog = getSleepLogFor(sleepKey);
+            const baseStart = sleepLog && sleepLog.start ? sleepLog.start : (sleepRule ? sleepRule.start : "");
+            const baseEnd = sleepLog && sleepLog.end ? sleepLog.end : (sleepRule ? sleepRule.end : "");
+            if (baseStart && baseEnd) {
+                const extraMinutes = sleepLog ? 0 : (getCatchUpMinutes(stateCal.selected) + getRecoveryExtra(sleepKey));
+                const endValue = extraMinutes > 0 ? addMinutes(baseEnd, extraMinutes) : baseEnd;
+                const startMinutes = parseMinutes(baseStart);
+                const endMinutes = parseMinutes(endValue);
                 if (startMinutes !== null && endMinutes !== null) {
                     const windows = [];
                     if (endMinutes <= startMinutes) {
@@ -1076,6 +1316,7 @@
                     windows.forEach((window) => {
                         const block = document.createElement("div");
                         block.className = "sleepBlock";
+                        block.dataset.sleepDate = sleepKey;
                         const top = ((window.start - dayStart * 60) / 60) * hourHeight;
                         const height = ((window.end - window.start) / 60) * hourHeight;
                         block.style.top = `${top}px`;
@@ -1397,12 +1638,41 @@
 
         const renderAll = (autoScroll) => {
             renderDayHeader();
+            syncSleepExtras();
+            renderShiftSelect();
             renderDayGrid(autoScroll);
             renderFocus();
             renderTaskRail();
             renderNoteRail();
             renderMonth();
         };
+
+        if (sleepExtraInputs.length) {
+            sleepExtraInputs.forEach((input) => {
+                input.addEventListener("change", () => {
+                    const key = dateKey(stateCal.selected);
+                    const minutes = parseInt(input.dataset.sleepExtra || "0", 10);
+                    if (input.checked && minutes) {
+                        sleepExtraInputs.forEach((other) => {
+                            if (other !== input) other.checked = false;
+                        });
+                        setRecoveryExtra(key, minutes);
+                    } else {
+                        setRecoveryExtra(key, 0);
+                    }
+                    renderAll(false);
+                });
+            });
+        }
+
+        if (shiftSelect) {
+            shiftSelect.addEventListener("change", () => {
+                const key = dateKey(stateCal.selected);
+                const value = shiftSelect.value;
+                const shiftId = value ? parseInt(value, 10) : null;
+                updateShiftOverride(key, Number.isFinite(shiftId) ? shiftId : null);
+            });
+        }
 
         calendarRoot.addEventListener("click", (event) => {
             const nav = event.target.closest("[data-month-nav]");
@@ -1517,7 +1787,9 @@
     const noteTitleEl = noteOverlay ? noteOverlay.querySelector("[data-note-title]") : null;
     const noteBodyEl = noteOverlay ? noteOverlay.querySelector("[data-note-body]") : null;
     const noteClose = noteOverlay ? noteOverlay.querySelector("[data-note-close]") : null;
+    let activeEditKind = "window";
     let activeEditWindow = null;
+    let activeEditSleepKey = "";
     let plannedTimes = { start: "", end: "" };
     let editSync = false;
 
@@ -1570,10 +1842,64 @@
         refreshUI(false);
     };
 
-    const openEdit = (windowItem) => {
+    const updateSleepLog = async (key, start, end) => {
+        if (!key) return;
+        const existing = state.sleepLogs.find((log) => log.date === key);
+        const nextStart = start !== undefined ? start : (existing ? existing.start : "");
+        const nextEnd = end !== undefined ? end : (existing ? existing.end : "");
+        if (!nextStart && !nextEnd) {
+            state.sleepLogs = state.sleepLogs.filter((log) => log.date !== key);
+        } else if (existing) {
+            existing.start = nextStart;
+            existing.end = nextEnd;
+        } else {
+            state.sleepLogs.push({ date: key, start: nextStart, end: nextEnd });
+        }
+        if (storageMode === "remote") {
+            try {
+                await apiFetch({ action: "update_sleep", date: key, start: nextStart, end: nextEnd }, "POST");
+            } catch {
+                switchToLocal();
+            }
+        }
+        if (storageMode === "local") {
+            persistLocal();
+        }
+        refreshUI(false);
+    };
+
+    const updateShiftOverride = async (key, shiftId) => {
+        if (!key) return;
+        const defaultShift = getDefaultShift();
+        if (shiftId === null) {
+            state.shiftOverrides[key] = null;
+        } else if (defaultShift && String(shiftId) === String(defaultShift.id)) {
+            delete state.shiftOverrides[key];
+        } else if (shiftId !== undefined && shiftId !== "") {
+            state.shiftOverrides[key] = shiftId;
+        } else {
+            delete state.shiftOverrides[key];
+        }
+
+        if (storageMode === "remote") {
+            try {
+                await apiFetch({ action: "update_shift_override", date: key, shift_id: shiftId }, "POST");
+            } catch {
+                switchToLocal();
+            }
+        }
+        if (storageMode === "local") {
+            saveJson("shift_overrides", state.shiftOverrides);
+        }
+        refreshUI(false);
+    };
+
+    const openWindowEdit = (windowItem) => {
         if (!editOverlay || !windowItem) return;
         if (windowItem.locked) return;
+        activeEditKind = "window";
         activeEditWindow = windowItem;
+        activeEditSleepKey = "";
         plannedTimes = { start: windowItem.start || "", end: windowItem.end || "" };
         if (editTitle) editTitle.textContent = windowItem.text || "Window";
         if (editMeta) editMeta.textContent = windowItem.kind === "event" ? "Event" : "Window";
@@ -1585,10 +1911,29 @@
         editOverlay.classList.add("is-open");
     };
 
+    const openSleepEdit = (sleepKey, plannedStart, plannedEnd) => {
+        if (!editOverlay || !sleepKey) return;
+        activeEditKind = "sleep";
+        activeEditWindow = null;
+        activeEditSleepKey = sleepKey;
+        plannedTimes = { start: plannedStart || "", end: plannedEnd || "" };
+        if (editTitle) editTitle.textContent = "Sleep";
+        if (editMeta) editMeta.textContent = "Sleep log";
+        const log = getSleepLogFor(sleepKey);
+        editSync = true;
+        if (editStartField) setFieldValue(editStartField, log?.start || plannedStart || "", { emit: false });
+        if (editEndField) setFieldValue(editEndField, log?.end || plannedEnd || "", { emit: false });
+        editSync = false;
+        updateEditDelta();
+        editOverlay.classList.add("is-open");
+    };
+
     const closeEdit = () => {
         if (!editOverlay) return;
         editOverlay.classList.remove("is-open");
+        activeEditKind = "window";
         activeEditWindow = null;
+        activeEditSleepKey = "";
         plannedTimes = { start: "", end: "" };
     };
 
@@ -1609,11 +1954,17 @@
     };
 
     const handleEditTimeChange = () => {
-        if (!activeEditWindow || editSync) return;
+        if (editSync) return;
         const startValue = editStartInput ? editStartInput.value : "";
         const endValue = editEndInput ? editEndInput.value : "";
         const start = startValue ? startValue : undefined;
         const end = endValue ? endValue : undefined;
+        if (activeEditKind === "sleep") {
+            updateSleepLog(activeEditSleepKey, start, end);
+            updateEditDelta();
+            return;
+        }
+        if (!activeEditWindow) return;
         updateWindowTimes(activeEditWindow.id, start, end);
         updateEditDelta();
     };
@@ -1725,13 +2076,23 @@
             return;
         }
         if (event.target.closest(".chipRemove, .blockRemove")) return;
+        const sleepTarget = event.target.closest(".sleepBlock");
+        if (sleepTarget && sleepTarget.dataset.sleepDate) {
+            const key = sleepTarget.dataset.sleepDate;
+            const selectedDate = calendarApi ? parseKey(calendarApi.getSelectedKey()) : new Date();
+            const rule = pickSleepRule(selectedDate);
+            const start = rule ? rule.start : "";
+            const end = rule ? rule.end : "";
+            openSleepEdit(key, start, end);
+            return;
+        }
         const windowTarget = event.target.closest(".slotBlock, .slotChip, .allDayChip");
         if (!windowTarget || !windowTarget.dataset.windowId) return;
         const id = windowTarget.dataset.windowId;
         const birthday = birthdayEventFor(calendarApi ? parseKey(calendarApi.getSelectedKey()) : new Date());
         const windowItem = state.windows.find((item) => item.id === id) || (birthday && birthday.id === id ? birthday : null);
         if (windowItem) {
-            openEdit(windowItem);
+            openWindowEdit(windowItem);
         }
     });
 
@@ -1752,25 +2113,31 @@
     }
     if (editStartNow) {
         editStartNow.addEventListener("click", () => {
-            if (!activeEditWindow) return;
             const value = nowTime();
             editSync = true;
             if (editStartField) setFieldValue(editStartField, value, { emit: false });
             editSync = false;
             const endValue = editEndInput ? editEndInput.value : "";
-            updateWindowTimes(activeEditWindow.id, value, endValue ? endValue : undefined);
+            if (activeEditKind === "sleep") {
+                updateSleepLog(activeEditSleepKey, value, endValue ? endValue : undefined);
+            } else if (activeEditWindow) {
+                updateWindowTimes(activeEditWindow.id, value, endValue ? endValue : undefined);
+            }
             updateEditDelta();
         });
     }
     if (editFinishNow) {
         editFinishNow.addEventListener("click", () => {
-            if (!activeEditWindow) return;
             const value = nowTime();
             editSync = true;
             if (editEndField) setFieldValue(editEndField, value, { emit: false });
             editSync = false;
             const startValue = editStartInput ? editStartInput.value : "";
-            updateWindowTimes(activeEditWindow.id, startValue ? startValue : undefined, value);
+            if (activeEditKind === "sleep") {
+                updateSleepLog(activeEditSleepKey, startValue ? startValue : undefined, value);
+            } else if (activeEditWindow) {
+                updateWindowTimes(activeEditWindow.id, startValue ? startValue : undefined, value);
+            }
             updateEditDelta();
         });
     }

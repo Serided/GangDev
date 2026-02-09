@@ -56,7 +56,7 @@ function clean_time($value) {
 
 function clean_block_type($value) {
 	$raw = trim((string)$value);
-	$allowed = ['routine', 'work', 'focus'];
+	$allowed = ['routine', 'work', 'focus', 'custom'];
 	return in_array($raw, $allowed, true) ? $raw : 'routine';
 }
 
@@ -173,8 +173,10 @@ function ensure_routines_table(PDO $pdo) {
 			user_id INTEGER NOT NULL,
 			title TEXT NOT NULL,
 			routine_time TIME,
+			end_time TIME,
 			block_type VARCHAR(16),
 			anchor VARCHAR(16),
+			shift_id BIGINT,
 			repeat_rule VARCHAR(16),
 			day_of_week SMALLINT,
 			days_json TEXT,
@@ -188,11 +190,46 @@ function ensure_routines_table(PDO $pdo) {
 	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS tasks_json TEXT");
 	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS block_type VARCHAR(16)");
 	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS anchor VARCHAR(16)");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS end_time TIME");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS shift_id BIGINT");
+}
+
+function ensure_work_shifts_table(PDO $pdo) {
+	$pdo->exec("
+		CREATE TABLE IF NOT EXISTS candor.work_shifts (
+			id BIGSERIAL PRIMARY KEY,
+			user_id INTEGER NOT NULL,
+			name TEXT,
+			start_time TIME,
+			end_time TIME,
+			commute_before INTEGER,
+			commute_after INTEGER,
+			is_default BOOLEAN NOT NULL DEFAULT FALSE,
+			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW(),
+			updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
+		)
+	");
+}
+
+function ensure_work_shift_overrides_table(PDO $pdo) {
+	$pdo->exec("
+		CREATE TABLE IF NOT EXISTS candor.work_shift_overrides (
+			id BIGSERIAL PRIMARY KEY,
+			user_id INTEGER NOT NULL,
+			date DATE NOT NULL,
+			shift_id BIGINT,
+			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW(),
+			updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
+		)
+	");
+	$pdo->exec("CREATE UNIQUE INDEX IF NOT EXISTS work_shift_overrides_user_date ON candor.work_shift_overrides (user_id, date)");
 }
 
 try {
 	ensure_schedule_rules_table($pdo);
 	ensure_routines_table($pdo);
+	ensure_work_shifts_table($pdo);
+	ensure_work_shift_overrides_table($pdo);
 } catch (Throwable $e) {
 	respond(['error' => 'table_unavailable'], 500);
 }
@@ -228,7 +265,7 @@ if ($action === 'load') {
 		];
 	}
 	$stmt = $pdo->prepare("
-		SELECT id, title, routine_time, repeat_rule, day_of_week, days_json, tasks_json, block_type, anchor
+		SELECT id, title, routine_time, end_time, repeat_rule, day_of_week, days_json, tasks_json, block_type, anchor, shift_id
 		FROM candor.routines
 		WHERE user_id = ?
 		ORDER BY created_at ASC, id ASC
@@ -239,6 +276,10 @@ if ($action === 'load') {
 		$time = '';
 		if (!empty($row['routine_time'])) {
 			$time = substr((string)$row['routine_time'], 0, 5);
+		}
+		$end = '';
+		if (!empty($row['end_time'])) {
+			$end = substr((string)$row['end_time'], 0, 5);
 		}
 		$tasks = [];
 		if (!empty($row['tasks_json'])) {
@@ -274,15 +315,44 @@ if ($action === 'load') {
 			'id' => (string)$row['id'],
 			'title' => (string)($row['title'] ?? ''),
 			'time' => $time,
+			'end' => $end,
 			'repeat' => (string)($row['repeat_rule'] ?? ''),
 			'day' => $days ? $days[0] : (isset($row['day_of_week']) ? (int)$row['day_of_week'] : null),
 			'days' => $days,
 			'tasks' => $tasks,
 			'block_type' => (string)($row['block_type'] ?? 'routine'),
 			'anchor' => (string)($row['anchor'] ?? 'custom'),
+			'shift_id' => isset($row['shift_id']) ? (int)$row['shift_id'] : null,
 		];
 	}
-	respond(['rules' => $rules, 'routines' => $routines]);
+	$shifts = [];
+	$stmt = $pdo->prepare("
+		SELECT id, name, start_time, end_time, commute_before, commute_after, is_default
+		FROM candor.work_shifts
+		WHERE user_id = ?
+		ORDER BY created_at ASC, id ASC
+	");
+	$stmt->execute([(int)$userId]);
+	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		$start = '';
+		if (!empty($row['start_time'])) {
+			$start = substr((string)$row['start_time'], 0, 5);
+		}
+		$end = '';
+		if (!empty($row['end_time'])) {
+			$end = substr((string)$row['end_time'], 0, 5);
+		}
+		$shifts[] = [
+			'id' => (string)$row['id'],
+			'name' => (string)($row['name'] ?? ''),
+			'start' => $start,
+			'end' => $end,
+			'commute_before' => isset($row['commute_before']) ? (int)$row['commute_before'] : 0,
+			'commute_after' => isset($row['commute_after']) ? (int)$row['commute_after'] : 0,
+			'is_default' => !empty($row['is_default']),
+		];
+	}
+	respond(['rules' => $rules, 'routines' => $routines, 'shifts' => $shifts]);
 }
 
 if ($action === 'add') {
@@ -362,10 +432,8 @@ if ($action === 'add') {
 
 if ($action === 'add_routine') {
 	$title = clean_text($payload['title'] ?? '', 160);
-	if ($title === '') {
-		respond(['error' => 'missing_title'], 400);
-	}
 	$time = clean_time($payload['time'] ?? ($payload['routine_time'] ?? ''));
+	$end = clean_time($payload['end'] ?? ($payload['end_time'] ?? ''));
 	$blockType = clean_block_type($payload['block_type'] ?? ($payload['type'] ?? 'routine'));
 	$anchor = clean_anchor($payload['anchor'] ?? ($payload['routine_anchor'] ?? 'custom'));
 	if ($blockType !== 'routine') {
@@ -373,6 +441,17 @@ if ($action === 'add_routine') {
 	}
 	if ($blockType === 'routine' && $anchor !== 'custom') {
 		$time = '';
+		$end = '';
+	}
+	if ($blockType === 'work') {
+		if ($time === '' || $end === '') {
+			respond(['error' => 'missing_time'], 400);
+		}
+		if ($title === '') {
+			$title = 'Work';
+		}
+	} elseif ($title === '') {
+		respond(['error' => 'missing_title'], 400);
 	}
 	$repeat = $payload['repeat'] ?? ($payload['repeat_rule'] ?? 'daily');
 	$repeat = in_array($repeat, $allowedRepeats, true) ? $repeat : 'daily';
@@ -389,19 +468,22 @@ if ($action === 'add_routine') {
 	$tasks = clean_tasks($payload['tasks'] ?? ($payload['tasks_json'] ?? ''));
 	$tasksJson = $tasks ? json_encode($tasks) : null;
 	$daysJson = $days ? json_encode($days) : null;
+	$shiftId = isset($payload['shift_id']) && is_numeric($payload['shift_id']) ? (int)$payload['shift_id'] : null;
 
 	$stmt = $pdo->prepare("
 		INSERT INTO candor.routines
-			(user_id, title, routine_time, block_type, anchor, repeat_rule, day_of_week, days_json, tasks_json, created_at)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
-		RETURNING id, title, routine_time, block_type, anchor, repeat_rule, day_of_week, days_json, tasks_json
+			(user_id, title, routine_time, end_time, block_type, anchor, shift_id, repeat_rule, day_of_week, days_json, tasks_json, created_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+		RETURNING id, title, routine_time, end_time, block_type, anchor, shift_id, repeat_rule, day_of_week, days_json, tasks_json
 	");
 	$stmt->execute([
 		(int)$userId,
 		$title,
 		$time !== '' ? $time : null,
+		$end !== '' ? $end : null,
 		$blockType,
 		$anchor,
+		$shiftId,
 		$repeat,
 		$day,
 		$daysJson,
@@ -411,6 +493,10 @@ if ($action === 'add_routine') {
 	$timeOut = '';
 	if (!empty($row['routine_time'])) {
 		$timeOut = substr((string)$row['routine_time'], 0, 5);
+	}
+	$endOut = '';
+	if (!empty($row['end_time'])) {
+		$endOut = substr((string)$row['end_time'], 0, 5);
 	}
 	$tasksOut = [];
 	if (!empty($row['tasks_json'])) {
@@ -448,12 +534,14 @@ if ($action === 'add_routine') {
 			'id' => (string)$row['id'],
 			'title' => (string)($row['title'] ?? ''),
 			'time' => $timeOut,
+			'end' => $endOut,
 			'block_type' => (string)($row['block_type'] ?? $blockType),
 			'anchor' => (string)($row['anchor'] ?? $anchor),
 			'repeat' => (string)($row['repeat_rule'] ?? ''),
 			'day' => $daysOut ? $daysOut[0] : (isset($row['day_of_week']) ? (int)$row['day_of_week'] : null),
 			'days' => $daysOut,
 			'tasks' => $tasksOut,
+			'shift_id' => isset($row['shift_id']) ? (int)$row['shift_id'] : null,
 		],
 	]);
 }
@@ -464,10 +552,8 @@ if ($action === 'update_routine') {
 		respond(['error' => 'invalid_id'], 400);
 	}
 	$title = clean_text($payload['title'] ?? '', 160);
-	if ($title === '') {
-		respond(['error' => 'missing_title'], 400);
-	}
 	$time = clean_time($payload['time'] ?? ($payload['routine_time'] ?? ''));
+	$end = clean_time($payload['end'] ?? ($payload['end_time'] ?? ''));
 	$blockType = clean_block_type($payload['block_type'] ?? ($payload['type'] ?? 'routine'));
 	$anchor = clean_anchor($payload['anchor'] ?? ($payload['routine_anchor'] ?? 'custom'));
 	if ($blockType !== 'routine') {
@@ -475,6 +561,17 @@ if ($action === 'update_routine') {
 	}
 	if ($blockType === 'routine' && $anchor !== 'custom') {
 		$time = '';
+		$end = '';
+	}
+	if ($blockType === 'work') {
+		if ($time === '' || $end === '') {
+			respond(['error' => 'missing_time'], 400);
+		}
+		if ($title === '') {
+			$title = 'Work';
+		}
+	} elseif ($title === '') {
+		respond(['error' => 'missing_title'], 400);
 	}
 	$repeat = $payload['repeat'] ?? ($payload['repeat_rule'] ?? 'daily');
 	$repeat = in_array($repeat, $allowedRepeats, true) ? $repeat : 'daily';
@@ -491,18 +588,21 @@ if ($action === 'update_routine') {
 	$tasks = clean_tasks($payload['tasks'] ?? ($payload['tasks_json'] ?? ''));
 	$tasksJson = $tasks ? json_encode($tasks) : null;
 	$daysJson = $days ? json_encode($days) : null;
+	$shiftId = isset($payload['shift_id']) && is_numeric($payload['shift_id']) ? (int)$payload['shift_id'] : null;
 
 	$stmt = $pdo->prepare("
 		UPDATE candor.routines
-		SET title = ?, routine_time = ?, block_type = ?, anchor = ?, repeat_rule = ?, day_of_week = ?, days_json = ?, tasks_json = ?
+		SET title = ?, routine_time = ?, end_time = ?, block_type = ?, anchor = ?, shift_id = ?, repeat_rule = ?, day_of_week = ?, days_json = ?, tasks_json = ?
 		WHERE id = ? AND user_id = ?
-		RETURNING id, title, routine_time, block_type, anchor, repeat_rule, day_of_week, days_json, tasks_json
+		RETURNING id, title, routine_time, end_time, block_type, anchor, shift_id, repeat_rule, day_of_week, days_json, tasks_json
 	");
 	$stmt->execute([
 		$title,
 		$time !== '' ? $time : null,
+		$end !== '' ? $end : null,
 		$blockType,
 		$anchor,
+		$shiftId,
 		$repeat,
 		$day,
 		$daysJson,
@@ -518,6 +618,10 @@ if ($action === 'update_routine') {
 	if (!empty($row['routine_time'])) {
 		$timeOut = substr((string)$row['routine_time'], 0, 5);
 	}
+	$endOut = '';
+	if (!empty($row['end_time'])) {
+		$endOut = substr((string)$row['end_time'], 0, 5);
+	}
 	$tasksOut = [];
 	if (!empty($row['tasks_json'])) {
 		$decoded = json_decode((string)$row['tasks_json'], true);
@@ -554,12 +658,14 @@ if ($action === 'update_routine') {
 			'id' => (string)$row['id'],
 			'title' => (string)($row['title'] ?? ''),
 			'time' => $timeOut,
+			'end' => $endOut,
 			'block_type' => (string)($row['block_type'] ?? $blockType),
 			'anchor' => (string)($row['anchor'] ?? $anchor),
 			'repeat' => (string)($row['repeat_rule'] ?? ''),
 			'day' => $daysOut ? $daysOut[0] : (isset($row['day_of_week']) ? (int)$row['day_of_week'] : null),
 			'days' => $daysOut,
 			'tasks' => $tasksOut,
+			'shift_id' => isset($row['shift_id']) ? (int)$row['shift_id'] : null,
 		],
 	]);
 }
@@ -592,6 +698,136 @@ if ($action === 'clear') {
 	}
 	$stmt = $pdo->prepare("DELETE FROM candor.schedule_rules WHERE user_id = ? AND kind = ?");
 	$stmt->execute([(int)$userId, $kind]);
+	respond(['ok' => true]);
+}
+
+if ($action === 'add_shift') {
+	$name = clean_text($payload['name'] ?? '', 160);
+	$start = clean_time($payload['start'] ?? ($payload['start_time'] ?? ''));
+	$end = clean_time($payload['end'] ?? ($payload['end_time'] ?? ''));
+	if ($start === '' || $end === '') {
+		respond(['error' => 'missing_time'], 400);
+	}
+	$commuteBefore = isset($payload['commute_before']) && is_numeric($payload['commute_before'])
+		? max(0, (int)$payload['commute_before'])
+		: 0;
+	$commuteAfter = isset($payload['commute_after']) && is_numeric($payload['commute_after'])
+		? max(0, (int)$payload['commute_after'])
+		: 0;
+	$isDefault = !empty($payload['is_default']);
+	if ($isDefault) {
+		$pdo->prepare("UPDATE candor.work_shifts SET is_default = FALSE WHERE user_id = ?")
+			->execute([(int)$userId]);
+	}
+	$stmt = $pdo->prepare("
+		INSERT INTO candor.work_shifts
+			(user_id, name, start_time, end_time, commute_before, commute_after, is_default, created_at, updated_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())
+		RETURNING id, name, start_time, end_time, commute_before, commute_after, is_default
+	");
+	$stmt->execute([
+		(int)$userId,
+		$name,
+		$start,
+		$end,
+		$commuteBefore,
+		$commuteAfter,
+		$isDefault,
+	]);
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	$startOut = substr((string)$row['start_time'], 0, 5);
+	$endOut = substr((string)$row['end_time'], 0, 5);
+	respond([
+		'shift' => [
+			'id' => (string)$row['id'],
+			'name' => (string)($row['name'] ?? ''),
+			'start' => $startOut,
+			'end' => $endOut,
+			'commute_before' => isset($row['commute_before']) ? (int)$row['commute_before'] : 0,
+			'commute_after' => isset($row['commute_after']) ? (int)$row['commute_after'] : 0,
+			'is_default' => !empty($row['is_default']),
+		],
+	]);
+}
+
+if ($action === 'update_shift') {
+	$id = (int)($payload['id'] ?? 0);
+	if ($id <= 0) {
+		respond(['error' => 'invalid_id'], 400);
+	}
+	$name = clean_text($payload['name'] ?? '', 160);
+	$start = clean_time($payload['start'] ?? ($payload['start_time'] ?? ''));
+	$end = clean_time($payload['end'] ?? ($payload['end_time'] ?? ''));
+	if ($start === '' || $end === '') {
+		respond(['error' => 'missing_time'], 400);
+	}
+	$commuteBefore = isset($payload['commute_before']) && is_numeric($payload['commute_before'])
+		? max(0, (int)$payload['commute_before'])
+		: 0;
+	$commuteAfter = isset($payload['commute_after']) && is_numeric($payload['commute_after'])
+		? max(0, (int)$payload['commute_after'])
+		: 0;
+	$isDefault = !empty($payload['is_default']);
+	if ($isDefault) {
+		$pdo->prepare("UPDATE candor.work_shifts SET is_default = FALSE WHERE user_id = ?")
+			->execute([(int)$userId]);
+	}
+	$stmt = $pdo->prepare("
+		UPDATE candor.work_shifts
+		SET name = ?, start_time = ?, end_time = ?, commute_before = ?, commute_after = ?, is_default = ?, updated_at = NOW()
+		WHERE id = ? AND user_id = ?
+		RETURNING id, name, start_time, end_time, commute_before, commute_after, is_default
+	");
+	$stmt->execute([
+		$name,
+		$start,
+		$end,
+		$commuteBefore,
+		$commuteAfter,
+		$isDefault,
+		$id,
+		(int)$userId,
+	]);
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	if (!$row) {
+		respond(['error' => 'not_found'], 404);
+	}
+	$startOut = substr((string)$row['start_time'], 0, 5);
+	$endOut = substr((string)$row['end_time'], 0, 5);
+	respond([
+		'shift' => [
+			'id' => (string)$row['id'],
+			'name' => (string)($row['name'] ?? ''),
+			'start' => $startOut,
+			'end' => $endOut,
+			'commute_before' => isset($row['commute_before']) ? (int)$row['commute_before'] : 0,
+			'commute_after' => isset($row['commute_after']) ? (int)$row['commute_after'] : 0,
+			'is_default' => !empty($row['is_default']),
+		],
+	]);
+}
+
+if ($action === 'delete_shift') {
+	$id = (int)($payload['id'] ?? 0);
+	if ($id <= 0) {
+		respond(['error' => 'invalid_id'], 400);
+	}
+	$pdo->prepare("DELETE FROM candor.work_shift_overrides WHERE shift_id = ? AND user_id = ?")
+		->execute([$id, (int)$userId]);
+	$pdo->prepare("DELETE FROM candor.work_shifts WHERE id = ? AND user_id = ?")
+		->execute([$id, (int)$userId]);
+	respond(['ok' => true]);
+}
+
+if ($action === 'set_default_shift') {
+	$id = (int)($payload['id'] ?? 0);
+	if ($id <= 0) {
+		respond(['error' => 'invalid_id'], 400);
+	}
+	$pdo->prepare("UPDATE candor.work_shifts SET is_default = FALSE WHERE user_id = ?")
+		->execute([(int)$userId]);
+	$pdo->prepare("UPDATE candor.work_shifts SET is_default = TRUE, updated_at = NOW() WHERE id = ? AND user_id = ?")
+		->execute([$id, (int)$userId]);
 	respond(['ok' => true]);
 }
 

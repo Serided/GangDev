@@ -350,6 +350,27 @@ body.is-do .welcome {
     gap: 6px;
 }
 
+.dayShiftRow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.dayShiftLabel {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    color: var(--ink-soft);
+}
+
+.shiftSelect {
+    min-height: 28px;
+    padding: 4px 10px;
+    font-size: 11px;
+    border-radius: 10px;
+}
+
 .dayTag {
     font-size: 13px;
     color: var(--ink-soft);
@@ -732,6 +753,40 @@ body.is-do .welcome {
     letter-spacing: 1.2px;
 }
 
+.timelineMeta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.timelineToggles {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.toggleChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(185, 219, 242, 0.6);
+    background: rgba(185, 219, 242, 0.25);
+    font-size: 10px;
+    letter-spacing: 0.6px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggleChip input {
+    margin: 0;
+    width: 12px;
+    height: 12px;
+    accent-color: var(--blue-strong);
+}
+
 .timelineGrid {
     --hour-height: 46px;
     --timeline-label-width: 72px;
@@ -892,7 +947,8 @@ body.is-do .welcome {
     border: 1px dashed rgba(90, 143, 185, 0.5);
     background: rgba(90, 143, 185, 0.16);
     z-index: 0;
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
     overflow: hidden;
 }
 
@@ -1919,7 +1975,7 @@ body.is-do .welcome {
     scrollbar-width: none;
     user-select: none;
     -webkit-user-select: none;
-    touch-action: none;
+    touch-action: pan-y;
     cursor: grab;
     overscroll-behavior: contain;
 }

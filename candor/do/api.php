@@ -118,10 +118,59 @@ function ensure_schedule_rules_table(PDO $pdo) {
 	");
 }
 
+function ensure_sleep_logs_table(PDO $pdo) {
+	$pdo->exec("
+		CREATE TABLE IF NOT EXISTS candor.sleep_logs (
+			id BIGSERIAL PRIMARY KEY,
+			user_id INTEGER NOT NULL,
+			date DATE NOT NULL,
+			start_time TIME,
+			end_time TIME,
+			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW(),
+			updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
+		)
+	");
+	$pdo->exec("CREATE UNIQUE INDEX IF NOT EXISTS sleep_logs_user_date ON candor.sleep_logs (user_id, date)");
+}
+
+function ensure_work_shifts_table(PDO $pdo) {
+	$pdo->exec("
+		CREATE TABLE IF NOT EXISTS candor.work_shifts (
+			id BIGSERIAL PRIMARY KEY,
+			user_id INTEGER NOT NULL,
+			name TEXT,
+			start_time TIME,
+			end_time TIME,
+			commute_before INTEGER,
+			commute_after INTEGER,
+			is_default BOOLEAN NOT NULL DEFAULT FALSE,
+			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW(),
+			updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
+		)
+	");
+}
+
+function ensure_work_shift_overrides_table(PDO $pdo) {
+	$pdo->exec("
+		CREATE TABLE IF NOT EXISTS candor.work_shift_overrides (
+			id BIGSERIAL PRIMARY KEY,
+			user_id INTEGER NOT NULL,
+			date DATE NOT NULL,
+			shift_id BIGINT,
+			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW(),
+			updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
+		)
+	");
+	$pdo->exec("CREATE UNIQUE INDEX IF NOT EXISTS work_shift_overrides_user_date ON candor.work_shift_overrides (user_id, date)");
+}
+
 if ($action === 'load') {
 	try {
 		ensure_task_duration_column($pdo);
 		ensure_schedule_instance_columns($pdo);
+		ensure_sleep_logs_table($pdo);
+		ensure_work_shifts_table($pdo);
+		ensure_work_shift_overrides_table($pdo);
 	} catch (Throwable $e) {
 		// Ignore schema update failures; return available data.
 	}
@@ -250,6 +299,82 @@ if ($action === 'load') {
 		$rules = [];
 	}
 
+	$sleepLogs = [];
+	try {
+		ensure_sleep_logs_table($pdo);
+		$logsStmt = $pdo->prepare("
+			SELECT date, start_time, end_time
+			FROM candor.sleep_logs
+			WHERE user_id = ?
+			ORDER BY date ASC
+		");
+		$logsStmt->execute([(int)$userId]);
+		while ($row = $logsStmt->fetch(PDO::FETCH_ASSOC)) {
+			$start = '';
+			if (!empty($row['start_time'])) {
+				$start = substr((string)$row['start_time'], 0, 5);
+			}
+			$end = '';
+			if (!empty($row['end_time'])) {
+				$end = substr((string)$row['end_time'], 0, 5);
+			}
+			$sleepLogs[] = [
+				'date' => (string)($row['date'] ?? ''),
+				'start' => $start,
+				'end' => $end,
+			];
+		}
+	} catch (Throwable $e) {
+		$sleepLogs = [];
+	}
+
+	$shifts = [];
+	$shiftOverrides = [];
+	try {
+		$shiftStmt = $pdo->prepare("
+			SELECT id, name, start_time, end_time, commute_before, commute_after, is_default
+			FROM candor.work_shifts
+			WHERE user_id = ?
+			ORDER BY created_at ASC, id ASC
+		");
+		$shiftStmt->execute([(int)$userId]);
+		while ($row = $shiftStmt->fetch(PDO::FETCH_ASSOC)) {
+			$start = '';
+			if (!empty($row['start_time'])) {
+				$start = substr((string)$row['start_time'], 0, 5);
+			}
+			$end = '';
+			if (!empty($row['end_time'])) {
+				$end = substr((string)$row['end_time'], 0, 5);
+			}
+			$shifts[] = [
+				'id' => (string)$row['id'],
+				'name' => (string)($row['name'] ?? ''),
+				'start' => $start,
+				'end' => $end,
+				'commute_before' => isset($row['commute_before']) ? (int)$row['commute_before'] : 0,
+				'commute_after' => isset($row['commute_after']) ? (int)$row['commute_after'] : 0,
+				'is_default' => !empty($row['is_default']),
+			];
+		}
+		$overrideStmt = $pdo->prepare("
+			SELECT date, shift_id
+			FROM candor.work_shift_overrides
+			WHERE user_id = ?
+			ORDER BY date ASC
+		");
+		$overrideStmt->execute([(int)$userId]);
+		while ($row = $overrideStmt->fetch(PDO::FETCH_ASSOC)) {
+			$shiftOverrides[] = [
+				'date' => (string)($row['date'] ?? ''),
+				'shift_id' => isset($row['shift_id']) ? (int)$row['shift_id'] : null,
+			];
+		}
+	} catch (Throwable $e) {
+		$shifts = [];
+		$shiftOverrides = [];
+	}
+
 	$routineCount = 0;
 	try {
 		$stmt = $pdo->prepare("SELECT COUNT(*) FROM candor.routines WHERE user_id = ?");
@@ -265,6 +390,9 @@ if ($action === 'load') {
 		'blocks' => $blocks,
 		'windows' => $blocks,
 		'rules' => $rules,
+		'sleep_logs' => $sleepLogs,
+		'shifts' => $shifts,
+		'shift_overrides' => $shiftOverrides,
 		'routine_count' => $routineCount,
 	]);
 }
@@ -453,6 +581,87 @@ if ($action === 'add') {
 			],
 		]);
 	}
+}
+
+if ($action === 'update_sleep') {
+	$date = (string)($payload['date'] ?? '');
+	if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+		respond(['error' => 'invalid_date'], 400);
+	}
+	$start = trim((string)($payload['start'] ?? ''));
+	$end = trim((string)($payload['end'] ?? ''));
+	if ($start !== '' && !preg_match('/^\d{2}:\d{2}$/', $start)) {
+		respond(['error' => 'invalid_start'], 400);
+	}
+	if ($end !== '' && !preg_match('/^\d{2}:\d{2}$/', $end)) {
+		respond(['error' => 'invalid_end'], 400);
+	}
+	try {
+		ensure_sleep_logs_table($pdo);
+	} catch (Throwable $e) {
+		respond(['error' => 'table_unavailable'], 500);
+	}
+	if ($start === '' && $end === '') {
+		$stmt = $pdo->prepare("DELETE FROM candor.sleep_logs WHERE user_id = ? AND date = ?");
+		$stmt->execute([(int)$userId, $date]);
+		respond(['ok' => true]);
+	}
+	$stmt = $pdo->prepare("
+		INSERT INTO candor.sleep_logs (user_id, date, start_time, end_time, created_at, updated_at)
+		VALUES (?, ?, ?, ?, NOW(), NOW())
+		ON CONFLICT (user_id, date)
+		DO UPDATE SET start_time = EXCLUDED.start_time, end_time = EXCLUDED.end_time, updated_at = NOW()
+		RETURNING date, start_time, end_time
+	");
+	$stmt->execute([
+		(int)$userId,
+		$date,
+		$start !== '' ? $start : null,
+		$end !== '' ? $end : null,
+	]);
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	$startOut = '';
+	if (!empty($row['start_time'])) {
+		$startOut = substr((string)$row['start_time'], 0, 5);
+	}
+	$endOut = '';
+	if (!empty($row['end_time'])) {
+		$endOut = substr((string)$row['end_time'], 0, 5);
+	}
+	respond([
+		'log' => [
+			'date' => (string)($row['date'] ?? $date),
+			'start' => $startOut,
+			'end' => $endOut,
+		],
+	]);
+}
+
+if ($action === 'update_shift_override') {
+	$date = (string)($payload['date'] ?? '');
+	if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+		respond(['error' => 'invalid_date'], 400);
+	}
+	$shiftIdRaw = $payload['shift_id'] ?? '';
+	$shiftId = is_numeric($shiftIdRaw) ? (int)$shiftIdRaw : null;
+	try {
+		ensure_work_shift_overrides_table($pdo);
+	} catch (Throwable $e) {
+		respond(['error' => 'table_unavailable'], 500);
+	}
+	if ($shiftId === null) {
+		$stmt = $pdo->prepare("DELETE FROM candor.work_shift_overrides WHERE user_id = ? AND date = ?");
+		$stmt->execute([(int)$userId, $date]);
+		respond(['ok' => true]);
+	}
+	$stmt = $pdo->prepare("
+		INSERT INTO candor.work_shift_overrides (user_id, date, shift_id, created_at, updated_at)
+		VALUES (?, ?, ?, NOW(), NOW())
+		ON CONFLICT (user_id, date)
+		DO UPDATE SET shift_id = EXCLUDED.shift_id, updated_at = NOW()
+	");
+	$stmt->execute([(int)$userId, $date, $shiftId]);
+	respond(['ok' => true]);
 }
 
 if ($action === 'toggle' && $type === 'tasks') {

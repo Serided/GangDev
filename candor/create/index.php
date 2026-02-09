@@ -42,7 +42,7 @@ $candorVersion = 'v0.2';
 	<section class="builder">
 		<div class="builderRow is-top">
 			<div class="card scheduleCard">
-				<div class="cardHead">
+				<div class="cardHead is-stack">
 					<h2>Sleep schedule</h2>
 					<span class="cardHint">Weekdays, weekends, daily, or a specific day.</span>
 				</div>
@@ -105,11 +105,15 @@ $candorVersion = 'v0.2';
 							<div class="routineGrid">
 								<div class="routineMeta">
 									<div class="field">
-										<label class="label" for="block-type">Window type</label>
+										<div class="labelRow">
+											<label class="label" for="block-type">Window type</label>
+											<button class="btn mini" type="button" data-custom-window>Custom</button>
+										</div>
 										<select class="input compact select" id="block-type" name="block_type" data-block-type>
 											<option value="routine">Routine</option>
 											<option value="work">Work</option>
 											<option value="focus">Focus</option>
+											<option value="custom">Custom</option>
 										</select>
 									</div>
 									<div class="field" data-anchor-field>
@@ -120,15 +124,34 @@ $candorVersion = 'v0.2';
 											<option value="custom">Custom</option>
 										</select>
 									</div>
+									<div class="field" data-work-shift-select>
+										<label class="label" for="work-shift-select">Use shift</label>
+										<div class="shiftRow">
+											<select class="input compact select" id="work-shift-select" data-shift-select>
+												<option value="">Select a shift</option>
+											</select>
+											<button class="btn mini" type="button" data-shift-use>Use</button>
+										</div>
+										<input type="hidden" name="shift_id" data-shift-id>
+									</div>
 									<div class="field" data-title-field>
 										<label class="label" for="routine-title">Name</label>
 										<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Deep work sprint">
 									</div>
-									<div class="field" data-time-field-wrap>
-										<label class="label" for="routine-time-hour">Start time</label>
-										<div class="timeField" data-time-field data-time-label="Block start" data-time-empty="--:--">
-											<input type="hidden" id="routine-time" name="time" data-time-output>
-											<button class="timeButton" type="button" data-time-display>--:--</button>
+									<div class="fieldRow timeRow" data-time-row>
+										<div class="field" data-time-field-wrap>
+											<label class="label" for="routine-time-hour">Start</label>
+											<div class="timeField" data-time-field data-time-label="Block start" data-time-empty="--:--">
+												<input type="hidden" id="routine-time" name="time" data-time-output>
+												<button class="timeButton" type="button" data-time-display>--:--</button>
+											</div>
+										</div>
+										<div class="field" data-work-end-field>
+											<label class="label" for="routine-end-hour">End</label>
+											<div class="timeField" data-time-field data-time-label="Block end" data-time-empty="--:--">
+												<input type="hidden" id="routine-end" name="end" data-time-output>
+												<button class="timeButton" type="button" data-time-display>--:--</button>
+											</div>
 										</div>
 									</div>
 									<div class="field">
@@ -174,6 +197,51 @@ $candorVersion = 'v0.2';
 										</div>
 									</div>
 									<div class="fieldHint" data-anchor-note></div>
+									<div class="shiftPanel" data-shift-panel>
+										<div class="shiftHeader">
+											<div class="label">Shifts</div>
+										</div>
+										<div class="shiftGrid">
+											<div class="field">
+												<label class="label" for="shift-name">Shift name (optional)</label>
+												<input class="input compact" id="shift-name" type="text" placeholder="Work">
+											</div>
+											<div class="fieldRow timeRow">
+												<div class="field">
+													<label class="label" for="shift-start-hour">Start</label>
+													<div class="timeField" data-time-field data-time-label="Shift start" data-time-empty="--:--">
+														<input type="hidden" id="shift-start" data-time-output>
+														<button class="timeButton" type="button" data-time-display>--:--</button>
+													</div>
+												</div>
+												<div class="field">
+													<label class="label" for="shift-end-hour">End</label>
+													<div class="timeField" data-time-field data-time-label="Shift end" data-time-empty="--:--">
+														<input type="hidden" id="shift-end" data-time-output>
+														<button class="timeButton" type="button" data-time-display>--:--</button>
+													</div>
+												</div>
+											</div>
+											<div class="field">
+												<label class="label" for="shift-commute-before">Commute before (min)</label>
+												<input class="input compact" id="shift-commute-before" type="number" min="0" step="5" inputmode="numeric" placeholder="15">
+											</div>
+											<div class="field">
+												<label class="label" for="shift-commute-after">Commute after (min)</label>
+												<input class="input compact" id="shift-commute-after" type="number" min="0" step="5" inputmode="numeric" placeholder="15">
+											</div>
+											<label class="toggleLine shiftDefault">
+												<input type="checkbox" id="shift-default">
+												<span>Default shift</span>
+											</label>
+										</div>
+										<div class="shiftActions">
+											<button class="btn primary" type="button" data-shift-save>Save shift</button>
+											<button class="btn ghost" type="button" data-shift-clear>Clear</button>
+										</div>
+										<div class="itemList shiftList" data-shift-list></div>
+										<div class="listEmpty" data-shift-empty>No shifts saved yet.</div>
+									</div>
 								</div>
 								<div class="routineTasks">
 									<div class="label routineTasksLabel">Tasks</div>
@@ -183,7 +251,7 @@ $candorVersion = 'v0.2';
 								</div>
 							</div>
 							<div class="formActions">
-								<button class="btn primary" type="submit" data-routine-submit>Add block</button>
+								<button class="btn primary" type="submit" data-routine-submit>Save</button>
 								<button class="btn ghost" type="button" data-routine-cancel style="display: none;">Cancel edit</button>
 							</div>
 						</form>
@@ -209,7 +277,7 @@ $candorVersion = 'v0.2';
 						<div class="weekStack">
 							<div class="weekBlock is-sleep">Sleep</div>
 							<div class="weekBlock is-morning">Morning routine</div>
-							<div class="weekBlock is-focus">Focus</div>
+                            <div class="weekBlock is-focus">Focus/Work</div>
 							<div class="weekBlock is-evening">Evening routine</div>
 							<div class="weekBlock is-sleep">Sleep</div>
 						</div>
@@ -220,7 +288,7 @@ $candorVersion = 'v0.2';
 						<div class="weekStack">
 							<div class="weekBlock is-sleep">Sleep</div>
 							<div class="weekBlock is-morning">Morning routine</div>
-							<div class="weekBlock is-focus">Focus</div>
+                            <div class="weekBlock is-focus">Focus/Work</div>
 							<div class="weekBlock is-evening">Evening routine</div>
 							<div class="weekBlock is-sleep">Sleep</div>
 						</div>
@@ -231,7 +299,7 @@ $candorVersion = 'v0.2';
 						<div class="weekStack">
 							<div class="weekBlock is-sleep">Sleep</div>
 							<div class="weekBlock is-morning">Morning routine</div>
-							<div class="weekBlock is-focus">Focus</div>
+                            <div class="weekBlock is-focus">Focus/Work</div>
 							<div class="weekBlock is-evening">Evening routine</div>
 							<div class="weekBlock is-sleep">Sleep</div>
 						</div>
@@ -242,7 +310,7 @@ $candorVersion = 'v0.2';
 						<div class="weekStack">
 							<div class="weekBlock is-sleep">Sleep</div>
 							<div class="weekBlock is-morning">Morning routine</div>
-							<div class="weekBlock is-focus">Focus</div>
+                            <div class="weekBlock is-focus">Focus/Work</div>
 							<div class="weekBlock is-evening">Evening routine</div>
 							<div class="weekBlock is-sleep">Sleep</div>
 						</div>
@@ -253,7 +321,7 @@ $candorVersion = 'v0.2';
 						<div class="weekStack">
 							<div class="weekBlock is-sleep">Sleep</div>
 							<div class="weekBlock is-morning">Morning routine</div>
-							<div class="weekBlock is-focus">Focus</div>
+                            <div class="weekBlock is-focus">Focus/Work</div>
 							<div class="weekBlock is-evening">Evening routine</div>
 							<div class="weekBlock is-sleep">Sleep</div>
 						</div>
@@ -264,7 +332,7 @@ $candorVersion = 'v0.2';
 						<div class="weekStack">
 							<div class="weekBlock is-sleep">Sleep</div>
 							<div class="weekBlock is-morning">Morning routine</div>
-							<div class="weekBlock is-focus">Focus</div>
+                            <div class="weekBlock is-focus">Focus/Work</div>
 							<div class="weekBlock is-evening">Evening routine</div>
 							<div class="weekBlock is-sleep">Sleep</div>
 						</div>
@@ -275,7 +343,7 @@ $candorVersion = 'v0.2';
 						<div class="weekStack">
 							<div class="weekBlock is-sleep">Sleep</div>
 							<div class="weekBlock is-morning">Morning routine</div>
-							<div class="weekBlock is-focus">Focus</div>
+                            <div class="weekBlock is-focus">Focus/Work</div>
 							<div class="weekBlock is-evening">Evening routine</div>
 							<div class="weekBlock is-sleep">Sleep</div>
 						</div>

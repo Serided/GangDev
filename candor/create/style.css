@@ -334,7 +334,9 @@ a { color: inherit; text-decoration: none; }
     display: grid;
     gap: 4px;
     grid-column: 3;
+    grid-row: 1;
     min-height: 0;
+    align-self: start;
 }
 
 .savedScroll {
@@ -354,6 +356,7 @@ a { color: inherit; text-decoration: none; }
     min-height: 0;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 }
 
 .routineCard .savedScroll {
@@ -374,6 +377,13 @@ a { color: inherit; text-decoration: none; }
     margin-bottom: 2px;
 }
 
+.cardHead.is-stack {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    margin-bottom: 4px;
+}
+
 .cardHead h2 {
     margin: 0;
     font-size: 18px;
@@ -388,13 +398,14 @@ a { color: inherit; text-decoration: none; }
 .formGrid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
+    gap: 4px;
 }
 
 .scheduleCard .formGrid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr);
     max-width: 100%;
     width: 100%;
+    gap: 3px;
 }
 
 .scheduleCard .field-repeat,
@@ -408,6 +419,25 @@ a { color: inherit; text-decoration: none; }
 
 .field {
     display: grid;
+    gap: 6px;
+}
+
+.labelRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.fieldRow.timeRow {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+}
+
+.shiftRow {
+    display: flex;
+    align-items: center;
     gap: 6px;
 }
 
@@ -475,7 +505,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .sleepSummary {
-    margin-top: 8px;
+    margin-top: 6px;
     display: grid;
     gap: 4px;
 }
@@ -526,6 +556,50 @@ a { color: inherit; text-decoration: none; }
     font-size: 12px;
     color: var(--ink-soft);
     letter-spacing: 0.4px;
+}
+
+.shiftPanel {
+    display: none;
+    grid-column: 1 / -1;
+    margin-top: 4px;
+    padding-top: 6px;
+    border-top: 1px dashed rgba(215, 226, 237, 0.9);
+    gap: 6px;
+}
+
+.shiftPanel.is-active {
+    display: grid;
+}
+
+.shiftHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.shiftGrid {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.shiftDefault {
+    grid-column: 1 / -1;
+}
+
+.shiftActions {
+    display: flex;
+    gap: 8px;
+}
+
+.shiftList {
+    display: grid;
+    gap: 8px;
+}
+
+.shiftList .itemRow {
+    padding: 6px 8px;
+    font-size: 11px;
 }
 
 .dayMulti {
@@ -580,30 +654,30 @@ a { color: inherit; text-decoration: none; }
     height: clamp(120px, 18vh, 160px);
     overflow-y: auto;
     scrollbar-gutter: stable;
-    padding-right: 2px;
+    padding-right: 16px;
 }
 
 .taskRow {
     display: grid;
-    grid-template-columns: 22px minmax(0, 1fr) 56px 28px;
+    grid-template-columns: 26px minmax(0, 1fr) 48px 26px;
     gap: 6px;
     align-items: center;
 }
 
 .taskDrag {
-    width: 20px;
-    height: 28px;
+    width: 24px;
+    height: 30px;
     border-radius: 10px;
     border: 1px solid rgba(15, 27, 45, 0.16);
     background: rgba(15, 27, 45, 0.06);
     color: var(--ink-soft);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    letter-spacing: 1px;
+    letter-spacing: 0;
     cursor: grab;
     user-select: none;
 }
@@ -615,7 +689,7 @@ a { color: inherit; text-decoration: none; }
 .taskMinutes {
     text-align: center;
     min-width: 0;
-    max-width: 56px;
+    max-width: 48px;
 }
 
 .taskRemove {
@@ -679,6 +753,10 @@ a { color: inherit; text-decoration: none; }
     text-transform: uppercase;
     letter-spacing: 1.2px;
     color: var(--ink-soft);
+}
+
+.savedSection .listHeader {
+    margin-top: 0;
 }
 
 .listEmpty {
@@ -1030,7 +1108,7 @@ a { color: inherit; text-decoration: none; }
     scrollbar-width: none;
     user-select: none;
     -webkit-user-select: none;
-    touch-action: none;
+    touch-action: pan-y;
     cursor: grab;
     overscroll-behavior: contain;
 }
@@ -1356,7 +1434,7 @@ a { color: inherit; text-decoration: none; }
         height: clamp(120px, 22vh, 180px);
         overflow-y: auto;
         scrollbar-gutter: stable;
-        padding-right: 2px;
+        padding-right: 12px;
     }
     .sleepSummary,
     .savedSection {

@@ -28,6 +28,7 @@
         sleep: [],
         tasks: [],
         routines: [],
+        shifts: [],
     };
 
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -235,9 +236,13 @@
     const scrollWheelTo = (wheel, value) => {
         const items = getWheelItems(wheel);
         if (!items.length) return;
-        const target = items.find((item) => parseInt(item.dataset.timeValue, 10) === value) || items[0];
-        const offset = target.offsetTop - (wheel.clientHeight / 2) + (target.offsetHeight / 2);
-        wheel.scrollTop = offset;
+        const index = items.findIndex((item) => parseInt(item.dataset.timeValue, 10) === value);
+        const targetIndex = index >= 0 ? index : 0;
+        const itemHeight = items[0].offsetHeight || 32;
+        const paddingTop = parseFloat(getComputedStyle(wheel).paddingTop) || 0;
+        const offset = paddingTop + (targetIndex * itemHeight) - (wheel.clientHeight / 2) + (itemHeight / 2);
+        const maxScroll = Math.max(0, wheel.scrollHeight - wheel.clientHeight);
+        wheel.scrollTop = clamp(offset, 0, maxScroll);
         setWheelActive(wheel, value);
     };
 
@@ -268,17 +273,31 @@
         let dragActive = false;
         let dragStartY = 0;
         let dragStartScroll = 0;
+        let snapTimer = null;
         const handleScroll = () => {
             raf = null;
             const value = readWheelValue(wheel);
             onChange(value);
             setWheelActive(wheel, value);
             updateManualInputs();
+            if (!dragActive) scheduleSnap();
+        };
+        const scheduleSnap = () => {
+            if (snapTimer) window.clearTimeout(snapTimer);
+            snapTimer = window.setTimeout(() => {
+                const value = readWheelValue(wheel);
+                scrollWheelTo(wheel, value);
+            }, 120);
         };
         wheel.addEventListener("scroll", () => {
             if (raf) return;
             raf = requestAnimationFrame(handleScroll);
         });
+        wheel.addEventListener("wheel", (event) => {
+            event.preventDefault();
+            wheel.scrollTop += event.deltaY;
+            scheduleSnap();
+        }, { passive: false });
         wheel.addEventListener("click", (event) => {
             const item = event.target.closest(".timeWheelItem");
             if (!item) return;
@@ -308,6 +327,7 @@
             if (event && event.pointerId !== undefined) {
                 wheel.releasePointerCapture(event.pointerId);
             }
+            scheduleSnap();
         };
         wheel.addEventListener("pointerup", endDrag);
         wheel.addEventListener("pointercancel", endDrag);
@@ -545,20 +565,32 @@
         const anchorValue = normalizeText(item.anchor ?? item.routine_anchor ?? "custom");
         const allowed = ["daily", "weekdays", "weekends", "day"];
         const repeat = allowed.includes(repeatValue) ? repeatValue : "daily";
-        const type = ["routine", "work", "focus"].includes(typeValue) ? typeValue : "routine";
+        const type = ["routine", "work", "focus", "custom"].includes(typeValue) ? typeValue : "routine";
         const anchor = ["morning", "evening", "custom"].includes(anchorValue) ? anchorValue : "custom";
         return {
             id: String(item.id ?? ""),
             title: normalizeText(item.title ?? ""),
             time: normalizeText(item.time ?? item.routine_time ?? ""),
+            end: normalizeText(item.end ?? item.end_time ?? ""),
             tasks: normalizeRoutineTasks(item.tasks ?? item.tasks_json ?? ""),
             type,
             anchor,
             repeat,
             day: Number.isFinite(parsedDay) ? parsedDay : (days[0] ?? null),
             days,
+            shiftId: item.shift_id ?? item.shiftId ?? null,
         };
     };
+
+    const normalizeShift = (item) => ({
+        id: String(item.id ?? ""),
+        name: normalizeText(item.name ?? ""),
+        start: normalizeText(item.start ?? item.start_time ?? ""),
+        end: normalizeText(item.end ?? item.end_time ?? ""),
+        commuteBefore: Number.isFinite(item.commute_before) ? item.commute_before : parseInt(item.commute_before ?? "0", 10) || 0,
+        commuteAfter: Number.isFinite(item.commute_after) ? item.commute_after : parseInt(item.commute_after ?? "0", 10) || 0,
+        isDefault: Boolean(item.is_default),
+    });
 
     const routineDuration = (routine) => {
         if (!routine || !Array.isArray(routine.tasks)) return 0;
@@ -576,6 +608,7 @@
     const persistLocal = () => {
         saveItems("rules", state.rules);
         saveItems("routines", state.routines);
+        saveItems("shifts", state.shifts);
     };
 
     const apiFetch = async (payload, method = "POST") => {
@@ -604,6 +637,7 @@
     const loadLocal = () => {
         state.rules = loadItems("rules").map(normalizeRule);
         state.routines = loadItems("routines").map(normalizeRoutine);
+        state.shifts = loadItems("shifts").map(normalizeShift);
         splitRules();
     };
 
@@ -616,6 +650,7 @@
         const data = await apiFetch({ action: "load" }, "GET");
         state.rules = Array.isArray(data.rules) ? data.rules.map(normalizeRule) : [];
         state.routines = Array.isArray(data.routines) ? data.routines.map(normalizeRoutine) : [];
+        state.shifts = Array.isArray(data.shifts) ? data.shifts.map(normalizeShift) : [];
         splitRules();
     };
 
@@ -729,20 +764,33 @@
             return;
         }
         routineEmpty.style.display = "none";
-        state.routines.forEach((routine) => {
+        const preferred = routineTypeSelect ? routineTypeSelect.value : "";
+        const sorted = state.routines.slice().sort((a, b) => {
+            const aPref = preferred && a.type === preferred ? 0 : 1;
+            const bPref = preferred && b.type === preferred ? 0 : 1;
+            if (aPref !== bPref) return aPref - bPref;
+            return a.title.localeCompare(b.title);
+        });
+        sorted.forEach((routine) => {
             const row = document.createElement("div");
             row.className = "itemRow";
 
             const text = document.createElement("div");
             const title = document.createElement("div");
             title.className = "itemTitle";
-            const typeLabel = routine.type === "work" ? "Work" : (routine.type === "focus" ? "Focus" : "Routine");
+            const typeLabel = routine.type === "work"
+                ? "Work"
+                : (routine.type === "focus"
+                    ? "Focus"
+                    : (routine.type === "custom" ? "Custom" : "Routine"));
             title.textContent = routine.title || `${typeLabel} block`;
 
             const meta = document.createElement("div");
             meta.className = "itemMeta";
             let time = routine.time ? formatTime(routine.time) : "Anytime";
-            if (!routine.time && routine.type === "routine") {
+            if (routine.type === "work" && routine.time && routine.end) {
+                time = `${formatTime(routine.time)}-${formatTime(routine.end)}`;
+            } else if (!routine.time && routine.type === "routine") {
                 if (routine.anchor === "morning") time = "Wake time";
                 if (routine.anchor === "evening") time = "Bedtime";
             }
@@ -780,10 +828,84 @@
         });
     };
 
+    const renderShifts = () => {
+        if (!shiftList || !shiftEmpty || !routineShiftSelect) return;
+        shiftList.innerHTML = "";
+        routineShiftSelect.innerHTML = '<option value="">Select a shift</option>';
+        if (state.shifts.length === 0) {
+            shiftEmpty.style.display = "block";
+            return;
+        }
+        shiftEmpty.style.display = "none";
+        const sorted = state.shifts.slice().sort((a, b) => {
+            if (a.isDefault !== b.isDefault) return a.isDefault ? -1 : 1;
+            return (a.name || "").localeCompare(b.name || "");
+        });
+        sorted.forEach((shift) => {
+            const option = document.createElement("option");
+            const label = shift.name || "Work";
+            option.value = shift.id;
+            option.textContent = shift.isDefault ? `${label} (default)` : label;
+            routineShiftSelect.appendChild(option);
+
+            const row = document.createElement("div");
+            row.className = "itemRow";
+
+            const text = document.createElement("div");
+            const title = document.createElement("div");
+            title.className = "itemTitle";
+            title.textContent = label;
+
+            const meta = document.createElement("div");
+            meta.className = "itemMeta";
+            const commuteParts = [];
+            if (shift.commuteBefore) commuteParts.push(`-${shift.commuteBefore}m`);
+            if (shift.commuteAfter) commuteParts.push(`+${shift.commuteAfter}m`);
+            const commuteText = commuteParts.length ? ` - commute ${commuteParts.join(" / ")}` : "";
+            meta.textContent = `${formatTime(shift.start)}-${formatTime(shift.end)}${commuteText}`;
+
+            text.appendChild(title);
+            text.appendChild(meta);
+
+            const actions = document.createElement("div");
+            actions.className = "itemActions";
+
+            const useBtn = document.createElement("button");
+            useBtn.type = "button";
+            useBtn.className = "itemEdit";
+            useBtn.dataset.shiftUseId = shift.id;
+            useBtn.textContent = "Use";
+
+            const defaultBtn = document.createElement("button");
+            defaultBtn.type = "button";
+            defaultBtn.className = "itemEdit";
+            defaultBtn.dataset.shiftDefaultId = shift.id;
+            defaultBtn.textContent = shift.isDefault ? "Default" : "Set default";
+
+            const removeBtn = document.createElement("button");
+            removeBtn.type = "button";
+            removeBtn.className = "itemRemove";
+            removeBtn.dataset.shiftRemoveId = shift.id;
+            removeBtn.textContent = "Remove";
+
+            actions.appendChild(useBtn);
+            actions.appendChild(defaultBtn);
+            actions.appendChild(removeBtn);
+
+            row.appendChild(text);
+            row.appendChild(actions);
+            shiftList.appendChild(row);
+        });
+        if (routineShiftId && routineShiftId.value) {
+            routineShiftSelect.value = routineShiftId.value;
+        }
+    };
+
     const renderAll = () => {
         renderSleep();
         renderTasks();
         renderRoutines();
+        renderShifts();
         renderWeekTemplate();
     };
 
@@ -1005,6 +1127,76 @@
         }
     };
 
+    const upsertShift = (shift) => {
+        const index = state.shifts.findIndex((item) => item.id === shift.id);
+        if (index >= 0) {
+            state.shifts[index] = shift;
+        } else {
+            state.shifts.push(shift);
+        }
+    };
+
+    const addShift = async (payload) => {
+        if (storageMode === "remote") {
+            try {
+                const data = await apiFetch(payload, "POST");
+                if (data && data.shift) {
+                    upsertShift(normalizeShift(data.shift));
+                    renderAll();
+                    return;
+                }
+            } catch {
+                switchToLocal();
+            }
+        }
+        if (storageMode === "local") {
+            const id = payload.id || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+            const localShift = normalizeShift({ id, ...payload });
+            if (payload.is_default) {
+                state.shifts = state.shifts.map((item) => ({ ...item, isDefault: false }));
+                localShift.isDefault = true;
+            }
+            upsertShift(localShift);
+            persistLocal();
+            renderAll();
+        }
+    };
+
+    const setDefaultShift = async (id) => {
+        if (!id) return;
+        if (storageMode === "remote") {
+            try {
+                await apiFetch({ action: "set_default_shift", id }, "POST");
+            } catch {
+                switchToLocal();
+            }
+        }
+        state.shifts = state.shifts.map((shift) => ({
+            ...shift,
+            isDefault: String(shift.id) === String(id),
+        }));
+        if (storageMode === "local") {
+            persistLocal();
+        }
+        renderAll();
+    };
+
+    const removeShift = async (id) => {
+        if (!id) return;
+        if (storageMode === "remote") {
+            try {
+                await apiFetch({ action: "delete_shift", id }, "POST");
+            } catch {
+                switchToLocal();
+            }
+        }
+        state.shifts = state.shifts.filter((shift) => shift.id !== id);
+        if (storageMode === "local") {
+            persistLocal();
+        }
+        renderAll();
+    };
+
     const removeRule = async (id) => {
         if (!id) return;
         if (storageMode === "remote") {
@@ -1073,19 +1265,7 @@
     const sleepDaySelect = sleepForm ? sleepForm.querySelector("#sleep-day") : null;
 
     const sleepMinutesForRepeat = () => {
-        const repeat = sleepRepeatSelect ? normalizeText(sleepRepeatSelect.value) : "";
-        const dayValue = sleepDaySelect ? parseInt(sleepDaySelect.value, 10) : null;
-        const base = recommendedSleepMinutes(ageYears);
-        const weekendBonus = 120;
-        if (repeat === "weekends") {
-            return base + weekendBonus;
-        }
-        if (repeat === "day" && Number.isFinite(dayValue)) {
-            if (dayValue === 0 || dayValue === 6) {
-                return base + weekendBonus;
-            }
-        }
-        return base;
+        return recommendedSleepMinutes(ageYears);
     };
 
     const updateSleepEnd = () => {
@@ -1163,11 +1343,32 @@
     const routineTitleField = routineForm ? routineForm.querySelector("[data-title-field]") : null;
     const routineTitleInput = routineForm ? routineForm.querySelector("#routine-title") : null;
     const routineTimeFieldWrap = routineForm ? routineForm.querySelector("[data-time-field-wrap]") : null;
+    const routineStartField = routineForm ? routineForm.querySelector("#routine-time")?.closest("[data-time-field]") : null;
+    const routineEndInput = routineForm ? routineForm.querySelector("#routine-end") : null;
+    const routineEndField = routineEndInput ? routineEndInput.closest("[data-time-field]") : null;
+    const routineShiftSelect = routineForm ? routineForm.querySelector("[data-shift-select]") : null;
+    const routineShiftUse = routineForm ? routineForm.querySelector("[data-shift-use]") : null;
+    const routineShiftId = routineForm ? routineForm.querySelector("[data-shift-id]") : null;
+    const routineCustomButton = routineForm ? routineForm.querySelector("[data-custom-window]") : null;
     const routineAnchorField = routineForm ? routineForm.querySelector("[data-anchor-field]") : null;
     const routineAnchorNote = routineForm ? routineForm.querySelector("[data-anchor-note]") : null;
     const routineSubmit = routineForm ? routineForm.querySelector("[data-routine-submit]") : null;
     const routineCancel = routineForm ? routineForm.querySelector("[data-routine-cancel]") : null;
+    const shiftPanel = routineForm ? routineForm.querySelector("[data-shift-panel]") : null;
+    const shiftNameInput = routineForm ? routineForm.querySelector("#shift-name") : null;
+    const shiftStartInput = routineForm ? routineForm.querySelector("#shift-start") : null;
+    const shiftEndInput = routineForm ? routineForm.querySelector("#shift-end") : null;
+    const shiftStartField = shiftStartInput ? shiftStartInput.closest("[data-time-field]") : null;
+    const shiftEndField = shiftEndInput ? shiftEndInput.closest("[data-time-field]") : null;
+    const shiftCommuteBeforeInput = routineForm ? routineForm.querySelector("#shift-commute-before") : null;
+    const shiftCommuteAfterInput = routineForm ? routineForm.querySelector("#shift-commute-after") : null;
+    const shiftDefaultInput = routineForm ? routineForm.querySelector("#shift-default") : null;
+    const shiftSaveBtn = routineForm ? routineForm.querySelector("[data-shift-save]") : null;
+    const shiftClearBtn = routineForm ? routineForm.querySelector("[data-shift-clear]") : null;
+    const shiftList = routineForm ? routineForm.querySelector("[data-shift-list]") : null;
+    const shiftEmpty = routineForm ? routineForm.querySelector("[data-shift-empty]") : null;
     let editingRoutineId = null;
+    let editingShiftId = null;
 
     const anchorTitle = (anchor) => {
         if (anchor === "morning") return "Morning routine";
@@ -1178,7 +1379,7 @@
     const setRoutineEditState = (routine) => {
         editingRoutineId = routine ? routine.id : null;
         if (routineSubmit) {
-            routineSubmit.textContent = routine ? "Update block" : "Add block";
+            routineSubmit.textContent = "Save";
         }
         if (routineCancel) {
             routineCancel.style.display = routine ? "inline-flex" : "none";
@@ -1189,19 +1390,33 @@
         if (!routineForm) return;
         const type = routineTypeSelect ? routineTypeSelect.value : "routine";
         const isRoutine = type === "routine";
+        const isWork = type === "work";
         if (routineAnchorField) {
             routineAnchorField.style.display = isRoutine ? "grid" : "none";
         }
         const anchor = isRoutine && routineAnchorSelect ? routineAnchorSelect.value : "custom";
         const needsCustomTitle = !isRoutine || anchor === "custom";
         if (routineTitleField) {
-            routineTitleField.style.display = needsCustomTitle ? "grid" : "none";
+            routineTitleField.style.display = needsCustomTitle || isWork ? "grid" : "none";
         }
         if (routineTimeFieldWrap) {
             routineTimeFieldWrap.style.display = (!isRoutine || anchor === "custom") ? "grid" : "none";
         }
+        if (routineEndField) {
+            routineEndField.style.display = isWork ? "grid" : "none";
+        }
+        if (routineShiftSelect) {
+            routineShiftSelect.closest("[data-work-shift-select]")?.style.setProperty("display", isWork ? "grid" : "none");
+        }
+        if (shiftPanel) {
+            shiftPanel.classList.toggle("is-active", isWork);
+        }
+        if (!isWork) {
+            if (routineShiftId) routineShiftId.value = "";
+            if (routineShiftSelect) routineShiftSelect.value = "";
+        }
         if (routineTitleInput) {
-            routineTitleInput.required = needsCustomTitle;
+            routineTitleInput.required = needsCustomTitle && !isWork;
         }
         if (routineAnchorNote) {
             routineAnchorNote.textContent = "";
@@ -1212,6 +1427,49 @@
                     : "Ends at bedtime based on your sleep schedule.";
             }
         }
+        renderRoutines();
+    };
+
+    const clearShiftForm = () => {
+        editingShiftId = null;
+        if (shiftNameInput) shiftNameInput.value = "";
+        if (shiftStartField) setFieldValue(shiftStartField, "", { emit: false });
+        if (shiftEndField) setFieldValue(shiftEndField, "", { emit: false });
+        if (shiftCommuteBeforeInput) shiftCommuteBeforeInput.value = "";
+        if (shiftCommuteAfterInput) shiftCommuteAfterInput.value = "";
+        if (shiftDefaultInput) shiftDefaultInput.checked = false;
+    };
+
+    const fillShiftForm = (shift) => {
+        if (!shift) return;
+        editingShiftId = shift.id;
+        if (shiftNameInput) shiftNameInput.value = shift.name || "";
+        if (shiftStartField) setFieldValue(shiftStartField, shift.start || "", { emit: false });
+        if (shiftEndField) setFieldValue(shiftEndField, shift.end || "", { emit: false });
+        if (shiftCommuteBeforeInput) shiftCommuteBeforeInput.value = shift.commuteBefore ? String(shift.commuteBefore) : "";
+        if (shiftCommuteAfterInput) shiftCommuteAfterInput.value = shift.commuteAfter ? String(shift.commuteAfter) : "";
+        if (shiftDefaultInput) shiftDefaultInput.checked = shift.isDefault;
+    };
+
+    const applyShiftToRoutine = (shiftId) => {
+        if (!shiftId) return;
+        const shift = state.shifts.find((item) => String(item.id) === String(shiftId));
+        if (!shift) return;
+        if (routineTypeSelect) {
+            routineTypeSelect.value = "work";
+        }
+        updateRoutineFormVisibility();
+        if (routineShiftSelect) routineShiftSelect.value = String(shift.id);
+        if (routineShiftId) routineShiftId.value = String(shift.id);
+        if (routineTitleInput && !routineTitleInput.value.trim()) {
+            routineTitleInput.value = shift.name || "Work";
+        }
+        if (routineStartField) {
+            setFieldValue(routineStartField, shift.start || "", { emit: false });
+        }
+        if (routineEndField) {
+            setFieldValue(routineEndField, shift.end || "", { emit: false });
+        }
     };
 
     if (routineTypeSelect) {
@@ -1219,6 +1477,51 @@
     }
     if (routineAnchorSelect) {
         routineAnchorSelect.addEventListener("change", updateRoutineFormVisibility);
+    }
+    if (routineCustomButton && routineTypeSelect) {
+        routineCustomButton.addEventListener("click", () => {
+            routineTypeSelect.value = "custom";
+            updateRoutineFormVisibility();
+        });
+    }
+
+    if (routineShiftUse) {
+        routineShiftUse.addEventListener("click", () => {
+            const shiftId = routineShiftSelect ? routineShiftSelect.value : "";
+            if (!shiftId) return;
+            applyShiftToRoutine(shiftId);
+        });
+    }
+
+    if (shiftSaveBtn) {
+        shiftSaveBtn.addEventListener("click", () => {
+            const name = normalizeText(shiftNameInput ? shiftNameInput.value : "");
+            const start = normalizeText(shiftStartInput ? shiftStartInput.value : "");
+            const end = normalizeText(shiftEndInput ? shiftEndInput.value : "");
+            if (!start || !end) return;
+            const commuteBefore = shiftCommuteBeforeInput && shiftCommuteBeforeInput.value
+                ? parseInt(shiftCommuteBeforeInput.value, 10)
+                : 0;
+            const commuteAfter = shiftCommuteAfterInput && shiftCommuteAfterInput.value
+                ? parseInt(shiftCommuteAfterInput.value, 10)
+                : 0;
+            const payload = {
+                action: editingShiftId ? "update_shift" : "add_shift",
+                id: editingShiftId,
+                name,
+                start,
+                end,
+                commute_before: Number.isFinite(commuteBefore) ? commuteBefore : 0,
+                commute_after: Number.isFinite(commuteAfter) ? commuteAfter : 0,
+                is_default: Boolean(shiftDefaultInput && shiftDefaultInput.checked),
+            };
+            addShift(payload);
+            clearShiftForm();
+        });
+    }
+
+    if (shiftClearBtn) {
+        shiftClearBtn.addEventListener("click", clearShiftForm);
     }
 
     if (routineCancel) {
@@ -1232,9 +1535,24 @@
             routineForm.querySelectorAll("[data-routine-day]").forEach((input) => {
                 input.checked = false;
             });
+            if (routineShiftId) routineShiftId.value = "";
+            if (routineShiftSelect) routineShiftSelect.value = "";
             clearRoutineTasks();
             setRoutineEditState(null);
             updateRoutineFormVisibility();
+        });
+    }
+
+    if (routineStartField) {
+        routineStartField.addEventListener("timechange", () => {
+            if (routineShiftId) routineShiftId.value = "";
+            if (routineShiftSelect) routineShiftSelect.value = "";
+        });
+    }
+    if (routineEndField) {
+        routineEndField.addEventListener("timechange", () => {
+            if (routineShiftId) routineShiftId.value = "";
+            if (routineShiftSelect) routineShiftSelect.value = "";
         });
     }
 
@@ -1246,8 +1564,8 @@
             const anchor = type === "routine" && routineAnchorSelect ? routineAnchorSelect.value : "custom";
             const customTitle = normalizeText(formData.get("title"));
             const title = type === "routine" && anchor !== "custom" ? anchorTitle(anchor) : customTitle;
-            if (!title) return;
             const time = normalizeText(formData.get("time"));
+            const end = normalizeText(formData.get("end"));
             const repeat = normalizeText(formData.get("repeat")) || "daily";
             const dayInputs = Array.from(routineForm.querySelectorAll("[data-routine-day]"));
             const days = dayInputs
@@ -1255,7 +1573,9 @@
                 .map((input) => parseInt(input.value, 10))
                 .filter((value) => Number.isFinite(value) && value >= 0 && value <= 6);
             if (repeat === "day" && days.length === 0) return;
-            if ((type !== "routine" || anchor === "custom") && !time) return;
+            if (type === "work") {
+                if (!time || !end) return;
+            } else if ((type !== "routine" || anchor === "custom") && !time) return;
             const tasks = Array.from(routineForm.querySelectorAll("[data-task-row]"))
                 .map((row) => {
                     const titleField = row.querySelector("[data-task-title]");
@@ -1266,17 +1586,20 @@
                     return taskTitle ? { title: taskTitle, minutes } : null;
                 })
                 .filter((item) => item && item.title !== "");
+            const shiftId = routineShiftId && routineShiftId.value ? parseInt(routineShiftId.value, 10) : null;
             const payload = {
                 action: editingRoutineId ? "update_routine" : "add_routine",
                 id: editingRoutineId,
-                title,
+                title: title || (type === "work" ? "Work" : ""),
                 time: type === "routine" && anchor !== "custom" ? "" : time,
+                end: type === "work" ? end : "",
                 repeat,
                 day: days[0],
                 days,
                 tasks,
                 block_type: type,
                 anchor,
+                shift_id: shiftId,
             };
             addRoutine(payload);
             routineForm.reset();
@@ -1287,6 +1610,8 @@
             dayInputs.forEach((input) => {
                 input.checked = false;
             });
+            if (routineShiftId) routineShiftId.value = "";
+            if (routineShiftSelect) routineShiftSelect.value = "";
             clearRoutineTasks();
             setRoutineEditState(null);
             updateRoutineFormVisibility();
@@ -1303,6 +1628,7 @@
         row.className = "taskRow";
         row.dataset.taskRow = "true";
         row.draggable = true;
+        row.setAttribute("draggable", "true");
 
         const drag = document.createElement("button");
         drag.type = "button";
@@ -1311,6 +1637,8 @@
         drag.textContent = "||";
         drag.setAttribute("aria-label", "Drag to reorder");
         drag.draggable = true;
+        drag.setAttribute("draggable", "true");
+        drag.addEventListener("mousedown", (event) => event.preventDefault());
 
         const input = document.createElement("input");
         input.className = "input compact";
@@ -1392,6 +1720,16 @@
         if (timeField) {
             const fieldWrap = timeField.closest("[data-time-field]");
             setFieldValue(fieldWrap, routine.time || "");
+        }
+        if (routineEndInput) {
+            const endField = routineEndInput.closest("[data-time-field]");
+            setFieldValue(endField, routine.end || "");
+        }
+        if (routineShiftId) {
+            routineShiftId.value = routine.shiftId ? String(routine.shiftId) : "";
+        }
+        if (routineShiftSelect) {
+            routineShiftSelect.value = routine.shiftId ? String(routine.shiftId) : "";
         }
         const repeatSelect = routineForm.querySelector("[data-routine-repeat]");
         if (repeatSelect) repeatSelect.value = routine.repeat || "daily";
@@ -1493,6 +1831,21 @@
             }
             row.remove();
             updateRoutineTotal();
+            return;
+        }
+        const shiftUse = event.target.closest("[data-shift-use-id]");
+        if (shiftUse) {
+            applyShiftToRoutine(shiftUse.dataset.shiftUseId);
+            return;
+        }
+        const shiftDefault = event.target.closest("[data-shift-default-id]");
+        if (shiftDefault) {
+            setDefaultShift(shiftDefault.dataset.shiftDefaultId);
+            return;
+        }
+        const shiftRemove = event.target.closest("[data-shift-remove-id]");
+        if (shiftRemove) {
+            removeShift(shiftRemove.dataset.shiftRemoveId);
             return;
         }
         const editBtn = event.target.closest("[data-edit-id]");
