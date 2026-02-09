@@ -38,6 +38,7 @@ if ($unitSystem === 'imperial') {
 }
 $unitSystem = $unitSystem === 'imperial' ? 'imperial' : 'metric';
 $consent = !empty($profile['consent_health']);
+$adaptiveSleep = isset($profile['adaptive_sleep']) ? (int)$profile['adaptive_sleep'] : 1;
 $cookieKey = 'candor_time_format_' . $userId;
 $timeFormat = $_COOKIE[$cookieKey] ?? '24';
 $timeFormat = $timeFormat === '12' ? '12' : '24';
@@ -171,6 +172,10 @@ $candorVersion = 'v0.2';
 						<div class="profileSection">
 							<div class="sectionTitle">Refinements</div>
 							<div class="sectionHint">More metrics land here once essentials are set.</div>
+							<label class="consentLine">
+								<input type="checkbox" name="adaptive_sleep" value="1" <?= $adaptiveSleep ? 'checked' : '' ?>>
+								<span>Adaptive sleep catch-up (roll missed sleep into Saturday mornings).</span>
+							</label>
 						</div>
 
 						<label class="consentLine">

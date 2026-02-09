@@ -27,6 +27,13 @@
 }
 
 * { box-sizing: border-box; }
+
+button,
+input,
+select,
+textarea {
+    font-family: var(--font-body);
+}
 html, body { height: 100%; }
 
 body {
@@ -627,7 +634,8 @@ body.is-do .welcome {
     gap: 8px;
     flex: 1;
     overflow-x: auto;
-    padding-bottom: 4px;
+    padding-bottom: 6px;
+    scrollbar-gutter: stable;
 }
 
 .railEmpty {
@@ -757,34 +765,6 @@ body.is-do .welcome {
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.timelineToggles {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.toggleChip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 8px;
-    border-radius: 999px;
-    border: 1px solid rgba(185, 219, 242, 0.6);
-    background: rgba(185, 219, 242, 0.25);
-    font-size: 10px;
-    letter-spacing: 0.6px;
-    color: var(--ink-soft);
-    cursor: pointer;
-    user-select: none;
-}
-
-.toggleChip input {
-    margin: 0;
-    width: 12px;
-    height: 12px;
-    accent-color: var(--blue-strong);
 }
 
 .timelineGrid {
@@ -1747,6 +1727,10 @@ body.is-do .welcome {
     gap: 10px;
 }
 
+.editShiftRow {
+    grid-template-columns: minmax(0, 1fr);
+}
+
 .editField {
     display: grid;
     gap: 6px;
@@ -1970,6 +1954,7 @@ body.is-do .welcome {
     height: var(--time-wheel-height);
     overflow-y: auto;
     padding: var(--time-wheel-pad) 0;
+    scroll-padding: var(--time-wheel-pad) 0;
     scroll-snap-type: y mandatory;
     scroll-snap-stop: always;
     scrollbar-width: none;

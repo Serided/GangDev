@@ -105,10 +105,7 @@ $candorVersion = 'v0.2';
 							<div class="routineGrid">
 								<div class="routineMeta">
 									<div class="field">
-										<div class="labelRow">
-											<label class="label" for="block-type">Window type</label>
-											<button class="btn mini" type="button" data-custom-window>Custom</button>
-										</div>
+										<label class="label" for="block-type">Window type</label>
 										<select class="input compact select" id="block-type" name="block_type" data-block-type>
 											<option value="routine">Routine</option>
 											<option value="work">Work</option>
@@ -130,7 +127,7 @@ $candorVersion = 'v0.2';
 											<select class="input compact select" id="work-shift-select" data-shift-select>
 												<option value="">Select a shift</option>
 											</select>
-											<button class="btn mini" type="button" data-shift-use>Use</button>
+											<button class="btn mini shiftUseBtn" type="button" data-shift-use>Use</button>
 										</div>
 										<input type="hidden" name="shift_id" data-shift-id>
 									</div>
@@ -153,6 +150,58 @@ $candorVersion = 'v0.2';
 												<button class="timeButton" type="button" data-time-display>--:--</button>
 											</div>
 										</div>
+									</div>
+									<div class="fieldHint" data-anchor-note></div>
+									<div class="shiftPanel" data-shift-panel>
+										<div class="shiftHeader">
+											<div class="label">Shifts</div>
+										</div>
+										<div class="shiftGrid">
+											<div class="field">
+												<label class="label" for="shift-template">Select shift</label>
+												<select class="input compact select" id="shift-template" data-shift-template>
+													<option value="">New shift</option>
+												</select>
+											</div>
+											<div class="field">
+												<label class="label" for="shift-name">Shift name (optional)</label>
+												<input class="input compact" id="shift-name" type="text" placeholder="Work">
+											</div>
+											<div class="fieldRow shiftRowLine">
+												<div class="field">
+													<label class="label" for="shift-commute-before">Commute in</label>
+													<input class="input compact" id="shift-commute-before" type="number" min="0" step="5" inputmode="numeric" placeholder="15">
+												</div>
+												<div class="field">
+													<label class="label" for="shift-start-hour">Start</label>
+													<div class="timeField" data-time-field data-time-label="Shift start" data-time-empty="--:--">
+														<input type="hidden" id="shift-start" data-time-output>
+														<button class="timeButton" type="button" data-time-display>--:--</button>
+													</div>
+												</div>
+												<div class="field">
+													<label class="label" for="shift-end-hour">End</label>
+													<div class="timeField" data-time-field data-time-label="Shift end" data-time-empty="--:--">
+														<input type="hidden" id="shift-end" data-time-output>
+														<button class="timeButton" type="button" data-time-display>--:--</button>
+													</div>
+												</div>
+												<div class="field">
+													<label class="label" for="shift-commute-after">Commute out</label>
+													<input class="input compact" id="shift-commute-after" type="number" min="0" step="5" inputmode="numeric" placeholder="15">
+												</div>
+											</div>
+											<label class="toggleLine shiftDefault">
+												<input type="checkbox" id="shift-default">
+												<span>Default shift</span>
+											</label>
+										</div>
+										<div class="shiftActions">
+											<button class="btn primary" type="button" data-shift-save>Save shift</button>
+											<button class="btn ghost" type="button" data-shift-clear>Clear</button>
+										</div>
+										<div class="itemList shiftList" data-shift-list></div>
+										<div class="listEmpty" data-shift-empty>No shifts saved yet.</div>
 									</div>
 									<div class="field">
 										<label class="label" for="routine-repeat">Repeat</label>
@@ -195,52 +244,6 @@ $candorVersion = 'v0.2';
 												<span>Sat</span>
 											</label>
 										</div>
-									</div>
-									<div class="fieldHint" data-anchor-note></div>
-									<div class="shiftPanel" data-shift-panel>
-										<div class="shiftHeader">
-											<div class="label">Shifts</div>
-										</div>
-										<div class="shiftGrid">
-											<div class="field">
-												<label class="label" for="shift-name">Shift name (optional)</label>
-												<input class="input compact" id="shift-name" type="text" placeholder="Work">
-											</div>
-											<div class="fieldRow timeRow">
-												<div class="field">
-													<label class="label" for="shift-start-hour">Start</label>
-													<div class="timeField" data-time-field data-time-label="Shift start" data-time-empty="--:--">
-														<input type="hidden" id="shift-start" data-time-output>
-														<button class="timeButton" type="button" data-time-display>--:--</button>
-													</div>
-												</div>
-												<div class="field">
-													<label class="label" for="shift-end-hour">End</label>
-													<div class="timeField" data-time-field data-time-label="Shift end" data-time-empty="--:--">
-														<input type="hidden" id="shift-end" data-time-output>
-														<button class="timeButton" type="button" data-time-display>--:--</button>
-													</div>
-												</div>
-											</div>
-											<div class="field">
-												<label class="label" for="shift-commute-before">Commute before (min)</label>
-												<input class="input compact" id="shift-commute-before" type="number" min="0" step="5" inputmode="numeric" placeholder="15">
-											</div>
-											<div class="field">
-												<label class="label" for="shift-commute-after">Commute after (min)</label>
-												<input class="input compact" id="shift-commute-after" type="number" min="0" step="5" inputmode="numeric" placeholder="15">
-											</div>
-											<label class="toggleLine shiftDefault">
-												<input type="checkbox" id="shift-default">
-												<span>Default shift</span>
-											</label>
-										</div>
-										<div class="shiftActions">
-											<button class="btn primary" type="button" data-shift-save>Save shift</button>
-											<button class="btn ghost" type="button" data-shift-clear>Clear</button>
-										</div>
-										<div class="itemList shiftList" data-shift-list></div>
-										<div class="listEmpty" data-shift-empty>No shifts saved yet.</div>
 									</div>
 								</div>
 								<div class="routineTasks">
@@ -411,9 +414,9 @@ $candorVersion = 'v0.2';
 			</div>
 			<div class="timePickerManual">
 				<div class="timeManualInputs">
-					<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-hour>
+					<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-hour list="time-hour-options">
 					<span>:</span>
-					<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-minute>
+					<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-minute list="time-minute-options">
 				</div>
 				<div class="timeMeridiem" data-time-meridiem>
 					<button class="meridiemBtn" type="button" data-meridiem="am">AM</button>
@@ -424,6 +427,8 @@ $candorVersion = 'v0.2';
 				<button class="btn ghost" type="button" data-time-cancel>Cancel</button>
 				<button class="btn primary" type="button" data-time-apply>Set</button>
 			</div>
+			<datalist id="time-hour-options" data-time-list="hours"></datalist>
+			<datalist id="time-minute-options" data-time-list="minutes"></datalist>
 		</div>
 	</div>
 

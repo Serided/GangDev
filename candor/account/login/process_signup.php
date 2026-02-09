@@ -93,12 +93,13 @@ $user_id = $stmt->fetchColumn();
 if ($birthdate !== '' && $consentHealth) {
 	try {
 		$profileStmt = $pdo->prepare("
-			INSERT INTO candor.user_profiles (user_id, birthdate, unit_system, consent_health, consent_at, created_at, updated_at, onboarding_completed_at)
-			VALUES (?, ?, 'metric', TRUE, NOW(), NOW(), NOW(), NOW())
+			INSERT INTO candor.user_profiles (user_id, birthdate, unit_system, consent_health, adaptive_sleep, consent_at, created_at, updated_at, onboarding_completed_at)
+			VALUES (?, ?, 'metric', TRUE, TRUE, NOW(), NOW(), NOW(), NOW())
 			ON CONFLICT (user_id) DO UPDATE SET
 				birthdate = EXCLUDED.birthdate,
 				unit_system = EXCLUDED.unit_system,
 				consent_health = TRUE,
+				adaptive_sleep = TRUE,
 				consent_at = NOW(),
 				updated_at = NOW(),
 				onboarding_completed_at = COALESCE(candor.user_profiles.onboarding_completed_at, NOW())

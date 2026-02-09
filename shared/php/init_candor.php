@@ -117,6 +117,7 @@ function candor_profile_row($user_id) {
 			       unit_system,
 			       timezone,
 			       consent_health::int AS consent_health,
+			       adaptive_sleep::int AS adaptive_sleep,
 			       onboarding_completed_at
 			FROM candor.user_profiles
 			WHERE user_id = :id
@@ -130,6 +131,7 @@ function candor_profile_row($user_id) {
 				SELECT user_id, birthdate, height_cm, weight_kg,
 				       unit_system,
 				       consent_health::int AS consent_health,
+				       adaptive_sleep::int AS adaptive_sleep,
 				       onboarding_completed_at
 				FROM candor.user_profiles
 				WHERE user_id = :id

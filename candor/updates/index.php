@@ -46,12 +46,13 @@ $candorVersion = 'v0.2';
                     </div>
 					<h3>Create cadence + sleep structure</h3>
 					<ul class="updateList">
-						<li>Create expands cadence windows with work shifts (commute included) and quick-use shift fills.</li>
-						<li>Sleep schedules auto-calc end time from age; Saturday catch-up rolls missed sleep under 8h up to a 12h cap.</li>
-						<li>Daily timeline adds sleep recovery toggles (+1h/+2h) with editable sleep logs.</li>
-						<li>Work shifts appear as locked windows and can be overridden per day.</li>
-						<li>Scroll-wheel time picker refined for drag, wheel, manual entry, and 12/24-hour modes.</li>
-						<li>Notes open in a detail overlay and tasks capture estimated time.</li>
+						<li>Create expands cadence windows with work shifts (commute included), shift templates, and custom window end times.</li>
+						<li>Sleep schedules auto-calc end time from age; adaptive Saturday catch-up rolls missed sleep under 8h up to a 12h cap.</li>
+						<li>Daily timeline adds shift-aware edits with Start/Finish controls and per-day override times.</li>
+						<li>Work shifts appear as pinned windows and can be swapped or updated day-by-day.</li>
+						<li>Scroll-wheel time picker refined for drag, click-to-jump, manual entry, and 12/24-hour modes.</li>
+						<li>Week template adapts to added windows with mobile day-by-day side scroll.</li>
+						<li>Notes open in a detail overlay; create fields are tightened to keep cadence inputs compact.</li>
 						<li>All-day events stay pinned (birthday) with month plan-ahead date picks.</li>
 					</ul>
                 </article>

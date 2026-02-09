@@ -30,6 +30,7 @@ if ($unitSystem === 'imperial') {
 }
 $unitSystem = $unitSystem === 'imperial' ? 'imperial' : 'metric';
 $consent = !empty($profile['consent_health']);
+$adaptiveSleep = isset($profile['adaptive_sleep']) ? (int)$profile['adaptive_sleep'] : 1;
 $cookieKey = 'candor_time_format_' . $userId;
 $timeFormat = $_COOKIE[$cookieKey] ?? '24';
 $timeFormat = $timeFormat === '12' ? '12' : '24';
@@ -55,7 +56,7 @@ $candorVersion = 'v0.2';
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
-<body class="is-do" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-user-name="<?= htmlspecialchars($name !== '' ? $name : $email) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>">
+<body class="is-do" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-user-name="<?= htmlspecialchars($name !== '' ? $name : $email) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>" data-adaptive-sleep="<?= $adaptiveSleep ? '1' : '0' ?>">
 
 <div class="page">
 	<?php require '/var/www/gangdev/candor/files/php/nav.php'; ?>
@@ -145,16 +146,6 @@ $candorVersion = 'v0.2';
 					<span>Today timeline</span>
 					<div class="timelineMeta">
 						<span data-day-short></span>
-						<div class="timelineToggles" data-sleep-extras>
-							<label class="toggleChip">
-								<input type="checkbox" data-sleep-extra="60">
-								<span>Sick +1h</span>
-							</label>
-							<label class="toggleChip">
-								<input type="checkbox" data-sleep-extra="120">
-								<span>Sick +2h</span>
-							</label>
-						</div>
 					</div>
 				</div>
 				<div class="timelineGrid" data-day-grid></div>
@@ -211,9 +202,15 @@ $candorVersion = 'v0.2';
 				<option value="note">Note</option>
 				<option value="event">Event</option>
 				<option value="window">Window</option>
+				<option value="shift">Work shift</option>
 			</select>
 
-			<div class="createRow">
+			<div class="createField" data-kind="shift">
+				<label class="label" for="create-shift">Shift</label>
+				<select class="input compact select" id="create-shift" data-create-shift></select>
+			</div>
+
+			<div class="createRow" data-kind="task,note,window,event" data-display="flex">
 				<div class="createField createTitleField">
 					<label class="label" for="create-title">Title</label>
 					<input class="input" id="create-title" type="text" name="title" placeholder="What are you doing?">
@@ -286,6 +283,12 @@ $candorVersion = 'v0.2';
 			<button class="iconBtn" type="button" data-edit-close aria-label="Close">&times;</button>
 		</div>
 		<div class="editBody">
+			<div class="editRow editShiftRow" data-edit-shift-row style="display:none;">
+				<div class="editField">
+					<label class="label">Shift</label>
+					<select class="input compact select" data-edit-shift-select></select>
+				</div>
+			</div>
 			<div class="editRow">
 				<div class="editField">
 					<label class="label">Start</label>
@@ -339,9 +342,9 @@ $candorVersion = 'v0.2';
 		</div>
 		<div class="timePickerManual">
 			<div class="timeManualInputs">
-				<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-hour>
+				<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-hour list="time-hour-options">
 				<span>:</span>
-				<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-minute>
+				<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-minute list="time-minute-options">
 			</div>
 			<div class="timeMeridiem" data-time-meridiem>
 				<button class="meridiemBtn" type="button" data-meridiem="am">AM</button>
@@ -352,6 +355,8 @@ $candorVersion = 'v0.2';
 			<button class="btn ghost" type="button" data-time-cancel>Cancel</button>
 			<button class="btn primary" type="button" data-time-apply>Set</button>
 		</div>
+		<datalist id="time-hour-options" data-time-list="hours"></datalist>
+		<datalist id="time-minute-options" data-time-list="minutes"></datalist>
 	</div>
 </div>
 

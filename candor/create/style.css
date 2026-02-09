@@ -26,6 +26,13 @@
 }
 
 * { box-sizing: border-box; }
+
+button,
+input,
+select,
+textarea {
+    font-family: var(--font-body);
+}
 html, body { height: 100%; overflow: hidden; }
 
 body {
@@ -330,6 +337,11 @@ a { color: inherit; text-decoration: none; }
     min-height: 0;
 }
 
+.scheduleCard {
+    --sleep-time-width: 92px;
+    --sleep-select-width: 132px;
+}
+
 .savedSection {
     display: grid;
     gap: 4px;
@@ -337,6 +349,7 @@ a { color: inherit; text-decoration: none; }
     grid-row: 1;
     min-height: 0;
     align-self: start;
+    align-content: start;
 }
 
 .savedScroll {
@@ -402,15 +415,28 @@ a { color: inherit; text-decoration: none; }
 }
 
 .scheduleCard .formGrid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr);
+    grid-template-columns: var(--sleep-time-width) var(--sleep-time-width) var(--sleep-select-width);
     max-width: 100%;
     width: 100%;
     gap: 3px;
+    justify-content: start;
 }
 
 .scheduleCard .field-repeat,
 .scheduleCard .field-day {
     grid-column: 3;
+    max-width: var(--sleep-select-width);
+    justify-self: start;
+}
+
+.scheduleCard .field-time {
+    justify-self: start;
+    width: var(--sleep-time-width);
+}
+
+.scheduleCard .timeField {
+    width: var(--sleep-time-width);
+    max-width: var(--sleep-time-width);
 }
 
 .routineForm {
@@ -431,14 +457,20 @@ a { color: inherit; text-decoration: none; }
 
 .fieldRow.timeRow {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(88px, 120px));
     gap: 6px;
+    justify-content: start;
 }
 
 .shiftRow {
     display: flex;
     align-items: center;
     gap: 6px;
+}
+
+.shiftUseBtn {
+    min-height: 34px;
+    padding: 0 12px;
 }
 
 .fieldWide {
@@ -508,11 +540,13 @@ a { color: inherit; text-decoration: none; }
     margin-top: 6px;
     display: grid;
     gap: 4px;
+    max-width: calc((var(--sleep-time-width) * 2) + var(--sleep-select-width) + 8px);
 }
 
 .sleepSummary .itemRow {
     padding: 6px 8px;
     font-size: 11px;
+    min-width: 150px;
 }
 
 .routineForm {
@@ -521,7 +555,7 @@ a { color: inherit; text-decoration: none; }
 
 .routineLayout {
     display: grid;
-    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr) minmax(0, 0.7fr);
+    grid-template-columns: minmax(0, 0.6fr) minmax(0, 1fr) minmax(0, 0.6fr);
     gap: 12px;
     align-items: start;
     min-height: 0;
@@ -549,6 +583,21 @@ a { color: inherit; text-decoration: none; }
     gap: 8px;
     grid-column: 1;
     min-height: 0;
+}
+
+.routineMeta .field,
+.routineMeta .fieldRow {
+    justify-self: start;
+}
+
+.routineMeta .field {
+    max-width: 170px;
+}
+
+.routineMeta .input.compact,
+.routineMeta .select,
+.routineMeta .timeField {
+    max-width: 170px;
 }
 
 .routineTasksLabel {
@@ -580,7 +629,14 @@ a { color: inherit; text-decoration: none; }
 .shiftGrid {
     display: grid;
     gap: 6px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.shiftRowLine {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(64px, 1fr));
+    gap: 4px;
+    align-items: end;
 }
 
 .shiftDefault {
@@ -595,6 +651,10 @@ a { color: inherit; text-decoration: none; }
 .shiftList {
     display: grid;
     gap: 8px;
+    max-height: clamp(120px, 18vh, 200px);
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    padding-right: 6px;
 }
 
 .shiftList .itemRow {
@@ -654,7 +714,7 @@ a { color: inherit; text-decoration: none; }
     height: clamp(120px, 18vh, 160px);
     overflow-y: auto;
     scrollbar-gutter: stable;
-    padding-right: 16px;
+    padding-right: 20px;
 }
 
 .taskRow {
@@ -912,6 +972,11 @@ a { color: inherit; text-decoration: none; }
     border-color: rgba(230, 160, 106, 0.55);
 }
 
+.weekBlock.is-work {
+    background: rgba(90, 143, 185, 0.32);
+    border-color: rgba(90, 143, 185, 0.6);
+}
+
 .weekBlock.is-evening {
     background: rgba(243, 200, 115, 0.35);
     border-color: rgba(243, 200, 115, 0.65);
@@ -1103,6 +1168,7 @@ a { color: inherit; text-decoration: none; }
     height: var(--time-wheel-height);
     overflow-y: auto;
     padding: var(--time-wheel-pad) 0;
+    scroll-padding: var(--time-wheel-pad) 0;
     scroll-snap-type: y mandatory;
     scroll-snap-stop: always;
     scrollbar-width: none;
@@ -1444,11 +1510,17 @@ a { color: inherit; text-decoration: none; }
         text-align: left;
     }
     .weekGrid {
-        gap: 2px;
-        min-height: 0;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(78%, 1fr);
+        gap: 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 6px;
     }
     .weekColumn {
-        min-height: 120px;
+        min-height: 160px;
+        scroll-snap-align: start;
     }
     .weekItem {
         font-size: 9px;
@@ -1457,7 +1529,7 @@ a { color: inherit; text-decoration: none; }
     .weekItemTime {
         font-size: 8px;
     }
-    .weekColumn { min-height: 60px; }
+    .weekColumn { min-height: 140px; }
     .footer { flex-direction: row; align-items: center; gap: 12px; }
 }
 
