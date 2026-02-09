@@ -47,9 +47,9 @@ $candorVersion = 'v0.2';
 					<h3>Create cadence + sleep structure</h3>
 					<ul class="updateList">
 						<li>Create expands cadence windows with work shifts (commute included) and quick-use shift fills.</li>
-						<li>Sleep schedules auto-calc end time from age; Saturday catch-up rolls missed sleep under 8h up to a 12h cap.</li>
-						<li>Daily timeline adds sleep recovery toggles (+1h/+2h) with editable sleep logs.</li>
-						<li>Work shifts appear as locked windows and can be overridden per day.</li>
+						<li>Sleep schedules and logs track real start/finish times.</li>
+						<li>Work shifts appear as locked windows with per-day shift selection and time edits.</li>
+						<li>Account baseline adds country + timezone selectors for accurate scheduling.</li>
 						<li>Scroll-wheel time picker refined for drag, wheel, manual entry, and 12/24-hour modes.</li>
 						<li>Notes open in a detail overlay and tasks capture estimated time.</li>
 						<li>All-day events stay pinned (birthday) with month plan-ahead date picks.</li>
@@ -94,7 +94,7 @@ $candorVersion = 'v0.2';
 		</div>
 		<div class="card">
 			<h3>Account + access</h3>
-			<p>Verified sign-in with profile essentials (units, birthday, time zone, clock) to personalize sleep, shifts, and schedules.</p>
+			<p>Verified sign-in with profile essentials (country, time zone, units, birthday, clock) to personalize sleep, shifts, and schedules.</p>
 		</div>
 		<div class="card">
 			<h3>Release cadence</h3>

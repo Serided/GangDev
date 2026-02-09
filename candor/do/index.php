@@ -1,5 +1,6 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init_candor.php';
+require_once '/var/www/gangdev/candor/files/php/countries.php';
 
 candor_require_verified();
 
@@ -34,9 +35,18 @@ $cookieKey = 'candor_time_format_' . $userId;
 $timeFormat = $_COOKIE[$cookieKey] ?? '24';
 $timeFormat = $timeFormat === '12' ? '12' : '24';
 $timezone = $profile['timezone'] ?? '';
-$timezones = DateTimeZone::listIdentifiers();
+$countries = candor_country_list();
+$countryCode = strtoupper((string)($profile['country_code'] ?? ''));
+if ($countryCode === '' || !isset($countries[$countryCode])) {
+	$countryCode = isset($countries['US']) ? 'US' : array_key_first($countries);
+}
+$timezoneMap = candor_country_timezones($countries);
+$timezones = $timezoneMap[$countryCode] ?? candor_timezones_for_country($countryCode);
+if (!$timezones) {
+	$timezones = ['UTC'];
+}
 if ($timezone === '' || !in_array($timezone, $timezones, true)) {
-	$timezone = 'UTC';
+	$timezone = $timezones[0] ?? 'UTC';
 }
 $candorMeta = 'personal OS';
 $candorLead = 'your';
@@ -145,16 +155,6 @@ $candorVersion = 'v0.2';
 					<span>Today timeline</span>
 					<div class="timelineMeta">
 						<span data-day-short></span>
-						<div class="timelineToggles" data-sleep-extras>
-							<label class="toggleChip">
-								<input type="checkbox" data-sleep-extra="60">
-								<span>Sick +1h</span>
-							</label>
-							<label class="toggleChip">
-								<input type="checkbox" data-sleep-extra="120">
-								<span>Sick +2h</span>
-							</label>
-						</div>
 					</div>
 				</div>
 				<div class="timelineGrid" data-day-grid></div>
@@ -286,6 +286,12 @@ $candorVersion = 'v0.2';
 			<button class="iconBtn" type="button" data-edit-close aria-label="Close">&times;</button>
 		</div>
 		<div class="editBody">
+			<div class="editRow editShiftRow" data-edit-shift-row>
+				<div class="editField">
+					<label class="label">Shift</label>
+					<select class="input compact select" data-edit-shift-select></select>
+				</div>
+			</div>
 			<div class="editRow">
 				<div class="editField">
 					<label class="label">Start</label>
@@ -303,7 +309,7 @@ $candorVersion = 'v0.2';
 				</div>
 			</div>
 			<div class="editDelta" data-edit-delta></div>
-			<div class="editActions">
+			<div class="editActions" data-edit-actions>
 				<button class="btn ghost" type="button" data-edit-start-now>Start</button>
 				<button class="btn primary" type="button" data-edit-finish-now>Finish</button>
 			</div>
@@ -373,6 +379,16 @@ $candorVersion = 'v0.2';
 				<div class="sectionTitle">Essentials</div>
 				<div class="bulletGrid">
 					<div class="bulletField is-compact">
+						<label class="label" for="profile-country">Country</label>
+						<select class="input compact select" id="profile-country" name="country_code" data-country-select>
+							<?php foreach ($countries as $code => $label): ?>
+								<option value="<?= htmlspecialchars($code) ?>" <?= $code === $countryCode ? 'selected' : '' ?>>
+									<?= htmlspecialchars($label) ?>
+								</option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+					<div class="bulletField is-compact">
 						<label class="label" for="profile-unit">Units</label>
 						<select class="input compact select" id="profile-unit" name="unit_system" data-unit-select>
 							<option value="metric" <?= $unitSystem === 'metric' ? 'selected' : '' ?>>Metric (cm / kg)</option>
@@ -381,7 +397,13 @@ $candorVersion = 'v0.2';
 					</div>
 					<div class="bulletField is-compact">
 						<label class="label" for="profile-timezone">Time zone</label>
-						<input class="input compact" id="profile-timezone" name="timezone" list="candor-timezones" value="<?= htmlspecialchars($timezone) ?>" placeholder="America/Los_Angeles">
+						<select class="input compact select" id="profile-timezone" name="timezone" data-timezone-select>
+							<?php foreach ($timezones as $tz): ?>
+								<option value="<?= htmlspecialchars($tz) ?>" <?= $tz === $timezone ? 'selected' : '' ?>>
+									<?= htmlspecialchars($tz) ?>
+								</option>
+							<?php endforeach; ?>
+						</select>
 					</div>
 					<div class="bulletField is-compact">
 						<label class="label" for="profile-birthdate">Birthday</label>
@@ -433,15 +455,6 @@ $candorVersion = 'v0.2';
 						</div>
 					</div>
 				</div>
-				<datalist id="candor-timezones">
-					<?php foreach ($timezones as $tz): ?>
-						<option value="<?= htmlspecialchars($tz) ?>"></option>
-					<?php endforeach; ?>
-				</datalist>
-			</div>
-			<div class="profileSection">
-				<div class="sectionTitle">Refinements</div>
-				<div class="sectionHint">More metrics land here once essentials are set.</div>
 			</div>
 
 			<label class="consentLine">
@@ -463,6 +476,38 @@ $candorVersion = 'v0.2';
 	</div>
 </div>
 <?php endif; ?>
+
+<script>
+	(() => {
+		const timezoneMap = <?= json_encode($timezoneMap) ?>;
+		const syncTimezones = (scope) => {
+			const countrySelect = scope.querySelector('[data-country-select]');
+			const timezoneSelect = scope.querySelector('[data-timezone-select]');
+			if (!countrySelect || !timezoneSelect) return;
+			const buildOptions = (country, selected) => {
+				const zones = timezoneMap[country] && timezoneMap[country].length
+					? timezoneMap[country]
+					: ['UTC'];
+				timezoneSelect.innerHTML = '';
+				zones.forEach((zone) => {
+					const option = document.createElement('option');
+					option.value = zone;
+					option.textContent = zone;
+					if (zone === selected) option.selected = true;
+					timezoneSelect.appendChild(option);
+				});
+				if (!timezoneSelect.value && timezoneSelect.options.length) {
+					timezoneSelect.selectedIndex = 0;
+				}
+			};
+			buildOptions(countrySelect.value, timezoneSelect.value);
+			countrySelect.addEventListener('change', () => {
+				buildOptions(countrySelect.value, '');
+			});
+		};
+		syncTimezones(document);
+	})();
+</script>
 
 </body>
 </html>

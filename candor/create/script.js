@@ -413,6 +413,9 @@
                     timeManualHour.blur();
                 }
             });
+            timeManualHour.addEventListener("focus", () => {
+                timeManualHour.select();
+            });
             timeManualHour.addEventListener("blur", commitManualHour);
         }
         if (timeManualMinute) {
@@ -441,6 +444,9 @@
                     commitManualMinute();
                     timeManualMinute.blur();
                 }
+            });
+            timeManualMinute.addEventListener("focus", () => {
+                timeManualMinute.select();
             });
             timeManualMinute.addEventListener("blur", commitManualMinute);
         }
@@ -828,15 +834,10 @@
         });
     };
 
-    const renderShifts = () => {
-        if (!shiftList || !shiftEmpty || !routineShiftSelect) return;
-        shiftList.innerHTML = "";
+    const renderShiftSelect = () => {
+        if (!routineShiftSelect) return;
         routineShiftSelect.innerHTML = '<option value="">Select a shift</option>';
-        if (state.shifts.length === 0) {
-            shiftEmpty.style.display = "block";
-            return;
-        }
-        shiftEmpty.style.display = "none";
+        if (state.shifts.length === 0) return;
         const sorted = state.shifts.slice().sort((a, b) => {
             if (a.isDefault !== b.isDefault) return a.isDefault ? -1 : 1;
             return (a.name || "").localeCompare(b.name || "");
@@ -847,54 +848,6 @@
             option.value = shift.id;
             option.textContent = shift.isDefault ? `${label} (default)` : label;
             routineShiftSelect.appendChild(option);
-
-            const row = document.createElement("div");
-            row.className = "itemRow";
-
-            const text = document.createElement("div");
-            const title = document.createElement("div");
-            title.className = "itemTitle";
-            title.textContent = label;
-
-            const meta = document.createElement("div");
-            meta.className = "itemMeta";
-            const commuteParts = [];
-            if (shift.commuteBefore) commuteParts.push(`-${shift.commuteBefore}m`);
-            if (shift.commuteAfter) commuteParts.push(`+${shift.commuteAfter}m`);
-            const commuteText = commuteParts.length ? ` - commute ${commuteParts.join(" / ")}` : "";
-            meta.textContent = `${formatTime(shift.start)}-${formatTime(shift.end)}${commuteText}`;
-
-            text.appendChild(title);
-            text.appendChild(meta);
-
-            const actions = document.createElement("div");
-            actions.className = "itemActions";
-
-            const useBtn = document.createElement("button");
-            useBtn.type = "button";
-            useBtn.className = "itemEdit";
-            useBtn.dataset.shiftUseId = shift.id;
-            useBtn.textContent = "Use";
-
-            const defaultBtn = document.createElement("button");
-            defaultBtn.type = "button";
-            defaultBtn.className = "itemEdit";
-            defaultBtn.dataset.shiftDefaultId = shift.id;
-            defaultBtn.textContent = shift.isDefault ? "Default" : "Set default";
-
-            const removeBtn = document.createElement("button");
-            removeBtn.type = "button";
-            removeBtn.className = "itemRemove";
-            removeBtn.dataset.shiftRemoveId = shift.id;
-            removeBtn.textContent = "Remove";
-
-            actions.appendChild(useBtn);
-            actions.appendChild(defaultBtn);
-            actions.appendChild(removeBtn);
-
-            row.appendChild(text);
-            row.appendChild(actions);
-            shiftList.appendChild(row);
         });
         if (routineShiftId && routineShiftId.value) {
             routineShiftSelect.value = routineShiftId.value;
@@ -905,7 +858,7 @@
         renderSleep();
         renderTasks();
         renderRoutines();
-        renderShifts();
+        renderShiftSelect();
         renderWeekTemplate();
     };
 
@@ -1004,18 +957,35 @@
         weekColumns.forEach((column) => {
             const day = parseInt(column.dataset.weekDay, 10);
             const list = column.querySelector("[data-week-list]");
-            if (!list) return;
+            const stack = column.querySelector(".weekStack");
+            if (!list || !stack) return;
             list.innerHTML = "";
+            stack.innerHTML = "";
             const safeDay = Number.isFinite(day) ? day : 0;
             const sleepRule = pickSleepRuleForDay(safeDay);
-            const sleepBlocks = column.querySelectorAll(".weekBlock.is-sleep");
-            if (sleepBlocks.length >= 2) {
-                const wakeBlock = sleepBlocks[0];
-                const bedBlock = sleepBlocks[sleepBlocks.length - 1];
-                setWeekBlock(wakeBlock, "Wake", sleepRule && sleepRule.end ? sleepRule.end : "");
-                setWeekBlock(bedBlock, "Bed", sleepRule && sleepRule.start ? sleepRule.start : "");
-            }
             const items = getWeekItems(safeDay);
+            const hasWork = items.some((item) => item.kind === "work");
+            const hasFocus = items.some((item) => item.kind === "focus");
+            const hasCustom = items.some((item) => item.kind === "custom");
+
+            const pushBlock = (label, className, timeValue) => {
+                const block = document.createElement("div");
+                block.className = `weekBlock ${className}`.trim();
+                setWeekBlock(block, label, timeValue);
+                stack.appendChild(block);
+            };
+
+            pushBlock("Wake", "is-sleep", sleepRule && sleepRule.end ? sleepRule.end : "");
+            pushBlock("Morning routine", "is-morning", "");
+            if (hasWork) pushBlock("Work", "is-work", "");
+            if (hasFocus) pushBlock("Focus", "is-focus", "");
+            if (hasCustom) pushBlock("Window", "is-life", "");
+            if (!hasWork && !hasFocus && !hasCustom) {
+                pushBlock("Focus/Work", "is-focus", "");
+            }
+            pushBlock("Evening routine", "is-evening", "");
+            pushBlock("Bed", "is-sleep", sleepRule && sleepRule.start ? sleepRule.start : "");
+
             items.forEach((item) => {
                 const row = document.createElement("div");
                 const kindClass = item.kind === "sleep"
@@ -1141,9 +1111,10 @@
             try {
                 const data = await apiFetch(payload, "POST");
                 if (data && data.shift) {
-                    upsertShift(normalizeShift(data.shift));
+                    const shift = normalizeShift(data.shift);
+                    upsertShift(shift);
                     renderAll();
-                    return;
+                    return shift;
                 }
             } catch {
                 switchToLocal();
@@ -1159,7 +1130,9 @@
             upsertShift(localShift);
             persistLocal();
             renderAll();
+            return localShift;
         }
+        return null;
     };
 
     const setDefaultShift = async (id) => {
@@ -1342,6 +1315,7 @@
     const routineAnchorSelect = routineForm ? routineForm.querySelector("[data-anchor-select]") : null;
     const routineTitleField = routineForm ? routineForm.querySelector("[data-title-field]") : null;
     const routineTitleInput = routineForm ? routineForm.querySelector("#routine-title") : null;
+    const routineTitleLabel = routineTitleField ? routineTitleField.querySelector("[data-title-label]") : null;
     const routineTimeFieldWrap = routineForm ? routineForm.querySelector("[data-time-field-wrap]") : null;
     const routineStartField = routineForm ? routineForm.querySelector("#routine-time")?.closest("[data-time-field]") : null;
     const routineEndInput = routineForm ? routineForm.querySelector("#routine-end") : null;
@@ -1354,8 +1328,8 @@
     const routineAnchorNote = routineForm ? routineForm.querySelector("[data-anchor-note]") : null;
     const routineSubmit = routineForm ? routineForm.querySelector("[data-routine-submit]") : null;
     const routineCancel = routineForm ? routineForm.querySelector("[data-routine-cancel]") : null;
-    const shiftPanel = routineForm ? routineForm.querySelector("[data-shift-panel]") : null;
-    const shiftNameInput = routineForm ? routineForm.querySelector("#shift-name") : null;
+    const shiftLine = routineForm ? routineForm.querySelector("[data-shift-line]") : null;
+    const shiftDefaultLine = routineForm ? routineForm.querySelector("[data-shift-default]") : null;
     const shiftStartInput = routineForm ? routineForm.querySelector("#shift-start") : null;
     const shiftEndInput = routineForm ? routineForm.querySelector("#shift-end") : null;
     const shiftStartField = shiftStartInput ? shiftStartInput.closest("[data-time-field]") : null;
@@ -1363,12 +1337,7 @@
     const shiftCommuteBeforeInput = routineForm ? routineForm.querySelector("#shift-commute-before") : null;
     const shiftCommuteAfterInput = routineForm ? routineForm.querySelector("#shift-commute-after") : null;
     const shiftDefaultInput = routineForm ? routineForm.querySelector("#shift-default") : null;
-    const shiftSaveBtn = routineForm ? routineForm.querySelector("[data-shift-save]") : null;
-    const shiftClearBtn = routineForm ? routineForm.querySelector("[data-shift-clear]") : null;
-    const shiftList = routineForm ? routineForm.querySelector("[data-shift-list]") : null;
-    const shiftEmpty = routineForm ? routineForm.querySelector("[data-shift-empty]") : null;
     let editingRoutineId = null;
-    let editingShiftId = null;
 
     const anchorTitle = (anchor) => {
         if (anchor === "morning") return "Morning routine";
@@ -1397,19 +1366,32 @@
         const anchor = isRoutine && routineAnchorSelect ? routineAnchorSelect.value : "custom";
         const needsCustomTitle = !isRoutine || anchor === "custom";
         if (routineTitleField) {
-            routineTitleField.style.display = needsCustomTitle || isWork ? "grid" : "none";
+            routineTitleField.style.display = needsCustomTitle ? "grid" : "none";
+            routineTitleField.classList.toggle("fieldWide", isRoutine && anchor === "custom");
         }
+        if (routineTitleLabel) {
+            routineTitleLabel.textContent = isWork ? "Shift Name (optional)" : "Name";
+        }
+        if (routineTitleInput) {
+            routineTitleInput.placeholder = isWork
+                ? "Work"
+                : (isRoutine ? "Custom routine" : "e.g. Deep work sprint");
+        }
+        const showTimeRow = (!isRoutine || anchor === "custom") && !isWork;
         if (routineTimeFieldWrap) {
-            routineTimeFieldWrap.style.display = (!isRoutine || anchor === "custom") ? "grid" : "none";
+            routineTimeFieldWrap.style.display = showTimeRow ? "grid" : "none";
         }
         if (routineEndField) {
-            routineEndField.style.display = isWork ? "grid" : "none";
+            routineEndField.style.display = showTimeRow ? "grid" : "none";
         }
         if (routineShiftSelect) {
             routineShiftSelect.closest("[data-work-shift-select]")?.style.setProperty("display", isWork ? "grid" : "none");
         }
-        if (shiftPanel) {
-            shiftPanel.classList.toggle("is-active", isWork);
+        if (shiftLine) {
+            shiftLine.style.display = isWork ? "grid" : "none";
+        }
+        if (shiftDefaultLine) {
+            shiftDefaultLine.style.display = isWork ? "inline-flex" : "none";
         }
         if (!isWork) {
             if (routineShiftId) routineShiftId.value = "";
@@ -1430,27 +1412,6 @@
         renderRoutines();
     };
 
-    const clearShiftForm = () => {
-        editingShiftId = null;
-        if (shiftNameInput) shiftNameInput.value = "";
-        if (shiftStartField) setFieldValue(shiftStartField, "", { emit: false });
-        if (shiftEndField) setFieldValue(shiftEndField, "", { emit: false });
-        if (shiftCommuteBeforeInput) shiftCommuteBeforeInput.value = "";
-        if (shiftCommuteAfterInput) shiftCommuteAfterInput.value = "";
-        if (shiftDefaultInput) shiftDefaultInput.checked = false;
-    };
-
-    const fillShiftForm = (shift) => {
-        if (!shift) return;
-        editingShiftId = shift.id;
-        if (shiftNameInput) shiftNameInput.value = shift.name || "";
-        if (shiftStartField) setFieldValue(shiftStartField, shift.start || "", { emit: false });
-        if (shiftEndField) setFieldValue(shiftEndField, shift.end || "", { emit: false });
-        if (shiftCommuteBeforeInput) shiftCommuteBeforeInput.value = shift.commuteBefore ? String(shift.commuteBefore) : "";
-        if (shiftCommuteAfterInput) shiftCommuteAfterInput.value = shift.commuteAfter ? String(shift.commuteAfter) : "";
-        if (shiftDefaultInput) shiftDefaultInput.checked = shift.isDefault;
-    };
-
     const applyShiftToRoutine = (shiftId) => {
         if (!shiftId) return;
         const shift = state.shifts.find((item) => String(item.id) === String(shiftId));
@@ -1464,11 +1425,20 @@
         if (routineTitleInput && !routineTitleInput.value.trim()) {
             routineTitleInput.value = shift.name || "Work";
         }
-        if (routineStartField) {
-            setFieldValue(routineStartField, shift.start || "", { emit: false });
+        if (shiftStartField) {
+            setFieldValue(shiftStartField, shift.start || "", { emit: false });
         }
-        if (routineEndField) {
-            setFieldValue(routineEndField, shift.end || "", { emit: false });
+        if (shiftEndField) {
+            setFieldValue(shiftEndField, shift.end || "", { emit: false });
+        }
+        if (shiftCommuteBeforeInput) {
+            shiftCommuteBeforeInput.value = shift.commuteBefore ? String(shift.commuteBefore) : "";
+        }
+        if (shiftCommuteAfterInput) {
+            shiftCommuteAfterInput.value = shift.commuteAfter ? String(shift.commuteAfter) : "";
+        }
+        if (shiftDefaultInput) {
+            shiftDefaultInput.checked = shift.isDefault;
         }
     };
 
@@ -1493,36 +1463,7 @@
         });
     }
 
-    if (shiftSaveBtn) {
-        shiftSaveBtn.addEventListener("click", () => {
-            const name = normalizeText(shiftNameInput ? shiftNameInput.value : "");
-            const start = normalizeText(shiftStartInput ? shiftStartInput.value : "");
-            const end = normalizeText(shiftEndInput ? shiftEndInput.value : "");
-            if (!start || !end) return;
-            const commuteBefore = shiftCommuteBeforeInput && shiftCommuteBeforeInput.value
-                ? parseInt(shiftCommuteBeforeInput.value, 10)
-                : 0;
-            const commuteAfter = shiftCommuteAfterInput && shiftCommuteAfterInput.value
-                ? parseInt(shiftCommuteAfterInput.value, 10)
-                : 0;
-            const payload = {
-                action: editingShiftId ? "update_shift" : "add_shift",
-                id: editingShiftId,
-                name,
-                start,
-                end,
-                commute_before: Number.isFinite(commuteBefore) ? commuteBefore : 0,
-                commute_after: Number.isFinite(commuteAfter) ? commuteAfter : 0,
-                is_default: Boolean(shiftDefaultInput && shiftDefaultInput.checked),
-            };
-            addShift(payload);
-            clearShiftForm();
-        });
-    }
-
-    if (shiftClearBtn) {
-        shiftClearBtn.addEventListener("click", clearShiftForm);
-    }
+    // Shift creation happens when saving a work window.
 
     if (routineCancel) {
         routineCancel.addEventListener("click", () => {
@@ -1543,29 +1484,97 @@
         });
     }
 
+    const clearShiftLink = () => {
+        if (routineTypeSelect && routineTypeSelect.value !== "work") return;
+        if (routineShiftId) routineShiftId.value = "";
+        if (routineShiftSelect) routineShiftSelect.value = "";
+    };
+
     if (routineStartField) {
         routineStartField.addEventListener("timechange", () => {
-            if (routineShiftId) routineShiftId.value = "";
-            if (routineShiftSelect) routineShiftSelect.value = "";
+            clearShiftLink();
         });
     }
     if (routineEndField) {
         routineEndField.addEventListener("timechange", () => {
-            if (routineShiftId) routineShiftId.value = "";
-            if (routineShiftSelect) routineShiftSelect.value = "";
+            clearShiftLink();
         });
     }
+    if (routineTitleInput) {
+        routineTitleInput.addEventListener("input", clearShiftLink);
+    }
+    if (shiftCommuteBeforeInput) {
+        shiftCommuteBeforeInput.addEventListener("input", clearShiftLink);
+    }
+    if (shiftCommuteAfterInput) {
+        shiftCommuteAfterInput.addEventListener("input", clearShiftLink);
+    }
+    if (shiftStartField) {
+        shiftStartField.addEventListener("timechange", clearShiftLink);
+    }
+    if (shiftEndField) {
+        shiftEndField.addEventListener("timechange", clearShiftLink);
+    }
+
+    const buildShiftPayload = () => ({
+        name: normalizeText(routineTitleInput ? routineTitleInput.value : ""),
+        start: normalizeText(shiftStartInput ? shiftStartInput.value : ""),
+        end: normalizeText(shiftEndInput ? shiftEndInput.value : ""),
+        commuteBefore: shiftCommuteBeforeInput && shiftCommuteBeforeInput.value
+            ? parseInt(shiftCommuteBeforeInput.value, 10)
+            : 0,
+        commuteAfter: shiftCommuteAfterInput && shiftCommuteAfterInput.value
+            ? parseInt(shiftCommuteAfterInput.value, 10)
+            : 0,
+        isDefault: Boolean(shiftDefaultInput && shiftDefaultInput.checked),
+    });
+
+    const shiftMatches = (shift, payload) => {
+        if (!shift || !payload) return false;
+        return normalizeText(shift.name) === normalizeText(payload.name || "")
+            && normalizeText(shift.start) === normalizeText(payload.start || "")
+            && normalizeText(shift.end) === normalizeText(payload.end || "")
+            && (shift.commuteBefore || 0) === (payload.commuteBefore || 0)
+            && (shift.commuteAfter || 0) === (payload.commuteAfter || 0);
+    };
+
+    const ensureWorkShift = async () => {
+        const payload = buildShiftPayload();
+        if (!payload.start || !payload.end) return null;
+        const selectedId = routineShiftId && routineShiftId.value ? parseInt(routineShiftId.value, 10) : null;
+        const selectedShift = selectedId
+            ? state.shifts.find((item) => String(item.id) === String(selectedId))
+            : null;
+        if (selectedShift && shiftMatches(selectedShift, payload)) {
+            if (payload.isDefault && !selectedShift.isDefault) {
+                await setDefaultShift(selectedShift.id);
+            }
+            return selectedShift.id;
+        }
+        const shiftPayload = {
+            action: "add_shift",
+            name: payload.name || "Work",
+            start: payload.start,
+            end: payload.end,
+            commute_before: Number.isFinite(payload.commuteBefore) ? payload.commuteBefore : 0,
+            commute_after: Number.isFinite(payload.commuteAfter) ? payload.commuteAfter : 0,
+            is_default: payload.isDefault,
+        };
+        const created = await addShift(shiftPayload);
+        return created ? created.id : null;
+    };
 
     if (routineForm) {
-        routineForm.addEventListener("submit", (event) => {
+        routineForm.addEventListener("submit", async (event) => {
             event.preventDefault();
             const formData = new FormData(routineForm);
             const type = routineTypeSelect ? routineTypeSelect.value : "routine";
             const anchor = type === "routine" && routineAnchorSelect ? routineAnchorSelect.value : "custom";
             const customTitle = normalizeText(formData.get("title"));
             const title = type === "routine" && anchor !== "custom" ? anchorTitle(anchor) : customTitle;
-            const time = normalizeText(formData.get("time"));
-            const end = normalizeText(formData.get("end"));
+            const shiftValues = buildShiftPayload();
+            const time = type === "work" ? shiftValues.start : normalizeText(formData.get("time"));
+            const end = type === "work" ? shiftValues.end : normalizeText(formData.get("end"));
             const repeat = normalizeText(formData.get("repeat")) || "daily";
             const dayInputs = Array.from(routineForm.querySelectorAll("[data-routine-day]"));
             const days = dayInputs
@@ -1586,11 +1595,11 @@
                     return taskTitle ? { title: taskTitle, minutes } : null;
                 })
                 .filter((item) => item && item.title !== "");
-            const shiftId = routineShiftId && routineShiftId.value ? parseInt(routineShiftId.value, 10) : null;
+            const shiftId = type === "work" ? await ensureWorkShift() : null;
             const payload = {
                 action: editingRoutineId ? "update_routine" : "add_routine",
                 id: editingRoutineId,
-                title: title || (type === "work" ? "Work" : ""),
+                title: title || (type === "work" ? (shiftValues.name || "Work") : ""),
                 time: type === "routine" && anchor !== "custom" ? "" : time,
                 end: type === "work" ? end : "",
                 repeat,
@@ -1731,6 +1740,9 @@
         if (routineShiftSelect) {
             routineShiftSelect.value = routine.shiftId ? String(routine.shiftId) : "";
         }
+        if (routine.shiftId) {
+            applyShiftToRoutine(routine.shiftId);
+        }
         const repeatSelect = routineForm.querySelector("[data-routine-repeat]");
         if (repeatSelect) repeatSelect.value = routine.repeat || "daily";
         const dayInputs = Array.from(routineForm.querySelectorAll("[data-routine-day]"));
@@ -1831,21 +1843,6 @@
             }
             row.remove();
             updateRoutineTotal();
-            return;
-        }
-        const shiftUse = event.target.closest("[data-shift-use-id]");
-        if (shiftUse) {
-            applyShiftToRoutine(shiftUse.dataset.shiftUseId);
-            return;
-        }
-        const shiftDefault = event.target.closest("[data-shift-default-id]");
-        if (shiftDefault) {
-            setDefaultShift(shiftDefault.dataset.shiftDefaultId);
-            return;
-        }
-        const shiftRemove = event.target.closest("[data-shift-remove-id]");
-        if (shiftRemove) {
-            removeShift(shiftRemove.dataset.shiftRemoveId);
             return;
         }
         const editBtn = event.target.closest("[data-edit-id]");

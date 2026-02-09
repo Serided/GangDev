@@ -116,6 +116,7 @@ function candor_profile_row($user_id) {
 			SELECT user_id, birthdate, height_cm, weight_kg,
 			       unit_system,
 			       timezone,
+			       country_code,
 			       consent_health::int AS consent_health,
 			       onboarding_completed_at
 			FROM candor.user_profiles

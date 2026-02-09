@@ -218,10 +218,14 @@ function ensure_work_shift_overrides_table(PDO $pdo) {
 			user_id INTEGER NOT NULL,
 			date DATE NOT NULL,
 			shift_id BIGINT,
+			start_time TIME,
+			end_time TIME,
 			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW(),
 			updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
 		)
 	");
+	$pdo->exec("ALTER TABLE candor.work_shift_overrides ADD COLUMN IF NOT EXISTS start_time TIME");
+	$pdo->exec("ALTER TABLE candor.work_shift_overrides ADD COLUMN IF NOT EXISTS end_time TIME");
 	$pdo->exec("CREATE UNIQUE INDEX IF NOT EXISTS work_shift_overrides_user_date ON candor.work_shift_overrides (user_id, date)");
 }
 

@@ -1,5 +1,6 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init_candor.php';
+require_once '/var/www/gangdev/candor/files/php/countries.php';
 
 candor_require_verified();
 
@@ -11,6 +12,7 @@ $userId = candor_current_user_id();
 $birthdate = trim($_POST['birthdate'] ?? '');
 $timezone = trim($_POST['timezone'] ?? '');
 $timezone = $timezone !== '' ? $timezone : null;
+$countryCode = strtoupper(trim($_POST['country_code'] ?? ''));
 $unitSystem = trim($_POST['unit_system'] ?? 'metric');
 $unitSystem = $unitSystem === 'imperial' ? 'imperial' : 'metric';
 $heightRaw = trim($_POST['height_cm'] ?? '');
@@ -45,6 +47,14 @@ if ($birthdate === '' && !empty($existingProfile['birthdate'])) {
 	$birthdate = (string)$existingProfile['birthdate'];
 }
 
+$countries = candor_country_list();
+if ($countryCode === '' && !empty($existingProfile['country_code'])) {
+	$countryCode = strtoupper((string)$existingProfile['country_code']);
+}
+if ($countryCode === '' || !isset($countries[$countryCode])) {
+	$countryCode = isset($countries['US']) ? 'US' : array_key_first($countries);
+}
+
 if ($birthdate === '' || !preg_match('/^\d{4}-\d{2}-\d{2}$/', $birthdate)) {
 	candor_redirect(candor_with_param($redirect, 'profile_error', 'Please enter a valid birthday.'));
 }
@@ -58,7 +68,10 @@ if (!$consent) {
 }
 
 if ($timezone !== null) {
-	$validZones = DateTimeZone::listIdentifiers();
+	$validZones = candor_timezones_for_country($countryCode);
+	if (!$validZones) {
+		$validZones = ['UTC'];
+	}
 	if (!in_array($timezone, $validZones, true)) {
 		candor_redirect(candor_with_param($redirect, 'profile_error', 'Please select a valid time zone.'));
 	}
@@ -106,15 +119,21 @@ if ($unitSystem === 'imperial') {
 }
 
 try {
+	try {
+		$pdo->exec("ALTER TABLE candor.user_profiles ADD COLUMN IF NOT EXISTS country_code VARCHAR(2)");
+	} catch (Throwable $e) {
+		// Ignore schema update failures here.
+	}
 	$stmt = $pdo->prepare("
 		INSERT INTO candor.user_profiles
-			(user_id, birthdate, timezone, height_cm, weight_kg, unit_system, consent_health, consent_at, created_at, updated_at, onboarding_completed_at)
+			(user_id, birthdate, timezone, country_code, height_cm, weight_kg, unit_system, consent_health, consent_at, created_at, updated_at, onboarding_completed_at)
 		VALUES
-			(?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW(),
+			(?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW(),
 			 CASE WHEN ? THEN NOW() ELSE NULL END)
 		ON CONFLICT (user_id) DO UPDATE SET
 			birthdate = EXCLUDED.birthdate,
 			timezone = EXCLUDED.timezone,
+			country_code = EXCLUDED.country_code,
 			height_cm = EXCLUDED.height_cm,
 			weight_kg = EXCLUDED.weight_kg,
 			unit_system = EXCLUDED.unit_system,
@@ -130,6 +149,7 @@ try {
 		(int)$userId,
 		$birthdate,
 		$timezone,
+		$countryCode,
 		$height,
 		$weight,
 		$unitSystem,

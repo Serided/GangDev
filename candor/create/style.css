@@ -40,6 +40,13 @@ body {
     overflow: hidden;
 }
 
+button,
+input,
+select,
+textarea {
+    font-family: var(--font-body);
+}
+
 a { color: inherit; text-decoration: none; }
 
 .page {
@@ -330,6 +337,11 @@ a { color: inherit; text-decoration: none; }
     min-height: 0;
 }
 
+.scheduleCard {
+    --sleep-time-width: 96px;
+    --sleep-select-width: 128px;
+}
+
 .savedSection {
     display: grid;
     gap: 4px;
@@ -402,15 +414,25 @@ a { color: inherit; text-decoration: none; }
 }
 
 .scheduleCard .formGrid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr);
+    grid-template-columns: var(--sleep-time-width) var(--sleep-time-width) var(--sleep-select-width);
     max-width: 100%;
     width: 100%;
     gap: 3px;
+    justify-content: start;
 }
 
 .scheduleCard .field-repeat,
 .scheduleCard .field-day {
     grid-column: 3;
+}
+
+.scheduleCard .field-time {
+    width: var(--sleep-time-width);
+}
+
+.scheduleCard .field-repeat,
+.scheduleCard .field-day {
+    width: var(--sleep-select-width);
 }
 
 .routineForm {
@@ -431,14 +453,67 @@ a { color: inherit; text-decoration: none; }
 
 .fieldRow.timeRow {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, var(--time-field-width, 104px));
     gap: 6px;
+    justify-content: start;
+}
+
+.fieldRow.typeRow {
+    display: grid;
+    grid-template-columns: var(--routine-type-width, 108px) minmax(0, var(--routine-name-width, 180px));
+    gap: 6px;
+    align-items: end;
+}
+
+.fieldRow.typeRow .field {
+    min-width: 0;
+}
+
+.fieldRow.typeRow .field-type {
+    width: var(--routine-type-width, 108px);
+}
+
+.fieldRow.typeRow .field-type .select {
+    width: 100%;
+    min-width: 0;
+}
+
+.fieldRow.typeRow [data-anchor-field],
+.fieldRow.typeRow [data-title-field] {
+    grid-column: 2;
+}
+
+.fieldRow.typeRow [data-anchor-field] {
+    width: var(--routine-anchor-width, 140px);
+}
+
+.fieldRow.typeRow [data-title-field] {
+    width: var(--routine-name-width, 180px);
+}
+
+.fieldRow.typeRow [data-title-field].fieldWide {
+    grid-column: 1 / -1;
+    width: 100%;
 }
 
 .shiftRow {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 6px;
+    width: var(--shift-line-width, 360px);
+    max-width: 100%;
+}
+
+.shiftRow .select {
+    width: 100%;
+}
+
+.shiftUseBtn {
+    min-height: 34px;
+    padding: 0 14px;
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .fieldWide {
@@ -449,6 +524,14 @@ a { color: inherit; text-decoration: none; }
     font-size: 12px;
     color: var(--ink-soft);
     letter-spacing: 0.4px;
+}
+
+.toggleLine {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--ink-soft);
 }
 
 .input {
@@ -508,6 +591,7 @@ a { color: inherit; text-decoration: none; }
     margin-top: 6px;
     display: grid;
     gap: 4px;
+    max-width: calc((var(--sleep-time-width) * 2) + var(--sleep-select-width) + 10px);
 }
 
 .sleepSummary .itemRow {
@@ -520,11 +604,15 @@ a { color: inherit; text-decoration: none; }
 }
 
 .routineLayout {
+    --routine-meta-width: 260px;
+    --routine-task-width: 320px;
+    --routine-saved-width: 250px;
     display: grid;
-    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr) minmax(0, 0.7fr);
+    grid-template-columns: minmax(0, var(--routine-meta-width)) minmax(0, var(--routine-task-width)) minmax(0, var(--routine-saved-width));
     gap: 12px;
     align-items: start;
     min-height: 0;
+    justify-content: start;
 }
 
 .routineBuild {
@@ -545,10 +633,42 @@ a { color: inherit; text-decoration: none; }
 }
 
 .routineMeta {
+    --routine-type-width: 108px;
+    --routine-anchor-width: 140px;
+    --routine-name-width: 180px;
+    --routine-select-width: 140px;
+    --time-field-width: 104px;
+    --shift-commute-width: 80px;
+    --shift-time-width: 104px;
+    --shift-line-gap: 6px;
+    --shift-line-width: calc(
+        (var(--shift-commute-width) * 2) +
+        (var(--shift-time-width) * 2) +
+        (var(--shift-line-gap) * 3)
+    );
     display: grid;
     gap: 8px;
     grid-column: 1;
     min-height: 0;
+}
+
+.routineMeta .field,
+.routineMeta .fieldRow {
+    justify-self: start;
+}
+
+.routineMeta .field {
+    max-width: none;
+}
+
+.routineMeta [data-work-shift-select] {
+    grid-column: 1 / -1;
+    width: var(--shift-line-width, 360px);
+    max-width: 100%;
+}
+
+.routineMeta [data-repeat-field] {
+    width: var(--routine-select-width, 140px);
 }
 
 .routineTasksLabel {
@@ -571,6 +691,11 @@ a { color: inherit; text-decoration: none; }
     display: grid;
 }
 
+.shiftPanel .field,
+.shiftPanel .fieldRow {
+    max-width: none;
+}
+
 .shiftHeader {
     display: flex;
     align-items: center;
@@ -580,27 +705,27 @@ a { color: inherit; text-decoration: none; }
 .shiftGrid {
     display: grid;
     gap: 6px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
 }
 
 .shiftDefault {
     grid-column: 1 / -1;
+    width: var(--shift-line-width, 360px);
+    max-width: 100%;
 }
 
-.shiftActions {
-    display: flex;
-    gap: 8px;
-}
-
-.shiftList {
+.shiftRowLine {
     display: grid;
-    gap: 8px;
+    grid-template-columns: var(--shift-commute-width, 80px) var(--shift-time-width, 104px) var(--shift-time-width, 104px) var(--shift-commute-width, 80px);
+    gap: var(--shift-line-gap, 6px);
+    width: var(--shift-line-width, 360px);
+    max-width: 100%;
 }
 
-.shiftList .itemRow {
-    padding: 6px 8px;
-    font-size: 11px;
+.shiftRowLine .field {
+    min-width: 0;
 }
+
 
 .dayMulti {
     display: grid;
@@ -653,8 +778,8 @@ a { color: inherit; text-decoration: none; }
     gap: 6px;
     height: clamp(120px, 18vh, 160px);
     overflow-y: auto;
-    scrollbar-gutter: stable;
-    padding-right: 16px;
+    scrollbar-gutter: stable both-edges;
+    padding-right: 24px;
 }
 
 .taskRow {
@@ -910,6 +1035,11 @@ a { color: inherit; text-decoration: none; }
 .weekBlock.is-focus {
     background: rgba(230, 160, 106, 0.28);
     border-color: rgba(230, 160, 106, 0.55);
+}
+
+.weekBlock.is-work {
+    background: rgba(185, 219, 242, 0.35);
+    border-color: rgba(90, 143, 185, 0.55);
 }
 
 .weekBlock.is-evening {
@@ -1390,6 +1520,34 @@ a { color: inherit; text-decoration: none; }
     .savedSection {
         grid-column: 1;
     }
+    .routineMeta {
+        --routine-meta-width: 100%;
+        --routine-task-width: 100%;
+        --routine-saved-width: 100%;
+        --routine-name-width: 100%;
+        --routine-anchor-width: 100%;
+        --shift-line-width: 100%;
+    }
+    .fieldRow.typeRow {
+        grid-template-columns: 1fr;
+    }
+    .fieldRow.typeRow [data-anchor-field],
+    .fieldRow.typeRow [data-title-field] {
+        grid-column: 1;
+        width: 100%;
+    }
+    .fieldRow.timeRow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .shiftRow,
+    .shiftRowLine,
+    .shiftDefault {
+        width: 100%;
+        max-width: 100%;
+    }
+    .shiftRowLine {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
     .scheduleCard .formGrid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 4px;
@@ -1433,8 +1591,8 @@ a { color: inherit; text-decoration: none; }
     .taskStack {
         height: clamp(120px, 22vh, 180px);
         overflow-y: auto;
-        scrollbar-gutter: stable;
-        padding-right: 12px;
+        scrollbar-gutter: stable both-edges;
+        padding-right: 20px;
     }
     .sleepSummary,
     .savedSection {
@@ -1444,11 +1602,17 @@ a { color: inherit; text-decoration: none; }
         text-align: left;
     }
     .weekGrid {
-        gap: 2px;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(78%, 1fr);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 8px;
         min-height: 0;
+        padding-bottom: 4px;
     }
     .weekColumn {
-        min-height: 120px;
+        min-height: 160px;
+        scroll-snap-align: start;
     }
     .weekItem {
         font-size: 9px;
@@ -1457,14 +1621,6 @@ a { color: inherit; text-decoration: none; }
     .weekItemTime {
         font-size: 8px;
     }
-    .weekColumn { min-height: 60px; }
+    .weekColumn { min-height: 160px; }
     .footer { flex-direction: row; align-items: center; gap: 12px; }
 }
-
-
-
-
-
-
-
-

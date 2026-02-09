@@ -104,22 +104,28 @@ $candorVersion = 'v0.2';
 						<form class="routineForm" data-routine-form>
 							<div class="routineGrid">
 								<div class="routineMeta">
-									<div class="field">
-										<label class="label" for="block-type">Window type</label>
-										<select class="input compact select" id="block-type" name="block_type" data-block-type>
-											<option value="routine">Routine</option>
-											<option value="work">Work</option>
-											<option value="focus">Focus</option>
-											<option value="custom">Custom</option>
-										</select>
-									</div>
-									<div class="field" data-anchor-field>
-										<label class="label" for="routine-anchor">Routine timing</label>
-										<select class="input compact select" id="routine-anchor" name="anchor" data-anchor-select>
-											<option value="morning">Morning</option>
-											<option value="evening">Evening</option>
-											<option value="custom">Custom</option>
-										</select>
+									<div class="fieldRow typeRow">
+										<div class="field field-type">
+											<label class="label" for="block-type">Window type</label>
+											<select class="input compact select" id="block-type" name="block_type" data-block-type>
+												<option value="routine">Routine</option>
+												<option value="work">Work</option>
+												<option value="focus">Focus</option>
+												<option value="custom">Custom</option>
+											</select>
+										</div>
+										<div class="field" data-anchor-field>
+											<label class="label" for="routine-anchor">Routine timing</label>
+											<select class="input compact select" id="routine-anchor" name="anchor" data-anchor-select>
+												<option value="morning">Morning</option>
+												<option value="evening">Evening</option>
+												<option value="custom">Custom</option>
+											</select>
+										</div>
+										<div class="field" data-title-field>
+											<label class="label" for="routine-title" data-title-label>Name</label>
+											<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Deep work sprint">
+										</div>
 									</div>
 									<div class="field" data-work-shift-select>
 										<label class="label" for="work-shift-select">Use shift</label>
@@ -131,10 +137,34 @@ $candorVersion = 'v0.2';
 										</div>
 										<input type="hidden" name="shift_id" data-shift-id>
 									</div>
-									<div class="field" data-title-field>
-										<label class="label" for="routine-title">Name</label>
-										<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Deep work sprint">
+									<div class="fieldRow shiftRowLine" data-shift-line>
+										<div class="field">
+											<label class="label" for="shift-commute-before">Commute in</label>
+											<input class="input compact" id="shift-commute-before" type="number" min="0" step="5" inputmode="numeric" placeholder="15">
+										</div>
+										<div class="field">
+											<label class="label" for="shift-start-hour">Start</label>
+											<div class="timeField" data-time-field data-time-label="Shift start" data-time-empty="--:--">
+												<input type="hidden" id="shift-start" data-time-output>
+												<button class="timeButton" type="button" data-time-display>--:--</button>
+											</div>
+										</div>
+										<div class="field">
+											<label class="label" for="shift-end-hour">End</label>
+											<div class="timeField" data-time-field data-time-label="Shift end" data-time-empty="--:--">
+												<input type="hidden" id="shift-end" data-time-output>
+												<button class="timeButton" type="button" data-time-display>--:--</button>
+											</div>
+										</div>
+										<div class="field">
+											<label class="label" for="shift-commute-after">Commute out</label>
+											<input class="input compact" id="shift-commute-after" type="number" min="0" step="5" inputmode="numeric" placeholder="15">
+										</div>
 									</div>
+									<label class="toggleLine shiftDefault" data-shift-default>
+										<input type="checkbox" id="shift-default">
+										<span>Default shift</span>
+									</label>
 									<div class="fieldRow timeRow" data-time-row>
 										<div class="field" data-time-field-wrap>
 											<label class="label" for="routine-time-hour">Start</label>
@@ -152,58 +182,7 @@ $candorVersion = 'v0.2';
 										</div>
 									</div>
 									<div class="fieldHint" data-anchor-note></div>
-									<div class="shiftPanel" data-shift-panel>
-										<div class="shiftHeader">
-											<div class="label">Shifts</div>
-										</div>
-										<div class="shiftGrid">
-											<div class="field">
-												<label class="label" for="shift-template">Select shift</label>
-												<select class="input compact select" id="shift-template" data-shift-template>
-													<option value="">New shift</option>
-												</select>
-											</div>
-											<div class="field">
-												<label class="label" for="shift-name">Shift name (optional)</label>
-												<input class="input compact" id="shift-name" type="text" placeholder="Work">
-											</div>
-											<div class="fieldRow shiftRowLine">
-												<div class="field">
-													<label class="label" for="shift-commute-before">Commute in</label>
-													<input class="input compact" id="shift-commute-before" type="number" min="0" step="5" inputmode="numeric" placeholder="15">
-												</div>
-												<div class="field">
-													<label class="label" for="shift-start-hour">Start</label>
-													<div class="timeField" data-time-field data-time-label="Shift start" data-time-empty="--:--">
-														<input type="hidden" id="shift-start" data-time-output>
-														<button class="timeButton" type="button" data-time-display>--:--</button>
-													</div>
-												</div>
-												<div class="field">
-													<label class="label" for="shift-end-hour">End</label>
-													<div class="timeField" data-time-field data-time-label="Shift end" data-time-empty="--:--">
-														<input type="hidden" id="shift-end" data-time-output>
-														<button class="timeButton" type="button" data-time-display>--:--</button>
-													</div>
-												</div>
-												<div class="field">
-													<label class="label" for="shift-commute-after">Commute out</label>
-													<input class="input compact" id="shift-commute-after" type="number" min="0" step="5" inputmode="numeric" placeholder="15">
-												</div>
-											</div>
-											<label class="toggleLine shiftDefault">
-												<input type="checkbox" id="shift-default">
-												<span>Default shift</span>
-											</label>
-										</div>
-										<div class="shiftActions">
-											<button class="btn primary" type="button" data-shift-save>Save shift</button>
-											<button class="btn ghost" type="button" data-shift-clear>Clear</button>
-										</div>
-										<div class="itemList shiftList" data-shift-list></div>
-										<div class="listEmpty" data-shift-empty>No shifts saved yet.</div>
-									</div>
-									<div class="field">
+									<div class="field" data-repeat-field>
 										<label class="label" for="routine-repeat">Repeat</label>
 										<select class="input compact select" id="routine-repeat" name="repeat" data-routine-repeat>
 											<option value="daily">Daily</option>
@@ -435,5 +414,3 @@ $candorVersion = 'v0.2';
 
 </body>
 </html>
-
-
