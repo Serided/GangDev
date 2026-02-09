@@ -176,10 +176,13 @@ if ($action === 'load') {
 	$notesStmt->execute([(int)$userId]);
 	$notes = [];
 	while ($row = $notesStmt->fetch(PDO::FETCH_ASSOC)) {
-		$text = trim((string)($row['body'] ?? ''));
-		if ($text === '') $text = (string)($row['title'] ?? '');
+		$title = trim((string)($row['title'] ?? ''));
+		$body = trim((string)($row['body'] ?? ''));
+		$text = $body !== '' ? $body : $title;
 		$notes[] = [
 			'id' => (string)$row['id'],
+			'title' => $title,
+			'body' => $body,
 			'text' => $text,
 			'created_at' => (string)($row['created_at'] ?? ''),
 		];
@@ -344,18 +347,30 @@ if ($action === 'add') {
 	}
 
 	if ($type === 'notes') {
-		$title = clamp_text($text, 120);
+		$title = clamp_text($payload['title'] ?? '', 120);
+		$body = clamp_text($payload['body'] ?? '', 2000);
+		if ($title === '' && $body === '' && $text !== '') {
+			$body = $text;
+		}
+		if ($title === '' && $body === '') {
+			respond(['error' => 'empty_text'], 400);
+		}
+		if ($title === '') {
+			$title = clamp_text($body, 120);
+		}
 		$stmt = $pdo->prepare("
 			INSERT INTO candor.notes (user_id, title, body, created_at, updated_at)
 			VALUES (?, ?, ?, NOW(), NOW())
 			RETURNING id, title, body
 		");
-		$stmt->execute([(int)$userId, $title, $text]);
+		$stmt->execute([(int)$userId, $title, $body]);
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		respond([
 			'item' => [
 				'id' => (string)$row['id'],
+				'title' => (string)($row['title'] ?? ''),
+				'body' => (string)($row['body'] ?? ''),
 				'text' => (string)($row['body'] ?? $row['title']),
 			],
 		]);

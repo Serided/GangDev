@@ -225,7 +225,8 @@
         if (!items.length) return 0;
         const itemHeight = items[0].offsetHeight || 32;
         const paddingTop = parseFloat(getComputedStyle(wheel).paddingTop) || 0;
-        const index = Math.round((wheel.scrollTop - paddingTop) / itemHeight);
+        const center = wheel.scrollTop + wheel.clientHeight / 2;
+        const index = Math.round((center - paddingTop - itemHeight / 2) / itemHeight);
         const safeIndex = clamp(index, 0, items.length - 1);
         const value = parseInt(items[safeIndex].dataset.timeValue, 10);
         return Number.isFinite(value) ? value : 0;
@@ -247,12 +248,14 @@
         });
     };
 
-    const updateManualInputs = () => {
-        if (timeManualHour) {
+    const updateManualInputs = (force = false) => {
+        const hourFocused = timeManualHour && document.activeElement === timeManualHour;
+        const minuteFocused = timeManualMinute && document.activeElement === timeManualMinute;
+        if (timeManualHour && (!hourFocused || force)) {
             const displayHour = displayHourFromActive();
             timeManualHour.value = clockMode === "24" ? pad2(displayHour) : String(displayHour);
         }
-        if (timeManualMinute) {
+        if (timeManualMinute && (!minuteFocused || force)) {
             timeManualMinute.value = pad2(activeMinute);
         }
         updateMeridiemButtons();
@@ -285,20 +288,6 @@
             onChange(value);
             updateManualInputs();
         });
-        wheel.addEventListener("wheel", (event) => {
-            event.preventDefault();
-            const items = getWheelItems(wheel);
-            if (!items.length) return;
-            const current = readWheelValue(wheel);
-            const index = items.findIndex((item) => parseInt(item.dataset.timeValue, 10) === current);
-            const direction = event.deltaY > 0 ? 1 : -1;
-            const nextIndex = clamp(index + direction, 0, items.length - 1);
-            const nextValue = parseInt(items[nextIndex].dataset.timeValue, 10);
-            if (!Number.isFinite(nextValue)) return;
-            scrollWheelTo(wheel, nextValue);
-            onChange(nextValue);
-            updateManualInputs();
-        }, { passive: false });
         wheel.addEventListener("pointerdown", (event) => {
             dragActive = true;
             dragStartY = event.clientY;
@@ -381,29 +370,59 @@
                 const safe = clockMode === "24" ? clamp(raw, 0, 23) : clamp(raw, 1, 12);
                 setActiveHourFromDisplay(safe);
                 if (timeHourWheel) scrollWheelTo(timeHourWheel, safe);
-                updateManualInputs();
+                updateMeridiemButtons();
+            };
+            const commitManualHour = () => {
+                const raw = parseInt(timeManualHour.value, 10);
+                if (Number.isFinite(raw)) {
+                    applyManualHour(raw);
+                }
+                updateManualInputs(true);
             };
             timeManualHour.addEventListener("input", () => {
+                timeManualHour.value = timeManualHour.value.replace(/[^\d]/g, "");
                 const raw = parseInt(timeManualHour.value, 10);
                 if (Number.isFinite(raw)) {
                     applyManualHour(raw);
                 }
             });
-            timeManualHour.addEventListener("blur", updateManualInputs);
+            timeManualHour.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    commitManualHour();
+                    timeManualHour.blur();
+                }
+            });
+            timeManualHour.addEventListener("blur", commitManualHour);
         }
         if (timeManualMinute) {
             const applyManualMinute = (raw) => {
                 activeMinute = clamp(raw, 0, 59);
                 if (timeMinuteWheel) scrollWheelTo(timeMinuteWheel, activeMinute);
-                updateManualInputs();
+                updateMeridiemButtons();
+            };
+            const commitManualMinute = () => {
+                const raw = parseInt(timeManualMinute.value, 10);
+                if (Number.isFinite(raw)) {
+                    applyManualMinute(raw);
+                }
+                updateManualInputs(true);
             };
             timeManualMinute.addEventListener("input", () => {
+                timeManualMinute.value = timeManualMinute.value.replace(/[^\d]/g, "");
                 const raw = parseInt(timeManualMinute.value, 10);
                 if (Number.isFinite(raw)) {
                     applyManualMinute(raw);
                 }
             });
-            timeManualMinute.addEventListener("blur", updateManualInputs);
+            timeManualMinute.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    commitManualMinute();
+                    timeManualMinute.blur();
+                }
+            });
+            timeManualMinute.addEventListener("blur", commitManualMinute);
         }
         if (timeApply) {
             timeApply.addEventListener("click", () => {
@@ -810,22 +829,6 @@
     const getWeekItems = (targetDay) => {
         const items = [];
         const sleepRule = pickSleepRuleForDay(targetDay);
-        if (sleepRule) {
-            if (sleepRule.end) {
-                items.push({
-                    kind: "sleep",
-                    title: "Wake",
-                    time: sleepRule.end,
-                });
-            }
-            if (sleepRule.start) {
-                items.push({
-                    kind: "sleep",
-                    title: "Bed",
-                    time: sleepRule.start,
-                });
-            }
-        }
         state.routines.forEach((routine) => {
             if (!appliesToDay(routine.repeat, routine.day, routine.days, targetDay)) return;
             items.push({
@@ -852,6 +855,28 @@
         return items;
     };
 
+    const setWeekBlock = (block, label, timeValue) => {
+        if (!block) return;
+        block.innerHTML = "";
+        const labelSpan = document.createElement("span");
+        labelSpan.className = "weekBlockLabel";
+        labelSpan.textContent = label;
+        block.appendChild(labelSpan);
+
+        const timeText = timeValue ? formatTime(timeValue) : "";
+        block.classList.toggle("is-set", Boolean(timeText));
+        if (timeText) {
+            const timeSpan = document.createElement("span");
+            timeSpan.className = "weekBlockTime";
+            timeSpan.textContent = timeText;
+            const check = document.createElement("span");
+            check.className = "weekBlockCheck";
+            check.textContent = "OK";
+            timeSpan.appendChild(check);
+            block.appendChild(timeSpan);
+        }
+    };
+
     const renderWeekTemplate = () => {
         if (!weekColumns.length) return;
         weekColumns.forEach((column) => {
@@ -859,7 +884,16 @@
             const list = column.querySelector("[data-week-list]");
             if (!list) return;
             list.innerHTML = "";
-            const items = getWeekItems(Number.isFinite(day) ? day : 0);
+            const safeDay = Number.isFinite(day) ? day : 0;
+            const sleepRule = pickSleepRuleForDay(safeDay);
+            const sleepBlocks = column.querySelectorAll(".weekBlock.is-sleep");
+            if (sleepBlocks.length >= 2) {
+                const wakeBlock = sleepBlocks[0];
+                const bedBlock = sleepBlocks[sleepBlocks.length - 1];
+                setWeekBlock(wakeBlock, "Wake", sleepRule && sleepRule.end ? sleepRule.end : "");
+                setWeekBlock(bedBlock, "Bed", sleepRule && sleepRule.start ? sleepRule.start : "");
+            }
+            const items = getWeekItems(safeDay);
             items.forEach((item) => {
                 const row = document.createElement("div");
                 const kindClass = item.kind === "sleep"
@@ -1276,6 +1310,7 @@
         drag.dataset.taskDrag = "true";
         drag.textContent = "||";
         drag.setAttribute("aria-label", "Drag to reorder");
+        drag.draggable = true;
 
         const input = document.createElement("input");
         input.className = "input compact";
@@ -1387,7 +1422,7 @@
         routineTaskStack.addEventListener("dragstart", (event) => {
             const row = event.target.closest("[data-task-row]");
             if (!row) return;
-            if (!event.target.closest("[data-task-drag]")) {
+            if (event.target.closest("input, textarea, select")) {
                 event.preventDefault();
                 return;
             }

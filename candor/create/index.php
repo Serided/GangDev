@@ -47,21 +47,21 @@ $candorVersion = 'v0.2';
 					<span class="cardHint">Weekdays, weekends, daily, or a specific day.</span>
 				</div>
 				<form class="formGrid" data-sleep-form>
-					<div class="field">
+					<div class="field field-time">
 						<label class="label" for="sleep-start-hour">Start</label>
 						<div class="timeField" data-time-field data-time-label="Sleep start" data-time-empty="--:--">
 							<input type="hidden" id="sleep-start" name="start" data-time-output>
 							<button class="timeButton" type="button" data-time-display>--:--</button>
 						</div>
 					</div>
-					<div class="field">
+					<div class="field field-time">
 						<label class="label" for="sleep-end-hour">End</label>
 						<div class="timeField" data-time-field data-time-label="Sleep end" data-time-empty="--:--">
 							<input type="hidden" id="sleep-end" name="end" data-time-output>
 							<button class="timeButton" type="button" data-time-display>--:--</button>
 						</div>
 					</div>
-					<div class="field">
+					<div class="field field-repeat">
 						<label class="label" for="sleep-repeat">Repeat</label>
 						<select class="input compact select" id="sleep-repeat" name="repeat" data-repeat-select>
 							<option value="weekdays">Weekdays</option>
@@ -70,7 +70,7 @@ $candorVersion = 'v0.2';
 							<option value="day">Specific day</option>
 						</select>
 					</div>
-					<div class="field" data-day-field>
+					<div class="field field-day" data-day-field>
 						<label class="label" for="sleep-day">Day</label>
 						<select class="input compact select" id="sleep-day" name="day">
 							<option value="0">Sunday</option>
@@ -103,12 +103,6 @@ $candorVersion = 'v0.2';
 					<div class="routineBuild">
 						<form class="routineForm" data-routine-form>
 							<div class="routineGrid">
-								<div class="routineTasks">
-									<div class="label routineTasksLabel">Tasks</div>
-									<div class="taskStack" data-routine-tasks></div>
-									<button class="taskAdd" type="button" data-routine-add-task aria-label="Add task">+</button>
-									<div class="routineTotal" data-routine-total>Estimated: 0 min</div>
-								</div>
 								<div class="routineMeta">
 									<div class="field">
 										<label class="label" for="block-type">Window type</label>
@@ -180,6 +174,12 @@ $candorVersion = 'v0.2';
 										</div>
 									</div>
 									<div class="fieldHint" data-anchor-note></div>
+								</div>
+								<div class="routineTasks">
+									<div class="label routineTasksLabel">Tasks</div>
+									<div class="taskStack" data-routine-tasks></div>
+									<button class="taskAdd" type="button" data-routine-add-task aria-label="Add task">+</button>
+									<div class="routineTotal" data-routine-total>Estimated: 0 min</div>
 								</div>
 							</div>
 							<div class="formActions">
@@ -331,10 +331,11 @@ $candorVersion = 'v0.2';
 				<div class="timePickerTitle" data-time-title>Set time</div>
 				<button class="iconBtn" type="button" data-time-close aria-label="Close">&times;</button>
 			</div>
-			<div class="timePickerBody">
-				<div class="timeWheel" data-time-wheel="hour">
-					<div class="timeWheelTrack" data-time-hours></div>
-				</div>
+	<div class="timePickerBody">
+		<div class="timePickerHighlight" aria-hidden="true"></div>
+		<div class="timeWheel" data-time-wheel="hour">
+			<div class="timeWheelTrack" data-time-hours></div>
+		</div>
 				<div class="timeWheelDivider">:</div>
 				<div class="timeWheel" data-time-wheel="minute">
 					<div class="timeWheelTrack" data-time-minutes></div>

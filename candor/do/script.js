@@ -51,7 +51,8 @@
 
     const normalizeNote = (item) => ({
         id: String(item.id ?? makeId()),
-        text: normalizeText(item.text ?? item.body ?? item.title ?? ""),
+        title: normalizeText(item.title ?? ""),
+        body: normalizeText(item.body ?? item.text ?? ""),
     });
 
     const normalizeWindow = (item) => ({
@@ -412,7 +413,8 @@
         if (!items.length) return 0;
         const itemHeight = items[0].offsetHeight || 32;
         const paddingTop = parseFloat(getComputedStyle(wheel).paddingTop) || 0;
-        const index = Math.round((wheel.scrollTop - paddingTop) / itemHeight);
+        const center = wheel.scrollTop + wheel.clientHeight / 2;
+        const index = Math.round((center - paddingTop - itemHeight / 2) / itemHeight);
         const safeIndex = clamp(index, 0, items.length - 1);
         const value = parseInt(items[safeIndex].dataset.timeValue, 10);
         return Number.isFinite(value) ? value : 0;
@@ -434,12 +436,14 @@
         });
     };
 
-    const updateManualInputs = () => {
-        if (timeManualHour) {
+    const updateManualInputs = (force = false) => {
+        const hourFocused = timeManualHour && document.activeElement === timeManualHour;
+        const minuteFocused = timeManualMinute && document.activeElement === timeManualMinute;
+        if (timeManualHour && (!hourFocused || force)) {
             const displayHour = displayHourFromActive();
             timeManualHour.value = clockMode === "24" ? pad2(displayHour) : String(displayHour);
         }
-        if (timeManualMinute) {
+        if (timeManualMinute && (!minuteFocused || force)) {
             timeManualMinute.value = pad2(activeMinute);
         }
         updateMeridiemButtons();
@@ -472,20 +476,6 @@
             onChange(value);
             updateManualInputs();
         });
-        wheel.addEventListener("wheel", (event) => {
-            event.preventDefault();
-            const items = getWheelItems(wheel);
-            if (!items.length) return;
-            const current = readWheelValue(wheel);
-            const index = items.findIndex((item) => parseInt(item.dataset.timeValue, 10) === current);
-            const direction = event.deltaY > 0 ? 1 : -1;
-            const nextIndex = clamp(index + direction, 0, items.length - 1);
-            const nextValue = parseInt(items[nextIndex].dataset.timeValue, 10);
-            if (!Number.isFinite(nextValue)) return;
-            scrollWheelTo(wheel, nextValue);
-            onChange(nextValue);
-            updateManualInputs();
-        }, { passive: false });
         wheel.addEventListener("pointerdown", (event) => {
             dragActive = true;
             dragStartY = event.clientY;
@@ -568,29 +558,59 @@
                 const safe = clockMode === "24" ? clamp(raw, 0, 23) : clamp(raw, 1, 12);
                 setActiveHourFromDisplay(safe);
                 if (timeHourWheel) scrollWheelTo(timeHourWheel, safe);
-                updateManualInputs();
+                updateMeridiemButtons();
+            };
+            const commitManualHour = () => {
+                const raw = parseInt(timeManualHour.value, 10);
+                if (Number.isFinite(raw)) {
+                    applyManualHour(raw);
+                }
+                updateManualInputs(true);
             };
             timeManualHour.addEventListener("input", () => {
+                timeManualHour.value = timeManualHour.value.replace(/[^\d]/g, "");
                 const raw = parseInt(timeManualHour.value, 10);
                 if (Number.isFinite(raw)) {
                     applyManualHour(raw);
                 }
             });
-            timeManualHour.addEventListener("blur", updateManualInputs);
+            timeManualHour.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    commitManualHour();
+                    timeManualHour.blur();
+                }
+            });
+            timeManualHour.addEventListener("blur", commitManualHour);
         }
         if (timeManualMinute) {
             const applyManualMinute = (raw) => {
                 activeMinute = clamp(raw, 0, 59);
                 if (timeMinuteWheel) scrollWheelTo(timeMinuteWheel, activeMinute);
-                updateManualInputs();
+                updateMeridiemButtons();
+            };
+            const commitManualMinute = () => {
+                const raw = parseInt(timeManualMinute.value, 10);
+                if (Number.isFinite(raw)) {
+                    applyManualMinute(raw);
+                }
+                updateManualInputs(true);
             };
             timeManualMinute.addEventListener("input", () => {
+                timeManualMinute.value = timeManualMinute.value.replace(/[^\d]/g, "");
                 const raw = parseInt(timeManualMinute.value, 10);
                 if (Number.isFinite(raw)) {
                     applyManualMinute(raw);
                 }
             });
-            timeManualMinute.addEventListener("blur", updateManualInputs);
+            timeManualMinute.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    commitManualMinute();
+                    timeManualMinute.blur();
+                }
+            });
+            timeManualMinute.addEventListener("blur", commitManualMinute);
         }
         if (timeApply) {
             timeApply.addEventListener("click", () => {
@@ -1164,7 +1184,8 @@
 
                 const text = document.createElement("span");
                 text.className = "chipText";
-                text.textContent = note.text;
+                const title = note.title || note.body || "Note";
+                text.textContent = title.length > 48 ? `${title.slice(0, 48)}…` : title;
 
                 const remove = document.createElement("button");
                 remove.type = "button";
@@ -1492,6 +1513,10 @@
     const editClose = editOverlay ? editOverlay.querySelector("[data-edit-close]") : null;
     const editStartNow = editOverlay ? editOverlay.querySelector("[data-edit-start-now]") : null;
     const editFinishNow = editOverlay ? editOverlay.querySelector("[data-edit-finish-now]") : null;
+    const noteOverlay = document.querySelector("[data-note-overlay]");
+    const noteTitleEl = noteOverlay ? noteOverlay.querySelector("[data-note-title]") : null;
+    const noteBodyEl = noteOverlay ? noteOverlay.querySelector("[data-note-body]") : null;
+    const noteClose = noteOverlay ? noteOverlay.querySelector("[data-note-close]") : null;
     let activeEditWindow = null;
     let plannedTimes = { start: "", end: "" };
     let editSync = false;
@@ -1565,6 +1590,22 @@
         editOverlay.classList.remove("is-open");
         activeEditWindow = null;
         plannedTimes = { start: "", end: "" };
+    };
+
+    const openNote = (note) => {
+        if (!noteOverlay || !note) return;
+        if (noteTitleEl) {
+            noteTitleEl.textContent = note.title || "Note";
+        }
+        if (noteBodyEl) {
+            noteBodyEl.textContent = note.body || note.title || "No details yet.";
+        }
+        noteOverlay.classList.add("is-open");
+    };
+
+    const closeNote = () => {
+        if (!noteOverlay) return;
+        noteOverlay.classList.remove("is-open");
     };
 
     const handleEditTimeChange = () => {
@@ -1699,6 +1740,7 @@
         if (event.key === "Escape") {
             closeCreate();
             closeEdit();
+            closeNote();
         }
     });
 
@@ -1730,6 +1772,15 @@
             const startValue = editStartInput ? editStartInput.value : "";
             updateWindowTimes(activeEditWindow.id, startValue ? startValue : undefined, value);
             updateEditDelta();
+        });
+    }
+
+    if (noteClose) {
+        noteClose.addEventListener("click", closeNote);
+    }
+    if (noteOverlay) {
+        noteOverlay.addEventListener("click", (event) => {
+            if (event.target === noteOverlay) closeNote();
         });
     }
 
@@ -1782,6 +1833,10 @@
                 type,
                 text: kind === "note" ? (noteBody || title) : title,
             };
+            if (kind === "note") {
+                payload.title = title;
+                payload.body = noteBody;
+            }
             if (kind === "task") {
                 payload.date = date;
                 if (durationRaw) payload.duration = durationRaw;
@@ -1820,7 +1875,7 @@
                         duration: Number.isFinite(parsedDuration) && parsedDuration > 0 ? parsedDuration : null,
                     });
                 } else if (type === "notes") {
-                    state.notes.push({ id, text: noteBody || title });
+                    state.notes.push({ id, title, body: noteBody });
                 } else {
                     state.windows.push({ id, text: title, date, start, end, kind: kind === "event" ? "event" : "window", color });
                 }
@@ -1876,6 +1931,15 @@
                 persistLocal();
             }
             refreshUI(false);
+            return;
+        }
+
+        const noteChip = event.target.closest(".noteChip");
+        if (noteChip && !event.target.closest(".chipRemove")) {
+            const id = noteChip.dataset.noteId;
+            const note = state.notes.find((item) => item.id === id);
+            if (!note) return;
+            openNote(note);
         }
     });
 

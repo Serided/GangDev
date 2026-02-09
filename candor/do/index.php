@@ -295,6 +295,16 @@ $candorVersion = 'v0.2';
 	</div>
 </div>
 
+<div class="noteOverlay" data-note-overlay>
+	<div class="noteCard">
+		<div class="noteHeader">
+			<div class="noteTitle" data-note-title>Note</div>
+			<button class="iconBtn" type="button" data-note-close aria-label="Close">&times;</button>
+		</div>
+		<div class="noteBody" data-note-body></div>
+	</div>
+</div>
+
 <div class="timePickerOverlay" data-time-overlay>
 	<div class="timePickerCard">
 		<div class="timePickerHeader">
@@ -302,6 +312,7 @@ $candorVersion = 'v0.2';
 			<button class="iconBtn" type="button" data-time-close aria-label="Close">&times;</button>
 		</div>
 		<div class="timePickerBody">
+			<div class="timePickerHighlight" aria-hidden="true"></div>
 			<div class="timeWheel" data-time-wheel="hour">
 				<div class="timeWheelTrack" data-time-hours></div>
 			</div>
