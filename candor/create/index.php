@@ -94,11 +94,11 @@ $candorVersion = 'v0.2';
 				</div>
 			</div>
 
-			<div class="card routineCard">
-				<div class="cardHead">
-					<h2>Cadence blocks</h2>
-					<span class="cardHint">Build repeatable blocks for routines, work, and focus.</span>
-				</div>
+				<div class="card routineCard">
+					<div class="cardHead">
+						<h2>Windows</h2>
+						<span class="cardHint">Build repeatable windows for routines, work, and focus.</span>
+					</div>
 				<div class="routineLayout">
 					<div class="routineBuild">
 						<form class="routineForm" data-routine-form>
@@ -111,7 +111,7 @@ $candorVersion = 'v0.2';
 								</div>
 								<div class="routineMeta">
 									<div class="field">
-										<label class="label" for="block-type">Block type</label>
+										<label class="label" for="block-type">Window type</label>
 										<select class="input compact select" id="block-type" name="block_type" data-block-type>
 											<option value="routine">Routine</option>
 											<option value="work">Work</option>
@@ -189,8 +189,8 @@ $candorVersion = 'v0.2';
 						</form>
 					</div>
 					<div class="savedSection">
-						<div class="listHeader">Saved routines</div>
-						<div class="listEmpty" data-routine-empty>No routines yet.</div>
+						<div class="listHeader">Saved windows</div>
+						<div class="listEmpty" data-routine-empty>No windows yet.</div>
 						<div class="itemList savedScroll" data-routine-list></div>
 					</div>
 				</div>
@@ -363,4 +363,5 @@ $candorVersion = 'v0.2';
 
 </body>
 </html>
+
 

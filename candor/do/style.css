@@ -537,6 +537,55 @@ body.is-do .welcome {
     gap: 10px;
 }
 
+.allDayStrip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 2px 0 0;
+}
+
+.allDayStrip.is-empty {
+    display: none;
+}
+
+.allDayLabel {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+}
+
+.allDayList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.allDayChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(243, 200, 115, 0.6);
+    background: rgba(243, 200, 115, 0.2);
+    font-size: 12px;
+    color: var(--ink);
+}
+
+.allDayChip .chipText {
+    font-weight: 600;
+}
+
+.allDayChip .chipRemove {
+    border: none;
+    background: transparent;
+    color: rgba(42, 59, 82, 0.6);
+    font-size: 12px;
+    cursor: pointer;
+}
+
 .rail {
     display: flex;
     align-items: center;
@@ -860,10 +909,12 @@ body.is-do .welcome {
 }
 
 .monthTitleWrap {
-    display: inline-flex;
+    position: relative;
+    width: 100%;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    min-height: 36px;
     justify-self: center;
 }
 
@@ -885,10 +936,21 @@ body.is-do .welcome {
     font-size: 18px;
     cursor: pointer;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.monthNav[data-month-nav="prev"] {
+    left: 25%;
+}
+
+.monthNav[data-month-nav="next"] {
+    left: 75%;
 }
 
 .monthNav:hover {
-    transform: translateY(-1px);
+    transform: translate(-50%, calc(-50% - 1px));
     box-shadow: 0 10px 22px rgba(90, 143, 185, 0.2);
     background: rgba(185, 219, 242, 0.45);
 }
@@ -1524,6 +1586,78 @@ body.is-do .welcome {
     display: grid;
 }
 
+.editOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 27, 45, 0.18);
+    backdrop-filter: blur(6px);
+    display: none;
+    place-items: center;
+    padding: 24px;
+    z-index: 40;
+}
+
+.editOverlay.is-open {
+    display: grid;
+}
+
+.editCard {
+    width: min(420px, 94vw);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(15, 27, 45, 0.25);
+    padding: 20px;
+    display: grid;
+    gap: 14px;
+}
+
+.editHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.editTitle {
+    font-size: 18px;
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+.editMeta {
+    font-size: 12px;
+    color: var(--ink-soft);
+}
+
+.editBody {
+    display: grid;
+    gap: 12px;
+}
+
+.editRow {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.editField {
+    display: grid;
+    gap: 6px;
+}
+
+.editDelta {
+    font-size: 12px;
+    color: var(--ink-soft);
+    min-height: 18px;
+}
+
+.editActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
 .createCard {
     width: min(480px, 94vw);
     background: var(--white);
@@ -1707,28 +1841,6 @@ body.is-do .welcome {
     border: 1px solid rgba(185, 219, 242, 0.6);
 }
 
-.timePickerBody::before {
-    content: "";
-    position: absolute;
-    left: 12px;
-    right: 12px;
-    top: 50%;
-    height: 34px;
-    transform: translateY(-50%);
-    border-radius: 12px;
-    border: 1px solid rgba(185, 219, 242, 0.8);
-    background: rgba(255, 255, 255, 0.7);
-    pointer-events: none;
-}
-
-.timePickerBody::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 16px;
-    background: linear-gradient(180deg, rgba(245, 245, 245, 0.9) 0%, rgba(245, 245, 245, 0) 28%, rgba(245, 245, 245, 0) 72%, rgba(245, 245, 245, 0.9) 100%);
-    pointer-events: none;
-}
 
 .timeWheel {
     width: 110px;
@@ -2098,6 +2210,9 @@ body.is-do .welcome {
         overflow: hidden;
         max-height: 52px;
     }
+    .allDayStrip { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .allDayLabel { font-size: 9px; }
+    .allDayChip { font-size: 11px; }
     .chip {
         padding: 4px 8px;
         font-size: 11px;

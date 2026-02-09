@@ -33,6 +33,11 @@ $consent = !empty($profile['consent_health']);
 $cookieKey = 'candor_time_format_' . $userId;
 $timeFormat = $_COOKIE[$cookieKey] ?? '24';
 $timeFormat = $timeFormat === '12' ? '12' : '24';
+$timezone = $profile['timezone'] ?? '';
+$timezones = DateTimeZone::listIdentifiers();
+if ($timezone === '' || !in_array($timezone, $timezones, true)) {
+	$timezone = 'UTC';
+}
 $candorMeta = 'personal OS';
 $candorLead = 'your';
 $candorAuthed = true;
@@ -124,6 +129,10 @@ $candorVersion = 'v0.2';
 						<div class="railLabel">Notes</div>
 						<div class="railList" data-note-rail></div>
 					</div>
+				</div>
+				<div class="allDayStrip is-empty" data-day-all-day>
+					<span class="allDayLabel">All day</span>
+					<div class="allDayList" data-day-all-day-list></div>
 				</div>
 			</div>
 
@@ -251,6 +260,41 @@ $candorVersion = 'v0.2';
 	</div>
 </div>
 
+<div class="editOverlay" data-edit-overlay>
+	<div class="editCard">
+		<div class="editHeader">
+			<div>
+				<div class="editTitle" data-edit-title>Window</div>
+				<div class="editMeta" data-edit-meta></div>
+			</div>
+			<button class="iconBtn" type="button" data-edit-close aria-label="Close">&times;</button>
+		</div>
+		<div class="editBody">
+			<div class="editRow">
+				<div class="editField">
+					<label class="label">Start</label>
+					<div class="timeField" data-time-field data-time-label="Start time" data-time-empty="--:--">
+						<input type="hidden" data-edit-start data-time-output>
+						<button class="timeButton" type="button" data-time-display>--:--</button>
+					</div>
+				</div>
+				<div class="editField">
+					<label class="label">End</label>
+					<div class="timeField" data-time-field data-time-label="End time" data-time-empty="--:--">
+						<input type="hidden" data-edit-end data-time-output>
+						<button class="timeButton" type="button" data-time-display>--:--</button>
+					</div>
+				</div>
+			</div>
+			<div class="editDelta" data-edit-delta></div>
+			<div class="editActions">
+				<button class="btn ghost" type="button" data-edit-start-now>Start</button>
+				<button class="btn primary" type="button" data-edit-finish-now>Finish</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="timePickerOverlay" data-time-overlay>
 	<div class="timePickerCard">
 		<div class="timePickerHeader">
@@ -309,6 +353,10 @@ $candorVersion = 'v0.2';
 						</select>
 					</div>
 					<div class="bulletField is-compact">
+						<label class="label" for="profile-timezone">Time zone</label>
+						<input class="input compact" id="profile-timezone" name="timezone" list="candor-timezones" value="<?= htmlspecialchars($timezone) ?>" placeholder="America/Los_Angeles">
+					</div>
+					<div class="bulletField is-compact">
 						<label class="label" for="profile-birthdate">Birthday</label>
 						<input class="input compact" id="profile-birthdate" type="date" name="birthdate" required value="<?= htmlspecialchars((string)$birthdate) ?>">
 					</div>
@@ -316,7 +364,7 @@ $candorVersion = 'v0.2';
 						<label class="label" for="profile-clock">Clock</label>
 						<select class="input compact select" id="profile-clock" name="clock_format" data-clock-select>
 							<option value="24" <?= $timeFormat === '24' ? 'selected' : '' ?>>24-hour (military)</option>
-							<option value="12" <?= $timeFormat === '12' ? 'selected' : '' ?>>12-hour (no AM/PM)</option>
+							<option value="12" <?= $timeFormat === '12' ? 'selected' : '' ?>>12-hour (AM/PM)</option>
 						</select>
 					</div>
 					<div class="unitFields" data-unit="metric">
@@ -358,6 +406,11 @@ $candorVersion = 'v0.2';
 						</div>
 					</div>
 				</div>
+				<datalist id="candor-timezones">
+					<?php foreach ($timezones as $tz): ?>
+						<option value="<?= htmlspecialchars($tz) ?>"></option>
+					<?php endforeach; ?>
+				</datalist>
 			</div>
 			<div class="profileSection">
 				<div class="sectionTitle">Refinements</div>
@@ -386,6 +439,7 @@ $candorVersion = 'v0.2';
 
 </body>
 </html>
+
 
 
 

@@ -46,16 +46,14 @@ $candorVersion = 'v0.2';
                     </div>
 					<h3>Create cadence + sleep structure</h3>
 					<ul class="updateList">
-						<li>Create now centers on cadence blocks (routine, work, focus) with child tasks.</li>
-						<li>Routine editor supports drag reordering, quick edits, and inline task minutes.</li>
-						<li>Week template fills with wake/bed times, block times, and repeat tasks by day.</li>
-						<li>Pop-open time picker uses scroll wheels, drag, and manual entry across My OS + Create.</li>
+						<li>Create now centers on cadence windows (routine, work, focus) with child tasks.</li>
 						<li>Sleep schedules auto-calc end time from age with a weekend boost.</li>
-						<li>Specific-day routines now support multi-day selection.</li>
-						<li>Repeat-task plus keeps weekly chores in the cadence builder.</li>
-						<li>Month header adds plan-ahead date picking and day popovers for extras.</li>
-						<li>Birthday events auto-populate yearly.</li>
-						<li>Timeline windows align to the slot line and stack flush when overlapping.</li>
+						<li>Scroll-wheel time picker supports drag, manual entry, and 12/24-hour display.</li>
+						<li>Daily timeline items open an edit panel with start/finish now + time delta.</li>
+						<li>All-day events sit in a pinned strip (including auto birthday entries).</li>
+						<li>24h balance now reflects your sleep hours (9h weekdays, 11h weekends by default).</li>
+						<li>Month header keeps fixed nav positions plus plan-ahead date picking.</li>
+						<li>Account now includes a time zone selector for precise scheduling.</li>
 						<li>Shared head includes keep favicon links centralized.</li>
 					</ul>
                 </article>
@@ -94,11 +92,11 @@ $candorVersion = 'v0.2';
     <section class="grid">
 		<div class="card">
 			<h3>Core tools</h3>
-			<p>Daily timeline for windows/events, monthly planning for future adds, and cadence building for sleep + routines.</p>
+			<p>Daily timeline with edit + start/finish controls, monthly planning for future adds, and cadence building for sleep + windows.</p>
 		</div>
 		<div class="card">
 			<h3>Account + access</h3>
-			<p>Verified sign-in with baseline profile data (units, birthday, clock) to personalize sleep and schedules.</p>
+			<p>Verified sign-in with baseline profile data (units, birthday, time zone, clock) to personalize sleep and schedules.</p>
 		</div>
 		<div class="card">
 			<h3>Release cadence</h3>
@@ -111,6 +109,7 @@ $candorVersion = 'v0.2';
 
 </body>
 </html>
+
 
 
 

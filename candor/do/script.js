@@ -29,6 +29,7 @@
         notes: [],
         windows: [],
         rules: [],
+        routineCount: 0,
     };
 
     const makeId = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -61,6 +62,7 @@
         end: normalizeText(item.end ?? item.end_time ?? ""),
         kind: item.kind === "event" ? "event" : "window",
         color: normalizeText(item.color ?? ""),
+        locked: Boolean(item.locked),
     });
 
     const normalizeRule = (item) => {
@@ -112,6 +114,7 @@
         state.notes = loadItems("notes").map(normalizeNote);
         state.windows = loadItems("windows").map(normalizeWindow);
         state.rules = loadItems("rules").map(normalizeRule);
+        state.routineCount = 0;
     };
 
     const switchToLocal = () => {
@@ -128,6 +131,8 @@
             : (Array.isArray(data.blocks) ? data.blocks : []);
         state.windows = windowItems.map(normalizeWindow);
         state.rules = Array.isArray(data.rules) ? data.rules.map(normalizeRule) : [];
+        const routineCount = parseInt(data.routine_count ?? "", 10);
+        state.routineCount = Number.isFinite(routineCount) ? routineCount : 0;
     };
 
     const init = async () => {
@@ -177,6 +182,15 @@
         return (hours * 60) + minutes;
     };
 
+    const durationMinutes = (start, end) => {
+        const startMin = parseMinutes(start);
+        const endMin = parseMinutes(end);
+        if (startMin === null || endMin === null) return null;
+        let diff = endMin - startMin;
+        if (diff < 0) diff += 24 * 60;
+        return diff;
+    };
+
     const parseBirthdate = (value) => {
         const parts = String(value || "").split("-");
         if (parts.length < 3) return null;
@@ -206,6 +220,7 @@
             end: "23:59",
             kind: "event",
             color: "#f3c873",
+            locked: true,
         };
     };
 
@@ -260,9 +275,10 @@
         }
         let hours = Math.floor(minutes / 60);
         const mins = minutes % 60;
+        const meridiem = hours >= 12 ? "PM" : "AM";
         hours = hours % 12;
         if (hours === 0) hours = 12;
-        return `${hours}:${String(mins).padStart(2, "0")}`;
+        return `${hours}:${String(mins).padStart(2, "0")} ${meridiem}`;
     };
 
     const formatHour = (hour) => formatTime(`${String(hour).padStart(2, "0")}:00`);
@@ -637,6 +653,13 @@
         const taskRail = calendarRoot.querySelector("[data-task-rail]");
         const noteRail = calendarRoot.querySelector("[data-note-rail]");
         const daySchedule = calendarRoot.querySelector("[data-day-schedule]");
+        const dayAllDay = calendarRoot.querySelector("[data-day-all-day]");
+        const dayAllDayList = calendarRoot.querySelector("[data-day-all-day-list]");
+        const focusPace = calendarRoot.querySelector("[data-focus-pace]");
+        const focusBalance = calendarRoot.querySelector("[data-focus-balance]");
+        const focusMomentum = calendarRoot.querySelector("[data-focus-momentum]");
+        const balanceBar = calendarRoot.querySelector(".balanceBar");
+        const momentumDots = calendarRoot.querySelector(".momentumDots");
         const monthPopover = calendarRoot.querySelector("[data-month-popover]");
         const popoverTitle = calendarRoot.querySelector("[data-popover-title]");
         const popoverList = calendarRoot.querySelector("[data-popover-list]");
@@ -663,16 +686,124 @@
             daySub.textContent = `Week ${week} - ${stateCal.selected.getFullYear()}`;
             dayShort.textContent = stateCal.selected.toLocaleDateString("en-US", { month: "short", day: "numeric" });
             if (daySchedule) {
-                const rule = pickSleepRule(stateCal.selected);
-                if (rule && rule.start && rule.end) {
-                    const range = `${formatTime(rule.start)}-${formatTime(rule.end)}`;
-                    daySchedule.textContent = `Sleep ${range} - ${formatRepeat(rule)}`;
-                    daySchedule.classList.remove("is-empty");
-                } else {
-                    daySchedule.textContent = "";
-                    daySchedule.classList.add("is-empty");
+                daySchedule.textContent = "";
+                daySchedule.classList.add("is-empty");
+            }
+        };
+
+        const formatHours = (value) => {
+            if (!Number.isFinite(value)) return "0";
+            const rounded = Math.round(value * 10) / 10;
+            return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+        };
+
+        const defaultSleepHours = (date) => {
+            const dow = date.getDay();
+            return dow === 0 || dow === 6 ? 11 : 9;
+        };
+
+        const getSleepHours = (date) => {
+            const rule = pickSleepRule(date);
+            if (!rule || !rule.start || !rule.end) return null;
+            const minutes = durationMinutes(rule.start, rule.end);
+            if (minutes === null) return null;
+            return minutes / 60;
+        };
+
+        const computeMomentum = () => {
+            const hasSleep = state.rules.some((rule) => rule.kind === "sleep");
+            if (!hasSleep || state.routineCount <= 0) return 0;
+            const tasksByDate = state.tasks.reduce((acc, task) => {
+                if (!task.date) return acc;
+                if (!acc[task.date]) acc[task.date] = [];
+                acc[task.date].push(task);
+                return acc;
+            }, {});
+            let streak = 0;
+            const cursor = new Date();
+            cursor.setDate(cursor.getDate() - 1);
+            while (true) {
+                const key = dateKey(cursor);
+                const dayTasks = tasksByDate[key] || [];
+                if (dayTasks.length === 0) break;
+                if (!dayTasks.every((task) => task.done)) break;
+                streak += 1;
+                cursor.setDate(cursor.getDate() - 1);
+            }
+            return streak;
+        };
+
+        const renderFocus = () => {
+            const sleepHours = getSleepHours(stateCal.selected);
+            const fallbackSleep = defaultSleepHours(stateCal.selected);
+            const baseSleep = Number.isFinite(sleepHours) ? sleepHours : fallbackSleep;
+            const remaining = Math.max(0, 24 - baseSleep);
+            const focusHours = remaining / 2;
+            const lifeHours = remaining - focusHours;
+            if (focusBalance) {
+                const longValue = focusBalance.querySelector(".valueLong");
+                const shortValue = focusBalance.querySelector(".valueShort");
+                const sleepLabel = formatHours(baseSleep);
+                const focusLabel = formatHours(focusHours);
+                const lifeLabel = formatHours(lifeHours);
+                if (longValue) {
+                    longValue.textContent = `${sleepLabel}h sleep / ${focusLabel}h focus / ${lifeLabel}h life`;
+                }
+                if (shortValue) {
+                    shortValue.textContent = `${sleepLabel}h/${focusLabel}h/${lifeLabel}h`;
                 }
             }
+            if (balanceBar) {
+                const sleepFr = Math.max(0.5, baseSleep);
+                const focusFr = Math.max(0.5, focusHours);
+                const lifeFr = Math.max(0.5, lifeHours);
+                balanceBar.style.gridTemplateColumns = `${sleepFr}fr ${focusFr}fr ${lifeFr}fr`;
+            }
+            const momentumDays = computeMomentum();
+            if (focusMomentum) {
+                const longValue = focusMomentum.querySelector(".valueLong");
+                const shortValue = focusMomentum.querySelector(".valueShort");
+                if (longValue) longValue.textContent = `${momentumDays}-day momentum`;
+                if (shortValue) shortValue.textContent = `${momentumDays}-day`;
+            }
+            if (momentumDots) {
+                const dots = Array.from(momentumDots.querySelectorAll(".dot"));
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle("is-on", index < Math.min(momentumDays, dots.length));
+                });
+            }
+        };
+
+        const renderAllDay = (items) => {
+            if (!dayAllDay || !dayAllDayList) return;
+            dayAllDayList.innerHTML = "";
+            if (!items || items.length === 0) {
+                dayAllDay.classList.add("is-empty");
+                return;
+            }
+            dayAllDay.classList.remove("is-empty");
+            items.forEach((item) => {
+                const chip = document.createElement("div");
+                chip.className = "allDayChip";
+                chip.dataset.windowId = item.id;
+
+                const text = document.createElement("span");
+                text.className = "chipText";
+                text.textContent = item.text;
+                chip.appendChild(text);
+
+                if (!item.locked) {
+                    const remove = document.createElement("button");
+                    remove.type = "button";
+                    remove.className = "chipRemove";
+                    remove.dataset.removeId = item.id;
+                    remove.dataset.removeType = "windows";
+                    remove.textContent = "x";
+                    chip.appendChild(remove);
+                }
+
+                dayAllDayList.appendChild(chip);
+            });
         };
 
         const renderDayGrid = (autoScroll) => {
@@ -710,12 +841,17 @@
 
             const windowsByHour = {};
             const blockWindows = [];
+            const allDayEvents = [];
 
             windows.forEach((window) => {
                 const minutes = parseMinutes(window.start);
                 if (minutes === null) return;
                 const endMinutes = parseMinutes(window.end);
                 const isAllDay = window.kind === "event" && window.start === "00:00" && window.end === "23:59";
+                if (isAllDay) {
+                    allDayEvents.push(window);
+                    return;
+                }
                 if (endMinutes !== null) {
                     blockWindows.push({
                         ...window,
@@ -771,12 +907,12 @@
                 });
             });
 
+            renderAllDay(allDayEvents);
+
             const blockSegments = [];
             blockWindows.forEach((window) => {
                 const segments = [];
-                if (window.isAllDay) {
-                    segments.push({ start: dayStart * 60, end: dayStart * 60 + 60, allDay: true });
-                } else if (window.endMinutes <= window.startMinutes) {
+                if (window.endMinutes <= window.startMinutes) {
                     segments.push({ start: window.startMinutes, end: dayEnd * 60 });
                     if (window.endMinutes > dayStart * 60) {
                         segments.push({ start: dayStart * 60, end: window.endMinutes });
@@ -789,7 +925,7 @@
                         window,
                         start: segment.start,
                         end: segment.end,
-                        allDay: !!segment.allDay,
+                        allDay: false,
                     });
                 });
             });
@@ -860,16 +996,15 @@
             layoutSegments(blockSegments).forEach((segment) => {
                 const { window } = segment;
                 const block = document.createElement("div");
-                block.className = `slotBlock${window.kind === "event" ? " is-event" : ""}${segment.allDay ? " is-all-day" : ""}`;
+                block.className = `slotBlock${window.kind === "event" ? " is-event" : ""}`;
+                block.dataset.windowId = window.id;
 
                 const tint = colorToRgba(window.color || "#f3c873", window.kind === "event" ? 0.2 : 0.25);
                 block.style.borderColor = window.color || "#f3c873";
                 if (tint) block.style.background = tint;
 
-                const top = segment.allDay ? 6 : ((segment.start - dayStart * 60) / 60) * hourHeight;
-                const height = segment.allDay
-                    ? Math.max(26, hourHeight * 0.75)
-                    : ((segment.end - segment.start) / 60) * hourHeight;
+                const top = ((segment.start - dayStart * 60) / 60) * hourHeight;
+                const height = ((segment.end - segment.start) / 60) * hourHeight;
                 block.style.top = `${top}px`;
                 block.style.height = `${height}px`;
 
@@ -884,22 +1019,23 @@
                 time.className = "blockTime";
                 const startText = formatTime(window.start);
                 const endText = window.end ? formatTime(window.end) : "";
-                time.textContent = segment.allDay ? "All day" : (endText ? `${startText}-${endText}` : startText);
+                time.textContent = endText ? `${startText}-${endText}` : startText;
 
                 const title = document.createElement("span");
                 title.className = "blockText";
                 title.textContent = window.text;
 
-                const remove = document.createElement("button");
-                remove.type = "button";
-                remove.className = "blockRemove";
-                remove.dataset.removeId = window.id;
-                remove.dataset.removeType = "windows";
-                remove.textContent = "x";
-
                 block.appendChild(time);
                 block.appendChild(title);
-                block.appendChild(remove);
+                if (!window.locked) {
+                    const remove = document.createElement("button");
+                    remove.type = "button";
+                    remove.className = "blockRemove";
+                    remove.dataset.removeId = window.id;
+                    remove.dataset.removeType = "windows";
+                    remove.textContent = "x";
+                    block.appendChild(remove);
+                }
                 dayGrid.appendChild(block);
             });
 
@@ -1241,6 +1377,7 @@
         const renderAll = (autoScroll) => {
             renderDayHeader();
             renderDayGrid(autoScroll);
+            renderFocus();
             renderTaskRail();
             renderNoteRail();
             renderMonth();
@@ -1344,6 +1481,102 @@
     const createDatePicker = overlay ? overlay.querySelector("[data-create-date-picker]") : null;
     const createMeta = overlay ? overlay.querySelector(".createMeta") : null;
 
+    const editOverlay = document.querySelector("[data-edit-overlay]");
+    const editTitle = editOverlay ? editOverlay.querySelector("[data-edit-title]") : null;
+    const editMeta = editOverlay ? editOverlay.querySelector("[data-edit-meta]") : null;
+    const editStartInput = editOverlay ? editOverlay.querySelector("[data-edit-start]") : null;
+    const editEndInput = editOverlay ? editOverlay.querySelector("[data-edit-end]") : null;
+    const editStartField = editStartInput ? editStartInput.closest("[data-time-field]") : null;
+    const editEndField = editEndInput ? editEndInput.closest("[data-time-field]") : null;
+    const editDelta = editOverlay ? editOverlay.querySelector("[data-edit-delta]") : null;
+    const editClose = editOverlay ? editOverlay.querySelector("[data-edit-close]") : null;
+    const editStartNow = editOverlay ? editOverlay.querySelector("[data-edit-start-now]") : null;
+    const editFinishNow = editOverlay ? editOverlay.querySelector("[data-edit-finish-now]") : null;
+    let activeEditWindow = null;
+    let plannedTimes = { start: "", end: "" };
+    let editSync = false;
+
+    const nowTime = () => {
+        const now = new Date();
+        return `${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
+    };
+
+    const updateEditDelta = () => {
+        if (!editDelta) return;
+        const start = editStartInput ? editStartInput.value : "";
+        const end = editEndInput ? editEndInput.value : "";
+        const plannedDuration = durationMinutes(plannedTimes.start, plannedTimes.end);
+        const actualDuration = durationMinutes(start, end);
+        if (plannedDuration === null || actualDuration === null) {
+            editDelta.textContent = "Adjust start/end or tap Start/Finish.";
+            return;
+        }
+        const diff = actualDuration - plannedDuration;
+        if (diff === 0) {
+            editDelta.textContent = "On target.";
+            return;
+        }
+        const label = diff > 0 ? `Lost ${diff}m` : `Gained ${Math.abs(diff)}m`;
+        editDelta.textContent = label;
+    };
+
+    const updateWindowTimes = async (windowId, start, end) => {
+        if (!windowId) return;
+        if (start === undefined && end === undefined) return;
+        const target = state.windows.find((item) => item.id === windowId);
+        if (!target) return;
+        if (start !== undefined) {
+            target.start = start;
+            target.time = start;
+        }
+        if (end !== undefined) {
+            target.end = end;
+        }
+        if (storageMode === "remote") {
+            try {
+                await apiFetch({ action: "update_window", id: windowId, start, end }, "POST");
+            } catch {
+                switchToLocal();
+            }
+        }
+        if (storageMode === "local") {
+            persistLocal();
+        }
+        refreshUI(false);
+    };
+
+    const openEdit = (windowItem) => {
+        if (!editOverlay || !windowItem) return;
+        if (windowItem.locked) return;
+        activeEditWindow = windowItem;
+        plannedTimes = { start: windowItem.start || "", end: windowItem.end || "" };
+        if (editTitle) editTitle.textContent = windowItem.text || "Window";
+        if (editMeta) editMeta.textContent = windowItem.kind === "event" ? "Event" : "Window";
+        editSync = true;
+        if (editStartField) setFieldValue(editStartField, windowItem.start || "", { emit: false });
+        if (editEndField) setFieldValue(editEndField, windowItem.end || "", { emit: false });
+        editSync = false;
+        updateEditDelta();
+        editOverlay.classList.add("is-open");
+    };
+
+    const closeEdit = () => {
+        if (!editOverlay) return;
+        editOverlay.classList.remove("is-open");
+        activeEditWindow = null;
+        plannedTimes = { start: "", end: "" };
+    };
+
+    const handleEditTimeChange = () => {
+        if (!activeEditWindow || editSync) return;
+        const startValue = editStartInput ? editStartInput.value : "";
+        const endValue = editEndInput ? editEndInput.value : "";
+        const start = startValue ? startValue : undefined;
+        const end = endValue ? endValue : undefined;
+        updateWindowTimes(activeEditWindow.id, start, end);
+        updateEditDelta();
+    };
+
     const updateEventTimeVisibility = () => {
         if (!createEventTime || createEventTime.length === 0) return;
         const isEvent = createKind && createKind.value === "event";
@@ -1440,12 +1673,65 @@
         }
     });
 
+    document.addEventListener("click", (event) => {
+        const closeBtn = event.target.closest("[data-edit-close]");
+        if (closeBtn) {
+            closeEdit();
+            return;
+        }
+        if (editOverlay && event.target === editOverlay) {
+            closeEdit();
+            return;
+        }
+        if (event.target.closest(".chipRemove, .blockRemove")) return;
+        const windowTarget = event.target.closest(".slotBlock, .slotChip, .allDayChip");
+        if (!windowTarget || !windowTarget.dataset.windowId) return;
+        const id = windowTarget.dataset.windowId;
+        const birthday = birthdayEventFor(calendarApi ? parseKey(calendarApi.getSelectedKey()) : new Date());
+        const windowItem = state.windows.find((item) => item.id === id) || (birthday && birthday.id === id ? birthday : null);
+        if (windowItem) {
+            openEdit(windowItem);
+        }
+    });
+
 
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
             closeCreate();
+            closeEdit();
         }
     });
+
+    if (editStartField) {
+        editStartField.addEventListener("timechange", handleEditTimeChange);
+    }
+    if (editEndField) {
+        editEndField.addEventListener("timechange", handleEditTimeChange);
+    }
+    if (editStartNow) {
+        editStartNow.addEventListener("click", () => {
+            if (!activeEditWindow) return;
+            const value = nowTime();
+            editSync = true;
+            if (editStartField) setFieldValue(editStartField, value, { emit: false });
+            editSync = false;
+            const endValue = editEndInput ? editEndInput.value : "";
+            updateWindowTimes(activeEditWindow.id, value, endValue ? endValue : undefined);
+            updateEditDelta();
+        });
+    }
+    if (editFinishNow) {
+        editFinishNow.addEventListener("click", () => {
+            if (!activeEditWindow) return;
+            const value = nowTime();
+            editSync = true;
+            if (editEndField) setFieldValue(editEndField, value, { emit: false });
+            editSync = false;
+            const startValue = editStartInput ? editStartInput.value : "";
+            updateWindowTimes(activeEditWindow.id, startValue ? startValue : undefined, value);
+            updateEditDelta();
+        });
+    }
 
     if (createKind) {
         createKind.addEventListener("change", () => setCreateKind(createKind.value));

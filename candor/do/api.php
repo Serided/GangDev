@@ -247,12 +247,22 @@ if ($action === 'load') {
 		$rules = [];
 	}
 
+	$routineCount = 0;
+	try {
+		$stmt = $pdo->prepare("SELECT COUNT(*) FROM candor.routines WHERE user_id = ?");
+		$stmt->execute([(int)$userId]);
+		$routineCount = (int)$stmt->fetchColumn();
+	} catch (Throwable $e) {
+		$routineCount = 0;
+	}
+
 	respond([
 		'tasks' => $tasks,
 		'notes' => $notes,
 		'blocks' => $blocks,
 		'windows' => $blocks,
 		'rules' => $rules,
+		'routine_count' => $routineCount,
 	]);
 }
 
@@ -449,6 +459,50 @@ if ($action === 'toggle' && $type === 'tasks') {
 	$params[] = $id;
 	$params[] = (int)$userId;
 
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute($params);
+	respond(['ok' => true]);
+}
+
+if ($action === 'update_window') {
+	$id = (int)($payload['id'] ?? 0);
+	if ($id <= 0) {
+		respond(['error' => 'invalid_id'], 400);
+	}
+	$setParts = [];
+	$params = [];
+
+	if (array_key_exists('start', $payload)) {
+		$startRaw = trim((string)($payload['start'] ?? ''));
+		if ($startRaw === '') {
+			$setParts[] = 'start_time = NULL';
+		} elseif (preg_match('/^\d{2}:\d{2}$/', $startRaw)) {
+			$setParts[] = 'start_time = ?';
+			$params[] = $startRaw;
+		} else {
+			respond(['error' => 'invalid_start'], 400);
+		}
+	}
+
+	if (array_key_exists('end', $payload)) {
+		$endRaw = trim((string)($payload['end'] ?? ''));
+		if ($endRaw === '') {
+			$setParts[] = 'end_time = NULL';
+		} elseif (preg_match('/^\d{2}:\d{2}$/', $endRaw)) {
+			$setParts[] = 'end_time = ?';
+			$params[] = $endRaw;
+		} else {
+			respond(['error' => 'invalid_end'], 400);
+		}
+	}
+
+	if (empty($setParts)) {
+		respond(['error' => 'no_updates'], 400);
+	}
+
+	$params[] = $id;
+	$params[] = (int)$userId;
+	$sql = "UPDATE candor.schedule_instances SET " . implode(', ', $setParts) . " WHERE id = ? AND user_id = ?";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute($params);
 	respond(['ok' => true]);

@@ -86,9 +86,10 @@
         }
         let hours = Math.floor(minutes / 60);
         const mins = minutes % 60;
+        const meridiem = hours >= 12 ? "PM" : "AM";
         hours = hours % 12;
         if (hours === 0) hours = 12;
-        return `${hours}:${String(mins).padStart(2, "0")}`;
+        return `${hours}:${String(mins).padStart(2, "0")} ${meridiem}`;
     };
 
     const addMinutes = (time, minutes) => {

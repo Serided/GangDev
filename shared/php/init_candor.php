@@ -115,6 +115,7 @@ function candor_profile_row($user_id) {
 		$stmt = $pdo->prepare("
 			SELECT user_id, birthdate, height_cm, weight_kg,
 			       unit_system,
+			       timezone,
 			       consent_health::int AS consent_health,
 			       onboarding_completed_at
 			FROM candor.user_profiles
@@ -124,7 +125,21 @@ function candor_profile_row($user_id) {
 		$stmt->execute(['id' => $user_id]);
 		return $stmt->fetch();
 	} catch (Throwable $e) {
-		return null;
+		try {
+			$stmt = $pdo->prepare("
+				SELECT user_id, birthdate, height_cm, weight_kg,
+				       unit_system,
+				       consent_health::int AS consent_health,
+				       onboarding_completed_at
+				FROM candor.user_profiles
+				WHERE user_id = :id
+				LIMIT 1
+			");
+			$stmt->execute(['id' => $user_id]);
+			return $stmt->fetch();
+		} catch (Throwable $inner) {
+			return null;
+		}
 	}
 }
 

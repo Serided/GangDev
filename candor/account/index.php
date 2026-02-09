@@ -41,6 +41,11 @@ $consent = !empty($profile['consent_health']);
 $cookieKey = 'candor_time_format_' . $userId;
 $timeFormat = $_COOKIE[$cookieKey] ?? '24';
 $timeFormat = $timeFormat === '12' ? '12' : '24';
+$timezone = $profile['timezone'] ?? '';
+$timezones = DateTimeZone::listIdentifiers();
+if ($timezone === '' || !in_array($timezone, $timezones, true)) {
+	$timezone = 'UTC';
+}
 $candorMeta = 'account';
 $candorLead = '';
 $candorAuthed = true;
@@ -108,6 +113,10 @@ $candorVersion = 'v0.2';
 									</select>
 								</div>
 								<div class="bulletField is-compact">
+									<label class="label" for="account-timezone">Time zone</label>
+									<input class="input compact" id="account-timezone" name="timezone" list="candor-timezones" value="<?= htmlspecialchars($timezone) ?>" placeholder="America/Los_Angeles">
+								</div>
+								<div class="bulletField is-compact">
 									<label class="label" for="account-clock">Clock</label>
 									<select class="input compact select" id="account-clock" name="clock_format" data-clock-select>
 										<option value="24" <?= $timeFormat === '24' ? 'selected' : '' ?>>24-hour (military)</option>
@@ -153,6 +162,11 @@ $candorVersion = 'v0.2';
 								</div>
 								</div>
 							</div>
+							<datalist id="candor-timezones">
+								<?php foreach ($timezones as $tz): ?>
+									<option value="<?= htmlspecialchars($tz) ?>"></option>
+								<?php endforeach; ?>
+							</datalist>
 						</div>
 						<div class="profileSection">
 							<div class="sectionTitle">Refinements</div>
@@ -209,6 +223,7 @@ $candorVersion = 'v0.2';
 		</script>
     </body>
 </html>
+
 
 
 

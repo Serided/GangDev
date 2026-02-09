@@ -9,6 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $userId = candor_current_user_id();
 $birthdate = trim($_POST['birthdate'] ?? '');
+$timezone = trim($_POST['timezone'] ?? '');
+$timezone = $timezone !== '' ? $timezone : null;
 $unitSystem = trim($_POST['unit_system'] ?? 'metric');
 $unitSystem = $unitSystem === 'imperial' ? 'imperial' : 'metric';
 $heightRaw = trim($_POST['height_cm'] ?? '');
@@ -55,6 +57,13 @@ if (!$consent) {
 	candor_redirect(candor_with_param($redirect, 'profile_error', 'Consent is required to store baseline data.'));
 }
 
+if ($timezone !== null) {
+	$validZones = DateTimeZone::listIdentifiers();
+	if (!in_array($timezone, $validZones, true)) {
+		candor_redirect(candor_with_param($redirect, 'profile_error', 'Please select a valid time zone.'));
+	}
+}
+
 $height = null;
 $weight = null;
 
@@ -99,12 +108,13 @@ if ($unitSystem === 'imperial') {
 try {
 	$stmt = $pdo->prepare("
 		INSERT INTO candor.user_profiles
-			(user_id, birthdate, height_cm, weight_kg, unit_system, consent_health, consent_at, created_at, updated_at, onboarding_completed_at)
+			(user_id, birthdate, timezone, height_cm, weight_kg, unit_system, consent_health, consent_at, created_at, updated_at, onboarding_completed_at)
 		VALUES
-			(?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW(),
+			(?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW(),
 			 CASE WHEN ? THEN NOW() ELSE NULL END)
 		ON CONFLICT (user_id) DO UPDATE SET
 			birthdate = EXCLUDED.birthdate,
+			timezone = EXCLUDED.timezone,
 			height_cm = EXCLUDED.height_cm,
 			weight_kg = EXCLUDED.weight_kg,
 			unit_system = EXCLUDED.unit_system,
@@ -119,6 +129,7 @@ try {
 	$stmt->execute([
 		(int)$userId,
 		$birthdate,
+		$timezone,
 		$height,
 		$weight,
 		$unitSystem,
