@@ -161,8 +161,6 @@
     const timeClose = timeOverlay ? timeOverlay.querySelector("[data-time-close]") : null;
     const timeManualHour = timeOverlay ? timeOverlay.querySelector("[data-time-manual-hour]") : null;
     const timeManualMinute = timeOverlay ? timeOverlay.querySelector("[data-time-manual-minute]") : null;
-    const timeHourList = timeOverlay ? timeOverlay.querySelector("[data-time-list='hours']") : null;
-    const timeMinuteList = timeOverlay ? timeOverlay.querySelector("[data-time-list='minutes']") : null;
     const timeMeridiem = timeOverlay ? timeOverlay.querySelector("[data-time-meridiem]") : null;
     const timeMeridiemButtons = timeOverlay ? Array.from(timeOverlay.querySelectorAll("[data-meridiem]")) : [];
 
@@ -185,28 +183,6 @@
         });
     };
 
-    const renderManualLists = () => {
-        if (timeHourList) {
-            timeHourList.innerHTML = "";
-            const hourValues = clockMode === "24"
-                ? Array.from({ length: 24 }, (_, i) => pad2(i))
-                : Array.from({ length: 12 }, (_, i) => String(i + 1));
-            hourValues.forEach((value) => {
-                const option = document.createElement("option");
-                option.value = value;
-                timeHourList.appendChild(option);
-            });
-        }
-        if (timeMinuteList) {
-            timeMinuteList.innerHTML = "";
-            Array.from({ length: 60 }, (_, i) => pad2(i)).forEach((value) => {
-                const option = document.createElement("option");
-                option.value = value;
-                timeMinuteList.appendChild(option);
-            });
-        }
-    };
-
     const buildTimeWheels = () => {
         const hourValues = clockMode === "24"
             ? Array.from({ length: 24 }, (_, i) => i)
@@ -216,7 +192,6 @@
         if (timeMeridiem) {
             timeMeridiem.style.display = clockMode === "12" ? "flex" : "none";
         }
-        renderManualLists();
     };
 
     const displayHourFromActive = () => {
@@ -246,39 +221,29 @@
         });
     };
 
-    const getWheelItemCenter = (wheel, item) => {
-        const wheelRect = wheel.getBoundingClientRect();
-        const itemRect = item.getBoundingClientRect();
-        return itemRect.top - wheelRect.top + wheel.scrollTop + (itemRect.height / 2);
-    };
-
     const readWheelValue = (wheel) => {
         const items = getWheelItems(wheel);
         if (!items.length) return 0;
-        const center = wheel.scrollTop + (wheel.clientHeight / 2);
-        let closest = items[0];
-        let closestDistance = Number.POSITIVE_INFINITY;
-        items.forEach((item) => {
-            const itemCenter = getWheelItemCenter(wheel, item);
-            const distance = Math.abs(itemCenter - center);
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closest = item;
-            }
-        });
-        const value = parseInt(closest.dataset.timeValue, 10);
+        const itemHeight = items[0].offsetHeight || 32;
+        const paddingTop = parseFloat(getComputedStyle(wheel).paddingTop) || 0;
+        const center = wheel.scrollTop + wheel.clientHeight / 2;
+        const index = Math.round((center - paddingTop - itemHeight / 2) / itemHeight);
+        const safeIndex = clamp(index, 0, items.length - 1);
+        const value = parseInt(items[safeIndex].dataset.timeValue, 10);
         return Number.isFinite(value) ? value : 0;
     };
 
     const scrollWheelTo = (wheel, value) => {
         const items = getWheelItems(wheel);
         if (!items.length) return;
-        const target = items.find((item) => parseInt(item.dataset.timeValue, 10) === value) || items[0];
-        const targetCenter = getWheelItemCenter(wheel, target);
-        const offset = targetCenter - (wheel.clientHeight / 2);
+        const index = items.findIndex((item) => parseInt(item.dataset.timeValue, 10) === value);
+        const targetIndex = index >= 0 ? index : 0;
+        const itemHeight = items[0].offsetHeight || 32;
+        const paddingTop = parseFloat(getComputedStyle(wheel).paddingTop) || 0;
+        const offset = paddingTop + (targetIndex * itemHeight) - (wheel.clientHeight / 2) + (itemHeight / 2);
         const maxScroll = Math.max(0, wheel.scrollHeight - wheel.clientHeight);
         wheel.scrollTop = clamp(offset, 0, maxScroll);
-        setWheelActive(wheel, parseInt(target.dataset.timeValue, 10));
+        setWheelActive(wheel, value);
     };
 
     const updateMeridiemButtons = () => {
@@ -420,26 +385,25 @@
                 });
             });
         }
-    if (timeManualHour) {
-        const applyManualHour = (raw) => {
-            const safe = clockMode === "24" ? clamp(raw, 0, 23) : clamp(raw, 1, 12);
-            setActiveHourFromDisplay(safe);
-            if (timeHourWheel) scrollWheelTo(timeHourWheel, safe);
-            updateMeridiemButtons();
-        };
-        const commitManualHour = () => {
-            const raw = parseInt(timeManualHour.value, 10);
-            if (Number.isFinite(raw)) {
-                applyManualHour(raw);
-            }
-            updateManualInputs(true);
-        };
-        timeManualHour.addEventListener("focus", () => timeManualHour.select());
-        timeManualHour.addEventListener("input", () => {
-            timeManualHour.value = timeManualHour.value.replace(/[^\d]/g, "");
-            const raw = parseInt(timeManualHour.value, 10);
-            if (Number.isFinite(raw)) {
-                applyManualHour(raw);
+        if (timeManualHour) {
+            const applyManualHour = (raw) => {
+                const safe = clockMode === "24" ? clamp(raw, 0, 23) : clamp(raw, 1, 12);
+                setActiveHourFromDisplay(safe);
+                if (timeHourWheel) scrollWheelTo(timeHourWheel, safe);
+                updateMeridiemButtons();
+            };
+            const commitManualHour = () => {
+                const raw = parseInt(timeManualHour.value, 10);
+                if (Number.isFinite(raw)) {
+                    applyManualHour(raw);
+                }
+                updateManualInputs(true);
+            };
+            timeManualHour.addEventListener("input", () => {
+                timeManualHour.value = timeManualHour.value.replace(/[^\d]/g, "");
+                const raw = parseInt(timeManualHour.value, 10);
+                if (Number.isFinite(raw)) {
+                    applyManualHour(raw);
                 }
             });
             timeManualHour.addEventListener("keydown", (event) => {
@@ -451,25 +415,24 @@
             });
             timeManualHour.addEventListener("blur", commitManualHour);
         }
-    if (timeManualMinute) {
-        const applyManualMinute = (raw) => {
-            activeMinute = clamp(raw, 0, 59);
-            if (timeMinuteWheel) scrollWheelTo(timeMinuteWheel, activeMinute);
-            updateMeridiemButtons();
-        };
-        const commitManualMinute = () => {
-            const raw = parseInt(timeManualMinute.value, 10);
-            if (Number.isFinite(raw)) {
-                applyManualMinute(raw);
-            }
-            updateManualInputs(true);
-        };
-        timeManualMinute.addEventListener("focus", () => timeManualMinute.select());
-        timeManualMinute.addEventListener("input", () => {
-            timeManualMinute.value = timeManualMinute.value.replace(/[^\d]/g, "");
-            const raw = parseInt(timeManualMinute.value, 10);
-            if (Number.isFinite(raw)) {
-                applyManualMinute(raw);
+        if (timeManualMinute) {
+            const applyManualMinute = (raw) => {
+                activeMinute = clamp(raw, 0, 59);
+                if (timeMinuteWheel) scrollWheelTo(timeMinuteWheel, activeMinute);
+                updateMeridiemButtons();
+            };
+            const commitManualMinute = () => {
+                const raw = parseInt(timeManualMinute.value, 10);
+                if (Number.isFinite(raw)) {
+                    applyManualMinute(raw);
+                }
+                updateManualInputs(true);
+            };
+            timeManualMinute.addEventListener("input", () => {
+                timeManualMinute.value = timeManualMinute.value.replace(/[^\d]/g, "");
+                const raw = parseInt(timeManualMinute.value, 10);
+                if (Number.isFinite(raw)) {
+                    applyManualMinute(raw);
                 }
             });
             timeManualMinute.addEventListener("keydown", (event) => {
@@ -869,9 +832,6 @@
         if (!shiftList || !shiftEmpty || !routineShiftSelect) return;
         shiftList.innerHTML = "";
         routineShiftSelect.innerHTML = '<option value="">Select a shift</option>';
-        if (shiftTemplateSelect) {
-            shiftTemplateSelect.innerHTML = '<option value="">New shift</option>';
-        }
         if (state.shifts.length === 0) {
             shiftEmpty.style.display = "block";
             return;
@@ -887,12 +847,6 @@
             option.value = shift.id;
             option.textContent = shift.isDefault ? `${label} (default)` : label;
             routineShiftSelect.appendChild(option);
-            if (shiftTemplateSelect) {
-                const templateOption = document.createElement("option");
-                templateOption.value = shift.id;
-                templateOption.textContent = label;
-                shiftTemplateSelect.appendChild(templateOption);
-            }
 
             const row = document.createElement("div");
             row.className = "itemRow";
@@ -1045,78 +999,22 @@
         }
     };
 
-    const blockClassForKind = (kind) => {
-        if (kind === "sleep") return "is-sleep";
-        if (kind === "morning") return "is-morning";
-        if (kind === "evening") return "is-evening";
-        if (kind === "focus") return "is-focus";
-        if (kind === "work") return "is-work";
-        if (kind === "custom") return "is-life";
-        if (kind === "routine") return "is-anchor";
-        return "is-life";
-    };
-
-    const buildWeekBlock = (config) => {
-        const block = document.createElement("div");
-        block.className = `weekBlock ${blockClassForKind(config.kind)}`;
-        setWeekBlock(block, config.label, config.time || "");
-        return block;
-    };
-
-    const buildWeekStackBlocks = (day) => {
-        const sleepRule = pickSleepRuleForDay(day);
-        const routines = state.routines.filter((routine) =>
-            appliesToDay(routine.repeat, routine.day, routine.days, day)
-        );
-        const morningRoutines = routines.filter((routine) => routine.type === "routine" && routine.anchor === "morning");
-        const eveningRoutines = routines.filter((routine) => routine.type === "routine" && routine.anchor === "evening");
-        const extraRoutines = routines.filter(
-            (routine) => !(routine.type === "routine" && (routine.anchor === "morning" || routine.anchor === "evening"))
-        );
-
-        const extraBlocks = extraRoutines.map((routine) => ({
-            kind: routine.type || "routine",
-            label: routine.title || (routine.type === "work" ? "Work" : "Window"),
-            time: resolveRoutineTime(routine, sleepRule),
-        })).sort((a, b) => {
-            const aTime = parseMinutes(a.time) ?? 9999;
-            const bTime = parseMinutes(b.time) ?? 9999;
-            return aTime - bTime;
-        });
-
-        let focusTime = "";
-        const focusIndex = extraBlocks.findIndex((block) => block.kind === "work" || block.kind === "focus");
-        if (focusIndex >= 0) {
-            focusTime = extraBlocks[focusIndex].time;
-            extraBlocks.splice(focusIndex, 1);
-        }
-
-        const blocks = [
-            { kind: "sleep", label: "Wake", time: sleepRule && sleepRule.end ? sleepRule.end : "" },
-            { kind: "morning", label: "Morning routine", time: morningRoutines.length ? resolveRoutineTime(morningRoutines[0], sleepRule) : "" },
-            { kind: "focus", label: "Focus/Work", time: focusTime || "" },
-            ...extraBlocks,
-            { kind: "evening", label: "Evening routine", time: eveningRoutines.length ? resolveRoutineTime(eveningRoutines[0], sleepRule) : "" },
-            { kind: "sleep", label: "Bed", time: sleepRule && sleepRule.start ? sleepRule.start : "" },
-        ];
-
-        return blocks;
-    };
-
     const renderWeekTemplate = () => {
         if (!weekColumns.length) return;
         weekColumns.forEach((column) => {
             const day = parseInt(column.dataset.weekDay, 10);
             const list = column.querySelector("[data-week-list]");
-            const stack = column.querySelector(".weekStack");
-            if (!list || !stack) return;
-            stack.innerHTML = "";
+            if (!list) return;
             list.innerHTML = "";
             const safeDay = Number.isFinite(day) ? day : 0;
-            const stackBlocks = buildWeekStackBlocks(safeDay);
-            stackBlocks.forEach((block) => {
-                stack.appendChild(buildWeekBlock(block));
-            });
+            const sleepRule = pickSleepRuleForDay(safeDay);
+            const sleepBlocks = column.querySelectorAll(".weekBlock.is-sleep");
+            if (sleepBlocks.length >= 2) {
+                const wakeBlock = sleepBlocks[0];
+                const bedBlock = sleepBlocks[sleepBlocks.length - 1];
+                setWeekBlock(wakeBlock, "Wake", sleepRule && sleepRule.end ? sleepRule.end : "");
+                setWeekBlock(bedBlock, "Bed", sleepRule && sleepRule.start ? sleepRule.start : "");
+            }
             const items = getWeekItems(safeDay);
             items.forEach((item) => {
                 const row = document.createElement("div");
@@ -1451,12 +1349,12 @@
     const routineShiftSelect = routineForm ? routineForm.querySelector("[data-shift-select]") : null;
     const routineShiftUse = routineForm ? routineForm.querySelector("[data-shift-use]") : null;
     const routineShiftId = routineForm ? routineForm.querySelector("[data-shift-id]") : null;
+    const routineCustomButton = routineForm ? routineForm.querySelector("[data-custom-window]") : null;
     const routineAnchorField = routineForm ? routineForm.querySelector("[data-anchor-field]") : null;
     const routineAnchorNote = routineForm ? routineForm.querySelector("[data-anchor-note]") : null;
     const routineSubmit = routineForm ? routineForm.querySelector("[data-routine-submit]") : null;
     const routineCancel = routineForm ? routineForm.querySelector("[data-routine-cancel]") : null;
     const shiftPanel = routineForm ? routineForm.querySelector("[data-shift-panel]") : null;
-    const shiftTemplateSelect = routineForm ? routineForm.querySelector("[data-shift-template]") : null;
     const shiftNameInput = routineForm ? routineForm.querySelector("#shift-name") : null;
     const shiftStartInput = routineForm ? routineForm.querySelector("#shift-start") : null;
     const shiftEndInput = routineForm ? routineForm.querySelector("#shift-end") : null;
@@ -1493,7 +1391,6 @@
         const type = routineTypeSelect ? routineTypeSelect.value : "routine";
         const isRoutine = type === "routine";
         const isWork = type === "work";
-        const isCustom = type === "custom";
         if (routineAnchorField) {
             routineAnchorField.style.display = isRoutine ? "grid" : "none";
         }
@@ -1506,7 +1403,7 @@
             routineTimeFieldWrap.style.display = (!isRoutine || anchor === "custom") ? "grid" : "none";
         }
         if (routineEndField) {
-            routineEndField.style.display = (isWork || isCustom) ? "grid" : "none";
+            routineEndField.style.display = isWork ? "grid" : "none";
         }
         if (routineShiftSelect) {
             routineShiftSelect.closest("[data-work-shift-select]")?.style.setProperty("display", isWork ? "grid" : "none");
@@ -1535,7 +1432,6 @@
 
     const clearShiftForm = () => {
         editingShiftId = null;
-        if (shiftTemplateSelect) shiftTemplateSelect.value = "";
         if (shiftNameInput) shiftNameInput.value = "";
         if (shiftStartField) setFieldValue(shiftStartField, "", { emit: false });
         if (shiftEndField) setFieldValue(shiftEndField, "", { emit: false });
@@ -1547,27 +1443,12 @@
     const fillShiftForm = (shift) => {
         if (!shift) return;
         editingShiftId = shift.id;
-        if (shiftTemplateSelect) shiftTemplateSelect.value = shift.id ? String(shift.id) : "";
         if (shiftNameInput) shiftNameInput.value = shift.name || "";
         if (shiftStartField) setFieldValue(shiftStartField, shift.start || "", { emit: false });
         if (shiftEndField) setFieldValue(shiftEndField, shift.end || "", { emit: false });
         if (shiftCommuteBeforeInput) shiftCommuteBeforeInput.value = shift.commuteBefore ? String(shift.commuteBefore) : "";
         if (shiftCommuteAfterInput) shiftCommuteAfterInput.value = shift.commuteAfter ? String(shift.commuteAfter) : "";
         if (shiftDefaultInput) shiftDefaultInput.checked = shift.isDefault;
-    };
-
-    const applyShiftTemplate = (shiftId) => {
-        if (!shiftId) return;
-        const shift = state.shifts.find((item) => String(item.id) === String(shiftId));
-        if (!shift) return;
-        editingShiftId = null;
-        if (shiftTemplateSelect) shiftTemplateSelect.value = String(shift.id);
-        if (shiftNameInput) shiftNameInput.value = shift.name || "";
-        if (shiftStartField) setFieldValue(shiftStartField, shift.start || "", { emit: false });
-        if (shiftEndField) setFieldValue(shiftEndField, shift.end || "", { emit: false });
-        if (shiftCommuteBeforeInput) shiftCommuteBeforeInput.value = shift.commuteBefore ? String(shift.commuteBefore) : "";
-        if (shiftCommuteAfterInput) shiftCommuteAfterInput.value = shift.commuteAfter ? String(shift.commuteAfter) : "";
-        if (shiftDefaultInput) shiftDefaultInput.checked = false;
     };
 
     const applyShiftToRoutine = (shiftId) => {
@@ -1597,6 +1478,13 @@
     if (routineAnchorSelect) {
         routineAnchorSelect.addEventListener("change", updateRoutineFormVisibility);
     }
+    if (routineCustomButton && routineTypeSelect) {
+        routineCustomButton.addEventListener("click", () => {
+            routineTypeSelect.value = "custom";
+            updateRoutineFormVisibility();
+        });
+    }
+
     if (routineShiftUse) {
         routineShiftUse.addEventListener("click", () => {
             const shiftId = routineShiftSelect ? routineShiftSelect.value : "";
@@ -1634,16 +1522,6 @@
 
     if (shiftClearBtn) {
         shiftClearBtn.addEventListener("click", clearShiftForm);
-    }
-    if (shiftTemplateSelect) {
-        shiftTemplateSelect.addEventListener("change", () => {
-            const shiftId = shiftTemplateSelect.value;
-            if (!shiftId) {
-                clearShiftForm();
-                return;
-            }
-            applyShiftTemplate(shiftId);
-        });
     }
 
     if (routineCancel) {
@@ -1714,7 +1592,7 @@
                 id: editingRoutineId,
                 title: title || (type === "work" ? "Work" : ""),
                 time: type === "routine" && anchor !== "custom" ? "" : time,
-                end: (type === "work" || type === "custom") ? end : "",
+                end: type === "work" ? end : "",
                 repeat,
                 day: days[0],
                 days,

@@ -157,14 +157,10 @@ function ensure_work_shift_overrides_table(PDO $pdo) {
 			user_id INTEGER NOT NULL,
 			date DATE NOT NULL,
 			shift_id BIGINT,
-			start_time TIME,
-			end_time TIME,
 			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW(),
 			updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
 		)
 	");
-	$pdo->exec("ALTER TABLE candor.work_shift_overrides ADD COLUMN IF NOT EXISTS start_time TIME");
-	$pdo->exec("ALTER TABLE candor.work_shift_overrides ADD COLUMN IF NOT EXISTS end_time TIME");
 	$pdo->exec("CREATE UNIQUE INDEX IF NOT EXISTS work_shift_overrides_user_date ON candor.work_shift_overrides (user_id, date)");
 }
 
@@ -362,26 +358,16 @@ if ($action === 'load') {
 			];
 		}
 		$overrideStmt = $pdo->prepare("
-			SELECT date, shift_id, start_time, end_time
+			SELECT date, shift_id
 			FROM candor.work_shift_overrides
 			WHERE user_id = ?
 			ORDER BY date ASC
 		");
 		$overrideStmt->execute([(int)$userId]);
 		while ($row = $overrideStmt->fetch(PDO::FETCH_ASSOC)) {
-			$start = '';
-			if (!empty($row['start_time'])) {
-				$start = substr((string)$row['start_time'], 0, 5);
-			}
-			$end = '';
-			if (!empty($row['end_time'])) {
-				$end = substr((string)$row['end_time'], 0, 5);
-			}
 			$shiftOverrides[] = [
 				'date' => (string)($row['date'] ?? ''),
 				'shift_id' => isset($row['shift_id']) ? (int)$row['shift_id'] : null,
-				'start' => $start,
-				'end' => $end,
 			];
 		}
 	} catch (Throwable $e) {
@@ -658,37 +644,23 @@ if ($action === 'update_shift_override') {
 	}
 	$shiftIdRaw = $payload['shift_id'] ?? '';
 	$shiftId = is_numeric($shiftIdRaw) ? (int)$shiftIdRaw : null;
-	$start = trim((string)($payload['start'] ?? ''));
-	$end = trim((string)($payload['end'] ?? ''));
-	if ($start !== '' && !preg_match('/^\d{2}:\d{2}$/', $start)) {
-		respond(['error' => 'invalid_start'], 400);
-	}
-	if ($end !== '' && !preg_match('/^\d{2}:\d{2}$/', $end)) {
-		respond(['error' => 'invalid_end'], 400);
-	}
 	try {
 		ensure_work_shift_overrides_table($pdo);
 	} catch (Throwable $e) {
 		respond(['error' => 'table_unavailable'], 500);
 	}
-	if ($shiftId === null && $start === '' && $end === '') {
+	if ($shiftId === null) {
 		$stmt = $pdo->prepare("DELETE FROM candor.work_shift_overrides WHERE user_id = ? AND date = ?");
 		$stmt->execute([(int)$userId, $date]);
 		respond(['ok' => true]);
 	}
 	$stmt = $pdo->prepare("
-		INSERT INTO candor.work_shift_overrides (user_id, date, shift_id, start_time, end_time, created_at, updated_at)
-		VALUES (?, ?, ?, ?, ?, NOW(), NOW())
+		INSERT INTO candor.work_shift_overrides (user_id, date, shift_id, created_at, updated_at)
+		VALUES (?, ?, ?, NOW(), NOW())
 		ON CONFLICT (user_id, date)
-		DO UPDATE SET shift_id = EXCLUDED.shift_id, start_time = EXCLUDED.start_time, end_time = EXCLUDED.end_time, updated_at = NOW()
+		DO UPDATE SET shift_id = EXCLUDED.shift_id, updated_at = NOW()
 	");
-	$stmt->execute([
-		(int)$userId,
-		$date,
-		$shiftId,
-		$start !== '' ? $start : null,
-		$end !== '' ? $end : null,
-	]);
+	$stmt->execute([(int)$userId, $date, $shiftId]);
 	respond(['ok' => true]);
 }
 

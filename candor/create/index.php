@@ -414,9 +414,9 @@ $candorVersion = 'v0.2';
 			</div>
 			<div class="timePickerManual">
 				<div class="timeManualInputs">
-					<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-hour list="time-hour-options">
+					<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-hour>
 					<span>:</span>
-					<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-minute list="time-minute-options">
+					<input class="timeManualInput" type="text" inputmode="numeric" maxlength="2" placeholder="00" data-time-manual-minute>
 				</div>
 				<div class="timeMeridiem" data-time-meridiem>
 					<button class="meridiemBtn" type="button" data-meridiem="am">AM</button>
@@ -427,8 +427,6 @@ $candorVersion = 'v0.2';
 				<button class="btn ghost" type="button" data-time-cancel>Cancel</button>
 				<button class="btn primary" type="button" data-time-apply>Set</button>
 			</div>
-			<datalist id="time-hour-options" data-time-list="hours"></datalist>
-			<datalist id="time-minute-options" data-time-list="minutes"></datalist>
 		</div>
 	</div>
 

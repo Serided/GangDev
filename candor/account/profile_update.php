@@ -19,7 +19,6 @@ $heightFtRaw = trim($_POST['height_ft'] ?? '');
 $heightInRaw = trim($_POST['height_in'] ?? '');
 $weightLbRaw = trim($_POST['weight_lb'] ?? '');
 $consent = isset($_POST['consent_health']) && $_POST['consent_health'] === '1';
-$adaptiveSleep = isset($_POST['adaptive_sleep']) && $_POST['adaptive_sleep'] === '1';
 $redirect = trim($_POST['redirect'] ?? 'https://account.candor.you/');
 
 function candor_safe_redirect($url, $fallback) {
@@ -109,9 +108,9 @@ if ($unitSystem === 'imperial') {
 try {
 	$stmt = $pdo->prepare("
 		INSERT INTO candor.user_profiles
-			(user_id, birthdate, timezone, height_cm, weight_kg, unit_system, consent_health, adaptive_sleep, consent_at, created_at, updated_at, onboarding_completed_at)
+			(user_id, birthdate, timezone, height_cm, weight_kg, unit_system, consent_health, consent_at, created_at, updated_at, onboarding_completed_at)
 		VALUES
-			(?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW(),
+			(?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW(),
 			 CASE WHEN ? THEN NOW() ELSE NULL END)
 		ON CONFLICT (user_id) DO UPDATE SET
 			birthdate = EXCLUDED.birthdate,
@@ -120,7 +119,6 @@ try {
 			weight_kg = EXCLUDED.weight_kg,
 			unit_system = EXCLUDED.unit_system,
 			consent_health = EXCLUDED.consent_health,
-			adaptive_sleep = EXCLUDED.adaptive_sleep,
 			consent_at = CASE WHEN EXCLUDED.consent_health THEN NOW() ELSE candor.user_profiles.consent_at END,
 			updated_at = NOW(),
 			onboarding_completed_at = CASE
@@ -136,7 +134,6 @@ try {
 		$weight,
 		$unitSystem,
 		$consent,
-		$adaptiveSleep,
 		$consent
 	]);
 } catch (Throwable $e) {
