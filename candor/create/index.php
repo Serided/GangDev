@@ -161,10 +161,6 @@ $candorVersion = 'v0.2';
 											<input class="input compact" id="shift-commute-after" type="number" min="0" max="999" step="5" inputmode="numeric" placeholder="15">
 										</div>
 									</div>
-									<label class="toggleLine shiftDefault" data-shift-default>
-										<input type="checkbox" id="shift-default">
-										<span>Default shift</span>
-									</label>
 									<div class="fieldRow timeRow" data-time-row>
 										<div class="field" data-time-field-wrap>
 											<label class="label" for="routine-time-hour">Start</label>
@@ -189,6 +185,10 @@ $candorVersion = 'v0.2';
 												<option value="day">Specific day</option>
 											</select>
 										</div>
+										<label class="toggleLine shiftDefault" data-shift-default>
+											<input type="checkbox" id="shift-default">
+											<span>Default shift</span>
+										</label>
 									</div>
 									<div class="fieldHint" data-anchor-note></div>
 									<div class="field" data-routine-day-field>

@@ -273,7 +273,28 @@
         let dragActive = false;
         let dragStartY = 0;
         let dragStartScroll = 0;
+        let dragMoved = false;
         let snapTimer = null;
+        const applyWheelValue = (value) => {
+            scrollWheelTo(wheel, value);
+            onChange(value);
+            updateManualInputs();
+        };
+        const resolveWheelItem = (event) => {
+            const direct = event.target.closest(".timeWheelItem");
+            if (direct) return direct;
+            if (typeof document.elementFromPoint !== "function") return null;
+            const hit = document.elementFromPoint(event.clientX, event.clientY);
+            return hit ? hit.closest(".timeWheelItem") : null;
+        };
+        const handleWheelItemClick = (event) => {
+            const item = resolveWheelItem(event);
+            if (!item) return false;
+            const value = parseInt(item.dataset.timeValue, 10);
+            if (!Number.isFinite(value)) return false;
+            applyWheelValue(value);
+            return true;
+        };
         const handleScroll = () => {
             raf = null;
             const value = readWheelValue(wheel);
@@ -299,18 +320,13 @@
             scheduleSnap();
         }, { passive: false });
         wheel.addEventListener("click", (event) => {
-            const item = event.target.closest(".timeWheelItem");
-            if (!item) return;
-            const value = parseInt(item.dataset.timeValue, 10);
-            if (!Number.isFinite(value)) return;
-            scrollWheelTo(wheel, value);
-            onChange(value);
-            updateManualInputs();
+            handleWheelItemClick(event);
         });
         wheel.addEventListener("pointerdown", (event) => {
             dragActive = true;
             dragStartY = event.clientY;
             dragStartScroll = wheel.scrollTop;
+            dragMoved = false;
             wheel.setPointerCapture(event.pointerId);
             wheel.classList.add("is-dragging");
             event.preventDefault();
@@ -318,6 +334,9 @@
         wheel.addEventListener("pointermove", (event) => {
             if (!dragActive) return;
             const delta = event.clientY - dragStartY;
+            if (Math.abs(delta) > 3) {
+                dragMoved = true;
+            }
             wheel.scrollTop = dragStartScroll - delta;
         });
         const endDrag = (event) => {
@@ -326,6 +345,9 @@
             wheel.classList.remove("is-dragging");
             if (event && event.pointerId !== undefined) {
                 wheel.releasePointerCapture(event.pointerId);
+            }
+            if (!dragMoved) {
+                if (handleWheelItemClick(event)) return;
             }
             scheduleSnap();
         };
@@ -1369,8 +1391,10 @@
         const needsCustomTitle = !isRoutine || anchor === "custom";
         if (routineTitleField) {
             routineTitleField.style.display = needsCustomTitle ? "grid" : "none";
-            const useWide = !isWork && (!isRoutine || anchor === "custom");
+            const useWide = !isWork && !isRoutine;
+            const useLeft = !isWork && isRoutine && anchor === "custom";
             routineTitleField.classList.toggle("fieldWide", useWide);
+            routineTitleField.classList.toggle("fieldLeft", useLeft);
         }
         if (routineTitleLabel) {
             routineTitleLabel.textContent = isWork ? "Shift Name (optional)" : "Name";
