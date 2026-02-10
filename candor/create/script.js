@@ -1368,7 +1368,7 @@
         const needsCustomTitle = !isRoutine || anchor === "custom";
         if (routineTitleField) {
             routineTitleField.style.display = needsCustomTitle ? "grid" : "none";
-            routineTitleField.classList.toggle("fieldWide", isRoutine && anchor === "custom");
+            routineTitleField.classList.remove("fieldWide");
         }
         if (routineTitleLabel) {
             routineTitleLabel.textContent = isWork ? "Shift Name (optional)" : "Name";
@@ -1407,12 +1407,7 @@
         }
         if (routineAnchorNote) {
             routineAnchorNote.textContent = "";
-            routineAnchorNote.style.display = isRoutine ? "block" : "none";
-            if (isRoutine && anchor !== "custom") {
-                routineAnchorNote.textContent = anchor === "morning"
-                    ? "Anchored to wake time after your sleep schedule."
-                    : "Ends at bedtime based on your sleep schedule.";
-            }
+            routineAnchorNote.style.display = "none";
         }
         renderRoutines();
     };

@@ -139,7 +139,7 @@ $candorVersion = 'v0.2';
 									</div>
 									<div class="fieldRow shiftRowLine" data-shift-line>
 										<div class="field">
-											<label class="label" for="shift-commute-before">In</label>
+											<label class="label" for="shift-commute-before">Commute</label>
 											<input class="input compact" id="shift-commute-before" type="number" min="0" max="999" step="5" inputmode="numeric" placeholder="15">
 										</div>
 										<div class="field">
@@ -157,7 +157,7 @@ $candorVersion = 'v0.2';
 											</div>
 										</div>
 										<div class="field">
-											<label class="label" for="shift-commute-after">Out</label>
+											<label class="label" for="shift-commute-after">Commute</label>
 											<input class="input compact" id="shift-commute-after" type="number" min="0" max="999" step="5" inputmode="numeric" placeholder="15">
 										</div>
 									</div>
