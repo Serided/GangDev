@@ -137,31 +137,32 @@ $candorVersion = 'v0.2';
 										</div>
 										<input type="hidden" name="shift_id" data-shift-id>
 									</div>
-									<div class="fieldRow shiftRowLine" data-shift-line>
-										<div class="field">
-											<label class="label" for="shift-commute-before">Commute</label>
-											<input class="input compact" id="shift-commute-before" type="number" min="0" max="999" step="5" inputmode="numeric" placeholder="15">
-										</div>
-										<div class="field">
-											<label class="label" for="shift-start-hour">Start</label>
-											<div class="timeField" data-time-field data-time-label="Shift start" data-time-empty="--:--">
-												<input type="hidden" id="shift-start" data-time-output>
-												<button class="timeButton" type="button" data-time-display>--:--</button>
+									<div class="shiftTimingRow" data-shift-timing-row>
+										<div class="fieldRow shiftRowLine" data-shift-line>
+											<div class="field">
+												<label class="label" for="shift-commute-before">In</label>
+												<input class="input compact" id="shift-commute-before" type="number" min="0" max="999" step="5" inputmode="numeric" placeholder="15">
+											</div>
+											<div class="field">
+												<label class="label" for="shift-start-hour">Start</label>
+												<div class="timeField" data-time-field data-time-label="Shift start" data-time-empty="--:--">
+													<input type="hidden" id="shift-start" data-time-output>
+													<button class="timeButton" type="button" data-time-display>--:--</button>
+												</div>
+											</div>
+											<div class="field">
+												<label class="label" for="shift-end-hour">End</label>
+												<div class="timeField" data-time-field data-time-label="Shift end" data-time-empty="--:--">
+													<input type="hidden" id="shift-end" data-time-output>
+													<button class="timeButton" type="button" data-time-display>--:--</button>
+												</div>
+											</div>
+											<div class="field">
+												<label class="label" for="shift-commute-after">Out</label>
+												<input class="input compact" id="shift-commute-after" type="number" min="0" max="999" step="5" inputmode="numeric" placeholder="15">
 											</div>
 										</div>
-										<div class="field">
-											<label class="label" for="shift-end-hour">End</label>
-											<div class="timeField" data-time-field data-time-label="Shift end" data-time-empty="--:--">
-												<input type="hidden" id="shift-end" data-time-output>
-												<button class="timeButton" type="button" data-time-display>--:--</button>
-											</div>
-										</div>
-										<div class="field">
-											<label class="label" for="shift-commute-after">Commute</label>
-											<input class="input compact" id="shift-commute-after" type="number" min="0" max="999" step="5" inputmode="numeric" placeholder="15">
-										</div>
-									</div>
-									<div class="fieldRow timeRow" data-time-row>
+										<div class="fieldRow timeRow" data-time-row>
 										<div class="field" data-time-field-wrap>
 											<label class="label" for="routine-time-hour">Start</label>
 											<div class="timeField" data-time-field data-time-label="Block start" data-time-empty="--:--">
@@ -189,6 +190,7 @@ $candorVersion = 'v0.2';
 											<input type="checkbox" id="shift-default">
 											<span>Default shift</span>
 										</label>
+										</div>
 									</div>
 									<div class="fieldHint" data-anchor-note></div>
 									<div class="field" data-routine-day-field>

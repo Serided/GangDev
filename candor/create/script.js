@@ -1352,6 +1352,7 @@
     const routineAnchorNote = routineForm ? routineForm.querySelector("[data-anchor-note]") : null;
     const routineSubmit = routineForm ? routineForm.querySelector("[data-routine-submit]") : null;
     const routineCancel = routineForm ? routineForm.querySelector("[data-routine-cancel]") : null;
+    const shiftTimingRow = routineForm ? routineForm.querySelector("[data-shift-timing-row]") : null;
     const shiftLine = routineForm ? routineForm.querySelector("[data-shift-line]") : null;
     const shiftDefaultLine = routineForm ? routineForm.querySelector("[data-shift-default]") : null;
     const shiftStartInput = routineForm ? routineForm.querySelector("#shift-start") : null;
@@ -1417,6 +1418,9 @@
         }
         if (routineShiftSelect) {
             routineShiftSelect.closest("[data-work-shift-select]")?.style.setProperty("display", isWork ? "grid" : "none");
+        }
+        if (shiftTimingRow) {
+            shiftTimingRow.classList.toggle("is-work", isWork);
         }
         if (shiftLine) {
             shiftLine.style.display = isWork ? "grid" : "none";
