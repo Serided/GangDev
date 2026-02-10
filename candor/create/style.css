@@ -443,9 +443,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 .scheduleCard .timeField {
-    width: min(var(--sleep-time-width), 100%);
+    width: var(--sleep-time-width);
     min-width: var(--sleep-time-width);
-    max-width: 100%;
+    max-width: var(--sleep-time-width);
     padding: 0 8px;
 }
 
@@ -596,9 +596,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 .timeField {
-    width: min(var(--time-field-width), 100%);
+    width: var(--time-field-width);
     min-width: var(--time-field-width);
-    max-width: 100%;
+    max-width: var(--time-field-width);
     min-height: 34px;
     display: flex;
     align-items: center;
@@ -807,9 +807,9 @@ a { color: inherit; text-decoration: none; }
 
 .shiftRowLine .timeField,
 .shiftRowLine .input.compact {
-    width: min(var(--shift-time-width), 100%);
+    width: var(--shift-time-width);
     min-width: var(--shift-time-width);
-    max-width: 100%;
+    max-width: var(--shift-time-width);
 }
 
 .fieldRow.timeRow .shiftDefault {
