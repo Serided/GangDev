@@ -21,6 +21,8 @@
     --time-field-gap: 6px;
     --routine-select-width: 120px;
     --shift-time-width: var(--time-field-width);
+    --routine-color-width: 32px;
+    --sleep-color-width: 32px;
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
@@ -345,6 +347,7 @@ a { color: inherit; text-decoration: none; }
 .scheduleCard {
     --sleep-time-width: var(--time-field-width);
     --sleep-select-width: var(--routine-select-width, 120px);
+    --sleep-color-width: var(--routine-color-width, 32px);
     width: fit-content;
     max-width: 100%;
     justify-self: start;
@@ -424,7 +427,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .scheduleCard .formGrid {
-    grid-template-columns: var(--sleep-time-width) var(--sleep-time-width) var(--sleep-select-width);
+    grid-template-columns: var(--sleep-time-width) var(--sleep-time-width) var(--sleep-select-width) var(--sleep-color-width);
     max-width: 100%;
     width: 100%;
     gap: var(--time-field-gap);
@@ -437,7 +440,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 .scheduleCard .field-color {
-    grid-column: 3;
+    grid-column: 4;
+    width: var(--sleep-color-width);
+    justify-self: start;
 }
 
 .scheduleCard .field-time {
@@ -456,6 +461,10 @@ a { color: inherit; text-decoration: none; }
 .scheduleCard .field-repeat,
 .scheduleCard .field-day {
     width: var(--sleep-select-width);
+}
+
+.scheduleCard .field-day {
+    grid-column: 3 / span 2;
 }
 
 .routineForm {
@@ -489,7 +498,7 @@ a { color: inherit; text-decoration: none; }
 
 .fieldRow.typeRow {
     display: grid;
-    grid-template-columns: max-content minmax(0, var(--routine-name-width, 180px));
+    grid-template-columns: max-content minmax(0, var(--routine-name-width, 180px)) var(--routine-color-width, 32px);
     gap: var(--time-field-gap);
     align-items: end;
 }
@@ -519,6 +528,11 @@ a { color: inherit; text-decoration: none; }
 .fieldRow.typeRow [data-title-field] {
     width: var(--routine-name-width, 180px);
     justify-self: start;
+}
+
+.fieldRow.typeRow .field-color {
+    grid-column: 3;
+    width: var(--routine-color-width, 32px);
 }
 
 .fieldRow.typeRow [data-title-field].fieldWide {
@@ -605,6 +619,13 @@ a { color: inherit; text-decoration: none; }
     height: 34px;
 }
 
+.input.color.colorSwatch {
+    width: var(--routine-color-width, 32px);
+    min-width: var(--routine-color-width, 32px);
+    height: var(--routine-color-width, 32px);
+    padding: 2px;
+}
+
 .timeField {
     width: var(--time-field-width);
     min-width: var(--time-field-width);
@@ -652,7 +673,7 @@ a { color: inherit; text-decoration: none; }
     margin-top: 6px;
     display: grid;
     gap: 4px;
-    max-width: calc((var(--sleep-time-width) * 2) + var(--sleep-select-width) + var(--time-field-gap));
+    max-width: calc((var(--sleep-time-width) * 2) + var(--sleep-select-width) + var(--sleep-color-width) + (var(--time-field-gap) * 3));
 }
 
 .sleepSummary .itemRow {
@@ -702,6 +723,7 @@ a { color: inherit; text-decoration: none; }
     --routine-anchor-width: 120px;
     --routine-name-width: 160px;
     --routine-select-width: 120px;
+    --routine-color-width: 32px;
     --shift-commute-width: var(--time-field-width);
     --shift-time-width: var(--time-field-width);
     --shift-line-gap: var(--time-field-gap);
@@ -751,7 +773,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .routineMeta .field-color {
-    width: var(--routine-select-width, 120px);
+    width: var(--routine-color-width, 32px);
 }
 
 .routineMeta .field {
@@ -1728,11 +1750,15 @@ a { color: inherit; text-decoration: none; }
     }
     .scheduleCard .field-repeat,
     .scheduleCard .field-day {
-        grid-column: span 2;
+        grid-column: span 3;
     }
 
     .scheduleCard .field-color {
-        grid-column: span 2;
+        grid-column: span 1;
+        width: var(--sleep-color-width);
+    }
+    .scheduleCard .field-day {
+        grid-column: span 4;
     }
     .scheduleCard .field {
         gap: 4px;
