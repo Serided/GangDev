@@ -343,7 +343,7 @@ a { color: inherit; text-decoration: none; }
 
 .scheduleCard {
     --sleep-time-width: var(--shift-time-width, var(--time-field-width));
-    --sleep-select-width: 112px;
+    --sleep-select-width: 104px;
     width: fit-content;
     max-width: 100%;
     justify-self: start;
@@ -476,15 +476,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .fieldRow.timeRow.is-repeat-only {
-    grid-template-columns: var(--routine-select-width, 120px) max-content;
-    align-items: end;
-}
-
-.fieldRow.timeRow .shiftDefault {
-    grid-column: auto;
-    width: auto;
-    max-width: none;
-    margin-bottom: 2px;
+    grid-template-columns: var(--routine-select-width, 120px);
+    width: var(--routine-select-width, 120px);
 }
 
 .fieldRow.typeRow {
@@ -679,9 +672,9 @@ a { color: inherit; text-decoration: none; }
     --routine-anchor-width: 120px;
     --routine-name-width: 220px;
     --routine-select-width: 120px;
-    --shift-commute-width: 42px;
+    --shift-commute-width: 40px;
     --shift-time-width: var(--time-field-width);
-    --shift-line-gap: 6px;
+    --shift-line-gap: var(--time-field-gap);
     --shift-line-width: calc(
         (var(--shift-commute-width) * 2) +
         (var(--shift-time-width) * 2) +
@@ -701,23 +694,24 @@ a { color: inherit; text-decoration: none; }
 
 .shiftTimingRow.is-work {
     display: grid;
-    grid-template-columns: minmax(0, var(--shift-line-width)) minmax(0, var(--routine-select-width));
+    grid-template-columns: max-content var(--routine-select-width);
     gap: var(--time-field-gap);
     align-items: end;
 }
 
 .shiftTimingRow.is-work .shiftRowLine {
-    width: 100%;
+    width: var(--shift-line-width);
+    justify-self: start;
 }
 
 .shiftTimingRow.is-work .fieldRow.timeRow.is-repeat-only {
     grid-template-columns: var(--routine-select-width);
-    width: 100%;
+    width: var(--routine-select-width);
+    justify-self: start;
 }
 
-.shiftTimingRow.is-work .fieldRow.timeRow .shiftDefault {
-    width: 100%;
-    justify-content: flex-start;
+.shiftDefault {
+    margin-top: 4px;
 }
 
 .routineMeta .field,
@@ -813,10 +807,25 @@ a { color: inherit; text-decoration: none; }
     color: var(--ink);
     cursor: pointer;
     user-select: none;
+    position: relative;
 }
 
 .dayOption input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
     margin: 0;
+}
+
+.dayOption input:checked + span {
+    color: var(--brand-candor);
+}
+
+.dayOption:has(input:checked) {
+    border-color: rgba(230, 160, 106, 0.7);
+    background: rgba(243, 200, 115, 0.35);
 }
 
 .taskAdd {

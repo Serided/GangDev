@@ -186,10 +186,6 @@ $candorVersion = 'v0.2';
 												<option value="day">Specific day</option>
 											</select>
 										</div>
-										<label class="toggleLine shiftDefault" data-shift-default>
-											<input type="checkbox" id="shift-default">
-											<span>Default shift</span>
-										</label>
 										</div>
 									</div>
 									<div class="fieldHint" data-anchor-note></div>
@@ -226,6 +222,10 @@ $candorVersion = 'v0.2';
 											</label>
 										</div>
 									</div>
+									<label class="toggleLine shiftDefault" data-shift-default>
+										<input type="checkbox" id="shift-default">
+										<span>Default shift</span>
+									</label>
 								</div>
 								<div class="routineTasks">
 									<div class="label routineTasksLabel">Tasks</div>
