@@ -17,6 +17,7 @@
     --brand-lead: #4b7fa8;
     --brand-mark-size: 84px;
     --brand-name-size: 36px;
+    --time-field-width: 92px;
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
@@ -339,7 +340,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .scheduleCard {
-    --sleep-time-width: 92px;
+    --sleep-time-width: var(--time-field-width);
     --sleep-select-width: 112px;
     width: fit-content;
     max-width: 100%;
@@ -619,12 +620,12 @@ a { color: inherit; text-decoration: none; }
 }
 
 .routineLayout {
-    --routine-meta-width: 300px;
+    --routine-meta-width: 320px;
     --routine-task-width: 320px;
     --routine-saved-width: 250px;
     display: grid;
     grid-template-columns: minmax(0, var(--routine-meta-width)) minmax(0, var(--routine-task-width)) minmax(0, var(--routine-saved-width));
-    gap: 14px;
+    gap: 16px;
     align-items: start;
     min-height: 0;
     min-width: 0;
@@ -648,16 +649,16 @@ a { color: inherit; text-decoration: none; }
     align-content: start;
     grid-column: 2;
     min-height: 0;
+    padding: 0 4px;
 }
 
 .routineMeta {
     --routine-type-width: 88px;
     --routine-anchor-width: 120px;
-    --routine-name-width: 190px;
+    --routine-name-width: 210px;
     --routine-select-width: 120px;
-    --time-field-width: 90px;
     --shift-commute-width: 56px;
-    --shift-time-width: 92px;
+    --shift-time-width: var(--time-field-width);
     --shift-line-gap: 4px;
     --shift-line-width: calc(
         (var(--shift-commute-width) * 2) +
