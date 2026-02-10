@@ -17,8 +17,8 @@
     --brand-lead: #4b7fa8;
     --brand-mark-size: 84px;
     --brand-name-size: 36px;
-    --time-field-width: 60px;
-    --time-field-gap: 2px;
+    --time-field-width: 74px;
+    --time-field-gap: 6px;
     --shift-time-width: var(--time-field-width);
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
@@ -343,7 +343,7 @@ a { color: inherit; text-decoration: none; }
 
 .scheduleCard {
     --sleep-time-width: var(--shift-time-width);
-    --sleep-select-width: 88px;
+    --sleep-select-width: 92px;
     width: fit-content;
     max-width: 100%;
     justify-self: start;
@@ -445,7 +445,7 @@ a { color: inherit; text-decoration: none; }
     width: var(--sleep-time-width);
     min-width: var(--sleep-time-width);
     max-width: var(--sleep-time-width);
-    padding: 0 6px;
+    padding: 0 8px;
 }
 
 .scheduleCard .field-repeat,
@@ -460,6 +460,7 @@ a { color: inherit; text-decoration: none; }
 .field {
     display: grid;
     gap: 6px;
+    min-width: 0;
 }
 
 .labelRow {
@@ -592,10 +593,11 @@ a { color: inherit; text-decoration: none; }
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 10px;
+    padding: 0 8px;
     border: 1px solid var(--line);
     border-radius: 10px;
     background: var(--white);
+    min-width: 0;
 }
 
 .timeButton {
@@ -608,6 +610,11 @@ a { color: inherit; text-decoration: none; }
     text-align: center;
     cursor: pointer;
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    display: block;
 }
 
 .timeField.is-empty .timeButton {
@@ -625,7 +632,7 @@ a { color: inherit; text-decoration: none; }
     margin-top: 6px;
     display: grid;
     gap: 4px;
-    max-width: calc((var(--sleep-time-width) * 2) + var(--sleep-select-width) + 6px);
+    max-width: calc((var(--sleep-time-width) * 2) + var(--sleep-select-width) + var(--time-field-gap));
 }
 
 .sleepSummary .itemRow {
@@ -643,7 +650,7 @@ a { color: inherit; text-decoration: none; }
     --routine-saved-width: 250px;
     display: grid;
     grid-template-columns: minmax(0, var(--routine-meta-width)) minmax(0, var(--routine-task-width)) minmax(0, var(--routine-saved-width));
-    gap: 16px;
+    gap: 12px;
     align-items: start;
     min-height: 0;
     min-width: 0;
@@ -667,14 +674,14 @@ a { color: inherit; text-decoration: none; }
     align-content: start;
     grid-column: 2;
     min-height: 0;
-    padding: 0 2px;
+    padding: 0;
 }
 
 .routineMeta {
     --routine-type-width: 88px;
     --routine-anchor-width: 120px;
-    --routine-name-width: 160px;
-    --routine-select-width: 120px;
+    --routine-name-width: 150px;
+    --routine-select-width: 112px;
     --shift-commute-width: var(--shift-time-width);
     --shift-time-width: var(--time-field-width);
     --shift-line-gap: var(--time-field-gap);
@@ -708,7 +715,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .shiftTimingRow.is-work .fieldRow.timeRow.is-repeat-only {
-    grid-template-columns: var(--routine-select-width, 120px) max-content;
+    grid-template-columns: var(--routine-select-width, 120px) var(--routine-select-width, 120px);
     width: max-content;
     justify-self: start;
     align-items: end;
@@ -781,7 +788,7 @@ a { color: inherit; text-decoration: none; }
 .shiftRowLine {
     display: grid;
     grid-template-columns: repeat(4, var(--shift-time-width, 60px));
-    gap: var(--shift-line-gap, 4px);
+    gap: var(--shift-line-gap, 6px);
     width: max-content;
     max-width: 100%;
     min-width: 0;
@@ -790,20 +797,52 @@ a { color: inherit; text-decoration: none; }
 
 .fieldRow.timeRow .shiftDefault {
     grid-column: auto;
-    width: max-content;
+    width: var(--routine-select-width, 120px);
     margin: 0;
+}
+
+.shiftTimingRow .shiftDefault {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(230, 160, 106, 0.45);
+    background: rgba(243, 200, 115, 0.18);
+    color: var(--ink-soft);
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    gap: 0;
+}
+
+.shiftTimingRow .shiftDefault input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.shiftTimingRow .shiftDefault:has(input:checked) {
+    border-color: rgba(230, 160, 106, 0.7);
+    background: rgba(230, 160, 106, 0.25);
+    color: var(--brand-candor);
 }
 
 .shiftRowLine .field {
     min-width: 0;
 }
 
+.shiftRowLine .input.compact {
+    text-align: center;
+}
+
 
 .dayMulti {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    grid-auto-flow: column;
-    gap: 3px;
+    gap: 2px;
     align-items: center;
 }
 
@@ -871,7 +910,7 @@ a { color: inherit; text-decoration: none; }
     max-height: clamp(120px, 18vh, 160px);
     overflow-y: auto;
     scrollbar-gutter: stable both-edges;
-    padding-right: 24px;
+    padding-right: 12px;
 }
 
 .taskRow {
@@ -1652,8 +1691,13 @@ a { color: inherit; text-decoration: none; }
         gap: 4px;
     }
     .scheduleCard .label {
-        font-size: 11px;
-    }
+    font-size: 11px;
+}
+
+.dayOption span {
+    width: 100%;
+    text-align: center;
+}
     .scheduleCard .timeField {
         min-height: 32px;
         padding: 0 6px;

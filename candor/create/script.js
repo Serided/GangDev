@@ -280,18 +280,20 @@
             onChange(value);
             updateManualInputs();
         };
-        const resolveWheelItem = (event) => {
-            const direct = event.target.closest(".timeWheelItem");
-            if (direct) return direct;
-            if (typeof document.elementFromPoint !== "function") return null;
-            const hit = document.elementFromPoint(event.clientX, event.clientY);
-            return hit ? hit.closest(".timeWheelItem") : null;
+        const getValueFromPointer = (event) => {
+            const items = getWheelItems(wheel);
+            if (!items.length) return null;
+            const rect = wheel.getBoundingClientRect();
+            const itemHeight = items[0].offsetHeight || 32;
+            const paddingTop = parseFloat(getComputedStyle(wheel).paddingTop) || 0;
+            const y = event.clientY - rect.top + wheel.scrollTop - paddingTop;
+            const index = clamp(Math.round((y - itemHeight / 2) / itemHeight), 0, items.length - 1);
+            const value = parseInt(items[index].dataset.timeValue, 10);
+            return Number.isFinite(value) ? value : null;
         };
         const handleWheelItemClick = (event) => {
-            const item = resolveWheelItem(event);
-            if (!item) return false;
-            const value = parseInt(item.dataset.timeValue, 10);
-            if (!Number.isFinite(value)) return false;
+            const value = getValueFromPointer(event);
+            if (value === null) return false;
             applyWheelValue(value);
             return true;
         };
@@ -1101,9 +1103,10 @@
             try {
                 const data = await apiFetch(payload, "POST");
                 if (data && data.routine) {
-                    upsertRoutine(normalizeRoutine(data.routine));
+                    const routine = normalizeRoutine(data.routine);
+                    upsertRoutine(routine);
                     renderAll();
-                    return;
+                    return routine;
                 }
             } catch {
                 switchToLocal();
@@ -1116,7 +1119,9 @@
             upsertRoutine(localRoutine);
             persistLocal();
             renderAll();
+            return localRoutine;
         }
+        return null;
     };
 
     const upsertShift = (shift) => {
@@ -1639,7 +1644,8 @@
                 anchor,
                 shift_id: shiftId,
             };
-            addRoutine(payload);
+            const saved = await addRoutine(payload);
+            if (!saved) return;
             routineForm.reset();
             clearTimeFields(routineForm);
             const routineRepeat = routineForm.querySelector("[data-routine-repeat]");
