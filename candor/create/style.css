@@ -424,7 +424,7 @@ a { color: inherit; text-decoration: none; }
     grid-template-columns: var(--sleep-time-width) var(--sleep-time-width) var(--sleep-select-width);
     max-width: 100%;
     width: 100%;
-    gap: 3px;
+    gap: 2px;
     justify-content: start;
 }
 
@@ -435,10 +435,14 @@ a { color: inherit; text-decoration: none; }
 
 .scheduleCard .field-time {
     width: var(--sleep-time-width);
+    min-width: var(--sleep-time-width);
+    max-width: var(--sleep-time-width);
 }
 
 .scheduleCard .timeField {
     width: var(--sleep-time-width);
+    min-width: var(--sleep-time-width);
+    max-width: var(--sleep-time-width);
 }
 
 .scheduleCard .field-repeat,
@@ -504,10 +508,6 @@ a { color: inherit; text-decoration: none; }
 
 .fieldRow.typeRow [data-title-field] {
     width: var(--routine-name-width, 180px);
-}
-
-.fieldRow.typeRow [data-title-field].is-left {
-    grid-column: 1;
 }
 
 .fieldRow.typeRow [data-title-field].fieldWide {
@@ -667,7 +667,7 @@ a { color: inherit; text-decoration: none; }
     --routine-select-width: 120px;
     --shift-commute-width: 52px;
     --shift-time-width: var(--time-field-width);
-    --shift-line-gap: 2px;
+    --shift-line-gap: 1px;
     --shift-line-width: calc(
         (var(--shift-commute-width) * 2) +
         (var(--shift-time-width) * 2) +

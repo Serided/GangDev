@@ -1369,9 +1369,8 @@
         const needsCustomTitle = !isRoutine || anchor === "custom";
         if (routineTitleField) {
             routineTitleField.style.display = needsCustomTitle ? "grid" : "none";
-            routineTitleField.classList.remove("fieldWide");
-            const alignLeft = !isRoutine || anchor === "custom";
-            routineTitleField.classList.toggle("is-left", alignLeft);
+            const useWide = !isWork && (!isRoutine || anchor === "custom");
+            routineTitleField.classList.toggle("fieldWide", useWide);
         }
         if (routineTitleLabel) {
             routineTitleLabel.textContent = isWork ? "Shift Name (optional)" : "Name";
