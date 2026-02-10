@@ -24,8 +24,8 @@ $candorVersion = 'v0.2';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor - Create</title>
 	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
-	<link rel="stylesheet" href="style.css?v=27">
-	<script src="script.js?v=27" defer></script>
+	<link rel="stylesheet" href="style.css?v=28">
+	<script src="script.js?v=28" defer></script>
 </head>
 <body class="is-create" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>">
 
@@ -186,6 +186,10 @@ $candorVersion = 'v0.2';
 												<option value="day">Specific day</option>
 											</select>
 										</div>
+										<label class="toggleLine shiftDefault" data-shift-default>
+											<input type="checkbox" id="shift-default">
+											<span>Default shift</span>
+										</label>
 										</div>
 									</div>
 									<div class="fieldHint" data-anchor-note></div>
@@ -222,10 +226,6 @@ $candorVersion = 'v0.2';
 											</label>
 										</div>
 									</div>
-									<label class="toggleLine shiftDefault" data-shift-default>
-										<input type="checkbox" id="shift-default">
-										<span>Default shift</span>
-									</label>
 								</div>
 								<div class="routineTasks">
 									<div class="label routineTasksLabel">Tasks</div>

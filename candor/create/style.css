@@ -667,7 +667,7 @@ a { color: inherit; text-decoration: none; }
     align-content: start;
     grid-column: 2;
     min-height: 0;
-    padding: 0 4px;
+    padding: 0 2px;
 }
 
 .routineMeta {
@@ -675,7 +675,7 @@ a { color: inherit; text-decoration: none; }
     --routine-anchor-width: 120px;
     --routine-name-width: 160px;
     --routine-select-width: 120px;
-    --shift-commute-width: 36px;
+    --shift-commute-width: var(--shift-time-width);
     --shift-time-width: var(--time-field-width);
     --shift-line-gap: var(--time-field-gap);
     --shift-line-width: calc(
@@ -697,20 +697,21 @@ a { color: inherit; text-decoration: none; }
 
 .shiftTimingRow.is-work {
     display: grid;
-    grid-template-columns: max-content max-content;
+    grid-template-columns: 1fr;
     gap: var(--time-field-gap);
-    align-items: end;
+    align-items: start;
 }
 
 .shiftTimingRow.is-work .shiftRowLine {
-    width: var(--shift-line-width);
+    width: max-content;
     justify-self: start;
 }
 
 .shiftTimingRow.is-work .fieldRow.timeRow.is-repeat-only {
-    grid-template-columns: max-content;
+    grid-template-columns: var(--routine-select-width, 120px) max-content;
     width: max-content;
     justify-self: start;
+    align-items: end;
 }
 
 .shiftDefault {
@@ -779,12 +780,18 @@ a { color: inherit; text-decoration: none; }
 
 .shiftRowLine {
     display: grid;
-    grid-template-columns: var(--shift-commute-width, 36px) var(--shift-time-width, 60px) var(--shift-time-width, 60px) var(--shift-commute-width, 36px);
+    grid-template-columns: repeat(4, var(--shift-time-width, 60px));
     gap: var(--shift-line-gap, 4px);
     width: max-content;
     max-width: 100%;
     min-width: 0;
     justify-content: start;
+}
+
+.fieldRow.timeRow .shiftDefault {
+    grid-column: auto;
+    width: max-content;
+    margin: 0;
 }
 
 .shiftRowLine .field {
@@ -860,7 +867,8 @@ a { color: inherit; text-decoration: none; }
 .taskStack {
     display: grid;
     gap: 6px;
-    height: clamp(120px, 18vh, 160px);
+    height: auto;
+    max-height: clamp(120px, 18vh, 160px);
     overflow-y: auto;
     scrollbar-gutter: stable both-edges;
     padding-right: 24px;
