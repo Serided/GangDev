@@ -871,6 +871,8 @@ body.is-do .welcome {
     font-size: 12px;
     color: var(--ink);
     z-index: 2;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background 0.12s ease;
 }
 
 .slotBlock.is-active {
@@ -881,6 +883,11 @@ body.is-do .welcome {
 .slotBlock.is-event {
     border-color: rgba(90, 143, 185, 0.7);
     background: rgba(90, 143, 185, 0.2);
+}
+
+.slotBlock:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px rgba(31, 43, 64, 0.08);
 }
 
 .blockTime {
@@ -941,11 +948,17 @@ body.is-do .welcome {
     pointer-events: auto;
     cursor: pointer;
     overflow: hidden;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background 0.12s ease;
 }
 
 .sleepBlock.is-active {
     border-color: rgba(90, 143, 185, 0.85);
     box-shadow: 0 0 0 2px rgba(90, 143, 185, 0.2);
+}
+
+.sleepBlock:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px rgba(31, 43, 64, 0.08);
 }
 
 .sleepLabel {
@@ -1799,6 +1812,11 @@ body.is-do .welcome {
     display: flex;
     justify-content: flex-end;
     gap: 8px;
+}
+
+.editActionsSecondary {
+    margin-top: 8px;
+    justify-content: space-between;
 }
 
 .createCard {

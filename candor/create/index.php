@@ -24,8 +24,8 @@ $candorVersion = 'v0.2';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor - Create</title>
 	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
-	<link rel="stylesheet" href="style.css?v=33">
-	<script src="script.js?v=31" defer></script>
+	<link rel="stylesheet" href="style.css?v=34">
+	<script src="script.js?v=32" defer></script>
 </head>
 <body class="is-create" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>">
 
@@ -82,6 +82,10 @@ $candorVersion = 'v0.2';
 							<option value="6">Saturday</option>
 						</select>
 					</div>
+					<div class="field field-color">
+						<label class="label" for="sleep-color">Color</label>
+						<input class="input compact color" id="sleep-color" name="color" type="color" value="#b9dbf2" data-default="#b9dbf2">
+					</div>
 					<div class="formActions">
 						<button class="btn primary" type="submit">Save</button>
 						<button class="btn ghost" type="button" data-sleep-clear>Clear</button>
@@ -125,6 +129,15 @@ $candorVersion = 'v0.2';
 										<div class="field" data-title-field>
 											<label class="label" for="routine-title" data-title-label>Name</label>
 											<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Deep work sprint">
+										</div>
+									</div>
+									<div class="field" data-routine-use-select>
+										<label class="label" for="routine-use-select">Use routine</label>
+										<div class="shiftRow">
+											<select class="input compact select" id="routine-use-select" data-routine-select>
+												<option value="">Select a routine</option>
+											</select>
+											<button class="btn shiftUseBtn" type="button" data-routine-use>Use</button>
 										</div>
 									</div>
 									<div class="field" data-work-shift-select>
@@ -191,6 +204,10 @@ $candorVersion = 'v0.2';
 											<span>Default shift</span>
 										</label>
 										</div>
+									</div>
+									<div class="field field-color" data-routine-color-field>
+										<label class="label" for="routine-color">Color</label>
+										<input class="input compact color" id="routine-color" type="color" name="color" value="#f3c873" data-default="#f3c873">
 									</div>
 									<div class="fieldHint" data-anchor-note></div>
 									<div class="field" data-routine-day-field>

@@ -116,6 +116,7 @@ function ensure_schedule_rules_table(PDO $pdo) {
 			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
 		)
 	");
+	$pdo->exec("ALTER TABLE candor.schedule_rules ADD COLUMN IF NOT EXISTS color VARCHAR(16)");
 }
 
 function ensure_routines_table(PDO $pdo) {
@@ -136,6 +137,7 @@ function ensure_routines_table(PDO $pdo) {
 			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
 		)
 	");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS color VARCHAR(16)");
 	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS repeat_rule VARCHAR(16)");
 	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS day_of_week SMALLINT");
 	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS days_json TEXT");
@@ -303,7 +305,7 @@ if ($action === 'load') {
 	try {
 		ensure_schedule_rules_table($pdo);
 		$rulesStmt = $pdo->prepare("
-			SELECT id, kind, title, start_time, end_time, repeat_rule, day_of_week
+			SELECT id, kind, title, start_time, end_time, repeat_rule, day_of_week, color
 			FROM candor.schedule_rules
 			WHERE user_id = ?
 			ORDER BY created_at ASC, id ASC
@@ -325,6 +327,7 @@ if ($action === 'load') {
 				'start' => $start,
 				'end' => $end,
 				'repeat' => (string)($row['repeat_rule'] ?? ''),
+				'color' => (string)($row['color'] ?? ''),
 				'day' => isset($row['day_of_week']) ? (int)$row['day_of_week'] : null,
 			];
 		}
@@ -335,7 +338,7 @@ if ($action === 'load') {
 	$routines = [];
 	try {
 		$rulesStmt = $pdo->prepare("
-			SELECT id, title, routine_time, end_time, repeat_rule, day_of_week, days_json, tasks_json, block_type, anchor, shift_id
+			SELECT id, title, routine_time, end_time, repeat_rule, day_of_week, days_json, tasks_json, block_type, anchor, shift_id, color
 			FROM candor.routines
 			WHERE user_id = ?
 			ORDER BY created_at ASC, id ASC
@@ -399,6 +402,7 @@ if ($action === 'load') {
 				'tasks' => $tasks,
 				'block_type' => (string)($row['block_type'] ?? 'routine'),
 				'anchor' => (string)($row['anchor'] ?? 'custom'),
+				'color' => (string)($row['color'] ?? ''),
 				'shift_id' => isset($row['shift_id']) ? (int)$row['shift_id'] : null,
 			];
 		}

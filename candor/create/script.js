@@ -504,6 +504,13 @@
     };
 
     const normalizeText = (value) => String(value ?? "").trim();
+    const normalizeColor = (value, fallback = "") => {
+        const raw = normalizeText(value).toLowerCase();
+        if (!raw) return fallback;
+        const hex = raw.startsWith("#") ? raw.slice(1) : raw;
+        if (!/^[0-9a-f]{6}$/.test(hex)) return fallback;
+        return `#${hex}`;
+    };
 
     const splitList = (value) => {
         if (!value) return [];
@@ -523,6 +530,7 @@
             start: normalizeText(item.start ?? item.start_time ?? item.time ?? ""),
             end: normalizeText(item.end ?? item.end_time ?? ""),
             repeat: normalizeText(item.repeat ?? item.repeat_rule ?? ""),
+            color: normalizeColor(item.color ?? item.hex ?? ""),
             day: Number.isFinite(parsedDay) ? parsedDay : null,
         };
     };
@@ -612,6 +620,7 @@
             repeat,
             day: Number.isFinite(parsedDay) ? parsedDay : (days[0] ?? null),
             days,
+            color: normalizeColor(item.color ?? item.hex ?? ""),
             shiftId: item.shift_id ?? item.shiftId ?? null,
         };
     };
@@ -882,11 +891,31 @@
         }
     };
 
+    const renderRoutineUseSelect = () => {
+        if (!routineUseSelect) return;
+        routineUseSelect.innerHTML = '<option value="">Select a routine</option>';
+        const routines = state.routines.filter((routine) => routine.type === "routine");
+        if (routines.length === 0) return;
+        routines
+            .slice()
+            .sort((a, b) => (a.title || "").localeCompare(b.title || ""))
+            .forEach((routine) => {
+                const option = document.createElement("option");
+                const anchorLabel = routine.anchor === "morning"
+                    ? "Morning"
+                    : (routine.anchor === "evening" ? "Evening" : "Custom");
+                option.value = routine.id;
+                option.textContent = routine.title ? `${routine.title} (${anchorLabel})` : `${anchorLabel} routine`;
+                routineUseSelect.appendChild(option);
+            });
+    };
+
     const renderAll = () => {
         renderSleep();
         renderTasks();
         renderRoutines();
         renderShiftSelect();
+        renderRoutineUseSelect();
         renderWeekTemplate();
     };
 
@@ -1321,6 +1350,7 @@
             if (!start || !end) return;
             const repeat = normalizeText(formData.get("repeat"));
             const day = normalizeText(formData.get("day"));
+            const color = normalizeColor(formData.get("color"));
             addRule({
                 action: "add",
                 kind: "sleep",
@@ -1328,6 +1358,7 @@
                 end,
                 repeat,
                 day,
+                color,
             });
             sleepForm.reset();
             clearTimeFields(sleepForm);
@@ -1379,12 +1410,16 @@
     const routineEndWrap = routineForm ? routineForm.querySelector("[data-work-end-field]") : null;
     const routineEndInput = routineForm ? routineForm.querySelector("#routine-end") : null;
     const routineEndField = routineEndInput ? routineEndInput.closest("[data-time-field]") : null;
+    const routineUseField = routineForm ? routineForm.querySelector("[data-routine-use-select]") : null;
+    const routineUseSelect = routineForm ? routineForm.querySelector("[data-routine-select]") : null;
+    const routineUseButton = routineForm ? routineForm.querySelector("[data-routine-use]") : null;
     const routineShiftSelect = routineForm ? routineForm.querySelector("[data-shift-select]") : null;
     const routineShiftUse = routineForm ? routineForm.querySelector("[data-shift-use]") : null;
     const routineShiftId = routineForm ? routineForm.querySelector("[data-shift-id]") : null;
     const routineCustomButton = routineForm ? routineForm.querySelector("[data-custom-window]") : null;
     const routineAnchorField = routineForm ? routineForm.querySelector("[data-anchor-field]") : null;
     const routineAnchorNote = routineForm ? routineForm.querySelector("[data-anchor-note]") : null;
+    const routineColorInput = routineForm ? routineForm.querySelector("#routine-color") : null;
     const routineSubmit = routineForm ? routineForm.querySelector("[data-routine-submit]") : null;
     const routineCancel = routineForm ? routineForm.querySelector("[data-routine-cancel]") : null;
     const shiftTimingRow = routineForm ? routineForm.querySelector("[data-shift-timing-row]") : null;
@@ -1423,6 +1458,9 @@
         if (routineAnchorField) {
             routineAnchorField.style.display = isRoutine ? "grid" : "none";
         }
+        if (routineUseField) {
+            routineUseField.style.display = isRoutine ? "grid" : "none";
+        }
         const anchor = isRoutine && routineAnchorSelect ? routineAnchorSelect.value : "custom";
         const needsCustomTitle = !isRoutine || anchor === "custom";
         if (routineTitleField) {
@@ -1439,16 +1477,17 @@
                 ? "Work"
                 : (isRoutine ? "Custom routine" : "e.g. Deep work sprint");
         }
-        const showTimeRow = (!isRoutine || anchor === "custom") && !isWork;
+        const showTimeFields = !isWork && (!isRoutine || anchor === "custom");
+        const showTimeRow = isWork || showTimeFields || (isRoutine && anchor !== "custom");
         if (routineTimeRow) {
-            routineTimeRow.style.display = (showTimeRow || isWork) ? "grid" : "none";
-            routineTimeRow.classList.toggle("is-repeat-only", isWork);
+            routineTimeRow.style.display = showTimeRow ? "grid" : "none";
+            routineTimeRow.classList.toggle("is-repeat-only", isWork || (isRoutine && anchor !== "custom"));
         }
         if (routineTimeFieldWrap) {
-            routineTimeFieldWrap.style.display = showTimeRow ? "grid" : "none";
+            routineTimeFieldWrap.style.display = showTimeFields ? "grid" : "none";
         }
         if (routineEndWrap) {
-            routineEndWrap.style.display = showTimeRow ? "grid" : "none";
+            routineEndWrap.style.display = showTimeFields ? "grid" : "none";
         }
         if (routineShiftSelect) {
             routineShiftSelect.closest("[data-work-shift-select]")?.style.setProperty("display", isWork ? "grid" : "none");
@@ -1476,6 +1515,28 @@
         renderRoutines();
     };
 
+    const resetRoutineRepeat = () => {
+        if (!routineForm) return;
+        const routineRepeat = routineForm.querySelector("[data-routine-repeat]");
+        const routineDayField = routineForm.querySelector("[data-routine-day-field]");
+        if (routineRepeat) routineRepeat.value = "daily";
+        applyRepeatToggle(routineRepeat, routineDayField);
+        routineForm.querySelectorAll("[data-routine-day]").forEach((input) => {
+            input.checked = false;
+        });
+    };
+
+    let lastRoutineType = routineTypeSelect ? routineTypeSelect.value : "routine";
+    const handleRoutineTypeChange = () => {
+        const nextType = routineTypeSelect ? routineTypeSelect.value : "routine";
+        if (nextType !== lastRoutineType) {
+            resetRoutineRepeat();
+            if (routineUseSelect) routineUseSelect.value = "";
+        }
+        lastRoutineType = nextType;
+        updateRoutineFormVisibility();
+    };
+
     const applyShiftToRoutine = (shiftId) => {
         if (!shiftId) return;
         const shift = state.shifts.find((item) => String(item.id) === String(shiftId));
@@ -1483,7 +1544,7 @@
         if (routineTypeSelect) {
             routineTypeSelect.value = "work";
         }
-        updateRoutineFormVisibility();
+        handleRoutineTypeChange();
         if (routineShiftSelect) routineShiftSelect.value = String(shift.id);
         if (routineShiftId) routineShiftId.value = String(shift.id);
         if (routineTitleInput && !routineTitleInput.value.trim()) {
@@ -1506,8 +1567,37 @@
         }
     };
 
+    const applyRoutineTemplate = (routineId) => {
+        if (!routineId) return;
+        const routine = state.routines.find((item) => String(item.id) === String(routineId));
+        if (!routine || routine.type !== "routine") return;
+        if (routineTypeSelect) routineTypeSelect.value = "routine";
+        if (routineAnchorSelect) routineAnchorSelect.value = routine.anchor || "custom";
+        handleRoutineTypeChange();
+        if (routineTitleInput) routineTitleInput.value = routine.title || "";
+        if (routineColorInput) {
+            const fallback = routineColorInput.dataset.default || "#f3c873";
+            routineColorInput.value = routine.color || fallback;
+        }
+        if (routineStartField) {
+            setFieldValue(routineStartField, routine.time || "", { emit: false });
+        }
+        if (routineEndField) {
+            setFieldValue(routineEndField, routine.end || "", { emit: false });
+        }
+        const repeatSelect = routineForm ? routineForm.querySelector("[data-routine-repeat]") : null;
+        if (repeatSelect) repeatSelect.value = routine.repeat || "daily";
+        const dayInputs = Array.from(routineForm ? routineForm.querySelectorAll("[data-routine-day]") : []);
+        dayInputs.forEach((input) => {
+            const value = parseInt(input.value, 10);
+            input.checked = Array.isArray(routine.days) ? routine.days.includes(value) : value === routine.day;
+        });
+        applyRepeatToggle(repeatSelect, routineForm ? routineForm.querySelector("[data-routine-day-field]") : null);
+        fillRoutineTasks(routine.tasks);
+    };
+
     if (routineTypeSelect) {
-        routineTypeSelect.addEventListener("change", updateRoutineFormVisibility);
+        routineTypeSelect.addEventListener("change", handleRoutineTypeChange);
     }
     if (routineAnchorSelect) {
         routineAnchorSelect.addEventListener("change", updateRoutineFormVisibility);
@@ -1515,7 +1605,7 @@
     if (routineCustomButton && routineTypeSelect) {
         routineCustomButton.addEventListener("click", () => {
             routineTypeSelect.value = "custom";
-            updateRoutineFormVisibility();
+            handleRoutineTypeChange();
         });
     }
 
@@ -1524,6 +1614,14 @@
             const shiftId = routineShiftSelect ? routineShiftSelect.value : "";
             if (!shiftId) return;
             applyShiftToRoutine(shiftId);
+        });
+    }
+
+    if (routineUseButton) {
+        routineUseButton.addEventListener("click", () => {
+            const routineId = routineUseSelect ? routineUseSelect.value : "";
+            if (!routineId) return;
+            applyRoutineTemplate(routineId);
         });
     }
 
@@ -1545,6 +1643,9 @@
             clearRoutineTasks();
             setRoutineEditState(null);
             updateRoutineFormVisibility();
+            if (routineTypeSelect) {
+                lastRoutineType = routineTypeSelect.value;
+            }
         });
     }
 
@@ -1640,6 +1741,7 @@
             const time = type === "work" ? shiftValues.start : normalizeText(formData.get("time"));
             const end = type === "work" ? shiftValues.end : normalizeText(formData.get("end"));
             const repeat = normalizeText(formData.get("repeat")) || "daily";
+            const color = normalizeColor(formData.get("color"), routineColorInput ? routineColorInput.dataset.default : "");
             const dayInputs = Array.from(routineForm.querySelectorAll("[data-routine-day]"));
             const days = dayInputs
                 .filter((input) => input.checked)
@@ -1670,6 +1772,7 @@
                 day: days[0],
                 days,
                 tasks,
+                color,
                 block_type: type,
                 anchor,
                 shift_id: shiftId,
@@ -1689,6 +1792,9 @@
             clearRoutineTasks();
             setRoutineEditState(null);
             updateRoutineFormVisibility();
+            if (routineTypeSelect) {
+                lastRoutineType = routineTypeSelect.value;
+            }
         });
     }
 
@@ -1790,6 +1896,10 @@
         if (routineTypeSelect) routineTypeSelect.value = routine.type || "routine";
         if (routineAnchorSelect) routineAnchorSelect.value = routine.anchor || "custom";
         if (routineTitleInput) routineTitleInput.value = routine.title || "";
+        if (routineColorInput) {
+            const fallback = routineColorInput.dataset.default || "#f3c873";
+            routineColorInput.value = routine.color || fallback;
+        }
         const timeField = routineForm.querySelector("#routine-time");
         if (timeField) {
             const fieldWrap = timeField.closest("[data-time-field]");
@@ -1819,6 +1929,9 @@
         fillRoutineTasks(routine.tasks);
         setRoutineEditState(routine);
         updateRoutineFormVisibility();
+        if (routineTypeSelect) {
+            lastRoutineType = routineTypeSelect.value;
+        }
     };
 
     const getTaskRowAfter = (container, y) => {

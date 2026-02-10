@@ -57,6 +57,13 @@
     const makeId = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 
     const normalizeText = (value) => String(value ?? "").trim();
+    const normalizeColor = (value, fallback = "") => {
+        const raw = normalizeText(value).toLowerCase();
+        if (!raw) return fallback;
+        const hex = raw.startsWith("#") ? raw.slice(1) : raw;
+        if (!/^[0-9a-f]{6}$/.test(hex)) return fallback;
+        return `#${hex}`;
+    };
 
     const normalizeTask = (item) => {
         const rawDuration = item.duration ?? item.estimated_minutes ?? "";
@@ -84,7 +91,7 @@
         start: normalizeText(item.start ?? item.time ?? ""),
         end: normalizeText(item.end ?? item.end_time ?? ""),
         kind: item.kind === "event" ? "event" : "window",
-        color: normalizeText(item.color ?? ""),
+        color: normalizeColor(item.color ?? ""),
         locked: Boolean(item.locked),
     });
 
@@ -119,6 +126,7 @@
             tasks,
             blockType: normalizeText(item.block_type ?? item.type ?? "routine"),
             anchor: normalizeText(item.anchor ?? "custom"),
+            color: normalizeColor(item.color ?? ""),
             shiftId: Number.isFinite(parseInt(item.shift_id, 10)) ? parseInt(item.shift_id, 10) : null,
         };
     };
@@ -133,6 +141,7 @@
             start: normalizeText(item.start ?? item.start_time ?? item.time ?? ""),
             end: normalizeText(item.end ?? item.end_time ?? ""),
             repeat: normalizeText(item.repeat ?? item.repeat_rule ?? ""),
+            color: normalizeColor(item.color ?? ""),
             day: Number.isFinite(parsedDay) ? parsedDay : null,
         };
     };
@@ -952,6 +961,9 @@
     const editStartNow = editOverlay ? editOverlay.querySelector("[data-edit-start-now]") : null;
     const editFinishNow = editOverlay ? editOverlay.querySelector("[data-edit-finish-now]") : null;
     const editActions = editOverlay ? editOverlay.querySelector("[data-edit-actions]") : null;
+    const editActionsSecondary = editOverlay ? editOverlay.querySelector("[data-edit-actions-secondary]") : null;
+    const editSave = editOverlay ? editOverlay.querySelector("[data-edit-save]") : null;
+    const editReset = editOverlay ? editOverlay.querySelector("[data-edit-reset]") : null;
     const noteOverlay = document.querySelector("[data-note-overlay]");
     const noteTitleEl = noteOverlay ? noteOverlay.querySelector("[data-note-title]") : null;
     const noteBodyEl = noteOverlay ? noteOverlay.querySelector("[data-note-body]") : null;
@@ -961,6 +973,7 @@
     let activeEditSleepKey = "";
     let activeEditShiftKey = "";
     let plannedTimes = { start: "", end: "" };
+    let plannedShiftId = null;
     let editSync = false;
 
     const calendarRoot = document.querySelector(".calendarShell");
@@ -1100,7 +1113,8 @@
                 endActual = addMinutesToTime(fallbackShift.end, fallbackShift.commuteAfter || 0);
             }
             if (!startActual || !endActual) return null;
-            return { shift: fallbackShift || workRoutine, start: startActual, end: endActual };
+            const routineColor = workRoutine && workRoutine.color ? workRoutine.color : "";
+            return { shift: fallbackShift || workRoutine, start: startActual, end: endActual, color: routineColor };
         };
 
         const minutesToTime = (value) => {
@@ -1117,11 +1131,13 @@
             const start = log && log.start ? log.start : (rule ? rule.start : "");
             const end = log && log.end ? log.end : (rule ? rule.end : "");
             const duration = start && end ? durationMinutes(start, end) : null;
+            const color = rule && rule.color ? rule.color : "";
             return {
                 start,
                 end,
                 duration: duration ?? 0,
                 hasLog: Boolean(log && (log.start || log.end)),
+                color,
             };
         };
 
@@ -1174,6 +1190,7 @@
                     const minutes = routineDurationMinutes(routine);
                     const start = cursor;
                     const end = addMinutesToTime(start, minutes);
+                    const color = routine.color || "#f3c873";
                     windows.push({
                         id: `routine-${routine.id}-${key}`,
                         text: routine.title || "Routine",
@@ -1181,7 +1198,7 @@
                         start,
                         end,
                         kind: "window",
-                        color: "#f3c873",
+                        color,
                         locked: true,
                         source: "routine",
                         virtual: true,
@@ -1196,6 +1213,7 @@
                     const minutes = routineDurationMinutes(routine);
                     const end = cursor;
                     const start = addMinutesToTime(end, -minutes);
+                    const color = routine.color || "#f3c873";
                     eveningWindows.unshift({
                         id: `routine-${routine.id}-${key}`,
                         text: routine.title || "Routine",
@@ -1203,7 +1221,7 @@
                         start,
                         end,
                         kind: "window",
-                        color: "#f3c873",
+                        color,
                         locked: true,
                         source: "routine",
                         virtual: true,
@@ -1218,7 +1236,7 @@
                 const duration = routineDurationMinutes(routine);
                 const end = routine.end || addMinutesToTime(start, duration);
                 const title = routine.title || (routine.blockType === "focus" ? "Focus" : "Window");
-                const color = routine.blockType === "focus" ? "#e6a06a" : "#f3c873";
+                const color = routine.color || (routine.blockType === "focus" ? "#e6a06a" : "#f3c873");
                 windows.push({
                     id: `routine-${routine.id}-${key}`,
                     text: title,
@@ -1472,7 +1490,7 @@
                     start: startActual,
                     end: endActual,
                     kind: "window",
-                    color: "#b9dbf2",
+                    color: shiftWindow.color || "#b9dbf2",
                     locked: true,
                     source: "shift",
                     shiftId: shift.id,
@@ -1744,6 +1762,10 @@
                         if (isActiveSleep(sleepKey)) {
                             block.classList.add("is-active");
                         }
+                        const sleepColor = plannedSleep && plannedSleep.color ? plannedSleep.color : "#5a8fb9";
+                        const tint = colorToRgba(sleepColor, 0.18);
+                        block.style.borderColor = sleepColor;
+                        if (tint) block.style.background = tint;
                         const top = ((window.start - dayStart * 60) / 60) * hourHeight;
                         const height = ((window.end - window.start) / 60) * hourHeight;
                         block.style.top = `${top}px`;
@@ -2195,6 +2217,49 @@
         editDelta.textContent = label;
     };
 
+    const applyEditChanges = () => {
+        const startValue = editStartInput ? editStartInput.value : "";
+        const endValue = editEndInput ? editEndInput.value : "";
+        const start = startValue ? startValue : undefined;
+        const end = endValue ? endValue : undefined;
+        if (activeEditKind === "sleep") {
+            updateSleepLog(activeEditSleepKey, start, end);
+            updateEditDelta();
+            return;
+        }
+        if (activeEditKind === "shift" && activeEditShiftKey) {
+            const selected = editShiftSelect ? editShiftSelect.value : "";
+            const parsed = selected ? parseInt(selected, 10) : NaN;
+            const shiftId = Number.isFinite(parsed) ? parsed : null;
+            updateShiftOverride(activeEditShiftKey, {
+                shiftId,
+                start: startValue || "",
+                end: endValue || "",
+            });
+            updateEditDelta();
+            return;
+        }
+        if (activeEditKind === "event") {
+            return;
+        }
+        if (activeEditWindow) {
+            updateWindowTimes(activeEditWindow.id, start, end);
+            updateEditDelta();
+        }
+    };
+
+    const resetEditChanges = () => {
+        editSync = true;
+        if (editStartField) setFieldValue(editStartField, plannedTimes.start || "", { emit: false });
+        if (editEndField) setFieldValue(editEndField, plannedTimes.end || "", { emit: false });
+        if (editShiftSelect) {
+            const resetValue = plannedShiftId !== null && plannedShiftId !== undefined ? String(plannedShiftId) : "";
+            editShiftSelect.value = resetValue;
+        }
+        editSync = false;
+        applyEditChanges();
+    };
+
     const materializeVirtualWindow = async (windowItem, overrides = {}) => {
         if (!windowItem || !windowItem.date) return null;
         const start = overrides.start ?? windowItem.start ?? "";
@@ -2386,6 +2451,7 @@
         activeEditSleepKey = "";
         activeEditShiftKey = isShift ? windowItem.date : "";
         plannedTimes = { start: windowItem.start || "", end: windowItem.end || "" };
+        plannedShiftId = isShift ? (windowItem.shiftId ?? null) : null;
         if (editTitle) editTitle.textContent = windowItem.text || "Window";
         if (editMeta) {
             editMeta.textContent = isShift ? "Work window" : (isEvent ? "Event" : "Window");
@@ -2399,6 +2465,9 @@
         }
         if (editActions) {
             editActions.style.display = isEvent ? "none" : "flex";
+        }
+        if (editActionsSecondary) {
+            editActionsSecondary.style.display = isEvent ? "none" : "flex";
         }
         editSync = true;
         if (editStartField) setFieldValue(editStartField, windowItem.start || "", { emit: false });
@@ -2415,10 +2484,12 @@
         activeEditSleepKey = sleepKey;
         activeEditShiftKey = "";
         plannedTimes = { start: plannedStart || "", end: plannedEnd || "" };
+        plannedShiftId = null;
         if (editTitle) editTitle.textContent = "Sleep";
         if (editMeta) editMeta.textContent = "Sleep log";
         if (editShiftRow) editShiftRow.classList.remove("is-visible");
         if (editActions) editActions.style.display = "flex";
+        if (editActionsSecondary) editActionsSecondary.style.display = "flex";
         const log = getSleepLogFor(sleepKey);
         editSync = true;
         if (editStartField) setFieldValue(editStartField, log?.start || plannedStart || "", { emit: false });
@@ -2436,6 +2507,7 @@
         activeEditSleepKey = "";
         activeEditShiftKey = "";
         plannedTimes = { start: "", end: "" };
+        plannedShiftId = null;
         if (editShiftRow) editShiftRow.classList.remove("is-visible");
     };
 
@@ -2706,6 +2778,15 @@
             updateEditDelta();
         });
     }
+    if (editSave) {
+        editSave.addEventListener("click", () => {
+            applyEditChanges();
+            closeEdit();
+        });
+    }
+    if (editReset) {
+        editReset.addEventListener("click", resetEditChanges);
+    }
 
     if (noteClose) {
         noteClose.addEventListener("click", closeNote);
@@ -2751,7 +2832,7 @@
             const startRaw = normalizeText(createTime ? createTime.value : "");
             const endRaw = normalizeText(createEnd ? createEnd.value : "");
             const durationRaw = normalizeText(createDuration ? createDuration.value : "");
-            const color = normalizeText(createColor ? createColor.value : "");
+            const color = normalizeColor(createColor ? createColor.value : "");
             const allDay = Boolean(createAllDay && createAllDay.checked);
             const start = kind === "event" && allDay ? "00:00" : startRaw;
             const end = kind === "event" && allDay ? "23:59" : endRaw;

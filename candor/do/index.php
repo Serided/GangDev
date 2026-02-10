@@ -62,8 +62,8 @@ $candorVersion = 'v0.2';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>your Candor</title>
 	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
-	<link rel="stylesheet" href="style.css">
-	<script src="script.js?v=32" defer></script>
+	<link rel="stylesheet" href="style.css?v=33">
+	<script src="script.js?v=33" defer></script>
 </head>
 <body class="is-do" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-user-name="<?= htmlspecialchars($name !== '' ? $name : $email) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>">
 
@@ -316,6 +316,10 @@ $candorVersion = 'v0.2';
 			<div class="editActions" data-edit-actions>
 				<button class="btn ghost" type="button" data-edit-start-now>Start</button>
 				<button class="btn primary" type="button" data-edit-finish-now>Finish</button>
+			</div>
+			<div class="editActions editActionsSecondary" data-edit-actions-secondary>
+				<button class="btn ghost" type="button" data-edit-reset>Reset</button>
+				<button class="btn primary" type="button" data-edit-save>Save</button>
 			</div>
 		</div>
 	</div>

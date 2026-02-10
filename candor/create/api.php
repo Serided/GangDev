@@ -54,6 +54,16 @@ function clean_time($value) {
 	return $time;
 }
 
+function clean_color($value) {
+	$raw = trim((string)$value);
+	if ($raw === '') return '';
+	if ($raw[0] !== '#') {
+		$raw = '#' . $raw;
+	}
+	if (!preg_match('/^#[0-9a-fA-F]{6}$/', $raw)) return '';
+	return strtolower($raw);
+}
+
 function clean_block_type($value) {
 	$raw = trim((string)$value);
 	$allowed = ['routine', 'work', 'focus', 'custom'];
@@ -164,6 +174,7 @@ function ensure_schedule_rules_table(PDO $pdo) {
 			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
 		)
 	");
+	$pdo->exec("ALTER TABLE candor.schedule_rules ADD COLUMN IF NOT EXISTS color VARCHAR(16)");
 }
 
 function ensure_routines_table(PDO $pdo) {
@@ -192,6 +203,7 @@ function ensure_routines_table(PDO $pdo) {
 	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS anchor VARCHAR(16)");
 	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS end_time TIME");
 	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS shift_id BIGINT");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS color VARCHAR(16)");
 }
 
 function ensure_work_shifts_table(PDO $pdo) {
@@ -242,7 +254,7 @@ $allowedRepeats = ['daily', 'weekdays', 'weekends', 'day'];
 
 if ($action === 'load') {
 	$stmt = $pdo->prepare("
-		SELECT id, kind, title, start_time, end_time, repeat_rule, day_of_week
+		SELECT id, kind, title, start_time, end_time, repeat_rule, day_of_week, color
 		FROM candor.schedule_rules
 		WHERE user_id = ?
 		ORDER BY created_at ASC, id ASC
@@ -265,11 +277,12 @@ if ($action === 'load') {
 			'start' => $start,
 			'end' => $end,
 			'repeat' => (string)($row['repeat_rule'] ?? ''),
+			'color' => (string)($row['color'] ?? ''),
 			'day' => isset($row['day_of_week']) ? (int)$row['day_of_week'] : null,
 		];
 	}
 	$stmt = $pdo->prepare("
-		SELECT id, title, routine_time, end_time, repeat_rule, day_of_week, days_json, tasks_json, block_type, anchor, shift_id
+		SELECT id, title, routine_time, end_time, repeat_rule, day_of_week, days_json, tasks_json, block_type, anchor, shift_id, color
 		FROM candor.routines
 		WHERE user_id = ?
 		ORDER BY created_at ASC, id ASC
@@ -326,6 +339,7 @@ if ($action === 'load') {
 			'tasks' => $tasks,
 			'block_type' => (string)($row['block_type'] ?? 'routine'),
 			'anchor' => (string)($row['anchor'] ?? 'custom'),
+			'color' => (string)($row['color'] ?? ''),
 			'shift_id' => isset($row['shift_id']) ? (int)$row['shift_id'] : null,
 		];
 	}
@@ -385,6 +399,7 @@ if ($action === 'add') {
 	$title = clean_text($payload['title'] ?? '', 160);
 	$start = clean_time($payload['start'] ?? ($payload['start_time'] ?? ($payload['time'] ?? '')));
 	$end = clean_time($payload['end'] ?? ($payload['end_time'] ?? ''));
+	$color = clean_color($payload['color'] ?? '');
 
 	if ($kind === 'sleep') {
 		if ($start === '' || $end === '') {
@@ -398,9 +413,9 @@ if ($action === 'add') {
 
 	$stmt = $pdo->prepare("
 		INSERT INTO candor.schedule_rules
-			(user_id, kind, title, start_time, end_time, repeat_rule, day_of_week, created_at)
-		VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
-		RETURNING id, kind, title, start_time, end_time, repeat_rule, day_of_week
+			(user_id, kind, title, start_time, end_time, repeat_rule, day_of_week, color, created_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())
+		RETURNING id, kind, title, start_time, end_time, repeat_rule, day_of_week, color
 	");
 	$stmt->execute([
 		(int)$userId,
@@ -410,6 +425,7 @@ if ($action === 'add') {
 		$end !== '' ? $end : null,
 		$repeat,
 		$day,
+		$color !== '' ? $color : null,
 	]);
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 	$startOut = '';
@@ -429,6 +445,7 @@ if ($action === 'add') {
 			'start' => $startOut,
 			'end' => $endOut,
 			'repeat' => (string)($row['repeat_rule'] ?? ''),
+			'color' => (string)($row['color'] ?? ''),
 			'day' => isset($row['day_of_week']) ? (int)$row['day_of_week'] : null,
 		],
 	]);
@@ -438,6 +455,7 @@ if ($action === 'add_routine') {
 	$title = clean_text($payload['title'] ?? '', 160);
 	$time = clean_time($payload['time'] ?? ($payload['routine_time'] ?? ''));
 	$end = clean_time($payload['end'] ?? ($payload['end_time'] ?? ''));
+	$color = clean_color($payload['color'] ?? '');
 	$blockType = clean_block_type($payload['block_type'] ?? ($payload['type'] ?? 'routine'));
 	$anchor = clean_anchor($payload['anchor'] ?? ($payload['routine_anchor'] ?? 'custom'));
 	if ($blockType !== 'routine') {
@@ -476,9 +494,9 @@ if ($action === 'add_routine') {
 
 	$stmt = $pdo->prepare("
 		INSERT INTO candor.routines
-			(user_id, title, routine_time, end_time, block_type, anchor, shift_id, repeat_rule, day_of_week, days_json, tasks_json, created_at)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
-		RETURNING id, title, routine_time, end_time, block_type, anchor, shift_id, repeat_rule, day_of_week, days_json, tasks_json
+			(user_id, title, routine_time, end_time, block_type, anchor, shift_id, repeat_rule, day_of_week, days_json, tasks_json, color, created_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+		RETURNING id, title, routine_time, end_time, block_type, anchor, shift_id, repeat_rule, day_of_week, days_json, tasks_json, color
 	");
 	$stmt->execute([
 		(int)$userId,
@@ -492,6 +510,7 @@ if ($action === 'add_routine') {
 		$day,
 		$daysJson,
 		$tasksJson,
+		$color !== '' ? $color : null,
 	]);
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 	$timeOut = '';
@@ -545,6 +564,7 @@ if ($action === 'add_routine') {
 			'day' => $daysOut ? $daysOut[0] : (isset($row['day_of_week']) ? (int)$row['day_of_week'] : null),
 			'days' => $daysOut,
 			'tasks' => $tasksOut,
+			'color' => (string)($row['color'] ?? ''),
 			'shift_id' => isset($row['shift_id']) ? (int)$row['shift_id'] : null,
 		],
 	]);
@@ -558,6 +578,7 @@ if ($action === 'update_routine') {
 	$title = clean_text($payload['title'] ?? '', 160);
 	$time = clean_time($payload['time'] ?? ($payload['routine_time'] ?? ''));
 	$end = clean_time($payload['end'] ?? ($payload['end_time'] ?? ''));
+	$color = clean_color($payload['color'] ?? '');
 	$blockType = clean_block_type($payload['block_type'] ?? ($payload['type'] ?? 'routine'));
 	$anchor = clean_anchor($payload['anchor'] ?? ($payload['routine_anchor'] ?? 'custom'));
 	if ($blockType !== 'routine') {
@@ -596,9 +617,9 @@ if ($action === 'update_routine') {
 
 	$stmt = $pdo->prepare("
 		UPDATE candor.routines
-		SET title = ?, routine_time = ?, end_time = ?, block_type = ?, anchor = ?, shift_id = ?, repeat_rule = ?, day_of_week = ?, days_json = ?, tasks_json = ?
+		SET title = ?, routine_time = ?, end_time = ?, block_type = ?, anchor = ?, shift_id = ?, repeat_rule = ?, day_of_week = ?, days_json = ?, tasks_json = ?, color = ?
 		WHERE id = ? AND user_id = ?
-		RETURNING id, title, routine_time, end_time, block_type, anchor, shift_id, repeat_rule, day_of_week, days_json, tasks_json
+		RETURNING id, title, routine_time, end_time, block_type, anchor, shift_id, repeat_rule, day_of_week, days_json, tasks_json, color
 	");
 	$stmt->execute([
 		$title,
@@ -611,6 +632,7 @@ if ($action === 'update_routine') {
 		$day,
 		$daysJson,
 		$tasksJson,
+		$color !== '' ? $color : null,
 		$id,
 		(int)$userId,
 	]);
@@ -669,6 +691,7 @@ if ($action === 'update_routine') {
 			'day' => $daysOut ? $daysOut[0] : (isset($row['day_of_week']) ? (int)$row['day_of_week'] : null),
 			'days' => $daysOut,
 			'tasks' => $tasksOut,
+			'color' => (string)($row['color'] ?? ''),
 			'shift_id' => isset($row['shift_id']) ? (int)$row['shift_id'] : null,
 		],
 	]);
