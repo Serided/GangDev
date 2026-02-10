@@ -24,8 +24,8 @@ $candorVersion = 'v0.2';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor - Create</title>
 	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
-	<link rel="stylesheet" href="style.css">
-	<script src="script.js" defer></script>
+	<link rel="stylesheet" href="style.css?v=24">
+	<script src="script.js?v=24" defer></script>
 </head>
 <body class="is-create" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>">
 
