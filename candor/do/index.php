@@ -489,6 +489,7 @@ $candorVersion = 'v0.2';
 			const timezoneSelect = scope.querySelector('[data-timezone-select]');
 			const clockSelect = scope.querySelector('[data-clock-select]');
 			if (!countrySelect || !timezoneSelect) return;
+			const pad2 = (value) => String(value).padStart(2, '0');
 			const formatZoneLabel = (zone, hour12) => {
 				try {
 					const formatter = new Intl.DateTimeFormat('en-US', {
@@ -502,18 +503,93 @@ $candorVersion = 'v0.2';
 					return '';
 				}
 			};
+			const getZoneOffset = (zone) => {
+				try {
+					const now = new Date();
+					const formatter = new Intl.DateTimeFormat('en-US', {
+						timeZone: zone,
+						year: 'numeric',
+						month: '2-digit',
+						day: '2-digit',
+						hour: '2-digit',
+						minute: '2-digit',
+						second: '2-digit',
+						hourCycle: 'h23',
+					});
+					const parts = formatter.formatToParts(now).reduce((acc, part) => {
+						if (part.type !== 'literal') {
+							acc[part.type] = part.value;
+						}
+						return acc;
+					}, {});
+					const asUtc = Date.UTC(
+						parseInt(parts.year, 10),
+						parseInt(parts.month, 10) - 1,
+						parseInt(parts.day, 10),
+						parseInt(parts.hour, 10),
+						parseInt(parts.minute, 10),
+						parseInt(parts.second, 10)
+					);
+					return Math.round((asUtc - now.getTime()) / 60000);
+				} catch (error) {
+					return 0;
+				}
+			};
+			const formatOffset = (minutes) => {
+				const sign = minutes >= 0 ? '+' : '-';
+				const total = Math.abs(minutes);
+				const hours = pad2(Math.floor(total / 60));
+				const mins = pad2(total % 60);
+				return `UTC${sign}${hours}:${mins}`;
+			};
+			const getZoneAbbrev = (zone) => {
+				try {
+					const formatter = new Intl.DateTimeFormat('en-US', {
+						timeZone: zone,
+						timeZoneName: 'short',
+					});
+					const part = formatter.formatToParts(new Date()).find((item) => item.type === 'timeZoneName');
+					const raw = part ? part.value : '';
+					if (!raw) return '';
+					const upper = raw.toUpperCase();
+					if (upper.includes('GMT') || upper.includes('UTC')) return '';
+					return raw.replace(/\s+/g, '');
+				} catch (error) {
+					return '';
+				}
+			};
 			const buildOptions = (country, selected) => {
 				const zones = timezoneMap[country] && timezoneMap[country].length
 					? timezoneMap[country]
 					: ['UTC'];
 				const hour12 = clockSelect ? clockSelect.value === '12' : false;
 				timezoneSelect.innerHTML = '';
+				const bucket = new Map();
 				zones.forEach((zone) => {
-					const option = document.createElement('option');
-					option.value = zone;
+					const offset = getZoneOffset(zone);
+					const abbrev = getZoneAbbrev(zone);
+					const key = `${offset}|${abbrev}`;
 					const timeLabel = formatZoneLabel(zone, hour12);
-					option.textContent = timeLabel ? `${zone} \u00b7 ${timeLabel}` : zone;
-					if (zone === selected) option.selected = true;
+					const label = abbrev
+						? `${formatOffset(offset)} (${abbrev})`
+						: formatOffset(offset);
+					const entry = { zone, offset, abbrev, label, timeLabel };
+					if (!bucket.has(key) || zone === selected) {
+						bucket.set(key, entry);
+					}
+				});
+				const entries = Array.from(bucket.values()).sort((a, b) => {
+					if (a.offset !== b.offset) return a.offset - b.offset;
+					if (a.abbrev !== b.abbrev) return a.abbrev.localeCompare(b.abbrev);
+					return a.zone.localeCompare(b.zone);
+				});
+				entries.forEach((entry) => {
+					const option = document.createElement('option');
+					option.value = entry.zone;
+					option.textContent = entry.timeLabel
+						? `${entry.label} \u00b7 ${entry.timeLabel}`
+						: entry.label;
+					if (entry.zone === selected) option.selected = true;
 					timezoneSelect.appendChild(option);
 				});
 				if (!timezoneSelect.value && timezoneSelect.options.length) {
