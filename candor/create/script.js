@@ -1392,9 +1392,8 @@
         const needsCustomTitle = !isRoutine || anchor === "custom";
         if (routineTitleField) {
             routineTitleField.style.display = needsCustomTitle ? "grid" : "none";
-            const useWide = !isWork && !isRoutine;
             const useLeft = !isWork && isRoutine && anchor === "custom";
-            routineTitleField.classList.toggle("fieldWide", useWide);
+            routineTitleField.classList.toggle("fieldWide", false);
             routineTitleField.classList.toggle("fieldLeft", useLeft);
         }
         if (routineTitleLabel) {
