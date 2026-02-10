@@ -1316,6 +1316,7 @@
     const routineTitleField = routineForm ? routineForm.querySelector("[data-title-field]") : null;
     const routineTitleInput = routineForm ? routineForm.querySelector("#routine-title") : null;
     const routineTitleLabel = routineTitleField ? routineTitleField.querySelector("[data-title-label]") : null;
+    const routineTimeRow = routineForm ? routineForm.querySelector("[data-time-row]") : null;
     const routineTimeFieldWrap = routineForm ? routineForm.querySelector("[data-time-field-wrap]") : null;
     const routineStartField = routineForm ? routineForm.querySelector("#routine-time")?.closest("[data-time-field]") : null;
     const routineEndInput = routineForm ? routineForm.querySelector("#routine-end") : null;
@@ -1378,6 +1379,10 @@
                 : (isRoutine ? "Custom routine" : "e.g. Deep work sprint");
         }
         const showTimeRow = (!isRoutine || anchor === "custom") && !isWork;
+        if (routineTimeRow) {
+            routineTimeRow.style.display = (showTimeRow || isWork) ? "grid" : "none";
+            routineTimeRow.classList.toggle("is-repeat-only", isWork);
+        }
         if (routineTimeFieldWrap) {
             routineTimeFieldWrap.style.display = showTimeRow ? "grid" : "none";
         }

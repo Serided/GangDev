@@ -821,6 +821,49 @@
         refreshTimeFields();
     };
 
+    const overlay = document.querySelector("[data-create-overlay]");
+    const createForm = overlay ? overlay.querySelector("[data-create-form]") : null;
+    const createKind = overlay ? overlay.querySelector("[data-create-kind]") : null;
+    const createTitle = overlay ? overlay.querySelector("#create-title") : null;
+    const createNote = overlay ? overlay.querySelector("#create-note") : null;
+    const createTime = overlay ? overlay.querySelector("#create-time") : null;
+    const createEnd = overlay ? overlay.querySelector("#create-end-time") : null;
+    const createDuration = overlay ? overlay.querySelector("#create-duration") : null;
+    const createShiftSelect = overlay ? overlay.querySelector("[data-create-shift]") : null;
+    const createColor = overlay ? overlay.querySelector("#create-color") : null;
+    const createAllDay = overlay ? overlay.querySelector("#create-all-day") : null;
+    const createEventTime = overlay ? overlay.querySelectorAll("[data-event-time]") : [];
+    const createDateLabel = overlay ? overlay.querySelector("[data-create-date]") : null;
+    const createDateInput = overlay ? overlay.querySelector("[data-create-date-input]") : null;
+    const createDateField = overlay ? overlay.querySelector("[data-create-date-field]") : null;
+    const createDatePicker = overlay ? overlay.querySelector("[data-create-date-picker]") : null;
+    const createMeta = overlay ? overlay.querySelector(".createMeta") : null;
+
+    const editOverlay = document.querySelector("[data-edit-overlay]");
+    const editTitle = editOverlay ? editOverlay.querySelector("[data-edit-title]") : null;
+    const editMeta = editOverlay ? editOverlay.querySelector("[data-edit-meta]") : null;
+    const editShiftRow = editOverlay ? editOverlay.querySelector("[data-edit-shift-row]") : null;
+    const editShiftSelect = editOverlay ? editOverlay.querySelector("[data-edit-shift-select]") : null;
+    const editStartInput = editOverlay ? editOverlay.querySelector("[data-edit-start]") : null;
+    const editEndInput = editOverlay ? editOverlay.querySelector("[data-edit-end]") : null;
+    const editStartField = editStartInput ? editStartInput.closest("[data-time-field]") : null;
+    const editEndField = editEndInput ? editEndInput.closest("[data-time-field]") : null;
+    const editDelta = editOverlay ? editOverlay.querySelector("[data-edit-delta]") : null;
+    const editClose = editOverlay ? editOverlay.querySelector("[data-edit-close]") : null;
+    const editStartNow = editOverlay ? editOverlay.querySelector("[data-edit-start-now]") : null;
+    const editFinishNow = editOverlay ? editOverlay.querySelector("[data-edit-finish-now]") : null;
+    const editActions = editOverlay ? editOverlay.querySelector("[data-edit-actions]") : null;
+    const noteOverlay = document.querySelector("[data-note-overlay]");
+    const noteTitleEl = noteOverlay ? noteOverlay.querySelector("[data-note-title]") : null;
+    const noteBodyEl = noteOverlay ? noteOverlay.querySelector("[data-note-body]") : null;
+    const noteClose = noteOverlay ? noteOverlay.querySelector("[data-note-close]") : null;
+    let activeEditKind = "window";
+    let activeEditWindow = null;
+    let activeEditSleepKey = "";
+    let activeEditShiftKey = "";
+    let plannedTimes = { start: "", end: "" };
+    let editSync = false;
+
     const calendarRoot = document.querySelector(".calendarShell");
     let calendarApi = null;
 
@@ -836,8 +879,6 @@
         const daySchedule = calendarRoot.querySelector("[data-day-schedule]");
         const dayAllDay = calendarRoot.querySelector("[data-day-all-day]");
         const dayAllDayList = calendarRoot.querySelector("[data-day-all-day-list]");
-        const dayShiftRow = calendarRoot.querySelector("[data-day-shift-row]");
-        const shiftSelect = calendarRoot.querySelector("[data-shift-select]");
         const focusPace = calendarRoot.querySelector("[data-focus-pace]");
         const focusBalance = calendarRoot.querySelector("[data-focus-balance]");
         const focusMomentum = calendarRoot.querySelector("[data-focus-momentum]");
@@ -874,34 +915,6 @@
             }
         };
 
-
-        const renderShiftSelect = () => {
-            if (!dayShiftRow || !shiftSelect) return;
-            if (!state.shifts.length) {
-                dayShiftRow.style.display = "none";
-                return;
-            }
-            dayShiftRow.style.display = "inline-flex";
-            const defaultShift = getDefaultShift();
-            shiftSelect.innerHTML = "";
-            const noneOption = document.createElement("option");
-            noneOption.value = "";
-            noneOption.textContent = "No work";
-            shiftSelect.appendChild(noneOption);
-            state.shifts.forEach((shift) => {
-                const option = document.createElement("option");
-                const label = shift.name || "Work";
-                option.value = shift.id;
-                option.textContent = shift.isDefault ? `${label} (default)` : label;
-                shiftSelect.appendChild(option);
-            });
-            const override = getShiftOverrideForDate(stateCal.selected);
-            const overrideId = override ? override.shiftId : undefined;
-            const selectedId = overrideId !== undefined
-                ? (overrideId ?? "")
-                : (defaultShift ? defaultShift.id : "");
-            shiftSelect.value = selectedId ? String(selectedId) : "";
-        };
 
         const formatHours = (value) => {
             if (!Number.isFinite(value)) return "0";
@@ -1560,28 +1573,28 @@
                 number.className = "monthNumber";
                 number.textContent = String(dayNum);
 
-                const tasks = document.createElement("div");
-                tasks.className = "monthTasks";
+                const dots = document.createElement("div");
+                dots.className = "monthDots";
                 const dayItems = [...(tasksByDate[key] || []), ...(eventsByDate[key] || [])];
                 if (dayItems.length > 0) {
                     btn.classList.add("has-items");
                 }
-                dayItems.slice(0, 2).forEach((task) => {
-                    const pill = document.createElement("div");
-                    const eventClass = task.isEvent ? " is-event" : "";
-                    pill.className = `monthPill${task.done ? " is-done" : ""}${eventClass}`;
-                    pill.textContent = task.text;
-                    tasks.appendChild(pill);
+                const dotCount = Math.min(3, dayItems.length);
+                dayItems.slice(0, dotCount).forEach((item) => {
+                    const dot = document.createElement("span");
+                    const eventClass = item.isEvent ? " is-event" : "";
+                    dot.className = `monthDot${item.done ? " is-done" : ""}${eventClass}`;
+                    dots.appendChild(dot);
                 });
-                if (dayItems.length > 2) {
-                    const more = document.createElement("div");
-                    more.className = "monthMore";
-                    more.textContent = `+${dayItems.length - 2} more`;
-                    tasks.appendChild(more);
+                if (dayItems.length > dotCount) {
+                    const more = document.createElement("span");
+                    more.className = "monthDot is-more";
+                    more.textContent = "+";
+                    dots.appendChild(more);
                 }
 
                 btn.appendChild(number);
-                btn.appendChild(tasks);
+                btn.appendChild(dots);
 
                 if (cellMonth !== stateCal.viewMonth) {
                     btn.classList.add("is-muted");
@@ -1681,22 +1694,12 @@
 
         const renderAll = (autoScroll) => {
             renderDayHeader();
-            renderShiftSelect();
             renderDayGrid(autoScroll);
             renderFocus();
             renderTaskRail();
             renderNoteRail();
             renderMonth();
         };
-
-        if (shiftSelect) {
-            shiftSelect.addEventListener("change", () => {
-                const key = dateKey(stateCal.selected);
-                const value = shiftSelect.value;
-                const shiftId = value ? parseInt(value, 10) : null;
-                updateShiftOverride(key, { shiftId: Number.isFinite(shiftId) ? shiftId : null, start: "", end: "" });
-            });
-        }
 
         if (editShiftSelect) {
             editShiftSelect.addEventListener("change", () => {
@@ -1796,48 +1799,6 @@
             calendarApi.renderAll(autoScroll);
         }
     };
-
-    const overlay = document.querySelector("[data-create-overlay]");
-    const createForm = overlay ? overlay.querySelector("[data-create-form]") : null;
-    const createKind = overlay ? overlay.querySelector("[data-create-kind]") : null;
-    const createTitle = overlay ? overlay.querySelector("#create-title") : null;
-    const createNote = overlay ? overlay.querySelector("#create-note") : null;
-    const createTime = overlay ? overlay.querySelector("#create-time") : null;
-    const createEnd = overlay ? overlay.querySelector("#create-end-time") : null;
-    const createDuration = overlay ? overlay.querySelector("#create-duration") : null;
-    const createColor = overlay ? overlay.querySelector("#create-color") : null;
-    const createAllDay = overlay ? overlay.querySelector("#create-all-day") : null;
-    const createEventTime = overlay ? overlay.querySelectorAll("[data-event-time]") : [];
-    const createDateLabel = overlay ? overlay.querySelector("[data-create-date]") : null;
-    const createDateInput = overlay ? overlay.querySelector("[data-create-date-input]") : null;
-    const createDateField = overlay ? overlay.querySelector("[data-create-date-field]") : null;
-    const createDatePicker = overlay ? overlay.querySelector("[data-create-date-picker]") : null;
-    const createMeta = overlay ? overlay.querySelector(".createMeta") : null;
-
-    const editOverlay = document.querySelector("[data-edit-overlay]");
-    const editTitle = editOverlay ? editOverlay.querySelector("[data-edit-title]") : null;
-    const editMeta = editOverlay ? editOverlay.querySelector("[data-edit-meta]") : null;
-    const editShiftRow = editOverlay ? editOverlay.querySelector("[data-edit-shift-row]") : null;
-    const editShiftSelect = editOverlay ? editOverlay.querySelector("[data-edit-shift-select]") : null;
-    const editStartInput = editOverlay ? editOverlay.querySelector("[data-edit-start]") : null;
-    const editEndInput = editOverlay ? editOverlay.querySelector("[data-edit-end]") : null;
-    const editStartField = editStartInput ? editStartInput.closest("[data-time-field]") : null;
-    const editEndField = editEndInput ? editEndInput.closest("[data-time-field]") : null;
-    const editDelta = editOverlay ? editOverlay.querySelector("[data-edit-delta]") : null;
-    const editClose = editOverlay ? editOverlay.querySelector("[data-edit-close]") : null;
-    const editStartNow = editOverlay ? editOverlay.querySelector("[data-edit-start-now]") : null;
-    const editFinishNow = editOverlay ? editOverlay.querySelector("[data-edit-finish-now]") : null;
-    const editActions = editOverlay ? editOverlay.querySelector("[data-edit-actions]") : null;
-    const noteOverlay = document.querySelector("[data-note-overlay]");
-    const noteTitleEl = noteOverlay ? noteOverlay.querySelector("[data-note-title]") : null;
-    const noteBodyEl = noteOverlay ? noteOverlay.querySelector("[data-note-body]") : null;
-    const noteClose = noteOverlay ? noteOverlay.querySelector("[data-note-close]") : null;
-    let activeEditKind = "window";
-    let activeEditWindow = null;
-    let activeEditSleepKey = "";
-    let activeEditShiftKey = "";
-    let plannedTimes = { start: "", end: "" };
-    let editSync = false;
 
     const nowTime = () => {
         const now = new Date();
@@ -1952,6 +1913,25 @@
             saveJson("shift_overrides", state.shiftOverrides);
         }
         refreshUI(false);
+    };
+
+    const renderCreateShiftSelect = (selectedId = "") => {
+        if (!createShiftSelect) return;
+        createShiftSelect.innerHTML = "";
+        const noneOption = document.createElement("option");
+        noneOption.value = "";
+        noneOption.textContent = "No work";
+        createShiftSelect.appendChild(noneOption);
+        state.shifts.forEach((shift) => {
+            const option = document.createElement("option");
+            const label = shift.name || "Work";
+            option.value = shift.id;
+            option.textContent = shift.isDefault ? `${label} (default)` : label;
+            createShiftSelect.appendChild(option);
+        });
+        if (selectedId) {
+            createShiftSelect.value = String(selectedId);
+        }
     };
 
     const renderEditShiftSelect = (key) => {
@@ -2113,6 +2093,9 @@
             const allDay = createAllDay && createAllDay.checked;
             createTime.required = kind === "window" || (isEvent && !allDay);
         }
+        if (kind === "shift") {
+            renderCreateShiftSelect(createShiftSelect ? createShiftSelect.value : "");
+        }
         updateEventTimeVisibility();
     };
 
@@ -2145,11 +2128,15 @@
         clearTimeField(createTime);
         clearTimeField(createEnd);
         if (createDuration) createDuration.value = "";
+        if (createShiftSelect) {
+            const defaultShift = getDefaultShift();
+            renderCreateShiftSelect(defaultShift ? defaultShift.id : "");
+        }
         if (createColor && createColor.dataset && createColor.dataset.default) {
             createColor.value = createColor.dataset.default;
         }
         if (createAllDay) createAllDay.checked = false;
-        const safeKind = ["task", "note", "window", "event"].includes(kind) ? kind : "task";
+        const safeKind = ["task", "note", "window", "event", "shift"].includes(kind) ? kind : "task";
         setCreateKind(safeKind);
         overlay.classList.add("is-open");
         if (createTitle) createTitle.focus();
@@ -2339,7 +2326,7 @@
             const title = normalizeText(createTitle ? createTitle.value : "");
             const noteBody = normalizeText(createNote ? createNote.value : "");
             if (kind === "note" && !noteBody && !title) return;
-            if (kind !== "note" && !title) return;
+            if (kind !== "note" && kind !== "shift" && !title) return;
             const date = createDateInput ? createDateInput.value : "";
             const startRaw = normalizeText(createTime ? createTime.value : "");
             const endRaw = normalizeText(createEnd ? createEnd.value : "");
@@ -2350,6 +2337,18 @@
             const end = kind === "event" && allDay ? "23:59" : endRaw;
             const needsTime = kind === "window" || (kind === "event" && !allDay);
             if (needsTime && !startRaw) return;
+
+            if (kind === "shift") {
+                const selected = createShiftSelect ? createShiftSelect.value : "";
+                const shiftId = selected ? parseInt(selected, 10) : null;
+                await updateShiftOverride(date, {
+                    shiftId: Number.isFinite(shiftId) ? shiftId : null,
+                    start: "",
+                    end: "",
+                });
+                closeCreate();
+                return;
+            }
 
             const typeMap = { task: "tasks", note: "notes", window: "windows", event: "windows" };
             const type = typeMap[kind] || "tasks";

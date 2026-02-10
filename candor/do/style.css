@@ -1084,6 +1084,38 @@ body.is-do .welcome {
     position: relative;
 }
 
+.monthDots {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.monthDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(90, 143, 185, 0.65);
+}
+
+.monthDot.is-event {
+    background: rgba(230, 160, 106, 0.8);
+}
+
+.monthDot.is-done {
+    background: rgba(15, 27, 45, 0.25);
+}
+
+.monthDot.is-more {
+    width: 10px;
+    height: 10px;
+    font-size: 8px;
+    line-height: 10px;
+    text-align: center;
+    color: var(--ink);
+    background: rgba(243, 200, 115, 0.8);
+}
+
 .monthCell:hover {
     transform: translateY(-1px);
     border-color: rgba(90, 143, 185, 0.6);
@@ -2293,6 +2325,7 @@ body.is-do .welcome {
         justify-content: center;
     }
     .monthNumber { font-size: 10px; line-height: 1; }
+    .monthDots { display: none; }
     .monthTasks { display: none; }
     .monthPill { display: none; }
     .monthMore { display: none; }

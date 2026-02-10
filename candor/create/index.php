@@ -133,14 +133,14 @@ $candorVersion = 'v0.2';
 											<select class="input compact select" id="work-shift-select" data-shift-select>
 												<option value="">Select a shift</option>
 											</select>
-											<button class="btn mini shiftUseBtn" type="button" data-shift-use>Use</button>
+											<button class="btn shiftUseBtn" type="button" data-shift-use>Use</button>
 										</div>
 										<input type="hidden" name="shift_id" data-shift-id>
 									</div>
 									<div class="fieldRow shiftRowLine" data-shift-line>
 										<div class="field">
-											<label class="label" for="shift-commute-before">Commute in</label>
-											<input class="input compact" id="shift-commute-before" type="number" min="0" step="5" inputmode="numeric" placeholder="15">
+											<label class="label" for="shift-commute-before">In</label>
+											<input class="input compact" id="shift-commute-before" type="number" min="0" max="999" step="5" inputmode="numeric" placeholder="15">
 										</div>
 										<div class="field">
 											<label class="label" for="shift-start-hour">Start</label>
@@ -157,8 +157,8 @@ $candorVersion = 'v0.2';
 											</div>
 										</div>
 										<div class="field">
-											<label class="label" for="shift-commute-after">Commute out</label>
-											<input class="input compact" id="shift-commute-after" type="number" min="0" step="5" inputmode="numeric" placeholder="15">
+											<label class="label" for="shift-commute-after">Out</label>
+											<input class="input compact" id="shift-commute-after" type="number" min="0" max="999" step="5" inputmode="numeric" placeholder="15">
 										</div>
 									</div>
 									<label class="toggleLine shiftDefault" data-shift-default>
@@ -180,17 +180,17 @@ $candorVersion = 'v0.2';
 												<button class="timeButton" type="button" data-time-display>--:--</button>
 											</div>
 										</div>
+										<div class="field field-repeat" data-repeat-field>
+											<label class="label" for="routine-repeat">Repeat</label>
+											<select class="input compact select" id="routine-repeat" name="repeat" data-routine-repeat>
+												<option value="daily">Daily</option>
+												<option value="weekdays">Weekdays</option>
+												<option value="weekends">Weekends</option>
+												<option value="day">Specific day</option>
+											</select>
+										</div>
 									</div>
 									<div class="fieldHint" data-anchor-note></div>
-									<div class="field" data-repeat-field>
-										<label class="label" for="routine-repeat">Repeat</label>
-										<select class="input compact select" id="routine-repeat" name="repeat" data-routine-repeat>
-											<option value="daily">Daily</option>
-											<option value="weekdays">Weekdays</option>
-											<option value="weekends">Weekends</option>
-											<option value="day">Specific day</option>
-										</select>
-									</div>
 									<div class="field" data-routine-day-field>
 										<label class="label">Days</label>
 										<div class="dayMulti">

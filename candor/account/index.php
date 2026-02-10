@@ -241,16 +241,32 @@ $candorVersion = 'v0.2';
 				const syncTimezones = (scope) => {
 					const countrySelect = scope.querySelector('[data-country-select]');
 					const timezoneSelect = scope.querySelector('[data-timezone-select]');
+					const clockSelect = scope.querySelector('[data-clock-select]');
 					if (!countrySelect || !timezoneSelect) return;
+					const formatZoneLabel = (zone, hour12) => {
+						try {
+							const formatter = new Intl.DateTimeFormat('en-US', {
+								hour: '2-digit',
+								minute: '2-digit',
+								hour12,
+								timeZone: zone,
+							});
+							return formatter.format(new Date());
+						} catch (error) {
+							return '';
+						}
+					};
 					const buildOptions = (country, selected) => {
 						const zones = timezoneMap[country] && timezoneMap[country].length
 							? timezoneMap[country]
 							: ['UTC'];
+						const hour12 = clockSelect ? clockSelect.value === '12' : false;
 						timezoneSelect.innerHTML = '';
 						zones.forEach((zone) => {
 							const option = document.createElement('option');
 							option.value = zone;
-							option.textContent = zone;
+							const timeLabel = formatZoneLabel(zone, hour12);
+							option.textContent = timeLabel ? `${zone} \u00b7 ${timeLabel}` : zone;
 							if (zone === selected) option.selected = true;
 							timezoneSelect.appendChild(option);
 						});
@@ -262,6 +278,11 @@ $candorVersion = 'v0.2';
 					countrySelect.addEventListener('change', () => {
 						buildOptions(countrySelect.value, '');
 					});
+					if (clockSelect) {
+						clockSelect.addEventListener('change', () => {
+							buildOptions(countrySelect.value, timezoneSelect.value);
+						});
+					}
 				};
 				syncTimezones(document);
 			})();

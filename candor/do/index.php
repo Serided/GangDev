@@ -79,10 +79,6 @@ $candorVersion = 'v0.2';
 						<div class="daySchedule is-empty" data-day-schedule></div>
 						<div class="dayTitle" data-day-title>Today</div>
 						<div class="dayMeta" data-day-sub></div>
-						<div class="dayShiftRow" data-day-shift-row>
-							<span class="dayShiftLabel">Shift</span>
-							<select class="input compact select shiftSelect" data-shift-select></select>
-						</div>
 					</div>
 					<button class="panelAdd" type="button" data-add-kind="window" aria-label="Add window">+</button>
 				</div>
@@ -211,10 +207,11 @@ $candorVersion = 'v0.2';
 				<option value="note">Note</option>
 				<option value="event">Event</option>
 				<option value="window">Window</option>
+				<option value="shift">Work shift</option>
 			</select>
 
 			<div class="createRow">
-				<div class="createField createTitleField">
+				<div class="createField createTitleField" data-kind="task,note,window,event">
 					<label class="label" for="create-title">Title</label>
 					<input class="input" id="create-title" type="text" name="title" placeholder="What are you doing?">
 				</div>
@@ -232,6 +229,13 @@ $candorVersion = 'v0.2';
 			<div class="createField" data-kind="task">
 				<label class="label" for="create-duration">Time required (min)</label>
 				<input class="input compact" id="create-duration" type="number" name="duration" min="5" step="5" inputmode="numeric" placeholder="45">
+			</div>
+
+			<div class="createField" data-kind="shift">
+				<label class="label" for="create-shift">Shift</label>
+				<select class="input compact select" id="create-shift" name="shift_id" data-create-shift>
+					<option value="">No work</option>
+				</select>
 			</div>
 
 			<div class="createField" data-kind="event">
@@ -483,16 +487,32 @@ $candorVersion = 'v0.2';
 		const syncTimezones = (scope) => {
 			const countrySelect = scope.querySelector('[data-country-select]');
 			const timezoneSelect = scope.querySelector('[data-timezone-select]');
+			const clockSelect = scope.querySelector('[data-clock-select]');
 			if (!countrySelect || !timezoneSelect) return;
+			const formatZoneLabel = (zone, hour12) => {
+				try {
+					const formatter = new Intl.DateTimeFormat('en-US', {
+						hour: '2-digit',
+						minute: '2-digit',
+						hour12,
+						timeZone: zone,
+					});
+					return formatter.format(new Date());
+				} catch (error) {
+					return '';
+				}
+			};
 			const buildOptions = (country, selected) => {
 				const zones = timezoneMap[country] && timezoneMap[country].length
 					? timezoneMap[country]
 					: ['UTC'];
+				const hour12 = clockSelect ? clockSelect.value === '12' : false;
 				timezoneSelect.innerHTML = '';
 				zones.forEach((zone) => {
 					const option = document.createElement('option');
 					option.value = zone;
-					option.textContent = zone;
+					const timeLabel = formatZoneLabel(zone, hour12);
+					option.textContent = timeLabel ? `${zone} \u00b7 ${timeLabel}` : zone;
 					if (zone === selected) option.selected = true;
 					timezoneSelect.appendChild(option);
 				});
@@ -504,6 +524,11 @@ $candorVersion = 'v0.2';
 			countrySelect.addEventListener('change', () => {
 				buildOptions(countrySelect.value, '');
 			});
+			if (clockSelect) {
+				clockSelect.addEventListener('change', () => {
+					buildOptions(countrySelect.value, timezoneSelect.value);
+				});
+			}
 		};
 		syncTimezones(document);
 	})();
