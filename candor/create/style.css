@@ -17,8 +17,8 @@
     --brand-lead: #4b7fa8;
     --brand-mark-size: 84px;
     --brand-name-size: 36px;
-    --time-field-width: 60px;
-    --time-field-gap: 2px;
+    --time-field-width: 56px;
+    --time-field-gap: 1px;
     --shift-time-width: var(--time-field-width);
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
@@ -343,7 +343,7 @@ a { color: inherit; text-decoration: none; }
 
 .scheduleCard {
     --sleep-time-width: var(--shift-time-width);
-    --sleep-select-width: 88px;
+    --sleep-select-width: 80px;
     width: fit-content;
     max-width: 100%;
     justify-self: start;
@@ -445,6 +445,7 @@ a { color: inherit; text-decoration: none; }
     width: var(--sleep-time-width);
     min-width: var(--sleep-time-width);
     max-width: var(--sleep-time-width);
+    padding: 0 6px;
 }
 
 .scheduleCard .field-repeat,
@@ -548,7 +549,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 .fieldLeft {
-    grid-column: 1;
+    grid-column: 1 / -1;
+    justify-self: start;
+    width: var(--routine-name-width, 180px);
 }
 
 .label {
@@ -670,9 +673,9 @@ a { color: inherit; text-decoration: none; }
 .routineMeta {
     --routine-type-width: 88px;
     --routine-anchor-width: 120px;
-    --routine-name-width: 220px;
+    --routine-name-width: 180px;
     --routine-select-width: 120px;
-    --shift-commute-width: 36px;
+    --shift-commute-width: 32px;
     --shift-time-width: var(--time-field-width);
     --shift-line-gap: var(--time-field-gap);
     --shift-line-width: calc(
@@ -793,14 +796,14 @@ a { color: inherit; text-decoration: none; }
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
     grid-auto-flow: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .dayOption {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 8px;
+    padding: 4px 4px;
     border-radius: 10px;
     border: 1px solid rgba(215, 226, 237, 0.9);
     background: rgba(185, 219, 242, 0.2);
