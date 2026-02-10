@@ -24,8 +24,8 @@ $candorVersion = 'v0.2';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor - Create</title>
 	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
-	<link rel="stylesheet" href="style.css?v=29">
-	<script src="script.js?v=29" defer></script>
+	<link rel="stylesheet" href="style.css?v=30">
+	<script src="script.js?v=30" defer></script>
 </head>
 <body class="is-create" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>">
 
@@ -106,7 +106,7 @@ $candorVersion = 'v0.2';
 								<div class="routineMeta">
 									<div class="fieldRow typeRow">
 										<div class="field field-type">
-											<label class="label" for="block-type">Window</label>
+											<label class="label" for="block-type">Type</label>
 											<select class="input compact select" id="block-type" name="block_type" data-block-type>
 												<option value="routine">Routine</option>
 												<option value="work">Work</option>

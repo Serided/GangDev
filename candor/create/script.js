@@ -287,7 +287,7 @@
             const itemHeight = items[0].offsetHeight || 32;
             const paddingTop = parseFloat(getComputedStyle(wheel).paddingTop) || 0;
             const y = event.clientY - rect.top + wheel.scrollTop - paddingTop;
-            const index = clamp(Math.round((y - itemHeight / 2) / itemHeight), 0, items.length - 1);
+            const index = clamp(Math.floor(y / itemHeight), 0, items.length - 1);
             const value = parseInt(items[index].dataset.timeValue, 10);
             return Number.isFinite(value) ? value : null;
         };
@@ -934,6 +934,7 @@
                 kind: routine.type || "routine",
                 title: routine.title || "Routine",
                 time: resolveRoutineTime(routine, sleepRule),
+                end: routine.end || "",
                 duration: routineDuration(routine),
             });
         });
@@ -943,6 +944,7 @@
                 kind: "task",
                 title: rule.title || "Repeat task",
                 time: rule.start,
+                end: "",
             });
         });
         items.sort((a, b) => {
@@ -954,7 +956,7 @@
         return items;
     };
 
-    const setWeekBlock = (block, label, timeValue) => {
+    const setWeekBlock = (block, label, timeValue, timeEnd = "") => {
         if (!block) return;
         block.innerHTML = "";
         const labelSpan = document.createElement("span");
@@ -962,7 +964,12 @@
         labelSpan.textContent = label;
         block.appendChild(labelSpan);
 
-        const timeText = timeValue ? formatTime(timeValue) : "";
+        let timeText = "";
+        if (timeValue && timeEnd) {
+            timeText = `${formatTime(timeValue)}-${formatTime(timeEnd)}`;
+        } else if (timeValue) {
+            timeText = formatTime(timeValue);
+        }
         block.classList.toggle("is-set", Boolean(timeText));
         if (timeText) {
             const timeSpan = document.createElement("span");
@@ -988,9 +995,17 @@
             const safeDay = Number.isFinite(day) ? day : 0;
             const sleepRule = pickSleepRuleForDay(safeDay);
             const items = getWeekItems(safeDay);
-            const hasWork = items.some((item) => item.kind === "work");
+            const workItems = items.filter((item) => item.kind === "work");
+            const hasWork = workItems.length > 0;
             const hasFocus = items.some((item) => item.kind === "focus");
             const hasCustom = items.some((item) => item.kind === "custom");
+            const workItem = workItems
+                .slice()
+                .sort((a, b) => {
+                    const aTime = parseMinutes(a.time) ?? 9999;
+                    const bTime = parseMinutes(b.time) ?? 9999;
+                    return aTime - bTime;
+                })[0];
 
             const pushBlock = (label, className, timeValue) => {
                 const block = document.createElement("div");
@@ -1001,7 +1016,14 @@
 
             pushBlock("Wake", "is-sleep", sleepRule && sleepRule.end ? sleepRule.end : "");
             pushBlock("Morning routine", "is-morning", "");
-            if (hasWork) pushBlock("Work", "is-work", "");
+            if (hasWork) {
+                const workStart = workItem ? workItem.time : "";
+                const workEnd = workItem ? workItem.end : "";
+                const block = document.createElement("div");
+                block.className = "weekBlock is-work";
+                setWeekBlock(block, "Work", workStart, workEnd);
+                stack.appendChild(block);
+            }
             if (hasFocus) pushBlock("Focus", "is-focus", "");
             if (hasCustom) pushBlock("Window", "is-life", "");
             if (!hasWork && !hasFocus && !hasCustom) {
@@ -1011,6 +1033,7 @@
             pushBlock("Bed", "is-sleep", sleepRule && sleepRule.start ? sleepRule.start : "");
 
             items.forEach((item) => {
+                if (item.kind === "work") return;
                 const row = document.createElement("div");
                 const kindClass = item.kind === "sleep"
                     ? "is-sleep"
@@ -1109,6 +1132,9 @@
                     return routine;
                 }
             } catch {
+                switchToLocal();
+            }
+            if (storageMode === "remote") {
                 switchToLocal();
             }
         }

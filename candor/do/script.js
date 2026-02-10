@@ -610,7 +610,7 @@
             const itemHeight = items[0].offsetHeight || 32;
             const paddingTop = parseFloat(getComputedStyle(wheel).paddingTop) || 0;
             const y = event.clientY - rect.top + wheel.scrollTop - paddingTop;
-            const index = clamp(Math.round((y - itemHeight / 2) / itemHeight), 0, items.length - 1);
+            const index = clamp(Math.floor(y / itemHeight), 0, items.length - 1);
             const value = parseInt(items[index].dataset.timeValue, 10);
             return Number.isFinite(value) ? value : null;
         };

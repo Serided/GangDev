@@ -17,7 +17,7 @@
     --brand-lead: #4b7fa8;
     --brand-mark-size: 84px;
     --brand-name-size: 36px;
-    --time-field-width: 74px;
+    --time-field-width: 90px;
     --time-field-gap: 6px;
     --shift-time-width: var(--time-field-width);
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
@@ -343,7 +343,7 @@ a { color: inherit; text-decoration: none; }
 
 .scheduleCard {
     --sleep-time-width: var(--shift-time-width);
-    --sleep-select-width: 92px;
+    --sleep-select-width: var(--routine-select-width, 120px);
     width: fit-content;
     max-width: 100%;
     justify-self: start;
@@ -520,6 +520,12 @@ a { color: inherit; text-decoration: none; }
     width: 100%;
 }
 
+.fieldRow.typeRow [data-title-field].fieldLeft {
+    grid-column: 1;
+    justify-self: start;
+    width: var(--routine-name-width, 180px);
+}
+
 .fieldRow.timeRow .field-repeat {
     width: var(--routine-select-width, 120px);
 }
@@ -650,7 +656,7 @@ a { color: inherit; text-decoration: none; }
     --routine-saved-width: 250px;
     display: grid;
     grid-template-columns: minmax(0, var(--routine-meta-width)) minmax(0, var(--routine-task-width)) minmax(0, var(--routine-saved-width));
-    gap: 12px;
+    gap: 8px;
     align-items: start;
     min-height: 0;
     min-width: 0;
@@ -680,8 +686,8 @@ a { color: inherit; text-decoration: none; }
 .routineMeta {
     --routine-type-width: 88px;
     --routine-anchor-width: 120px;
-    --routine-name-width: 150px;
-    --routine-select-width: 112px;
+    --routine-name-width: 160px;
+    --routine-select-width: 120px;
     --shift-commute-width: var(--shift-time-width);
     --shift-time-width: var(--time-field-width);
     --shift-line-gap: var(--time-field-gap);
@@ -789,6 +795,8 @@ a { color: inherit; text-decoration: none; }
     display: grid;
     grid-template-columns: repeat(4, var(--shift-time-width, 60px));
     gap: var(--shift-line-gap, 6px);
+    column-gap: var(--shift-line-gap, 6px);
+    row-gap: var(--shift-line-gap, 6px);
     width: max-content;
     max-width: 100%;
     min-width: 0;
