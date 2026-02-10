@@ -63,7 +63,7 @@ $candorVersion = 'v0.2';
 	<title>your Candor</title>
 	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
 	<link rel="stylesheet" href="style.css">
-	<script src="script.js?v=30" defer></script>
+	<script src="script.js?v=31" defer></script>
 </head>
 <body class="is-do" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-user-name="<?= htmlspecialchars($name !== '' ? $name : $email) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>">
 

@@ -597,26 +597,18 @@
         let dragStartY = 0;
         let dragStartScroll = 0;
         let dragMoved = false;
+        let pendingValue = null;
         let snapTimer = null;
         const applyWheelValue = (value) => {
             scrollWheelTo(wheel, value);
             onChange(value);
             updateManualInputs();
         };
-        const getValueFromPointer = (event) => {
-            const items = getWheelItems(wheel);
-            if (!items.length) return null;
-            const rect = wheel.getBoundingClientRect();
-            const itemHeight = items[0].offsetHeight || 32;
-            const paddingTop = parseFloat(getComputedStyle(wheel).paddingTop) || 0;
-            const y = event.clientY - rect.top + wheel.scrollTop - paddingTop;
-            const index = clamp(Math.floor(y / itemHeight), 0, items.length - 1);
-            const value = parseInt(items[index].dataset.timeValue, 10);
-            return Number.isFinite(value) ? value : null;
-        };
         const handleWheelItemClick = (event) => {
-            const value = getValueFromPointer(event);
-            if (value === null) return false;
+            const direct = event.target.closest(".timeWheelItem");
+            if (!direct) return false;
+            const value = parseInt(direct.dataset.timeValue, 10);
+            if (!Number.isFinite(value)) return false;
             applyWheelValue(value);
             return true;
         };
@@ -652,6 +644,12 @@
             dragStartY = event.clientY;
             dragStartScroll = wheel.scrollTop;
             dragMoved = false;
+            pendingValue = null;
+            const direct = event.target.closest(".timeWheelItem");
+            if (direct) {
+                const value = parseInt(direct.dataset.timeValue, 10);
+                if (Number.isFinite(value)) pendingValue = value;
+            }
             wheel.setPointerCapture(event.pointerId);
             wheel.classList.add("is-dragging");
             event.preventDefault();
@@ -661,6 +659,7 @@
             const delta = event.clientY - dragStartY;
             if (Math.abs(delta) > 3) {
                 dragMoved = true;
+                pendingValue = null;
             }
             wheel.scrollTop = dragStartScroll - delta;
         });
@@ -672,6 +671,11 @@
                 wheel.releasePointerCapture(event.pointerId);
             }
             if (!dragMoved) {
+                if (pendingValue !== null) {
+                    applyWheelValue(pendingValue);
+                    pendingValue = null;
+                    return;
+                }
                 if (handleWheelItemClick(event)) return;
             }
             scheduleSnap();

@@ -17,8 +17,9 @@
     --brand-lead: #4b7fa8;
     --brand-mark-size: 84px;
     --brand-name-size: 36px;
-    --time-field-width: 90px;
+    --time-field-width: 100px;
     --time-field-gap: 6px;
+    --routine-select-width: 120px;
     --shift-time-width: var(--time-field-width);
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
@@ -651,12 +652,12 @@ a { color: inherit; text-decoration: none; }
 }
 
 .routineLayout {
-    --routine-meta-width: 420px;
+    --routine-meta-width: 380px;
     --routine-task-width: 320px;
-    --routine-saved-width: 250px;
+    --routine-saved-width: 300px;
     display: grid;
     grid-template-columns: minmax(0, var(--routine-meta-width)) minmax(0, var(--routine-task-width)) minmax(0, var(--routine-saved-width));
-    gap: 8px;
+    gap: 12px;
     align-items: start;
     min-height: 0;
     min-width: 0;
