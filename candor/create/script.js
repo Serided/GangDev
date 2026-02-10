@@ -1319,6 +1319,7 @@
     const routineTimeRow = routineForm ? routineForm.querySelector("[data-time-row]") : null;
     const routineTimeFieldWrap = routineForm ? routineForm.querySelector("[data-time-field-wrap]") : null;
     const routineStartField = routineForm ? routineForm.querySelector("#routine-time")?.closest("[data-time-field]") : null;
+    const routineEndWrap = routineForm ? routineForm.querySelector("[data-work-end-field]") : null;
     const routineEndInput = routineForm ? routineForm.querySelector("#routine-end") : null;
     const routineEndField = routineEndInput ? routineEndInput.closest("[data-time-field]") : null;
     const routineShiftSelect = routineForm ? routineForm.querySelector("[data-shift-select]") : null;
@@ -1369,6 +1370,8 @@
         if (routineTitleField) {
             routineTitleField.style.display = needsCustomTitle ? "grid" : "none";
             routineTitleField.classList.remove("fieldWide");
+            const alignLeft = !isRoutine || anchor === "custom";
+            routineTitleField.classList.toggle("is-left", alignLeft);
         }
         if (routineTitleLabel) {
             routineTitleLabel.textContent = isWork ? "Shift Name (optional)" : "Name";
@@ -1386,8 +1389,8 @@
         if (routineTimeFieldWrap) {
             routineTimeFieldWrap.style.display = showTimeRow ? "grid" : "none";
         }
-        if (routineEndField) {
-            routineEndField.style.display = showTimeRow ? "grid" : "none";
+        if (routineEndWrap) {
+            routineEndWrap.style.display = showTimeRow ? "grid" : "none";
         }
         if (routineShiftSelect) {
             routineShiftSelect.closest("[data-work-shift-select]")?.style.setProperty("display", isWork ? "grid" : "none");
