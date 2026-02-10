@@ -118,6 +118,34 @@ function ensure_schedule_rules_table(PDO $pdo) {
 	");
 }
 
+function ensure_routines_table(PDO $pdo) {
+	$pdo->exec("
+		CREATE TABLE IF NOT EXISTS candor.routines (
+			id BIGSERIAL PRIMARY KEY,
+			user_id INTEGER NOT NULL,
+			title TEXT NOT NULL,
+			routine_time TIME,
+			end_time TIME,
+			block_type VARCHAR(16),
+			anchor VARCHAR(16),
+			shift_id BIGINT,
+			repeat_rule VARCHAR(16),
+			day_of_week SMALLINT,
+			days_json TEXT,
+			tasks_json TEXT,
+			created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
+		)
+	");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS repeat_rule VARCHAR(16)");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS day_of_week SMALLINT");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS days_json TEXT");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS tasks_json TEXT");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS block_type VARCHAR(16)");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS anchor VARCHAR(16)");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS end_time TIME");
+	$pdo->exec("ALTER TABLE candor.routines ADD COLUMN IF NOT EXISTS shift_id BIGINT");
+}
+
 function ensure_sleep_logs_table(PDO $pdo) {
 	$pdo->exec("
 		CREATE TABLE IF NOT EXISTS candor.sleep_logs (
@@ -172,6 +200,7 @@ if ($action === 'load') {
 	try {
 		ensure_task_duration_column($pdo);
 		ensure_schedule_instance_columns($pdo);
+		ensure_routines_table($pdo);
 		ensure_sleep_logs_table($pdo);
 		ensure_work_shifts_table($pdo);
 		ensure_work_shift_overrides_table($pdo);
@@ -303,6 +332,80 @@ if ($action === 'load') {
 		$rules = [];
 	}
 
+	$routines = [];
+	try {
+		$rulesStmt = $pdo->prepare("
+			SELECT id, title, routine_time, end_time, repeat_rule, day_of_week, days_json, tasks_json, block_type, anchor, shift_id
+			FROM candor.routines
+			WHERE user_id = ?
+			ORDER BY created_at ASC, id ASC
+		");
+		$rulesStmt->execute([(int)$userId]);
+		while ($row = $rulesStmt->fetch(PDO::FETCH_ASSOC)) {
+			$time = '';
+			if (!empty($row['routine_time'])) {
+				$time = substr((string)$row['routine_time'], 0, 5);
+			}
+			$end = '';
+			if (!empty($row['end_time'])) {
+				$end = substr((string)$row['end_time'], 0, 5);
+			}
+			$tasks = [];
+			if (!empty($row['tasks_json'])) {
+				$decoded = json_decode((string)$row['tasks_json'], true);
+				if (is_array($decoded)) {
+					foreach ($decoded as $item) {
+						if (is_array($item)) {
+							$title = clamp_text($item['title'] ?? ($item['text'] ?? ''), 120);
+							if ($title === '') continue;
+							$minutes = isset($item['minutes']) && is_numeric($item['minutes']) ? (int)$item['minutes'] : null;
+							if ($minutes !== null && $minutes <= 0) $minutes = null;
+							$tasks[] = ['title' => $title, 'minutes' => $minutes];
+						} else {
+							$clean = clamp_text($item, 120);
+							if ($clean !== '') {
+								$tasks[] = ['title' => $clean, 'minutes' => null];
+							}
+						}
+					}
+				}
+			}
+			$days = [];
+			if (!empty($row['days_json'])) {
+				$decodedDays = json_decode((string)$row['days_json'], true);
+				if (is_array($decodedDays)) {
+					foreach ($decodedDays as $item) {
+						$value = is_numeric($item) ? (int)$item : -1;
+						if ($value >= 0 && $value <= 6 && !in_array($value, $days, true)) {
+							$days[] = $value;
+						}
+					}
+				}
+			}
+			if (!$days && isset($row['day_of_week'])) {
+				$dayValue = (int)$row['day_of_week'];
+				if ($dayValue >= 0 && $dayValue <= 6) {
+					$days[] = $dayValue;
+				}
+			}
+			$routines[] = [
+				'id' => (string)$row['id'],
+				'title' => (string)($row['title'] ?? ''),
+				'time' => $time,
+				'end' => $end,
+				'repeat' => (string)($row['repeat_rule'] ?? ''),
+				'day' => $days ? $days[0] : (isset($row['day_of_week']) ? (int)$row['day_of_week'] : null),
+				'days' => $days,
+				'tasks' => $tasks,
+				'block_type' => (string)($row['block_type'] ?? 'routine'),
+				'anchor' => (string)($row['anchor'] ?? 'custom'),
+				'shift_id' => isset($row['shift_id']) ? (int)$row['shift_id'] : null,
+			];
+		}
+	} catch (Throwable $e) {
+		$routines = [];
+	}
+
 	$sleepLogs = [];
 	try {
 		ensure_sleep_logs_table($pdo);
@@ -404,6 +507,7 @@ if ($action === 'load') {
 		'blocks' => $blocks,
 		'windows' => $blocks,
 		'rules' => $rules,
+		'routines' => $routines,
 		'sleep_logs' => $sleepLogs,
 		'shifts' => $shifts,
 		'shift_overrides' => $shiftOverrides,

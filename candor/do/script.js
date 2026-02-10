@@ -43,6 +43,7 @@
         notes: [],
         windows: [],
         rules: [],
+        routines: [],
         routineCount: 0,
         sleepLogs: [],
         shifts: [],
@@ -86,6 +87,41 @@
         color: normalizeText(item.color ?? ""),
         locked: Boolean(item.locked),
     });
+
+    const normalizeRoutine = (item) => {
+        const rawDays = Array.isArray(item.days) ? item.days : [];
+        const days = rawDays
+            .map((value) => parseInt(value, 10))
+            .filter((value) => Number.isFinite(value) && value >= 0 && value <= 6);
+        const tasks = Array.isArray(item.tasks)
+            ? item.tasks.map((task) => {
+                if (typeof task === "string") {
+                    const title = normalizeText(task);
+                    return title ? { title, minutes: null } : null;
+                }
+                if (!task || typeof task !== "object") return null;
+                const title = normalizeText(task.title ?? task.text ?? "");
+                if (!title) return null;
+                const minutesRaw = parseInt(task.minutes, 10);
+                const minutes = Number.isFinite(minutesRaw) && minutesRaw > 0 ? minutesRaw : null;
+                return { title, minutes };
+            }).filter(Boolean)
+            : [];
+        const dayValue = Number.isFinite(parseInt(item.day, 10)) ? parseInt(item.day, 10) : null;
+        return {
+            id: String(item.id ?? makeId()),
+            title: normalizeText(item.title ?? ""),
+            time: normalizeText(item.time ?? item.routine_time ?? ""),
+            end: normalizeText(item.end ?? item.end_time ?? ""),
+            repeat: normalizeText(item.repeat ?? item.repeat_rule ?? ""),
+            day: dayValue,
+            days,
+            tasks,
+            blockType: normalizeText(item.block_type ?? item.type ?? "routine"),
+            anchor: normalizeText(item.anchor ?? "custom"),
+            shiftId: Number.isFinite(parseInt(item.shift_id, 10)) ? parseInt(item.shift_id, 10) : null,
+        };
+    };
 
     const normalizeRule = (item) => {
         const dayValue = item.day ?? item.day_of_week;
@@ -153,6 +189,7 @@
         saveItems("notes", state.notes);
         saveItems("windows", state.windows);
         saveItems("rules", state.rules);
+        saveItems("routines", state.routines);
         saveItems("sleep_logs", state.sleepLogs);
         saveItems("shifts", state.shifts);
         saveJson("shift_overrides", state.shiftOverrides);
@@ -197,11 +234,12 @@
         state.notes = loadItems("notes").map(normalizeNote);
         state.windows = loadItems("windows").map(normalizeWindow);
         state.rules = loadItems("rules").map(normalizeRule);
+        state.routines = loadItems("routines").map(normalizeRoutine);
         state.sleepLogs = loadItems("sleep_logs").map(normalizeSleepLog);
         state.shifts = loadItems("shifts").map(normalizeShift);
         state.shiftOverrides = normalizeShiftOverrideMap(shiftOverridesLocal);
         state.activeSession = activeSessionLocal && typeof activeSessionLocal === "object" ? activeSessionLocal : null;
-        state.routineCount = 0;
+        state.routineCount = state.routines.length;
     };
 
     const switchToLocal = () => {
@@ -218,6 +256,7 @@
             : (Array.isArray(data.blocks) ? data.blocks : []);
         state.windows = windowItems.map(normalizeWindow);
         state.rules = Array.isArray(data.rules) ? data.rules.map(normalizeRule) : [];
+        state.routines = Array.isArray(data.routines) ? data.routines.map(normalizeRoutine) : [];
         state.sleepLogs = Array.isArray(data.sleep_logs) ? data.sleep_logs.map(normalizeSleepLog) : [];
         state.shifts = Array.isArray(data.shifts) ? data.shifts.map(normalizeShift) : [];
         const overrides = Array.isArray(data.shift_overrides) ? data.shift_overrides.map(normalizeShiftOverride) : [];
@@ -233,7 +272,7 @@
         }, {});
         state.activeSession = activeSessionLocal && typeof activeSessionLocal === "object" ? activeSessionLocal : null;
         const routineCount = parseInt(data.routine_count ?? "", 10);
-        state.routineCount = Number.isFinite(routineCount) ? routineCount : 0;
+        state.routineCount = Number.isFinite(routineCount) ? routineCount : state.routines.length;
     };
 
     const init = async () => {
@@ -370,6 +409,38 @@
         if (rule.repeat === "weekends") return dow === 0 || dow === 6;
         if (rule.repeat === "day") return Number.isFinite(rule.day) && rule.day === dow;
         return false;
+    };
+
+    const routineApplies = (routine, date) => {
+        if (!routine) return false;
+        const dow = date.getDay();
+        const repeat = routine.repeat || "daily";
+        if (repeat === "daily") return true;
+        if (repeat === "weekdays") return dow >= 1 && dow <= 5;
+        if (repeat === "weekends") return dow === 0 || dow === 6;
+        if (repeat === "day") {
+            if (Array.isArray(routine.days) && routine.days.length) {
+                return routine.days.includes(dow);
+            }
+            return Number.isFinite(routine.day) && routine.day === dow;
+        }
+        return false;
+    };
+
+    const routineDurationMinutes = (routine) => {
+        if (!routine) return 0;
+        if (Array.isArray(routine.tasks) && routine.tasks.length) {
+            const total = routine.tasks.reduce((sum, task) => {
+                const minutes = Number.isFinite(task.minutes) ? task.minutes : 0;
+                return sum + minutes;
+            }, 0);
+            if (total > 0) return total;
+        }
+        if (routine.end && routine.time) {
+            const duration = durationMinutes(routine.time, routine.end);
+            if (duration !== null) return duration;
+        }
+        return 30;
     };
 
     const pickSleepRule = (date) => {
@@ -917,6 +988,8 @@
         const popoverList = calendarRoot.querySelector("[data-popover-list]");
         const popoverClose = calendarRoot.querySelector("[data-popover-close]");
         let popoverDateKey = "";
+        let virtualWindows = new Map();
+        const plannedSleepByDate = {};
 
         const now = new Date();
         const stateCal = {
@@ -996,19 +1069,254 @@
             return getDefaultShift();
         };
 
+        const getWorkRoutineForDate = (date) => {
+            if (!date) return null;
+            return state.routines.find((routine) =>
+                routine.blockType === "work" && routineApplies(routine, date)
+            ) || null;
+        };
+
         const getShiftWindowTimes = (date) => {
-            const shift = getShiftForDate(date);
-            if (!shift || !shift.start || !shift.end) return null;
+            const workRoutine = getWorkRoutineForDate(date);
             const override = getShiftOverrideForDate(date);
+            if (!workRoutine && !override) return null;
+            if (override && override.shiftId === null) return null;
+
+            const baseShiftId = override && override.shiftId !== undefined
+                ? override.shiftId
+                : (workRoutine && workRoutine.shiftId ? workRoutine.shiftId : null);
+            const shift = baseShiftId !== null
+                ? state.shifts.find((item) => String(item.id) === String(baseShiftId)) || null
+                : null;
+            const fallbackShift = shift || getDefaultShift();
+            if (!fallbackShift && !(workRoutine && workRoutine.time && workRoutine.end)) return null;
+
             const overrideStart = override && override.start ? override.start : "";
             const overrideEnd = override && override.end ? override.end : "";
-            let startActual = overrideStart || shift.start;
-            let endActual = overrideEnd || shift.end;
-            if (!overrideStart && !overrideEnd) {
-                startActual = addMinutesToTime(shift.start, -(shift.commuteBefore || 0));
-                endActual = addMinutesToTime(shift.end, shift.commuteAfter || 0);
+            let startActual = overrideStart || (fallbackShift ? fallbackShift.start : workRoutine.time);
+            let endActual = overrideEnd || (fallbackShift ? fallbackShift.end : workRoutine.end);
+            if (fallbackShift && !overrideStart && !overrideEnd) {
+                startActual = addMinutesToTime(fallbackShift.start, -(fallbackShift.commuteBefore || 0));
+                endActual = addMinutesToTime(fallbackShift.end, fallbackShift.commuteAfter || 0);
             }
-            return { shift, start: startActual, end: endActual };
+            if (!startActual || !endActual) return null;
+            return { shift: fallbackShift || workRoutine, start: startActual, end: endActual };
+        };
+
+        const minutesToTime = (value) => {
+            const safe = ((value % (24 * 60)) + (24 * 60)) % (24 * 60);
+            const hours = Math.floor(safe / 60);
+            const minutes = safe % 60;
+            return `${pad2(hours)}:${pad2(minutes)}`;
+        };
+
+        const buildSleepPlan = (date) => {
+            const key = dateKey(date);
+            const log = getSleepLogFor(key);
+            const rule = pickSleepRule(date);
+            const start = log && log.start ? log.start : (rule ? rule.start : "");
+            const end = log && log.end ? log.end : (rule ? rule.end : "");
+            const duration = start && end ? durationMinutes(start, end) : null;
+            return {
+                start,
+                end,
+                duration: duration ?? 0,
+                hasLog: Boolean(log && (log.start || log.end)),
+            };
+        };
+
+        const buildRoutinePlan = (date, sleepPlan, workWindow) => {
+            const key = dateKey(date);
+            const routines = state.routines.filter((routine) =>
+                routine.blockType !== "work" && routineApplies(routine, date)
+            );
+            const morning = routines.filter((routine) => routine.blockType === "routine" && routine.anchor === "morning");
+            const evening = routines.filter((routine) => routine.blockType === "routine" && routine.anchor === "evening");
+            const custom = routines.filter((routine) =>
+                routine.blockType !== "routine" || routine.anchor === "custom"
+            );
+
+            const morningDuration = morning.reduce((sum, routine) => sum + routineDurationMinutes(routine), 0);
+            const eveningDuration = evening.reduce((sum, routine) => sum + routineDurationMinutes(routine), 0);
+
+            const plan = { ...sleepPlan };
+            if (!plan.hasLog && plan.start && plan.end && workWindow) {
+                const workStart = parseMinutes(workWindow.start);
+                const workEnd = parseMinutes(workWindow.end);
+                if (Number.isFinite(workStart) && morningDuration > 0) {
+                    const sleepEndMin = parseMinutes(plan.end);
+                    if (Number.isFinite(sleepEndMin)) {
+                        const morningEndMin = sleepEndMin + morningDuration;
+                        if (morningEndMin > workStart) {
+                            const shiftBy = morningEndMin - workStart;
+                            plan.start = addMinutesToTime(plan.start, -shiftBy);
+                            plan.end = addMinutesToTime(plan.end, -shiftBy);
+                        }
+                    }
+                }
+                if (Number.isFinite(workEnd) && eveningDuration > 0) {
+                    const sleepStartMin = parseMinutes(plan.start);
+                    if (Number.isFinite(sleepStartMin)) {
+                        const eveningStartMin = sleepStartMin - eveningDuration;
+                        if (eveningStartMin < workEnd) {
+                            const shiftBy = workEnd - eveningStartMin;
+                            plan.start = addMinutesToTime(plan.start, shiftBy);
+                            plan.end = addMinutesToTime(plan.end, shiftBy);
+                        }
+                    }
+                }
+            }
+
+            const windows = [];
+            if (plan.end && morning.length) {
+                let cursor = plan.end;
+                morning.forEach((routine) => {
+                    const minutes = routineDurationMinutes(routine);
+                    const start = cursor;
+                    const end = addMinutesToTime(start, minutes);
+                    windows.push({
+                        id: `routine-${routine.id}-${key}`,
+                        text: routine.title || "Routine",
+                        date: key,
+                        start,
+                        end,
+                        kind: "window",
+                        color: "#f3c873",
+                        locked: true,
+                        source: "routine",
+                        virtual: true,
+                    });
+                    cursor = end;
+                });
+            }
+            if (plan.start && evening.length) {
+                let cursor = plan.start;
+                const eveningWindows = [];
+                evening.slice().reverse().forEach((routine) => {
+                    const minutes = routineDurationMinutes(routine);
+                    const end = cursor;
+                    const start = addMinutesToTime(end, -minutes);
+                    eveningWindows.unshift({
+                        id: `routine-${routine.id}-${key}`,
+                        text: routine.title || "Routine",
+                        date: key,
+                        start,
+                        end,
+                        kind: "window",
+                        color: "#f3c873",
+                        locked: true,
+                        source: "routine",
+                        virtual: true,
+                    });
+                    cursor = start;
+                });
+                windows.push(...eveningWindows);
+            }
+            custom.forEach((routine) => {
+                const start = routine.time;
+                if (!start) return;
+                const duration = routineDurationMinutes(routine);
+                const end = routine.end || addMinutesToTime(start, duration);
+                const title = routine.title || (routine.blockType === "focus" ? "Focus" : "Window");
+                const color = routine.blockType === "focus" ? "#e6a06a" : "#f3c873";
+                windows.push({
+                    id: `routine-${routine.id}-${key}`,
+                    text: title,
+                    date: key,
+                    start,
+                    end,
+                    kind: "window",
+                    color,
+                    locked: true,
+                    source: "routine",
+                    virtual: true,
+                });
+            });
+
+            return { sleep: plan, windows };
+        };
+
+        const collectSegments = (startMinutes, endMinutes, segments) => {
+            const dayStart = 0;
+            const dayEnd = 24 * 60;
+            if (!Number.isFinite(startMinutes) || !Number.isFinite(endMinutes)) return;
+            if (endMinutes <= startMinutes) {
+                segments.push({ start: startMinutes, end: dayEnd });
+                if (endMinutes > dayStart) {
+                    segments.push({ start: dayStart, end: endMinutes });
+                }
+                return;
+            }
+            segments.push({ start: startMinutes, end: endMinutes });
+        };
+
+        const buildFocusWindows = (segments, dateKeyValue) => {
+            if (!segments.length) {
+                return [{
+                    id: `focus-${dateKeyValue}-0`,
+                    text: "Focus",
+                    date: dateKeyValue,
+                    start: "00:00",
+                    end: "23:59",
+                    kind: "window",
+                    color: "#e6a06a",
+                    locked: true,
+                    source: "focus",
+                    virtual: true,
+                }];
+            }
+            const sorted = segments
+                .slice()
+                .sort((a, b) => a.start - b.start)
+                .reduce((acc, segment) => {
+                    const last = acc[acc.length - 1];
+                    if (last && segment.start <= last.end) {
+                        last.end = Math.max(last.end, segment.end);
+                    } else {
+                        acc.push({ ...segment });
+                    }
+                    return acc;
+                }, []);
+            const focusWindows = [];
+            let cursor = 0;
+            sorted.forEach((segment, index) => {
+                if (segment.start > cursor) {
+                    const gapMinutes = segment.start - cursor;
+                    if (gapMinutes >= 30) {
+                        focusWindows.push({
+                            id: `focus-${dateKeyValue}-${focusWindows.length}`,
+                            text: "Focus",
+                            date: dateKeyValue,
+                            start: minutesToTime(cursor),
+                            end: minutesToTime(segment.start),
+                            kind: "window",
+                            color: "#e6a06a",
+                            locked: true,
+                            source: "focus",
+                            virtual: true,
+                        });
+                    }
+                }
+                cursor = Math.max(cursor, segment.end);
+                if (index === sorted.length - 1 && cursor < 24 * 60) {
+                    const gapMinutes = (24 * 60) - cursor;
+                    if (gapMinutes >= 30) {
+                        focusWindows.push({
+                            id: `focus-${dateKeyValue}-${focusWindows.length}`,
+                            text: "Focus",
+                            date: dateKeyValue,
+                            start: minutesToTime(cursor),
+                            end: "23:59",
+                            kind: "window",
+                            color: "#e6a06a",
+                            locked: true,
+                            source: "focus",
+                            virtual: true,
+                        });
+                    }
+                }
+            });
+            return focusWindows;
         };
 
         const isActiveSleep = (key) =>
@@ -1149,7 +1457,12 @@
             if (birthdayEvent) {
                 windows.push(birthdayEvent);
             }
+
+            const sleepPlan = buildSleepPlan(stateCal.selected);
             const shiftWindow = getShiftWindowTimes(stateCal.selected);
+            const routinePlan = buildRoutinePlan(stateCal.selected, sleepPlan, shiftWindow);
+            plannedSleepByDate[selectedKey] = routinePlan.sleep;
+
             if (shiftWindow) {
                 const { shift, start: startActual, end: endActual } = shiftWindow;
                 windows.push({
@@ -1165,8 +1478,39 @@
                     shiftId: shift.id,
                     baseStart: shift.start,
                     baseEnd: shift.end,
+                    virtual: true,
                 });
             }
+
+            if (routinePlan.windows.length) {
+                windows.push(...routinePlan.windows);
+            }
+
+            const busySegments = [];
+            windows.forEach((window) => {
+                const minutes = parseMinutes(window.start);
+                const endMinutes = parseMinutes(window.end);
+                if (minutes === null || endMinutes === null) return;
+                collectSegments(minutes, endMinutes, busySegments);
+            });
+            if (routinePlan.sleep.start && routinePlan.sleep.end) {
+                const sleepStart = parseMinutes(routinePlan.sleep.start);
+                const sleepEnd = parseMinutes(routinePlan.sleep.end);
+                collectSegments(sleepStart, sleepEnd, busySegments);
+            }
+
+            const focusWindows = buildFocusWindows(busySegments, selectedKey);
+            if (focusWindows.length) {
+                windows.push(...focusWindows);
+            }
+
+            virtualWindows.clear();
+            windows.forEach((window) => {
+                if (window.virtual) {
+                    virtualWindows.set(window.id, window);
+                }
+            });
+
             windows.sort((a, b) => (parseMinutes(a.start) ?? 0) - (parseMinutes(b.start) ?? 0));
 
             const windowsByHour = {};
@@ -1375,11 +1719,10 @@
                 dayGrid.appendChild(block);
             });
 
-            const sleepRule = pickSleepRule(stateCal.selected);
             const sleepKey = dateKey(stateCal.selected);
-            const sleepLog = getSleepLogFor(sleepKey);
-            const baseStart = sleepLog && sleepLog.start ? sleepLog.start : (sleepRule ? sleepRule.start : "");
-            const baseEnd = sleepLog && sleepLog.end ? sleepLog.end : (sleepRule ? sleepRule.end : "");
+            const plannedSleep = plannedSleepByDate[sleepKey];
+            const baseStart = plannedSleep ? plannedSleep.start : "";
+            const baseEnd = plannedSleep ? plannedSleep.end : "";
             if (baseStart && baseEnd) {
                 const endValue = baseEnd;
                 const startMinutes = parseMinutes(baseStart);
@@ -1852,10 +2195,58 @@
         editDelta.textContent = label;
     };
 
+    const materializeVirtualWindow = async (windowItem, overrides = {}) => {
+        if (!windowItem || !windowItem.date) return null;
+        const start = overrides.start ?? windowItem.start ?? "";
+        const end = overrides.end ?? windowItem.end ?? "";
+        const payload = {
+            action: "add",
+            type: "windows",
+            text: windowItem.text || "Window",
+            date: windowItem.date,
+            time: start,
+            end_time: end,
+            color: windowItem.color || "",
+            kind: windowItem.kind === "event" ? "event" : "window",
+        };
+        let created = null;
+        if (storageMode === "remote") {
+            try {
+                const response = await apiFetch(payload, "POST");
+                if (response && response.item) {
+                    created = normalizeWindow(response.item);
+                }
+            } catch {
+                switchToLocal();
+            }
+        }
+        if (!created) {
+            created = normalizeWindow({
+                id: makeId(),
+                text: payload.text,
+                date: payload.date,
+                start: start,
+                end: end,
+                kind: payload.kind,
+                color: payload.color,
+            });
+        }
+        state.windows.push(created);
+        if (storageMode === "local") {
+            persistLocal();
+        }
+        return created;
+    };
+
     const updateWindowTimes = async (windowId, start, end) => {
         if (!windowId) return;
         if (start === undefined && end === undefined) return;
-        const target = state.windows.find((item) => item.id === windowId);
+        let target = state.windows.find((item) => item.id === windowId);
+        if (!target && activeEditWindow && activeEditWindow.id === windowId && activeEditWindow.virtual) {
+            target = await materializeVirtualWindow(activeEditWindow, { start, end });
+            if (!target) return;
+            activeEditWindow = target;
+        }
         if (!target) return;
         if (start !== undefined) {
             target.start = start;
@@ -1866,7 +2257,7 @@
         }
         if (storageMode === "remote") {
             try {
-                await apiFetch({ action: "update_window", id: windowId, start, end }, "POST");
+                await apiFetch({ action: "update_window", id: target.id, start, end }, "POST");
             } catch {
                 switchToLocal();
             }
@@ -2214,10 +2605,9 @@
         const sleepTarget = event.target.closest(".sleepBlock");
         if (sleepTarget && sleepTarget.dataset.sleepDate) {
             const key = sleepTarget.dataset.sleepDate;
-            const selectedDate = calendarApi ? parseKey(calendarApi.getSelectedKey()) : new Date();
-            const rule = pickSleepRule(selectedDate);
-            const start = rule ? rule.start : "";
-            const end = rule ? rule.end : "";
+            const planned = plannedSleepByDate[key];
+            const start = planned ? planned.start : "";
+            const end = planned ? planned.end : "";
             openSleepEdit(key, start, end);
             return;
         }
@@ -2225,7 +2615,9 @@
         if (!windowTarget || !windowTarget.dataset.windowId) return;
         const id = windowTarget.dataset.windowId;
         const birthday = birthdayEventFor(calendarApi ? parseKey(calendarApi.getSelectedKey()) : new Date());
-        const windowItem = state.windows.find((item) => item.id === id) || (birthday && birthday.id === id ? birthday : null);
+        const windowItem = state.windows.find((item) => item.id === id)
+            || virtualWindows.get(id)
+            || (birthday && birthday.id === id ? birthday : null);
         if (windowItem) {
             openWindowEdit(windowItem);
         }
