@@ -1352,6 +1352,7 @@
                         color,
                         locked: true,
                         source: "routine",
+                        anchor: "morning",
                         virtual: true,
                     });
                     cursor = end;
@@ -1375,6 +1376,7 @@
                         color,
                         locked: true,
                         source: "routine",
+                        anchor: "evening",
                         virtual: true,
                     });
                     cursor = start;
@@ -1398,11 +1400,167 @@
                     color,
                     locked: true,
                     source: "routine",
+                    anchor: routine.anchor || "custom",
                     virtual: true,
                 });
             });
 
             return { sleep: plan, windows };
+        };
+
+        const getSleepSpan = (plan, anchorStart, anchorCrosses) => {
+            if (!plan || !plan.start || !plan.end) return null;
+            const startMin = parseMinutes(plan.start);
+            const endMin = parseMinutes(plan.end);
+            if (startMin === null || endMin === null) return null;
+            let startValue = startMin;
+            let endValue = endMin;
+            if (endValue <= startValue) {
+                endValue += 24 * 60;
+            }
+            if (anchorCrosses && Number.isFinite(anchorStart) && startValue < anchorStart) {
+                startValue += 24 * 60;
+                if (endValue < startValue) {
+                    endValue += 24 * 60;
+                }
+            }
+            return { start: startValue, end: endValue };
+        };
+
+        const adjustSleepForWindows = (sleepPlan, windows) => {
+            if (!sleepPlan || sleepPlan.hasLog) return sleepPlan;
+            if (!sleepPlan.start || !sleepPlan.end) return sleepPlan;
+            const baseDuration = durationMinutes(sleepPlan.start, sleepPlan.end);
+            if (!Number.isFinite(baseDuration) || baseDuration <= 0) return sleepPlan;
+
+            const span = getSleepSpan(sleepPlan, null, false);
+            if (!span) return sleepPlan;
+            let sleepStart = span.start;
+            let sleepEnd = span.end;
+
+            const busy = [];
+            windows.forEach((window) => {
+                const startMin = parseMinutes(window.start);
+                const endMin = parseMinutes(window.end);
+                if (startMin === null || endMin === null) return;
+                if (endMin <= startMin) {
+                    busy.push({ start: startMin, end: 24 * 60 });
+                    if (endMin > 0) busy.push({ start: 0, end: endMin });
+                    return;
+                }
+                busy.push({ start: startMin, end: endMin });
+            });
+
+            if (!busy.length) return sleepPlan;
+
+            const extended = [];
+            busy.forEach((segment) => {
+                extended.push(segment);
+                extended.push({ start: segment.start + (24 * 60), end: segment.end + (24 * 60) });
+            });
+
+            const overlaps = extended
+                .filter((segment) => segment.end > sleepStart && segment.start < sleepEnd)
+                .map((segment) => ({
+                    start: Math.max(segment.start, sleepStart),
+                    end: Math.min(segment.end, sleepEnd),
+                }))
+                .sort((a, b) => a.start - b.start);
+
+            if (!overlaps.length) return sleepPlan;
+
+            const merged = [];
+            overlaps.forEach((segment) => {
+                const last = merged[merged.length - 1];
+                if (!last || segment.start > last.end) {
+                    merged.push({ ...segment });
+                } else {
+                    last.end = Math.max(last.end, segment.end);
+                }
+            });
+
+            const free = [];
+            let cursor = sleepStart;
+            merged.forEach((segment) => {
+                if (segment.start > cursor) {
+                    free.push({ start: cursor, end: segment.start });
+                }
+                cursor = Math.max(cursor, segment.end);
+            });
+            if (cursor < sleepEnd) {
+                free.push({ start: cursor, end: sleepEnd });
+            }
+
+            if (!free.length) {
+                return {
+                    ...sleepPlan,
+                    start: "",
+                    end: "",
+                    duration: 0,
+                };
+            }
+
+            const fits = free.filter((segment) => (segment.end - segment.start) >= baseDuration);
+            if (fits.length) {
+                const latest = fits.reduce((best, segment) =>
+                    !best || segment.end > best.end ? segment : best, null);
+                sleepEnd = latest.end;
+                sleepStart = latest.end - baseDuration;
+            } else {
+                const longest = free.reduce((best, segment) => {
+                    if (!best) return segment;
+                    const bestLen = best.end - best.start;
+                    const segLen = segment.end - segment.start;
+                    if (segLen > bestLen) return segment;
+                    if (segLen === bestLen && segment.end > best.end) return segment;
+                    return best;
+                }, null);
+                sleepStart = longest.start;
+                sleepEnd = longest.end;
+            }
+
+            const wrap = (value) => {
+                const mod = value % (24 * 60);
+                return mod < 0 ? mod + (24 * 60) : mod;
+            };
+            const nextStart = minutesToTimeClamped(wrap(sleepStart));
+            const nextEnd = minutesToTimeClamped(wrap(sleepEnd));
+            return {
+                ...sleepPlan,
+                start: nextStart,
+                end: nextEnd,
+                duration: Math.max(0, sleepEnd - sleepStart),
+            };
+        };
+
+        const shiftRoutineWindowsForSleepChange = (windows, basePlan, nextPlan) => {
+            if (!windows.length) return windows;
+            const baseSpan = getSleepSpan(basePlan, null, false);
+            if (!baseSpan) return windows;
+            const baseCrosses = baseSpan.end > (24 * 60);
+            const nextSpan = getSleepSpan(nextPlan, baseSpan.start, baseCrosses);
+            if (!nextSpan) return windows;
+            const startDelta = nextSpan.start - baseSpan.start;
+            const endDelta = nextSpan.end - baseSpan.end;
+            if (!startDelta && !endDelta) return windows;
+            return windows.map((window) => {
+                if (!window || window.source !== "routine") return window;
+                if (window.anchor === "morning") {
+                    return {
+                        ...window,
+                        start: addMinutesToTime(window.start, endDelta),
+                        end: addMinutesToTime(window.end, endDelta),
+                    };
+                }
+                if (window.anchor === "evening") {
+                    return {
+                        ...window,
+                        start: addMinutesToTime(window.start, startDelta),
+                        end: addMinutesToTime(window.end, startDelta),
+                    };
+                }
+                return window;
+            });
         };
 
         const collectSegments = (startMinutes, endMinutes, segments) => {
@@ -1635,8 +1793,7 @@
 
             const sleepPlan = buildSleepPlan(stateCal.selected);
             const shiftWindow = getShiftWindowTimes(stateCal.selected);
-            const routinePlan = buildRoutinePlan(stateCal.selected, sleepPlan, shiftWindow);
-            plannedSleepByDate[selectedKey] = routinePlan.sleep;
+            let routinePlan = buildRoutinePlan(stateCal.selected, sleepPlan, shiftWindow);
 
             if (shiftWindow) {
                 const { shift, start: startActual, end: endActual } = shiftWindow;
@@ -1656,6 +1813,20 @@
                     virtual: true,
                 });
             }
+
+            const fixedWindows = windows.filter((window) => {
+                if (!window || !window.start || !window.end) return false;
+                if (window.kind === "event" && window.start === "00:00" && window.end === "23:59") return false;
+                return true;
+            });
+            const adjustedSleep = adjustSleepForWindows(routinePlan.sleep, fixedWindows);
+            const shiftedRoutineWindows = shiftRoutineWindowsForSleepChange(
+                routinePlan.windows,
+                routinePlan.sleep,
+                adjustedSleep
+            );
+            routinePlan = { sleep: adjustedSleep, windows: shiftedRoutineWindows };
+            plannedSleepByDate[selectedKey] = routinePlan.sleep;
 
             if (routinePlan.windows.length) {
                 windows.push(...routinePlan.windows);
@@ -1951,6 +2122,13 @@
                         const height = ((window.end - window.start) / 60) * hourHeight;
                         block.style.top = `${top}px`;
                         block.style.height = `${height}px`;
+
+                        const time = document.createElement("span");
+                        time.className = "blockTime";
+                        const startText = formatTime(baseStart);
+                        const endText = baseEnd ? formatTime(baseEnd) : "";
+                        time.textContent = endText ? `${startText}-${endText}` : startText;
+                        block.appendChild(time);
 
                         const label = document.createElement("span");
                         label.className = "sleepLabel";
@@ -2637,6 +2815,7 @@
         }
 
         let baseManualId = null;
+        let createdOverride = false;
         for (const window of targets) {
             const isBase = window.id === baseId;
             let nextStart = window.start || "";
@@ -2656,12 +2835,19 @@
                 continue;
             }
 
+            const hadOverride = Boolean(state.windowOverrides && state.windowOverrides[window.id]);
             const manualId = await applyVirtualWindowOverride(window, nextStart, nextEnd);
             if (isBase && manualId) {
                 baseManualId = manualId;
             }
+            if (!hadOverride && manualId) {
+                createdOverride = true;
+            }
         }
 
+        if (createdOverride) {
+            refreshUI(false);
+        }
         return baseManualId;
     };
 

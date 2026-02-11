@@ -965,6 +965,12 @@ body.is-do .welcome {
     box-shadow: 0 8px 16px rgba(31, 43, 64, 0.08);
 }
 
+.sleepBlock .blockTime {
+    display: block;
+    font-size: 11px;
+    padding: 6px 10px 0;
+}
+
 .sleepLabel {
     display: inline-block;
     font-size: 10px;
@@ -972,6 +978,11 @@ body.is-do .welcome {
     text-transform: uppercase;
     color: var(--ink-soft);
     padding: 6px 10px;
+}
+
+.sleepBlock .sleepLabel {
+    display: block;
+    padding: 2px 10px 6px;
 }
 
 .monthHeader {
