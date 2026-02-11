@@ -698,6 +698,7 @@ a { color: inherit; text-decoration: none; }
     grid-column: 2;
     min-height: 0;
     padding: 0;
+    --task-stack-inset: 8px;
 }
 
 .routineMeta {
@@ -954,7 +955,7 @@ a { color: inherit; text-decoration: none; }
 
 .taskAdd {
     margin-top: 6px;
-    width: 100%;
+    width: calc(100% - var(--task-stack-inset));
     min-height: 32px;
     border-radius: 999px;
     border: 1px solid rgba(230, 160, 106, 0.6);
@@ -980,7 +981,7 @@ a { color: inherit; text-decoration: none; }
     max-height: clamp(120px, 18vh, 160px);
     overflow-y: auto;
     scrollbar-gutter: stable;
-    padding-right: 8px;
+    padding-right: var(--task-stack-inset);
     padding-left: 0;
 }
 
@@ -1050,6 +1051,7 @@ a { color: inherit; text-decoration: none; }
     font-size: 11px;
     color: var(--ink-soft);
     text-align: right;
+    width: calc(100% - var(--task-stack-inset));
 }
 
 .fieldHint {

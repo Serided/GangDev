@@ -64,10 +64,12 @@
         sleepLogs: [],
         shifts: [],
         shiftOverrides: {},
+        windowOverrides: {},
         activeSession: null,
     };
 
     const shiftOverridesLocal = loadJson("shift_overrides", {});
+    const windowOverridesLocal = loadJson("window_overrides", {});
     const activeSessionLocal = loadJson("active_session", null);
 
     const makeId = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -209,6 +211,18 @@
         return map;
     };
 
+    const normalizeWindowOverrideMap = (value) => {
+        const map = {};
+        if (!value || typeof value !== "object") return map;
+        Object.entries(value).forEach(([key, entry]) => {
+            if (!key) return;
+            const id = entry !== null && entry !== undefined ? String(entry) : "";
+            if (!id) return;
+            map[String(key)] = id;
+        });
+        return map;
+    };
+
     const persistLocal = () => {
         saveItems("tasks", state.tasks);
         saveItems("notes", state.notes);
@@ -218,7 +232,36 @@
         saveItems("sleep_logs", state.sleepLogs);
         saveItems("shifts", state.shifts);
         saveJson("shift_overrides", state.shiftOverrides);
+        saveJson("window_overrides", state.windowOverrides);
         saveJson("active_session", state.activeSession);
+    };
+
+    const persistOverrides = () => {
+        saveJson("window_overrides", state.windowOverrides);
+    };
+
+    const setWindowOverride = (virtualId, manualId) => {
+        if (!virtualId) return;
+        if (!state.windowOverrides || typeof state.windowOverrides !== "object") {
+            state.windowOverrides = {};
+        }
+        if (manualId) {
+            state.windowOverrides[String(virtualId)] = String(manualId);
+        } else {
+            delete state.windowOverrides[String(virtualId)];
+        }
+        persistOverrides();
+    };
+
+    const clearWindowOverrideFor = (manualId) => {
+        if (!manualId || !state.windowOverrides) return;
+        const target = String(manualId);
+        Object.entries(state.windowOverrides).forEach(([virtualId, value]) => {
+            if (String(value) === target) {
+                delete state.windowOverrides[virtualId];
+            }
+        });
+        persistOverrides();
     };
 
     const setActiveSession = (session) => {
@@ -263,6 +306,7 @@
         state.sleepLogs = loadItems("sleep_logs").map(normalizeSleepLog);
         state.shifts = loadItems("shifts").map(normalizeShift);
         state.shiftOverrides = normalizeShiftOverrideMap(shiftOverridesLocal);
+        state.windowOverrides = normalizeWindowOverrideMap(windowOverridesLocal);
         state.activeSession = activeSessionLocal && typeof activeSessionLocal === "object" ? activeSessionLocal : null;
         state.routineCount = state.routines.length;
     };
@@ -284,6 +328,7 @@
         state.routines = Array.isArray(data.routines) ? data.routines.map(normalizeRoutine) : [];
         state.sleepLogs = Array.isArray(data.sleep_logs) ? data.sleep_logs.map(normalizeSleepLog) : [];
         state.shifts = Array.isArray(data.shifts) ? data.shifts.map(normalizeShift) : [];
+        state.windowOverrides = normalizeWindowOverrideMap(windowOverridesLocal);
         const overrides = Array.isArray(data.shift_overrides) ? data.shift_overrides.map(normalizeShiftOverride) : [];
         state.shiftOverrides = overrides.reduce((acc, item) => {
             if (item.date) {
@@ -519,6 +564,20 @@
     const pad2 = (value) => String(value).padStart(2, "0");
 
     const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+    const clampMinutes = (value) => clamp(value, 0, (24 * 60) - 1);
+
+    const minutesToTimeClamped = (value) => {
+        const safe = clampMinutes(value);
+        const hours = Math.floor(safe / 60);
+        const minutes = safe % 60;
+        return `${pad2(hours)}:${pad2(minutes)}`;
+    };
+
+    const shiftTimeInDay = (time, delta) => {
+        const base = parseMinutes(time);
+        if (base === null || !Number.isFinite(delta)) return "";
+        return minutesToTimeClamped(base + delta);
+    };
 
 
     const parseTimeValue = (value) => {
@@ -990,6 +1049,7 @@
     let activeEditShiftKey = "";
     let plannedTimes = { start: "", end: "" };
     let plannedShiftId = null;
+    let editInitial = { start: "", end: "", shiftId: "" };
     let editSync = false;
 
     const calendarRoot = document.querySelector(".calendarShell");
@@ -1355,8 +1415,14 @@
         const isActiveSleep = (key) =>
             state.activeSession && state.activeSession.kind === "sleep" && state.activeSession.key === key;
 
-        const isActiveWindow = (windowItem) =>
-            state.activeSession && state.activeSession.kind === "window" && state.activeSession.id === windowItem.id;
+        const isActiveWindow = (windowItem) => {
+            if (!state.activeSession || state.activeSession.kind !== "window") return false;
+            const activeId = String(state.activeSession.id || "");
+            const windowId = String(windowItem.id || "");
+            if (activeId && windowId === activeId) return true;
+            const overrideId = state.windowOverrides ? state.windowOverrides[activeId] : null;
+            return Boolean(overrideId && String(overrideId) === windowId);
+        };
 
         const isActiveShift = (windowItem) =>
             state.activeSession
@@ -1484,7 +1550,7 @@
             }
 
             const selectedKey = dateKey(stateCal.selected);
-            const windows = state.windows
+            let windows = state.windows
                 .filter((item) => item.date === selectedKey);
             const birthdayEvent = birthdayEventFor(stateCal.selected);
             if (birthdayEvent) {
@@ -1519,6 +1585,12 @@
                 windows.push(...routinePlan.windows);
             }
 
+            const plannedWindows = windows.slice();
+            const overrideKeys = state.windowOverrides ? Object.keys(state.windowOverrides) : [];
+            if (overrideKeys.length) {
+                windows = windows.filter((window) => !(window.virtual && state.windowOverrides[window.id]));
+            }
+
             const busySegments = [];
             windows.forEach((window) => {
                 const minutes = parseMinutes(window.start);
@@ -1535,10 +1607,11 @@
             const focusWindows = buildFocusWindows(busySegments, selectedKey);
             if (focusWindows.length) {
                 windows.push(...focusWindows);
+                plannedWindows.push(...focusWindows);
             }
 
             virtualWindows.clear();
-            windows.forEach((window) => {
+            plannedWindows.forEach((window) => {
                 if (window.virtual) {
                     virtualWindows.set(window.id, window);
                 }
@@ -2115,24 +2188,6 @@
             renderMonth();
         };
 
-        if (editShiftSelect) {
-            editShiftSelect.addEventListener("change", () => {
-                if (!activeEditShiftKey) return;
-                const value = editShiftSelect.value;
-                const shiftId = value ? parseInt(value, 10) : null;
-                updateShiftOverride(activeEditShiftKey, { shiftId: Number.isFinite(shiftId) ? shiftId : null, start: "", end: "" });
-                const shiftWindow = getShiftWindowTimes(parseKey(activeEditShiftKey));
-                if (shiftWindow) {
-                    editSync = true;
-                    if (editStartField) setFieldValue(editStartField, shiftWindow.start || "", { emit: false });
-                    if (editEndField) setFieldValue(editEndField, shiftWindow.end || "", { emit: false });
-                    editSync = false;
-                    plannedTimes = { start: shiftWindow.start || "", end: shiftWindow.end || "" };
-                    updateEditDelta();
-                }
-            });
-        }
-
         calendarRoot.addEventListener("click", (event) => {
             const nav = event.target.closest("[data-month-nav]");
             if (nav) {
@@ -2219,23 +2274,101 @@
         return `${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
     };
 
+    const getEditDateKey = () => {
+        if (activeEditKind === "sleep") return activeEditSleepKey;
+        if (activeEditKind === "shift") return activeEditShiftKey;
+        if (activeEditWindow && activeEditWindow.date) return activeEditWindow.date;
+        return "";
+    };
+
+    const isTodayKey = (key) => {
+        if (!key) return false;
+        return key === dateKey(new Date());
+    };
+
+    const findVirtualIdForManual = (manualId) => {
+        if (!manualId || !state.windowOverrides) return "";
+        const target = String(manualId);
+        const entry = Object.entries(state.windowOverrides).find(([, value]) => String(value) === target);
+        return entry ? entry[0] : "";
+    };
+
+    const getPlannedWindowForEdit = (windowItem) => {
+        if (!windowItem) return null;
+        if (windowItem.virtual) {
+            return virtualWindows.get(windowItem.id) || windowItem;
+        }
+        const virtualId = findVirtualIdForManual(windowItem.id);
+        return virtualId ? virtualWindows.get(virtualId) : null;
+    };
+
+    const getEditValues = () => ({
+        start: editStartInput ? editStartInput.value : "",
+        end: editEndInput ? editEndInput.value : "",
+        shiftId: editShiftSelect ? editShiftSelect.value : "",
+    });
+
+    const isEditDirty = () => {
+        const current = getEditValues();
+        if (current.start !== editInitial.start) return true;
+        if (current.end !== editInitial.end) return true;
+        if (activeEditKind === "shift" && current.shiftId !== editInitial.shiftId) return true;
+        return false;
+    };
+
+    const updateEditActionsVisibility = () => {
+        const canLive = isTodayKey(getEditDateKey()) && activeEditKind !== "event";
+        if (editActions) {
+            editActions.style.display = canLive ? "grid" : "none";
+        }
+        if (editStartNow) editStartNow.disabled = !canLive;
+        if (editFinishNow) editFinishNow.disabled = !canLive;
+        if (editActionsSecondary) {
+            editActionsSecondary.style.display = isEditDirty() ? "flex" : "none";
+        }
+    };
+
+    const syncEditInitial = (start, end, shiftId = "") => {
+        editInitial = {
+            start: start || "",
+            end: end || "",
+            shiftId: shiftId || "",
+        };
+        updateEditActionsVisibility();
+    };
+
     const updateEditDelta = () => {
         if (!editDelta) return;
         const start = editStartInput ? editStartInput.value : "";
         const end = editEndInput ? editEndInput.value : "";
-        const plannedDuration = durationMinutes(plannedTimes.start, plannedTimes.end);
-        const actualDuration = durationMinutes(start, end);
-        if (plannedDuration === null || actualDuration === null) {
+        const plannedStart = plannedTimes.start || "";
+        const plannedEnd = plannedTimes.end || "";
+        const plannedStartMin = parseMinutes(plannedStart);
+        const plannedEndMin = parseMinutes(plannedEnd);
+        const startMin = parseMinutes(start);
+        const endMin = parseMinutes(end);
+        const startDiff = plannedStartMin !== null && startMin !== null ? startMin - plannedStartMin : null;
+        const endDiff = plannedEndMin !== null && endMin !== null ? endMin - plannedEndMin : null;
+        if (startDiff !== null && startDiff !== 0) {
+            editDelta.textContent = startDiff > 0
+                ? `Lost ${startDiff}m (late start).`
+                : `Ahead by ${Math.abs(startDiff)}m (early start).`;
+            updateEditActionsVisibility();
+            return;
+        }
+        if (endDiff !== null && endDiff !== 0) {
+            editDelta.textContent = endDiff > 0
+                ? `Over by ${endDiff}m (late finish).`
+                : `Saved ${Math.abs(endDiff)}m (early finish).`;
+            updateEditActionsVisibility();
+            return;
+        }
+        if (plannedStart || plannedEnd) {
+            editDelta.textContent = "On time.";
+        } else {
             editDelta.textContent = "Adjust start/end or tap Start/Finish.";
-            return;
         }
-        const diff = actualDuration - plannedDuration;
-        if (diff === 0) {
-            editDelta.textContent = "On target.";
-            return;
-        }
-        const label = diff > 0 ? `Lost ${diff}m` : `Gained ${Math.abs(diff)}m`;
-        editDelta.textContent = label;
+        updateEditActionsVisibility();
     };
 
     const applyEditChanges = () => {
@@ -2279,6 +2412,8 @@
         }
         editSync = false;
         applyEditChanges();
+        syncEditInitial(plannedTimes.start || "", plannedTimes.end || "", editShiftSelect ? editShiftSelect.value : "");
+        updateEditDelta();
     };
 
     const materializeVirtualWindow = async (windowItem, overrides = {}) => {
@@ -2318,6 +2453,9 @@
             });
         }
         state.windows.push(created);
+        if (windowItem.virtual) {
+            setWindowOverride(windowItem.id, created.id);
+        }
         if (storageMode === "local") {
             persistLocal();
         }
@@ -2352,6 +2490,73 @@
             persistLocal();
         }
         refreshUI(false);
+    };
+
+    const applyVirtualWindowOverride = async (windowItem, start, end) => {
+        if (!windowItem || !windowItem.id) return null;
+        const overrideId = state.windowOverrides ? state.windowOverrides[windowItem.id] : null;
+        if (overrideId) {
+            await updateWindowTimes(String(overrideId), start, end);
+            return String(overrideId);
+        }
+        const created = await materializeVirtualWindow(windowItem, { start, end });
+        return created ? String(created.id) : null;
+    };
+
+    const applyWindowScheduleShift = async (plannedWindow, options = {}) => {
+        if (!plannedWindow || !plannedWindow.date) return null;
+        const date = plannedWindow.date;
+        const delta = Number.isFinite(options.delta) ? options.delta : 0;
+        const cutoff = Number.isFinite(options.cutoff) ? options.cutoff : null;
+        const baseStart = options.baseStart || plannedWindow.start || "";
+        const baseEnd = options.baseEnd || plannedWindow.end || "";
+        const baseId = plannedWindow.id;
+        const shouldShift = delta !== 0;
+
+        const targets = Array.from(virtualWindows.values()).filter((window) => {
+            if (!window.virtual) return false;
+            if (window.date !== date) return false;
+            if (window.kind === "event" || window.source === "shift") return false;
+            const startMin = parseMinutes(window.start);
+            const endMin = parseMinutes(window.end);
+            if (startMin === null || endMin === null) return false;
+            if (window.id === baseId) return true;
+            if (!shouldShift) return false;
+            if (cutoff === null) return false;
+            return startMin >= cutoff;
+        });
+
+        if (!targets.some((window) => window.id === baseId)) {
+            targets.push(plannedWindow);
+        }
+
+        let baseManualId = null;
+        for (const window of targets) {
+            const isBase = window.id === baseId;
+            let nextStart = window.start || "";
+            let nextEnd = window.end || "";
+
+            if (isBase) {
+                nextStart = baseStart || nextStart;
+                nextEnd = baseEnd || nextEnd;
+                if ((!nextStart || !nextEnd) && shouldShift) {
+                    nextStart = shiftTimeInDay(window.start, delta);
+                    nextEnd = shiftTimeInDay(window.end, delta);
+                }
+            } else if (shouldShift) {
+                nextStart = shiftTimeInDay(window.start, delta);
+                nextEnd = shiftTimeInDay(window.end, delta);
+            } else {
+                continue;
+            }
+
+            const manualId = await applyVirtualWindowOverride(window, nextStart, nextEnd);
+            if (isBase && manualId) {
+                baseManualId = manualId;
+            }
+        }
+
+        return baseManualId;
     };
 
     const updateSleepLog = async (key, start, end) => {
@@ -2463,6 +2668,36 @@
         editShiftSelect.value = selectedId ? String(selectedId) : "";
     };
 
+    const applyEditShiftSelection = (value) => {
+        if (!editShiftSelect) return;
+        const selected = value !== undefined ? value : editShiftSelect.value;
+        if (!selected) {
+            plannedTimes = { start: "", end: "" };
+            editSync = true;
+            if (editStartField) setFieldValue(editStartField, "", { emit: false });
+            if (editEndField) setFieldValue(editEndField, "", { emit: false });
+            editSync = false;
+            updateEditDelta();
+            return;
+        }
+        const shift = state.shifts.find((item) => String(item.id) === String(selected));
+        if (!shift) return;
+        const baseStart = shift.start || "";
+        const baseEnd = shift.end || "";
+        const startValue = baseStart
+            ? addMinutesToTime(baseStart, -(shift.commuteBefore || 0))
+            : "";
+        const endValue = baseEnd
+            ? addMinutesToTime(baseEnd, shift.commuteAfter || 0)
+            : "";
+        plannedTimes = { start: startValue, end: endValue };
+        editSync = true;
+        if (editStartField) setFieldValue(editStartField, startValue, { emit: false });
+        if (editEndField) setFieldValue(editEndField, endValue, { emit: false });
+        editSync = false;
+        updateEditDelta();
+    };
+
     const openWindowEdit = (windowItem) => {
         if (!editOverlay || !windowItem) return;
         const isShift = windowItem.source === "shift" || String(windowItem.id || "").startsWith("shift-");
@@ -2471,7 +2706,10 @@
         activeEditWindow = !isShift && !isEvent ? windowItem : null;
         activeEditSleepKey = "";
         activeEditShiftKey = isShift ? windowItem.date : "";
-        plannedTimes = { start: windowItem.start || "", end: windowItem.end || "" };
+        const plannedWindow = getPlannedWindowForEdit(windowItem);
+        plannedTimes = plannedWindow
+            ? { start: plannedWindow.start || "", end: plannedWindow.end || "" }
+            : { start: windowItem.start || "", end: windowItem.end || "" };
         plannedShiftId = isShift ? (windowItem.shiftId ?? null) : null;
         if (editTitle) editTitle.textContent = windowItem.text || "Window";
         if (editMeta) {
@@ -2491,9 +2729,13 @@
             editActionsSecondary.style.display = isEvent ? "none" : "flex";
         }
         editSync = true;
-        if (editStartField) setFieldValue(editStartField, windowItem.start || "", { emit: false });
-        if (editEndField) setFieldValue(editEndField, windowItem.end || "", { emit: false });
+        const initialStart = windowItem.start || "";
+        const initialEnd = windowItem.end || "";
+        if (editStartField) setFieldValue(editStartField, initialStart, { emit: false });
+        if (editEndField) setFieldValue(editEndField, initialEnd, { emit: false });
         editSync = false;
+        const shiftValue = editShiftSelect ? editShiftSelect.value : "";
+        syncEditInitial(initialStart, initialEnd, shiftValue);
         updateEditDelta();
         editOverlay.classList.add("is-open");
     };
@@ -2513,9 +2755,12 @@
         if (editActionsSecondary) editActionsSecondary.style.display = "flex";
         const log = getSleepLogFor(sleepKey);
         editSync = true;
-        if (editStartField) setFieldValue(editStartField, log?.start || plannedStart || "", { emit: false });
-        if (editEndField) setFieldValue(editEndField, log?.end || plannedEnd || "", { emit: false });
+        const initialStart = log?.start || plannedStart || "";
+        const initialEnd = log?.end || plannedEnd || "";
+        if (editStartField) setFieldValue(editStartField, initialStart, { emit: false });
+        if (editEndField) setFieldValue(editEndField, initialEnd, { emit: false });
         editSync = false;
+        syncEditInitial(initialStart, initialEnd);
         updateEditDelta();
         editOverlay.classList.add("is-open");
     };
@@ -2654,17 +2899,42 @@
         if (createTitle) createTitle.focus();
     };
 
+    const openCreateSafe = (kind, options = {}) => {
+        try {
+            openCreate(kind, options);
+        } catch {
+            if (overlay) overlay.classList.add("is-open");
+        }
+    };
+
     const closeCreate = () => {
         if (!overlay) return;
         overlay.classList.remove("is-open");
     };
 
-    document.querySelectorAll("[data-add-kind]").forEach((button) => {
-        button.addEventListener("click", (event) => {
+    let addClickLock = false;
+    const handleAddKind = (event, target) => {
+        if (addClickLock) return;
+        addClickLock = true;
+        requestAnimationFrame(() => {
+            addClickLock = false;
+        });
+        if (event) {
             event.preventDefault();
             event.stopPropagation();
-            const kind = button.getAttribute("data-add-kind") || "task";
-            openCreate(kind);
+        }
+        const kind = target.getAttribute("data-add-kind") || "task";
+        openCreateSafe(kind);
+    };
+
+    document.querySelectorAll("[data-add-kind]").forEach((button) => {
+        button.addEventListener("click", (event) => handleAddKind(event, button));
+        button.addEventListener("pointerdown", (event) => handleAddKind(event, button));
+        button.addEventListener("pointerup", (event) => handleAddKind(event, button));
+        button.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                handleAddKind(event, button);
+            }
         });
     });
 
@@ -2673,13 +2943,13 @@
         const addBtn = event.target.closest("[data-add-kind]");
         if (addBtn) {
             const kind = addBtn.getAttribute("data-add-kind") || "task";
-            openCreate(kind);
+            openCreateSafe(kind);
             return;
         }
 
         const monthAdd = event.target.closest("[data-month-add]");
         if (monthAdd) {
-            openCreate("task", { allowDatePick: true });
+            openCreateSafe("task", { allowDatePick: true });
             return;
         }
 
@@ -2718,9 +2988,28 @@
         if (!windowTarget || !windowTarget.dataset.windowId) return;
         const id = String(windowTarget.dataset.windowId);
         const birthday = birthdayEventFor(calendarApi ? parseKey(calendarApi.getSelectedKey()) : new Date());
-        const windowItem = state.windows.find((item) => String(item.id) === id)
+        let windowItem = state.windows.find((item) => String(item.id) === id)
             || virtualWindows.get(id)
             || (birthday && birthday.id === id ? birthday : null);
+        if (!windowItem && id.startsWith("shift-")) {
+            const key = id.replace("shift-", "");
+            const shiftWindow = getShiftWindowTimes(parseKey(key));
+            if (shiftWindow) {
+                windowItem = {
+                    id,
+                    text: shiftWindow.shift.name || "Work",
+                    date: key,
+                    start: shiftWindow.start,
+                    end: shiftWindow.end,
+                    kind: "window",
+                    color: shiftWindow.color || "#b9dbf2",
+                    locked: true,
+                    source: "shift",
+                    shiftId: shiftWindow.shift.id,
+                    virtual: true,
+                };
+            }
+        }
         if (windowItem) {
             openWindowEdit(windowItem);
         }
@@ -2741,8 +3030,15 @@
     if (editEndField) {
         editEndField.addEventListener("timechange", handleEditTimeChange);
     }
+    if (editShiftSelect) {
+        editShiftSelect.addEventListener("change", () => {
+            applyEditShiftSelection();
+            updateEditActionsVisibility();
+        });
+    }
     if (editStartNow) {
         editStartNow.addEventListener("click", () => {
+            if (!isTodayKey(getEditDateKey()) || activeEditKind === "event") return;
             const value = nowTime();
             editSync = true;
             if (editStartField) setFieldValue(editStartField, value, { emit: false });
@@ -2754,8 +3050,28 @@
                     setActiveSession({ kind: "sleep", key: activeEditSleepKey, start: value });
                 }
             } else if (activeEditWindow) {
-                updateWindowTimes(activeEditWindow.id, value, endValue ? endValue : undefined);
-                setActiveSession({ kind: "window", id: activeEditWindow.id, start: value });
+                const planned = getPlannedWindowForEdit(activeEditWindow);
+                if (planned) {
+                    const plannedStartMin = parseMinutes(planned.start);
+                    const plannedEndMin = parseMinutes(planned.end);
+                    const nowMin = parseMinutes(value);
+                    const delta = plannedStartMin !== null && nowMin !== null ? nowMin - plannedStartMin : 0;
+                    const duration = durationMinutes(planned.start, planned.end);
+                    const baseEnd = duration !== null && nowMin !== null
+                        ? minutesToTimeClamped(nowMin + duration)
+                        : (planned.end ? shiftTimeInDay(planned.end, delta) : "");
+                    const cutoff = plannedEndMin !== null ? plannedEndMin : plannedStartMin;
+                    void applyWindowScheduleShift(planned, {
+                        delta,
+                        cutoff: cutoff !== null ? cutoff : null,
+                        baseStart: value,
+                        baseEnd,
+                    });
+                    setActiveSession({ kind: "window", id: planned.id, start: value });
+                } else {
+                    updateWindowTimes(activeEditWindow.id, value, endValue ? endValue : undefined);
+                    setActiveSession({ kind: "window", id: activeEditWindow.id, start: value });
+                }
             } else if (activeEditKind === "shift" && activeEditShiftKey) {
                 const override = state.shiftOverrides[activeEditShiftKey];
                 const overrideId = override && typeof override === "object" ? override.shiftId : (override ?? undefined);
@@ -2771,10 +3087,12 @@
                 }
             }
             updateEditDelta();
+            closeEdit();
         });
     }
     if (editFinishNow) {
         editFinishNow.addEventListener("click", () => {
+            if (!isTodayKey(getEditDateKey()) || activeEditKind === "event") return;
             const value = nowTime();
             editSync = true;
             if (editEndField) setFieldValue(editEndField, value, { emit: false });
@@ -2786,9 +3104,39 @@
                     clearActiveSession();
                 }
             } else if (activeEditWindow) {
-                updateWindowTimes(activeEditWindow.id, startValue ? startValue : undefined, value);
-                if (state.activeSession && state.activeSession.kind === "window" && state.activeSession.id === activeEditWindow.id) {
-                    clearActiveSession();
+                const planned = getPlannedWindowForEdit(activeEditWindow);
+                if (planned) {
+                    const plannedEndMin = parseMinutes(planned.end);
+                    const nowMin = parseMinutes(value);
+                    const delta = plannedEndMin !== null && nowMin !== null ? nowMin - plannedEndMin : 0;
+                    const cutoff = plannedEndMin !== null ? plannedEndMin : parseMinutes(planned.start);
+                    const baseStart = startValue || planned.start || "";
+                    void applyWindowScheduleShift(planned, {
+                        delta,
+                        cutoff: cutoff !== null ? cutoff : null,
+                        baseStart,
+                        baseEnd: value,
+                    });
+                    if (state.activeSession && state.activeSession.kind === "window") {
+                        const activeId = String(state.activeSession.id || "");
+                        const manualMatch = state.windowOverrides && state.windowOverrides[activeId]
+                            ? String(state.windowOverrides[activeId]) === String(activeEditWindow.id)
+                            : false;
+                        if (activeId === String(planned.id) || activeId === String(activeEditWindow.id) || manualMatch) {
+                            clearActiveSession();
+                        }
+                    }
+                } else {
+                    updateWindowTimes(activeEditWindow.id, startValue ? startValue : undefined, value);
+                    if (state.activeSession && state.activeSession.kind === "window") {
+                        const activeId = String(state.activeSession.id || "");
+                        const manualMatch = state.windowOverrides && state.windowOverrides[activeId]
+                            ? String(state.windowOverrides[activeId]) === String(activeEditWindow.id)
+                            : false;
+                        if (activeId === String(activeEditWindow.id) || manualMatch) {
+                            clearActiveSession();
+                        }
+                    }
                 }
             } else if (activeEditKind === "shift" && activeEditShiftKey) {
                 const override = state.shiftOverrides[activeEditShiftKey];
@@ -2807,6 +3155,7 @@
                 }
             }
             updateEditDelta();
+            closeEdit();
         });
     }
     if (editSave) {
@@ -2962,6 +3311,7 @@
                 state.notes = state.notes.filter((item) => item.id !== id);
             } else {
                 state.windows = state.windows.filter((item) => item.id !== id);
+                clearWindowOverrideFor(id);
             }
             if (storageMode === "local") {
                 persistLocal();

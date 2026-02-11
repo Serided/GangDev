@@ -1908,6 +1908,7 @@
     const routineAddTask = document.querySelector("[data-routine-add-task]");
     const routineTotal = document.querySelector("[data-routine-total]");
     let draggedTaskRow = null;
+    let dragHandleRow = null;
 
     const buildRoutineTaskRow = (task = {}) => {
         const row = document.createElement("div");
@@ -1921,9 +1922,7 @@
         drag.dataset.taskDrag = "true";
         drag.textContent = "||";
         drag.setAttribute("aria-label", "Drag to reorder");
-        drag.draggable = true;
-        drag.setAttribute("draggable", "true");
-        drag.addEventListener("mousedown", (event) => event.preventDefault());
+        drag.setAttribute("draggable", "false");
 
         const input = document.createElement("input");
         input.className = "input compact";
@@ -2052,14 +2051,30 @@
     };
 
     if (routineTaskStack) {
-        routineTaskStack.addEventListener("dragstart", (event) => {
-            const row = event.target.closest("[data-task-row]");
+        routineTaskStack.addEventListener("pointerdown", (event) => {
+            const handle = event.target.closest("[data-task-drag]");
+            if (!handle) return;
+            const row = handle.closest("[data-task-row]");
             if (!row) return;
-            if (!event.target.closest("[data-task-drag]")) {
+            dragHandleRow = row;
+            row.draggable = true;
+        });
+
+        routineTaskStack.addEventListener("pointerup", () => {
+            if (dragHandleRow) {
+                dragHandleRow.draggable = false;
+                dragHandleRow = null;
+            }
+        });
+
+        routineTaskStack.addEventListener("dragstart", (event) => {
+            const target = event.target instanceof Element ? event.target : null;
+            const row = target ? target.closest("[data-task-row]") : null;
+            if (!row || row !== dragHandleRow) {
                 event.preventDefault();
                 return;
             }
-            if (event.target.closest("input, textarea, select")) {
+            if (target && target.closest("input, textarea, select")) {
                 event.preventDefault();
                 return;
             }
@@ -2086,15 +2101,19 @@
             if (!draggedTaskRow) return;
             event.preventDefault();
             draggedTaskRow.classList.remove("is-dragging");
+            draggedTaskRow.draggable = false;
             draggedTaskRow = null;
+            dragHandleRow = null;
             updateRoutineTotal();
         });
 
         routineTaskStack.addEventListener("dragend", () => {
             if (draggedTaskRow) {
                 draggedTaskRow.classList.remove("is-dragging");
+                draggedTaskRow.draggable = false;
             }
             draggedTaskRow = null;
+            dragHandleRow = null;
         });
     }
 
