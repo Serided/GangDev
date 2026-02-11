@@ -1828,6 +1828,17 @@
                     remove.textContent = "x";
                     block.appendChild(remove);
                 }
+                const openBlock = (event) => {
+                    if (event && event.target && event.target.closest(".blockRemove")) return;
+                    if (!armTimelineOpen()) return;
+                    openWindowEdit(window);
+                    if (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                };
+                block.addEventListener("click", openBlock);
+                block.addEventListener("pointerdown", openBlock);
                 dayGrid.appendChild(block);
             });
 
@@ -1869,6 +1880,17 @@
                         label.className = "sleepLabel";
                         label.textContent = "Sleep";
                         block.appendChild(label);
+
+                        const openSleep = (event) => {
+                            if (!armTimelineOpen()) return;
+                            openSleepEdit(sleepKey, baseStart, baseEnd);
+                            if (event) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                        };
+                        block.addEventListener("click", openSleep);
+                        block.addEventListener("pointerdown", openSleep);
 
                         dayGrid.appendChild(block);
                     });
@@ -2806,6 +2828,12 @@
     };
 
     let timelineOpenLock = 0;
+    const armTimelineOpen = () => {
+        const now = Date.now();
+        if (now - timelineOpenLock < 250) return false;
+        timelineOpenLock = now;
+        return true;
+    };
     const isEditSessionActive = () => {
         if (!state.activeSession) return false;
         if (activeEditKind === "sleep") {
@@ -2836,9 +2864,7 @@
         if (event.target && event.target.closest(".chipRemove, .blockRemove")) return false;
         const { sleepTarget, windowTarget } = pickTimelineTargets(event);
         if (!sleepTarget && !windowTarget) return false;
-        const now = Date.now();
-        if (now - timelineOpenLock < 250) return true;
-        timelineOpenLock = now;
+        if (!armTimelineOpen()) return true;
         if (sleepTarget && sleepTarget.dataset.sleepDate) {
             const key = sleepTarget.dataset.sleepDate;
             const planned = plannedSleepByDate[key];
