@@ -1281,6 +1281,46 @@
         return null;
     };
 
+    const updateShift = async (payload) => {
+        if (!payload || !payload.id) return null;
+        if (storageMode === "remote") {
+            try {
+                const data = await apiFetch(payload, "POST");
+                if (data && data.shift) {
+                    const shift = normalizeShift(data.shift);
+                    upsertShift(shift);
+                    renderAll();
+                    return shift;
+                }
+            } catch {
+                switchToLocal();
+            }
+        }
+        if (storageMode === "local") {
+            const id = String(payload.id);
+            const index = state.shifts.findIndex((item) => String(item.id) === id);
+            if (index < 0) return null;
+            const localShift = normalizeShift({
+                id,
+                name: payload.name ?? "",
+                start: payload.start ?? "",
+                end: payload.end ?? "",
+                commute_before: payload.commute_before ?? 0,
+                commute_after: payload.commute_after ?? 0,
+                is_default: payload.is_default,
+            });
+            if (payload.is_default) {
+                state.shifts = state.shifts.map((item) => ({ ...item, isDefault: false }));
+                localShift.isDefault = true;
+            }
+            upsertShift(localShift);
+            persistLocal();
+            renderAll();
+            return localShift;
+        }
+        return null;
+    };
+
     const setDefaultShift = async (id) => {
         if (!id) return;
         if (storageMode === "remote") {
@@ -1757,6 +1797,7 @@
 
     const clearShiftLink = () => {
         if (routineTypeSelect && routineTypeSelect.value !== "work") return;
+        if (editingRoutineId) return;
         if (routineShiftId) routineShiftId.value = "";
         if (routineShiftSelect) routineShiftSelect.value = "";
     };
@@ -1816,11 +1857,23 @@
         const selectedShift = selectedId
             ? state.shifts.find((item) => String(item.id) === String(selectedId))
             : null;
-        if (selectedShift && shiftMatches(selectedShift, payload)) {
-            if (payload.isDefault && !selectedShift.isDefault) {
-                await setDefaultShift(selectedShift.id);
+        if (selectedShift) {
+            const matches = shiftMatches(selectedShift, payload);
+            if (matches && payload.isDefault === selectedShift.isDefault) {
+                return selectedShift.id;
             }
-            return selectedShift.id;
+            const shiftPayload = {
+                action: "update_shift",
+                id: selectedShift.id,
+                name: payload.name || selectedShift.name || "Work",
+                start: payload.start,
+                end: payload.end,
+                commute_before: Number.isFinite(payload.commuteBefore) ? payload.commuteBefore : 0,
+                commute_after: Number.isFinite(payload.commuteAfter) ? payload.commuteAfter : 0,
+                is_default: payload.isDefault,
+            };
+            const updated = await updateShift(shiftPayload);
+            return updated ? updated.id : selectedShift.id;
         }
         const shiftPayload = {
             action: "add_shift",
