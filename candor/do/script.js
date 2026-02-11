@@ -2777,6 +2777,26 @@
         if (editShiftRow) editShiftRow.classList.remove("is-visible");
     };
 
+    const pickTimelineTargets = (event) => {
+        const result = { sleepTarget: null, windowTarget: null };
+        if (!event) return result;
+        const path = typeof event.composedPath === "function" ? event.composedPath() : [];
+        const findMatch = (list, selector) =>
+            list.find((node) => node instanceof Element && node.matches(selector)) || null;
+        result.sleepTarget = findMatch(path, ".sleepBlock");
+        result.windowTarget = findMatch(path, ".slotBlock, .slotChip, .allDayChip");
+        if ((!result.sleepTarget || !result.windowTarget) && typeof document.elementsFromPoint === "function") {
+            const hits = document.elementsFromPoint(event.clientX, event.clientY);
+            if (!result.sleepTarget) {
+                result.sleepTarget = findMatch(hits, ".sleepBlock");
+            }
+            if (!result.windowTarget) {
+                result.windowTarget = findMatch(hits, ".slotBlock, .slotChip, .allDayChip");
+            }
+        }
+        return result;
+    };
+
     const openNote = (note) => {
         if (!noteOverlay || !note) return;
         if (noteTitleEl) {
@@ -2975,7 +2995,7 @@
             return;
         }
         if (event.target.closest(".chipRemove, .blockRemove")) return;
-        const sleepTarget = event.target.closest(".sleepBlock");
+        const { sleepTarget, windowTarget } = pickTimelineTargets(event);
         if (sleepTarget && sleepTarget.dataset.sleepDate) {
             const key = sleepTarget.dataset.sleepDate;
             const planned = plannedSleepByDate[key];
@@ -2984,7 +3004,6 @@
             openSleepEdit(key, start, end);
             return;
         }
-        const windowTarget = event.target.closest(".slotBlock, .slotChip, .allDayChip");
         if (!windowTarget || !windowTarget.dataset.windowId) return;
         const id = String(windowTarget.dataset.windowId);
         const birthday = birthdayEventFor(calendarApi ? parseKey(calendarApi.getSelectedKey()) : new Date());

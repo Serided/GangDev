@@ -871,8 +871,9 @@ body.is-do .welcome {
     gap: 10px;
     font-size: 12px;
     color: var(--ink);
-    z-index: 2;
+    z-index: 3;
     cursor: pointer;
+    pointer-events: auto;
     transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background 0.12s ease;
 }
 
@@ -945,7 +946,7 @@ body.is-do .welcome {
     border-radius: 14px;
     border: 1px dashed rgba(90, 143, 185, 0.5);
     background: rgba(90, 143, 185, 0.16);
-    z-index: 0;
+    z-index: 2;
     pointer-events: auto;
     cursor: pointer;
     overflow: hidden;
@@ -1825,8 +1826,11 @@ body.is-do .welcome {
 }
 
 .editActionsPrimary .btn {
-    min-height: 40px;
+    min-height: 34px;
+    padding: 0 12px;
     font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.3px;
 }
 
 .editActionsSecondary {
@@ -1834,6 +1838,28 @@ body.is-do .welcome {
     margin-top: 2px;
     justify-content: center;
     gap: 10px;
+}
+
+.btn.editStartBtn {
+    border-color: rgba(90, 143, 185, 0.6);
+    background: linear-gradient(135deg, rgba(185, 219, 242, 0.95), rgba(90, 143, 185, 0.95));
+    color: #0f1b2d;
+    box-shadow: 0 10px 18px rgba(90, 143, 185, 0.24);
+}
+
+.btn.editStartBtn:hover {
+    background: linear-gradient(135deg, rgba(185, 219, 242, 1), rgba(90, 143, 185, 1));
+}
+
+.btn.editFinishBtn {
+    border-color: #e1a36d;
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    color: #2a1a0f;
+    box-shadow: 0 10px 18px rgba(230, 160, 106, 0.28);
+}
+
+.btn.editFinishBtn:hover {
+    background: linear-gradient(135deg, rgba(230, 160, 106, 0.98), rgba(243, 200, 115, 0.98));
 }
 
 .btn.editSave {
