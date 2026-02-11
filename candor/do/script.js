@@ -3275,15 +3275,27 @@
         });
     }
     if (editStartNow) {
-        editStartNow.addEventListener("click", () => {
+        editStartNow.addEventListener("click", (event) => {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
             if (!isTodayKey(getEditDateKey()) || activeEditKind === "event") return;
             const value = nowTime();
+            const prevStartValue = editStartInput ? editStartInput.value : "";
+            const prevEndValue = editEndInput ? editEndInput.value : "";
+            const currentDuration = durationMinutes(prevStartValue, prevEndValue);
+            const shiftedEnd = Number.isFinite(currentDuration) && currentDuration > 0
+                ? addMinutesToTime(value, currentDuration)
+                : "";
             editSync = true;
             if (editStartField) setFieldValue(editStartField, value, { emit: false });
+            if (shiftedEnd && editEndField) setFieldValue(editEndField, shiftedEnd, { emit: false });
             editSync = false;
             const endValue = editEndInput ? editEndInput.value : "";
             if (activeEditKind === "sleep") {
-                updateSleepLog(activeEditSleepKey, value, endValue ? endValue : undefined);
+                const nextEnd = shiftedEnd || endValue || "";
+                updateSleepLog(activeEditSleepKey, value, nextEnd ? nextEnd : undefined);
                 if (activeEditSleepKey) {
                     setActiveSession({ kind: "sleep", key: activeEditSleepKey, start: value });
                 }
@@ -3294,9 +3306,12 @@
                     const plannedEndMin = parseMinutes(planned.end);
                     const nowMin = parseMinutes(value);
                     const delta = plannedStartMin !== null && nowMin !== null ? nowMin - plannedStartMin : 0;
-                    const duration = durationMinutes(planned.start, planned.end);
-                    const baseEnd = duration !== null && nowMin !== null
-                        ? minutesToTimeClamped(nowMin + duration)
+                    const plannedDuration = durationMinutes(planned.start, planned.end);
+                    const pickedDuration = Number.isFinite(currentDuration) && currentDuration > 0
+                        ? currentDuration
+                        : plannedDuration;
+                    const baseEnd = pickedDuration !== null && nowMin !== null
+                        ? minutesToTimeClamped(nowMin + pickedDuration)
                         : (planned.end ? shiftTimeInDay(planned.end, delta) : "");
                     const cutoff = plannedEndMin !== null ? plannedEndMin : plannedStartMin;
                     void applyWindowScheduleShift(planned, {
@@ -3307,7 +3322,8 @@
                     });
                     setActiveSession({ kind: "window", id: planned.id, start: value });
                 } else {
-                    updateWindowTimes(activeEditWindow.id, value, endValue ? endValue : undefined);
+                    const nextEnd = shiftedEnd || endValue || "";
+                    updateWindowTimes(activeEditWindow.id, value, nextEnd ? nextEnd : undefined);
                     setActiveSession({ kind: "window", id: activeEditWindow.id, start: value });
                 }
             } else if (activeEditKind === "shift" && activeEditShiftKey) {
@@ -3316,10 +3332,11 @@
                 const baseShift = getDefaultShift();
                 const shiftId = overrideId !== undefined ? overrideId : (baseShift ? baseShift.id : null);
                 if (shiftId !== null) {
+                    const nextEnd = shiftedEnd || endValue || "";
                     updateShiftOverride(activeEditShiftKey, {
                         shiftId,
                         start: value,
-                        end: endValue ? endValue : "",
+                        end: nextEnd,
                     });
                     setActiveSession({ kind: "shift", key: activeEditShiftKey, start: value });
                 }
@@ -3329,7 +3346,11 @@
         });
     }
     if (editFinishNow) {
-        editFinishNow.addEventListener("click", () => {
+        editFinishNow.addEventListener("click", (event) => {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
             if (!isTodayKey(getEditDateKey()) || activeEditKind === "event") return;
             const value = nowTime();
             editSync = true;
@@ -3397,13 +3418,23 @@
         });
     }
     if (editSave) {
-        editSave.addEventListener("click", () => {
+        editSave.addEventListener("click", (event) => {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
             applyEditChanges();
             closeEdit();
         });
     }
     if (editReset) {
-        editReset.addEventListener("click", resetEditChanges);
+        editReset.addEventListener("click", (event) => {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            resetEditChanges();
+        });
     }
 
     if (noteClose) {
