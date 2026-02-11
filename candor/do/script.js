@@ -2318,11 +2318,19 @@
 
     const updateEditActionsVisibility = () => {
         const canLive = isTodayKey(getEditDateKey()) && activeEditKind !== "event";
+        const isRunning = canLive && isEditSessionActive();
         if (editActions) {
             editActions.style.display = canLive ? "grid" : "none";
+            editActions.classList.toggle("is-single", canLive);
         }
-        if (editStartNow) editStartNow.disabled = !canLive;
-        if (editFinishNow) editFinishNow.disabled = !canLive;
+        if (editStartNow) {
+            editStartNow.disabled = !canLive;
+            editStartNow.style.display = isRunning ? "none" : "";
+        }
+        if (editFinishNow) {
+            editFinishNow.disabled = !canLive;
+            editFinishNow.style.display = isRunning ? "" : "none";
+        }
         if (editActionsSecondary) {
             editActionsSecondary.style.display = isEditDirty() ? "flex" : "none";
         }
@@ -2797,6 +2805,80 @@
         return result;
     };
 
+    let timelineOpenLock = 0;
+    const isEditSessionActive = () => {
+        if (!state.activeSession) return false;
+        if (activeEditKind === "sleep") {
+            return state.activeSession.kind === "sleep" && state.activeSession.key === activeEditSleepKey;
+        }
+        if (activeEditKind === "shift") {
+            return state.activeSession.kind === "shift" && state.activeSession.key === activeEditShiftKey;
+        }
+        if (activeEditKind === "window" && activeEditWindow) {
+            if (state.activeSession.kind !== "window") return false;
+            const planned = getPlannedWindowForEdit(activeEditWindow);
+            const plannedId = planned ? String(planned.id || "") : "";
+            const manualId = String(activeEditWindow.id || "");
+            const activeId = String(state.activeSession.id || "");
+            if (activeId && (activeId === plannedId || activeId === manualId)) return true;
+            const overrideId = state.windowOverrides ? state.windowOverrides[activeId] : null;
+            return Boolean(overrideId && String(overrideId) === manualId);
+        }
+        return false;
+    };
+
+    const handleTimelineActivation = (event) => {
+        if (!event) return false;
+        if (event.button !== undefined && event.button !== 0) return false;
+        if (overlay && overlay.classList.contains("is-open")) return false;
+        if (editOverlay && editOverlay.classList.contains("is-open")) return false;
+        if (timeOverlay && timeOverlay.classList.contains("is-open")) return false;
+        if (event.target && event.target.closest(".chipRemove, .blockRemove")) return false;
+        const { sleepTarget, windowTarget } = pickTimelineTargets(event);
+        if (!sleepTarget && !windowTarget) return false;
+        const now = Date.now();
+        if (now - timelineOpenLock < 250) return true;
+        timelineOpenLock = now;
+        if (sleepTarget && sleepTarget.dataset.sleepDate) {
+            const key = sleepTarget.dataset.sleepDate;
+            const planned = plannedSleepByDate[key];
+            const start = planned ? planned.start : "";
+            const end = planned ? planned.end : "";
+            openSleepEdit(key, start, end);
+            return true;
+        }
+        if (!windowTarget || !windowTarget.dataset.windowId) return false;
+        const id = String(windowTarget.dataset.windowId);
+        const birthday = birthdayEventFor(calendarApi ? parseKey(calendarApi.getSelectedKey()) : new Date());
+        let windowItem = state.windows.find((item) => String(item.id) === id)
+            || virtualWindows.get(id)
+            || (birthday && birthday.id === id ? birthday : null);
+        if (!windowItem && id.startsWith("shift-")) {
+            const key = id.replace("shift-", "");
+            const shiftWindow = getShiftWindowTimes(parseKey(key));
+            if (shiftWindow) {
+                windowItem = {
+                    id,
+                    text: shiftWindow.shift.name || "Work",
+                    date: key,
+                    start: shiftWindow.start,
+                    end: shiftWindow.end,
+                    kind: "window",
+                    color: shiftWindow.color || "#b9dbf2",
+                    locked: true,
+                    source: "shift",
+                    shiftId: shiftWindow.shift.id,
+                    virtual: true,
+                };
+            }
+        }
+        if (windowItem) {
+            openWindowEdit(windowItem);
+            return true;
+        }
+        return false;
+    };
+
     const openNote = (note) => {
         if (!noteOverlay || !note) return;
         if (noteTitleEl) {
@@ -2985,6 +3067,7 @@
     });
 
     document.addEventListener("click", (event) => {
+        if (handleTimelineActivation(event)) return;
         const closeBtn = event.target.closest("[data-edit-close]");
         if (closeBtn) {
             closeEdit();
@@ -2993,44 +3076,6 @@
         if (editOverlay && event.target === editOverlay) {
             closeEdit();
             return;
-        }
-        if (event.target.closest(".chipRemove, .blockRemove")) return;
-        const { sleepTarget, windowTarget } = pickTimelineTargets(event);
-        if (sleepTarget && sleepTarget.dataset.sleepDate) {
-            const key = sleepTarget.dataset.sleepDate;
-            const planned = plannedSleepByDate[key];
-            const start = planned ? planned.start : "";
-            const end = planned ? planned.end : "";
-            openSleepEdit(key, start, end);
-            return;
-        }
-        if (!windowTarget || !windowTarget.dataset.windowId) return;
-        const id = String(windowTarget.dataset.windowId);
-        const birthday = birthdayEventFor(calendarApi ? parseKey(calendarApi.getSelectedKey()) : new Date());
-        let windowItem = state.windows.find((item) => String(item.id) === id)
-            || virtualWindows.get(id)
-            || (birthday && birthday.id === id ? birthday : null);
-        if (!windowItem && id.startsWith("shift-")) {
-            const key = id.replace("shift-", "");
-            const shiftWindow = getShiftWindowTimes(parseKey(key));
-            if (shiftWindow) {
-                windowItem = {
-                    id,
-                    text: shiftWindow.shift.name || "Work",
-                    date: key,
-                    start: shiftWindow.start,
-                    end: shiftWindow.end,
-                    kind: "window",
-                    color: shiftWindow.color || "#b9dbf2",
-                    locked: true,
-                    source: "shift",
-                    shiftId: shiftWindow.shift.id,
-                    virtual: true,
-                };
-            }
-        }
-        if (windowItem) {
-            openWindowEdit(windowItem);
         }
     });
 
@@ -3042,6 +3087,12 @@
             closeNote();
         }
     });
+
+    document.addEventListener("pointerdown", (event) => {
+        if (handleTimelineActivation(event)) {
+            event.preventDefault();
+        }
+    }, true);
 
     if (editStartField) {
         editStartField.addEventListener("timechange", handleEditTimeChange);

@@ -62,8 +62,8 @@ $candorVersion = 'v0.2';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>your Candor</title>
 	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
-	<link rel="stylesheet" href="style.css?v=35">
-	<script src="script.js?v=37" defer></script>
+	<link rel="stylesheet" href="style.css?v=36">
+	<script src="script.js?v=39" defer></script>
 </head>
 <body class="is-do" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-user-name="<?= htmlspecialchars($name !== '' ? $name : $email) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>">
 

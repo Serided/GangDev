@@ -1825,6 +1825,15 @@ body.is-do .welcome {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.editActionsPrimary.is-single {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+}
+
+.editActionsPrimary.is-single .btn {
+    width: min(160px, 100%);
+}
+
 .editActionsPrimary .btn {
     min-height: 34px;
     padding: 0 12px;
