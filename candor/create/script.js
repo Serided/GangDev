@@ -1490,6 +1490,7 @@
     const routineAnchorSelect = routineForm ? routineForm.querySelector("[data-anchor-select]") : null;
     const routineTitleField = routineForm ? routineForm.querySelector("[data-title-field]") : null;
     const routineTypeRow = routineForm ? routineForm.querySelector("[data-type-row]") : null;
+    const routineColorField = routineForm ? routineForm.querySelector("[data-routine-color-field]") : null;
     const routineTitleInput = routineForm ? routineForm.querySelector("#routine-title") : null;
     const routineTitleLabel = routineTitleField ? routineTitleField.querySelector("[data-title-label]") : null;
     const routineTimeRow = routineForm ? routineForm.querySelector("[data-time-row]") : null;
@@ -1538,11 +1539,25 @@
         }
     };
 
+    const placeRoutineTitleField = (isRoutine) => {
+        if (!routineTitleField) return;
+        if (isRoutine) {
+            if (routineUseField) {
+                routineUseField.insertAdjacentElement("afterend", routineTitleField);
+            }
+            return;
+        }
+        if (routineTypeRow && routineColorField) {
+            routineTypeRow.insertBefore(routineTitleField, routineColorField);
+        }
+    };
+
     const updateRoutineFormVisibility = () => {
         if (!routineForm) return;
         const type = routineTypeSelect ? routineTypeSelect.value : "routine";
         const isRoutine = type === "routine";
         const isWork = type === "work";
+        placeRoutineTitleField(isRoutine);
         if (routineAnchorField) {
             routineAnchorField.style.display = isRoutine ? "grid" : "none";
         }
@@ -1898,8 +1913,7 @@
         const row = document.createElement("div");
         row.className = "taskRow";
         row.dataset.taskRow = "true";
-        row.draggable = true;
-        row.setAttribute("draggable", "true");
+        row.draggable = false;
 
         const drag = document.createElement("button");
         drag.type = "button";
@@ -2041,6 +2055,10 @@
         routineTaskStack.addEventListener("dragstart", (event) => {
             const row = event.target.closest("[data-task-row]");
             if (!row) return;
+            if (!event.target.closest("[data-task-drag]")) {
+                event.preventDefault();
+                return;
+            }
             if (event.target.closest("input, textarea, select")) {
                 event.preventDefault();
                 return;

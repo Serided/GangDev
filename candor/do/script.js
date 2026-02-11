@@ -9,8 +9,24 @@
     const birthdateRaw = body && body.dataset && body.dataset.birthdate ? body.dataset.birthdate : "";
     const userNameRaw = body && body.dataset && body.dataset.userName ? body.dataset.userName : "";
 
+    const safeGetItem = (key) => {
+        try {
+            return localStorage.getItem(key);
+        } catch {
+            return null;
+        }
+    };
+
+    const safeSetItem = (key, value) => {
+        try {
+            localStorage.setItem(key, value);
+        } catch {
+            // Ignore storage errors (disabled or full).
+        }
+    };
+
     const loadItems = (name) => {
-        const raw = localStorage.getItem(keyFor(name));
+        const raw = safeGetItem(keyFor(name));
         if (!raw) return [];
         try {
             const parsed = JSON.parse(raw);
@@ -21,11 +37,11 @@
     };
 
     const saveItems = (name, items) => {
-        localStorage.setItem(keyFor(name), JSON.stringify(items));
+        safeSetItem(keyFor(name), JSON.stringify(items));
     };
 
     const loadJson = (name, fallback) => {
-        const raw = localStorage.getItem(keyFor(name));
+        const raw = safeGetItem(keyFor(name));
         if (!raw) return fallback;
         try {
             return JSON.parse(raw);
@@ -35,7 +51,7 @@
     };
 
     const saveJson = (name, value) => {
-        localStorage.setItem(keyFor(name), JSON.stringify(value));
+        safeSetItem(keyFor(name), JSON.stringify(value));
     };
 
     const state = {
@@ -978,6 +994,8 @@
 
     const calendarRoot = document.querySelector(".calendarShell");
     let calendarApi = null;
+    let virtualWindows = new Map();
+    const plannedSleepByDate = {};
 
     if (calendarRoot) {
         const monthTitle = calendarRoot.querySelector("[data-month-title]");
@@ -1001,9 +1019,6 @@
         const popoverList = calendarRoot.querySelector("[data-popover-list]");
         const popoverClose = calendarRoot.querySelector("[data-popover-close]");
         let popoverDateKey = "";
-        let virtualWindows = new Map();
-        const plannedSleepByDate = {};
-
         const now = new Date();
         const stateCal = {
             selected: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
