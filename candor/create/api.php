@@ -451,6 +451,93 @@ if ($action === 'add') {
 	]);
 }
 
+if ($action === 'update_rule') {
+	$id = $payload['id'] ?? '';
+	if (!is_numeric($id)) {
+		respond(['error' => 'invalid_id'], 400);
+	}
+
+	$kind = $payload['kind'] ?? '';
+	$kind = $kind === 'task' ? 'task' : ($kind === 'sleep' ? 'sleep' : '');
+	if ($kind === '') {
+		respond(['error' => 'invalid_kind'], 400);
+	}
+
+	$repeat = $payload['repeat'] ?? ($payload['repeat_rule'] ?? '');
+	$repeat = in_array($repeat, $allowedRepeats, true) ? $repeat : '';
+	if ($repeat === '') {
+		respond(['error' => 'invalid_repeat'], 400);
+	}
+
+	$day = null;
+	if ($repeat === 'day') {
+		$rawDay = $payload['day'] ?? ($payload['day_of_week'] ?? '');
+		$dayValue = is_numeric($rawDay) ? (int)$rawDay : -1;
+		if ($dayValue < 0 || $dayValue > 6) {
+			respond(['error' => 'invalid_day'], 400);
+		}
+		$day = $dayValue;
+	}
+
+	$title = clean_text($payload['title'] ?? '', 160);
+	$start = clean_time($payload['start'] ?? ($payload['start_time'] ?? ($payload['time'] ?? '')));
+	$end = clean_time($payload['end'] ?? ($payload['end_time'] ?? ''));
+	$color = clean_color($payload['color'] ?? '');
+
+	if ($kind === 'sleep') {
+		if ($start === '' || $end === '') {
+			respond(['error' => 'missing_time'], 400);
+		}
+		$title = $title !== '' ? $title : 'Sleep';
+	}
+	if ($kind === 'task' && $title === '') {
+		respond(['error' => 'missing_title'], 400);
+	}
+
+	$stmt = $pdo->prepare("
+		UPDATE candor.schedule_rules
+		SET kind = ?, title = ?, start_time = ?, end_time = ?, repeat_rule = ?, day_of_week = ?, color = ?
+		WHERE id = ? AND user_id = ?
+		RETURNING id, kind, title, start_time, end_time, repeat_rule, day_of_week, color
+	");
+	$stmt->execute([
+		$kind,
+		$title,
+		$start !== '' ? $start : null,
+		$end !== '' ? $end : null,
+		$repeat,
+		$day,
+		$color !== '' ? $color : null,
+		(int)$id,
+		(int)$userId,
+	]);
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	if (!$row) {
+		respond(['error' => 'not_found'], 404);
+	}
+	$startOut = '';
+	if (!empty($row['start_time'])) {
+		$startOut = substr((string)$row['start_time'], 0, 5);
+	}
+	$endOut = '';
+	if (!empty($row['end_time'])) {
+		$endOut = substr((string)$row['end_time'], 0, 5);
+	}
+
+	respond([
+		'rule' => [
+			'id' => (string)$row['id'],
+			'kind' => (string)$row['kind'],
+			'title' => (string)($row['title'] ?? ''),
+			'start' => $startOut,
+			'end' => $endOut,
+			'repeat' => (string)($row['repeat_rule'] ?? ''),
+			'color' => (string)($row['color'] ?? ''),
+			'day' => isset($row['day_of_week']) ? (int)$row['day_of_week'] : null,
+		],
+	]);
+}
+
 if ($action === 'add_routine') {
 	$title = clean_text($payload['title'] ?? '', 160);
 	$time = clean_time($payload['time'] ?? ($payload['routine_time'] ?? ''));

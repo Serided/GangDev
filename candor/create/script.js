@@ -748,6 +748,15 @@
             text.appendChild(title);
             text.appendChild(meta);
 
+            const actions = document.createElement("div");
+            actions.className = "itemActions";
+
+            const edit = document.createElement("button");
+            edit.type = "button";
+            edit.className = "itemEdit";
+            edit.dataset.sleepEdit = rule.id;
+            edit.textContent = "Edit";
+
             const remove = document.createElement("button");
             remove.type = "button";
             remove.className = "itemRemove";
@@ -756,7 +765,9 @@
             remove.textContent = "Remove";
 
             row.appendChild(text);
-            row.appendChild(remove);
+            actions.appendChild(edit);
+            actions.appendChild(remove);
+            row.appendChild(actions);
             sleepList.appendChild(row);
         });
     };
@@ -958,17 +969,31 @@
         return routine.time || "";
     };
 
+    const resolveRoutineEnd = (routine, startTime, sleepRule) => {
+        if (!routine) return "";
+        if (routine.end) return routine.end;
+        if (!startTime) return "";
+        if (routine.type === "routine" && routine.anchor === "evening" && sleepRule && sleepRule.start) {
+            return sleepRule.start;
+        }
+        const duration = routineDuration(routine);
+        return duration > 0 ? addMinutes(startTime, duration) : "";
+    };
+
     const getWeekItems = (targetDay) => {
         const items = [];
         const sleepRule = pickSleepRuleForDay(targetDay);
         state.routines.forEach((routine) => {
             if (!appliesToDay(routine.repeat, routine.day, routine.days, targetDay)) return;
+            const startTime = resolveRoutineTime(routine, sleepRule);
+            const endTime = resolveRoutineEnd(routine, startTime, sleepRule);
             items.push({
                 kind: routine.type || "routine",
                 title: routine.title || "Routine",
-                time: resolveRoutineTime(routine, sleepRule),
-                end: routine.end || "",
+                time: startTime,
+                end: endTime,
                 duration: routineDuration(routine),
+                anchor: routine.anchor || "custom",
             });
         });
         state.tasks.forEach((rule) => {
@@ -1040,15 +1065,23 @@
                     return aTime - bTime;
                 })[0];
 
-            const pushBlock = (label, className, timeValue) => {
+            const pushBlock = (label, className, timeValue, timeEnd = "") => {
                 const block = document.createElement("div");
                 block.className = `weekBlock ${className}`.trim();
-                setWeekBlock(block, label, timeValue);
+                setWeekBlock(block, label, timeValue, timeEnd);
                 stack.appendChild(block);
             };
 
+            const morningRoutine = items.find((item) => item.kind === "routine" && item.anchor === "morning");
+            const eveningRoutine = items.find((item) => item.kind === "routine" && item.anchor === "evening");
+
             pushBlock("Wake", "is-sleep", sleepRule && sleepRule.end ? sleepRule.end : "");
-            pushBlock("Morning routine", "is-morning", "");
+            pushBlock(
+                "Morning routine",
+                "is-morning",
+                morningRoutine && morningRoutine.time ? morningRoutine.time : "",
+                morningRoutine && morningRoutine.end ? morningRoutine.end : ""
+            );
             if (hasWork) {
                 const workStart = workItem ? workItem.time : "";
                 const workEnd = workItem ? workItem.end : "";
@@ -1062,11 +1095,17 @@
             if (!hasWork && !hasFocus && !hasCustom) {
                 pushBlock("Focus/Work", "is-focus", "");
             }
-            pushBlock("Evening routine", "is-evening", "");
+            pushBlock(
+                "Evening routine",
+                "is-evening",
+                eveningRoutine && eveningRoutine.time ? eveningRoutine.time : "",
+                eveningRoutine && eveningRoutine.end ? eveningRoutine.end : ""
+            );
             pushBlock("Bed", "is-sleep", sleepRule && sleepRule.start ? sleepRule.start : "");
 
             items.forEach((item) => {
                 if (item.kind === "work") return;
+                if (item.kind === "routine" && (item.anchor === "morning" || item.anchor === "evening")) return;
                 const row = document.createElement("div");
                 const kindClass = item.kind === "sleep"
                     ? "is-sleep"
@@ -1120,12 +1159,27 @@
         }
     };
 
+    const upsertRule = (rule) => {
+        const index = state.rules.findIndex((item) => item.id === rule.id);
+        if (index >= 0) {
+            state.rules[index] = rule;
+        } else {
+            state.rules.push(rule);
+        }
+    };
+
     const addRule = async (payload) => {
+        const isUpdate = payload.action === "update_rule";
         if (storageMode === "remote") {
             try {
                 const data = await apiFetch(payload, "POST");
                 if (data && data.rule) {
-                    state.rules.push(normalizeRule(data.rule));
+                    const normalized = normalizeRule(data.rule);
+                    if (isUpdate) {
+                        upsertRule(normalized);
+                    } else {
+                        state.rules.push(normalized);
+                    }
                     splitRules();
                     renderAll();
                     return;
@@ -1136,9 +1190,15 @@
         }
 
         if (storageMode === "local") {
-            const id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+            const id = isUpdate && payload.id
+                ? String(payload.id)
+                : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
             const localRule = normalizeRule({ id, ...payload });
-            state.rules.push(localRule);
+            if (isUpdate) {
+                upsertRule(localRule);
+            } else {
+                state.rules.push(localRule);
+            }
             splitRules();
             persistLocal();
             renderAll();
@@ -1322,6 +1382,8 @@
     const sleepEndField = sleepEndInput ? sleepEndInput.closest("[data-time-field]") : null;
     const sleepRepeatSelect = sleepForm ? sleepForm.querySelector("[data-repeat-select]") : null;
     const sleepDaySelect = sleepForm ? sleepForm.querySelector("#sleep-day") : null;
+    const sleepColorInput = sleepForm ? sleepForm.querySelector("#sleep-color") : null;
+    let editingSleepId = null;
 
     const sleepMinutesForRepeat = () => {
         return recommendedSleepMinutes(ageYears);
@@ -1340,6 +1402,28 @@
         if (!parsed) return;
         setFieldValue(sleepEndField, `${pad2(parsed.hour)}:${pad2(parsed.minute)}`);
     };
+
+    const startSleepEdit = (rule) => {
+        if (!sleepForm || !rule) return;
+        editingSleepId = rule.id;
+        if (sleepStartField) {
+            setFieldValue(sleepStartField, rule.start || "", { emit: false });
+        }
+        if (sleepEndField) {
+            setFieldValue(sleepEndField, rule.end || "", { emit: false });
+        }
+        if (sleepRepeatSelect) {
+            sleepRepeatSelect.value = rule.repeat || "daily";
+        }
+        if (sleepDaySelect) {
+            sleepDaySelect.value = Number.isFinite(rule.day) ? String(rule.day) : "0";
+        }
+        if (sleepColorInput) {
+            const fallback = sleepColorInput.dataset.default || "#b9dbf2";
+            sleepColorInput.value = rule.color || fallback;
+        }
+        applyRepeatToggle(sleepRepeatSelect, sleepForm.querySelector("[data-day-field]"));
+    };
     if (sleepForm) {
         sleepForm.addEventListener("submit", (event) => {
             event.preventDefault();
@@ -1352,7 +1436,8 @@
             const day = normalizeText(formData.get("day"));
             const color = normalizeColor(formData.get("color"));
             addRule({
-                action: "add",
+                action: editingSleepId ? "update_rule" : "add",
+                id: editingSleepId,
                 kind: "sleep",
                 start,
                 end,
@@ -1360,6 +1445,7 @@
                 day,
                 color,
             });
+            editingSleepId = null;
             sleepForm.reset();
             clearTimeFields(sleepForm);
             const sleepRepeat = sleepForm.querySelector("[data-repeat-select]");
@@ -1388,6 +1474,7 @@
             if (sleepStartField) setFieldValue(sleepStartField, "", { emit: false });
             if (sleepEndField) setFieldValue(sleepEndField, "", { emit: false });
             clearRules("sleep");
+            editingSleepId = null;
             if (sleepForm) {
                 sleepForm.reset();
                 clearTimeFields(sleepForm);
@@ -1402,6 +1489,7 @@
     const routineTypeSelect = routineForm ? routineForm.querySelector("[data-block-type]") : null;
     const routineAnchorSelect = routineForm ? routineForm.querySelector("[data-anchor-select]") : null;
     const routineTitleField = routineForm ? routineForm.querySelector("[data-title-field]") : null;
+    const routineTypeRow = routineForm ? routineForm.querySelector("[data-type-row]") : null;
     const routineTitleInput = routineForm ? routineForm.querySelector("#routine-title") : null;
     const routineTitleLabel = routineTitleField ? routineTitleField.querySelector("[data-title-label]") : null;
     const routineTimeRow = routineForm ? routineForm.querySelector("[data-time-row]") : null;
@@ -1463,6 +1551,9 @@
         }
         const anchor = isRoutine && routineAnchorSelect ? routineAnchorSelect.value : "custom";
         const needsCustomTitle = !isRoutine || anchor === "custom";
+        if (routineTypeRow) {
+            routineTypeRow.classList.toggle("is-custom-anchor", isRoutine && anchor === "custom");
+        }
         if (routineTitleField) {
             routineTitleField.style.display = needsCustomTitle ? "grid" : "none";
             const useLeft = !isWork && isRoutine && anchor === "custom";
@@ -2006,6 +2097,15 @@
     }
 
     document.addEventListener("click", (event) => {
+        const sleepEdit = event.target.closest("[data-sleep-edit]");
+        if (sleepEdit) {
+            const id = sleepEdit.dataset.sleepEdit;
+            const rule = state.sleep.find((item) => item.id === id);
+            if (rule) {
+                startSleepEdit(rule);
+            }
+            return;
+        }
         const routineRemove = event.target.closest("[data-routine-task-remove]");
         if (routineRemove && routineTaskStack) {
             const rows = routineTaskStack.querySelectorAll(".taskRow");
