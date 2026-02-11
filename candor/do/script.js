@@ -525,6 +525,82 @@
         return sorted[0];
     };
 
+    const getSleepLogFor = (key) =>
+        state.sleepLogs.find((log) => log.date === key);
+
+    const getDefaultShift = () =>
+        state.shifts.find((shift) => shift.isDefault) || null;
+
+    const getShiftOverrideForDate = (date) => {
+        if (!date) return null;
+        const key = dateKey(date);
+        const override = state.shiftOverrides[key];
+        if (override === undefined) return null;
+        if (override && typeof override === "object") {
+            return {
+                shiftId: override.shiftId ?? null,
+                start: override.start || "",
+                end: override.end || "",
+            };
+        }
+        if (override === null) {
+            return { shiftId: null, start: "", end: "" };
+        }
+        return { shiftId: override, start: "", end: "" };
+    };
+
+    const getWorkRoutineForDate = (date) => {
+        if (!date) return null;
+        return state.routines.find((routine) =>
+            routine.blockType === "work" && routineApplies(routine, date)
+        ) || null;
+    };
+
+    const getShiftWindowTimes = (date) => {
+        const workRoutine = getWorkRoutineForDate(date);
+        const override = getShiftOverrideForDate(date);
+        if (!workRoutine && !override) return null;
+        if (override && override.shiftId === null) return null;
+
+        const baseShiftId = override && override.shiftId !== undefined
+            ? override.shiftId
+            : (workRoutine && workRoutine.shiftId ? workRoutine.shiftId : null);
+        const shift = baseShiftId !== null
+            ? state.shifts.find((item) => String(item.id) === String(baseShiftId)) || null
+            : null;
+        const fallbackShift = shift || getDefaultShift();
+        if (!fallbackShift && !(workRoutine && workRoutine.time && workRoutine.end)) return null;
+
+        const overrideStart = override && override.start ? override.start : "";
+        const overrideEnd = override && override.end ? override.end : "";
+        let startActual = overrideStart || (fallbackShift ? fallbackShift.start : workRoutine.time);
+        let endActual = overrideEnd || (fallbackShift ? fallbackShift.end : workRoutine.end);
+        if (fallbackShift && !overrideStart && !overrideEnd) {
+            startActual = addMinutesToTime(fallbackShift.start, -(fallbackShift.commuteBefore || 0));
+            endActual = addMinutesToTime(fallbackShift.end, fallbackShift.commuteAfter || 0);
+        }
+        if (!startActual || !endActual) return null;
+        const routineColor = workRoutine && workRoutine.color ? workRoutine.color : "";
+        return { shift: fallbackShift || workRoutine, start: startActual, end: endActual, color: routineColor };
+    };
+
+    const buildSleepPlan = (date) => {
+        const key = dateKey(date);
+        const log = getSleepLogFor(key);
+        const rule = pickSleepRule(date);
+        const start = log && log.start ? log.start : (rule ? rule.start : "");
+        const end = log && log.end ? log.end : (rule ? rule.end : "");
+        const duration = start && end ? durationMinutes(start, end) : null;
+        const color = rule && rule.color ? rule.color : "";
+        return {
+            start,
+            end,
+            duration: duration ?? 0,
+            hasLog: Boolean(log && (log.start || log.end)),
+            color,
+        };
+    };
+
     const formatRepeat = (rule) => {
         if (!rule) return "";
         if (rule.repeat === "weekdays") return "Weekdays";
