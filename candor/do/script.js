@@ -536,6 +536,34 @@
         return sorted[0];
     };
 
+    const pickWorkRoutineForDate = (date) => {
+        if (!date) return null;
+        const candidates = state.routines.filter((routine) =>
+            routine.blockType === "work" && routineApplies(routine, date)
+        );
+        if (candidates.length === 0) return null;
+        const scoreRepeat = (repeat) => {
+            if (repeat === "day") return 0;
+            if (repeat === "weekdays" || repeat === "weekends") return 1;
+            return 2;
+        };
+        const scoreDays = (routine) => {
+            if (Array.isArray(routine.days) && routine.days.length) return routine.days.length;
+            if (Number.isFinite(routine.day)) return 1;
+            return 7;
+        };
+        const sorted = candidates.slice().sort((a, b) => {
+            const aScore = scoreRepeat(a.repeat || "daily");
+            const bScore = scoreRepeat(b.repeat || "daily");
+            if (aScore !== bScore) return aScore - bScore;
+            const aDays = scoreDays(a);
+            const bDays = scoreDays(b);
+            if (aDays !== bDays) return aDays - bDays;
+            return String(a.id || "").localeCompare(String(b.id || ""));
+        });
+        return sorted[0];
+    };
+
     const getSleepLogFor = (key) =>
         state.sleepLogs.find((log) => log.date === key);
 
@@ -560,12 +588,7 @@
         return { shiftId: override, start: "", end: "" };
     };
 
-    const getWorkRoutineForDate = (date) => {
-        if (!date) return null;
-        return state.routines.find((routine) =>
-            routine.blockType === "work" && routineApplies(routine, date)
-        ) || null;
-    };
+    const getWorkRoutineForDate = (date) => pickWorkRoutineForDate(date);
 
     const getShiftWindowTimes = (date) => {
         const workRoutine = getWorkRoutineForDate(date);
@@ -1244,12 +1267,7 @@
             return getDefaultShift();
         };
 
-        const getWorkRoutineForDate = (date) => {
-            if (!date) return null;
-            return state.routines.find((routine) =>
-                routine.blockType === "work" && routineApplies(routine, date)
-            ) || null;
-        };
+        const getWorkRoutineForDate = (date) => pickWorkRoutineForDate(date);
 
         const getShiftWindowTimes = (date) => {
             const workRoutine = getWorkRoutineForDate(date);
@@ -3165,6 +3183,23 @@
         return result;
     };
 
+    const isTimelineEvent = (event) => {
+        if (!dayGrid || !event) return false;
+        if (event.target && dayGrid.contains(event.target)) return true;
+        if (typeof event.composedPath === "function") {
+            const path = event.composedPath();
+            if (Array.isArray(path) && path.includes(dayGrid)) return true;
+        }
+        if (Number.isFinite(event.clientX) && Number.isFinite(event.clientY)) {
+            const rect = dayGrid.getBoundingClientRect();
+            return event.clientX >= rect.left
+                && event.clientX <= rect.right
+                && event.clientY >= rect.top
+                && event.clientY <= rect.bottom;
+        }
+        return false;
+    };
+
     const minuteInWindow = (minute, start, end) => {
         const startMin = parseMinutes(start);
         const endMin = parseMinutes(end);
@@ -3222,6 +3257,7 @@
         if (overlay && overlay.classList.contains("is-open")) return false;
         if (editOverlay && editOverlay.classList.contains("is-open")) return false;
         if (timeOverlay && timeOverlay.classList.contains("is-open")) return false;
+        if (!isTimelineEvent(event)) return false;
         if (event.target && event.target.closest(".chipRemove, .blockRemove")) return false;
         const { sleepTarget, windowTarget } = pickTimelineTargets(event);
         if (!sleepTarget && !windowTarget) return false;
