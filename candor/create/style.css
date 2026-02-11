@@ -498,9 +498,10 @@ a { color: inherit; text-decoration: none; }
 
 .fieldRow.typeRow {
     display: grid;
-    grid-template-columns: max-content minmax(0, var(--routine-name-width, 180px)) var(--routine-color-width, 32px);
+    grid-template-columns: max-content var(--routine-anchor-width, 140px) var(--routine-color-width, 32px);
     gap: var(--time-field-gap);
     align-items: end;
+    justify-content: start;
 }
 
 .fieldRow.typeRow .field {
@@ -516,48 +517,13 @@ a { color: inherit; text-decoration: none; }
     min-width: 0;
 }
 
-.fieldRow.typeRow [data-anchor-field],
-.fieldRow.typeRow [data-title-field] {
-    grid-column: 2;
-}
-
 .fieldRow.typeRow [data-anchor-field] {
     width: var(--routine-anchor-width, 140px);
-}
-
-.fieldRow.typeRow [data-title-field] {
-    width: var(--routine-name-width, 180px);
-    justify-self: start;
 }
 
 .fieldRow.typeRow .field-color {
     grid-column: 3;
     width: var(--routine-color-width, 32px);
-}
-
-.fieldRow.typeRow.is-custom-anchor [data-anchor-field] {
-    grid-row: 1;
-}
-
-.fieldRow.typeRow.is-custom-anchor [data-title-field] {
-    grid-column: 1 / span 2;
-    grid-row: 2;
-    justify-self: start;
-}
-
-.fieldRow.typeRow.is-custom-anchor .field-color {
-    grid-row: 1;
-}
-
-.fieldRow.typeRow [data-title-field].fieldWide {
-    grid-column: 1 / -1;
-    width: 100%;
-}
-
-.fieldRow.typeRow [data-title-field].fieldLeft {
-    grid-column: 1;
-    justify-self: start;
-    width: var(--routine-name-width, 180px);
 }
 
 .fieldRow.timeRow .field-repeat {
@@ -700,9 +666,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 .routineLayout {
-    --routine-meta-width: 380px;
-    --routine-task-width: 320px;
-    --routine-saved-width: 380px;
+    --routine-meta-width: 360px;
+    --routine-task-width: 300px;
+    --routine-saved-width: 360px;
     display: grid;
     grid-template-columns: minmax(0, var(--routine-meta-width)) minmax(0, var(--routine-task-width)) minmax(0, var(--routine-saved-width));
     gap: 12px;
@@ -733,12 +699,13 @@ a { color: inherit; text-decoration: none; }
 }
 
 .routineMeta {
-    --routine-type-width: 88px;
-    --routine-anchor-width: 120px;
-    --routine-name-width: 160px;
-    --routine-select-width: 120px;
+    --time-field-width: 84px;
+    --routine-type-width: 82px;
+    --routine-anchor-width: 110px;
+    --routine-name-width: 150px;
+    --routine-select-width: 112px;
     --routine-color-width: 32px;
-    --shift-commute-width: var(--time-field-width);
+    --shift-commute-width: 70px;
     --shift-time-width: var(--time-field-width);
     --shift-line-gap: var(--time-field-gap);
     --shift-line-width: calc(
@@ -788,6 +755,11 @@ a { color: inherit; text-decoration: none; }
 
 .routineMeta .field-color {
     width: var(--routine-color-width, 32px);
+}
+
+.routineMeta [data-title-field] {
+    width: var(--routine-name-width, 180px);
+    max-width: 100%;
 }
 
 .routineMeta .field {
@@ -864,9 +836,9 @@ a { color: inherit; text-decoration: none; }
 
 .shiftRowLine .timeField,
 .shiftRowLine .input.compact {
-    width: var(--shift-time-width);
-    min-width: var(--shift-time-width);
-    max-width: var(--shift-time-width);
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .fieldRow.timeRow .shiftDefault {
@@ -910,6 +882,17 @@ a { color: inherit; text-decoration: none; }
 
 .shiftRowLine .input.compact {
     text-align: center;
+}
+
+.shiftRowLine input[type="number"]::-webkit-outer-spin-button,
+.shiftRowLine input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.shiftRowLine input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 

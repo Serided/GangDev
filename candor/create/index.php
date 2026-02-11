@@ -24,7 +24,7 @@ $candorVersion = 'v0.2';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor - Create</title>
 	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
-	<link rel="stylesheet" href="style.css?v=36">
+	<link rel="stylesheet" href="style.css?v=37">
 	<script src="script.js?v=33" defer></script>
 </head>
 <body class="is-create" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>">
@@ -108,7 +108,7 @@ $candorVersion = 'v0.2';
 						<form class="routineForm" data-routine-form>
 							<div class="routineGrid">
 								<div class="routineMeta">
-							<div class="fieldRow typeRow" data-type-row>
+								<div class="fieldRow typeRow" data-type-row>
 								<div class="field field-type">
 									<label class="label" for="block-type">Type</label>
 									<select class="input compact select" id="block-type" name="block_type" data-block-type>
@@ -126,10 +126,6 @@ $candorVersion = 'v0.2';
 										<option value="custom">Custom</option>
 									</select>
 								</div>
-								<div class="field" data-title-field>
-									<label class="label" for="routine-title" data-title-label>Name</label>
-									<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Deep work sprint">
-								</div>
 								<div class="field field-color" data-routine-color-field>
 									<label class="label" for="routine-color">Color</label>
 									<input class="input compact color colorSwatch" id="routine-color" type="color" name="color" value="#f3c873" data-default="#f3c873">
@@ -143,6 +139,10 @@ $candorVersion = 'v0.2';
 											</select>
 											<button class="btn shiftUseBtn" type="button" data-routine-use>Use</button>
 										</div>
+									</div>
+									<div class="field" data-title-field>
+										<label class="label" for="routine-title" data-title-label>Name</label>
+										<input class="input compact" id="routine-title" type="text" name="title" placeholder="e.g. Deep work sprint">
 									</div>
 									<div class="field" data-work-shift-select>
 										<label class="label" for="work-shift-select">Use shift</label>

@@ -1712,6 +1712,12 @@
                 const left = leftBase + segment.col * (columnWidth + columnGap);
                 block.style.left = `${left}px`;
                 block.style.width = `${columnWidth}px`;
+                block.style.right = "auto";
+                if (columns === 1) {
+                    block.style.left = "calc(var(--timeline-slot-left) + var(--timeline-block-inset))";
+                    block.style.right = "calc(var(--timeline-slot-right) + var(--timeline-block-inset))";
+                    block.style.width = "auto";
+                }
 
                 const time = document.createElement("span");
                 time.className = "blockTime";
@@ -2638,7 +2644,17 @@
         overlay.classList.remove("is-open");
     };
 
+    document.querySelectorAll("[data-add-kind]").forEach((button) => {
+        button.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            const kind = button.getAttribute("data-add-kind") || "task";
+            openCreate(kind);
+        });
+    });
+
     document.addEventListener("click", (event) => {
+        if (event.defaultPrevented) return;
         const addBtn = event.target.closest("[data-add-kind]");
         if (addBtn) {
             const kind = addBtn.getAttribute("data-add-kind") || "task";
@@ -2685,9 +2701,9 @@
         }
         const windowTarget = event.target.closest(".slotBlock, .slotChip, .allDayChip");
         if (!windowTarget || !windowTarget.dataset.windowId) return;
-        const id = windowTarget.dataset.windowId;
+        const id = String(windowTarget.dataset.windowId);
         const birthday = birthdayEventFor(calendarApi ? parseKey(calendarApi.getSelectedKey()) : new Date());
-        const windowItem = state.windows.find((item) => item.id === id)
+        const windowItem = state.windows.find((item) => String(item.id) === id)
             || virtualWindows.get(id)
             || (birthday && birthday.id === id ? birthday : null);
         if (windowItem) {
