@@ -2824,6 +2824,21 @@
                 result.windowTarget = findMatch(hits, ".slotBlock, .slotChip, .allDayChip");
             }
         }
+        if (!result.sleepTarget && !result.windowTarget && Number.isFinite(event.clientX) && Number.isFinite(event.clientY)) {
+            const within = (node) => {
+                const rect = node.getBoundingClientRect();
+                return event.clientX >= rect.left
+                    && event.clientX <= rect.right
+                    && event.clientY >= rect.top
+                    && event.clientY <= rect.bottom;
+            };
+            const sleepBlocks = Array.from(document.querySelectorAll(".sleepBlock"));
+            result.sleepTarget = sleepBlocks.find(within) || null;
+            if (!result.sleepTarget) {
+                const windowBlocks = Array.from(document.querySelectorAll(".slotBlock, .slotChip, .allDayChip"));
+                result.windowTarget = windowBlocks.find(within) || null;
+            }
+        }
         return result;
     };
 
