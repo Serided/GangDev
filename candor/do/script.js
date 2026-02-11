@@ -426,6 +426,17 @@
         return diff;
     };
 
+    const MIN_WINDOW_MINUTES = 5;
+
+    const ensureWindowDuration = (start, end) => {
+        if (!start || !end) return { start, end };
+        const duration = durationMinutes(start, end);
+        if (duration === null || duration >= MIN_WINDOW_MINUTES) {
+            return { start, end };
+        }
+        return { start, end: addMinutesToTime(start, MIN_WINDOW_MINUTES) };
+    };
+
     const addMinutesToTime = (time, delta) => {
         const base = parseMinutes(time);
         if (base === null) return "";
@@ -1939,6 +1950,46 @@
 
             renderAllDay(allDayEvents);
 
+            const dayEndMinutes = dayEnd * 60;
+            blockWindows.forEach((window) => {
+                const normalized = ensureWindowDuration(window.start, window.end);
+                if (normalized.end && normalized.end !== window.end) {
+                    window.end = normalized.end;
+                    const nextEnd = parseMinutes(window.end);
+                    if (nextEnd !== null) {
+                        window.endMinutes = nextEnd;
+                    }
+                }
+            });
+
+            blockWindows.sort((a, b) => {
+                if (a.startMinutes !== b.startMinutes) return a.startMinutes - b.startMinutes;
+                return a.endMinutes - b.endMinutes;
+            });
+
+            let stackCursor = null;
+            blockWindows.forEach((window) => {
+                if (!Number.isFinite(window.startMinutes) || !Number.isFinite(window.endMinutes)) return;
+                if (window.endMinutes <= window.startMinutes) return;
+                const duration = Math.max(MIN_WINDOW_MINUTES, window.endMinutes - window.startMinutes);
+                let nextStart = window.startMinutes;
+                if (stackCursor !== null && nextStart < stackCursor) {
+                    nextStart = stackCursor;
+                }
+                let nextEnd = nextStart + duration;
+                if (nextEnd > dayEndMinutes) {
+                    nextEnd = dayEndMinutes;
+                    nextStart = Math.max(0, nextEnd - duration);
+                }
+                if (nextStart !== window.startMinutes || nextEnd !== window.endMinutes) {
+                    window.startMinutes = nextStart;
+                    window.endMinutes = nextEnd;
+                    window.start = minutesToTimeClamped(nextStart);
+                    window.end = minutesToTimeClamped(Math.min(nextEnd, dayEndMinutes - 1));
+                }
+                stackCursor = Math.max(stackCursor ?? 0, window.endMinutes);
+            });
+
             const blockSegments = [];
             blockWindows.forEach((window) => {
                 const segments = [];
@@ -2041,10 +2092,9 @@
                 block.style.top = `${top}px`;
                 block.style.height = `${height}px`;
 
-                const columns = Math.max(1, segment.maxCols || 1);
-                const totalGap = columnGap * (columns - 1);
-                const columnWidth = columns > 0 ? Math.max(0, (usableWidth - totalGap) / columns) : usableWidth;
-                const left = leftBase + segment.col * (columnWidth + columnGap);
+                const columns = 1;
+                const columnWidth = usableWidth;
+                const left = leftBase;
                 block.style.left = `${left}px`;
                 block.style.width = `${columnWidth}px`;
                 block.style.right = "auto";
@@ -2704,13 +2754,14 @@
         if (!windowItem || !windowItem.date) return null;
         const start = overrides.start ?? windowItem.start ?? "";
         const end = overrides.end ?? windowItem.end ?? "";
+        const normalized = ensureWindowDuration(start, end);
         const payload = {
             action: "add",
             type: "windows",
             text: windowItem.text || "Window",
             date: windowItem.date,
-            time: start,
-            end_time: end,
+            time: normalized.start || "",
+            end_time: normalized.end || "",
             color: windowItem.color || "",
             kind: windowItem.kind === "event" ? "event" : "window",
         };
@@ -2730,8 +2781,8 @@
                 id: makeId(),
                 text: payload.text,
                 date: payload.date,
-                start: start,
-                end: end,
+                start: normalized.start || "",
+                end: normalized.end || "",
                 kind: payload.kind,
                 color: payload.color,
             });
@@ -2756,16 +2807,26 @@
             activeEditWindow = target;
         }
         if (!target) return;
-        if (start !== undefined) {
-            target.start = start;
-            target.time = start;
+        const priorStart = target.start || "";
+        const priorEnd = target.end || "";
+        const nextStart = start !== undefined ? start : priorStart;
+        const nextEnd = end !== undefined ? end : priorEnd;
+        const normalized = ensureWindowDuration(nextStart, nextEnd);
+        const finalStart = normalized.start || "";
+        const finalEnd = normalized.end || "";
+        if (finalStart !== priorStart) {
+            target.start = finalStart;
+            target.time = finalStart;
         }
-        if (end !== undefined) {
-            target.end = end;
+        if (finalEnd !== priorEnd) {
+            target.end = finalEnd;
         }
         if (storageMode === "remote") {
             try {
-                await apiFetch({ action: "update_window", id: target.id, start, end }, "POST");
+                const payload = { action: "update_window", id: target.id };
+                if (finalStart !== priorStart || start !== undefined) payload.start = finalStart;
+                if (finalEnd !== priorEnd || end !== undefined) payload.end = finalEnd;
+                await apiFetch(payload, "POST");
             } catch {
                 switchToLocal();
             }
