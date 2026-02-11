@@ -2842,6 +2842,29 @@
         return result;
     };
 
+    const minuteInWindow = (minute, start, end) => {
+        const startMin = parseMinutes(start);
+        const endMin = parseMinutes(end);
+        if (startMin === null || endMin === null || minute === null) return false;
+        if (endMin <= startMin) {
+            return minute >= startMin || minute <= endMin;
+        }
+        return minute >= startMin && minute <= endMin;
+    };
+
+    const getTimelineMinute = (event) => {
+        if (!dayGrid || !event) return null;
+        if (!Number.isFinite(event.clientX) || !Number.isFinite(event.clientY)) return null;
+        const rect = dayGrid.getBoundingClientRect();
+        if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) {
+            return null;
+        }
+        const hourHeight = parseFloat(getComputedStyle(dayGrid).getPropertyValue("--hour-height")) || 42;
+        const y = event.clientY - rect.top + dayGrid.scrollTop;
+        const minutes = Math.floor((y / hourHeight) * 60);
+        return clamp(minutes, 0, (24 * 60) - 1);
+    };
+
     let timelineOpenLock = 0;
     const armTimelineOpen = () => {
         const now = Date.now();
@@ -2916,6 +2939,34 @@
         if (windowItem) {
             openWindowEdit(windowItem);
             return true;
+        }
+        const minute = getTimelineMinute(event);
+        if (minute !== null) {
+            const key = calendarApi ? calendarApi.getSelectedKey() : dateKey(new Date());
+            const planned = plannedSleepByDate[key];
+            const sleepPlan = planned || buildSleepPlan(parseKey(key));
+            if (sleepPlan && minuteInWindow(minute, sleepPlan.start, sleepPlan.end)) {
+                openSleepEdit(key, sleepPlan.start || "", sleepPlan.end || "");
+                return true;
+            }
+            const shiftWindow = getShiftWindowTimes(parseKey(key));
+            if (shiftWindow && minuteInWindow(minute, shiftWindow.start, shiftWindow.end)) {
+                const shiftItem = {
+                    id: `shift-${key}`,
+                    text: shiftWindow.shift.name || "Work",
+                    date: key,
+                    start: shiftWindow.start,
+                    end: shiftWindow.end,
+                    kind: "window",
+                    color: shiftWindow.color || "#b9dbf2",
+                    locked: true,
+                    source: "shift",
+                    shiftId: shiftWindow.shift.id,
+                    virtual: true,
+                };
+                openWindowEdit(shiftItem);
+                return true;
+            }
         }
         return false;
     };
