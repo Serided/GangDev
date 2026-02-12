@@ -1,6 +1,18 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init_candor.php';
 
+set_exception_handler(function (Throwable $e) {
+	if (!headers_sent()) {
+		header('Content-Type: application/json');
+		http_response_code(500);
+	}
+	echo json_encode([
+		'error' => 'server_error',
+		'message' => $e->getMessage(),
+	]);
+	exit;
+});
+
 header('Content-Type: application/json');
 
 if (!isset($pdo)) {
