@@ -893,11 +893,65 @@
         });
     };
 
+    const shiftKey = (shift) => [
+        normalizeText(shift.name || ""),
+        normalizeText(shift.start || ""),
+        normalizeText(shift.end || ""),
+        String(shift.commuteBefore || 0),
+        String(shift.commuteAfter || 0),
+    ].join("|");
+
+    const shiftUsageMap = () => {
+        const usage = new Map();
+        state.routines.forEach((routine) => {
+            if (!routine || !routine.shiftId) return;
+            const key = String(routine.shiftId);
+            usage.set(key, (usage.get(key) || 0) + 1);
+        });
+        return usage;
+    };
+
+    const pickPreferredShift = (a, b) => {
+        if (!a) return b;
+        if (!b) return a;
+        if (a.isDefault !== b.isDefault) return b.isDefault ? b : a;
+        const aNum = parseInt(a.id, 10);
+        const bNum = parseInt(b.id, 10);
+        if (Number.isFinite(aNum) && Number.isFinite(bNum)) {
+            return bNum > aNum ? b : a;
+        }
+        return a;
+    };
+
+    const collapseShifts = (shifts) => {
+        const usage = shiftUsageMap();
+        const groups = new Map();
+        shifts.forEach((shift) => {
+            const key = shiftKey(shift);
+            if (!groups.has(key)) groups.set(key, []);
+            groups.get(key).push(shift);
+        });
+        const result = [];
+        groups.forEach((group) => {
+            const used = group.filter((shift) => usage.has(String(shift.id)));
+            if (used.length) {
+                used.forEach((shift) => result.push(shift));
+                return;
+            }
+            let best = null;
+            group.forEach((shift) => {
+                best = pickPreferredShift(best, shift);
+            });
+            if (best) result.push(best);
+        });
+        return result;
+    };
+
     const renderShiftSelect = () => {
         if (!routineShiftSelect) return;
         routineShiftSelect.innerHTML = '<option value="">Select a shift</option>';
         if (state.shifts.length === 0) return;
-        const sorted = state.shifts.slice().sort((a, b) => {
+        const sorted = collapseShifts(state.shifts).slice().sort((a, b) => {
             if (a.isDefault !== b.isDefault) return a.isDefault ? -1 : 1;
             return (a.name || "").localeCompare(b.name || "");
         });
@@ -1913,6 +1967,13 @@
             const updated = await updateShift(shiftPayload);
             if (updated) return updated.id;
             return createNewShift();
+        }
+        const existingMatch = state.shifts.find((item) => shiftMatches(item, payload));
+        if (existingMatch) {
+            if (payload.isDefault && !existingMatch.isDefault) {
+                await setDefaultShift(existingMatch.id);
+            }
+            return existingMatch.id;
         }
         const shiftPayload = {
             action: "add_shift",
