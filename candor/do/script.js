@@ -2630,6 +2630,13 @@
         return key === dateKey(new Date());
     };
 
+    const isYesterdayKey = (key) => {
+        if (!key) return false;
+        const now = new Date();
+        const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+        return key === dateKey(yesterday);
+    };
+
     const findVirtualIdForManual = (manualId) => {
         if (!manualId || !state.windowOverrides) return "";
         const target = String(manualId);
@@ -3634,7 +3641,11 @@
                 event.preventDefault();
                 event.stopPropagation();
             }
-            if (!isTodayKey(getEditDateKey()) || activeEditKind === "event") return;
+            const editKey = getEditDateKey();
+            const allowFinish = activeEditKind === "sleep"
+                ? (isTodayKey(editKey) || isYesterdayKey(editKey))
+                : isTodayKey(editKey);
+            if (!allowFinish || activeEditKind === "event") return;
             const value = nowTime();
             editSync = true;
             if (editEndField) setFieldValue(editEndField, value, { emit: false });
