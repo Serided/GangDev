@@ -221,6 +221,14 @@ function ensure_work_shifts_table(PDO $pdo) {
 			updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
 		)
 	");
+	$pdo->exec("ALTER TABLE candor.work_shifts ADD COLUMN IF NOT EXISTS name TEXT");
+	$pdo->exec("ALTER TABLE candor.work_shifts ADD COLUMN IF NOT EXISTS start_time TIME");
+	$pdo->exec("ALTER TABLE candor.work_shifts ADD COLUMN IF NOT EXISTS end_time TIME");
+	$pdo->exec("ALTER TABLE candor.work_shifts ADD COLUMN IF NOT EXISTS commute_before INTEGER");
+	$pdo->exec("ALTER TABLE candor.work_shifts ADD COLUMN IF NOT EXISTS commute_after INTEGER");
+	$pdo->exec("ALTER TABLE candor.work_shifts ADD COLUMN IF NOT EXISTS is_default BOOLEAN NOT NULL DEFAULT FALSE");
+	$pdo->exec("ALTER TABLE candor.work_shifts ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()");
+	$pdo->exec("ALTER TABLE candor.work_shifts ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()");
 }
 
 function ensure_work_shift_overrides_table(PDO $pdo) {
