@@ -76,6 +76,44 @@ function clean_color($value) {
 	return strtolower($raw);
 }
 
+function shift_name_key($value) {
+	$text = trim((string)$value);
+	if ($text === '') return '';
+	if (function_exists('mb_strtolower')) {
+		return mb_strtolower($text);
+	}
+	return strtolower($text);
+}
+
+function find_matching_shift(PDO $pdo, $userId, $nameKey, $start, $end, $commuteBefore, $commuteAfter, $excludeId = null) {
+	$sql = "
+		SELECT id, name, start_time, end_time, commute_before, commute_after, is_default
+		FROM candor.work_shifts
+		WHERE user_id = ?
+			AND COALESCE(LOWER(TRIM(name)), '') = ?
+			AND start_time IS NOT DISTINCT FROM ?
+			AND end_time IS NOT DISTINCT FROM ?
+			AND COALESCE(commute_before, 0) = ?
+			AND COALESCE(commute_after, 0) = ?
+	";
+	$params = [
+		(int)$userId,
+		$nameKey,
+		$start !== '' ? $start : null,
+		$end !== '' ? $end : null,
+		(int)$commuteBefore,
+		(int)$commuteAfter,
+	];
+	if ($excludeId !== null) {
+		$sql .= " AND id <> ?";
+		$params[] = (int)$excludeId;
+	}
+	$sql .= " LIMIT 1";
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute($params);
+	return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 function clean_block_type($value) {
 	$raw = trim((string)$value);
 	$allowed = ['routine', 'work', 'focus', 'custom'];
@@ -849,6 +887,46 @@ if ($action === 'add_shift') {
 		? max(0, (int)$payload['commute_after'])
 		: 0;
 	$isDefault = !empty($payload['is_default']) ? 1 : 0;
+	$nameKey = shift_name_key($name);
+	$match = find_matching_shift($pdo, $userId, $nameKey, $start, $end, $commuteBefore, $commuteAfter, null);
+	if ($match) {
+		if ($isDefault) {
+			$pdo->prepare("UPDATE candor.work_shifts SET is_default = FALSE WHERE user_id = ?")
+				->execute([(int)$userId]);
+		}
+		$stmt = $pdo->prepare("
+			UPDATE candor.work_shifts
+			SET name = ?, start_time = ?, end_time = ?, commute_before = ?, commute_after = ?, is_default = ?, updated_at = NOW()
+			WHERE id = ? AND user_id = ?
+			RETURNING id, name, start_time, end_time, commute_before, commute_after, is_default
+		");
+		$stmt->execute([
+			$name,
+			$start,
+			$end,
+			$commuteBefore,
+			$commuteAfter,
+			$isDefault,
+			(int)$match['id'],
+			(int)$userId,
+		]);
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($row) {
+			$startOut = substr((string)$row['start_time'], 0, 5);
+			$endOut = substr((string)$row['end_time'], 0, 5);
+			respond([
+				'shift' => [
+					'id' => (string)$row['id'],
+					'name' => (string)($row['name'] ?? ''),
+					'start' => $startOut,
+					'end' => $endOut,
+					'commute_before' => isset($row['commute_before']) ? (int)$row['commute_before'] : 0,
+					'commute_after' => isset($row['commute_after']) ? (int)$row['commute_after'] : 0,
+					'is_default' => !empty($row['is_default']),
+				],
+			]);
+		}
+	}
 	if ($isDefault) {
 		$pdo->prepare("UPDATE candor.work_shifts SET is_default = FALSE WHERE user_id = ?")
 			->execute([(int)$userId]);
@@ -902,6 +980,55 @@ if ($action === 'update_shift') {
 		? max(0, (int)$payload['commute_after'])
 		: 0;
 	$isDefault = !empty($payload['is_default']) ? 1 : 0;
+	$nameKey = shift_name_key($name);
+	$match = find_matching_shift($pdo, $userId, $nameKey, $start, $end, $commuteBefore, $commuteAfter, $id);
+	if ($match) {
+		$pdo->beginTransaction();
+		if ($isDefault) {
+			$pdo->prepare("UPDATE candor.work_shifts SET is_default = FALSE WHERE user_id = ?")
+				->execute([(int)$userId]);
+		}
+		$stmt = $pdo->prepare("
+			UPDATE candor.work_shifts
+			SET name = ?, start_time = ?, end_time = ?, commute_before = ?, commute_after = ?, is_default = ?, updated_at = NOW()
+			WHERE id = ? AND user_id = ?
+			RETURNING id, name, start_time, end_time, commute_before, commute_after, is_default
+		");
+		$stmt->execute([
+			$name,
+			$start,
+			$end,
+			$commuteBefore,
+			$commuteAfter,
+			$isDefault,
+			(int)$match['id'],
+			(int)$userId,
+		]);
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$pdo->prepare("UPDATE candor.routines SET shift_id = ? WHERE user_id = ? AND shift_id = ?")
+			->execute([(int)$match['id'], (int)$userId, $id]);
+		$pdo->prepare("UPDATE candor.work_shift_overrides SET shift_id = ? WHERE user_id = ? AND shift_id = ?")
+			->execute([(int)$match['id'], (int)$userId, $id]);
+		$pdo->prepare("DELETE FROM candor.work_shifts WHERE id = ? AND user_id = ?")
+			->execute([$id, (int)$userId]);
+		$pdo->commit();
+		if ($row) {
+			$startOut = substr((string)$row['start_time'], 0, 5);
+			$endOut = substr((string)$row['end_time'], 0, 5);
+			respond([
+				'shift' => [
+					'id' => (string)$row['id'],
+					'name' => (string)($row['name'] ?? ''),
+					'start' => $startOut,
+					'end' => $endOut,
+					'commute_before' => isset($row['commute_before']) ? (int)$row['commute_before'] : 0,
+					'commute_after' => isset($row['commute_after']) ? (int)$row['commute_after'] : 0,
+					'is_default' => !empty($row['is_default']),
+				],
+			]);
+		}
+		respond(['error' => 'not_found'], 404);
+	}
 	if ($isDefault) {
 		$pdo->prepare("UPDATE candor.work_shifts SET is_default = FALSE WHERE user_id = ?")
 			->execute([(int)$userId]);
@@ -963,6 +1090,147 @@ if ($action === 'set_default_shift') {
 	$pdo->prepare("UPDATE candor.work_shifts SET is_default = TRUE, updated_at = NOW() WHERE id = ? AND user_id = ?")
 		->execute([$id, (int)$userId]);
 	respond(['ok' => true]);
+}
+
+if ($action === 'dedupe_shifts') {
+	$apply = false;
+	if (isset($payload['apply'])) {
+		$apply = filter_var($payload['apply'], FILTER_VALIDATE_BOOLEAN);
+	} elseif (isset($payload['dry_run'])) {
+		$apply = !filter_var($payload['dry_run'], FILTER_VALIDATE_BOOLEAN);
+	}
+
+	$stmt = $pdo->prepare("
+		SELECT id, name, start_time, end_time, commute_before, commute_after, is_default
+		FROM candor.work_shifts
+		WHERE user_id = ?
+		ORDER BY id ASC
+	");
+	$stmt->execute([(int)$userId]);
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	$usageRoutines = [];
+	$stmt = $pdo->prepare("
+		SELECT shift_id, COUNT(*) AS cnt
+		FROM candor.routines
+		WHERE user_id = ? AND shift_id IS NOT NULL
+		GROUP BY shift_id
+	");
+	$stmt->execute([(int)$userId]);
+	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		$usageRoutines[(string)$row['shift_id']] = (int)$row['cnt'];
+	}
+
+	$usageOverrides = [];
+	$stmt = $pdo->prepare("
+		SELECT shift_id, COUNT(*) AS cnt
+		FROM candor.work_shift_overrides
+		WHERE user_id = ? AND shift_id IS NOT NULL
+		GROUP BY shift_id
+	");
+	$stmt->execute([(int)$userId]);
+	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		$usageOverrides[(string)$row['shift_id']] = (int)$row['cnt'];
+	}
+
+	$groups = [];
+	foreach ($rows as $row) {
+		$name = trim((string)($row['name'] ?? ''));
+		$start = !empty($row['start_time']) ? substr((string)$row['start_time'], 0, 5) : '';
+		$end = !empty($row['end_time']) ? substr((string)$row['end_time'], 0, 5) : '';
+		$commuteBefore = isset($row['commute_before']) ? (int)$row['commute_before'] : 0;
+		$commuteAfter = isset($row['commute_after']) ? (int)$row['commute_after'] : 0;
+		$key = implode('|', [$name, $start, $end, $commuteBefore, $commuteAfter]);
+		if (!isset($groups[$key])) {
+			$groups[$key] = [
+				'name' => $name,
+				'start' => $start,
+				'end' => $end,
+				'commute_before' => $commuteBefore,
+				'commute_after' => $commuteAfter,
+				'rows' => [],
+			];
+		}
+		$groups[$key]['rows'][] = [
+			'id' => (int)$row['id'],
+			'is_default' => !empty($row['is_default']),
+		];
+	}
+
+	$duplicates = [];
+	foreach ($groups as $group) {
+		if (count($group['rows']) <= 1) continue;
+		$rows = $group['rows'];
+		$defaultRows = array_values(array_filter($rows, fn($item) => !empty($item['is_default'])));
+		$pickFrom = $defaultRows ? $defaultRows : $rows;
+		usort($pickFrom, fn($a, $b) => $a['id'] <=> $b['id']);
+		$canonical = end($pickFrom);
+		$ids = array_map(fn($item) => $item['id'], $rows);
+		$dupIds = array_values(array_filter($ids, fn($id) => $id !== $canonical['id']));
+		$routineUses = [];
+		$overrideUses = [];
+		foreach ($ids as $id) {
+			$routineUses[(string)$id] = $usageRoutines[(string)$id] ?? 0;
+			$overrideUses[(string)$id] = $usageOverrides[(string)$id] ?? 0;
+		}
+		$duplicates[] = [
+			'name' => $group['name'],
+			'start' => $group['start'],
+			'end' => $group['end'],
+			'commute_before' => $group['commute_before'],
+			'commute_after' => $group['commute_after'],
+			'ids' => $ids,
+			'canonical_id' => $canonical['id'],
+			'duplicate_ids' => $dupIds,
+			'routine_uses' => $routineUses,
+			'override_uses' => $overrideUses,
+		];
+	}
+
+	$updatedRoutines = 0;
+	$updatedOverrides = 0;
+	$deleted = [];
+	if ($apply && $duplicates) {
+		$pdo->beginTransaction();
+		foreach ($duplicates as $dup) {
+			$dupIds = $dup['duplicate_ids'];
+			if (!$dupIds) continue;
+			$placeholders = implode(',', array_fill(0, count($dupIds), '?'));
+			$params = array_merge([$dup['canonical_id'], (int)$userId], $dupIds);
+			$stmt = $pdo->prepare("
+				UPDATE candor.routines
+				SET shift_id = ?
+				WHERE user_id = ? AND shift_id IN ($placeholders)
+			");
+			$stmt->execute($params);
+			$updatedRoutines += $stmt->rowCount();
+
+			$stmt = $pdo->prepare("
+				UPDATE candor.work_shift_overrides
+				SET shift_id = ?
+				WHERE user_id = ? AND shift_id IN ($placeholders)
+			");
+			$stmt->execute($params);
+			$updatedOverrides += $stmt->rowCount();
+
+			$stmt = $pdo->prepare("
+				DELETE FROM candor.work_shifts
+				WHERE user_id = ? AND id IN ($placeholders)
+			");
+			$stmt->execute(array_merge([(int)$userId], $dupIds));
+			$deleted = array_merge($deleted, $dupIds);
+		}
+		$pdo->commit();
+	}
+
+	respond([
+		'ok' => true,
+		'applied' => $apply,
+		'duplicates' => $duplicates,
+		'updated_routines' => $updatedRoutines,
+		'updated_overrides' => $updatedOverrides,
+		'deleted_ids' => $deleted,
+	]);
 }
 
 respond(['error' => 'invalid_action'], 400);
