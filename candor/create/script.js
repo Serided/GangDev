@@ -669,10 +669,21 @@
             opts.body = JSON.stringify(payload);
         }
         const res = await fetch(url, opts);
+        const text = await res.text();
+        let data = null;
+        if (text) {
+            try {
+                data = JSON.parse(text);
+            } catch {
+                data = null;
+            }
+        }
         if (!res.ok) {
+            const detail = data && typeof data === "object" ? data : text;
+            console.error("API error", res.status, detail);
             throw new Error(`api ${res.status}`);
         }
-        return res.json();
+        return data || {};
     };
 
     let storageMode = "remote";
