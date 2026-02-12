@@ -1163,6 +1163,7 @@
     let editSync = false;
 
     const calendarRoot = document.querySelector(".calendarShell");
+    let dayGrid = null;
     let calendarApi = null;
     let virtualWindows = new Map();
     const plannedSleepByDate = {};
@@ -1173,7 +1174,7 @@
         const dayTitle = calendarRoot.querySelector("[data-day-title]");
         const daySub = calendarRoot.querySelector("[data-day-sub]");
         const dayShort = calendarRoot.querySelector("[data-day-short]");
-        const dayGrid = calendarRoot.querySelector("[data-day-grid]");
+        dayGrid = calendarRoot.querySelector("[data-day-grid]");
         const taskRail = calendarRoot.querySelector("[data-task-rail]");
         const noteRail = calendarRoot.querySelector("[data-note-rail]");
         const daySchedule = calendarRoot.querySelector("[data-day-schedule]");
