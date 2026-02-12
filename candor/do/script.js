@@ -71,6 +71,10 @@
     const shiftOverridesLocal = loadJson("shift_overrides", {});
     const windowOverridesLocal = loadJson("window_overrides", {});
     const activeSessionLocal = loadJson("active_session", null);
+    const routineTaskChecksLocal = loadJson("routine_task_checks", {});
+    let routineTaskChecks = routineTaskChecksLocal && typeof routineTaskChecksLocal === "object"
+        ? { ...routineTaskChecksLocal }
+        : {};
 
     const makeId = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 
@@ -1145,8 +1149,12 @@
     const editClose = editOverlay ? editOverlay.querySelector("[data-edit-close]") : null;
     const editStartNow = editOverlay ? editOverlay.querySelector("[data-edit-start-now]") : null;
     const editFinishNow = editOverlay ? editOverlay.querySelector("[data-edit-finish-now]") : null;
+    const editRestartNow = editOverlay ? editOverlay.querySelector("[data-edit-restart]") : null;
     const editActions = editOverlay ? editOverlay.querySelector("[data-edit-actions]") : null;
     const editActionsSecondary = editOverlay ? editOverlay.querySelector("[data-edit-actions-secondary]") : null;
+    const editTasksWrap = editOverlay ? editOverlay.querySelector("[data-edit-tasks]") : null;
+    const editTasksList = editOverlay ? editOverlay.querySelector("[data-edit-tasks-list]") : null;
+    const editTasksHint = editOverlay ? editOverlay.querySelector("[data-edit-tasks-hint]") : null;
     const editSave = editOverlay ? editOverlay.querySelector("[data-edit-save]") : null;
     const editReset = editOverlay ? editOverlay.querySelector("[data-edit-reset]") : null;
     const noteOverlay = document.querySelector("[data-note-overlay]");
@@ -2668,20 +2676,143 @@
         return false;
     };
 
+    const getRoutineIdFromWindow = (windowItem) => {
+        if (!windowItem || !windowItem.id) return null;
+        const match = String(windowItem.id).match(/^routine-(\d+)-/);
+        return match ? match[1] : null;
+    };
+
+    const getRoutineForWindow = (windowItem) => {
+        if (!windowItem || windowItem.source !== "routine") return null;
+        const routineId = getRoutineIdFromWindow(windowItem);
+        if (!routineId) return null;
+        return state.routines.find((routine) => String(routine.id) === String(routineId)) || null;
+    };
+
+    const taskCheckKeyFor = (windowItem) => {
+        if (!windowItem) return "";
+        const routineId = getRoutineIdFromWindow(windowItem);
+        const dateKeyValue = windowItem.date || "";
+        if (!routineId || !dateKeyValue) return "";
+        return `routine-${routineId}-${dateKeyValue}`;
+    };
+
+    const saveTaskChecks = () => {
+        saveJson("routine_task_checks", routineTaskChecks);
+    };
+
+    const getTaskChecks = (key, count) => {
+        if (!key) return Array.from({ length: count }, () => false);
+        let current = routineTaskChecks[key];
+        if (!Array.isArray(current)) {
+            current = Array.from({ length: count }, () => false);
+            routineTaskChecks[key] = current;
+            saveTaskChecks();
+        } else if (current.length < count) {
+            current = current.concat(Array.from({ length: count - current.length }, () => false));
+            routineTaskChecks[key] = current;
+            saveTaskChecks();
+        }
+        return current;
+    };
+
+    const setTaskChecks = (key, checks) => {
+        if (!key) return;
+        routineTaskChecks[key] = checks;
+        saveTaskChecks();
+    };
+
+    const clearTaskChecks = (key) => {
+        if (!key) return;
+        delete routineTaskChecks[key];
+        saveTaskChecks();
+    };
+
+    const areEditTasksComplete = () => {
+        const routine = getRoutineForWindow(activeEditWindow);
+        if (!routine || !Array.isArray(routine.tasks) || routine.tasks.length === 0) return true;
+        const key = taskCheckKeyFor(activeEditWindow);
+        const checks = getTaskChecks(key, routine.tasks.length);
+        return checks.every((checked) => checked);
+    };
+
+    const renderEditTasks = () => {
+        if (!editTasksWrap || !editTasksList) return;
+        const routine = getRoutineForWindow(activeEditWindow);
+        if (!routine || !Array.isArray(routine.tasks) || routine.tasks.length === 0) {
+            editTasksWrap.classList.remove("is-visible");
+            editTasksList.innerHTML = "";
+            if (editTasksHint) editTasksHint.textContent = "";
+            return;
+        }
+        const key = taskCheckKeyFor(activeEditWindow);
+        const checks = getTaskChecks(key, routine.tasks.length);
+        editTasksList.innerHTML = "";
+        routine.tasks.forEach((task, index) => {
+            const row = document.createElement("label");
+            row.className = "editTaskRow";
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = Boolean(checks[index]);
+            checkbox.addEventListener("change", () => {
+                checks[index] = checkbox.checked;
+                setTaskChecks(key, checks);
+                if (editTasksHint) {
+                    const remaining = checks.filter((value) => !value).length;
+                    editTasksHint.textContent = remaining ? `${remaining} left` : "All complete";
+                }
+                updateEditActionsVisibility();
+            });
+            const text = document.createElement("div");
+            text.className = "editTaskText";
+            const title = normalizeText(task.title ?? task.text ?? "");
+            const minutes = Number.isFinite(task.minutes) ? task.minutes : null;
+            text.textContent = title || "Task";
+            if (minutes) {
+                const meta = document.createElement("span");
+                meta.textContent = ` · ${minutes}m`;
+                text.appendChild(meta);
+            }
+            row.appendChild(checkbox);
+            row.appendChild(text);
+            editTasksList.appendChild(row);
+        });
+        if (editTasksHint) {
+            const remaining = checks.filter((value) => !value).length;
+            editTasksHint.textContent = remaining ? `${remaining} left` : "All complete";
+        }
+        editTasksWrap.classList.add("is-visible");
+    };
+
     const updateEditActionsVisibility = () => {
-        const canLive = isTodayKey(getEditDateKey()) && activeEditKind !== "event";
-        const isRunning = canLive && isEditSessionActive();
-        if (editActions) {
-            editActions.style.display = canLive ? "grid" : "none";
-            editActions.classList.toggle("is-single", canLive);
+        const editKey = getEditDateKey();
+        const isSleep = activeEditKind === "sleep";
+        const canStart = isTodayKey(editKey) && activeEditKind !== "event";
+        const canFinish = activeEditKind !== "event"
+            && (isTodayKey(editKey) || (isSleep && isYesterdayKey(editKey)));
+        const isRunning = isEditSessionActive();
+        const tasksComplete = areEditTasksComplete();
+        let showRestart = false;
+        if (editRestartNow) {
+            const endValue = editEndInput ? editEndInput.value : "";
+            showRestart = canStart && !isRunning && Boolean(endValue);
+            editRestartNow.style.display = showRestart ? "" : "none";
         }
         if (editStartNow) {
-            editStartNow.disabled = !canLive;
-            editStartNow.style.display = isRunning ? "none" : "";
+            editStartNow.disabled = !canStart;
+            editStartNow.style.display = (isRunning || showRestart) ? "none" : "";
         }
         if (editFinishNow) {
-            editFinishNow.disabled = !canLive;
+            editFinishNow.disabled = !canFinish || !tasksComplete;
+            editFinishNow.classList.toggle("is-locked", !tasksComplete);
             editFinishNow.style.display = isRunning ? "" : "none";
+        }
+        if (editActions) {
+            editActions.style.display = (canStart || canFinish) ? "grid" : "none";
+            const visibleCount = [editStartNow, editFinishNow, editRestartNow]
+                .filter((btn) => btn && btn.style.display !== "none").length;
+            editActions.classList.toggle("is-single", visibleCount <= 1);
+            editActions.classList.toggle("is-triple", visibleCount >= 3);
         }
         if (editActionsSecondary) {
             editActionsSecondary.style.display = isEditDirty() ? "flex" : "none";
@@ -3116,6 +3247,7 @@
         const shiftValue = editShiftSelect ? editShiftSelect.value : "";
         syncEditInitial(initialStart, initialEnd, shiftValue);
         updateEditDelta();
+        renderEditTasks();
         editOverlay.classList.add("is-open");
     };
 
@@ -3141,6 +3273,7 @@
         editSync = false;
         syncEditInitial(initialStart, initialEnd);
         updateEditDelta();
+        renderEditTasks();
         editOverlay.classList.add("is-open");
     };
 
@@ -3154,6 +3287,7 @@
         plannedTimes = { start: "", end: "" };
         plannedShiftId = null;
         if (editShiftRow) editShiftRow.classList.remove("is-visible");
+        renderEditTasks();
     };
 
     const pickTimelineTargets = (event) => {
@@ -3565,75 +3699,79 @@
             updateEditActionsVisibility();
         });
     }
+    const runEditStartNow = () => {
+        if (!isTodayKey(getEditDateKey()) || activeEditKind === "event") return;
+        const value = nowTime();
+        const prevStartValue = editStartInput ? editStartInput.value : "";
+        const prevEndValue = editEndInput ? editEndInput.value : "";
+        const currentDuration = durationMinutes(prevStartValue, prevEndValue);
+        const shiftedEnd = Number.isFinite(currentDuration) && currentDuration > 0
+            ? addMinutesToTime(value, currentDuration)
+            : "";
+        editSync = true;
+        if (editStartField) setFieldValue(editStartField, value, { emit: false });
+        if (shiftedEnd && editEndField) setFieldValue(editEndField, shiftedEnd, { emit: false });
+        editSync = false;
+        const endValue = editEndInput ? editEndInput.value : "";
+        if (activeEditKind === "sleep") {
+            const nextEnd = shiftedEnd || endValue || "";
+            updateSleepLog(activeEditSleepKey, value, nextEnd ? nextEnd : undefined);
+            if (activeEditSleepKey) {
+                setActiveSession({ kind: "sleep", key: activeEditSleepKey, start: value });
+            }
+        } else if (activeEditWindow) {
+            const planned = getPlannedWindowForEdit(activeEditWindow);
+            if (planned) {
+                const plannedStartMin = parseMinutes(planned.start);
+                const plannedEndMin = parseMinutes(planned.end);
+                const nowMin = parseMinutes(value);
+                const delta = plannedStartMin !== null && nowMin !== null ? nowMin - plannedStartMin : 0;
+                const plannedDuration = durationMinutes(planned.start, planned.end);
+                const pickedDuration = Number.isFinite(currentDuration) && currentDuration > 0
+                    ? currentDuration
+                    : plannedDuration;
+                const baseEnd = pickedDuration !== null && nowMin !== null
+                    ? minutesToTimeClamped(nowMin + pickedDuration)
+                    : (planned.end ? shiftTimeInDay(planned.end, delta) : "");
+                const cutoff = plannedEndMin !== null ? plannedEndMin : plannedStartMin;
+                void applyWindowScheduleShift(planned, {
+                    delta,
+                    cutoff: cutoff !== null ? cutoff : null,
+                    baseStart: value,
+                    baseEnd,
+                });
+                setActiveSession({ kind: "window", id: planned.id, start: value });
+            } else {
+                const nextEnd = shiftedEnd || endValue || "";
+                updateWindowTimes(activeEditWindow.id, value, nextEnd ? nextEnd : undefined);
+                setActiveSession({ kind: "window", id: activeEditWindow.id, start: value });
+            }
+        } else if (activeEditKind === "shift" && activeEditShiftKey) {
+            const override = state.shiftOverrides[activeEditShiftKey];
+            const overrideId = override && typeof override === "object" ? override.shiftId : (override ?? undefined);
+            const baseShift = getDefaultShift();
+            const shiftId = overrideId !== undefined ? overrideId : (baseShift ? baseShift.id : null);
+            if (shiftId !== null) {
+                const nextEnd = shiftedEnd || endValue || "";
+                updateShiftOverride(activeEditShiftKey, {
+                    shiftId,
+                    start: value,
+                    end: nextEnd,
+                });
+                setActiveSession({ kind: "shift", key: activeEditShiftKey, start: value });
+            }
+        }
+        updateEditDelta();
+        renderEditTasks();
+        updateEditActionsVisibility();
+    };
     if (editStartNow) {
         editStartNow.addEventListener("click", (event) => {
             if (event) {
                 event.preventDefault();
                 event.stopPropagation();
             }
-            if (!isTodayKey(getEditDateKey()) || activeEditKind === "event") return;
-            const value = nowTime();
-            const prevStartValue = editStartInput ? editStartInput.value : "";
-            const prevEndValue = editEndInput ? editEndInput.value : "";
-            const currentDuration = durationMinutes(prevStartValue, prevEndValue);
-            const shiftedEnd = Number.isFinite(currentDuration) && currentDuration > 0
-                ? addMinutesToTime(value, currentDuration)
-                : "";
-            editSync = true;
-            if (editStartField) setFieldValue(editStartField, value, { emit: false });
-            if (shiftedEnd && editEndField) setFieldValue(editEndField, shiftedEnd, { emit: false });
-            editSync = false;
-            const endValue = editEndInput ? editEndInput.value : "";
-            if (activeEditKind === "sleep") {
-                const nextEnd = shiftedEnd || endValue || "";
-                updateSleepLog(activeEditSleepKey, value, nextEnd ? nextEnd : undefined);
-                if (activeEditSleepKey) {
-                    setActiveSession({ kind: "sleep", key: activeEditSleepKey, start: value });
-                }
-            } else if (activeEditWindow) {
-                const planned = getPlannedWindowForEdit(activeEditWindow);
-                if (planned) {
-                    const plannedStartMin = parseMinutes(planned.start);
-                    const plannedEndMin = parseMinutes(planned.end);
-                    const nowMin = parseMinutes(value);
-                    const delta = plannedStartMin !== null && nowMin !== null ? nowMin - plannedStartMin : 0;
-                    const plannedDuration = durationMinutes(planned.start, planned.end);
-                    const pickedDuration = Number.isFinite(currentDuration) && currentDuration > 0
-                        ? currentDuration
-                        : plannedDuration;
-                    const baseEnd = pickedDuration !== null && nowMin !== null
-                        ? minutesToTimeClamped(nowMin + pickedDuration)
-                        : (planned.end ? shiftTimeInDay(planned.end, delta) : "");
-                    const cutoff = plannedEndMin !== null ? plannedEndMin : plannedStartMin;
-                    void applyWindowScheduleShift(planned, {
-                        delta,
-                        cutoff: cutoff !== null ? cutoff : null,
-                        baseStart: value,
-                        baseEnd,
-                    });
-                    setActiveSession({ kind: "window", id: planned.id, start: value });
-                } else {
-                    const nextEnd = shiftedEnd || endValue || "";
-                    updateWindowTimes(activeEditWindow.id, value, nextEnd ? nextEnd : undefined);
-                    setActiveSession({ kind: "window", id: activeEditWindow.id, start: value });
-                }
-            } else if (activeEditKind === "shift" && activeEditShiftKey) {
-                const override = state.shiftOverrides[activeEditShiftKey];
-                const overrideId = override && typeof override === "object" ? override.shiftId : (override ?? undefined);
-                const baseShift = getDefaultShift();
-                const shiftId = overrideId !== undefined ? overrideId : (baseShift ? baseShift.id : null);
-                if (shiftId !== null) {
-                    const nextEnd = shiftedEnd || endValue || "";
-                    updateShiftOverride(activeEditShiftKey, {
-                        shiftId,
-                        start: value,
-                        end: nextEnd,
-                    });
-                    setActiveSession({ kind: "shift", key: activeEditShiftKey, start: value });
-                }
-            }
-            updateEditDelta();
-            closeEdit();
+            runEditStartNow();
         });
     }
     if (editFinishNow) {
@@ -3647,6 +3785,7 @@
                 ? (isTodayKey(editKey) || isYesterdayKey(editKey))
                 : isTodayKey(editKey);
             if (!allowFinish || activeEditKind === "event") return;
+            if (!areEditTasksComplete()) return;
             const value = nowTime();
             editSync = true;
             if (editEndField) setFieldValue(editEndField, value, { emit: false });
@@ -3710,6 +3849,19 @@
             }
             updateEditDelta();
             closeEdit();
+        });
+    }
+    if (editRestartNow) {
+        editRestartNow.addEventListener("click", (event) => {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            if (!isTodayKey(getEditDateKey()) || activeEditKind === "event") return;
+            if (editEndInput && !editEndInput.value) return;
+            const taskKey = taskCheckKeyFor(activeEditWindow);
+            clearTaskChecks(taskKey);
+            runEditStartNow();
         });
     }
     if (editSave) {

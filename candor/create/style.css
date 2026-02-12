@@ -368,7 +368,7 @@ a { color: inherit; text-decoration: none; }
     max-height: clamp(60px, 14vh, 120px);
     overflow-y: auto;
     scrollbar-gutter: stable both-edges;
-    padding-right: 12px;
+    padding-right: 16px;
 }
 
 .routineCard {
@@ -388,6 +388,7 @@ a { color: inherit; text-decoration: none; }
     max-height: none;
     flex: 1;
     min-height: 0;
+    scrollbar-gutter: stable both-edges;
 }
 
 .routineCard .formActions {
@@ -1110,6 +1111,7 @@ a { color: inherit; text-decoration: none; }
     margin-top: 6px;
     display: grid;
     gap: 10px;
+    padding-right: 4px;
 }
 
 .itemRow {
