@@ -25,7 +25,7 @@ $candorVersion = 'v0.2';
 	<title>Candor - Create</title>
 	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
 	<link rel="stylesheet" href="style.css?v=39">
-	<script src="script.js?v=37" defer></script>
+	<script src="script.js?v=38" defer></script>
 </head>
 <body class="is-create" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>">
 

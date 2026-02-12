@@ -1883,7 +1883,7 @@
                 commute_after: Number.isFinite(payload.commuteAfter) ? payload.commuteAfter : 0,
                 is_default: payload.isDefault,
             };
-            if (isShiftShared(selectedShift.id)) {
+            const createNewShift = async () => {
                 const created = await addShift({
                     action: "add_shift",
                     name: shiftPayload.name,
@@ -1894,9 +1894,13 @@
                     is_default: shiftPayload.is_default,
                 });
                 return created ? created.id : selectedShift.id;
+            };
+            if (isShiftShared(selectedShift.id)) {
+                return createNewShift();
             }
             const updated = await updateShift(shiftPayload);
-            return updated ? updated.id : selectedShift.id;
+            if (updated) return updated.id;
+            return createNewShift();
         }
         const shiftPayload = {
             action: "add_shift",
