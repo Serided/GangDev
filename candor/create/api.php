@@ -848,7 +848,7 @@ if ($action === 'add_shift') {
 	$commuteAfter = isset($payload['commute_after']) && is_numeric($payload['commute_after'])
 		? max(0, (int)$payload['commute_after'])
 		: 0;
-	$isDefault = !empty($payload['is_default']);
+	$isDefault = !empty($payload['is_default']) ? 1 : 0;
 	if ($isDefault) {
 		$pdo->prepare("UPDATE candor.work_shifts SET is_default = FALSE WHERE user_id = ?")
 			->execute([(int)$userId]);
@@ -901,7 +901,7 @@ if ($action === 'update_shift') {
 	$commuteAfter = isset($payload['commute_after']) && is_numeric($payload['commute_after'])
 		? max(0, (int)$payload['commute_after'])
 		: 0;
-	$isDefault = !empty($payload['is_default']);
+	$isDefault = !empty($payload['is_default']) ? 1 : 0;
 	if ($isDefault) {
 		$pdo->prepare("UPDATE candor.work_shifts SET is_default = FALSE WHERE user_id = ?")
 			->execute([(int)$userId]);
