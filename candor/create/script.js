@@ -1862,17 +1862,6 @@
             && (shift.commuteAfter || 0) === (payload.commuteAfter || 0);
     };
 
-    const isShiftShared = (shiftId) => {
-        if (!shiftId || !editingRoutineId) return false;
-        const activeId = String(editingRoutineId);
-        return state.routines.some((routine) => {
-            if (!routine || routine.type !== "work") return false;
-            if (!routine.shiftId) return false;
-            if (String(routine.shiftId) !== String(shiftId)) return false;
-            return String(routine.id) !== activeId;
-        });
-    };
-
     const ensureWorkShift = async () => {
         const payload = buildShiftPayload();
         if (!payload.start || !payload.end) return null;
@@ -1895,24 +1884,9 @@
                 commute_after: Number.isFinite(payload.commuteAfter) ? payload.commuteAfter : 0,
                 is_default: payload.isDefault,
             };
-            const createNewShift = async () => {
-                const created = await addShift({
-                    action: "add_shift",
-                    name: shiftPayload.name,
-                    start: shiftPayload.start,
-                    end: shiftPayload.end,
-                    commute_before: shiftPayload.commute_before,
-                    commute_after: shiftPayload.commute_after,
-                    is_default: shiftPayload.is_default,
-                });
-                return created ? created.id : selectedShift.id;
-            };
-            if (editingRoutineId || isShiftShared(selectedShift.id)) {
-                return createNewShift();
-            }
             const updated = await updateShift(shiftPayload);
             if (updated) return updated.id;
-            return createNewShift();
+            return selectedShift.id;
         }
         const existingMatch = state.shifts.find((item) => shiftMatches(item, payload));
         if (existingMatch) {

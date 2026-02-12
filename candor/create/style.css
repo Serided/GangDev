@@ -367,8 +367,8 @@ a { color: inherit; text-decoration: none; }
 .savedScroll {
     max-height: clamp(60px, 14vh, 120px);
     overflow-y: auto;
-    scrollbar-gutter: stable;
-    padding-right: 2px;
+    scrollbar-gutter: stable both-edges;
+    padding-right: 12px;
 }
 
 .routineCard {
@@ -1692,10 +1692,20 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 720px) {
+    html, body {
+        height: auto;
+        overflow: auto;
+    }
+    body {
+        min-height: 100vh;
+    }
     .page {
         --page-gutter: 12px;
         padding: var(--edge-pad) var(--page-gutter);
         gap: 12px;
+        height: auto;
+        min-height: 100%;
+        overflow: visible;
     }
     .hero {
         margin-top: 4px;
@@ -1825,7 +1835,13 @@ a { color: inherit; text-decoration: none; }
     }
     .sleepSummary,
     .savedSection {
-        display: none;
+        display: grid;
+    }
+    .savedScroll {
+        max-height: clamp(140px, 28vh, 220px);
+    }
+    .routineCard .savedScroll {
+        max-height: clamp(160px, 32vh, 240px);
     }
     .routineTotal {
         text-align: left;

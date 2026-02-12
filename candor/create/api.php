@@ -85,24 +85,16 @@ function shift_name_key($value) {
 	return strtolower($text);
 }
 
-function find_matching_shift(PDO $pdo, $userId, $nameKey, $start, $end, $commuteBefore, $commuteAfter, $excludeId = null) {
+function find_matching_shift(PDO $pdo, $userId, $nameKey, $excludeId = null) {
 	$sql = "
 		SELECT id, name, start_time, end_time, commute_before, commute_after, is_default
 		FROM candor.work_shifts
 		WHERE user_id = ?
 			AND COALESCE(LOWER(TRIM(name)), '') = ?
-			AND start_time IS NOT DISTINCT FROM ?
-			AND end_time IS NOT DISTINCT FROM ?
-			AND COALESCE(commute_before, 0) = ?
-			AND COALESCE(commute_after, 0) = ?
 	";
 	$params = [
 		(int)$userId,
 		$nameKey,
-		$start !== '' ? $start : null,
-		$end !== '' ? $end : null,
-		(int)$commuteBefore,
-		(int)$commuteAfter,
 	];
 	if ($excludeId !== null) {
 		$sql .= " AND id <> ?";
@@ -888,7 +880,7 @@ if ($action === 'add_shift') {
 		: 0;
 	$isDefault = !empty($payload['is_default']) ? 1 : 0;
 	$nameKey = shift_name_key($name);
-	$match = find_matching_shift($pdo, $userId, $nameKey, $start, $end, $commuteBefore, $commuteAfter, null);
+	$match = find_matching_shift($pdo, $userId, $nameKey, null);
 	if ($match) {
 		if ($isDefault) {
 			$pdo->prepare("UPDATE candor.work_shifts SET is_default = FALSE WHERE user_id = ?")
@@ -981,7 +973,7 @@ if ($action === 'update_shift') {
 		: 0;
 	$isDefault = !empty($payload['is_default']) ? 1 : 0;
 	$nameKey = shift_name_key($name);
-	$match = find_matching_shift($pdo, $userId, $nameKey, $start, $end, $commuteBefore, $commuteAfter, $id);
+	$match = find_matching_shift($pdo, $userId, $nameKey, $id);
 	if ($match) {
 		$pdo->beginTransaction();
 		if ($isDefault) {
