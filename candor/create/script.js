@@ -1683,16 +1683,17 @@
         updateRoutineFormVisibility();
     };
 
-    const applyShiftToRoutine = (shiftId) => {
+    const applyShiftToRoutine = (shiftId, options = {}) => {
         if (!shiftId) return;
         const shift = state.shifts.find((item) => String(item.id) === String(shiftId));
         if (!shift) return;
+        const shouldLink = options.link !== false;
         if (routineTypeSelect) {
             routineTypeSelect.value = "work";
         }
         handleRoutineTypeChange();
-        if (routineShiftSelect) routineShiftSelect.value = String(shift.id);
-        if (routineShiftId) routineShiftId.value = String(shift.id);
+        if (routineShiftSelect) routineShiftSelect.value = shouldLink ? String(shift.id) : "";
+        if (routineShiftId) routineShiftId.value = shouldLink ? String(shift.id) : "";
         if (routineTitleInput && !routineTitleInput.value.trim()) {
             routineTitleInput.value = shift.name || "Work";
         }
@@ -1709,7 +1710,7 @@
             shiftCommuteAfterInput.value = shift.commuteAfter ? String(shift.commuteAfter) : "";
         }
         if (shiftDefaultInput) {
-            shiftDefaultInput.checked = shift.isDefault;
+            shiftDefaultInput.checked = shouldLink ? shift.isDefault : false;
         }
     };
 
@@ -1759,7 +1760,7 @@
         routineShiftUse.addEventListener("click", () => {
             const shiftId = routineShiftSelect ? routineShiftSelect.value : "";
             if (!shiftId) return;
-            applyShiftToRoutine(shiftId);
+            applyShiftToRoutine(shiftId, { link: false });
         });
     }
 
@@ -1895,7 +1896,7 @@
                 });
                 return created ? created.id : selectedShift.id;
             };
-            if (isShiftShared(selectedShift.id)) {
+            if (editingRoutineId || isShiftShared(selectedShift.id)) {
                 return createNewShift();
             }
             const updated = await updateShift(shiftPayload);
