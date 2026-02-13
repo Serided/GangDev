@@ -986,8 +986,9 @@ body.is-do .welcome {
 }
 
 .monthHeader {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
 }
@@ -997,9 +998,9 @@ body.is-do .welcome {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 36px;
-    justify-self: center;
+    flex: 1;
 }
 
 .monthTitle {
@@ -1020,23 +1021,19 @@ body.is-do .welcome {
     font-size: 18px;
     cursor: pointer;
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.monthNav[data-month-nav="prev"] {
-    left: 25%;
-}
-
-.monthNav[data-month-nav="next"] {
-    left: 75%;
+    position: static;
 }
 
 .monthNav:hover {
-    transform: translate(-50%, calc(-50% - 1px));
+    transform: translateY(-1px);
     box-shadow: 0 10px 22px rgba(90, 143, 185, 0.2);
     background: rgba(185, 219, 242, 0.45);
+}
+
+.monthControls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .monthAction {

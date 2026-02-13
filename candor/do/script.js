@@ -1931,6 +1931,7 @@
                 windows = windows.filter((window) => !(window.virtual && state.windowOverrides[window.id]));
             }
 
+            const sleepSegments = buildSleepSegmentsForDate(stateCal.selected);
             const busySegments = [];
             windows.forEach((window) => {
                 const minutes = parseMinutes(window.start);
@@ -2219,7 +2220,6 @@
                 dayGrid.appendChild(block);
             });
 
-            const sleepSegments = buildSleepSegmentsForDate(stateCal.selected);
             sleepSegments.forEach((segment) => {
                 const block = document.createElement("div");
                 block.className = "sleepBlock";

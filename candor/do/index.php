@@ -62,8 +62,8 @@ $candorVersion = 'v0.2';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>your Candor</title>
 	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
-	<link rel="stylesheet" href="style.css?v=39">
-	<script src="script.js?v=52" defer></script>
+	<link rel="stylesheet" href="style.css?v=40">
+	<script src="script.js?v=53" defer></script>
 </head>
 <body class="is-do" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-user-name="<?= htmlspecialchars($name !== '' ? $name : $email) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>">
 
@@ -160,13 +160,15 @@ $candorVersion = 'v0.2';
 
 		<div class="calendarPanel monthPanel">
 			<div class="monthHeader">
-				<button class="monthAction monthToday" type="button" data-month-nav="today">Today</button>
 				<div class="monthTitleWrap">
-					<button class="monthNav" type="button" data-month-nav="prev" aria-label="Previous month">&lsaquo;</button>
 					<div class="monthTitle" data-month-title></div>
-					<button class="monthNav" type="button" data-month-nav="next" aria-label="Next month">&rsaquo;</button>
 				</div>
-				<button class="monthAction monthAdd" type="button" data-month-add aria-label="Plan ahead">+</button>
+				<div class="monthControls">
+					<button class="monthAction monthToday" type="button" data-month-nav="today">Today</button>
+					<button class="monthNav" type="button" data-month-nav="prev" aria-label="Previous month">&lsaquo;</button>
+					<button class="monthNav" type="button" data-month-nav="next" aria-label="Next month">&rsaquo;</button>
+					<button class="monthAction monthAdd" type="button" data-month-add aria-label="Plan ahead">+</button>
+				</div>
 			</div>
 			<div class="weekdayRow">
 				<span>Sun</span>
