@@ -3904,12 +3904,22 @@
             : "";
         editSync = true;
         if (editStartField) setFieldValue(editStartField, value, { emit: false });
-        if (shiftedEnd && editEndField) setFieldValue(editEndField, shiftedEnd, { emit: false });
+        if (activeEditKind !== "sleep" && shiftedEnd && editEndField) {
+            setFieldValue(editEndField, shiftedEnd, { emit: false });
+        }
         editSync = false;
-        const endValue = editEndInput ? editEndInput.value : "";
+        let endValue = editEndInput ? editEndInput.value : "";
         if (activeEditKind === "sleep") {
-            const nextEnd = shiftedEnd || endValue || "";
-            updateSleepLog(activeEditSleepKey, value, nextEnd ? nextEnd : undefined);
+            const plannedEnd = plannedTimes.end || "";
+            const manualEnd = endValue && endValue !== plannedEnd && endValue !== value;
+            const nextEnd = manualEnd ? endValue : plannedEnd;
+            if (editEndField) {
+                editSync = true;
+                setFieldValue(editEndField, nextEnd || "", { emit: false });
+                editSync = false;
+            }
+            endValue = nextEnd || "";
+            updateSleepLog(activeEditSleepKey, value, endValue);
             if (activeEditSleepKey) {
                 setActiveSession({ kind: "sleep", key: activeEditSleepKey, start: value });
             }
