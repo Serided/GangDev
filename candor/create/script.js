@@ -1435,33 +1435,58 @@
     const sleepDaySelect = sleepForm ? sleepForm.querySelector("#sleep-day") : null;
     const sleepColorInput = sleepForm ? sleepForm.querySelector("#sleep-color") : null;
     let editingSleepId = null;
+    let sleepEndManual = false;
+    let sleepEndProgrammatic = false;
 
     const sleepMinutesForRepeat = () => {
         return recommendedSleepMinutes(ageYears);
+    };
+
+    const computeRecommendedSleepEnd = (start) => {
+        if (!start) return "";
+        const duration = sleepMinutesForRepeat();
+        const endValue = addMinutes(start, duration);
+        const parsed = parseTimeValue(endValue);
+        if (!parsed) return "";
+        return `${pad2(parsed.hour)}:${pad2(parsed.minute)}`;
+    };
+
+    const setSleepEndValue = (value, options = {}) => {
+        if (!sleepEndField) return;
+        sleepEndProgrammatic = true;
+        setFieldValue(sleepEndField, value, options);
+        sleepEndProgrammatic = false;
     };
 
     const updateSleepEnd = () => {
         if (!sleepStartInput || !sleepEndField) return;
         const start = normalizeText(sleepStartInput.value);
         if (!start) {
-            setFieldValue(sleepEndField, "");
+            sleepEndManual = false;
+            setSleepEndValue("", { emit: false });
             return;
         }
-        const duration = sleepMinutesForRepeat();
-        const endValue = addMinutes(start, duration);
-        const parsed = parseTimeValue(endValue);
-        if (!parsed) return;
-        setFieldValue(sleepEndField, `${pad2(parsed.hour)}:${pad2(parsed.minute)}`);
+        if (sleepEndManual) return;
+        const recommended = computeRecommendedSleepEnd(start);
+        if (!recommended) return;
+        setSleepEndValue(recommended);
     };
 
     const startSleepEdit = (rule) => {
         if (!sleepForm || !rule) return;
         editingSleepId = rule.id;
+        const nextStart = rule.start || "";
+        const nextEnd = rule.end || "";
+        sleepEndManual = false;
+        if (nextEnd) {
+            const recommended = computeRecommendedSleepEnd(nextStart);
+            sleepEndManual = recommended ? normalizeText(nextEnd) !== normalizeText(recommended) : true;
+        }
         if (sleepStartField) {
-            setFieldValue(sleepStartField, rule.start || "", { emit: false });
+            setFieldValue(sleepStartField, nextStart, { emit: false });
         }
         if (sleepEndField) {
-            setFieldValue(sleepEndField, rule.end || "", { emit: false });
+            setSleepEndValue(nextEnd, { emit: false });
         }
         if (sleepRepeatSelect) {
             sleepRepeatSelect.value = rule.repeat || "daily";
@@ -1499,6 +1524,7 @@
             editingSleepId = null;
             sleepForm.reset();
             clearTimeFields(sleepForm);
+            sleepEndManual = false;
             const sleepRepeat = sleepForm.querySelector("[data-repeat-select]");
             const sleepDayField = sleepForm.querySelector("[data-day-field]");
             applyRepeatToggle(sleepRepeat, sleepDayField);
@@ -1507,6 +1533,13 @@
 
     if (sleepStartField) {
         sleepStartField.addEventListener("timechange", updateSleepEnd);
+    }
+    if (sleepEndField) {
+        sleepEndField.addEventListener("timechange", () => {
+            if (sleepEndProgrammatic) return;
+            const value = normalizeText(sleepEndInput ? sleepEndInput.value : "");
+            sleepEndManual = Boolean(value);
+        });
     }
     if (sleepRepeatSelect) {
         sleepRepeatSelect.addEventListener("change", () => {
@@ -1523,9 +1556,10 @@
     if (sleepClear) {
         sleepClear.addEventListener("click", () => {
             if (sleepStartField) setFieldValue(sleepStartField, "", { emit: false });
-            if (sleepEndField) setFieldValue(sleepEndField, "", { emit: false });
+            if (sleepEndField) setSleepEndValue("", { emit: false });
             clearRules("sleep");
             editingSleepId = null;
+            sleepEndManual = false;
             if (sleepForm) {
                 sleepForm.reset();
                 clearTimeFields(sleepForm);
