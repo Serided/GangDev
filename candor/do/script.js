@@ -630,15 +630,19 @@
         const key = dateKey(date);
         const log = getSleepLogFor(key);
         const rule = pickSleepRule(date);
-        const start = log && log.start ? log.start : (rule ? rule.start : "");
-        const end = log && log.end ? log.end : (rule ? rule.end : "");
+        const logStart = log && log.start ? log.start : "";
+        const logEnd = log && log.end ? log.end : "";
+        const logDuration = logStart && logEnd ? durationMinutes(logStart, logEnd) : null;
+        const safeLogEnd = logDuration === 0 ? "" : logEnd;
+        const start = logStart || (rule ? rule.start : "");
+        const end = safeLogEnd || (rule ? rule.end : "");
         const duration = start && end ? durationMinutes(start, end) : null;
         const color = rule && rule.color ? rule.color : "";
         return {
             start,
             end,
             duration: duration ?? 0,
-            hasLog: Boolean(log && (log.start || log.end)),
+            hasLog: Boolean(log && (logStart || safeLogEnd)),
             color,
         };
     };
@@ -1374,15 +1378,19 @@
             const key = dateKey(date);
             const log = getSleepLogFor(key);
             const rule = pickSleepRule(date);
-            const start = log && log.start ? log.start : (rule ? rule.start : "");
-            const end = log && log.end ? log.end : (rule ? rule.end : "");
+            const logStart = log && log.start ? log.start : "";
+            const logEnd = log && log.end ? log.end : "";
+            const logDuration = logStart && logEnd ? durationMinutes(logStart, logEnd) : null;
+            const safeLogEnd = logDuration === 0 ? "" : logEnd;
+            const start = logStart || (rule ? rule.start : "");
+            const end = safeLogEnd || (rule ? rule.end : "");
             const duration = start && end ? durationMinutes(start, end) : null;
             const color = rule && rule.color ? rule.color : "";
             return {
                 start,
                 end,
                 duration: duration ?? 0,
-                hasLog: Boolean(log && (log.start || log.end)),
+                hasLog: Boolean(log && (logStart || safeLogEnd)),
                 color,
             };
         };
@@ -1402,7 +1410,7 @@
             };
         };
 
-        const buildRoutinePlan = (date, sleepPlan, workWindow) => {
+        const buildRoutinePlan = (date, sleepPlan, workWindow, options = {}) => {
             const key = dateKey(date);
             const routines = state.routines.filter((routine) =>
                 routine.blockType !== "work" && routineApplies(routine, date)
@@ -1415,12 +1423,13 @@
 
             const morningDuration = morning.reduce((sum, routine) => sum + routineDurationMinutes(routine), 0);
             const eveningDuration = evening.reduce((sum, routine) => sum + routineDurationMinutes(routine), 0);
+            const morningAnchor = normalizeText(options.morningAnchor ?? "");
 
             const plan = { ...sleepPlan };
             if (!plan.hasLog && plan.start && plan.end && workWindow) {
                 const workStart = parseMinutes(workWindow.start);
                 const workEnd = parseMinutes(workWindow.end);
-                if (Number.isFinite(workStart) && morningDuration > 0) {
+                if (!morningAnchor && Number.isFinite(workStart) && morningDuration > 0) {
                     const sleepEndMin = parseMinutes(plan.end);
                     if (Number.isFinite(sleepEndMin)) {
                         const morningEndMin = sleepEndMin + morningDuration;
@@ -1445,8 +1454,9 @@
             }
 
             const windows = [];
-            if (plan.end && morning.length) {
-                let cursor = plan.end;
+            const morningBase = morningAnchor || plan.end;
+            if (morningBase && morning.length) {
+                let cursor = morningBase;
                 morning.forEach((routine) => {
                     const minutes = routineDurationMinutes(routine);
                     const start = cursor;
@@ -1643,8 +1653,10 @@
             };
         };
 
-        const shiftRoutineWindowsForSleepChange = (windows, basePlan, nextPlan) => {
+        const shiftRoutineWindowsForSleepChange = (windows, basePlan, nextPlan, options = {}) => {
             if (!windows.length) return windows;
+            const skipMorning = options.skipMorning === true;
+            const skipEvening = options.skipEvening === true;
             const baseSpan = getSleepSpan(basePlan, null, false);
             if (!baseSpan) return windows;
             const baseCrosses = baseSpan.end > (24 * 60);
@@ -1656,6 +1668,7 @@
             return windows.map((window) => {
                 if (!window || window.source !== "routine") return window;
                 if (window.anchor === "morning") {
+                    if (skipMorning) return window;
                     return {
                         ...window,
                         start: addMinutesToTime(window.start, endDelta),
@@ -1663,6 +1676,7 @@
                     };
                 }
                 if (window.anchor === "evening") {
+                    if (skipEvening) return window;
                     return {
                         ...window,
                         start: addMinutesToTime(window.start, startDelta),
@@ -1902,9 +1916,15 @@
             }
 
             const sleepPlan = buildSleepPlan(stateCal.selected);
+            const prevDate = new Date(stateCal.selected.getFullYear(), stateCal.selected.getMonth(), stateCal.selected.getDate() - 1);
+            const prevSleepPlan = buildSleepPlan(prevDate);
+            const prevStartMin = parseMinutes(prevSleepPlan.start);
+            const prevEndMin = parseMinutes(prevSleepPlan.end);
+            const prevCrosses = prevStartMin !== null && prevEndMin !== null && prevEndMin <= prevStartMin;
+            const morningAnchor = prevCrosses ? prevSleepPlan.end : "";
             const baseSleepPlanForLog = sleepPlan.hasLog ? buildSleepPlanFromRule(stateCal.selected) : sleepPlan;
             const shiftWindow = getShiftWindowTimes(stateCal.selected);
-            let routinePlan = buildRoutinePlan(stateCal.selected, sleepPlan, shiftWindow);
+            let routinePlan = buildRoutinePlan(stateCal.selected, sleepPlan, shiftWindow, { morningAnchor });
 
             if (shiftWindow) {
                 const { shift, start: startActual, end: endActual } = shiftWindow;
@@ -1940,7 +1960,8 @@
             const adjustedRoutineWindows = shiftRoutineWindowsForSleepChange(
                 routinePlan.windows,
                 shiftBase,
-                shiftNext
+                shiftNext,
+                { skipMorning: Boolean(morningAnchor) }
             );
             routinePlan = { sleep: adjustedSleep, windows: adjustedRoutineWindows };
             plannedSleepByDate[selectedKey] = routinePlan.sleep;
