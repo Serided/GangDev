@@ -1938,7 +1938,6 @@
                 if (minutes === null || endMinutes === null) return;
                 collectSegments(minutes, endMinutes, busySegments);
             });
-            const sleepSegments = buildSleepSegmentsForDate(stateCal.selected);
             sleepSegments.forEach((segment) => {
                 collectSegments(segment.start, segment.end, busySegments);
             });
