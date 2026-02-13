@@ -1628,7 +1628,9 @@
         sleepStartField.addEventListener("timechange", () => {
             if (sleepStartProgrammatic) return;
             const value = normalizeText(sleepStartInput ? sleepStartInput.value : "");
-            sleepStartManual = Boolean(value);
+            if (value) {
+                sleepStartManual = true;
+            }
             updateSleepEnd();
         });
     }
@@ -1636,7 +1638,9 @@
         sleepEndField.addEventListener("timechange", () => {
             if (sleepEndProgrammatic) return;
             const value = normalizeText(sleepEndInput ? sleepEndInput.value : "");
-            sleepEndManual = Boolean(value);
+            if (value) {
+                sleepEndManual = true;
+            }
             updateSleepStart();
         });
     }
@@ -2058,7 +2062,15 @@
                 .filter((input) => input.checked)
                 .map((input) => parseInt(input.value, 10))
                 .filter((value) => Number.isFinite(value) && value >= 0 && value <= 6);
-            if (repeat === "day" && days.length === 0) return;
+            let resolvedDays = days;
+            if (repeat === "daily") {
+                resolvedDays = [0, 1, 2, 3, 4, 5, 6];
+            } else if (repeat === "weekdays") {
+                resolvedDays = [1, 2, 3, 4, 5];
+            } else if (repeat === "weekends") {
+                resolvedDays = [0, 6];
+            }
+            if (repeat === "day" && resolvedDays.length === 0) return;
             if (type === "work") {
                 if (!time || !end) return;
             } else if ((type !== "routine" || anchor === "custom") && !time) return;
@@ -2080,8 +2092,8 @@
                 time: type === "routine" && anchor !== "custom" ? "" : time,
                 end: type === "work" ? end : "",
                 repeat,
-                day: days[0],
-                days,
+                day: resolvedDays[0],
+                days: resolvedDays,
                 tasks,
                 color,
                 block_type: type,

@@ -1919,7 +1919,12 @@
             const routineWindowsForSleep = routineWindows.filter((window) => !overrideKeys.includes(window.id));
             const sleepBlockingWindows = fixedWindows.concat(routineWindowsForSleep);
             const adjustedSleep = adjustSleepForWindows(routinePlan.sleep, sleepBlockingWindows);
-            routinePlan = { sleep: adjustedSleep, windows: routinePlan.windows };
+            const adjustedRoutineWindows = shiftRoutineWindowsForSleepChange(
+                routinePlan.windows,
+                routinePlan.sleep,
+                adjustedSleep
+            );
+            routinePlan = { sleep: adjustedSleep, windows: adjustedRoutineWindows };
             plannedSleepByDate[selectedKey] = routinePlan.sleep;
 
             if (routinePlan.windows.length) {
@@ -2761,6 +2766,32 @@
         return false;
     };
 
+    const hasEditTaskChecks = () => {
+        if (!activeEditWindow) return false;
+        const routine = getRoutineForWindow(activeEditWindow);
+        if (!routine || !Array.isArray(routine.tasks) || routine.tasks.length === 0) return false;
+        const key = taskCheckKeyFor(activeEditWindow);
+        const checks = key ? routineTaskChecks[key] : null;
+        return Array.isArray(checks) && checks.some(Boolean);
+    };
+
+    const hasEditOverrides = () => {
+        if (activeEditKind === "sleep" && activeEditSleepKey) {
+            const log = getSleepLogFor(activeEditSleepKey);
+            return Boolean(log && (log.start || log.end));
+        }
+        if (activeEditKind === "shift" && activeEditShiftKey) {
+            return Boolean(state.shiftOverrides && Object.prototype.hasOwnProperty.call(state.shiftOverrides, activeEditShiftKey));
+        }
+        if (activeEditKind === "window" && activeEditWindow) {
+            const virtualId = activeEditWindow.virtual
+                ? activeEditWindow.id
+                : findVirtualIdForManual(activeEditWindow.id);
+            return Boolean(virtualId && state.windowOverrides && state.windowOverrides[virtualId]);
+        }
+        return false;
+    };
+
     const getRoutineIdFromWindow = (windowItem) => {
         if (!windowItem || !windowItem.id) return null;
         const match = String(windowItem.id).match(/^routine-(\d+)-/);
@@ -2905,7 +2936,12 @@
             editActions.classList.toggle("is-triple", visibleCount >= 3);
         }
         if (editActionsSecondary) {
-            editActionsSecondary.style.display = isEditDirty() ? "flex" : "none";
+            const showSecondary = isEditDirty()
+                || hasEditOverrides()
+                || hasEditTaskChecks()
+                || isEditSessionActive()
+                || isEditCompleted();
+            editActionsSecondary.style.display = showSecondary ? "flex" : "none";
         }
     };
 
@@ -2983,18 +3019,63 @@
         }
     };
 
-    const resetEditChanges = () => {
+    const resetEditChanges = async () => {
+        const plannedStart = plannedTimes.start || "";
+        const plannedEnd = plannedTimes.end || "";
+        const resetShiftValue = plannedShiftId !== null && plannedShiftId !== undefined ? String(plannedShiftId) : "";
+        const taskKey = taskCheckKeyFor(activeEditWindow);
+
+        if (taskKey) clearTaskChecks(taskKey);
+        setEditCompleted(false);
+        if (isEditSessionActive()) {
+            clearActiveSession();
+        }
+
+        if (activeEditKind === "sleep" && activeEditSleepKey) {
+            await updateSleepLog(activeEditSleepKey, "", "");
+        } else if (activeEditKind === "shift" && activeEditShiftKey) {
+            await updateShiftOverride(activeEditShiftKey, {
+                shiftId: plannedShiftId ?? null,
+                start: "",
+                end: "",
+            });
+        } else if (activeEditWindow) {
+            const virtualId = activeEditWindow.virtual
+                ? activeEditWindow.id
+                : findVirtualIdForManual(activeEditWindow.id);
+            if (virtualId && state.windowOverrides && state.windowOverrides[virtualId]) {
+                const manualId = state.windowOverrides[virtualId];
+                if (manualId) {
+                    if (storageMode === "remote") {
+                        try {
+                            await apiFetch({ action: "delete", type: "windows", id: manualId }, "POST");
+                        } catch {
+                            switchToLocal();
+                        }
+                    }
+                    state.windows = state.windows.filter((item) => String(item.id) !== String(manualId));
+                }
+                setWindowOverride(virtualId, null);
+                if (storageMode === "local") {
+                    persistLocal();
+                }
+            } else if (!activeEditWindow.virtual) {
+                await updateWindowTimes(activeEditWindow.id, plannedStart, plannedEnd);
+            }
+        }
+
         editSync = true;
-        if (editStartField) setFieldValue(editStartField, plannedTimes.start || "", { emit: false });
-        if (editEndField) setFieldValue(editEndField, plannedTimes.end || "", { emit: false });
+        if (editStartField) setFieldValue(editStartField, plannedStart, { emit: false });
+        if (editEndField) setFieldValue(editEndField, plannedEnd, { emit: false });
         if (editShiftSelect) {
-            const resetValue = plannedShiftId !== null && plannedShiftId !== undefined ? String(plannedShiftId) : "";
-            editShiftSelect.value = resetValue;
+            editShiftSelect.value = resetShiftValue;
         }
         editSync = false;
-        applyEditChanges();
-        syncEditInitial(plannedTimes.start || "", plannedTimes.end || "", editShiftSelect ? editShiftSelect.value : "");
+
+        syncEditInitial(plannedStart, plannedEnd, resetShiftValue);
         updateEditDelta();
+        renderEditTasks();
+        refreshUI(false);
     };
 
     const materializeVirtualWindow = async (windowItem, overrides = {}) => {
