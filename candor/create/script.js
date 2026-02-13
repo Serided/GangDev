@@ -1154,6 +1154,37 @@
         field.style.display = select.value === "day" ? "grid" : "none";
     };
 
+    const applyRoutineDayDefaults = (repeat, options = {}) => {
+        const dayInputs = Array.from(document.querySelectorAll("[data-routine-day]"));
+        if (!dayInputs.length) return;
+        const shouldClearForDay = options.clearForDay === true;
+        if (repeat === "daily") {
+            dayInputs.forEach((input) => {
+                input.checked = true;
+            });
+            return;
+        }
+        if (repeat === "weekdays") {
+            dayInputs.forEach((input) => {
+                const value = parseInt(input.value, 10);
+                input.checked = value >= 1 && value <= 5;
+            });
+            return;
+        }
+        if (repeat === "weekends") {
+            dayInputs.forEach((input) => {
+                const value = parseInt(input.value, 10);
+                input.checked = value === 0 || value === 6;
+            });
+            return;
+        }
+        if (repeat === "day" && shouldClearForDay) {
+            dayInputs.forEach((input) => {
+                input.checked = false;
+            });
+        }
+    };
+
     const initRepeatSelects = () => {
         const sleepRepeat = document.querySelector("[data-repeat-select]");
         const sleepDayField = document.querySelector("[data-day-field]");
@@ -1165,8 +1196,12 @@
         const routineRepeat = document.querySelector("[data-routine-repeat]");
         const routineDayField = document.querySelector("[data-routine-day-field]");
         if (routineRepeat && routineDayField) {
-            applyRepeatToggle(routineRepeat, routineDayField);
-            routineRepeat.addEventListener("change", () => applyRepeatToggle(routineRepeat, routineDayField));
+            const updateRoutineRepeat = (clearForDay = false) => {
+                applyRepeatToggle(routineRepeat, routineDayField);
+                applyRoutineDayDefaults(routineRepeat.value, { clearForDay });
+            };
+            updateRoutineRepeat(false);
+            routineRepeat.addEventListener("change", () => updateRoutineRepeat(true));
         }
     };
 
@@ -1437,6 +1472,8 @@
     let editingSleepId = null;
     let sleepEndManual = false;
     let sleepEndProgrammatic = false;
+    let sleepStartManual = false;
+    let sleepStartProgrammatic = false;
 
     const sleepMinutesForRepeat = () => {
         return recommendedSleepMinutes(ageYears);
@@ -1451,6 +1488,15 @@
         return `${pad2(parsed.hour)}:${pad2(parsed.minute)}`;
     };
 
+    const computeRecommendedSleepStart = (end) => {
+        if (!end) return "";
+        const duration = sleepMinutesForRepeat();
+        const startValue = addMinutes(end, -duration);
+        const parsed = parseTimeValue(startValue);
+        if (!parsed) return "";
+        return `${pad2(parsed.hour)}:${pad2(parsed.minute)}`;
+    };
+
     const setSleepEndValue = (value, options = {}) => {
         if (!sleepEndField) return;
         sleepEndProgrammatic = true;
@@ -1458,12 +1504,21 @@
         sleepEndProgrammatic = false;
     };
 
+    const setSleepStartValue = (value, options = {}) => {
+        if (!sleepStartField) return;
+        sleepStartProgrammatic = true;
+        setFieldValue(sleepStartField, value, options);
+        sleepStartProgrammatic = false;
+    };
+
     const updateSleepEnd = () => {
         if (!sleepStartInput || !sleepEndField) return;
         const start = normalizeText(sleepStartInput.value);
+        const currentEnd = normalizeText(sleepEndInput ? sleepEndInput.value : "");
         if (!start) {
-            sleepEndManual = false;
-            setSleepEndValue("", { emit: false });
+            if (!sleepEndManual && currentEnd) {
+                setSleepEndValue("", { emit: false });
+            }
             return;
         }
         if (sleepEndManual) return;
@@ -1472,18 +1527,41 @@
         setSleepEndValue(recommended);
     };
 
+    const updateSleepStart = () => {
+        if (!sleepEndInput || !sleepStartField) return;
+        const end = normalizeText(sleepEndInput.value);
+        const currentStart = normalizeText(sleepStartInput ? sleepStartInput.value : "");
+        if (!end) {
+            if (!sleepStartManual && currentStart) {
+                setSleepStartValue("", { emit: false });
+            }
+            return;
+        }
+        if (sleepStartManual) return;
+        const recommended = computeRecommendedSleepStart(end);
+        if (!recommended) return;
+        setSleepStartValue(recommended);
+    };
+
     const startSleepEdit = (rule) => {
         if (!sleepForm || !rule) return;
         editingSleepId = rule.id;
         const nextStart = rule.start || "";
         const nextEnd = rule.end || "";
+        sleepStartManual = false;
         sleepEndManual = false;
-        if (nextEnd) {
-            const recommended = computeRecommendedSleepEnd(nextStart);
-            sleepEndManual = recommended ? normalizeText(nextEnd) !== normalizeText(recommended) : true;
+        if (nextStart && nextEnd) {
+            const recommendedEnd = computeRecommendedSleepEnd(nextStart);
+            if (recommendedEnd) {
+                sleepEndManual = normalizeText(nextEnd) !== normalizeText(recommendedEnd);
+            }
+            const recommendedStart = computeRecommendedSleepStart(nextEnd);
+            if (recommendedStart) {
+                sleepStartManual = normalizeText(nextStart) !== normalizeText(recommendedStart);
+            }
         }
         if (sleepStartField) {
-            setFieldValue(sleepStartField, nextStart, { emit: false });
+            setSleepStartValue(nextStart, { emit: false });
         }
         if (sleepEndField) {
             setSleepEndValue(nextEnd, { emit: false });
@@ -1524,6 +1602,7 @@
             editingSleepId = null;
             sleepForm.reset();
             clearTimeFields(sleepForm);
+            sleepStartManual = false;
             sleepEndManual = false;
             const sleepRepeat = sleepForm.querySelector("[data-repeat-select]");
             const sleepDayField = sleepForm.querySelector("[data-day-field]");
@@ -1532,33 +1611,42 @@
     }
 
     if (sleepStartField) {
-        sleepStartField.addEventListener("timechange", updateSleepEnd);
+        sleepStartField.addEventListener("timechange", () => {
+            if (sleepStartProgrammatic) return;
+            const value = normalizeText(sleepStartInput ? sleepStartInput.value : "");
+            sleepStartManual = Boolean(value);
+            updateSleepEnd();
+        });
     }
     if (sleepEndField) {
         sleepEndField.addEventListener("timechange", () => {
             if (sleepEndProgrammatic) return;
             const value = normalizeText(sleepEndInput ? sleepEndInput.value : "");
             sleepEndManual = Boolean(value);
+            updateSleepStart();
         });
     }
     if (sleepRepeatSelect) {
         sleepRepeatSelect.addEventListener("change", () => {
             updateSleepEnd();
+            updateSleepStart();
         });
     }
     if (sleepDaySelect) {
         sleepDaySelect.addEventListener("change", () => {
             updateSleepEnd();
+            updateSleepStart();
         });
     }
 
     const sleepClear = document.querySelector("[data-sleep-clear]");
     if (sleepClear) {
         sleepClear.addEventListener("click", () => {
-            if (sleepStartField) setFieldValue(sleepStartField, "", { emit: false });
+            if (sleepStartField) setSleepStartValue("", { emit: false });
             if (sleepEndField) setSleepEndValue("", { emit: false });
             clearRules("sleep");
             editingSleepId = null;
+            sleepStartManual = false;
             sleepEndManual = false;
             if (sleepForm) {
                 sleepForm.reset();
@@ -1712,9 +1800,7 @@
         const routineDayField = routineForm.querySelector("[data-routine-day-field]");
         if (routineRepeat) routineRepeat.value = "daily";
         applyRepeatToggle(routineRepeat, routineDayField);
-        routineForm.querySelectorAll("[data-routine-day]").forEach((input) => {
-            input.checked = false;
-        });
+        applyRoutineDayDefaults("daily");
     };
 
     let lastRoutineType = routineTypeSelect ? routineTypeSelect.value : "routine";
@@ -1827,9 +1913,7 @@
             const routineRepeat = routineForm.querySelector("[data-routine-repeat]");
             const routineDayField = routineForm.querySelector("[data-routine-day-field]");
             applyRepeatToggle(routineRepeat, routineDayField);
-            routineForm.querySelectorAll("[data-routine-day]").forEach((input) => {
-                input.checked = false;
-            });
+            applyRoutineDayDefaults(routineRepeat ? routineRepeat.value : "daily");
             if (routineShiftId) routineShiftId.value = "";
             if (routineShiftSelect) routineShiftSelect.value = "";
             clearRoutineTasks();
@@ -1997,9 +2081,7 @@
             const routineRepeat = routineForm.querySelector("[data-routine-repeat]");
             const routineDayField = routineForm.querySelector("[data-routine-day-field]");
             applyRepeatToggle(routineRepeat, routineDayField);
-            dayInputs.forEach((input) => {
-                input.checked = false;
-            });
+            applyRoutineDayDefaults(routineRepeat ? routineRepeat.value : "daily");
             if (routineShiftId) routineShiftId.value = "";
             if (routineShiftSelect) routineShiftSelect.value = "";
             clearRoutineTasks();
@@ -2345,6 +2427,7 @@
         }
         renderAll();
         updateSleepEnd();
+        updateSleepStart();
     };
 
     init();

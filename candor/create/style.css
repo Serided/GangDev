@@ -385,10 +385,11 @@ a { color: inherit; text-decoration: none; }
 }
 
 .routineCard .savedScroll {
-    max-height: none;
+    max-height: clamp(160px, 32vh, 320px);
     flex: 1;
     min-height: 0;
     scrollbar-gutter: stable both-edges;
+    padding-right: 20px;
 }
 
 .routineCard .formActions {
