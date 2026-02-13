@@ -3032,7 +3032,11 @@
         }
 
         if (activeEditKind === "sleep" && activeEditSleepKey) {
-            await updateSleepLog(activeEditSleepKey, "", "");
+            if (plannedStart || plannedEnd) {
+                await updateSleepLog(activeEditSleepKey, plannedStart, plannedEnd);
+            } else {
+                await updateSleepLog(activeEditSleepKey, "", "");
+            }
         } else if (activeEditKind === "shift" && activeEditShiftKey) {
             await updateShiftOverride(activeEditShiftKey, {
                 shiftId: plannedShiftId ?? null,
