@@ -1387,6 +1387,21 @@
             };
         };
 
+        const buildSleepPlanFromRule = (date) => {
+            const rule = pickSleepRule(date);
+            const start = rule ? rule.start : "";
+            const end = rule ? rule.end : "";
+            const duration = start && end ? durationMinutes(start, end) : null;
+            const color = rule && rule.color ? rule.color : "";
+            return {
+                start,
+                end,
+                duration: duration ?? 0,
+                hasLog: false,
+                color,
+            };
+        };
+
         const buildRoutinePlan = (date, sleepPlan, workWindow) => {
             const key = dateKey(date);
             const routines = state.routines.filter((routine) =>
@@ -1887,6 +1902,7 @@
             }
 
             const sleepPlan = buildSleepPlan(stateCal.selected);
+            const baseSleepPlanForLog = sleepPlan.hasLog ? buildSleepPlanFromRule(stateCal.selected) : sleepPlan;
             const shiftWindow = getShiftWindowTimes(stateCal.selected);
             let routinePlan = buildRoutinePlan(stateCal.selected, sleepPlan, shiftWindow);
 
@@ -1919,10 +1935,12 @@
             const routineWindowsForSleep = routineWindows.filter((window) => !overrideKeys.includes(window.id));
             const sleepBlockingWindows = fixedWindows.concat(routineWindowsForSleep);
             const adjustedSleep = adjustSleepForWindows(routinePlan.sleep, sleepBlockingWindows);
+            const shiftBase = sleepPlan.hasLog ? baseSleepPlanForLog : routinePlan.sleep;
+            const shiftNext = sleepPlan.hasLog ? sleepPlan : adjustedSleep;
             const adjustedRoutineWindows = shiftRoutineWindowsForSleepChange(
                 routinePlan.windows,
-                routinePlan.sleep,
-                adjustedSleep
+                shiftBase,
+                shiftNext
             );
             routinePlan = { sleep: adjustedSleep, windows: adjustedRoutineWindows };
             plannedSleepByDate[selectedKey] = routinePlan.sleep;
