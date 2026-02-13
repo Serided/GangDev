@@ -71,9 +71,13 @@
     const shiftOverridesLocal = loadJson("shift_overrides", {});
     const windowOverridesLocal = loadJson("window_overrides", {});
     const activeSessionLocal = loadJson("active_session", null);
+    const completedSessionsLocal = loadJson("completed_sessions", {});
     const routineTaskChecksLocal = loadJson("routine_task_checks", {});
     let routineTaskChecks = routineTaskChecksLocal && typeof routineTaskChecksLocal === "object"
         ? { ...routineTaskChecksLocal }
+        : {};
+    let completedSessions = completedSessionsLocal && typeof completedSessionsLocal === "object"
+        ? { ...completedSessionsLocal }
         : {};
 
     const makeId = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -1176,6 +1180,59 @@
     let virtualWindows = new Map();
     const plannedSleepByDate = {};
 
+    const getSleepPlanForKey = (key) => {
+        if (!key) return null;
+        return plannedSleepByDate[key] || buildSleepPlan(parseKey(key));
+    };
+
+    const buildSleepSegmentsForDate = (date) => {
+        if (!date) return [];
+        const dayStart = 0;
+        const dayEnd = 24 * 60;
+        const key = dateKey(date);
+        const prevDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1);
+        const prevKey = dateKey(prevDate);
+        const segments = [];
+
+        const addSegment = (plan, segmentStart, segmentEnd, segmentKey) => {
+            if (!plan) return;
+            if (!Number.isFinite(segmentStart) || !Number.isFinite(segmentEnd)) return;
+            if (segmentEnd <= segmentStart) return;
+            segments.push({
+                key: segmentKey,
+                baseStart: plan.start || "",
+                baseEnd: plan.end || "",
+                color: plan.color || "",
+                start: segmentStart,
+                end: segmentEnd,
+            });
+        };
+
+        const prevPlan = getSleepPlanForKey(prevKey);
+        if (prevPlan && prevPlan.start && prevPlan.end) {
+            const prevStart = parseMinutes(prevPlan.start);
+            const prevEnd = parseMinutes(prevPlan.end);
+            if (prevStart !== null && prevEnd !== null && prevEnd <= prevStart && prevEnd > dayStart) {
+                addSegment(prevPlan, dayStart, prevEnd, prevKey);
+            }
+        }
+
+        const plan = getSleepPlanForKey(key);
+        if (plan && plan.start && plan.end) {
+            const startMinutes = parseMinutes(plan.start);
+            const endMinutes = parseMinutes(plan.end);
+            if (startMinutes !== null && endMinutes !== null) {
+                if (endMinutes <= startMinutes) {
+                    addSegment(plan, startMinutes, dayEnd, key);
+                } else {
+                    addSegment(plan, startMinutes, endMinutes, key);
+                }
+            }
+        }
+
+        return segments;
+    };
+
     if (calendarRoot) {
         const monthTitle = calendarRoot.querySelector("[data-month-title]");
         const monthGrid = calendarRoot.querySelector("[data-month-grid]");
@@ -2166,67 +2223,48 @@
                 dayGrid.appendChild(block);
             });
 
-            const sleepKey = dateKey(stateCal.selected);
-            const plannedSleep = plannedSleepByDate[sleepKey];
-            const baseStart = plannedSleep ? plannedSleep.start : "";
-            const baseEnd = plannedSleep ? plannedSleep.end : "";
-            if (baseStart && baseEnd) {
-                const endValue = baseEnd;
-                const startMinutes = parseMinutes(baseStart);
-                const endMinutes = parseMinutes(endValue);
-                if (startMinutes !== null && endMinutes !== null) {
-                    const windows = [];
-                    if (endMinutes <= startMinutes) {
-                        windows.push({ start: startMinutes, end: dayEnd * 60 });
-                        if (endMinutes > dayStart * 60) {
-                            windows.push({ start: dayStart * 60, end: endMinutes });
-                        }
-                    } else {
-                        windows.push({ start: startMinutes, end: endMinutes });
-                    }
-                    windows.forEach((window) => {
-                        const block = document.createElement("div");
-                        block.className = "sleepBlock";
-                        block.dataset.sleepDate = sleepKey;
-                        if (isActiveSleep(sleepKey)) {
-                            block.classList.add("is-active");
-                        }
-                        const sleepColor = plannedSleep && plannedSleep.color ? plannedSleep.color : "#5a8fb9";
-                        const tint = colorToRgba(sleepColor, 0.18);
-                        block.style.borderColor = sleepColor;
-                        if (tint) block.style.background = tint;
-                        const top = ((window.start - dayStart * 60) / 60) * hourHeight;
-                        const height = ((window.end - window.start) / 60) * hourHeight;
-                        block.style.top = `${top}px`;
-                        block.style.height = `${height}px`;
-
-                        const time = document.createElement("span");
-                        time.className = "blockTime";
-                        const startText = formatTime(baseStart);
-                        const endText = baseEnd ? formatTime(baseEnd) : "";
-                        time.textContent = endText ? `${startText}-${endText}` : startText;
-                        block.appendChild(time);
-
-                        const label = document.createElement("span");
-                        label.className = "sleepLabel";
-                        label.textContent = "Sleep";
-                        block.appendChild(label);
-
-                        const openSleep = (event) => {
-                            if (!armTimelineOpen()) return;
-                            openSleepEdit(sleepKey, baseStart, baseEnd);
-                            if (event) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                        };
-                        block.addEventListener("click", openSleep);
-                        block.addEventListener("pointerdown", openSleep);
-
-                        dayGrid.appendChild(block);
-                    });
+            const sleepSegments = buildSleepSegmentsForDate(stateCal.selected);
+            sleepSegments.forEach((segment) => {
+                const block = document.createElement("div");
+                block.className = "sleepBlock";
+                block.dataset.sleepDate = segment.key;
+                if (isActiveSleep(segment.key)) {
+                    block.classList.add("is-active");
                 }
-            }
+                const sleepColor = segment.color || "#5a8fb9";
+                const tint = colorToRgba(sleepColor, 0.18);
+                block.style.borderColor = sleepColor;
+                if (tint) block.style.background = tint;
+                const top = ((segment.start - dayStart * 60) / 60) * hourHeight;
+                const height = ((segment.end - segment.start) / 60) * hourHeight;
+                block.style.top = `${top}px`;
+                block.style.height = `${height}px`;
+
+                const time = document.createElement("span");
+                time.className = "blockTime";
+                const startText = segment.baseStart ? formatTime(segment.baseStart) : "";
+                const endText = segment.baseEnd ? formatTime(segment.baseEnd) : "";
+                time.textContent = startText && endText ? `${startText}-${endText}` : (startText || endText);
+                block.appendChild(time);
+
+                const label = document.createElement("span");
+                label.className = "sleepLabel";
+                label.textContent = "Sleep";
+                block.appendChild(label);
+
+                const openSleep = (event) => {
+                    if (!armTimelineOpen()) return;
+                    openSleepEdit(segment.key, segment.baseStart, segment.baseEnd);
+                    if (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                };
+                block.addEventListener("click", openSleep);
+                block.addEventListener("pointerdown", openSleep);
+
+                dayGrid.appendChild(block);
+            });
 
             if (isSameDay(stateCal.selected, new Date())) {
                 const marker = document.createElement("div");
@@ -2653,6 +2691,57 @@
         return entry ? entry[0] : "";
     };
 
+    const getCompletionKeyForWindow = (windowItem) => {
+        if (!windowItem || !windowItem.id) return "";
+        const manualId = String(windowItem.id);
+        const virtualId = windowItem.virtual ? manualId : findVirtualIdForManual(manualId);
+        const keyId = virtualId || manualId;
+        return keyId ? `window:${keyId}` : "";
+    };
+
+    const getCompletionKeyForEdit = () => {
+        if (activeEditKind === "sleep" && activeEditSleepKey) {
+            return `sleep:${activeEditSleepKey}`;
+        }
+        if (activeEditKind === "shift" && activeEditShiftKey) {
+            return `shift:${activeEditShiftKey}`;
+        }
+        if (activeEditKind === "window") {
+            return getCompletionKeyForWindow(activeEditWindow);
+        }
+        return "";
+    };
+
+    const isEditCompleted = () => {
+        const key = getCompletionKeyForEdit();
+        if (key && completedSessions && completedSessions[key]) return true;
+        if (activeEditKind === "sleep" && activeEditSleepKey) {
+            const log = getSleepLogFor(activeEditSleepKey);
+            return Boolean(log && log.end);
+        }
+        if (activeEditKind === "shift" && activeEditShiftKey) {
+            return false;
+        }
+        if (activeEditKind === "window" && activeEditWindow) {
+            return false;
+        }
+        return false;
+    };
+
+    const setEditCompleted = (value) => {
+        const key = getCompletionKeyForEdit();
+        if (!key) return;
+        if (!completedSessions || typeof completedSessions !== "object") {
+            completedSessions = {};
+        }
+        if (value) {
+            completedSessions[key] = Date.now();
+        } else {
+            delete completedSessions[key];
+        }
+        saveJson("completed_sessions", completedSessions);
+    };
+
     const getPlannedWindowForEdit = (windowItem) => {
         if (!windowItem) return null;
         if (windowItem.virtual) {
@@ -2745,6 +2834,12 @@
             if (editTasksHint) editTasksHint.textContent = "";
             return;
         }
+        if (!isEditSessionActive()) {
+            editTasksWrap.classList.remove("is-visible");
+            editTasksList.innerHTML = "";
+            if (editTasksHint) editTasksHint.textContent = "";
+            return;
+        }
         const key = taskCheckKeyFor(activeEditWindow);
         const checks = getTaskChecks(key, routine.tasks.length);
         editTasksList.innerHTML = "";
@@ -2794,8 +2889,7 @@
         const tasksComplete = areEditTasksComplete();
         let showRestart = false;
         if (editRestartNow) {
-            const endValue = editEndInput ? editEndInput.value : "";
-            showRestart = canStart && !isRunning && Boolean(endValue);
+            showRestart = canStart && !isRunning && isEditCompleted();
             editRestartNow.style.display = showRestart ? "" : "none";
         }
         if (editStartNow) {
@@ -3399,6 +3493,7 @@
         if (overlay && overlay.classList.contains("is-open")) return false;
         if (editOverlay && editOverlay.classList.contains("is-open")) return false;
         if (timeOverlay && timeOverlay.classList.contains("is-open")) return false;
+        if (event.target && event.target.closest("[data-add-kind], [data-month-add]")) return false;
         if (!isTimelineEvent(event)) return false;
         if (event.target && event.target.closest(".chipRemove, .blockRemove")) return false;
         const { sleepTarget, windowTarget } = pickTimelineTargets(event);
@@ -3444,10 +3539,10 @@
         const minute = getTimelineMinute(event);
         if (minute !== null) {
             const key = calendarApi ? calendarApi.getSelectedKey() : dateKey(new Date());
-            const planned = plannedSleepByDate[key];
-            const sleepPlan = planned || buildSleepPlan(parseKey(key));
-            if (sleepPlan && minuteInWindow(minute, sleepPlan.start, sleepPlan.end)) {
-                openSleepEdit(key, sleepPlan.start || "", sleepPlan.end || "");
+            const sleepSegments = buildSleepSegmentsForDate(parseKey(key));
+            const sleepHit = sleepSegments.find((segment) => minute >= segment.start && minute <= segment.end);
+            if (sleepHit) {
+                openSleepEdit(sleepHit.key, sleepHit.baseStart || "", sleepHit.baseEnd || "");
                 return true;
             }
             const shiftWindow = getShiftWindowTimes(parseKey(key));
@@ -3847,6 +3942,7 @@
                     }
                 }
             }
+            setEditCompleted(true);
             updateEditDelta();
             closeEdit();
         });
@@ -3861,6 +3957,7 @@
             if (editEndInput && !editEndInput.value) return;
             const taskKey = taskCheckKeyFor(activeEditWindow);
             clearTaskChecks(taskKey);
+            setEditCompleted(false);
             runEditStartNow();
         });
     }
