@@ -1914,13 +1914,12 @@
                 if (window.kind === "event" && window.start === "00:00" && window.end === "23:59") return false;
                 return true;
             });
-            const adjustedSleep = adjustSleepForWindows(routinePlan.sleep, fixedWindows);
-            const shiftedRoutineWindows = shiftRoutineWindowsForSleepChange(
-                routinePlan.windows,
-                routinePlan.sleep,
-                adjustedSleep
-            );
-            routinePlan = { sleep: adjustedSleep, windows: shiftedRoutineWindows };
+            const overrideKeys = state.windowOverrides ? Object.keys(state.windowOverrides) : [];
+            const routineWindows = routinePlan.windows.filter((window) => window && window.source === "routine");
+            const routineWindowsForSleep = routineWindows.filter((window) => !overrideKeys.includes(window.id));
+            const sleepBlockingWindows = fixedWindows.concat(routineWindowsForSleep);
+            const adjustedSleep = adjustSleepForWindows(routinePlan.sleep, sleepBlockingWindows);
+            routinePlan = { sleep: adjustedSleep, windows: routinePlan.windows };
             plannedSleepByDate[selectedKey] = routinePlan.sleep;
 
             if (routinePlan.windows.length) {
@@ -1928,7 +1927,6 @@
             }
 
             const plannedWindows = windows.slice();
-            const overrideKeys = state.windowOverrides ? Object.keys(state.windowOverrides) : [];
             if (overrideKeys.length) {
                 windows = windows.filter((window) => !(window.virtual && state.windowOverrides[window.id]));
             }
@@ -1940,11 +1938,10 @@
                 if (minutes === null || endMinutes === null) return;
                 collectSegments(minutes, endMinutes, busySegments);
             });
-            if (routinePlan.sleep.start && routinePlan.sleep.end) {
-                const sleepStart = parseMinutes(routinePlan.sleep.start);
-                const sleepEnd = parseMinutes(routinePlan.sleep.end);
-                collectSegments(sleepStart, sleepEnd, busySegments);
-            }
+            const sleepSegments = buildSleepSegmentsForDate(stateCal.selected);
+            sleepSegments.forEach((segment) => {
+                collectSegments(segment.start, segment.end, busySegments);
+            });
 
             const focusWindows = buildFocusWindows(busySegments, selectedKey);
             if (focusWindows.length) {

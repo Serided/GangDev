@@ -1005,6 +1005,7 @@
                 end: endTime,
                 duration: routineDuration(routine),
                 anchor: routine.anchor || "custom",
+                shiftId: routine.shiftId ?? null,
             });
         });
         state.tasks.forEach((rule) => {
@@ -1094,8 +1095,21 @@
                 morningRoutine && morningRoutine.end ? morningRoutine.end : ""
             );
             if (hasWork) {
-                const workStart = workItem ? workItem.time : "";
-                const workEnd = workItem ? workItem.end : "";
+                let workStart = workItem ? workItem.time : "";
+                let workEnd = workItem ? workItem.end : "";
+                if (workItem && workItem.shiftId) {
+                    const shift = state.shifts.find((item) => String(item.id) === String(workItem.shiftId));
+                    if (shift) {
+                        const baseStart = shift.start || workStart;
+                        const baseEnd = shift.end || workEnd;
+                        workStart = baseStart
+                            ? addMinutes(baseStart, -(shift.commuteBefore || 0))
+                            : workStart;
+                        workEnd = baseEnd
+                            ? addMinutes(baseEnd, shift.commuteAfter || 0)
+                            : workEnd;
+                    }
+                }
                 const block = document.createElement("div");
                 block.className = "weekBlock is-work";
                 setWeekBlock(block, "Work", workStart, workEnd);
