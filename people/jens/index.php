@@ -173,8 +173,8 @@
             <div class="favorites">
                 <div><a href="https://github.com/Serided/GangDev" target="_blank">- GangDev LLC -</a></div>
                 <div><a href="https://inspectre.link/" target="_blank">- inspectre -</a></div>
-                <div><a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine <b style="color: dodgerblue;">(Alpha)</b> -</a></div>
-                <div><a href="https://crust.gangdev.co/game1" target="_blank">- Crust <b style="color: dodgerblue;">(Alpha)</b> <b style="color: lightgreen">[Online]</b> -</a></div>
+                <div><a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine <b style="color: #7de6ff;">(Alpha)</b> -</a></div>
+                <div><a href="https://crust.gangdev.co/game1" target="_blank">- Crust <b style="color: #7de6ff;">(Alpha)</b> <b style="color: lightgreen">[Online]</b> -</a></div>
                 <div><a href="https://apps.gangdev.co/web/roastGenerator" target="_blank">- Roast Generator -</a></div>
                 <div><a href="https://apps.gangdev.co/web/mmfGenerator" target="_blank">- MMF Generator -</a></div>
             </div>
