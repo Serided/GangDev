@@ -75,6 +75,3 @@
     color: #cdd7e6;
     margin-top: calc(var(--scaling) * 0.2);
 }
-.sect.cont#products .columns .games h2 {
-    font-size: calc(var(--scaling) * 2.7);
-}
