@@ -19,7 +19,7 @@
             <p class="arrow">^</p>
             <h1 class="title shimmerText">
                 Jens
-                <!-- <a href="php/babe.php" class="babe">&nbsp+ Unknown</a> -->
+                <a href="php/babe.php" class="babe">&nbsp+ Ali</a>
             </h1>
         </div>
 
@@ -110,7 +110,8 @@
                             <strong>Meta’s datacenter logistics</strong>.
                         </p>
                         <ul>
-                            <li><strong>Promoted to Project Lead after ~3.5 months as an L1 due to performance and SLC proficiency.</strong></li>
+                            <li><strong>Promoted to SLC Project Lead after ~3.5 months as an L1 for performance and SLC expertise.</strong></li>
+                            <li><strong>Promoted again to Metrics Project Lead (~4.5 months) leading delta investigations.</strong></li>
                             <li>Lead SLC operations and conduct SLC audits across an entire data center.</li>
                             <li>Execute full rack lifecycle operations across inbound and outbound logistics.</li>
                             <li><strong>Recognized with a performance bonus for impeccable rack operations.</strong></li>

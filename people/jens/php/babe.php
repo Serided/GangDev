@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Unknows</title>
+		<title>i love you Ali</title>
 		<?= $head ?>
 		<link rel="stylesheet" href="../style.css">
 		<link rel="stylesheet" href="../css/babe.css">
@@ -17,7 +17,7 @@
 
         <h1 class="ily" style="top: 10vh">i love you</h1>
         <img src="../files/img/babe/babe_1.webp" class="cutie" alt="an incredibly beautiful girl with the most devious giggle.">
-        <h1 class="ily" style="bottom: 10vh">Unknown</h1>
+        <h1 class="ily" style="bottom: 10vh">Ali</h1>
         <script src="../js/babe.js"></script>
     </body>
 </html>
