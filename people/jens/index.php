@@ -110,12 +110,11 @@
                             <strong>Meta’s datacenter logistics</strong>.
                         </p>
                         <ul>
-                            <li><strong>Promoted to SLC Project Lead after ~3.5 months as an L1 for performance and SLC expertise.</strong></li>
-                            <li><strong>Promoted again to Metrics Project Lead (~4.5 months) leading delta investigations.</strong></li>
-                            <li>Lead SLC operations and conduct SLC audits across an entire data center.</li>
-                            <li>Execute full rack lifecycle operations across inbound and outbound logistics.</li>
-                            <li><strong>Recognized with a performance bonus for impeccable rack operations.</strong></li>
+                            <li><strong>Promoted to SLC Project Lead ~3.5 months as an L1; lead SLC audits across the data center.</strong></li>
+                            <li><strong>Promoted again ~4.5 months to Metrics Project Lead investigating and resolving inventory deltas.</strong></li>
                             <li><strong>Authored and presented a rewrite of the SLC SOP for leadership approval.</strong></li>
+                            <li><strong>Recognized with a performance bonus for flawless rack operations.</strong></li>
+                            <li>Execute full rack lifecycle operations across inbound and outbound logistics.</li>
                         </ul>
                     </div>
                 </div>
