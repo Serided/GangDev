@@ -65,19 +65,19 @@
                     <h2>Labs</h2>
                     <div class="cont">
                         <div class="link">
-                            <a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine -<br>(Alpha)</a>
+                            <a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine -<br><b style="color: #7de6ff;">(Alpha)</b></a>
                         </div>
                         <div class="link">
-                            <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">- Fighting Game -<br>(Beta)</a>
+                            <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">- Fighting Game -<br><b style="color: #7de6ff;">(Beta)</b></a>
                         </div>
                         <div class="link">
-                            <a href="https://crust.gangdev.co/game1" target="_blank">- Crust -<br>(Alpha) <b>[Online]</b></a>
+                            <a href="https://crust.gangdev.co/game1" target="_blank">- Crust -<br><b style="color: #7de6ff;">(Alpha)</b> <b>[Online]</b></a>
                         </div>
                         <div class="link">
-                            <a href="https://apps.gangdev.co/web/roastGenerator/">- Roast Generator -<br>(Alpha)</a>
+                            <a href="https://apps.gangdev.co/web/roastGenerator/">- Roast Generator -<br><b style="color: #7de6ff;">(Alpha)</b></a>
                         </div>
                         <div class="link">
-                            <a href="https://apps.gangdev.co/web/mmfGenerator/">- MMF Generator -<br>(Beta)</a>
+                            <a href="https://apps.gangdev.co/web/mmfGenerator/">- MMF Generator -<br><b style="color: #7de6ff;">(Beta)</b></a>
                         </div>
                     </div>
                 </div>
