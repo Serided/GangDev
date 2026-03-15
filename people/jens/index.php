@@ -65,7 +65,7 @@
                 </div>
                 <div class="timelineItem">
                     <div class="timelineBox">
-                        <h3>GangDev LLC</h3>
+                        <h3>GangDev</h3>
                         <p>Nov. 2024 - Present</p>
                     </div>
                     <div class="timelineDetails">
