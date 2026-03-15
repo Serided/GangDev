@@ -70,14 +70,15 @@
                     </div>
                     <div class="timelineDetails">
                         <p>
-                            <strong>GangDev LLC&trade;</strong> is a software development company specializing in <strong>games, AI, and custom applications</strong>.
+                            Founded <strong>GangDev</strong>, an independent software studio building
+                            <strong>web platforms, systems, and tools</strong>.
                         </p>
                         <ul>
-                            <li><strong>Designing and building game engines, AI models, and web applications.</strong></li>
-                            <li>Leading full-stack development across frontend and backend systems.</li>
-                            <li>Managing project workflows, client relations, and business operations.</li>
-                            <li>Developing scalable, high-performance, and secure solutions.</li>
-                            <li><strong>Building a brand and online presence, establishing GangDev in the tech industry.</strong></li>
+                            <li><strong>Architect and build full-stack platforms including Candor and Inspectre.</strong></li>
+                            <li><strong>Design web infrastructure, authentication systems, and data models across multiple domains.</strong></li>
+                            <li><strong>Develop and deploy applications using PHP, JavaScript, and PostgreSQL on self-managed servers.</strong></li>
+                            <li><strong>Lead product architecture, UX, branding, and long-term technical direction.</strong></li>
+                            <li>Build experimental systems spanning AI assistants, automation tools, and procedural games.</li>
                         </ul>
                     </div>
                 </div>
