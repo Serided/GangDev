@@ -70,15 +70,14 @@
                     </div>
                     <div class="timelineDetails">
                         <p>
-                            Founded <strong>GangDev</strong>, an independent software studio building
-                            <strong>web platforms, systems, and tools</strong>.
+                            Founded <strong>GangDev</strong>, an independent studio building
+                            <strong>web platforms and experimental systems</strong>.
                         </p>
                         <ul>
                             <li><strong>Architect and build full-stack platforms including Candor and Inspectre.</strong></li>
-                            <li><strong>Design web infrastructure, authentication systems, and data models across multiple domains.</strong></li>
-                            <li><strong>Develop and deploy applications using PHP, JavaScript, and PostgreSQL on self-managed servers.</strong></li>
-                            <li><strong>Lead product architecture, UX, branding, and long-term technical direction.</strong></li>
-                            <li>Build experimental systems spanning AI assistants, automation tools, and procedural games.</li>
+                            <li><strong>Design web infrastructure, authentication systems, and data models.</strong></li>
+                            <li><strong>Develop and deploy applications using PHP, JavaScript, and PostgreSQL.</strong></li>
+                            <li>Lead product architecture, UX, branding, and technical direction.</li>
                         </ul>
                     </div>
                 </div>
