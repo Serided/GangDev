@@ -17,7 +17,7 @@
     <main class="shell" aria-label="Serided landing page">
         <div class="stack">
             <img class="mark" src="/files/img/serided_icon.png" alt="Serided icon">
-            <h1 class="title"><span class="title-main">Serided</span><span class="title-ai">.ai</span></h1>
+            <h1 class="title">Serided.ai</h1>
         </div>
     </main>
     <script src="/script.js"></script>
