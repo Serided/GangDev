@@ -76,6 +76,12 @@ body {
     text-shadow: 0 0 28px rgba(167, 139, 250, 0.18);
 }
 
+.title-ai {
+    color: #67e8f9;
+    font-weight: 800;
+    text-shadow: 0 0 24px rgba(103, 232, 249, 0.4);
+}
+
 @media (max-width: 640px) {
     .shell {
         padding: 0 18px;
