@@ -1,14 +1,23 @@
-// Lafter — Landing Page Scripts
-// Future: smooth scroll, animations, interactivity
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Smooth scroll for nav links
-    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
             e.preventDefault();
-            const target = document.querySelector(anchor.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Badge click → show info
+    const infoBox = document.getElementById('badge-info');
+    document.querySelectorAll('.badge').forEach(badge => {
+        badge.addEventListener('click', () => {
+            const wasActive = badge.classList.contains('active');
+            document.querySelectorAll('.badge').forEach(b => b.classList.remove('active'));
+            if (wasActive) {
+                infoBox.textContent = '';
+            } else {
+                badge.classList.add('active');
+                infoBox.textContent = badge.dataset.info;
             }
         });
     });
