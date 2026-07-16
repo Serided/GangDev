@@ -184,6 +184,10 @@ div.profile p {
     border: 1px solid transparent;
     font-weight: 700;
     letter-spacing: 0.2px;
+    height: 7vh;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .productCandor {
@@ -277,7 +281,7 @@ div.profile p {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    display: inline;
+    font-family: inherit;
 }
 
 .selected {
