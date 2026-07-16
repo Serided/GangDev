@@ -62,7 +62,22 @@ if(isset($_GET['status'])) {
         <?= $navbar ?>
         <?= $warn ?>
 
-        <div id="cropModal" style="display:none;"><div id="cropContent"></div></div>
+        <div id="cropModal">
+            <div id="cropContent">
+                <h3>Crop Your Icon</h3>
+                <div class="cropArea">
+                    <img id="cropImage" src="" alt="Crop preview">
+                </div>
+                <div class="cropPreviewWrap">
+                    <span>Preview</span>
+                    <div id="cropPreview"></div>
+                </div>
+                <div class="cropActions">
+                    <button id="cropCancel">Cancel</button>
+                    <button id="cropConfirm">Save</button>
+                </div>
+            </div>
+        </div>
 
         <?php if ($remainingSeconds > 0): ?>
         <div class="sect altCont deleteWarning">

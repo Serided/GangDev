@@ -10,9 +10,14 @@
 
 #icon {
     border: calc(var(--scaling) * 0.2) solid gray;
-    background-color: darkgray
+    background-color: darkgray;
+    cursor: pointer;
+}
+#iDisplay:hover #icon {
+    border-color: #2B5C6E;
 }
 
+/* Account Navigation Tabs */
 .accountNav {
     top: 0;
     left: 0;
@@ -31,6 +36,8 @@
     color: black;
     width: calc(var(--scaling) * 6);
     border-radius: calc(var(--scaling) * 0.05);
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 .accountNav input {
     display: none;
@@ -42,17 +49,17 @@
     transform: scale(1.03);
 }
 
-.accountCont {
-}
+/* Account Content Sections */
 .accountInfo {
     display: none;
     opacity: 0;
-    transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.3s ease;
 }
 .accountInfo h2 {
     font-weight: normal;
 }
 
+/* Status Messages */
 .statusMessage {
     top: calc(var(--scaling) * 2);
     left: 0;
@@ -68,6 +75,7 @@
     color: lawngreen;
 }
 
+/* Change Form */
 form#changeForm {
     justify-items: right;
 }
@@ -97,51 +105,126 @@ form#changeForm label {
     transform: scale(1.01);
 }
 
+/* ===== Icon Crop Modal ===== */
 #cropModal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.75);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
-    overflow: auto;
-    margin: 0;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
-#cropContent {
-    background: #fff;
-    padding: calc(var(--scaling) * 3);
-    border-radius: calc(var(--scaling) * 1);
-    max-width: 90vw;
-    max-height: 90vh;
-    overflow: auto;
-    text-align: center;
-}
-#cropConfirm {
-    position: absolute;
-    bottom: 5vh;
-    text-decoration: none;
-    cursor: pointer;
-    background: darkgray;
-    color: white;
-    font-weight: bold;
-    border-radius: calc(var(--scaling) * 1);
-    font-size: calc(var(--scaling) * 1.5);
-    padding: calc(var(--scaling) * .75);
-    margin: calc(var(--scaling) * 1) auto !important;
-    transition: all 0.3s ease;
+#cropModal.active {
+    opacity: 1;
+    pointer-events: all;
 }
 
+#cropContent {
+    background: #2B5C6E;
+    border-radius: calc(var(--scaling) * 0.5);
+    padding: calc(var(--scaling) * 1.5);
+    width: min(90vw, 500px);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(var(--scaling) * 0.8);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+#cropContent h3 {
+    color: white;
+    font-size: calc(var(--scaling) * 1);
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Cropper area */
+.cropArea {
+    width: 100%;
+    max-height: 300px;
+    overflow: hidden;
+    border-radius: calc(var(--scaling) * 0.2);
+    background: #1D3A4D;
+}
+.cropArea img {
+    display: block;
+    max-width: 100%;
+}
+
+/* Live preview circle */
+.cropPreviewWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(var(--scaling) * 0.3);
+}
+.cropPreviewWrap span {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: calc(var(--scaling) * 0.55);
+}
+#cropPreview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal buttons */
+.cropActions {
+    display: flex;
+    gap: calc(var(--scaling) * 0.5);
+    width: 100%;
+    justify-content: center;
+}
+.cropActions button {
+    font-family: "Nunito", sans-serif;
+    font-size: calc(var(--scaling) * 0.7);
+    font-weight: 600;
+    padding: calc(var(--scaling) * 0.3) calc(var(--scaling) * 1);
+    border: none;
+    border-radius: calc(var(--scaling) * 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.cropActions button:hover {
+    transform: scale(1.05);
+}
+#cropConfirm {
+    background: white;
+    color: #2B5C6E;
+}
+#cropConfirm:hover {
+    font-weight: bold;
+}
+#cropConfirm:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+#cropCancel {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+#cropCancel:hover {
+    border-color: white;
+}
+
+/* ===== Buttons ===== */
 button.signout {
     position: absolute;
     bottom: 0;
     margin-bottom: calc(var(--scaling) * 0.6);
-}
-button.delete {
-
 }
 
 .button {
