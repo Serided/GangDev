@@ -59,6 +59,9 @@
                         <div class="link">
                             <a href="https://inspectre.link/">- inspectre -<br><span class="sub">Instant browser tweaking for demos, mockups, and satire.</span></a>
                         </div>
+                        <div class="link">
+                            <a href="https://lafter.gangdev.co/">- Lafter -<br><span class="sub">Live draft scouting, team comp scoring, and recommendations for League.</span></a>
+                        </div>
                     </div>
                 </div>
                 <div class="games sect">

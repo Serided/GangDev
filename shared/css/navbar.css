@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+
 
 :root {
     --bar-width: 8vh;
@@ -207,6 +208,14 @@ div.profile p {
     border-color: rgba(255, 255, 255, .18);
 }
 
+.productLafter {
+    background:
+        radial-gradient(140px 90px at 20% 22%, rgba(139, 26, 26, 0.3), transparent 65%),
+        radial-gradient(160px 110px at 80% 78%, rgba(201, 168, 76, 0.2), transparent 70%),
+        linear-gradient(180deg, #0c0808 0%, #140d0d 100%);
+    border-color: rgba(201, 168, 76, .18);
+}
+
 .brandCandor {
     font-family: "Comfortaa", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     color: #7b3f22;
@@ -251,6 +260,41 @@ div.profile p {
     background-clip: text;
     color: transparent;
     font-weight: 800;
+}
+
+.brandLafter {
+    font-family: "Indie Flower", cursive;
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f0e6dc 15%,
+        #ffffff 30%,
+        #ffe8d6 45%,
+        #fff 55%,
+        #f5d0c0 68%,
+        #ffffff 80%,
+        #ffe0cc 90%,
+        #fff 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.brandLafterA {
+    background: linear-gradient(
+        140deg,
+        #c9a84c 0%,
+        #e0c56a 30%,
+        #f0b840 50%,
+        #c9a84c 70%,
+        #d4a030 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .selected {

@@ -45,6 +45,7 @@ require_once '/var/www/gangdev/shared/php/init.php';
                     <a href="https://candor.you/"><button class="hamburger-btn btnText two productBtn productCandor"><span class="brandCandor">Candor</span></button></a>
                     <a href="https://dcops.co/"><button class="hamburger-btn btnText two productBtn productDcops"><span class="brandDc">DC</span><span class="brandOps">OPS</span></button></a>
                     <a href="https://inspectre.link/"><button class="hamburger-btn btnText two productBtn productInspectre"><span class="brandInspectre">inspectre</span></button></a>
+                    <a href="https://lafter.gangdev.co/"><button class="hamburger-btn btnText two productBtn productLafter"><span class="brandLafter">L<span class="brandLafterA">a</span>fter</span></button></a>
                 </nav>
             </aside>
 
