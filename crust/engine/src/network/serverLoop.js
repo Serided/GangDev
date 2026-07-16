@@ -1,6 +1,6 @@
 import { applyTerrainToDelta } from "../world/terrain.js";
-import { getPlayerCenter } from "../tools";
-import { spawnProjectile, updateProjectiles } from "../gameplay/projectiles";
+import { getPlayerCenter } from "../tools.js";
+import { spawnProjectile, updateProjectiles } from "../gameplay/projectiles.js";
 
 export function startServerLoop(wss) {
     const tickRate = 60;                  // ticks per second

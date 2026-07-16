@@ -1,3 +1,12 @@
+// Wait for fonts to load before showing page (prevents FOUT)
+if (document.fonts) {
+    document.fonts.ready.then(() => {
+        document.documentElement.classList.add('fonts-loaded');
+    });
+    // Fallback: show page after 1s max even if fonts fail
+    setTimeout(() => document.documentElement.classList.add('fonts-failed'), 1000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {

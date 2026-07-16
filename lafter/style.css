@@ -1,3 +1,8 @@
+/* Hide page until fonts load to prevent FOUT */
+html { visibility: hidden; }
+html.fonts-loaded { visibility: visible; }
+html.fonts-failed { visibility: visible; }
+
 :root {
     --maroon: #4a0e0e;
     --blood: #8b1a1a;
