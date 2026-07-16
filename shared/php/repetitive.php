@@ -1,4 +1,21 @@
 <?php ?>
+
+<!-- Status banner for contact form / account actions -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get('status');
+    if (status === 'success' || status === 'error') {
+        const banner = document.createElement('div');
+        banner.className = 'status-banner ' + status;
+        banner.textContent = status === 'success' ? 'Message sent successfully!' : 'Something went wrong. Please try again.';
+        document.body.prepend(banner);
+        // Clean URL without reload
+        history.replaceState(null, '', window.location.pathname);
+    }
+});
+</script>
+
 <!-- stylesheets -->
 <link rel="stylesheet" href="https://shared.gangdev.co/css/style.css">
 

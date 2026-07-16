@@ -340,3 +340,35 @@ a:hover{
   from { opacity: 0 }
   to { opacity: 1 }
 }
+
+/* Status banner (contact form feedback) */
+.status-banner {  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  padding: 14px 20px;
+  font-size: 1rem;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  letter-spacing: 0.3px;
+  transform: translateY(-100%);
+  animation: banner-slide-in 0.3s ease forwards, banner-slide-out 0.3s ease 4s forwards;
+}
+.status-banner.success {
+  background: #2B5C6E;
+}
+.status-banner.error {
+  background: #4a1a1a;
+}
+@keyframes banner-slide-in {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+@keyframes banner-slide-out {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-100%); opacity: 0; }
+}
