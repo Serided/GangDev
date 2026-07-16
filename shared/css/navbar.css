@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Indie+Flower&family=JetBrains+Mono:wght@500;600;700;800&display=swap");
 
 
 :root {
@@ -184,10 +184,9 @@ div.profile p {
     border: 1px solid transparent;
     font-weight: 700;
     letter-spacing: 0.2px;
-    height: 7vh;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    height: 6.5vh;
+    line-height: 6.5vh;
+    padding: 0 .5vh;
 }
 
 .productCandor {
@@ -225,6 +224,7 @@ div.profile p {
     color: #7b3f22;
     letter-spacing: 0.4px;
     font-weight: 700;
+    font-size: 4vh;
 }
 
 .brandDc,
@@ -232,6 +232,7 @@ div.profile p {
 .brandInspectre {
     font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     letter-spacing: 0.6px;
+    font-size: 3.8vh;
 }
 
 .brandDc {
@@ -274,6 +275,7 @@ div.profile p {
     color: transparent;
     font-weight: 700;
     letter-spacing: 0.3px;
+    font-size: 3.6vh;
 }
 
 .brandLafterA {
