@@ -5,9 +5,9 @@
  */
 
 $VERSIONS = [
-    'gangdev'   => 'v0.2.0',
-    'crust'     => 'v0.2.0',
-    'candor'    => 'v0.2.0',
+    'gangdev'   => 'v1.0.0',
+    'crust'     => 'v1.0.0',
+    'candor'    => 'v1.0.0',
     'dcops'     => 'v0.0.0',
     'lafter'    => 'v0.0.0',
     'inspectre' => 'v0.1.0',

@@ -123,4 +123,37 @@
             window.open(block.dataset.href, '_blank');
         });
     });
+
+    // === HAMBURGER LIVE COLOR SHIFT ===
+    const hamburger = document.querySelector('.hamburger');
+    if (hamburger) {
+        function updateHamburgerColor() {
+            // Don't shift when menu is open
+            const input = hamburger.querySelector('input');
+            if (input && input.checked) return;
+
+            // Sample the element directly behind the hamburger
+            const rect = hamburger.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+
+            // Temporarily hide hamburger, sample background
+            hamburger.style.visibility = 'hidden';
+            const el = document.elementFromPoint(cx, cy);
+            hamburger.style.visibility = '';
+
+            if (el) {
+                const bg = getComputedStyle(el).backgroundColor;
+                const match = bg.match(/\d+/g);
+                if (match) {
+                    const [r, g, b] = match.map(Number);
+                    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+                    hamburger.style.setProperty('--foreground', luminance < 0.5 ? 'white' : '#333');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', updateHamburgerColor);
+        updateHamburgerColor();
+    }
 })();

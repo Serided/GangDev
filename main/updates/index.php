@@ -20,7 +20,7 @@ require_once '/var/www/gangdev/main/src/php/init.php';
     <!-- SLIDE: v0.2.0 (CURRENT) -->
     <div class="slide active" data-version="0.2.0">
         <header class="slideHeader">
-            <span class="version">v0.2.0</span>
+            <span class="version">v1.0.0</span>
             <span class="versionState current">Current</span>
             <span class="timestamp">2026-07-17 — 13:34</span>
         </header>
@@ -120,13 +120,13 @@ require_once '/var/www/gangdev/main/src/php/init.php';
     <!-- SLIDE: v0.1.0 -->
     <div class="slide" data-version="0.1.0">
         <header class="slideHeader">
-            <span class="version">v0.1.0</span>
-            <span class="versionState past">Previous</span>
-            <span class="timestamp">2026-06-20 — 00:00</span>
+            <span class="version">v0.0.0</span>
+            <span class="versionState past">Foundation</span>
+            <span class="timestamp">??.??.?? — ??:??</span>
         </header>
 
         <h1 class="slideTitle">Foundation</h1>
-        <p class="slideLead">Initial site launch. Flat folder structure, basic auth, individual product pages.</p>
+        <p class="slideLead">Everything that existed before versioned releases.</p>
 
         <section class="productBlock theme-gangdev" data-href="https://gangdev.co">
             <div class="productBanner">

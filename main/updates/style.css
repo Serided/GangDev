@@ -5,9 +5,20 @@ body {
     background: #1D3A4D;
 }
 
-/* Hamburger contrast on dark background — light bars when closed */
-.hamburger {
-    --foreground: white;
+/* === Navbar overrides (navbar.css loads AFTER this — need !important) === */
+
+/* Remove arrow icons from W/S buttons */
+#upBtn::before,
+#downBtn::after {
+    display: none !important;
+}
+
+/* All nav buttons same size */
+#upBtn, #downBtn {
+    width: calc(var(--scaling) * 2.5) !important;
+    height: calc(var(--scaling) * 2.5) !important;
+    font-size: calc(var(--scaling) * 1.3) !important;
+    transition: opacity 0.2s ease;
 }
 
 .updatesShell {
@@ -122,10 +133,10 @@ body {
 
 .productBanner .productVersion {
     font-size: 0.65rem;
-    font-family: "JetBrains Mono", monospace;
-    opacity: 0.6;
     letter-spacing: 0.5px;
     font-weight: 600;
+    font-family: inherit;
+    opacity: 0.7;
 }
 
 /* Change list (default — overridden per theme) */
@@ -173,6 +184,7 @@ body {
 .theme-gangdev .productName { color: #fff; font-family: "Nunito", sans-serif; }
 .theme-gangdev .productTag { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); }
 .theme-gangdev .productIcon { box-shadow: 0 0 0 1px rgba(255,255,255,0.2); }
+.theme-gangdev .productVersion { color: #a8d8ea; }
 .theme-gangdev .changeList { background: #234E5E; }
 .theme-gangdev .changeList li { color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.08); font-family: "Nunito", sans-serif; }
 .theme-gangdev .changeList code { background: rgba(0,0,0,0.2); color: #a8d8ea; }
@@ -200,6 +212,7 @@ body {
     text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
 }
 .theme-crust .productTag { background: rgba(0,255,136,0.1); color: #00ff88; border: 1px solid rgba(0,255,136,0.25); }
+.theme-crust .productVersion { color: #00ff88; text-shadow: 0 0 6px rgba(0,255,136,0.3); font-family: "VT323", monospace; font-size: 0.85rem; }
 .theme-crust .changeList {
     position: relative;
     z-index: 2;
@@ -220,7 +233,7 @@ body {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: url('crust-map.svg') center/cover no-repeat #1a1a2e;
+    background: url('crust-map.png') center/cover no-repeat #1a1a2e;
     opacity: 0.6;
 }
 
@@ -235,6 +248,7 @@ body {
 .theme-candor .productName { font-family: "Comfortaa", sans-serif; color: #7b3f22; }
 .theme-candor .productTag { background: rgba(185,219,242,0.5); color: #2a3b52; border: 1px solid rgba(185,219,242,0.8); }
 .theme-candor .productIcon { border-radius: 0; width: 28px; height: 28px; }
+.theme-candor .productVersion { color: #7b3f22; font-family: "Comfortaa", sans-serif; }
 .theme-candor .changeList { background: transparent; }
 .theme-candor .changeList li { color: #3d2a1a; border-color: rgba(123,63,34,0.1); font-family: "Comfortaa", sans-serif; font-size: 0.82rem; }
 .theme-candor .changeList code { background: rgba(123,63,34,0.08); color: #5a2d10; }
@@ -259,6 +273,7 @@ body {
     -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .theme-dcops .productTag { background: rgba(11,18,32,0.05); color: rgba(11,18,32,0.55); border: 1px solid rgba(11,18,32,0.14); }
+.theme-dcops .productVersion { color: #4a0f1a; font-family: "JetBrains Mono", monospace; }
 .theme-dcops .changeList { background: transparent; }
 .theme-dcops .changeList li {
     color: #0b1220;
@@ -294,6 +309,7 @@ body {
     -webkit-background-clip: text; background-clip: text; color: transparent; font-family: inherit;
 }
 .theme-lafter .productTag { background: rgba(201,168,76,0.12); color: #c9a84c; border: 1px solid rgba(201,168,76,0.25); }
+.theme-lafter .productVersion { color: #c9a84c; font-family: "Indie Flower", cursive; font-size: 0.75rem; }
 .theme-lafter .changeList { background: transparent; }
 .theme-lafter .changeList li {
     color: #e8e0e0;
@@ -324,6 +340,7 @@ body {
 }
 .theme-inspectre .productIcon { border-radius: 0; width: 24px; height: 24px; }
 .theme-inspectre .productTag { background: rgba(107,107,255,0.12); color: #9d8fff; border: 1px solid rgba(107,107,255,0.25); }
+.theme-inspectre .productVersion { color: #9d8fff; font-family: "JetBrains Mono", monospace; }
 .theme-inspectre .changeList { background: transparent; }
 .theme-inspectre .changeList li {
     color: rgba(238,240,255,0.85);
@@ -365,16 +382,6 @@ body {
 }
 #arrowRight {
     right: calc(var(--scaling) * 0.5);
-}
-
-/* Override W/S button arrow icons — remove them on this page */
-#upBtn::before,
-#downBtn::after {
-    display: none;
-}
-
-#upBtn, #downBtn {
-    transition: opacity 0.2s ease;
 }
 
 /* Responsive */
