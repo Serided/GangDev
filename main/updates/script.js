@@ -1,22 +1,31 @@
 (() => {
-    const buttons = Array.from(document.querySelectorAll("[data-filter]"));
-    const items = Array.from(document.querySelectorAll("[data-impact]"));
-    if (!buttons.length || !items.length) return;
+    const sections = document.querySelectorAll('.productSection');
 
-    const setFilter = (value) => {
-        buttons.forEach(btn => btn.classList.toggle("isActive", btn.getAttribute("data-filter") === value));
-        items.forEach(item => {
-            const impact = item.getAttribute("data-impact");
-            const hide = value !== "all" && impact !== value;
-            item.classList.toggle("isHidden", hide);
-        });
-    };
+    sections.forEach(section => {
+        const cards = Array.from(section.querySelectorAll('.updateCard'));
+        const countEl = section.querySelector('.carouselCount');
+        const prevBtn = section.querySelector('.carouselBtn.prev');
+        const nextBtn = section.querySelector('.carouselBtn.next');
+        let index = 0;
 
-    buttons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            setFilter(btn.getAttribute("data-filter"));
+        if (!cards.length) return;
+
+        const show = (i) => {
+            cards.forEach(c => c.classList.remove('active'));
+            cards[i].classList.add('active');
+            countEl.textContent = `${i + 1} / ${cards.length}`;
+        };
+
+        prevBtn.addEventListener('click', () => {
+            index = (index - 1 + cards.length) % cards.length;
+            show(index);
         });
+
+        nextBtn.addEventListener('click', () => {
+            index = (index + 1) % cards.length;
+            show(index);
+        });
+
+        show(0);
     });
-
-    setFilter("all");
 })();

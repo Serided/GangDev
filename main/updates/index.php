@@ -3,132 +3,209 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Candor Updates</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GangDev — Updates</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
     <?= $head ?>
 </head>
-<body class="updatesBody">
+<body>
 <?= $navbar ?>
 <?= $warn ?>
 
 <div class="updatesShell">
     <header class="updatesHeader">
-        <div class="brand">
-            <div class="logo"><span class="logoGlyph">C</span></div>
-            <div class="brandText">
-                <div class="brandTitle"><span class="brandName">Candor</span></div>
-                <div class="meta">updates</div>
-            </div>
-        </div>
-        <div class="updatesMeta">
-            <span class="metaBadge">v0.0</span>
-            <span class="metaText"><span class="osEm">Personal OS</span> build log</span>
-        </div>
+        <h1>Updates</h1>
+        <p class="headerSub">What's new across GangDev products.</p>
     </header>
 
     <main class="updatesMain">
-        <section class="currentRelease card" id="v0-0">
-            <div class="releaseHead">
-                <span class="releaseVer">v0.0</span>
-                <span class="releaseState">Current</span>
-            </div>
-            <h1>Foundation release</h1>
-            <p class="releaseLead">Identity, access gates, and the base layout for the <span class="osEm">personal OS</span>.</p>
 
-            <div class="filterRow">
-                <button class="filterBtn isActive" data-filter="all" type="button">All</button>
-                <button class="filterBtn" data-filter="high" type="button">High</button>
-                <button class="filterBtn" data-filter="medium" type="button">Medium</button>
-                <button class="filterBtn" data-filter="low" type="button">Low</button>
+        <!-- GANGDEV (PLATFORM) -->
+        <section class="productSection" data-product="gangdev">
+            <div class="productHead">
+                <img class="productIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="GangDev">
+                <span class="productName">GangDev</span>
+                <span class="productTag">platform</span>
             </div>
+            <div class="carousel">
+                <div class="carouselTrack">
+                    <article class="updateCard" data-date="2026-07-17 20:00">
+                        <div class="updateMeta">
+                            <span class="updateDate">2026-07-17 — 20:00</span>
+                            <span class="updateType feat">Feature</span>
+                        </div>
+                        <h3>Unified auth — Sign in with GangDev</h3>
+                        <p>All products (Candor, DCOPS, Lafter) can now authenticate via a single GangDev account using a secure auth-code exchange. One identity across everything.</p>
+                    </article>
+                    <article class="updateCard" data-date="2026-07-17 18:30">
+                        <div class="updateMeta">
+                            <span class="updateDate">2026-07-17 — 18:30</span>
+                            <span class="updateType feat">Feature</span>
+                        </div>
+                        <h3>Central identity schema</h3>
+                        <p>Migrated all user/auth tables to a dedicated <code>gangdev</code> PostgreSQL schema. Session tokens, remember tokens, and password resets now live in their own namespace. Cleaner, more scalable.</p>
+                    </article>
+                    <article class="updateCard" data-date="2026-07-17 15:00">
+                        <div class="updateMeta">
+                            <span class="updateDate">2026-07-17 — 15:00</span>
+                            <span class="updateType infra">Infrastructure</span>
+                        </div>
+                        <h3>Project restructure</h3>
+                        <p>Reorganized the entire codebase: gangdev.co content now lives under <code>main/</code>, each product gets its own root folder, and <code>shared/</code> is strictly cross-product infrastructure (db, mailer, base init).</p>
+                    </article>
+                    <article class="updateCard" data-date="2026-07-16 22:00">
+                        <div class="updateMeta">
+                            <span class="updateDate">2026-07-16 — 22:00</span>
+                            <span class="updateType fix">Security</span>
+                        </div>
+                        <h3>Full security audit + credential rotation</h3>
+                        <p>Blocked public access to .env and sensitive files via .htaccess. Rotated DB password, SECRET_KEY, and SMTP credentials. Verified SPF/DKIM/DMARC records.</p>
+                    </article>
+                    <article class="updateCard" data-date="2026-07-16 19:00">
+                        <div class="updateMeta">
+                            <span class="updateDate">2026-07-16 — 19:00</span>
+                            <span class="updateType feat">Feature</span>
+                        </div>
+                        <h3>Contact form status banners</h3>
+                        <p>Success/error banners now appear site-wide after form submissions. Auto-hides after 4 seconds, URL cleaned via history.replaceState. Works on every page via shared includes.</p>
+                    </article>
+                </div>
+                <div class="carouselNav">
+                    <button class="carouselBtn prev" aria-label="Previous">‹</button>
+                    <span class="carouselCount"></span>
+                    <button class="carouselBtn next" aria-label="Next">›</button>
+                </div>
+            </div>
+        </section>
 
-            <div class="feedList">
-                <div class="feedItem" data-impact="high">
-                    <span class="impact high">High</span>
-                    <span class="feedText">Username sign-in plus display name identity split.</span>
+        <!-- CRUST -->
+        <section class="productSection" data-product="crust">
+            <div class="productHead">
+                <span class="productName">Crust</span>
+                <span class="productTag">game engine</span>
+            </div>
+            <div class="carousel">
+                <div class="carouselTrack">
+                    <article class="updateCard" data-date="2026-07-17 16:00">
+                        <div class="updateMeta">
+                            <span class="updateDate">2026-07-17 — 16:00</span>
+                            <span class="updateType fix">Fix</span>
+                        </div>
+                        <h3>Server paths + Node 22 upgrade</h3>
+                        <p>Fixed all require paths after the project restructure. Upgraded to Node v22 LTS. Regenerated maps, restarted PM2 — gateway, game1, and game2 all online.</p>
+                    </article>
+                    <article class="updateCard" data-date="2026-07-17 15:30">
+                        <div class="updateMeta">
+                            <span class="updateDate">2026-07-17 — 15:30</span>
+                            <span class="updateType infra">Infrastructure</span>
+                        </div>
+                        <h3>package.json + npm scripts</h3>
+                        <p>Created proper package.json with scripts for gateway, game1, game2, and map generation. Dependencies: ws, dotenv, jsonwebtoken, noisejs.</p>
+                    </article>
+                    <article class="updateCard" data-date="2026-07-16 17:00">
+                        <div class="updateMeta">
+                            <span class="updateDate">2026-07-16 — 17:00</span>
+                            <span class="updateType fix">Fix</span>
+                        </div>
+                        <h3>WebSocket connection fix</h3>
+                        <p>Game servers weren't starting due to missing .js extensions on ES module imports in serverLoop.js. Fixed — gateway and game servers now connect properly.</p>
+                    </article>
                 </div>
-                <div class="feedItem" data-impact="high">
-                    <span class="impact high">High</span>
-                    <span class="feedText">Email verification gate before access to do.candor.you.</span>
-                </div>
-                <div class="feedItem" data-impact="high">
-                    <span class="impact high">High</span>
-                    <span class="feedText">Do dashboard scaffold for tasks, notes, and planner blocks.</span>
-                </div>
-                <div class="feedItem" data-impact="medium">
-                    <span class="impact medium">Medium</span>
-                    <span class="feedText">Landing and account layouts tuned for the Candor palette and hover polish.</span>
-                </div>
-                <div class="feedItem" data-impact="medium">
-                    <span class="impact medium">Medium</span>
-                    <span class="feedText">Live display name availability check on signup.</span>
-                </div>
-                <div class="feedItem" data-impact="medium">
-                    <span class="impact medium">Medium</span>
-                    <span class="feedText">Account forms refit for username login and verification steps.</span>
-                </div>
-                <div class="feedItem" data-impact="low">
-                    <span class="impact low">Low</span>
-                    <span class="feedText">Footer links wired to updates and GangDev.</span>
-                </div>
-                <div class="feedItem" data-impact="low">
-                    <span class="impact low">Low</span>
-                    <span class="feedText"><span class="osEm">Personal OS</span> tagline treatment and spacing passes.</span>
+                <div class="carouselNav">
+                    <button class="carouselBtn prev" aria-label="Previous">‹</button>
+                    <span class="carouselCount"></span>
+                    <button class="carouselBtn next" aria-label="Next">›</button>
                 </div>
             </div>
         </section>
 
-        <section class="futureReleases">
-            <div class="futureHead">
-                <h2>Future versions</h2>
-                <span class="futureHint">Latest at the front</span>
+        <!-- CANDOR -->
+        <section class="productSection" data-product="candor">
+            <div class="productHead">
+                <span class="productName">Candor</span>
+                <span class="productTag">personal OS</span>
             </div>
-            <div class="futureGrid">
-                <article class="card futureCard" id="v1-0">
-                    <div class="releaseHead">
-                        <span class="releaseVer">v1.0</span>
-                        <span class="releaseState">Planned</span>
-                    </div>
-                    <h3>Smart scheduler</h3>
-                    <ul class="miniList">
-                        <li>Constraint based scheduling and reflow</li>
-                        <li>Personal time logging and analytics</li>
-                        <li>Adaptive planning across the day</li>
-                    </ul>
-                </article>
-
-                <article class="card futureCard" id="v0-5">
-                    <div class="releaseHead">
-                        <span class="releaseVer">v0.5</span>
-                        <span class="releaseState">Planned</span>
-                    </div>
-                    <h3>Calendar events</h3>
-                    <ul class="miniList">
-                        <li>Calendar event capture</li>
-                        <li>Event linking with tasks and notes</li>
-                    </ul>
-                </article>
-
-                <article class="card futureCard" id="v0-1">
-                    <div class="releaseHead">
-                        <span class="releaseVer">v0.1</span>
-                        <span class="releaseState">Planned</span>
-                    </div>
-                    <h3>Functional today view</h3>
-                    <ul class="miniList">
-                        <li>Basic task, note, and planner workflows</li>
-                        <li>Rule based daily planning flow</li>
-                    </ul>
-                </article>
+            <div class="carousel">
+                <div class="carouselTrack">
+                    <article class="updateCard" data-date="2026-07-17 20:30">
+                        <div class="updateMeta">
+                            <span class="updateDate">2026-07-17 — 20:30</span>
+                            <span class="updateType feat">Feature</span>
+                        </div>
+                        <h3>Sign in with GangDev</h3>
+                        <p>Candor login and signup pages now offer one-click sign-in via GangDev identity. Auto-provisions a Candor profile on first use — no separate registration needed.</p>
+                    </article>
+                    <article class="updateCard" data-date="2026-07-17 14:00">
+                        <div class="updateMeta">
+                            <span class="updateDate">2026-07-17 — 14:00</span>
+                            <span class="updateType infra">Infrastructure</span>
+                        </div>
+                        <h3>Init refactor + shared base</h3>
+                        <p>Candor's init now uses init_base.php from shared/ with absolute paths. All asset URLs switched to absolute for cross-subdomain loading.</p>
+                    </article>
+                </div>
+                <div class="carouselNav">
+                    <button class="carouselBtn prev" aria-label="Previous">‹</button>
+                    <span class="carouselCount"></span>
+                    <button class="carouselBtn next" aria-label="Next">›</button>
+                </div>
             </div>
         </section>
+
+        <!-- DCOPS -->
+        <section class="productSection" data-product="dcops">
+            <div class="productHead">
+                <span class="productName">DCOPS</span>
+                <span class="productTag">operations</span>
+            </div>
+            <div class="carousel">
+                <div class="carouselTrack">
+                    <article class="updateCard" data-date="2026-07-17 20:30">
+                        <div class="updateMeta">
+                            <span class="updateDate">2026-07-17 — 20:30</span>
+                            <span class="updateType feat">Feature</span>
+                        </div>
+                        <h3>Sign in with GangDev</h3>
+                        <p>DCOPS login and signup pages now support GangDev identity sign-in with auto-provisioning.</p>
+                    </article>
+                </div>
+                <div class="carouselNav">
+                    <button class="carouselBtn prev" aria-label="Previous">‹</button>
+                    <span class="carouselCount"></span>
+                    <button class="carouselBtn next" aria-label="Next">›</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- LAFTER -->
+        <section class="productSection" data-product="lafter">
+            <div class="productHead">
+                <span class="productName brandLafter">L<span class="brandLafterA">a</span>fter</span>
+                <span class="productTag">drafting tool</span>
+            </div>
+            <div class="carousel">
+                <div class="carouselTrack">
+                    <article class="updateCard" data-date="2026-07-17 13:00">
+                        <div class="updateMeta">
+                            <span class="updateDate">2026-07-17 — 13:00</span>
+                            <span class="updateType feat">Feature</span>
+                        </div>
+                        <h3>Added to navbar</h3>
+                        <p>Lafter now appears in the Products tab across all gangdev.co pages with its custom Indie Flower branding.</p>
+                    </article>
+                </div>
+                <div class="carouselNav">
+                    <button class="carouselBtn prev" aria-label="Previous">‹</button>
+                    <span class="carouselCount"></span>
+                    <button class="carouselBtn next" aria-label="Next">›</button>
+                </div>
+            </div>
+        </section>
+
     </main>
-
-    <div class="updatesFooter">
-        <?= $footer ?>
-    </div>
 </div>
 
+<?= $footer ?>
 </body>
 </html>
