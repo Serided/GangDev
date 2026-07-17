@@ -42,7 +42,7 @@ if (file_exists($destination)) {
 	unlink($destination);
 }
 if (move_uploaded_file($file['tmp_name'], $destination)) {
-	$iconUrl = 'https://gangdev.co/user/' . $userId . '/icon/user-icon.jpg';
+	$iconUrl = 'https://user.gangdev.co/' . $userId . '/icon/user-icon.jpg';
 	echo json_encode(["status" => "success", "url" => $iconUrl]);
 } else {
 	echo json_encode(["status" => "error", "message" => "Error saving file."]);

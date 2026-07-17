@@ -56,7 +56,7 @@ if (isset($_SESSION["user_id"], $_SESSION["session_token"])) {
 $displayname = $_SESSION['displayname'] ?? 'Account';
 $userIconUrl = '';
 if (isset($_SESSION['user_id'])) {
-	$userIconUrl = "https://gangdev.co/user/" . $_SESSION['user_id'] . "/icon/user-icon.jpg";
+	$userIconUrl = "https://user.gangdev.co/" . $_SESSION['user_id'] . "/icon/user-icon.jpg";
 }
 
 // Render shared components
