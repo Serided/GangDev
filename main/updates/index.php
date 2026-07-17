@@ -27,7 +27,7 @@
         <p class="slideLead">One account across everything. Central schema, cross-product sign-in, and a full infrastructure overhaul.</p>
 
         <!-- GANGDEV -->
-        <section class="productBlock theme-gangdev">
+        <section class="productBlock theme-gangdev" data-href="https://gangdev.co">
             <div class="productBanner">
                 <img class="productIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
                 <span class="productName">GangDev</span>
@@ -44,7 +44,7 @@
         </section>
 
         <!-- CRUST -->
-        <section class="productBlock theme-crust">
+        <section class="productBlock theme-crust" data-href="https://crust.gangdev.co/game1">
             <div class="crustMapBg"></div>
             <div class="productBanner">
                 <span class="productName">CRUST</span>
@@ -59,7 +59,7 @@
         </section>
 
         <!-- CANDOR -->
-        <section class="productBlock theme-candor">
+        <section class="productBlock theme-candor" data-href="https://candor.you">
             <div class="productBanner">
                 <img class="productIcon" src="https://candor.you/src/img/logo/candor-mark.png?v=13" alt="">
                 <span class="productName">Candor</span>
@@ -73,7 +73,7 @@
         </section>
 
         <!-- DCOPS -->
-        <section class="productBlock theme-dcops">
+        <section class="productBlock theme-dcops" data-href="https://dcops.co">
             <div class="productBanner">
                 <span class="productName"><span class="dc">DC</span><span class="ops">OPS</span></span>
                 <span class="productTag">operations</span>
@@ -85,7 +85,7 @@
         </section>
 
         <!-- LAFTER -->
-        <section class="productBlock theme-lafter">
+        <section class="productBlock theme-lafter" data-href="https://lafter.gg">
             <div class="productBanner">
                 <span class="productName">L<span class="brandLafterA">a</span>fter</span>
                 <span class="productTag">drafting tool</span>
@@ -97,7 +97,7 @@
         </section>
 
         <!-- INSPECTRE -->
-        <section class="productBlock theme-inspectre">
+        <section class="productBlock theme-inspectre" data-href="https://inspectre.link">
             <div class="productBanner">
                 <img class="productIcon" src="https://inspectre.link/src/inspectre-extension/icons/ghost.png" alt="">
                 <span class="productName">inspectre</span>
@@ -120,7 +120,7 @@
         <h1 class="slideTitle">Foundation</h1>
         <p class="slideLead">Initial site launch. Flat folder structure, basic auth, individual product pages.</p>
 
-        <section class="productBlock theme-gangdev">
+        <section class="productBlock theme-gangdev" data-href="https://gangdev.co">
             <div class="productBanner">
                 <img class="productIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
                 <span class="productName">GangDev</span>
@@ -137,7 +137,7 @@
             </ul>
         </section>
 
-        <section class="productBlock theme-crust">
+        <section class="productBlock theme-crust" data-href="https://crust.gangdev.co/game1">
             <div class="crustMapBg"></div>
             <div class="productBanner">
                 <span class="productName">CRUST</span>
@@ -151,7 +151,7 @@
             </ul>
         </section>
 
-        <section class="productBlock theme-candor">
+        <section class="productBlock theme-candor" data-href="https://candor.you">
             <div class="productBanner">
                 <img class="productIcon" src="https://candor.you/src/img/logo/candor-mark.png?v=13" alt="">
                 <span class="productName">Candor</span>
@@ -164,7 +164,7 @@
             </ul>
         </section>
 
-        <section class="productBlock theme-dcops">
+        <section class="productBlock theme-dcops" data-href="https://dcops.co">
             <div class="productBanner">
                 <span class="productName"><span class="dc">DC</span><span class="ops">OPS</span></span>
                 <span class="productTag">operations</span>
@@ -176,7 +176,7 @@
             </ul>
         </section>
 
-        <section class="productBlock theme-inspectre">
+        <section class="productBlock theme-inspectre" data-href="https://inspectre.link">
             <div class="productBanner">
                 <img class="productIcon" src="https://inspectre.link/src/inspectre-extension/icons/ghost.png" alt="">
                 <span class="productName">inspectre</span>
@@ -188,10 +188,9 @@
         </section>
     </div>
 
-    <!-- NAVIGATION ARROW -->
-    <button class="navArrow right" id="navArrow" aria-label="Next update">
-        <span class="arrowKey">›</span>
-    </button>
+    <!-- SLIDE ARROWS (A / D) -->
+    <button class="slideArrow" id="arrowLeft" aria-label="Previous version">A</button>
+    <button class="slideArrow" id="arrowRight" aria-label="Next version">D</button>
 
 </div>
 

@@ -1,39 +1,115 @@
 (() => {
     const slides = Array.from(document.querySelectorAll('.slide'));
-    const arrow = document.getElementById('navArrow');
-    if (!slides.length || !arrow) return;
+    const arrowLeft = document.getElementById('arrowLeft');
+    const arrowRight = document.getElementById('arrowRight');
+    const upBtn = document.getElementById('upBtn');
+    const downBtn = document.getElementById('downBtn');
+    if (!slides.length) return;
 
     let index = 0;
 
+    // === SLIDE NAVIGATION (A/D arrows) ===
     const show = (i) => {
         slides.forEach(s => s.classList.remove('active'));
         slides[i].classList.add('active');
-
-        // Update arrow direction
-        if (i === 0) {
-            // On newest — arrow points right (go to older)
-            arrow.className = 'navArrow right';
-            arrow.querySelector('.arrowKey').textContent = '›';
-        } else if (i === slides.length - 1) {
-            // On oldest — arrow points left (go to newer)
-            arrow.className = 'navArrow left';
-            arrow.querySelector('.arrowKey').textContent = '‹';
-        }
-
-        if (slides.length <= 1) {
-            arrow.classList.add('hidden');
-        }
+        updateArrows();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    arrow.addEventListener('click', () => {
-        if (arrow.classList.contains('right')) {
-            index = Math.min(index + 1, slides.length - 1);
-        } else {
-            index = Math.max(index - 1, 0);
-        }
-        show(index);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    const updateArrows = () => {
+        if (arrowLeft) arrowLeft.style.opacity = index > 0 ? '1' : '0.25';
+        if (arrowLeft) arrowLeft.style.pointerEvents = index > 0 ? 'auto' : 'none';
+        if (arrowRight) arrowRight.style.opacity = index < slides.length - 1 ? '1' : '0.25';
+        if (arrowRight) arrowRight.style.pointerEvents = index < slides.length - 1 ? 'auto' : 'none';
+    };
+
+    if (arrowLeft) {
+        arrowLeft.addEventListener('click', () => {
+            if (index > 0) { index--; show(index); }
+        });
+    }
+    if (arrowRight) {
+        arrowRight.addEventListener('click', () => {
+            if (index < slides.length - 1) { index++; show(index); }
+        });
+    }
 
     show(0);
+
+    // === W/S SMOOTH SCROLL ===
+    const SCROLL_SPEED = 8;
+    let scrollDir = 0;
+    let scrollRAF = null;
+
+    function scrollLoop() {
+        if (scrollDir !== 0) {
+            window.scrollBy(0, scrollDir * SCROLL_SPEED);
+            scrollRAF = requestAnimationFrame(scrollLoop);
+        }
+    }
+
+    // Force-show W/S buttons (navbar.js hides them when no .sect.cont elements exist)
+    if (upBtn) { upBtn.style.opacity = '1'; upBtn.style.pointerEvents = 'auto'; }
+    if (downBtn) { downBtn.style.opacity = '1'; downBtn.style.pointerEvents = 'auto'; }
+
+    // Mouse hold on W/S buttons for smooth scroll
+    if (upBtn) {
+        upBtn.addEventListener('mousedown', () => { scrollDir = -1; scrollLoop(); });
+        upBtn.addEventListener('mouseup', () => { scrollDir = 0; });
+        upBtn.addEventListener('mouseleave', () => { scrollDir = 0; });
+    }
+    if (downBtn) {
+        downBtn.addEventListener('mousedown', () => { scrollDir = 1; scrollLoop(); });
+        downBtn.addEventListener('mouseup', () => { scrollDir = 0; });
+        downBtn.addEventListener('mouseleave', () => { scrollDir = 0; });
+    }
+
+    // === KEYBOARD — capture phase to intercept before navbar.js ===
+    const heldKeys = new Set();
+
+    document.addEventListener('keydown', (e) => {
+        if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) return;
+
+        const key = e.key.toLowerCase();
+
+        if (['a', 'd', 'w', 's', 'arrowleft', 'arrowright', 'arrowup', 'arrowdown'].includes(key)) {
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            e.preventDefault();
+        }
+
+        if ((key === 'a' || key === 'arrowleft') && !heldKeys.has('a')) {
+            heldKeys.add('a');
+            if (index > 0) { index--; show(index); }
+        }
+        if ((key === 'd' || key === 'arrowright') && !heldKeys.has('d')) {
+            heldKeys.add('d');
+            if (index < slides.length - 1) { index++; show(index); }
+        }
+        if ((key === 'w' || key === 'arrowup') && !heldKeys.has('w')) {
+            heldKeys.add('w');
+            scrollDir = -1;
+            scrollLoop();
+        }
+        if ((key === 's' || key === 'arrowdown') && !heldKeys.has('s')) {
+            heldKeys.add('s');
+            scrollDir = 1;
+            scrollLoop();
+        }
+    }, true); // <-- capture phase
+
+    document.addEventListener('keyup', (e) => {
+        const key = e.key.toLowerCase();
+        if (key === 'w' || key === 'arrowup') { heldKeys.delete('w'); scrollDir = 0; }
+        if (key === 's' || key === 'arrowdown') { heldKeys.delete('s'); scrollDir = 0; }
+        if (key === 'a' || key === 'arrowleft') { heldKeys.delete('a'); }
+        if (key === 'd' || key === 'arrowright') { heldKeys.delete('d'); }
+    }, true); // <-- capture phase
+
+    // === PRODUCT BLOCK CLICK ===
+    document.querySelectorAll('.productBlock[data-href]').forEach(block => {
+        block.addEventListener('click', () => {
+            window.open(block.dataset.href, '_blank');
+        });
+    });
 })();

@@ -72,6 +72,19 @@ body {
     margin-bottom: 24px;
     border-radius: 14px;
     overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.productBlock[data-href] {
+    cursor: pointer;
+}
+
+.productBlock[data-href]:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.productBlock[data-href]:active {
+    transform: scale(0.99);
 }
 
 .productBanner {
@@ -310,15 +323,14 @@ body {
 .theme-inspectre .tag.fix { background: rgba(255,100,100,0.12); color: #ff9999; }
 .theme-inspectre .tag.infra { background: rgba(107,107,255,0.06); color: rgba(157,143,255,0.6); }
 
-/* ===== NAVIGATION ARROW — matches .sectBtn ===== */
-.navArrow {
+/* ===== NAVIGATION ARROWS — matches .sectBtn ===== */
+.slideArrow {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: calc(var(--scaling) * 0.1);
     width: calc(var(--scaling) * 2.5);
     height: calc(var(--scaling) * 2.5);
     font-size: calc(var(--scaling) * 1.3);
@@ -331,15 +343,18 @@ body {
     background-color: dimgray;
     transition: all 0.2s ease;
 }
-.navArrow:hover { background-color: #37474F; transform: translateY(-50%) scale(1.05); }
-.navArrow:active { transform: translateY(-50%) scale(0.95); }
-.navArrow.right { right: calc(var(--scaling) * 0.5); }
-.navArrow.left { left: calc(var(--scaling) * 0.5); }
-.navArrow .arrowKey { display: block; line-height: 1; }
-.navArrow.hidden { display: none; }
+.slideArrow:hover { background-color: #37474F; transform: translateY(-50%) scale(1.05); }
+.slideArrow:active { transform: translateY(-50%) scale(0.95); }
+
+#arrowLeft {
+    left: calc(var(--scaling) * 0.5);
+}
+#arrowRight {
+    right: calc(var(--scaling) * 0.5);
+}
 
 /* Responsive */
 @media (max-width: 600px) {
     .updatesShell { padding: calc(var(--scaling) * 3) 12px calc(var(--scaling) * 4); }
-    .navArrow { width: calc(var(--scaling) * 3); height: calc(var(--scaling) * 3); font-size: calc(var(--scaling) * 1.6); }
+    .slideArrow { width: calc(var(--scaling) * 3); height: calc(var(--scaling) * 3); font-size: calc(var(--scaling) * 1.6); }
 }
