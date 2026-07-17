@@ -72,7 +72,7 @@ $ok = $_GET['ok'] ?? '';
 				<div class="divider"><span>or</span></div>
 
 				<a href="https://gangdev.co/auth?app=candor" class="btn gangdev-btn">
-					<span class="gangdev-icon">G</span>
+					<img class="gangdev-icon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="GangDev">
 					Sign in with GangDev
 				</a>
 

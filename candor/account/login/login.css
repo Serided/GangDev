@@ -575,9 +575,10 @@ body.is-signup .formIndent {
     box-shadow: 0 6px 16px rgba(43, 92, 110, .15);
 }
 
-.gangdev-icon {
-    font-weight: 800;
-    font-size: 18px;
+img.gangdev-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
 }
 
 .ok {
