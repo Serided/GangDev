@@ -47,8 +47,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 		$redirect = isset($_POST["redirect"]) ? trim($_POST["redirect"]) : '';
 
-		if (!empty($redirect) && str_starts_with($redirect, "/")) {
-			header("Location: https://crust.gangdev.co/" . $redirect);
+		if (!empty($redirect) && str_starts_with($redirect, "https://") && str_contains($redirect, "gangdev.co")) {
+			// Full gangdev URL (e.g. auth flow return)
+			header("Location: " . $redirect);
+		} elseif (!empty($redirect) && str_starts_with($redirect, "/")) {
+			// Relative path (e.g. crust game redirect)
+			header("Location: https://crust.gangdev.co" . $redirect);
 		} else {
 			header("Location: https://account.gangdev.co");
 		}

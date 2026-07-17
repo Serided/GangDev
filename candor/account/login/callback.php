@@ -28,7 +28,7 @@ $context = stream_context_create([
 	],
 ]);
 
-$response = @file_get_contents('https://gangdev.co/auth/exchange', false, $context);
+$response = @file_get_contents('https://gangdev.co/auth/exchange.php', false, $context);
 
 if ($response === false) {
 	header('Location: https://account.candor.you/login/signin.php?error=' . urlencode('Could not verify authentication.'));
