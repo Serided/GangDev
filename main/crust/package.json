@@ -1,0 +1,25 @@
+{
+  "name": "crust",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Crust — multiplayer game engine and servers",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node engine/src/network/gateway.js & node games/game1/server.js & node games/game2/server.js",
+    "gateway": "node engine/src/network/gateway.js",
+    "game1": "node games/game1/server.js",
+    "game2": "node games/game2/server.js",
+    "map:game1": "node games/game1/src/map/createMap.js",
+    "map:game2": "node games/game2/src/map/createMap.js",
+    "map:all": "node games/game1/src/map/createMap.js && node games/game2/src/map/createMap.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "jsonwebtoken": "^9.0.2",
+    "noisejs": "^2.1.0",
+    "ws": "^8.18.0"
+  }
+}
