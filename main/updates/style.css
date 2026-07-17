@@ -5,6 +5,11 @@ body {
     background: #1D3A4D;
 }
 
+/* Hamburger contrast on dark background — light bars when closed */
+.hamburger {
+    --foreground: white;
+}
+
 .updatesShell {
     max-width: 880px;
     margin: 0 auto;
@@ -113,6 +118,14 @@ body {
     padding: 3px 8px;
     border-radius: 999px;
     margin-left: auto;
+}
+
+.productBanner .productVersion {
+    font-size: 0.65rem;
+    font-family: "JetBrains Mono", monospace;
+    opacity: 0.6;
+    letter-spacing: 0.5px;
+    font-weight: 600;
 }
 
 /* Change list (default — overridden per theme) */
@@ -332,7 +345,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
     width: calc(var(--scaling) * 2.5);
     height: calc(var(--scaling) * 2.5);
     font-size: calc(var(--scaling) * 1.3);
@@ -353,11 +365,6 @@ body {
 }
 #arrowRight {
     right: calc(var(--scaling) * 0.5);
-}
-
-.arrowChevron {
-    font-size: 0.7em;
-    opacity: 0.6;
 }
 
 /* Override W/S button arrow icons — remove them on this page */

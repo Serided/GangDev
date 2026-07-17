@@ -47,7 +47,6 @@ if ($timezone === '' || !in_array($timezone, $timezones, true)) {
 $candorAuthed = true;
 $candorName = $name !== '' ? $name : $email;
 $candorShowMyOs = false;
-$candorVersion = 'v0.2';
 ?>
 <!doctype html>
 <html lang="en">

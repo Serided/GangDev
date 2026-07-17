@@ -1,5 +1,5 @@
 <?php
-$candorVersion = isset($candorVersion) ? (string)$candorVersion : 'v0.2';
+$candorVersion = isset($candorVersion) ? (string)$candorVersion : $VERSIONS['candor'];
 ?>
 <div class="footer">
     <a class="footLink" href="https://updates.candor.you/"><span class="footStrong">Candor</span> <?= htmlspecialchars($candorVersion) ?></a>

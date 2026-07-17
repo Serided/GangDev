@@ -118,6 +118,7 @@ function candor_profile_needs_setup($user_id) {
 // --- Page setup helper ---
 
 function candor_page_setup(array $opts = []): array {
+	global $VERSIONS;
 	$userId = candor_current_user_id();
 	$user = $userId ? candor_user_row($userId) : null;
 	$profile = $userId ? candor_profile_row($userId) : null;
@@ -137,7 +138,7 @@ function candor_page_setup(array $opts = []): array {
 		'candorAuthed' => $authed,
 		'candorName' => $name !== '' ? $name : $email,
 		'candorShowMyOs' => $authed,
-		'candorVersion' => $opts['version'] ?? 'v0.2',
+		'candorVersion' => $opts['version'] ?? $VERSIONS['candor'],
 		'candorNavClass' => $opts['navClass'] ?? '',
 	];
 }

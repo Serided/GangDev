@@ -61,7 +61,6 @@ $candorLead = '';
 $candorAuthed = true;
 $candorName = $name !== '' ? $name : $email;
 $candorShowMyOs = true;
-$candorVersion = 'v0.2';
 ?>
 <!doctype html>
 <html lang="en">

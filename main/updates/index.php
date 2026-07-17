@@ -1,4 +1,6 @@
-<?php require_once '/var/www/gangdev/main/src/php/init.php'; ?>
+<?php
+require_once '/var/www/gangdev/main/src/php/init.php';
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,6 +33,7 @@
             <div class="productBanner">
                 <img class="productIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
                 <span class="productName">GangDev</span>
+                <span class="productVersion"><?= $VERSIONS['gangdev'] ?></span>
                 <span class="productTag">platform</span>
             </div>
             <ul class="changeList">
@@ -48,6 +51,7 @@
             <div class="crustMapBg"></div>
             <div class="productBanner">
                 <span class="productName">CRUST</span>
+                <span class="productVersion"><?= $VERSIONS['crust'] ?></span>
                 <span class="productTag">game engine</span>
             </div>
             <ul class="changeList">
@@ -63,6 +67,7 @@
             <div class="productBanner">
                 <img class="productIcon" src="https://candor.you/src/img/logo/candor-mark.png?v=13" alt="">
                 <span class="productName">Candor</span>
+                <span class="productVersion"><?= $VERSIONS['candor'] ?></span>
                 <span class="productTag">personal OS</span>
             </div>
             <ul class="changeList">
@@ -76,6 +81,7 @@
         <section class="productBlock theme-dcops" data-href="https://dcops.co">
             <div class="productBanner">
                 <span class="productName"><span class="dc">DC</span><span class="ops">OPS</span></span>
+                <span class="productVersion"><?= $VERSIONS['dcops'] ?></span>
                 <span class="productTag">operations</span>
             </div>
             <ul class="changeList">
@@ -88,6 +94,7 @@
         <section class="productBlock theme-lafter" data-href="https://lafter.gg">
             <div class="productBanner">
                 <span class="productName">L<span class="brandLafterA">a</span>fter</span>
+                <span class="productVersion"><?= $VERSIONS['lafter'] ?></span>
                 <span class="productTag">drafting tool</span>
             </div>
             <ul class="changeList">
@@ -101,6 +108,7 @@
             <div class="productBanner">
                 <img class="productIcon" src="https://inspectre.link/src/inspectre-extension/icons/ghost.png" alt="">
                 <span class="productName">inspectre</span>
+                <span class="productVersion"><?= $VERSIONS['inspectre'] ?></span>
                 <span class="productTag">inspector</span>
             </div>
             <ul class="changeList">
@@ -189,8 +197,8 @@
     </div>
 
     <!-- SLIDE ARROWS (A / D) -->
-    <button class="slideArrow" id="arrowLeft" aria-label="Previous version"><span class="arrowChevron">&lt;</span> A</button>
-    <button class="slideArrow" id="arrowRight" aria-label="Next version">D <span class="arrowChevron">&gt;</span></button>
+    <button class="slideArrow" id="arrowLeft" aria-label="Previous version">A</button>
+    <button class="slideArrow" id="arrowRight" aria-label="Next version">D</button>
 
 </div>
 

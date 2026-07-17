@@ -9,6 +9,9 @@
 
 use Dotenv\Dotenv;
 
+// Load product versions (single source of truth)
+require_once __DIR__ . '/versions.php';
+
 function gangdev_init(array $config = []) {
 	$defaults = [
 		'domain' => '.gangdev.co',
