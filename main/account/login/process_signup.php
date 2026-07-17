@@ -35,7 +35,7 @@ if ($stmt->fetch(PDO::FETCH_ASSOC)) {
 }
 
 // need more permanent fix. live updated verification
-$stmt = $pdo->prepare("SELECT id FROM users WHERE displayname = ?");
+$stmt = $pdo->prepare("SELECT id FROM users WHERE display_name = ?");
 $stmt->execute([$displayname]);
 if ($stmt->fetch(PDO::FETCH_ASSOC)) {
 	header("Location: signup.php?error=5");
@@ -46,7 +46,7 @@ $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 $verification_token = bin2hex(random_bytes(16)); // 32-character token
 $token_expires = date("Y-m-d H:i:s", time() + 3600); // 1 hour expiration
 
-$stmt = $pdo->prepare("INSERT INTO pending_users (displayname, username, email, password, verification_token, token_expires) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt = $pdo->prepare("INSERT INTO pending_users (display_name, username, email, password, verification_token, token_expires) VALUES (?, ?, ?, ?, ?, ?)");
 if (!$stmt->execute([$displayname, $username, $email, $hashed_password, $verification_token, $token_expires])) {
 	header("Location: signup.php?error=6");
 	exit();

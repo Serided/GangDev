@@ -15,24 +15,24 @@ $rootPath = $_ENV['ROOT_PATH'] ?? '';
 // Remember-me cookie restoration
 if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberMe"])) {
 	$token = $_COOKIE["rememberMe"];
-	$stmt = $pdo->prepare("SELECT user_id, expires_at FROM user_remember_tokens WHERE token = ?");
+	$stmt = $pdo->prepare("SELECT user_id, expires_at FROM remember_tokens WHERE token = ?");
 	$stmt->execute([$token]);
 	$tokenData = $stmt->fetch(PDO::FETCH_ASSOC);
 
 	if ($tokenData && strtotime($tokenData['expires_at']) > time()) {
-		$stmt = $pdo->prepare("SELECT id, displayname, username, email, verified FROM users WHERE id = ?");
+		$stmt = $pdo->prepare("SELECT id, display_name, username, email, verified FROM users WHERE id = ?");
 		$stmt->execute([$tokenData['user_id']]);
 		$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		if ($user) {
 			$_SESSION["user_id"] = $user["id"];
-			$_SESSION["displayname"] = $user["displayname"];
+			$_SESSION["display_name"] = $user["display_name"];
 			$_SESSION["username"] = $user["username"];
 			$_SESSION["email"] = $user["email"];
 			$_SESSION["verified"] = $user["verified"];
 
 			$newExpiry = date('Y-m-d H:i:s', time() + (30 * 24 * 60 * 60));
-			$stmt = $pdo->prepare("UPDATE user_remember_tokens SET expires_at = ? WHERE token = ?");
+			$stmt = $pdo->prepare("UPDATE remember_tokens SET expires_at = ? WHERE token = ?");
 			$stmt->execute([$newExpiry, $token]);
 		}
 	} else {
@@ -40,12 +40,11 @@ if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberMe"])) {
 	}
 }
 
-// Session token validation
-if (isset($_SESSION["user_id"], $_SESSION["session_token"])) {
-	$stmt = $pdo->prepare("SELECT current_session_token FROM users WHERE id = ?");
-	$stmt->execute([$_SESSION["user_id"]]);
-	$user = $stmt->fetch(PDO::FETCH_ASSOC);
-	if (!$user || $user["current_session_token"] !== $_SESSION["session_token"]) {
+// Session validation via session_tokens table
+if (isset($_SESSION["user_id"]) && isset($_SESSION["session_token"])) {
+	$stmt = $pdo->prepare("SELECT token FROM session_tokens WHERE user_id = ? AND token = ? AND expires_at > NOW()");
+	$stmt->execute([$_SESSION["user_id"], $_SESSION["session_token"]]);
+	if (!$stmt->fetch()) {
 		session_destroy();
 		header("Location: https://account.gangdev.co/login/signin.php?message=session_expired");
 		exit();
@@ -53,7 +52,7 @@ if (isset($_SESSION["user_id"], $_SESSION["session_token"])) {
 }
 
 // User context
-$displayname = $_SESSION['displayname'] ?? 'Account';
+$displayname = $_SESSION['display_name'] ?? 'Account';
 $userIconUrl = '';
 if (isset($_SESSION['user_id'])) {
 	$userIconUrl = "https://user.gangdev.co/" . $_SESSION['user_id'] . "/icon/user-icon.jpg";

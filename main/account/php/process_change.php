@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 	$newDisplayName = strip_tags($newDisplayName);
 
-	$currentDisplayName = $_SESSION['displayname'];
+	$currentDisplayName = $_SESSION['display_name'];
 	$currentEmail = $_SESSION['email'];
 
 	if ($newDisplayName === $currentDisplayName && $newEmail === $currentEmail) {
@@ -68,9 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		sendMail($fromEmail, $fromName, $toEmail, $toName, $subject, $htmlBody, $altBody);
 	}
 
-	$stmt = $pdo->prepare("UPDATE users SET displayname = ?, email = ? WHERE id = ?");
+	$stmt = $pdo->prepare("UPDATE users SET display_name = ?, email = ? WHERE id = ?");
 	if ($stmt->execute([$newDisplayName, $newEmail, $_SESSION['user_id']])) {
-		$_SESSION['displayname'] = $newDisplayName;
+		$_SESSION['display_name'] = $newDisplayName;
 		$_SESSION['email'] = $newEmail;
 		$_SESSION['last_change'] = $now;
 		header("Location: https://account.gangdev.co?status=success");

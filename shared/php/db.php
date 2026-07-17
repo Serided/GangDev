@@ -10,6 +10,7 @@ try {
 		$_ENV["DB_PASSWORD"]
 	);
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$pdo->exec("SET search_path TO gangdev, public");
 } catch (PDOException $e) {
 	die("Database connection failed: " . $e->getMessage());
 }

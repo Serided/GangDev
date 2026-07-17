@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$password = trim($_POST["password"]);
 	$rememberMe = isset($_POST["rememberMe"]);
 
-	$stmt = $pdo->prepare("SELECT id, displayname, username, email, password FROM users WHERE username = ?");
+	$stmt = $pdo->prepare("SELECT id, display_name, username, email, password FROM users WHERE username = ?");
 	$stmt->execute([$username]);
 	$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -14,13 +14,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		$sessionToken = bin2hex(random_bytes(16));
 
 		$_SESSION["user_id"] = $user["id"];
-		$_SESSION["displayname"] = $user["displayname"];
+		$_SESSION["display_name"] = $user["display_name"];
 		$_SESSION["username"] = $user["username"];
 		$_SESSION["email"] = $user["email"];
 		$_SESSION["session_token"] = $sessionToken;
 
-		$stmtToken = $pdo->prepare("UPDATE users SET current_session_token = ? WHERE id = ?");
-		$stmtToken->execute([$sessionToken, $user["id"]]);
+		// Store session token with 7-day expiry
+		$expiry = date("Y-m-d H:i:s", time() + (7 * 24 * 60 * 60));
+		$stmtToken = $pdo->prepare("INSERT INTO session_tokens (user_id, token, expires_at) VALUES (?, ?, ?)");
+		$stmtToken->execute([$user["id"], $sessionToken, $expiry]);
 
 		$folder = '/var/www/gangdev/main/user/' . $user["id"];
 		if (!file_exists($folder)) {
@@ -37,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 			$token = bin2hex(random_bytes(16));
 			$expiry = date("Y-m-d H:i:s", time() + (30 * 24 * 60 * 60)); // 30 days
 			// Corrected query with 3 placeholders
-			$stmt = $pdo->prepare("INSERT INTO user_remember_tokens (user_id, token, expires_at) VALUES (?, ?, ?)");
+			$stmt = $pdo->prepare("INSERT INTO remember_tokens (user_id, token, expires_at) VALUES (?, ?, ?)");
 			$stmt->execute([$user["id"], $token, $expiry]);
 
 			// Set persistent cookie for 30 days

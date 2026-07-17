@@ -120,12 +120,12 @@ if ($unitSystem === 'imperial') {
 
 try {
 	try {
-		$pdo->exec("ALTER TABLE candor.user_profiles ADD COLUMN IF NOT EXISTS country_code VARCHAR(2)");
+		$pdo->exec("ALTER TABLE candor.profiles ADD COLUMN IF NOT EXISTS country_code VARCHAR(2)");
 	} catch (Throwable $e) {
 		// Ignore schema update failures here.
 	}
 	$stmt = $pdo->prepare("
-		INSERT INTO candor.user_profiles
+		INSERT INTO candor.profiles
 			(user_id, birthdate, timezone, country_code, height_cm, weight_kg, unit_system, consent_health, consent_at, created_at, updated_at, onboarding_completed_at)
 		VALUES
 			(?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW(),
@@ -138,11 +138,11 @@ try {
 			weight_kg = EXCLUDED.weight_kg,
 			unit_system = EXCLUDED.unit_system,
 			consent_health = EXCLUDED.consent_health,
-			consent_at = CASE WHEN EXCLUDED.consent_health THEN NOW() ELSE candor.user_profiles.consent_at END,
+			consent_at = CASE WHEN EXCLUDED.consent_health THEN NOW() ELSE candor.profiles.consent_at END,
 			updated_at = NOW(),
 			onboarding_completed_at = CASE
-				WHEN EXCLUDED.birthdate IS NOT NULL AND EXCLUDED.consent_health THEN COALESCE(candor.user_profiles.onboarding_completed_at, NOW())
-				ELSE candor.user_profiles.onboarding_completed_at
+				WHEN EXCLUDED.birthdate IS NOT NULL AND EXCLUDED.consent_health THEN COALESCE(candor.profiles.onboarding_completed_at, NOW())
+				ELSE candor.profiles.onboarding_completed_at
 			END
 	");
 	$stmt->execute([

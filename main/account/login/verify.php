@@ -12,10 +12,10 @@ if (isset($_GET['token'])) {
 	if ($pendingUser) {
 		// check if token expired
 		if (strtotime($pendingUser['token_expires']) >= time()) {
-			$stmt = $pdo->prepare("INSERT INTO users (displayname, username, email, password, verified) VALUES (?, ?, ?, ?, ?)");
-			if ($stmt->execute([$pendingUser['displayname'], $pendingUser['username'], $pendingUser['email'], $pendingUser['password'], $pendingUser['verified']])) {
+			$stmt = $pdo->prepare("INSERT INTO users (display_name, username, email, password, verified) VALUES (?, ?, ?, ?, ?)");
+			if ($stmt->execute([$pendingUser['display_name'], $pendingUser['username'], $pendingUser['email'], $pendingUser['password'], true])) {
 				$_SESSION["user_id"] = $pdo->lastInsertId();
-				$_SESSION["displayname"] = $pendingUser['displayname'];
+				$_SESSION["display_name"] = $pendingUser['display_name'];
 				$_SESSION["username"] = $pendingUser['username'];
 				$_SESSION["email"] = $pendingUser['email'];
 				$_SESSION["verified"] = true;

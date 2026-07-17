@@ -99,7 +99,7 @@ if(isset($_GET['status'])) {
             <input type="file" id="iconFile" accept="image/*" style="display: none;">
             <div>
                 <h1 class="shimmerText">
-                    Welcome, <b><?php echo htmlspecialchars($_SESSION['displayname']) ?></b>!
+                    Welcome, <b><?php echo htmlspecialchars($_SESSION['display_name']) ?></b>!
                 </h1>
             </div>
             <?php else: ?>
@@ -143,7 +143,7 @@ if(isset($_GET['status'])) {
                         <div class="item">
                             <label for="displayname">Display Name:</label>
                             <div class="inputContainer">
-                                <input type="text" name="displayname" id="displayname" value="<?php echo htmlspecialchars($_SESSION['displayname']); ?>" required>
+                                <input type="text" name="displayname" id="displayname" value="<?php echo htmlspecialchars($_SESSION['display_name']); ?>" required>
                             </div>
                         </div>
                         <div class="item">

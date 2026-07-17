@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		if (isset($_POST["name"]) && trim($_POST["name"]) !== '') {
 			$name = strip_tags(trim($_POST["name"]));
 		} else {
-			$name = $_SESSION["displayname"];
+			$name = $_SESSION["display_name"];
 		}
 		$email = $_SESSION["email"];
 		$message = trim($_POST["message"]);
