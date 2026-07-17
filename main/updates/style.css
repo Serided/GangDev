@@ -1,207 +1,303 @@
-/* GangDev Updates */
+/* GangDev Updates — Full slide layout */
+@import url("[REDACTED_CONN_STRING]://500;600;700&family=Indie+Flower&family=JetBrains+Mono:wght@500;600;700;800&family=VT323&display=swap");
+
 .updatesShell {
-    max-width: 900px;
+    max-width: 880px;
     margin: 0 auto;
     padding: calc(var(--scaling) * 2) clamp(16px, 4vw, 60px) calc(var(--scaling) * 3);
-}
-
-.updatesHeader {
-    margin-bottom: calc(var(--scaling) * 1.5);
-}
-
-.updatesHeader h1 {
-    font-size: calc(var(--scaling) * 1.8);
-    font-weight: 700;
-    color: #2B5C6E;
-    margin-bottom: 4px;
-}
-
-.headerSub {
-    font-size: calc(var(--scaling) * 0.65);
-    color: #70838F;
-}
-
-/* Product sections */
-.productSection {
-    margin-bottom: calc(var(--scaling) * 2);
-}
-
-.productHead {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #2B5C6E;
-}
-
-.productIcon {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-}
-
-.productName {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #1D3A4D;
-    letter-spacing: 0.3px;
-}
-
-.productName.brandLafter {
-    font-family: "Indie Flower", cursive;
-    font-size: 1.4rem;
-    color: #f0e6d3;
-    background: linear-gradient(180deg, #f0e6d3, #d4c4a8);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.brandLafterA {
-    background: linear-gradient(180deg, #f5c842, #c9a020);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-family: inherit;
-}
-
-.productTag {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: #70838F;
-    background: #ECEFF1;
-    padding: 3px 8px;
-    border-radius: 999px;
-}
-
-/* Carousel */
-.carousel {
     position: relative;
+    min-height: 100vh;
 }
 
-.carouselTrack {
-    overflow: hidden;
-}
-
-.updateCard {
+/* Slides */
+.slide {
     display: none;
-    background: #fff;
-    border: 1px solid #dce4ea;
-    border-radius: 14px;
-    padding: 20px 22px;
-    box-shadow: 0 4px 16px rgba(43, 92, 110, 0.06);
 }
-
-.updateCard.active {
+.slide.active {
     display: block;
 }
 
-.updateMeta {
+/* Slide header */
+.slideHeader {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
 }
 
-.updateDate {
-    font-size: 0.75rem;
-    color: #70838F;
-    font-family: monospace;
+.version {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #2B5C6E;
     letter-spacing: 0.5px;
+    font-family: "JetBrains Mono", monospace;
 }
 
-.updateType {
+.versionState {
     font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     font-weight: 700;
-    padding: 3px 9px;
+    padding: 4px 10px;
     border-radius: 999px;
 }
-
-.updateType.feat {
+.versionState.current {
     background: rgba(43, 92, 110, 0.12);
     color: #2B5C6E;
+    border: 1px solid rgba(43, 92, 110, 0.3);
+}
+.versionState.past {
+    background: rgba(112, 131, 143, 0.1);
+    color: #70838F;
+    border: 1px solid rgba(112, 131, 143, 0.25);
 }
 
-.updateType.fix {
-    background: rgba(74, 26, 26, 0.1);
-    color: #4a1a1a;
+.timestamp {
+    font-size: 0.75rem;
+    color: #70838F;
+    font-family: "JetBrains Mono", monospace;
+    letter-spacing: 0.3px;
+    margin-left: auto;
 }
 
-.updateType.infra {
-    background: rgba(112, 131, 143, 0.12);
-    color: #3d5260;
-}
-
-.updateCard h3 {
-    font-size: 1.1rem;
+.slideTitle {
+    font-size: calc(var(--scaling) * 1.4);
     font-weight: 700;
     color: #1D3A4D;
     margin: 0 0 8px;
 }
 
-.updateCard p {
-    font-size: 0.9rem;
-    color: #3d5260;
-    line-height: 1.55;
-    margin: 0;
+.slideLead {
+    font-size: calc(var(--scaling) * 0.6);
+    color: #70838F;
+    margin: 0 0 28px;
+    line-height: 1.5;
 }
 
-.updateCard code {
+/* Product blocks */
+.productBlock {
+    margin-bottom: 20px;
+}
+
+.productBanner {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 12px 12px 0 0;
+}
+
+.productBanner .productIcon {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+}
+
+.productBanner .productName {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.productBanner .productTag {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    margin-left: auto;
+}
+
+/* Banner themes */
+.banner-gangdev {
+    background: #2B5C6E;
+}
+.banner-gangdev .productName { color: #fff; font-family: "Nunito", sans-serif; }
+.banner-gangdev .productTag { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); }
+.banner-gangdev .productIcon { box-shadow: 0 0 0 1px rgba(255,255,255,0.2); }
+
+.banner-candor {
+    background:
+        radial-gradient(300px 150px at 15% 30%, rgba(185, 219, 242, 0.7), transparent 60%),
+        radial-gradient(300px 150px at 85% 70%, rgba(230, 160, 106, 0.35), transparent 65%),
+        linear-gradient(180deg, #f8fbff 0%, #fff6ee 100%);
+    border: 1px solid #d7e2ed;
+    border-bottom: none;
+}
+.banner-candor .productName { font-family: "Comfortaa", sans-serif; color: #7b3f22; }
+.banner-candor .productTag { background: rgba(185, 219, 242, 0.5); color: #2a3b52; border: 1px solid rgba(185, 219, 242, 0.8); }
+.banner-candor .productIcon { border-radius: 0; width: 28px; height: 28px; }
+
+.banner-dcops {
+    background: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+    border: 1px solid rgba(11, 18, 32, .14);
+    border-bottom: none;
+}
+.banner-dcops .productName { font-family: "JetBrains Mono", monospace; font-weight: 800; letter-spacing: 1px; }
+.banner-dcops .dc { color: #4a0f1a; }
+.banner-dcops .ops {
+    font-weight: 700;
+    background: linear-gradient(180deg, #eddc9a 0%, #bfa14a 52%, #8a6f24 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.banner-dcops .productTag { background: rgba(11, 18, 32, .05); color: rgba(11, 18, 32, .55); border: 1px solid rgba(11, 18, 32, .14); }
+
+.banner-crust {
+    background: #1a1a2e;
+}
+.banner-crust .productName { font-family: "VT323", monospace; font-size: 1.4rem; color: #00ff88; letter-spacing: 2px; text-transform: uppercase; }
+.banner-crust .productTag { background: rgba(0, 255, 136, 0.1); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.25); }
+
+.banner-lafter {
+    background:
+        radial-gradient(250px 120px at 20% 30%, rgba(139, 26, 26, 0.3), transparent 65%),
+        radial-gradient(250px 120px at 80% 70%, rgba(201, 168, 76, 0.2), transparent 70%),
+        linear-gradient(180deg, #0c0808 0%, #140d0d 100%);
+}
+.banner-lafter .productName {
+    font-family: "Indie Flower", cursive; font-size: 1.4rem; font-weight: 700;
+    background: linear-gradient(135deg, #ffffff 0%, #f0e6dc 40%, #ffe8d6 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.banner-lafter .brandLafterA {
+    background: linear-gradient(140deg, #c9a84c 0%, #f0b840 50%, #d4a030 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent; font-family: inherit;
+}
+.banner-lafter .productTag { background: rgba(201, 168, 76, 0.12); color: #c9a84c; border: 1px solid rgba(201, 168, 76, .25); }
+
+.banner-inspectre {
+    background:
+        radial-gradient(250px 120px at 25% 30%, rgba(107, 107, 255, 0.28), transparent 65%),
+        radial-gradient(250px 120px at 75% 70%, rgba(176, 124, 255, 0.24), transparent 70%),
+        linear-gradient(180deg, #0b0b12 0%, #07070c 100%);
+}
+.banner-inspectre .productName {
+    font-family: "JetBrains Mono", monospace; font-weight: 800; text-transform: lowercase;
+    background: linear-gradient(135deg, #6b6bff, #b07cff);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.banner-inspectre .productIcon { border-radius: 8px; }
+.banner-inspectre .productTag { background: rgba(107, 107, 255, 0.12); color: #9d8fff; border: 1px solid rgba(107, 107, 255, .25); }
+
+/* Change list */
+.changeList {
+    list-style: none;
+    margin: 0;
+    padding: 14px 16px;
+    background: #fff;
+    border: 1px solid #dce4ea;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    display: grid;
+    gap: 8px;
+}
+
+.changeList li {
+    font-size: 0.88rem;
+    color: #2a3b52;
+    line-height: 1.5;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(220, 228, 234, 0.5);
+}
+.changeList li:last-child {
+    border-bottom: none;
+}
+
+.changeList code {
     background: #ECEFF1;
     padding: 2px 5px;
     border-radius: 4px;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
+    font-family: "JetBrains Mono", monospace;
 }
 
-/* Carousel navigation */
-.carouselNav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    margin-top: 12px;
+/* Tags */
+.tag {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-right: 6px;
+    vertical-align: middle;
 }
+.tag.feat { background: rgba(43, 92, 110, 0.12); color: #2B5C6E; }
+.tag.fix { background: rgba(74, 26, 26, 0.1); color: #4a1a1a; }
+.tag.infra { background: rgba(112, 131, 143, 0.1); color: #3d5260; }
 
-.carouselBtn {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid #dce4ea;
-    background: #fff;
-    font-size: 1.2rem;
+/* Navigation arrow — styled like game key indicators */
+.navArrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    border: 2px solid #2B5C6E;
+    background: rgba(255, 255, 255, 0.95);
     color: #2B5C6E;
+    font-family: "Nunito", sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
     cursor: pointer;
     display: grid;
     place-items: center;
-    transition: background 0.15s ease, border-color 0.15s ease;
+    box-shadow: 0 4px 12px rgba(43, 92, 110, 0.15);
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    z-index: 100;
 }
 
-.carouselBtn:hover {
-    background: #ECEFF1;
-    border-color: #2B5C6E;
+.navArrow:hover {
+    background: #2B5C6E;
+    color: #fff;
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 6px 20px rgba(43, 92, 110, 0.25);
 }
 
-.carouselCount {
-    font-size: 0.75rem;
-    color: #70838F;
-    min-width: 40px;
-    text-align: center;
-    font-family: monospace;
+.navArrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.navArrow.right {
+    right: max(16px, calc((100vw - 880px) / 2 - 70px));
+}
+
+.navArrow.left {
+    left: max(16px, calc((100vw - 880px) / 2 - 70px));
+}
+
+.navArrow .arrowKey {
+    display: block;
+    line-height: 1;
+}
+
+/* Hide arrow when not needed */
+.navArrow.hidden {
+    display: none;
 }
 
 /* Responsive */
+@media (max-width: 1050px) {
+    .navArrow.right { right: 12px; }
+    .navArrow.left { left: 12px; }
+}
+
 @media (max-width: 600px) {
     .updatesShell {
-        padding: calc(var(--scaling) * 3) 14px calc(var(--scaling) * 4);
+        padding: calc(var(--scaling) * 3) 12px calc(var(--scaling) * 4);
     }
-    .productHead {
+    .productBanner {
         flex-wrap: wrap;
+        gap: 8px;
     }
-    .updateCard {
-        padding: 16px;
+    .navArrow {
+        width: 40px;
+        height: 40px;
+        font-size: 0.95rem;
+    }
+    .slideTitle {
+        font-size: calc(var(--scaling) * 2);
     }
 }
