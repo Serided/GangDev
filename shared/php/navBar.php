@@ -1,8 +1,7 @@
 <?php
-require_once '/var/www/gangdev/shared/php/init.php';
+// Variables $displayname and $userIconUrl are passed from init.php via gangdev_render()
 ?>
 <div class="hNavbar">
-
     <link rel="stylesheet" href="https://shared.gangdev.co/css/navbar.css">
 
     <label class="hamburger">

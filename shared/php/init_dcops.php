@@ -1,117 +1,109 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+/**
+ * init_dcops.php — DCOPS app init.
+ * Session auth, login/logout helpers, org detection.
+ */
+require_once __DIR__ . '/init_base.php';
 
-session_set_cookie_params([
-	'lifetime' => 7 * 24 * 60 * 60,
-	'path' => '/',
+gangdev_init([
 	'domain' => '.dcops.co',
-	'secure' => true,
-	'httponly' => true,
-	'samesite' => 'Lax'
+	'session_lifetime' => 7 * 24 * 60 * 60,
 ]);
 
-if (session_status() == PHP_SESSION_NONE) session_start();
+// Session validation
+if (isset($_SESSION['dcops_user_id'], $_SESSION['dcops_session_token'])) {
+	$stmt = $pdo->prepare("
+		SELECT id, expires_at FROM dcops.sessions
+		WHERE user_id = ? AND session_token = ? LIMIT 1
+	");
+	$stmt->execute([$_SESSION['dcops_user_id'], $_SESSION['dcops_session_token']]);
+	$sessionRow = $stmt->fetch();
 
-require __DIR__ . '/../lib/composer/vendor/autoload.php';
-
-use Dotenv\Dotenv;
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
-
-if (!isset($_ENV['DB_HOST']) && isset($_ENV['PG_HOST'])) $_ENV['DB_HOST'] = $_ENV['PG_HOST'];
-if (!isset($_ENV['DB_PORT']) && isset($_ENV['PG_PORT'])) $_ENV['DB_PORT'] = $_ENV['PG_PORT'];
-if (!isset($_ENV['DB_NAME']) && isset($_ENV['PG_DATABASE'])) $_ENV['DB_NAME'] = $_ENV['PG_DATABASE'];
-if (!isset($_ENV['DB_USER']) && isset($_ENV['PG_USER'])) $_ENV['DB_USER'] = $_ENV['PG_USER'];
-if (!isset($_ENV['DB_PASSWORD']) && isset($_ENV['PG_PASSWORD'])) $_ENV['DB_PASSWORD'] = $_ENV['PG_PASSWORD'];
-
-if (!isset($_ENV['DB_HOST'])) $_ENV['DB_HOST'] = getenv('DB_HOST') ?: '';
-if (!isset($_ENV['DB_PORT'])) $_ENV['DB_PORT'] = getenv('DB_PORT') ?: '';
-if (!isset($_ENV['DB_NAME'])) $_ENV['DB_NAME'] = getenv('DB_NAME') ?: '';
-if (!isset($_ENV['DB_USER'])) $_ENV['DB_USER'] = getenv('DB_USER') ?: '';
-if (!isset($_ENV['DB_PASSWORD'])) $_ENV['DB_PASSWORD'] = getenv('DB_PASSWORD') ?: '';
-
-if ($_ENV['DB_HOST'] === '' || $_ENV['DB_NAME'] === '' || $_ENV['DB_USER'] === '') {
-	http_response_code(500);
-	exit;
+	if (!$sessionRow || strtotime($sessionRow['expires_at']) <= time()) {
+		if ($sessionRow) {
+			$pdo->prepare("DELETE FROM dcops.sessions WHERE id = ?")->execute([$sessionRow['id']]);
+		}
+		$_SESSION = [];
+		session_destroy();
+	}
+} elseif (isset($_SESSION['dcops_user_id']) || isset($_SESSION['dcops_session_token'])) {
+	$_SESSION = [];
+	session_destroy();
 }
 
-require_once 'db.php';
+// --- Auth helpers ---
 
-$rootPath = $_ENV['ROOT_PATH'] ?? '';
-
-function dcops_org_from_email(string $email): string
-{
-	$e = strtolower(trim($email));
-	if (str_ends_with($e, '@milestone.tech')) return 'milestone';
-	if (str_ends_with($e, '@meta.com')) return 'meta';
-	return 'personal';
+function dcops_current_user_id() {
+	return isset($_SESSION['dcops_user_id'], $_SESSION['dcops_session_token'])
+		? (int)$_SESSION['dcops_user_id']
+		: null;
 }
 
-function is_dcops_company_email(string $email): bool
-{
-	$org = dcops_org_from_email($email);
-	return $org === 'milestone' || $org === 'meta';
-}
+function dcops_login($user_id) {
+	global $pdo;
+	$token = bin2hex(random_bytes(32));
+	$expiresAt = (new DateTimeImmutable('+7 days'))->format('Y-m-d H:i:s');
 
-function dcops_redirect(string $url, int $code = 302): void
-{
-	header('Location: ' . $url, true, $code);
-	exit;
-}
+	$pdo->prepare("
+		INSERT INTO dcops.sessions (user_id, session_token, created_at, expires_at)
+		VALUES (?, ?, NOW(), ?)
+	")->execute([(int)$user_id, $token, $expiresAt]);
 
-function dcops_host(): string
-{
-	return strtolower($_SERVER['HTTP_HOST'] ?? '');
-}
+	$_SESSION['dcops_user_id'] = (int)$user_id;
+	$_SESSION['dcops_session_token'] = $token;
 
-function dcops_uri(): string
-{
-	return $_SERVER['REQUEST_URI'] ?? '/';
-}
-
-function dcops_dashboard_host_for_org(string $org): string
-{
-	return match ($org) {
-		'milestone' => 'dashboard.milestone.dcops.co',
-		'meta' => 'dashboard.meta.dcops.co',
-		default => 'dashboard.dcops.co'
-	};
-}
-
-function dcops_enforce_org_dashboard_host(): void
-{
-	if (!isset($_SESSION['dcops_user_id'])) return;
-
-	$org = $_SESSION['dcops_org'] ?? 'personal';
-	$expected = dcops_dashboard_host_for_org($org);
-	$current = dcops_host();
-
-	if (!str_starts_with($current, 'dashboard.')) return;
-
-	if ($current !== $expected) {
-		dcops_redirect('https://' . $expected . dcops_uri());
+	$u = dcops_user_row($user_id);
+	if ($u) {
+		$_SESSION['dcops_email'] = $u['email'];
+		$_SESSION['dcops_name'] = $u['real_name'] ?? '';
+		$_SESSION['dcops_org'] = $u['organization'] ?? 'personal';
 	}
 }
 
-function dcops_require_login(): void
-{
-	if (!isset($_SESSION['dcops_user_id'])) {
+function dcops_logout() {
+	global $pdo;
+	if (isset($_SESSION['dcops_user_id'], $_SESSION['dcops_session_token'])) {
+		$pdo->prepare("DELETE FROM dcops.sessions WHERE user_id = ? AND session_token = ?")
+			->execute([(int)$_SESSION['dcops_user_id'], $_SESSION['dcops_session_token']]);
+	}
+	$_SESSION = [];
+	session_destroy();
+}
+
+function dcops_redirect($url) {
+	header("Location: $url");
+	exit;
+}
+
+// --- Data helpers ---
+
+function dcops_user_row($user_id) {
+	global $pdo;
+	$stmt = $pdo->prepare("SELECT id, email, real_name, organization, verified FROM dcops.users WHERE id = :id");
+	$stmt->execute(['id' => $user_id]);
+	return $stmt->fetch();
+}
+
+function dcops_org_from_email(string $email): string {
+	$domain = strtolower(explode('@', $email)[1] ?? '');
+	$orgMap = [
+		'milestone.com' => 'milestone',
+	];
+	return $orgMap[$domain] ?? 'personal';
+}
+
+// --- Guards ---
+
+function dcops_require_login() {
+	if (!dcops_current_user_id()) {
 		dcops_redirect('https://account.dcops.co/login/signin.php');
 	}
 }
 
-function dcops_require_org(string $org): void
-{
+function dcops_require_verified() {
 	dcops_require_login();
-	if (($_SESSION['dcops_org'] ?? '') !== $org) {
-		http_response_code(403);
-		exit;
+	$u = dcops_user_row(dcops_current_user_id());
+	if (!$u || !$u['verified']) {
+		dcops_redirect('https://account.dcops.co/login/verify.php');
 	}
-}
-
-function dcops_require_milestone(): void
-{
-	dcops_require_org('milestone');
 }

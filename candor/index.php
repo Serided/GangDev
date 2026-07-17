@@ -1,18 +1,6 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init_candor.php';
-
-$userId = candor_current_user_id();
-$user = $userId ? candor_user_row($userId) : null;
-$name = $user['display_name'] ?? ($user['username'] ?? '');
-$email = $user['email'] ?? '';
-$authed = $userId && $user;
-$candorMeta = 'personal OS';
-$candorLead = '';
-$candorAuthed = $authed;
-$candorName = $name !== '' ? $name : $email;
-$candorShowMyOs = $authed;
-$candorVersion = 'v0.2';
-$candorNavClass = 'reveal';
+extract(candor_page_setup(['navClass' => 'reveal']));
 ?>
 <!doctype html>
 <html lang="en">
@@ -20,14 +8,14 @@ $candorNavClass = 'reveal';
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor</title>
-	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
+	<?php require '/var/www/gangdev/candor/src/php/repetitive.php'; ?>
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 </head>
 <body class="is-landing">
 
 <div class="page">
-	<?php require '/var/www/gangdev/candor/files/php/nav.php'; ?>
+	<?php require '/var/www/gangdev/candor/src/php/nav.php'; ?>
 
 	<section class="hero">
 		<div class="reveal" style="--d: 80ms;">
@@ -70,14 +58,8 @@ $candorNavClass = 'reveal';
 		</div>
 	</section>
 
-	<?php require '/var/www/gangdev/candor/files/php/footer.php'; ?>
+	<?php require '/var/www/gangdev/candor/src/php/footer.php'; ?>
 </div>
 
 </body>
 </html>
-
-
-
-
-
-

@@ -1,31 +1,19 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+/**
+ * init.php — gangdev.co main site init.
+ * Session auth, remember-me, nav/footer/head rendering.
+ */
+require_once __DIR__ . '/init_base.php';
 
-session_set_cookie_params([
-	'lifetime' => 7 * 24 * 60 * 60,
-	'path' => '/',
+gangdev_init([
 	'domain' => '.gangdev.co',
-	'secure' => true,
-	'httponly' => true,
-	'samesite' => 'Lax'
+	'session_lifetime' => 7 * 24 * 60 * 60,
 ]);
 
-if (session_status() == PHP_SESSION_NONE) session_start(); // start a session if need be
+$rootPath = $_ENV['ROOT_PATH'] ?? '';
 
-require __DIR__ . '/../lib/composer/vendor/autoload.php'; // load libraries
-
-use Dotenv\Dotenv;
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
-
-require_once 'db.php';
-
-$rootPath = $_ENV['ROOT_PATH'];
-
+// Remember-me cookie restoration
 if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberMe"])) {
-	error_log("Remember me cookie found: " . $_COOKIE["rememberMe"]);
 	$token = $_COOKIE["rememberMe"];
 	$stmt = $pdo->prepare("SELECT user_id, expires_at FROM user_remember_tokens WHERE token = ?");
 	$stmt->execute([$token]);
@@ -48,11 +36,11 @@ if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberMe"])) {
 			$stmt->execute([$newExpiry, $token]);
 		}
 	} else {
-		// Token is invalid or expired, clear the cookie
 		setcookie('rememberMe', '', time() - 3600, '/', '.gangdev.co');
 	}
 }
 
+// Session token validation
 if (isset($_SESSION["user_id"], $_SESSION["session_token"])) {
 	$stmt = $pdo->prepare("SELECT current_session_token FROM users WHERE id = ?");
 	$stmt->execute([$_SESSION["user_id"]]);
@@ -64,32 +52,25 @@ if (isset($_SESSION["user_id"], $_SESSION["session_token"])) {
 	}
 }
 
+// User context
 $displayname = $_SESSION['displayname'] ?? 'Account';
 $userIconUrl = '';
 if (isset($_SESSION['user_id'])) {
 	$userIconUrl = "https://gangdev.co/user/" . $_SESSION['user_id'] . "/icon/user-icon.jpg";
 }
 
-ob_start();
-include '/var/www/gangdev/shared/php/navBar.php';
-$navbar = ob_get_clean();
-ob_start();
-include '/var/www/gangdev/shared/php/footer.php';
-$footer = ob_get_clean();
-ob_start();
-include '/var/www/gangdev/shared/php/repetitive.php';
-$head = ob_get_clean();
-ob_start();
-include '/var/www/gangdev/shared/php/warning.php';
-$warn = ob_get_clean();
+// Render shared components
+$navbar = gangdev_render('/var/www/gangdev/shared/php/navBar.php', compact('displayname', 'userIconUrl'));
+$footer = gangdev_render('/var/www/gangdev/shared/php/footer.php');
+$head = gangdev_render('/var/www/gangdev/shared/php/repetitive.php');
+$warn = gangdev_render('/var/www/gangdev/shared/php/warning.php');
 
-$backgrounds = glob("/var/www/gangdev/shared/files/img/background/landscape/*.jpg", GLOB_BRACE);
+// Background images
+$backgrounds = glob("/var/www/gangdev/shared/src/img/background/landscape/*.jpg", GLOB_BRACE);
 $backgroundURLs = array_map(function($background) {
 	return "https://gangdev.co/" . str_replace("/var/www/gangdev", "", $background);
 }, $backgrounds);
 $jsonBackgrounds = json_encode($backgroundURLs);
-
-error_log('Session content: ' . print_r($_SESSION, true));
 ?>
 
 <script>

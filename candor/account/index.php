@@ -1,6 +1,6 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init_candor.php';
-require_once '/var/www/gangdev/candor/files/php/countries.php';
+require_once '/var/www/gangdev/candor/src/php/countries.php';
 
 if (!isset($_SESSION['candor_user_id'])) {
 	header('Location: https://account.candor.you/login/signin.php');
@@ -69,7 +69,7 @@ $candorVersion = 'v0.2';
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Candor - Account</title>
-	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
+	<?php require '/var/www/gangdev/candor/src/php/repetitive.php'; ?>
 
         <link rel="stylesheet" href="style.css">
     </head>
@@ -77,7 +77,7 @@ $candorVersion = 'v0.2';
 
         <div class="page">
 
-            <?php require '/var/www/gangdev/candor/files/php/nav.php'; ?>
+            <?php require '/var/www/gangdev/candor/src/php/nav.php'; ?>
 
             <section class="accountLayout">
                 <div class="card heroCard">
@@ -209,7 +209,7 @@ $candorVersion = 'v0.2';
 				</div>
             </section>
 
-			<?php require '/var/www/gangdev/candor/files/php/footer.php'; ?>
+			<?php require '/var/www/gangdev/candor/src/php/footer.php'; ?>
 
         </div>
 

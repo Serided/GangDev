@@ -21,7 +21,7 @@
     --font-body: "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-display: "Comfortaa", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
     --font-brand: "Comfortaa", "Fredoka", "Nunito", "Trebuchet MS", "Gill Sans", "Optima", sans-serif;
-    --logo-image: url("https://candor.you/files/img/logo/candor-mark.png?v=13");
+    --logo-image: url("https://candor.you/src/img/logo/candor-mark.png?v=13");
     --logo-zoom: 100% 100%;
     --logo-glyph-opacity: 0;
 }

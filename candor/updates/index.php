@@ -1,17 +1,6 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init_candor.php';
-
-$userId = candor_current_user_id();
-$user = $userId ? candor_user_row($userId) : null;
-$name = $user['display_name'] ?? ($user['username'] ?? '');
-$email = $user['email'] ?? '';
-$authed = $userId && $user;
-$candorMeta = 'updates';
-$candorLead = '';
-$candorAuthed = $authed;
-$candorName = $name !== '' ? $name : $email;
-$candorShowMyOs = $authed;
-$candorVersion = 'v0.2';
+extract(candor_page_setup(['meta' => 'updates']));
 ?>
 <!doctype html>
 <html lang="en">
@@ -19,13 +8,13 @@ $candorVersion = 'v0.2';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Candor - Updates</title>
-	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
+	<?php require '/var/www/gangdev/candor/src/php/repetitive.php'; ?>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="is-updates">
 
 <div class="page">
-    <?php require '/var/www/gangdev/candor/files/php/nav.php'; ?>
+    <?php require '/var/www/gangdev/candor/src/php/nav.php'; ?>
 
     <section class="hero">
         <div class="heroText">
@@ -102,7 +91,7 @@ $candorVersion = 'v0.2';
 		</div>
     </section>
 
-    <?php require '/var/www/gangdev/candor/files/php/footer.php'; ?>
+    <?php require '/var/www/gangdev/candor/src/php/footer.php'; ?>
 </div>
 
 </body>

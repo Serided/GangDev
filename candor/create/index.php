@@ -1,21 +1,9 @@
 <?php
 require_once '/var/www/gangdev/shared/php/init_candor.php';
-
 candor_require_verified();
-
-$userId = candor_current_user_id();
-$user = $userId ? candor_user_row($userId) : null;
-$profile = $userId ? candor_profile_row($userId) : null;
-$name = $user['display_name'] ?? ($user['username'] ?? '');
-$email = $user['email'] ?? '';
+extract(candor_page_setup(['meta' => 'create']));
 $birthdate = $profile['birthdate'] ?? '';
 $cookieKey = 'candor_time_format_' . $userId;
-$candorMeta = 'create';
-$candorLead = '';
-$candorAuthed = true;
-$candorName = $name !== '' ? $name : $email;
-$candorShowMyOs = true;
-$candorVersion = 'v0.2';
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,14 +11,14 @@ $candorVersion = 'v0.2';
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Candor - Create</title>
-	<?php require '/var/www/gangdev/candor/files/php/repetitive.php'; ?>
+	<?php require '/var/www/gangdev/candor/src/php/repetitive.php'; ?>
 	<link rel="stylesheet" href="style.css?v=43">
 	<script src="script.js?v=48" defer></script>
 </head>
 <body class="is-create" data-user-key="<?= htmlspecialchars((string)$userId) ?>" data-clock-cookie="<?= htmlspecialchars($cookieKey) ?>" data-birthdate="<?= htmlspecialchars((string)$birthdate) ?>">
 
 <div class="page">
-	<?php require '/var/www/gangdev/candor/files/php/nav.php'; ?>
+	<?php require '/var/www/gangdev/candor/src/php/nav.php'; ?>
 
 	<section class="hero">
 		<div class="heroCopy">
@@ -428,7 +416,7 @@ $candorVersion = 'v0.2';
 		</div>
 	</div>
 
-	<?php require '/var/www/gangdev/candor/files/php/footer.php'; ?>
+	<?php require '/var/www/gangdev/candor/src/php/footer.php'; ?>
 </div>
 
 </body>
