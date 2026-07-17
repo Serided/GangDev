@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GangDev — Updates</title>
+    <title>Updates</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
     <?= $head ?>
@@ -27,8 +27,8 @@
         <p class="slideLead">One account across everything. Central schema, cross-product sign-in, and a full infrastructure overhaul.</p>
 
         <!-- GANGDEV -->
-        <section class="productBlock">
-            <div class="productBanner banner-gangdev">
+        <section class="productBlock theme-gangdev">
+            <div class="productBanner">
                 <img class="productIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
                 <span class="productName">GangDev</span>
                 <span class="productTag">platform</span>
@@ -44,8 +44,9 @@
         </section>
 
         <!-- CRUST -->
-        <section class="productBlock">
-            <div class="productBanner banner-crust">
+        <section class="productBlock theme-crust">
+            <div class="crustMapBg"></div>
+            <div class="productBanner">
                 <span class="productName">CRUST</span>
                 <span class="productTag">game engine</span>
             </div>
@@ -58,8 +59,8 @@
         </section>
 
         <!-- CANDOR -->
-        <section class="productBlock">
-            <div class="productBanner banner-candor">
+        <section class="productBlock theme-candor">
+            <div class="productBanner">
                 <img class="productIcon" src="https://candor.you/src/img/logo/candor-mark.png?v=13" alt="">
                 <span class="productName">Candor</span>
                 <span class="productTag">personal OS</span>
@@ -72,8 +73,8 @@
         </section>
 
         <!-- DCOPS -->
-        <section class="productBlock">
-            <div class="productBanner banner-dcops">
+        <section class="productBlock theme-dcops">
+            <div class="productBanner">
                 <span class="productName"><span class="dc">DC</span><span class="ops">OPS</span></span>
                 <span class="productTag">operations</span>
             </div>
@@ -84,8 +85,8 @@
         </section>
 
         <!-- LAFTER -->
-        <section class="productBlock">
-            <div class="productBanner banner-lafter">
+        <section class="productBlock theme-lafter">
+            <div class="productBanner">
                 <span class="productName">L<span class="brandLafterA">a</span>fter</span>
                 <span class="productTag">drafting tool</span>
             </div>
@@ -96,9 +97,9 @@
         </section>
 
         <!-- INSPECTRE -->
-        <section class="productBlock">
-            <div class="productBanner banner-inspectre">
-                <img class="productIcon" src="https://inspectre.link/src/inspectre-logo.png" alt="">
+        <section class="productBlock theme-inspectre">
+            <div class="productBanner">
+                <img class="productIcon" src="https://inspectre.link/src/inspectre-extension/icons/ghost.png" alt="">
                 <span class="productName">inspectre</span>
                 <span class="productTag">inspector</span>
             </div>
@@ -119,8 +120,8 @@
         <h1 class="slideTitle">Foundation</h1>
         <p class="slideLead">Initial site launch. Flat folder structure, basic auth, individual product pages.</p>
 
-        <section class="productBlock">
-            <div class="productBanner banner-gangdev">
+        <section class="productBlock theme-gangdev">
+            <div class="productBanner">
                 <img class="productIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
                 <span class="productName">GangDev</span>
                 <span class="productTag">platform</span>
@@ -136,8 +137,9 @@
             </ul>
         </section>
 
-        <section class="productBlock">
-            <div class="productBanner banner-crust">
+        <section class="productBlock theme-crust">
+            <div class="crustMapBg"></div>
+            <div class="productBanner">
                 <span class="productName">CRUST</span>
                 <span class="productTag">game engine</span>
             </div>
@@ -149,8 +151,8 @@
             </ul>
         </section>
 
-        <section class="productBlock">
-            <div class="productBanner banner-candor">
+        <section class="productBlock theme-candor">
+            <div class="productBanner">
                 <img class="productIcon" src="https://candor.you/src/img/logo/candor-mark.png?v=13" alt="">
                 <span class="productName">Candor</span>
                 <span class="productTag">personal OS</span>
@@ -162,8 +164,8 @@
             </ul>
         </section>
 
-        <section class="productBlock">
-            <div class="productBanner banner-dcops">
+        <section class="productBlock theme-dcops">
+            <div class="productBanner">
                 <span class="productName"><span class="dc">DC</span><span class="ops">OPS</span></span>
                 <span class="productTag">operations</span>
             </div>
@@ -174,9 +176,9 @@
             </ul>
         </section>
 
-        <section class="productBlock">
-            <div class="productBanner banner-inspectre">
-                <img class="productIcon" src="https://inspectre.link/src/inspectre-logo.png" alt="">
+        <section class="productBlock theme-inspectre">
+            <div class="productBanner">
+                <img class="productIcon" src="https://inspectre.link/src/inspectre-extension/icons/ghost.png" alt="">
                 <span class="productName">inspectre</span>
                 <span class="productTag">inspector</span>
             </div>

@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" name="description" content="Home">
-        <title>Home</title>
+        <title>GangDev</title>
         <link rel="stylesheet" type="text/css" href="style.css"/>
         <?= $head ?>
     </head>
