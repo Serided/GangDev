@@ -24,7 +24,7 @@ $usersToDelete = $stmt->fetchAll(PDO::FETCH_ASSOC);
 foreach ($usersToDelete as $user) {
 	$userId = $user['id'];
 
-	$userFolder = '/var/www/gangdev/user/' . $userId;
+	$userFolder = '/var/www/gangdev/main/user/' . $userId;
 	if (file_exists($userFolder)) {
 		if (deleteDirectory($userFolder)) {
 			echo "Deleted folder for user $userId\n";

@@ -27,7 +27,7 @@ if ($file['size'] > $maxFileSize) {
 }
 
 $userId = $_SESSION['user_id'];
-$folder = '/var/www/gangdev/user/' . $userId;
+$folder = '/var/www/gangdev/main/user/' . $userId;
 
 if (!file_exists($folder)) {
 	mkdir($folder, 0755, true);

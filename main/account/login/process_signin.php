@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		$stmtToken = $pdo->prepare("UPDATE users SET current_session_token = ? WHERE id = ?");
 		$stmtToken->execute([$sessionToken, $user["id"]]);
 
-		$folder = '/var/www/gangdev/user/' . $user["id"];
+		$folder = '/var/www/gangdev/main/user/' . $user["id"];
 		if (!file_exists($folder)) {
 			mkdir($folder, 0755, true);
 		}

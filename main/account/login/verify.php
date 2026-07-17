@@ -20,7 +20,7 @@ if (isset($_GET['token'])) {
 				$_SESSION["email"] = $pendingUser['email'];
 				$_SESSION["verified"] = true;
 
-				$folder = '/var/www/gangdev/user/' . $_SESSION["user_id"];
+				$folder = '/var/www/gangdev/main/user/' . $_SESSION["user_id"];
 				if (!file_exists($folder)) {
 					mkdir($folder, 0755, true);
 					mkdir($folder . '/icon', 0755, true);
