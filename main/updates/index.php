@@ -98,7 +98,7 @@
         <!-- INSPECTRE -->
         <section class="productBlock">
             <div class="productBanner banner-inspectre">
-                <img class="productIcon" src="https://inspectre.link/files/inspectre-logo.png" alt="">
+                <img class="productIcon" src="https://inspectre.link/src/inspectre-logo.png" alt="">
                 <span class="productName">inspectre</span>
                 <span class="productTag">inspector</span>
             </div>
@@ -176,7 +176,7 @@
 
         <section class="productBlock">
             <div class="productBanner banner-inspectre">
-                <img class="productIcon" src="https://inspectre.link/files/inspectre-logo.png" alt="">
+                <img class="productIcon" src="https://inspectre.link/src/inspectre-logo.png" alt="">
                 <span class="productName">inspectre</span>
                 <span class="productTag">inspector</span>
             </div>
@@ -188,7 +188,7 @@
 
     <!-- NAVIGATION ARROW -->
     <button class="navArrow right" id="navArrow" aria-label="Next update">
-        <span class="arrowKey">D</span>
+        <span class="arrowKey">›</span>
     </button>
 
 </div>

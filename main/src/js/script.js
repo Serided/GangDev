@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let entryDiv = document.querySelector('.sect.cont.entry')
     if (!entryDiv) {
-        console.error('Entry element not found.');
         return;
     }
 

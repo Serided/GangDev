@@ -9,22 +9,17 @@
         slides.forEach(s => s.classList.remove('active'));
         slides[i].classList.add('active');
 
-        // Update arrow direction and visibility
-        if (i === 0 && slides.length > 1) {
-            // On first slide — show right arrow (D) to go to older
+        // Update arrow direction
+        if (i === 0) {
+            // On newest — arrow points right (go to older)
             arrow.className = 'navArrow right';
-            arrow.querySelector('.arrowKey').textContent = 'D';
+            arrow.querySelector('.arrowKey').textContent = '›';
         } else if (i === slides.length - 1) {
-            // On last slide — show left arrow (A) to go back to newer
+            // On oldest — arrow points left (go to newer)
             arrow.className = 'navArrow left';
-            arrow.querySelector('.arrowKey').textContent = 'A';
-        } else {
-            // Middle — show right arrow (go older)
-            arrow.className = 'navArrow right';
-            arrow.querySelector('.arrowKey').textContent = 'D';
+            arrow.querySelector('.arrowKey').textContent = '‹';
         }
 
-        // Hide arrow if only one slide
         if (slides.length <= 1) {
             arrow.classList.add('hidden');
         }
@@ -32,29 +27,12 @@
 
     arrow.addEventListener('click', () => {
         if (arrow.classList.contains('right')) {
-            index = (index + 1) % slides.length;
+            index = Math.min(index + 1, slides.length - 1);
         } else {
-            index = (index - 1 + slides.length) % slides.length;
+            index = Math.max(index - 1, 0);
         }
         show(index);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Keyboard nav
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'd' || e.key === 'D' || e.key === 'ArrowRight') {
-            if (index < slides.length - 1) {
-                index++;
-                show(index);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        } else if (e.key === 'a' || e.key === 'A' || e.key === 'ArrowLeft') {
-            if (index > 0) {
-                index--;
-                show(index);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
     });
 
     show(0);
