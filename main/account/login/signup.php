@@ -69,8 +69,7 @@ $redirect = $_GET['redirect'] ?? '';
                     </div>
                 </div>
 
-                <div class="doubleRow">
-                    <div class="margin">
+                <div class="margin">
                         <div class="labelRow">
                             <label for="email">Email:</label>
                             <span class="tooltip">ⓘ
@@ -82,7 +81,9 @@ $redirect = $_GET['redirect'] ?? '';
                         <div class="inputContainer signup">
                             <input type="email" id="email" name="email" required>
                         </div>
-                    </div>
+                </div>
+
+                <div class="doubleRow">
                     <div class="margin">
                         <div class="labelRow">
                             <label for="password">Password:</label>
@@ -97,9 +98,7 @@ $redirect = $_GET['redirect'] ?? '';
                             <input type="password" id="password" name="password" required>
                         </div>
                     </div>
-                </div>
 
-                <div class="doubleRow">
                     <div class="margin">
                         <div class="labelRow">
                             <label for="confirmPassword">Confirm Password:</label>

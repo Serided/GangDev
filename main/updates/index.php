@@ -132,6 +132,7 @@ require_once '/var/www/gangdev/main/src/php/init.php';
             <div class="productBanner">
                 <img class="productIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
                 <span class="productName">GangDev</span>
+                <span class="productVersion">v0.0.0</span>
                 <span class="productTag">platform</span>
             </div>
             <ul class="changeList">
@@ -149,6 +150,7 @@ require_once '/var/www/gangdev/main/src/php/init.php';
             <div class="crustMapBg"></div>
             <div class="productBanner">
                 <span class="productName">CRUST</span>
+                <span class="productVersion">v0.0.0</span>
                 <span class="productTag">game engine</span>
             </div>
             <ul class="changeList">
@@ -163,6 +165,7 @@ require_once '/var/www/gangdev/main/src/php/init.php';
             <div class="productBanner">
                 <img class="productIcon" src="https://candor.you/src/img/logo/candor-mark.png?v=13" alt="">
                 <span class="productName">Candor</span>
+                <span class="productVersion">v0.0.0</span>
                 <span class="productTag">personal OS</span>
             </div>
             <ul class="changeList">
@@ -175,6 +178,7 @@ require_once '/var/www/gangdev/main/src/php/init.php';
         <section class="productBlock theme-dcops" data-href="https://dcops.co">
             <div class="productBanner">
                 <span class="productName"><span class="dc">DC</span><span class="ops">OPS</span></span>
+                <span class="productVersion">v0.0.0</span>
                 <span class="productTag">operations</span>
             </div>
             <ul class="changeList">
@@ -188,6 +192,7 @@ require_once '/var/www/gangdev/main/src/php/init.php';
             <div class="productBanner">
                 <img class="productIcon" src="https://inspectre.link/src/inspectre-extension/icons/ghost.png" alt="">
                 <span class="productName">inspectre</span>
+                <span class="productVersion">v0.0.0</span>
                 <span class="productTag">inspector</span>
             </div>
             <ul class="changeList">

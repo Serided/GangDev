@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof backgrounds === 'undefined' || !backgrounds.length) {
-        console.error('No backgrounds found:', backgrounds);
         return;
     }
 
