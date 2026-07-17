@@ -1,4 +1,4 @@
-<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
+<?php require_once '/var/www/gangdev/main/src/php/init.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -30,6 +30,6 @@
                 </div>
 			</form>
 		</div>
-        <script src="https://shared.gangdev.co/js/script.js"></script>
+        <script src="/src/js/script.js"></script>
     </body>
 </html>

@@ -1,4 +1,4 @@
-<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
+<?php require_once '/var/www/gangdev/shared/php/init_base.php'; gangdev_init(['domain' => '.gangdev.co']); ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>

@@ -1,5 +1,5 @@
 <?php
-require_once '/var/www/gangdev/shared/php/init_candor.php';
+require_once '/var/www/gangdev/candor/src/php/init.php';
 require_once '/var/www/gangdev/candor/src/php/countries.php';
 
 candor_require_verified();

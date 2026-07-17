@@ -3,7 +3,7 @@
  * init_candor.php — Candor app init.
  * Session auth, login/logout helpers, profile helpers.
  */
-require_once __DIR__ . '/init_base.php';
+require_once '/var/www/gangdev/shared/php/init_base.php';
 
 gangdev_init([
 	'domain' => '.candor.you',

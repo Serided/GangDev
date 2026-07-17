@@ -1,5 +1,5 @@
 <?php
-require_once '/var/www/gangdev/shared/php/init.php';
+require_once '/var/www/gangdev/main/src/php/init.php';
 $error = '';
 if (isset($_GET['error'])) {
 	if ($_GET['error'] == 1) {
@@ -47,6 +47,6 @@ if (isset($_GET['error'])) {
                 </div>
             </form>
         </div>
-        <script src="https://shared.gangdev.co/js/script.js"></script>
+        <script src="/src/js/script.js"></script>
     </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-require_once '/var/www/gangdev/shared/php/init.php';
+require_once '/var/www/gangdev/main/src/php/init.php';
 
 if (!isset($_GET['old']) || !isset($_GET['new'])) {
 	echo "Invalid request.";

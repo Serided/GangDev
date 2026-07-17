@@ -1,5 +1,5 @@
 <?php
-require_once '/var/www/gangdev/shared/php/init.php';
+require_once '/var/www/gangdev/main/src/php/init.php';
 
 if (!isset($_SESSION["user_id"])) {
 	$uriParts = explode('/', trim($_SERVER['REQUEST_URI'], '/'));

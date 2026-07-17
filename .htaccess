@@ -1,4 +1,24 @@
-# Block access to .env files
+# ============================
+# GangDev Root Security Rules
+# ============================
+
+# Disable directory listing
+Options -Indexes
+
+# Block .env files
 <FilesMatch "^\.env">
+    Require all denied
+</FilesMatch>
+
+# Block .git access
+RedirectMatch 404 /\.git
+
+# Block sensitive file types
+<FilesMatch "\.(log|sql|bak|sh|ini|conf)$">
+    Require all denied
+</FilesMatch>
+
+# Block composer files from web access
+<FilesMatch "^(composer\.(json|lock))$">
     Require all denied
 </FilesMatch>

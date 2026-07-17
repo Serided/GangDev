@@ -1,9 +1,9 @@
 <?php
 /**
  * init.php — gangdev.co main site init.
- * Session auth, remember-me, nav/footer/head rendering.
+ * Session, auth, remember-me, nav/footer/head rendering.
  */
-require_once __DIR__ . '/init_base.php';
+require_once '/var/www/gangdev/shared/php/init_base.php';
 
 gangdev_init([
 	'domain' => '.gangdev.co',
@@ -60,15 +60,15 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Render shared components
-$navbar = gangdev_render('/var/www/gangdev/shared/php/navBar.php', compact('displayname', 'userIconUrl'));
-$footer = gangdev_render('/var/www/gangdev/shared/php/footer.php');
-$head = gangdev_render('/var/www/gangdev/shared/php/repetitive.php');
-$warn = gangdev_render('/var/www/gangdev/shared/php/warning.php');
+$navbar = gangdev_render('/var/www/gangdev/main/src/php/navBar.php', compact('displayname', 'userIconUrl'));
+$footer = gangdev_render('/var/www/gangdev/main/src/php/footer.php');
+$head = gangdev_render('/var/www/gangdev/main/src/php/repetitive.php');
+$warn = gangdev_render('/var/www/gangdev/main/src/php/warning.php');
 
 // Background images
-$backgrounds = glob("/var/www/gangdev/shared/src/img/background/landscape/*.jpg", GLOB_BRACE);
+$backgrounds = glob("/var/www/gangdev/main/src/img/background/landscape/*.jpg", GLOB_BRACE);
 $backgroundURLs = array_map(function($background) {
-	return "https://gangdev.co/" . str_replace("/var/www/gangdev", "", $background);
+	return "https://gangdev.co/" . str_replace("/var/www/gangdev/main", "", $background);
 }, $backgrounds);
 $jsonBackgrounds = json_encode($backgroundURLs);
 ?>

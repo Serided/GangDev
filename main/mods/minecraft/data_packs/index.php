@@ -1,4 +1,4 @@
-<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
+<?php require_once '/var/www/gangdev/main/src/php/init.php'; ?>
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -20,7 +20,7 @@
 
         <div class="sect cont two">
             <h2>
-                <a href="https://shared.gangdev.co/src/minecraft/Unofficial_In-N-Out_Datapack_1.20.5.zip">The Unofficial In-N-Out Data Pack [1.20.5]</a>
+                <a href="/src/minecraft/Unofficial_In-N-Out_Datapack_1.20.5.zip">The Unofficial In-N-Out Data Pack [1.20.5]</a>
             </h2>
             <p>
                 This is <u>THE</u> Unofficial In-N-Out Data Pack (for version 1.20.5). Its main functionality is listed below.
@@ -38,14 +38,14 @@
                     </p>
                 </details>
                 <br>
-                <img src="https://shared.gangdev.co/src/minecraft/pics/toasted_bun_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/cheese_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/flying_dutchman_pic_2.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/flying_dutchman_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/3x3_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/4x4_animal_style_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/diced_potato_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/packaged_french_fries_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/toasted_bun_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/cheese_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/flying_dutchman_pic_2.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/flying_dutchman_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/3x3_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/4x4_animal_style_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/diced_potato_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/packaged_french_fries_pic.webp" class="crafting-img">
                 <br>
                 <br>
                 <details>
@@ -59,13 +59,13 @@
                     </p>
                 </details>
                 <br>
-                <img src="https://shared.gangdev.co/src/minecraft/pics/fermented_spider_eye_pic.webp" class="crafting-img" >
-                <img src="https://shared.gangdev.co/src/minecraft/pics/cookie_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/golden_carrot_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/cake_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/golden_apple_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/paper_and_baked_potato_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/paper_and_baked_potato_pic_2.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/fermented_spider_eye_pic.webp" class="crafting-img" >
+                <img src="/src/minecraft/pics/cookie_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/golden_carrot_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/cake_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/golden_apple_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/paper_and_baked_potato_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/paper_and_baked_potato_pic_2.webp" class="crafting-img">
                 <br>
                 <br>
                 <details>
@@ -99,13 +99,13 @@
                 </details>
                 <br>
                 <br>
-                <b style="font-size: 2.5vh">Meant to be paired with <a href="https://shared.gangdev.co/src/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack (1.20.5)</a></b>
+                <b style="font-size: 2.5vh">Meant to be paired with <a href="/src/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack (1.20.5)</a></b>
             </p>
         </div>
 
         <div class="sect cont three">
             <h2>
-                <a href="https://shared.gangdev.co/src/minecraft/Unofficial_In-N-Out_Data_Pack_1.20.6_lvl_1.zip">The Unofficial In-N-Out Data Pack (Level 1) [1.20.6]</a>
+                <a href="/src/minecraft/Unofficial_In-N-Out_Data_Pack_1.20.6_lvl_1.zip">The Unofficial In-N-Out Data Pack (Level 1) [1.20.6]</a>
             </h2>
             <p>
                 This is <u>THE</u> Unofficial In-N-Out Data Pack (for version 1.20.5). Its main functionality is listed below.
@@ -123,14 +123,14 @@
                     </p>
                 </details>
                 <br>
-                <img src="https://shared.gangdev.co/src/minecraft/pics/toasted_bun_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/cheese_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/flying_dutchman_pic_2.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/flying_dutchman_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/3x3_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/4x4_animal_style_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/diced_potato_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/packaged_french_fries_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/toasted_bun_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/cheese_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/flying_dutchman_pic_2.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/flying_dutchman_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/3x3_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/4x4_animal_style_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/diced_potato_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/packaged_french_fries_pic.webp" class="crafting-img">
                 <br>
                 <br>
                 <details>
@@ -144,13 +144,13 @@
                     </p>
                 </details>
                 <br>
-                <img src="https://shared.gangdev.co/src/minecraft/pics/fermented_spider_eye_pic.webp" class="crafting-img" >
-                <img src="https://shared.gangdev.co/src/minecraft/pics/cookie_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/golden_carrot_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/cake_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/golden_apple_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/paper_and_baked_potato_pic.webp" class="crafting-img">
-                <img src="https://shared.gangdev.co/src/minecraft/pics/paper_and_baked_potato_pic_2.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/fermented_spider_eye_pic.webp" class="crafting-img" >
+                <img src="/src/minecraft/pics/cookie_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/golden_carrot_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/cake_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/golden_apple_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/paper_and_baked_potato_pic.webp" class="crafting-img">
+                <img src="/src/minecraft/pics/paper_and_baked_potato_pic_2.webp" class="crafting-img">
                 <br>
                 <br>
                 <details>
@@ -184,7 +184,7 @@
                 </details>
                 <br>
                 <br>
-                <b style="font-size: 2.5vh">Meant to be paired with <a href="https://shared.gangdev.co/src/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack (1.20.5)</a></b>
+                <b style="font-size: 2.5vh">Meant to be paired with <a href="/src/minecraft/Unofficial_In-N-Out_Resource_Pack_1.20.5.zip">The Unofficial In-N-Out Resource Pack (1.20.5)</a></b>
             </p>
         </div>
 

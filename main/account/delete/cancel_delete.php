@@ -1,5 +1,5 @@
 <?php
-require_once '/var/www/gangdev/shared/php/init.php';
+require_once '/var/www/gangdev/main/src/php/init.php';
 
 $userId = $_SESSION['user_id'];
 $stmt = $pdo->prepare("UPDATE users SET deletion_requested_at = NULL WHERE id = ?");

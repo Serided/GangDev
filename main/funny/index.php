@@ -1,4 +1,4 @@
-<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
+<?php require_once '/var/www/gangdev/main/src/php/init.php'; ?>
 <h1>
 	hi! nothin here yet
 </h1>

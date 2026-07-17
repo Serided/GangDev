@@ -2,7 +2,7 @@
 // Variables $displayname and $userIconUrl are passed from init.php via gangdev_render()
 ?>
 <div class="hNavbar">
-    <link rel="stylesheet" href="https://shared.gangdev.co/css/navbar.css">
+    <link rel="stylesheet" href="/src/css/navbar.css">
 
     <label class="hamburger">
         <input type="checkbox" id="hamburger">
@@ -22,7 +22,7 @@
             <?php if (isset($_SESSION["user_id"])): ?> <!-- change account tab content -->
                 <aside class="sidebar two">
                     <nav>
-                        <a href="http://account.gangdev.co" class="btnText"><button class="hamburger-btn btnText two">Account</button></a>
+                        <a href="https://account.gangdev.co" class="btnText"><button class="hamburger-btn btnText two">Account</button></a>
                         <a href="" class="btnText"><button class="hamburger-btn btnText two">Leaderboard</button></a>
                         <a href="https://account.gangdev.co/login/signout.php" class="btnText"><button class="hamburger-btn btnText two">Sign Out</button></a>
                     </nav>
@@ -75,7 +75,7 @@
 
     </aside>
 
-    <script src="https://gangdev.co/shared/js/navbar.js"></script>
+    <script src="/src/js/navbar.js"></script>
 
 </div>
 <button class="sectBtn" id="upBtn">W</button>

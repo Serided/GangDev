@@ -1,4 +1,4 @@
-<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
+<?php require_once '/var/www/gangdev/main/src/php/init.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,7 +14,7 @@
         <div class="sect cont entry">
             <div class="bgWrapper"></div>
             <div class="shimmer">
-                <div style="background-image: url('https://gangdev.co/shared/src/img/isaac/icon.webp')" class="isaac"></div>
+                <div style="background-image: url('/src/img/isaac/icon.webp')" class="isaac"></div>
             </div>
             <p class="arrow">^</p>
             <h1 class="title shimmerText">
@@ -80,7 +80,7 @@
         <div class="sect cont one" id="contact">
             <h2>Contact</h2>
             <a href="mailto:jens.hansen@gangdev.co">(jens.hansen@gangdev.co)</a>
-            <form action="/shared/php/process_contact.php" method="post">
+            <form action="/src/php/process_contact.php" method="post">
                 <div class="details">
                     <input type="hidden" name="recipient" value="jens">
                     <?php if (!isset($_SESSION["user_id"])): ?>

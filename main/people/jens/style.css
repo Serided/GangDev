@@ -3,7 +3,7 @@
 }
 
 .shimmer div.jens {
-    background-image: url('https://gangdev.co/shared/src/img/jens/icon.webp');
+    background-image: url('/src/img/jens/icon.webp');
     border: calc(var(--scaling) * 0.2) solid gray;
 }
 

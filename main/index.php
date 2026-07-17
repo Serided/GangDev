@@ -1,4 +1,4 @@
-<?php require_once '/var/www/gangdev/shared/php/init.php'; ?>
+<?php require_once '/var/www/gangdev/main/src/php/init.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -90,7 +90,7 @@
         <div class="sect cont one" id="contact">
             <h2>Contact</h2>
             <a href="mailto:company@gangdev.co">(company@gangdev.co)</a>
-            <form action="/shared/php/process_contact.php" method="post">
+            <form action="/src/php/process_contact.php" method="post">
                 <div class="details">
                     <input type="hidden" name="recipient" value="company">
                     <?php if (!isset($_SESSION["user_id"])): ?>

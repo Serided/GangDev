@@ -1,5 +1,5 @@
 <?php
-require_once '/var/www/gangdev/shared/php/init_dcops.php';
+require_once '/var/www/gangdev/dcops/src/php/init.php';
 
 $name = $_SESSION['dcops_name'] ?? '';
 $isAuthed = isset($_SESSION['dcops_user_id']) && $name !== '';

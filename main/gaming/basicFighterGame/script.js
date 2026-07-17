@@ -13,7 +13,7 @@ const background = new Sprite({
     x:0,
     y:0
   },
-  imageSrc: 'https://shared.gangdev.co/src/img/bfgame/background-resized.png'
+  imageSrc: '/src/img/bfgame/background-resized.png'
 })
 
 const shop = new Sprite({
@@ -21,7 +21,7 @@ const shop = new Sprite({
     x: 620,
     y: 161
   },
-  imageSrc: 'https://shared.gangdev.co/src/img/bfgame/shop.png',
+  imageSrc: '/src/img/bfgame/shop.png',
   scale: 2.5,
   frames: 6,
   framesHold: 19
@@ -43,7 +43,7 @@ const player1 = new Fighter({
     health: 50,
     dead: 0
   },
-  imageSrc: 'https://shared.gangdev.co/src/img/bfgame/samuraiMack/Idle.png',
+  imageSrc: '/src/img/bfgame/samuraiMack/Idle.png',
   frames: 8,
   scale: 2.5,
   offset: {
@@ -52,37 +52,37 @@ const player1 = new Fighter({
   },
   sprites: {
     idle: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/samuraiMack/Idle.png',
+      imageSrc: '/src/img/bfgame/samuraiMack/Idle.png',
       frames: 8,
       framesHold: 19,
     },
     run: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/samuraiMack/Run.png',
+      imageSrc: '/src/img/bfgame/samuraiMack/Run.png',
       frames: 8,
       framesHold: 17,
     },
     jump: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/samuraiMack/Jump.png',
+      imageSrc: '/src/img/bfgame/samuraiMack/Jump.png',
       frames: 2,
       framesHold: 19,
     },
     fall: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/samuraiMack/Fall.png',
+      imageSrc: '/src/img/bfgame/samuraiMack/Fall.png',
       frames: 2,
       framesHold: 19,
     },
     attack1: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/samuraiMack/Attack1.png',
+      imageSrc: '/src/img/bfgame/samuraiMack/Attack1.png',
       frames: 6,
       framesHold: 19,
     },
     takeHit: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/samuraiMack/Take Hit - white silhouette.png',
+      imageSrc: '/src/img/bfgame/samuraiMack/Take Hit - white silhouette.png',
       frames: 4,
       framesHold: 19,
     },
     death: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/samuraiMack/Death.png',
+      imageSrc: '/src/img/bfgame/samuraiMack/Death.png',
       frames: 6,
       framesHold: 23,
     },
@@ -114,7 +114,7 @@ const player2 = new Fighter({
     dead: 0
   },
   color: 'green',
-  imageSrc: 'https://shared.gangdev.co/src/img/bfgame/kenji/Idle.png',
+  imageSrc: '/src/img/bfgame/kenji/Idle.png',
   frames: 4,
   scale: 2.5,
   offset: {
@@ -123,37 +123,37 @@ const player2 = new Fighter({
   },
   sprites: {
     idle: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/kenji/Idle.png',
+      imageSrc: '/src/img/bfgame/kenji/Idle.png',
       frames: 4,
       framesHold: 19,
     },
     run: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/kenji/Run.png',
+      imageSrc: '/src/img/bfgame/kenji/Run.png',
       frames: 8,
       framesHold: 17,
     },
     jump: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/kenji/Jump.png',
+      imageSrc: '/src/img/bfgame/kenji/Jump.png',
       frames: 2,
       framesHold: 19,
     },
     fall: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/kenji/Fall.png',
+      imageSrc: '/src/img/bfgame/kenji/Fall.png',
       frames: 2,
       framesHold: 19,
     },
     attack1: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/kenji/Attack1.png',
+      imageSrc: '/src/img/bfgame/kenji/Attack1.png',
       frames: 4,
       framesHold: 18,
     },
     takeHit: {
       frames: 3,
       framesHold: 18,
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/kenji/Take hit.png'
+      imageSrc: '/src/img/bfgame/kenji/Take hit.png'
     },
     death: {
-      imageSrc: 'https://shared.gangdev.co/src/img/bfgame/kenji/Death.png',
+      imageSrc: '/src/img/bfgame/kenji/Death.png',
       frames: 7,
       framesHold: 23,
     },

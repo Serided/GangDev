@@ -3,7 +3,7 @@
  * init_base.php — shared foundation for all init files.
  * Handles: error reporting, session setup, autoload, dotenv, env mapping, db connection.
  *
- * Usage: require this at the top of init.php / init_candor.php / init_dcops.php
+ * Usage: require this at the top of each product's init.php
  * then pass config via gangdev_init($config)
  */
 

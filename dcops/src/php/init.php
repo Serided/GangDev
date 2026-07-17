@@ -3,7 +3,7 @@
  * init_dcops.php — DCOPS app init.
  * Session auth, login/logout helpers, org detection.
  */
-require_once __DIR__ . '/init_base.php';
+require_once '/var/www/gangdev/shared/php/init_base.php';
 
 gangdev_init([
 	'domain' => '.dcops.co',

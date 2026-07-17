@@ -1,5 +1,5 @@
 <?php
-require_once '/var/www/gangdev/shared/php/init.php';
+require_once '/var/www/gangdev/main/src/php/init.php';
 require_once '/var/www/gangdev/shared/php/mailer.php';
 
 // Define a timeout period in seconds (e.g., 5 minutes = 300 seconds)
