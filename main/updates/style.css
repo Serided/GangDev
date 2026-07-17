@@ -21,6 +21,13 @@ body {
     transition: opacity 0.2s ease;
 }
 
+/* Hamburger — white on dark page. JS live-updates via inline style.
+   Inline style beats this, and :has(input:checked) in navbar.css
+   also beats this because it's more specific. */
+body .hamburger {
+    --foreground: white;
+}
+
 .updatesShell {
     max-width: 880px;
     margin: 0 auto;
@@ -233,7 +240,7 @@ body {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: url('crust-map.png') center/cover no-repeat #1a1a2e;
+    background: url('crust-map.jpg') center/cover no-repeat #1a1a2e;
     opacity: 0.6;
 }
 

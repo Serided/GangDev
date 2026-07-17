@@ -39,12 +39,11 @@
     // === W/S SMOOTH SCROLL ===
     const SCROLL_SPEED = 8;
     let scrollDir = 0;
-    let scrollRAF = null;
 
     function scrollLoop() {
         if (scrollDir !== 0) {
             window.scrollBy(0, scrollDir * SCROLL_SPEED);
-            scrollRAF = requestAnimationFrame(scrollLoop);
+            requestAnimationFrame(scrollLoop);
         }
     }
 
@@ -57,11 +56,17 @@
         if (downBtn) { downBtn.style.opacity = atBottom ? '0.25' : '1'; downBtn.style.pointerEvents = atBottom ? 'none' : 'auto'; }
     }
 
-    // Force-show initially and update on scroll
-    if (upBtn) { upBtn.style.opacity = '0.25'; upBtn.style.pointerEvents = 'none'; }
-    if (downBtn) { downBtn.style.opacity = '1'; downBtn.style.pointerEvents = 'auto'; }
+    // Force-show W/S buttons — navbar.js hides them because no .sect.cont exists.
+    // Use setTimeout to ensure this runs AFTER navbar.js DOMContentLoaded handler.
+    function forceShowBtns() {
+        if (upBtn) { upBtn.style.display = 'flex'; }
+        if (downBtn) { downBtn.style.display = 'flex'; }
+        updateScrollBtns();
+    }
+    setTimeout(forceShowBtns, 50);
+    setTimeout(forceShowBtns, 200); // double-ensure after any async
+
     window.addEventListener('scroll', updateScrollBtns);
-    updateScrollBtns();
 
     // Mouse hold on W/S buttons for smooth scroll
     if (upBtn) {
@@ -107,7 +112,7 @@
             scrollDir = 1;
             scrollLoop();
         }
-    }, true); // <-- capture phase
+    }, true);
 
     document.addEventListener('keyup', (e) => {
         const key = e.key.toLowerCase();
@@ -115,7 +120,7 @@
         if (key === 's' || key === 'arrowdown') { heldKeys.delete('s'); scrollDir = 0; }
         if (key === 'a' || key === 'arrowleft') { heldKeys.delete('a'); }
         if (key === 'd' || key === 'arrowright') { heldKeys.delete('d'); }
-    }, true); // <-- capture phase
+    }, true);
 
     // === PRODUCT BLOCK CLICK ===
     document.querySelectorAll('.productBlock[data-href]').forEach(block => {
@@ -127,33 +132,53 @@
     // === HAMBURGER LIVE COLOR SHIFT ===
     const hamburger = document.querySelector('.hamburger');
     if (hamburger) {
+        const input = hamburger.querySelector('input');
+
         function updateHamburgerColor() {
             // Don't shift when menu is open
-            const input = hamburger.querySelector('input');
             if (input && input.checked) return;
 
-            // Sample the element directly behind the hamburger
+            // Check what's behind the hamburger
             const rect = hamburger.getBoundingClientRect();
             const cx = rect.left + rect.width / 2;
             const cy = rect.top + rect.height / 2;
 
-            // Temporarily hide hamburger, sample background
             hamburger.style.visibility = 'hidden';
             const el = document.elementFromPoint(cx, cy);
             hamburger.style.visibility = '';
 
-            if (el) {
-                const bg = getComputedStyle(el).backgroundColor;
-                const match = bg.match(/\d+/g);
-                if (match) {
-                    const [r, g, b] = match.map(Number);
-                    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-                    hamburger.style.setProperty('--foreground', luminance < 0.5 ? 'white' : '#333');
-                }
+            if (!el) {
+                hamburger.style.setProperty('--foreground', 'white');
+                return;
             }
+
+            // Walk up to find actual background color
+            let bgColor = null;
+            let current = el;
+            while (current && current !== document.documentElement) {
+                const bg = getComputedStyle(current).backgroundColor;
+                const match = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+                if (match) {
+                    const [_, r, g, b] = match;
+                    // Skip transparent (0,0,0,0) or fully transparent
+                    const a = bg.includes('rgba') ? parseFloat(bg.split(',')[3]) : 1;
+                    if (a > 0.1 && !(+r === 0 && +g === 0 && +b === 0 && a < 0.5)) {
+                        bgColor = [+r, +g, +b];
+                        break;
+                    }
+                }
+                current = current.parentElement;
+            }
+
+            // Default to page background if nothing found
+            if (!bgColor) bgColor = [29, 58, 77]; // #1D3A4D
+
+            const luminance = (0.299 * bgColor[0] + 0.587 * bgColor[1] + 0.114 * bgColor[2]) / 255;
+            hamburger.style.setProperty('--foreground', luminance < 0.45 ? 'white' : '#333');
         }
 
         window.addEventListener('scroll', updateHamburgerColor);
         updateHamburgerColor();
+        setTimeout(updateHamburgerColor, 100);
     }
 })();
