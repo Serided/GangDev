@@ -47,7 +47,8 @@ function gangdev_init(array $config = []) {
 	// ENV variable mapping (PG_* → DB_*)
 	gangdev_map_env();
 
-	// Database
+	// Database — declare $pdo as global so it's accessible outside this function
+	global $pdo;
 	require_once __DIR__ . '/db.php';
 }
 
