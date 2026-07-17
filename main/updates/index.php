@@ -189,8 +189,8 @@
     </div>
 
     <!-- SLIDE ARROWS (A / D) -->
-    <button class="slideArrow" id="arrowLeft" aria-label="Previous version">A</button>
-    <button class="slideArrow" id="arrowRight" aria-label="Next version">D</button>
+    <button class="slideArrow" id="arrowLeft" aria-label="Previous version"><span class="arrowChevron">&lt;</span> A</button>
+    <button class="slideArrow" id="arrowRight" aria-label="Next version">D <span class="arrowChevron">&gt;</span></button>
 
 </div>
 

@@ -48,9 +48,20 @@
         }
     }
 
-    // Force-show W/S buttons (navbar.js hides them when no .sect.cont elements exist)
-    if (upBtn) { upBtn.style.opacity = '1'; upBtn.style.pointerEvents = 'auto'; }
+    // W/S button visibility based on scroll position
+    function updateScrollBtns() {
+        const atTop = window.scrollY <= 5;
+        const atBottom = (window.innerHeight + window.scrollY) >= (document.body.scrollHeight - 5);
+
+        if (upBtn) { upBtn.style.opacity = atTop ? '0.25' : '1'; upBtn.style.pointerEvents = atTop ? 'none' : 'auto'; }
+        if (downBtn) { downBtn.style.opacity = atBottom ? '0.25' : '1'; downBtn.style.pointerEvents = atBottom ? 'none' : 'auto'; }
+    }
+
+    // Force-show initially and update on scroll
+    if (upBtn) { upBtn.style.opacity = '0.25'; upBtn.style.pointerEvents = 'none'; }
     if (downBtn) { downBtn.style.opacity = '1'; downBtn.style.pointerEvents = 'auto'; }
+    window.addEventListener('scroll', updateScrollBtns);
+    updateScrollBtns();
 
     // Mouse hold on W/S buttons for smooth scroll
     if (upBtn) {
