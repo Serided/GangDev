@@ -19,10 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		$_SESSION["email"] = $user["email"];
 		$_SESSION["session_token"] = $sessionToken;
 
-		// Store session token with 7-day expiry
-		$expiry = date("Y-m-d H:i:s", time() + (7 * 24 * 60 * 60));
-		$stmtToken = $pdo->prepare("INSERT INTO session_tokens (user_id, token, expires_at) VALUES (?, ?, ?)");
-		$stmtToken->execute([$user["id"], $sessionToken, $expiry]);
+		// Store session token
+		$stmtToken = $pdo->prepare("INSERT INTO session_tokens (user_id, token) VALUES (?, ?)");
+		$stmtToken->execute([$user["id"], $sessionToken]);
 
 		$folder = '/var/www/gangdev/main/user/' . $user["id"];
 		if (!file_exists($folder)) {

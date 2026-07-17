@@ -42,7 +42,7 @@ if (!isset($_SESSION["user_id"]) && isset($_COOKIE["rememberMe"])) {
 
 // Session validation via session_tokens table
 if (isset($_SESSION["user_id"]) && isset($_SESSION["session_token"])) {
-	$stmt = $pdo->prepare("SELECT token FROM session_tokens WHERE user_id = ? AND token = ? AND expires_at > NOW()");
+	$stmt = $pdo->prepare("SELECT token FROM session_tokens WHERE user_id = ? AND token = ?");
 	$stmt->execute([$_SESSION["user_id"], $_SESSION["session_token"]]);
 	if (!$stmt->fetch()) {
 		session_destroy();
