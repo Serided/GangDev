@@ -10,16 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 $displayname = trim($_POST["displayname"]);
 $username = trim($_POST["username"]);
 $email = trim($_POST["email"]);
-$confirmEmail = trim($_POST["confirmEmail"]);
 $password = trim($_POST["password"]);
 $confirmPassword = trim($_POST["confirmPassword"]);
 
-if (empty($displayname) || empty($username) || empty($email) || empty($confirmEmail) || empty($password) || empty($confirmPassword)) {
+if (empty($displayname) || empty($username) || empty($email) || empty($password) || empty($confirmPassword)) {
 	header("Location: signup.php?error=1");
-	exit();
-}
-if ($email !== $confirmEmail) {
-	header("Location: signup.php?error=2");
 	exit();
 }
 if ($password !== $confirmPassword) {

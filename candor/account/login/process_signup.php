@@ -10,19 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $displayName = trim($_POST['display_name'] ?? '');
 $username = trim($_POST['username'] ?? '');
 $email = strtolower(trim($_POST['email'] ?? ''));
-$confirmEmail = strtolower(trim($_POST['confirm_email'] ?? ''));
 $password = $_POST['password'] ?? '';
 $confirm = $_POST['confirm_password'] ?? '';
 $birthdate = trim($_POST['birthdate'] ?? '');
 $consentHealth = isset($_POST['consent_health']) && $_POST['consent_health'] === '1';
 
-if ($displayName === '' || $username === '' || $email === '' || $confirmEmail === '' || $password === '' || $confirm === '') {
+if ($displayName === '' || $username === '' || $email === '' || $password === '' || $confirm === '') {
 	header('Location: /login/signup.php?error=' . urlencode('All fields are required.'));
-	exit;
-}
-
-if ($email !== $confirmEmail) {
-	header('Location: /login/signup.php?error=' . urlencode('Emails do not match.'));
 	exit;
 }
 

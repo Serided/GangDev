@@ -61,6 +61,13 @@ $ok = $_GET['ok'] ?? '';
                     </div>
                 </div>
 
+                <div class="divider"><span>or</span></div>
+
+                <a href="https://gangdev.co/auth?app=dcops" class="btn gangdev-btn">
+                    <span class="gangdev-icon">G</span>
+                    Sign in with GangDev
+                </a>
+
                 <?php if ($error !== ''): ?>
                     <div class="error"><?= htmlspecialchars($error) ?></div>
                 <?php endif; ?>

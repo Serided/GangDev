@@ -117,11 +117,6 @@ if ($t !== '') {
 									<input class="input" name="email" value="<?= htmlspecialchars($prefill['email']) ?>" required autocomplete="email" inputmode="email">
 								</div>
 
-								<div class="field">
-									<div class="label">Verify email</div>
-									<input class="input" name="confirm_email" value="<?= htmlspecialchars($prefill['email']) ?>" required autocomplete="email" inputmode="email">
-								</div>
-
 								<div class="field fieldFull">
 									<label class="consentLine">
 										<input type="checkbox" name="consent_health" value="1">
@@ -155,7 +150,7 @@ if ($t !== '') {
 									<div class="label">Password</div>
 									<div class="pwWrap">
 										<input class="input pw" type="password" name="password" required autocomplete="new-password" id="pw1">
-										<button class="pwBtn" type="button" data-toggle-password="#pw1">show</button>
+										<button class="pwBtn" type="button" data-toggle-pw="pw1">show</button>
 									</div>
 								</div>
 
@@ -197,7 +192,3 @@ if ($t !== '') {
 
 </body>
 </html>
-
-
-
-

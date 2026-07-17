@@ -4,8 +4,6 @@ $error = '';
 if (isset($_GET['error'])) {
     if ($_GET['error'] == 1) {
         $error = "All fields are required.";
-    } elseif ($_GET['error'] == 2) {
-	    $error = "Emails do not match.";
     } elseif ($_GET['error'] == 3) {
         $error = "Passwords do not match.";
     } elseif ($_GET['error'] == 4) {
@@ -102,14 +100,6 @@ $redirect = $_GET['redirect'] ?? '';
                 </div>
 
                 <div class="doubleRow">
-                    <div class="margin">
-                        <div class="labelRow">
-                            <label for="confirmEmail">Confirm Email:</label>
-                        </div>
-                        <div class="inputContainer signup">
-                            <input type="email" id="confirmEmail" name="confirmEmail" required>
-                        </div>
-                    </div>
                     <div class="margin">
                         <div class="labelRow">
                             <label for="confirmPassword">Confirm Password:</label>

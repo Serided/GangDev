@@ -397,3 +397,43 @@ p {
 @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
 }
+
+/* GangDev sign-in button + divider */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: .4px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+}
+
+.gangdev-btn {
+    width: 100%;
+    text-decoration: none;
+    gap: 10px;
+    font-weight: 600;
+    border-color: rgba(43, 92, 110, .35);
+    background: rgba(43, 92, 110, .06);
+    color: #2B5C6E;
+    transition: background .15s ease, box-shadow .15s ease;
+}
+
+.gangdev-btn:hover {
+    background: rgba(43, 92, 110, .12);
+    box-shadow: 0 6px 16px rgba(43, 92, 110, .15);
+}
+
+.gangdev-icon {
+    font-weight: 800;
+    font-size: 18px;
+}
