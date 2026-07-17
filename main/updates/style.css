@@ -1,5 +1,9 @@
 /* GangDev Updates — Full slide layout */
-@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=VT323&family=Caveat:wght@400;700&family=Nothing+You+Could+Do&display=swap");
+
+body {
+    background: #1D3A4D;
+}
 
 .updatesShell {
     max-width: 880px;
@@ -25,7 +29,7 @@
 .version {
     font-size: 1.4rem;
     font-weight: 800;
-    color: #2B5C6E;
+    color: #a8d8ea;
     letter-spacing: 0.5px;
     font-family: "JetBrains Mono", monospace;
 }
@@ -38,8 +42,8 @@
     padding: 4px 10px;
     border-radius: 999px;
 }
-.versionState.current { background: rgba(43,92,110,0.12); color: #2B5C6E; border: 1px solid rgba(43,92,110,0.3); }
-.versionState.past { background: rgba(112,131,143,0.1); color: #70838F; border: 1px solid rgba(112,131,143,0.25); }
+.versionState.current { background: rgba(168,216,234,0.12); color: #a8d8ea; border: 1px solid rgba(168,216,234,0.3); }
+.versionState.past { background: rgba(168,216,234,0.06); color: #70838F; border: 1px solid rgba(112,131,143,0.25); }
 
 .timestamp {
     font-size: 0.75rem;
@@ -52,13 +56,13 @@
 .slideTitle {
     font-size: calc(var(--scaling) * 1.4);
     font-weight: 700;
-    color: #1D3A4D;
+    color: #ffffff;
     margin: 0 0 8px;
 }
 
 .slideLead {
     font-size: calc(var(--scaling) * 0.6);
-    color: #70838F;
+    color: #a8b8c4;
     margin: 0 0 28px;
     line-height: 1.5;
 }
@@ -137,13 +141,13 @@
 /* ===== GANGDEV THEME ===== */
 .theme-gangdev {
     background: #2B5C6E;
-    border: 1px solid #1D3A4D;
+    border: 1px solid rgba(168,216,234,0.15);
 }
 .theme-gangdev .productName { color: #fff; font-family: "Nunito", sans-serif; }
 .theme-gangdev .productTag { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); }
 .theme-gangdev .productIcon { box-shadow: 0 0 0 1px rgba(255,255,255,0.2); }
 .theme-gangdev .changeList { background: #234E5E; }
-.theme-gangdev .changeList li { color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.08); }
+.theme-gangdev .changeList li { color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.08); font-family: "Nunito", sans-serif; }
 .theme-gangdev .changeList code { background: rgba(0,0,0,0.2); color: #a8d8ea; }
 .theme-gangdev .tag.feat { background: rgba(255,255,255,0.12); color: #a8d8ea; }
 .theme-gangdev .tag.fix { background: rgba(255,180,180,0.15); color: #ffb4b4; }
@@ -153,11 +157,12 @@
 .theme-crust {
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(0,255,136,0.15);
 }
 .theme-crust .productBanner {
     position: relative;
     z-index: 2;
-    background: rgba(26, 26, 46, 0.85);
+    background: rgba(26, 26, 46, 0.8);
 }
 .theme-crust .productName {
     font-family: "VT323", monospace;
@@ -171,16 +176,16 @@
 .theme-crust .changeList {
     position: relative;
     z-index: 2;
-    background: rgba(26, 26, 46, 0.88);
+    background: rgba(26, 26, 46, 0.82);
 }
 .theme-crust .changeList li {
     color: rgba(200, 255, 220, 0.9);
     border-color: rgba(0, 255, 136, 0.1);
     font-family: "VT323", monospace;
-    font-size: 1rem;
+    font-size: 1.05rem;
     letter-spacing: 0.5px;
 }
-.theme-crust .changeList code { background: rgba(0,255,136,0.1); color: #00ff88; }
+.theme-crust .changeList code { background: rgba(0,255,136,0.1); color: #00ff88; font-family: "VT323", monospace; }
 .theme-crust .tag.feat { background: rgba(0,255,136,0.12); color: #00ff88; }
 .theme-crust .tag.fix { background: rgba(255,100,100,0.15); color: #ff8888; }
 .theme-crust .tag.infra { background: rgba(0,255,136,0.06); color: rgba(0,255,136,0.6); }
@@ -189,7 +194,7 @@
     inset: 0;
     z-index: 1;
     background: url('crust-map.svg') center/cover no-repeat;
-    opacity: 0.55;
+    opacity: 0.4;
 }
 
 /* ===== CANDOR THEME ===== */
@@ -204,7 +209,7 @@
 .theme-candor .productTag { background: rgba(185,219,242,0.5); color: #2a3b52; border: 1px solid rgba(185,219,242,0.8); }
 .theme-candor .productIcon { border-radius: 0; width: 28px; height: 28px; }
 .theme-candor .changeList { background: transparent; }
-.theme-candor .changeList li { color: #3d2a1a; border-color: rgba(123,63,34,0.1); }
+.theme-candor .changeList li { color: #3d2a1a; border-color: rgba(123,63,34,0.1); font-family: "Comfortaa", sans-serif; font-size: 0.82rem; }
 .theme-candor .changeList code { background: rgba(123,63,34,0.08); color: #5a2d10; }
 .theme-candor .tag.feat { background: rgba(123,63,34,0.1); color: #7b3f22; }
 .theme-candor .tag.fix { background: rgba(180,80,80,0.1); color: #8b3030; }
@@ -234,7 +239,7 @@
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 0.82rem;
 }
-.theme-dcops .changeList code { background: rgba(11,18,32,0.05); color: #4a0f1a; }
+.theme-dcops .changeList code { background: rgba(11,18,32,0.05); color: #4a0f1a; font-family: "JetBrains Mono", monospace; }
 .theme-dcops .tag.feat { background: rgba(74,15,26,0.08); color: #4a0f1a; }
 .theme-dcops .tag.fix { background: rgba(191,161,74,0.12); color: #8a6f24; }
 .theme-dcops .tag.infra { background: rgba(11,18,32,0.05); color: rgba(11,18,32,0.5); }
@@ -247,9 +252,12 @@
         linear-gradient(180deg, #0c0808 0%, #140d0d 100%);
     border: 1px solid rgba(201,168,76,0.15);
 }
+.theme-lafter .productBanner {
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+}
 .theme-lafter .productName {
     font-family: "Indie Flower", cursive;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 700;
     background: linear-gradient(135deg, #ffffff 0%, #f0e6dc 40%, #ffe8d6 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
@@ -260,8 +268,14 @@
 }
 .theme-lafter .productTag { background: rgba(201,168,76,0.12); color: #c9a84c; border: 1px solid rgba(201,168,76,0.25); }
 .theme-lafter .changeList { background: transparent; }
-.theme-lafter .changeList li { color: rgba(255,232,214,0.85); border-color: rgba(201,168,76,0.1); }
-.theme-lafter .changeList code { background: rgba(201,168,76,0.1); color: #c9a84c; }
+.theme-lafter .changeList li {
+    color: #e8e0e0;
+    border-color: rgba(201,168,76,0.1);
+    font-family: "Nothing You Could Do", cursive;
+    font-size: 0.95rem;
+    -webkit-text-stroke: 0.3px currentColor;
+}
+.theme-lafter .changeList code { background: rgba(201,168,76,0.1); color: #c9a84c; font-family: "JetBrains Mono", monospace; -webkit-text-stroke: 0; }
 .theme-lafter .tag.feat { background: rgba(201,168,76,0.12); color: #c9a84c; }
 .theme-lafter .tag.fix { background: rgba(255,100,100,0.12); color: #ff9999; }
 .theme-lafter .tag.infra { background: rgba(201,168,76,0.06); color: rgba(201,168,76,0.6); }
@@ -281,11 +295,17 @@
     background: linear-gradient(135deg, #6b6bff, #b07cff);
     -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-.theme-inspectre .productIcon { border-radius: 0; width: 24px; height: 24px; filter: brightness(0.9); }
+.theme-inspectre .productIcon { border-radius: 0; width: 24px; height: 24px; }
 .theme-inspectre .productTag { background: rgba(107,107,255,0.12); color: #9d8fff; border: 1px solid rgba(107,107,255,0.25); }
 .theme-inspectre .changeList { background: transparent; }
-.theme-inspectre .changeList li { color: rgba(200,200,255,0.85); border-color: rgba(107,107,255,0.1); }
-.theme-inspectre .changeList code { background: rgba(107,107,255,0.1); color: #9d8fff; }
+.theme-inspectre .changeList li {
+    color: rgba(238,240,255,0.85);
+    border-color: rgba(107,107,255,0.1);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+.theme-inspectre .changeList code { background: rgba(107,107,255,0.1); color: #9d8fff; font-family: "JetBrains Mono", monospace; }
 .theme-inspectre .tag.feat { background: rgba(107,107,255,0.12); color: #9d8fff; }
 .theme-inspectre .tag.fix { background: rgba(255,100,100,0.12); color: #ff9999; }
 .theme-inspectre .tag.infra { background: rgba(107,107,255,0.06); color: rgba(157,143,255,0.6); }
