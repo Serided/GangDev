@@ -12,9 +12,9 @@
         <?= $fader ?>
 
         <div class="timeline" style="text-align: center">
-            <img src="/src/img/jens/jens_noob_one.jpg" width="400px" height="600px" style="margin-left: auto" class="buff">
-            <img src="/src/img/jens/arrow.png" width="400px" height="300px" style="margin-top: 140px; margin-bottom: 160px">
-            <img src="/src/img/jens/jens_two_7-26-2023.jpg" width="400px" height="600px" style="margin-right: auto" class="buff">
+            <img src="https://gangdev.co/src/img/jens/jens_noob_one.jpg" width="400px" height="600px" style="margin-left: auto" class="buff">
+            <img src="https://gangdev.co/src/img/jens/arrow.png" width="400px" height="300px" style="margin-top: 140px; margin-bottom: 160px">
+            <img src="https://gangdev.co/src/img/jens/jens_two_7-26-2023.jpg" width="400px" height="600px" style="margin-right: auto" class="buff">
         </div>
         <div>
             <p>

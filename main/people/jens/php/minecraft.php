@@ -27,7 +27,7 @@
             
                 <h2>Resource Packs</h2>
                 <p>
-                    FortCraft Resource Pack <a href="/src/minecraft/FortCraftResourcePack.zip" target="_blank" download="FortCraftResourcePack">(Download)</a><br>
+                    FortCraft Resource Pack <a href="https://gangdev.co/src/minecraft/FortCraftResourcePack.zip" target="_blank" download="FortCraftResourcePack">(Download)</a><br>
                 </p>
             
         </div>

@@ -67,6 +67,6 @@ $redirect = $_GET['redirect'] ?? '';
         </div>
 
         <script src="login.js"></script>
-        <script src="/src/js/script.js"></script>
+        <script src="https://gangdev.co/src/js/script.js"></script>
     </body>
 </html>

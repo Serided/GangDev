@@ -47,6 +47,6 @@ if (isset($_GET['error'])) {
                 </div>
             </form>
         </div>
-        <script src="/src/js/script.js"></script>
+        <script src="https://gangdev.co/src/js/script.js"></script>
     </body>
 </html>

@@ -2,7 +2,7 @@
 // Variables $displayname and $userIconUrl are passed from init.php via gangdev_render()
 ?>
 <div class="hNavbar">
-    <link rel="stylesheet" href="/src/css/navbar.css">
+    <link rel="stylesheet" href="https://gangdev.co/src/css/navbar.css">
 
     <label class="hamburger">
         <input type="checkbox" id="hamburger">
@@ -75,7 +75,7 @@
 
     </aside>
 
-    <script src="/src/js/navbar.js"></script>
+    <script src="https://gangdev.co/src/js/navbar.js"></script>
 
 </div>
 <button class="sectBtn" id="upBtn">W</button>

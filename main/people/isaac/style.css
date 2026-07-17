@@ -3,7 +3,7 @@
 }
 
 .shimmer div.isaac {
-    background-image: url('/src/img/isaac/icon.webp');
+    background-image: url('https://gangdev.co/src/img/isaac/icon.webp');
     border: calc(var(--scaling) * 0.2) solid gray;
 }
 

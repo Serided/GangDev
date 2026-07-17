@@ -17,15 +17,15 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!-- stylesheets -->
-<link rel="stylesheet" href="/src/css/style.css">
+<link rel="stylesheet" href="https://gangdev.co/src/css/style.css">
 
 <!-- favicon -->
-<link rel="icon" type="image/png" href="/src/img/favicon/new/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/src/img/favicon/new/favicon.svg" />
-<link rel="shortcut icon" href="/src/img/favicon/new/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/src/img/favicon/new/apple-touch-icon.png" />
+<link rel="icon" type="image/png" href="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="https://gangdev.co/src/img/favicon/new/favicon.svg" />
+<link rel="shortcut icon" href="https://gangdev.co/src/img/favicon/new/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://gangdev.co/src/img/favicon/new/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="GangDev" />
-<!--<link rel="manifest" href="/src/img/favicon/new/site.webmanifest" />-->
+<!--<link rel="manifest" href="https://gangdev.co/src/img/favicon/new/site.webmanifest" />-->
 
 <!-- banner -->
 <meta property="og:title" content="GangDev">
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- basic script -->
-<script src="/src/js/fader.js"></script>
+<script src="https://gangdev.co/src/js/fader.js"></script>
 
 <!-- page fader -->
 <svg id="fader"></svg>

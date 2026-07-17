@@ -14,7 +14,7 @@
         <div class="sect cont entry">
             <div class="bgWrapper"></div>
             <div class="shimmer">
-                <div style="background-image: url('/src/img/isaac/icon.webp')" class="isaac"></div>
+                <div style="background-image: url('https://gangdev.co/src/img/isaac/icon.webp')" class="isaac"></div>
             </div>
             <p class="arrow">^</p>
             <h1 class="title shimmerText">
@@ -80,7 +80,7 @@
         <div class="sect cont one" id="contact">
             <h2>Contact</h2>
             <a href="mailto:jens.hansen@gangdev.co">(jens.hansen@gangdev.co)</a>
-            <form action="/src/php/process_contact.php" method="post">
+            <form action="https://gangdev.co/src/php/process_contact.php" method="post">
                 <div class="details">
                     <input type="hidden" name="recipient" value="jens">
                     <?php if (!isset($_SESSION["user_id"])): ?>
