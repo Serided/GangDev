@@ -1,4 +1,4 @@
-<?php require_once '/var/www/gangdev/crust/engine/src/network/auth.php'; ?>
+<?php require_once '/var/www/gangdev/main/crust/engine/src/network/auth.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>

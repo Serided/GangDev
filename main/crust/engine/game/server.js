@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 */
 
 export function server(port, name, game) {
-    const clientPath = path.join('/var/www/gangdev/crust/games/', game, 'client')
+    const clientPath = path.join('/var/www/gangdev/main/crust/games/', game, 'client')
     const wss = createGameServer(port, name, clientPath); // create server
     startServerLoop(wss);
 }
