@@ -7,6 +7,8 @@
  * then pass config via gangdev_init($config)
  */
 
+use Dotenv\Dotenv;
+
 function gangdev_init(array $config = []) {
 	$defaults = [
 		'domain' => '.gangdev.co',
@@ -39,7 +41,6 @@ function gangdev_init(array $config = []) {
 	// Autoload + dotenv
 	require __DIR__ . '/../lib/composer/vendor/autoload.php';
 
-	use Dotenv\Dotenv;
 	$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 	$dotenv->load();
 
