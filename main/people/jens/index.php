@@ -29,8 +29,8 @@
                     <div class="timelineLine"></div>
 
                     <div class="timelineItem">
-                        <div class="companyBanner bannerIno">
-                            <span class="bannerName">In-N-Out Burger</span>
+                        <div class="companyBanner">
+                            <img class="bannerImg" src="https://gangdev.co/src/img/companies/innout.png" alt="In-N-Out Burger">
                         </div>
                         <div class="timelineDetails"><div class="timelineDetailsInner">
                             <div class="detailsTitle">Team Member</div>
@@ -39,13 +39,12 @@
                                 <li>All stations: registers, drive-thru, fry, prep.</li>
                                 <li>Trained hires; high-volume service under pressure.</li>
                             </ul>
-                        </div>
-                        </div>
+                        </div></div>
                     </div>
 
                     <div class="timelineItem">
-                        <div class="companyBanner bannerQuincy">
-                            <span class="bannerName">Quincy Foods</span>
+                        <div class="companyBanner">
+                            <img class="bannerImg" src="https://gangdev.co/src/img/companies/quincy.png" alt="Quincy Foods">
                         </div>
                         <div class="timelineDetails"><div class="timelineDetailsInner">
                             <div class="detailsTitle">Mechanic</div>
@@ -54,29 +53,26 @@
                                 <li>Hydraulic, electrical, mechanical repair on large-scale combines.</li>
                                 <li>90+ hour weeks; diagnostics and preventative maintenance.</li>
                             </ul>
-                        </div>
-                        </div>
+                        </div></div>
                     </div>
 
                     <div class="timelineItem">
-                        <div class="companyBanner bannerGangdev">
-                            <img class="bannerLogo" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="GangDev">
-                            <span class="bannerName">GangDev</span>
+                        <div class="companyBanner">
+                            <img class="bannerImg" src="https://gangdev.co/src/img/companies/gangdev.png" alt="GangDev">
                         </div>
                         <div class="timelineDetails"><div class="timelineDetailsInner">
                             <div class="detailsTitle">Founder & Lead Engineer</div>
                             <div class="dateBadge">Nov 2024 – Present</div>
                             <ul>
                                 <li>Full-stack platforms from scratch. Candor, DCOPS, inspectre, Lafter, Crust.</li>
-                                <li>Infra, auth, data architecture, product design, deployment.</li>
+                                <li>Infra, auth, DB architecture, product design, deployment.</li>
                             </ul>
-                        </div>
-                        </div>
+                        </div></div>
                     </div>
 
                     <div class="timelineItem">
-                        <div class="companyBanner bannerTeksystems">
-                            <span class="bannerName">TEK<span class="tekAccent">systems</span></span>
+                        <div class="companyBanner">
+                            <img class="bannerImg" src="https://gangdev.co/src/img/companies/teksystems.png" alt="TEKsystems">
                         </div>
                         <div class="timelineDetails"><div class="timelineDetailsInner">
                             <div class="detailsTitle">Data Center Technician</div>
@@ -85,13 +81,12 @@
                                 <li>Microsoft DC: rack builds, M1s/M2s, T2s, line cards, SFPs.</li>
                                 <li>Structured cabling under active security clearance.</li>
                             </ul>
-                        </div>
-                        </div>
+                        </div></div>
                     </div>
 
                     <div class="timelineItem">
-                        <div class="companyBanner bannerMilestone">
-                            <span class="bannerName">milestone</span>
+                        <div class="companyBanner">
+                            <img class="bannerImg" src="https://gangdev.co/src/img/companies/milestone.png" alt="Milestone Technologies">
                         </div>
                         <div class="timelineDetails"><div class="timelineDetailsInner">
                             <div class="detailsTitle">DC Logistics → SLC Lead → Metrics Lead</div>
@@ -100,13 +95,12 @@
                                 <li>Meta DC logistics; promoted twice in under 5 months.</li>
                                 <li>Authored SLC SOP rewrite; performance bonus.</li>
                             </ul>
-                        </div>
-                        </div>
+                        </div></div>
                     </div>
 
                     <div class="timelineItem">
-                        <div class="companyBanner bannerAws">
-                            <span class="bannerName"><span class="awsAccent">amazon</span> web services</span>
+                        <div class="companyBanner">
+                            <img class="bannerImg" src="https://gangdev.co/src/img/companies/aws.png" alt="Amazon Web Services">
                         </div>
                         <div class="timelineDetails"><div class="timelineDetailsInner">
                             <div class="detailsTitle">DCO Technician</div>
@@ -114,8 +108,7 @@
                             <ul>
                                 <li>Data Center Operations. Break/fix, cabling, hardware at scale.</li>
                             </ul>
-                        </div>
-                        </div>
+                        </div></div>
                     </div>
 
                 </div>
@@ -192,4 +185,3 @@
         <?= $footer ?>
     </body>
 </html>
-
