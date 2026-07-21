@@ -284,6 +284,10 @@ div.profile p {
     background-clip: text;
     color: transparent;
     font-family: inherit;
+    display: inline-block;
+    animation: laugh-pulse 3.5s ease-in-out infinite;
+    animation-delay: 1s;
+    -webkit-text-fill-color: transparent;
 }
 
 .selected {
@@ -345,4 +349,18 @@ nav input:checked + .account-btn + .sidebar.two {
 }
 #downBtn {
     bottom: calc(var(--scaling) * 0.5);
+}
+
+/* Lafter laugh-pulse animation */
+@keyframes laugh-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    10% { transform: scale(1.15) translateY(-2px); opacity: 1; }
+    12.6% { transform: scale(1); opacity: 0.85; }
+    17.9% { transform: scale(1.1) translateY(-1.5px); opacity: 1; }
+    20.5% { transform: scale(1); opacity: 0.8; }
+    25.4% { transform: scale(1.06) translateY(-1px); opacity: 0.95; }
+    27.8% { transform: scale(1); opacity: 0.75; }
+    32.1% { transform: scale(1.03) translateY(-0.5px); opacity: 0.9; }
+    34% { transform: scale(1); opacity: 0.7; }
+    40% { transform: scale(1); opacity: 1; }
 }

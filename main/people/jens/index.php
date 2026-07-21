@@ -26,110 +26,121 @@
         <div class="sect cont two" id="overview">
             <h2>About Me</h2>
             <div class="timeline">
+
                 <div class="timelineItem">
                     <div class="timelineBox">
-                        <h3>In-N-Out</h3>
-                        <p>Nov. 2022 - May 2024</p>
+                        <div class="companyBanner bannerIno">
+                            <span class="bannerName">In-N-Out Burger</span>
+                        </div>
+                        <h3>Team Member</h3>
                     </div>
                     <div class="timelineDetails">
-                        <p>
-                            At <strong>In‑N‑Out Burger</strong>, known for exceptional <strong>quality and service</strong>, I developed key skills:
-                        </p>
+                        <div class="dateBadge">Nov 2022 – May 2024</div>
                         <ul>
-                            <li>Operated registers, drive‑thru, fry, and prep stations.</li>
-                            <li><strong>Provided efficient service in high‑volume settings.</strong></li>
-                            <li>Trained teammates to foster leadership.</li>
-                            <li><strong>Upheld industry-leading customer service standards.</strong></li>
-                            <li>Upheld strict food safety and cleanliness.</li>
-                            <li>Excelled in problem‑solving under pressure.</li>
+                            <li>High-volume registers, drive-thru, fry, and prep stations.</li>
+                            <li>Trained teammates; upheld industry-leading service standards.</li>
+                            <li>Problem-solving under pressure in fast-paced environments.</li>
                         </ul>
                     </div>
                 </div>
+
                 <div class="timelineItem">
                     <div class="timelineBox">
+                        <div class="companyBanner bannerQuincy">
+                            <span class="bannerName">Quincy Foods, LLC</span>
+                        </div>
                         <h3>Mechanic</h3>
-                        <p>Jul. 2024 - Jul. 2025</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>
-                            At <strong>Quincy Foods, LLC</strong>, I <strong>maintained and repaired large-scale combines</strong>, ensuring peak efficiency.
-                        </p>
+                        <div class="dateBadge">Jul 2024 – Jul 2025</div>
                         <ul>
-                            <li><strong>Diagnosed and repaired hydraulic, electrical, and mechanical systems.</strong></li>
-                            <li>Performed preventative maintenance to prevent downtime.</li>
-                            <li><strong>Utilized technical manuals and diagnostics for troubleshooting.</strong></li>
-                            <li>Ensured safety compliance and optimal equipment performance.</li>
-                            <li><strong>Worked 90+ grueling hours weekly, pushing physical and mental limits.</strong></li>
+                            <li>Diagnosed/repaired hydraulic, electrical, and mechanical systems on combines.</li>
+                            <li>90+ hours weekly; preventative maintenance and safety compliance.</li>
+                            <li>Technical manuals and diagnostic tools for troubleshooting.</li>
                         </ul>
                     </div>
                 </div>
+
                 <div class="timelineItem">
                     <div class="timelineBox">
-                        <h3>GangDev</h3>
-                        <p>Nov. 2024 - Present</p>
+                        <div class="companyBanner bannerGangdev">
+                            <img class="bannerIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
+                            <span class="bannerName">GangDev</span>
+                        </div>
+                        <h3>Founder</h3>
                     </div>
                     <div class="timelineDetails">
-                        <p>
-                            Founded <strong>GangDev</strong>, an independent studio building
-                            <strong>web platforms and experimental systems</strong>.
-                        </p>
+                        <div class="dateBadge">Nov 2024 – Present</div>
                         <ul>
-                            <li><strong>Architect and build full-stack platforms including Candor and Inspectre.</strong></li>
-                            <li><strong>Design web infrastructure, authentication systems, and data models.</strong></li>
-                            <li><strong>Develop and deploy applications using PHP, JavaScript, and PostgreSQL.</strong></li>
-                            <li>Lead product architecture, UX, branding, and technical direction.</li>
+                            <li>Full-stack platforms: Candor, DCOPS, inspectre, Lafter.</li>
+                            <li>Web infra, auth systems, data models — PHP, JS, PostgreSQL.</li>
+                            <li>Product architecture, UX, branding, and technical direction.</li>
                         </ul>
                     </div>
                 </div>
+
                 <div class="timelineItem">
                     <div class="timelineBox">
+                        <div class="companyBanner bannerTeksystems">
+                            <span class="bannerName">TEKsystems</span>
+                        </div>
                         <h3>DC Technician</h3>
-                        <p>Jun. 2025 - Aug. 2025</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>
-                            Contracted through <strong>TEKsystems</strong> to deploy and service infrastructure in <strong>Microsoft’s secure datacenter environment</strong>.
-                        </p>
+                        <div class="dateBadge">Jun 2025 – Aug 2025</div>
                         <ul>
-                            <li><strong>Installed M1s/M2s, T2s, line cards, and SFP modules across full racks.</strong></li>
-                            <li><strong>Built out coupler panels, patch panels, and routed power/OOB cabling.</strong></li>
-                            <li>Maintained labeling, port mapping, and airflow-optimized cable dressing.</li>
-                            <li><strong>Operated under active security clearance and strict access protocols.</strong></li>
-                            <li>Worked long shifts in cold, high-noise environments to meet deployment goals.</li>
+                            <li>Microsoft datacenter: M1s/M2s, T2s, line cards, SFP modules.</li>
+                            <li>Coupler panels, patch panels, power/OOB cabling.</li>
+                            <li>Active security clearance; strict access protocols.</li>
                         </ul>
                     </div>
                 </div>
+
                 <div class="timelineItem">
                     <div class="timelineBox">
+                        <div class="companyBanner bannerMilestone">
+                            <span class="bannerName">Milestone Technologies</span>
+                        </div>
                         <h3>DC Logistics</h3>
-                        <p>Sep. 2025 – Present</p>
                     </div>
                     <div class="timelineDetails">
-                        <p>
-                            Contracted through <strong>Milestone Technologies</strong> to execute
-                            <strong>Meta’s datacenter logistics</strong>.
-                        </p>
+                        <div class="dateBadge">Sep 2025 – Jun 2026</div>
                         <ul>
-                            <li><strong>Promoted to SLC Project Lead (~3.5 months L1); lead data center SLC audits.</strong></li>
-                            <li><strong>Promoted again (~4.5 months) to Metrics Project Lead investigating inventory deltas.</strong></li>
-                            <li><strong>Authored SLC SOP rewrite approved by leadership; now implementing changes.</strong></li>
-                            <li><strong>Awarded performance bonus for flawless rack operations.</strong></li>
-                            <li>Execute full rack lifecycle across inbound and outbound logistics.</li>
+                            <li>Meta datacenter logistics; promoted to SLC Project Lead (~3.5 mo).</li>
+                            <li>Promoted again to Metrics Project Lead (~4.5 mo).</li>
+                            <li>Authored SLC SOP rewrite approved by leadership.</li>
+                            <li>Performance bonus for flawless rack operations.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timelineItem">
+                    <div class="timelineBox">
+                        <div class="companyBanner bannerAws">
+                            <span class="bannerName">Amazon Web Services</span>
+                        </div>
+                        <h3>DCO Tech</h3>
+                    </div>
+                    <div class="timelineDetails">
+                        <div class="dateBadge">Jun 2026 – Present</div>
+                        <ul>
+                            <li>Data Center Operations Technician — break/fix, cabling, hardware.</li>
+                            <li>Infrastructure deployment and maintenance at scale.</li>
                         </ul>
                     </div>
                 </div>
 
             </div>
             <p class="desc">
-                I’ve always gotten bored fast. I can’t stand standing around, so I defaulted to coding.
-                I’ve got a weird style, but it works — and I legit can’t sleep at night knowing my code’s gonna need a full rewrite in a few years.
+                I've always gotten bored fast. I can't stand standing around, so I defaulted to coding.
+                I've got a weird style, but it works — and I legit can't sleep at night knowing my code's gonna need a full rewrite in a few years.
                 I build things to last, not to patch later; no hacks, no bandaids, just clean setups that hold up.
-                Eventually I’ll be this generation’s <strong>Tony Stark</strong> — just gotta keep grinding.<br><br>
+                Eventually I'll be this generation's <strong>Tony Stark</strong> — just gotta keep grinding.<br><br>
 
-                I started <strong>GangDev</strong> because I’ve got a vision for how I want to impact the world, and I’m tired of being boxed in by outdated norms that slow everything down.
-                I’ve set up <strong>cloud and physical servers</strong> from scratch, built <strong>web platforms completely from the ground up</strong>,
+                I started <strong>GangDev</strong> because I've got a vision for how I want to impact the world, and I'm tired of being boxed in by outdated norms that slow everything down.
+                I've set up <strong>cloud and physical servers</strong> from scratch, built <strong>web platforms completely from the ground up</strong>,
                 and made <strong>game systems that scale forever without falling apart</strong>.
-                I’m always trying to make stuff cleaner, faster, and smarter — one giga project at a time.<br><br>
+                I'm always trying to make stuff cleaner, faster, and smarter — one giga project at a time.<br><br>
 
                 I'm not chasing clout, trying to boost my ego, or flaunt a fake persona; that's why I build things that are real.
                 I want to be something my dad would be proud of — something <strong>전설적인</strong>.

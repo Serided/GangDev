@@ -58,7 +58,7 @@
                             <span class="productVersion"><?= $VERSIONS['candor'] ?></span>
                             <span class="productTag">personal OS</span>
                         </div>
-                        <div class="productDesc">Personal OS for tasks, notes, routines, and a daily timeline.</div>
+                        <div class="productDesc">Plan on the month, execute by the hour. Tasks, routines, sleep cadence, and a timeline that holds you accountable.</div>
                     </section>
 
                     <section class="productBlock theme-dcops" data-href="https://dcops.co/">
@@ -67,7 +67,7 @@
                             <span class="productVersion"><?= $VERSIONS['dcops'] ?></span>
                             <span class="productTag">operations</span>
                         </div>
-                        <div class="productDesc">Automation and ops tooling for clean execution.</div>
+                        <div class="productDesc">Org-level ops platform. Roles, trust tiers, dashboards, and structured automation for teams that actually ship.</div>
                     </section>
 
                     <section class="productBlock theme-inspectre" data-href="https://inspectre.link/">
@@ -77,7 +77,7 @@
                             <span class="productVersion"><?= $VERSIONS['inspectre'] ?></span>
                             <span class="productTag">inspector</span>
                         </div>
-                        <div class="productDesc">Instant browser tweaking for demos, mockups, and satire.</div>
+                        <div class="productDesc">Chrome extension. Edit any page live — text, images, layout. Built for mockups, screenshots, and trolling friends.</div>
                     </section>
 
                     <section class="productBlock theme-lafter" data-href="https://lafter.gg/">
@@ -86,7 +86,7 @@
                             <span class="productVersion"><?= $VERSIONS['lafter'] ?></span>
                             <span class="productTag">drafting tool</span>
                         </div>
-                        <div class="productDesc">Live draft scouting, team comp scoring, and recommendations for League.</div>
+                        <div class="productDesc">Real-time League draft companion. Scouting, comp scoring, counter picks, and win-con detection while you're banning.</div>
                     </section>
                 </div>
 
@@ -100,7 +100,7 @@
                             <span class="productVersion"><?= $VERSIONS['crust'] ?></span>
                             <span class="productTag">game engine</span>
                         </div>
-                        <div class="productDesc">Multiplayer WebSocket game engine with Perlin noise terrain generation.</div>
+                        <div class="productDesc">Multiplayer from scratch. WebSocket gateway, Perlin terrain, tile-based world gen, and real-time state sync.</div>
                     </section>
 
                     <section class="productBlock theme-gangdev" data-href="https://gaming.gangdev.co/gameEngine">
@@ -109,7 +109,7 @@
                             <span class="productName">Game Engine</span>
                             <span class="productTag">alpha</span>
                         </div>
-                        <div class="productDesc">Custom 2D engine with physics, input, and rendering pipeline.</div>
+                        <div class="productDesc">Custom 2D engine. Canvas rendering, rigid-body physics, input mapping, and entity lifecycle — no Unity, no Godot.</div>
                     </section>
 
                     <section class="productBlock theme-gangdev" data-href="https://gaming.gangdev.co/basicFighterGame">
@@ -118,7 +118,7 @@
                             <span class="productName">Fighting Game</span>
                             <span class="productTag">beta</span>
                         </div>
-                        <div class="productDesc">2D fighter with hitboxes, combos, and frame-based combat.</div>
+                        <div class="productDesc">Frame-data combat. Hitboxes, hurtboxes, combo strings, and knockback — built on the custom engine.</div>
                     </section>
 
                     <section class="productBlock theme-gangdev" data-href="https://apps.gangdev.co/web/roastGenerator/">
@@ -127,16 +127,16 @@
                             <span class="productName">Roast Generator</span>
                             <span class="productTag">alpha</span>
                         </div>
-                        <div class="productDesc">AI-powered roasts on demand.</div>
+                        <div class="productDesc">Feed it a name, get a roast. Quick, sharp, and unfiltered.</div>
                     </section>
 
                     <section class="productBlock theme-gangdev" data-href="https://apps.gangdev.co/web/mmfGenerator/">
                         <div class="productBanner">
                             <img class="productIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
                             <span class="productName">MMF Generator</span>
-                            <span class="productTag">beta</span>
+                            <span class="productTag">minecraft tool</span>
                         </div>
-                        <div class="productDesc">Marry, make friends, or fight — the random generator.</div>
+                        <div class="productDesc">Minecraft mass forceload command generator. Splits huge areas into chunked /forceload sequences to bypass the ~32K block command cap.</div>
                     </section>
                 </div>
             </div>
