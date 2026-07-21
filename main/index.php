@@ -58,7 +58,7 @@
                             <span class="productVersion"><?= $VERSIONS['candor'] ?></span>
                             <span class="productTag">personal OS</span>
                         </div>
-                        <div class="productDesc">Plan on the month, execute by the hour. Tasks, routines, sleep cadence, and a timeline that holds you accountable.</div>
+                        <div class="productDesc">Your daily truth. Plan on the month, execute by the hour, and hold yourself accountable with a timeline, tasks, routines, and sleep cadence that don't let you hide.</div>
                     </section>
 
                     <section class="productBlock theme-dcops" data-href="https://dcops.co/">
@@ -127,7 +127,7 @@
                             <span class="productName">Roast Generator</span>
                             <span class="productTag">alpha</span>
                         </div>
-                        <div class="productDesc">Feed it a name, get a roast. Quick, sharp, and unfiltered.</div>
+                        <div class="productDesc">One button. One roast. Click and get destroyed — or destroy someone else.</div>
                     </section>
 
                     <section class="productBlock theme-gangdev" data-href="https://apps.gangdev.co/web/mmfGenerator/">
@@ -136,7 +136,7 @@
                             <span class="productName">MMF Generator</span>
                             <span class="productTag">minecraft tool</span>
                         </div>
-                        <div class="productDesc">Minecraft mass forceload command generator. Splits huge areas into chunked /forceload sequences to bypass the ~32K block command cap.</div>
+                        <div class="productDesc">Minecraft mass forceload generator. Two xz coords in, chunked /forceload commands out — bypasses the 256-chunk-per-command cap for massive areas.</div>
                     </section>
                 </div>
             </div>

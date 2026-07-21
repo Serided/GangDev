@@ -28,104 +28,85 @@
             <div class="timeline">
 
                 <div class="timelineItem">
-                    <div class="timelineBox">
-                        <div class="companyBanner bannerIno">
-                            <span class="bannerName">In-N-Out Burger</span>
-                        </div>
-                        <h3>Team Member</h3>
+                    <div class="companyBanner bannerIno">
+                        <span class="bannerName">In-N-Out Burger</span>
                     </div>
                     <div class="timelineDetails">
+                        <div class="detailsTitle">Team Member</div>
                         <div class="dateBadge">Nov 2022 – May 2024</div>
                         <ul>
-                            <li>High-volume registers, drive-thru, fry, and prep stations.</li>
-                            <li>Trained teammates; upheld industry-leading service standards.</li>
-                            <li>Problem-solving under pressure in fast-paced environments.</li>
+                            <li>Registers, drive-thru, fry, prep — all stations.</li>
+                            <li>Trained new hires; upheld service standards under volume.</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="timelineItem">
-                    <div class="timelineBox">
-                        <div class="companyBanner bannerQuincy">
-                            <span class="bannerName">Quincy Foods, LLC</span>
-                        </div>
-                        <h3>Mechanic</h3>
+                    <div class="companyBanner bannerQuincy">
+                        <span class="bannerName">Quincy Foods</span>
                     </div>
                     <div class="timelineDetails">
+                        <div class="detailsTitle">Mechanic</div>
                         <div class="dateBadge">Jul 2024 – Jul 2025</div>
                         <ul>
-                            <li>Diagnosed/repaired hydraulic, electrical, and mechanical systems on combines.</li>
-                            <li>90+ hours weekly; preventative maintenance and safety compliance.</li>
-                            <li>Technical manuals and diagnostic tools for troubleshooting.</li>
+                            <li>Hydraulic, electrical, and mechanical repair on large-scale combines.</li>
+                            <li>90+ hour weeks; diagnostics, preventative maintenance, safety compliance.</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="timelineItem">
-                    <div class="timelineBox">
-                        <div class="companyBanner bannerGangdev">
-                            <img class="bannerIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
-                            <span class="bannerName">GangDev</span>
-                        </div>
-                        <h3>Founder</h3>
+                    <div class="companyBanner bannerGangdev">
+                        <img class="bannerLogo" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
+                        <span class="bannerName">GangDev</span>
                     </div>
                     <div class="timelineDetails">
+                        <div class="detailsTitle">Founder & Lead Engineer</div>
                         <div class="dateBadge">Nov 2024 – Present</div>
                         <ul>
-                            <li>Full-stack platforms: Candor, DCOPS, inspectre, Lafter.</li>
-                            <li>Web infra, auth systems, data models — PHP, JS, PostgreSQL.</li>
-                            <li>Product architecture, UX, branding, and technical direction.</li>
+                            <li>Full-stack platforms from scratch — Candor, DCOPS, inspectre, Lafter, Crust.</li>
+                            <li>Infra, auth, DB architecture, product design, and deployment.</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="timelineItem">
-                    <div class="timelineBox">
-                        <div class="companyBanner bannerTeksystems">
-                            <span class="bannerName">TEKsystems</span>
-                        </div>
-                        <h3>DC Technician</h3>
+                    <div class="companyBanner bannerTeksystems">
+                        <span class="bannerName">TEKsystems</span>
                     </div>
                     <div class="timelineDetails">
+                        <div class="detailsTitle">Data Center Technician</div>
                         <div class="dateBadge">Jun 2025 – Aug 2025</div>
                         <ul>
-                            <li>Microsoft datacenter: M1s/M2s, T2s, line cards, SFP modules.</li>
-                            <li>Coupler panels, patch panels, power/OOB cabling.</li>
-                            <li>Active security clearance; strict access protocols.</li>
+                            <li>Microsoft DC: rack builds, M1s/M2s, T2s, line cards, SFP modules.</li>
+                            <li>Coupler panels, patch panels, structured cabling under clearance.</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="timelineItem">
-                    <div class="timelineBox">
-                        <div class="companyBanner bannerMilestone">
-                            <span class="bannerName">Milestone Technologies</span>
-                        </div>
-                        <h3>DC Logistics</h3>
+                    <div class="companyBanner bannerMilestone">
+                        <span class="bannerName">Milestone Technologies</span>
                     </div>
                     <div class="timelineDetails">
+                        <div class="detailsTitle">DC Logistics → SLC Project Lead → Metrics Lead</div>
                         <div class="dateBadge">Sep 2025 – Jun 2026</div>
                         <ul>
-                            <li>Meta datacenter logistics; promoted to SLC Project Lead (~3.5 mo).</li>
-                            <li>Promoted again to Metrics Project Lead (~4.5 mo).</li>
-                            <li>Authored SLC SOP rewrite approved by leadership.</li>
-                            <li>Performance bonus for flawless rack operations.</li>
+                            <li>Meta DC logistics; promoted twice in under 5 months.</li>
+                            <li>Authored SLC SOP rewrite; performance bonus for flawless ops.</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="timelineItem">
-                    <div class="timelineBox">
-                        <div class="companyBanner bannerAws">
-                            <span class="bannerName">Amazon Web Services</span>
-                        </div>
-                        <h3>DCO Tech</h3>
+                    <div class="companyBanner bannerAws">
+                        <span class="bannerName">Amazon Web Services</span>
                     </div>
                     <div class="timelineDetails">
+                        <div class="detailsTitle">DCO Technician</div>
                         <div class="dateBadge">Jun 2026 – Present</div>
                         <ul>
-                            <li>Data Center Operations Technician — break/fix, cabling, hardware.</li>
-                            <li>Infrastructure deployment and maintenance at scale.</li>
+                            <li>Data Center Operations — break/fix, cabling, hardware deployment at scale.</li>
                         </ul>
                     </div>
                 </div>
@@ -194,7 +175,7 @@
         <div class="sect cont four">
             <h2>My Links</h2>
             <p>
-                <a href="https://www.linkedin.com/in/jens-hansen-2486a6329/" target="_blank">LinkedIn</a><br>
+                <a href="https://www.linkedin.com/in/the-jens-hansen/" target="_blank">LinkedIn</a><br>
                 <a href="https://profile.indeed.com/p/jensh-vmz588q" target="_blank">Indeed</a><br>
                 <a href="https://github.com/Serided" target="_blank">GitHub</a><br>
                 <a href="https://stackoverflow.com/users/20779197/serided" target="_blank">Stack Overflow</a><br>
