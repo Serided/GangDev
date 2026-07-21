@@ -78,6 +78,11 @@
     width: var(--x-width);
     translate: 0 calc(var(--bar-height) / 2)
 }
+.hamburger:has(input:checked)::before,
+.hamburger:has(input:checked)::after {
+    background-color: white;
+    transition: opacity var(--animation-time), width var(--animation-time), rotate var(--animation-time), translate var(--animation-time);
+}
 .hamburger input[id=hamburger]:checked {
     opacity: 0;
     width: 0;

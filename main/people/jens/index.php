@@ -113,62 +113,48 @@
 
             </div>
             <p class="desc">
-                I've always gotten bored fast. I can't stand standing around, so I defaulted to coding.
-                I've got a weird style, but it works — and I legit can't sleep at night knowing my code's gonna need a full rewrite in a few years.
-                I build things to last, not to patch later; no hacks, no bandaids, just clean setups that hold up.
-                Eventually I'll be this generation's <strong>Tony Stark</strong> — just gotta keep grinding.<br><br>
+                Can't stand standing around — so I code. I build things to last, not to patch later.
+                No hacks, no bandaids, just clean setups that hold up.
+                Eventually I'll be this generation's <strong>Tony Stark</strong>.<br><br>
 
-                I started <strong>GangDev</strong> because I've got a vision for how I want to impact the world, and I'm tired of being boxed in by outdated norms that slow everything down.
-                I've set up <strong>cloud and physical servers</strong> from scratch, built <strong>web platforms completely from the ground up</strong>,
-                and made <strong>game systems that scale forever without falling apart</strong>.
-                I'm always trying to make stuff cleaner, faster, and smarter — one giga project at a time.<br><br>
+                Started <strong>GangDev</strong> because I'm tired of being boxed in.
+                Cloud servers from scratch, web platforms from zero, game engines that scale.
+                Cleaner, faster, smarter — one giga project at a time.<br><br>
 
-                I'm not chasing clout, trying to boost my ego, or flaunt a fake persona; that's why I build things that are real.
-                I want to be something my dad would be proud of — something <strong>전설적인</strong>.
+                Not chasing clout. Building things that are real.
+                Something my dad would be proud of — something <strong>전설적인</strong>.
             </p>
         </div>
 
         <div class="sect cont three" id="expertise">
             <div>
                 <h2>Expertise</h2>
-                <p class="desc">I have a vast array of expertise.</p>
             </div>
             <div class="tiltedGrid">
                 <div class="tiltedCell">
-                    <strong>Web Development</strong><br>PHP, HTML, CSS, JavaScript, and Ruby.
+                    <strong>Web</strong><br>PHP, HTML, CSS, JS, Ruby.
                 </div>
                 <div class="tiltedCell">
-                    <strong>App and Software Development</strong><br>Java, Kotlin, and Rust.
+                    <strong>Software</strong><br>Java, Kotlin, Rust.
                 </div>
                 <div class="tiltedCell">
-                    <strong>AI and Machine Learning</strong><br>Python, Tensorflow, and Rust.
+                    <strong>AI / ML</strong><br>Python, TensorFlow, Rust.
                 </div>
                 <div class="tiltedCell">
-                    <strong>Database Management</strong><br>PostgreSQL, MySQL, SQLite, Oracle, and Cassandra.
+                    <strong>Databases</strong><br>PostgreSQL, MySQL, SQLite, Oracle, Cassandra.
                 </div>
                 <div class="tiltedCell">
-                    <strong>Systems and Infrastructure</strong><br>Linux, DevoOps, Cloud Computing, and Apache.
+                    <strong>Infra</strong><br>Linux, Apache, cloud, DevOps.
                 </div>
                 <div class="tiltedCell">
-                    <strong>IT & Data Center Ops</strong><br>HW logistics, RMA, structured cabling, and rack deployment.
+                    <strong>DC Ops</strong><br>Rack deployment, structured cabling, RMA, logistics.
                 </div>
                 <div class="tiltedCell">
-                    <strong>Mech/Electrical Systems</strong><br>MRO on agricultural combines; hydraulics, wiring, and system diagnostics.
+                    <strong>Mechanical</strong><br>Hydraulics, electrical, diagnostics on ag combines.
                 </div>
                 <div class="tiltedCell">
-                    <strong>Customer Experience</strong><br>Exceptional service, communication, and issue resolution.
+                    <strong>Game Dev</strong><br>Custom engines, WebSocket multiplayer, physics.
                 </div>
-            </div>
-            <div>
-                <p class="desc favorites">Some of my favorite projects:</p>
-            </div>
-            <div class="favorites">
-                <div><a href="https://github.com/Serided/GangDev" target="_blank">- GangDev LLC -</a></div>
-                <div><a href="https://inspectre.link/" target="_blank">- inspectre -</a></div>
-                <div><a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine <b style="color: #7de6ff;">(Alpha)</b> -</a></div>
-                <div><a href="https://crust.gangdev.co/game1" target="_blank">- Crust <b style="color: #7de6ff;">(Alpha)</b> <b style="color: lightgreen">[Online]</b> -</a></div>
-                <div><a href="https://apps.gangdev.co/web/roastGenerator" target="_blank">- Roast Generator -</a></div>
-                <div><a href="https://apps.gangdev.co/web/mmfGenerator" target="_blank">- MMF Generator -</a></div>
             </div>
         </div>
 

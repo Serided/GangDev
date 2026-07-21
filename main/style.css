@@ -64,6 +64,19 @@
 
 .productsColumn .productBlock {
     margin-bottom: 16px;
+    max-height: 52px;
+    transition: max-height 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.productsColumn .productBlock:hover {
+    max-height: 130px;
+}
+.productsColumn .productBlock .productDesc {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    padding: 0 18px 12px;
+}
+.productsColumn .productBlock:hover .productDesc {
+    opacity: 1;
 }
 
 /* Override crust map background to use absolute URL on home page */
