@@ -36,7 +36,7 @@
 .timeline::before {
     content: "";
     position: absolute;
-    top: calc(var(--scaling) * 2.2);
+    top: calc(var(--scaling) * 1.4);
     left: 5%;
     right: 5%;
     height: calc(var(--scaling) * 0.25);
@@ -49,11 +49,11 @@
 /* ===== TIMELINE ITEM — tile is JUST the banner ===== */
 .timelineItem {
     position: relative;
-    width: calc(var(--scaling) * 10);
+    width: calc(var(--scaling) * 12);
     margin: 0 calc(var(--scaling) * 0.3);
     border-radius: calc(var(--scaling) * 0.35);
     transition: all 0.3s ease;
-    max-height: calc(var(--scaling) * 4.4);
+    max-height: calc(var(--scaling) * 2.8);
     overflow: hidden;
     z-index: 1;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -68,13 +68,12 @@
 /* ===== COMPANY BANNER — the main visible element ===== */
 .companyBanner {
     width: 100%;
-    height: calc(var(--scaling) * 4.4);
-    padding: calc(var(--scaling) * 0.4);
+    height: calc(var(--scaling) * 2.8);
+    padding: 0 calc(var(--scaling) * 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: calc(var(--scaling) * 0.25);
-    border-radius: calc(var(--scaling) * 0.35);
     position: relative;
     overflow: hidden;
 }
@@ -85,7 +84,7 @@
     object-fit: contain;
 }
 .companyBanner .bannerName {
-    font-size: calc(var(--scaling) * 0.7);
+    font-size: calc(var(--scaling) * 0.6);
     font-weight: 800;
     letter-spacing: 0.3px;
     text-align: center;
