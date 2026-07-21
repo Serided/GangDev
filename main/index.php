@@ -5,7 +5,7 @@
         <meta charset="UTF-8" name="description" content="Home">
         <title>GangDev</title>
         <link rel="stylesheet" type="text/css" href="style.css"/>
-        <link rel="stylesheet" href="/shared/css/product-themes.css">
+        <link rel="stylesheet" href="https://gangdev.co/src/css/product-themes.css">
         <?= $head ?>
     </head>
     <body>
