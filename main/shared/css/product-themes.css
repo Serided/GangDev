@@ -164,7 +164,8 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: url('https://gangdev.co/updates/crust-map.png') center/auto 100% no-repeat #1a1a2e;
+    background: url('https://gangdev.co/updates/crust-map.png') center/cover no-repeat #1a1a2e;
+    image-rendering: pixelated;
     opacity: 0.6;
 }
 
@@ -244,6 +245,7 @@
     animation: laugh-pulse 3.5s ease-in-out infinite;
     animation-delay: 1s;
     -webkit-text-fill-color: transparent;
+    will-change: transform, opacity;
 }
 .theme-lafter .productTag { background: rgba(201,168,76,0.12); color: #c9a84c; border: 1px solid rgba(201,168,76,0.25); }
 .theme-lafter .productVersion { color: #c9a84c; font-family: "Indie Flower", cursive; font-size: 0.75rem; }

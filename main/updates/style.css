@@ -71,6 +71,7 @@ body {
 /* Override crust map background to use relative path on updates page */
 .theme-crust .crustMapBg {
     background-image: url('crust-map.png');
+    background-size: cover;
 }
 
 /* ===== NAVIGATION ARROWS — matches .sectBtn ===== */
