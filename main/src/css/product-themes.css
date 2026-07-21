@@ -51,6 +51,7 @@
     padding: 3px 8px;
     border-radius: 999px;
     margin-left: auto;
+    align-self: center;
 }
 
 .productBanner .productVersion {
@@ -235,6 +236,7 @@
     font-family: "Indie Flower", cursive;
     font-size: 1.5rem;
     font-weight: 700;
+    line-height: 1;
     background: linear-gradient(135deg, #ffffff 0%, #f0e6dc 40%, #ffe8d6 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
 }

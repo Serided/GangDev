@@ -109,7 +109,7 @@ require_once '/var/www/gangdev/main/src/php/init.php';
                 <img class="productIcon" src="https://inspectre.link/src/inspectre-extension/icons/ghost.png" alt="">
                 <span class="productName">inspectre</span>
                 <span class="productVersion"><?= $VERSIONS['inspectre'] ?></span>
-                <span class="productTag">inspector</span>
+                <span class="productTag">extension</span>
             </div>
             <ul class="changeList">
                 <li><span class="tag infra">Infra</span> Migrated from <code>f12/</code> to standalone <code>inspectre/</code> project</li>
@@ -193,7 +193,7 @@ require_once '/var/www/gangdev/main/src/php/init.php';
                 <img class="productIcon" src="https://inspectre.link/src/inspectre-extension/icons/ghost.png" alt="">
                 <span class="productName">inspectre</span>
                 <span class="productVersion">v0.0.0</span>
-                <span class="productTag">inspector</span>
+                <span class="productTag">extension</span>
             </div>
             <ul class="changeList">
                 <li><span class="tag feat">Feature</span> Browser extension — DOM inspector tool (Chrome)</li>

@@ -13,7 +13,7 @@
     font-weight: bold;
 }
 
-/* ===== OVERVIEW SECTION — side-by-side layout ===== */
+/* ===== OVERVIEW SECTION ===== */
 .sect.cont#overview {
     justify-content: flex-start;
     align-items: flex-start;
@@ -24,18 +24,18 @@
     width: 100%;
     max-width: 1100px;
     display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: calc(var(--scaling) * 2);
+    grid-template-columns: 260px 1fr;
+    gap: calc(var(--scaling) * 1.5);
     align-items: start;
 }
 
-/* ===== VERTICAL TIMELINE (left side) ===== */
+/* ===== VERTICAL TIMELINE ===== */
 .timeline {
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    padding: 20px 0;
+    gap: 12px;
+    padding: 0;
 }
 
 .timelineLine {
@@ -44,7 +44,7 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: rgba(255,255,255,0.25);
+    background: white;
     transform: translateX(-50%);
     border-radius: 2px;
     z-index: 0;
@@ -54,170 +54,154 @@
 .timelineItem {
     position: relative;
     z-index: 1;
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
-    max-height: 72px;
-    transition: max-height 0.35s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 .timelineItem:hover {
-    max-height: 300px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
 }
 
-/* ===== COMPANY BANNERS — Adobe-style ===== */
+/* ===== COMPANY BANNERS ===== */
 .companyBanner {
     width: 100%;
-    height: 72px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 0 16px;
-    position: relative;
-}
-.companyBanner .bannerLogo {
-    height: 32px;
-    width: auto;
-    object-fit: contain;
-}
-.companyBanner .bannerIcon {
-    font-size: 24px;
+    gap: 8px;
+    padding: 0 14px;
+    background: #ffffff;
 }
 .companyBanner .bannerName {
     font-size: 15px;
     font-weight: 700;
-    letter-spacing: 0.3px;
+    color: #222;
 }
 
-/* --- In-N-Out: red with arrow logo --- */
-.bannerIno {
-    background: linear-gradient(135deg, #cc2127 0%, #e63e35 60%, #b71c1c 100%);
-}
-.bannerIno .bannerLogo {
-    height: 40px;
-    filter: brightness(1.1);
-}
-
-/* --- Quincy Foods: agricultural green + wheat emoji as creative stand-in --- */
-.bannerQuincy {
-    background: linear-gradient(135deg, #2e5a1c 0%, #4a8c2a 50%, #2e5a1c 100%);
-}
-.bannerQuincy .bannerName {
-    color: #fff;
+/* --- In-N-Out: white bg, red/yellow brand text --- */
+.bannerIno .bannerName {
     font-family: "Nunito", sans-serif;
-    font-size: 16px;
-    font-weight: 800;
+    font-size: 14px;
+    font-weight: 900;
+    color: #cc2127;
     letter-spacing: 0.5px;
 }
-.bannerQuincy .bannerIcon {
-    filter: none;
+
+/* --- Quincy Foods: white bg, green brand text + wheat emoji --- */
+.bannerQuincy .bannerName {
+    font-family: "Nunito", sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    color: #2e5a1c;
 }
 
-/* --- GangDev: teal brand --- */
+/* --- GangDev: teal bg (our brand) --- */
 .bannerGangdev {
     background: linear-gradient(135deg, #1D3A4D 0%, #2B5C6E 60%, #1D3A4D 100%);
 }
 .bannerGangdev .bannerLogo {
-    height: 30px;
-    border-radius: 6px;
+    height: 26px;
+    width: 26px;
+    border-radius: 5px;
 }
 .bannerGangdev .bannerName {
     color: #a8d8ea;
     font-family: "Nunito", sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
 }
 
-/* --- TEKsystems: blue with brand-accurate text --- */
-.bannerTeksystems {
-    background: linear-gradient(135deg, #003c71 0%, #0066b3 50%, #003c71 100%);
-}
+/* --- TEKsystems: white bg, blue brand text --- */
 .bannerTeksystems .bannerName {
-    color: #fff;
     font-family: "Nunito", sans-serif;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 800;
-    letter-spacing: -0.3px;
+    color: #003c71;
 }
 .bannerTeksystems .tekAccent {
     font-weight: 400;
 }
 
-/* --- Milestone: dark with lowercase brand --- */
-.bannerMilestone {
-    background: linear-gradient(135deg, #1a1833 0%, #2d2a52 50%, #1a1833 100%);
-}
+/* --- Milestone: white bg, dark brand text (lowercase like their rebrand) --- */
 .bannerMilestone .bannerName {
-    color: #e0e0e0;
     font-family: "Nunito", sans-serif;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    color: #1a1833;
+    letter-spacing: 1px;
     text-transform: lowercase;
 }
 
-/* --- AWS: dark charcoal + orange wordmark --- */
-.bannerAws {
-    background: linear-gradient(135deg, #232f3e 0%, #37475a 50%, #232f3e 100%);
-}
+/* --- AWS: white bg, orange+dark brand text --- */
 .bannerAws .bannerName {
-    color: #ff9900;
     font-family: "Nunito", sans-serif;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 900;
-    letter-spacing: 2px;
-    text-transform: lowercase;
+    color: #232f3e;
+    letter-spacing: 1px;
+}
+.bannerAws .awsAccent {
+    color: #ff9900;
 }
 
 /* ===== HOVER DETAILS ===== */
 .timelineDetails {
-    padding: 12px 16px 16px;
-    background: #f9f9f9;
-    opacity: 0;
-    transition: opacity 0.25s ease;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s ease;
 }
 .timelineItem:hover .timelineDetails {
-    opacity: 1;
+    grid-template-rows: 1fr;
+}
+.timelineDetailsInner {
+    overflow: hidden;
+    padding: 10px 14px 14px;
+    background: #f5f5f5;
+    min-height: 0;
 }
 .detailsTitle {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     color: #222;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
 }
 .dateBadge {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
     color: #666;
     background: rgba(0,0,0,0.06);
-    padding: 2px 8px;
+    padding: 2px 7px;
     border-radius: 4px;
     display: inline-block;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 }
 .timelineDetails ul {
     list-style: disc;
-    padding-left: 18px;
+    padding-left: 16px;
     margin: 0;
     color: #444;
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.5;
 }
 
 /* ===== ABOUT TEXT (right side) ===== */
 .aboutText {
-    padding-top: 20px;
+    padding-top: 0;
+    text-align: left;
 }
 .aboutText h2 {
-    font-size: calc(var(--scaling) * 2);
-    margin-bottom: calc(var(--scaling) * 0.8);
+    font-size: calc(var(--scaling) * 3);
+    margin-bottom: calc(var(--scaling) * 1);
     color: #fff;
+    text-align: left;
 }
 .aboutText p {
-    font-size: calc(var(--scaling) * 0.8);
+    font-size: calc(var(--scaling) * 0.85);
     color: #e0e8f0;
     line-height: 1.7;
+    text-align: left;
 }
 
 /* ===== EXPERTISE ===== */

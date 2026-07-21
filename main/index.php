@@ -75,7 +75,7 @@
                             <img class="productIcon" src="https://inspectre.link/src/inspectre-extension/icons/ghost.png" alt="">
                             <span class="productName">inspectre</span>
                             <span class="productVersion"><?= $VERSIONS['inspectre'] ?></span>
-                            <span class="productTag">inspector</span>
+                            <span class="productTag">extension</span>
                         </div>
                         <div class="productDesc">Chrome extension. Edit any page live — text, images, layout. Built for mockups, screenshots, and trolling friends.</div>
                     </section>

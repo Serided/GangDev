@@ -30,30 +30,31 @@
 
                     <div class="timelineItem">
                         <div class="companyBanner bannerIno">
-                            <img class="bannerLogo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/InNOut_2021_logo.svg/320px-InNOut_2021_logo.svg.png" alt="In-N-Out">
+                            <span class="bannerName">In-N-Out Burger</span>
                         </div>
-                        <div class="timelineDetails">
+                        <div class="timelineDetails"><div class="timelineDetailsInner">
                             <div class="detailsTitle">Team Member</div>
                             <div class="dateBadge">Nov 2022 – May 2024</div>
                             <ul>
-                                <li>All stations — registers, drive-thru, fry, prep.</li>
+                                <li>All stations: registers, drive-thru, fry, prep.</li>
                                 <li>Trained hires; high-volume service under pressure.</li>
                             </ul>
+                        </div>
                         </div>
                     </div>
 
                     <div class="timelineItem">
                         <div class="companyBanner bannerQuincy">
-                            <span class="bannerIcon">🌾</span>
                             <span class="bannerName">Quincy Foods</span>
                         </div>
-                        <div class="timelineDetails">
+                        <div class="timelineDetails"><div class="timelineDetailsInner">
                             <div class="detailsTitle">Mechanic</div>
                             <div class="dateBadge">Jul 2024 – Jul 2025</div>
                             <ul>
                                 <li>Hydraulic, electrical, mechanical repair on large-scale combines.</li>
                                 <li>90+ hour weeks; diagnostics and preventative maintenance.</li>
                             </ul>
+                        </div>
                         </div>
                     </div>
 
@@ -62,13 +63,14 @@
                             <img class="bannerLogo" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="GangDev">
                             <span class="bannerName">GangDev</span>
                         </div>
-                        <div class="timelineDetails">
+                        <div class="timelineDetails"><div class="timelineDetailsInner">
                             <div class="detailsTitle">Founder & Lead Engineer</div>
                             <div class="dateBadge">Nov 2024 – Present</div>
                             <ul>
-                                <li>Full-stack platforms from scratch — Candor, DCOPS, inspectre, Lafter, Crust.</li>
+                                <li>Full-stack platforms from scratch. Candor, DCOPS, inspectre, Lafter, Crust.</li>
                                 <li>Infra, auth, data architecture, product design, deployment.</li>
                             </ul>
+                        </div>
                         </div>
                     </div>
 
@@ -76,7 +78,7 @@
                         <div class="companyBanner bannerTeksystems">
                             <span class="bannerName">TEK<span class="tekAccent">systems</span></span>
                         </div>
-                        <div class="timelineDetails">
+                        <div class="timelineDetails"><div class="timelineDetailsInner">
                             <div class="detailsTitle">Data Center Technician</div>
                             <div class="dateBadge">Jun 2025 – Aug 2025</div>
                             <ul>
@@ -84,13 +86,14 @@
                                 <li>Structured cabling under active security clearance.</li>
                             </ul>
                         </div>
+                        </div>
                     </div>
 
                     <div class="timelineItem">
                         <div class="companyBanner bannerMilestone">
                             <span class="bannerName">milestone</span>
                         </div>
-                        <div class="timelineDetails">
+                        <div class="timelineDetails"><div class="timelineDetailsInner">
                             <div class="detailsTitle">DC Logistics → SLC Lead → Metrics Lead</div>
                             <div class="dateBadge">Sep 2025 – Jun 2026</div>
                             <ul>
@@ -98,18 +101,20 @@
                                 <li>Authored SLC SOP rewrite; performance bonus.</li>
                             </ul>
                         </div>
+                        </div>
                     </div>
 
                     <div class="timelineItem">
                         <div class="companyBanner bannerAws">
-                            <span class="bannerName">aws</span>
+                            <span class="bannerName"><span class="awsAccent">amazon</span> web services</span>
                         </div>
-                        <div class="timelineDetails">
+                        <div class="timelineDetails"><div class="timelineDetailsInner">
                             <div class="detailsTitle">DCO Technician</div>
                             <div class="dateBadge">Jun 2026 – Present</div>
                             <ul>
-                                <li>Data Center Operations — break/fix, cabling, hardware at scale.</li>
+                                <li>Data Center Operations. Break/fix, cabling, hardware at scale.</li>
                             </ul>
+                        </div>
                         </div>
                     </div>
 
@@ -118,16 +123,18 @@
                 <div class="aboutText">
                     <h2>About Me</h2>
                     <p>
-                        Can't stand standing around — so I code. I build things to last, not to patch later.
-                        No hacks, no bandaids, just clean setups that hold up.
-                        Eventually I'll be this generation's <strong>Tony Stark</strong>.<br><br>
+                        I've always gotten bored fast. I can't stand standing around, so I defaulted to coding.
+                        I've got a weird style, but it works, and I legit can't sleep at night knowing my code's gonna need a full rewrite in a few years.
+                        I build things to last, not to patch later. No hacks, no bandaids, just clean setups that hold up.
+                        Eventually I'll be this generation's <strong>Tony Stark</strong>. Just gotta keep grinding.<br><br>
 
-                        Started <strong>GangDev</strong> because I'm tired of being boxed in.
-                        Cloud servers from scratch, web platforms from zero, game engines that scale.
-                        Cleaner, faster, smarter — one giga project at a time.<br><br>
+                        I started <strong>GangDev</strong> because I've got a vision for how I want to impact the world, and I'm tired of being boxed in by outdated norms that slow everything down.
+                        I've set up cloud and physical servers from scratch, built web platforms completely from the ground up,
+                        and made game systems that scale forever without falling apart.
+                        I'm always trying to make stuff cleaner, faster, and smarter. One giga project at a time.<br><br>
 
-                        Not chasing clout. Building things that are real.
-                        Something my dad would be proud of — something <strong>전설적인</strong>.
+                        I'm not chasing clout, trying to boost my ego, or flaunt a fake persona. That's why I build things that are real.
+                        I want to be something my dad would be proud of. Something <strong>전설적인</strong>.
                     </p>
                 </div>
             </div>
@@ -185,3 +192,4 @@
         <?= $footer ?>
     </body>
 </html>
+
