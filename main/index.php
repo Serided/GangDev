@@ -5,6 +5,7 @@
         <meta charset="UTF-8" name="description" content="Home">
         <title>GangDev</title>
         <link rel="stylesheet" type="text/css" href="style.css"/>
+        <link rel="stylesheet" href="/shared/css/product-themes.css">
         <?= $head ?>
     </head>
     <body>
@@ -31,58 +32,112 @@
             <hr>
             <p class="desc">
                 <i>GangDev was built on the dissatisfaction of how easy it is to settle</i>.
-                Most people hit a goal and stop there — we don’t.
-                We keep going because progress doesn’t stop just because we got comfortable.
+                Most people hit a goal and stop there — we don't.
+                We keep going because progress doesn't stop just because we got comfortable.
 
                 <br><br>
 
-                <b>Perfect isn’t impossible</b>. It’s just not supposed to be easy.
+                <b>Perfect isn't impossible</b>. It's just not supposed to be easy.
                 The things that used to be impossible — flight, phones, space travel — only stayed that way until someone decided to keep going.
 
                 <br><br>
 
-                Every push, every setback, every late night — it all pushes the line forward. The work doesn’t end. Neither do we.
+                Every push, every setback, every late night — it all pushes the line forward. The work doesn't end. Neither do we.
             </p>
         </div>
 
         <div class="sect cont three" id="products">
-            <div class="columns two">
-                <div class="mods sect">
-                    <h2>Products</h2>
-                    <div class="cont">
-                        <div class="link">
-                            <a href="https://candor.you/">- Candor -<br><span class="sub">Personal OS for tasks, notes, routines, and a daily timeline.</span></a>
+            <div class="productsLayout">
+                <div class="productsColumn">
+                    <h2 class="productsHeading">Products</h2>
+
+                    <section class="productBlock theme-candor" data-href="https://candor.you/">
+                        <div class="productBanner">
+                            <img class="productIcon" src="https://candor.you/src/img/logo/candor-mark.png?v=13" alt="">
+                            <span class="productName">Candor</span>
+                            <span class="productVersion"><?= $VERSIONS['candor'] ?></span>
+                            <span class="productTag">personal OS</span>
                         </div>
-                        <div class="link">
-                            <a href="https://dcops.co/">- DCOPS -<br><span class="sub">Automation and ops tooling for clean execution.</span></a>
+                        <div class="productDesc">Personal OS for tasks, notes, routines, and a daily timeline.</div>
+                    </section>
+
+                    <section class="productBlock theme-dcops" data-href="https://dcops.co/">
+                        <div class="productBanner">
+                            <span class="productName"><span class="dc">DC</span><span class="ops">OPS</span></span>
+                            <span class="productVersion"><?= $VERSIONS['dcops'] ?></span>
+                            <span class="productTag">operations</span>
                         </div>
-                        <div class="link">
-                            <a href="https://inspectre.link/">- inspectre -<br><span class="sub">Instant browser tweaking for demos, mockups, and satire.</span></a>
+                        <div class="productDesc">Automation and ops tooling for clean execution.</div>
+                    </section>
+
+                    <section class="productBlock theme-inspectre" data-href="https://inspectre.link/">
+                        <div class="productBanner">
+                            <img class="productIcon" src="https://inspectre.link/src/inspectre-extension/icons/ghost.png" alt="">
+                            <span class="productName">inspectre</span>
+                            <span class="productVersion"><?= $VERSIONS['inspectre'] ?></span>
+                            <span class="productTag">inspector</span>
                         </div>
-                        <div class="link">
-                            <a href="https://lafter.gg/">- Lafter -<br><span class="sub">Live draft scouting, team comp scoring, and recommendations for League.</span></a>
+                        <div class="productDesc">Instant browser tweaking for demos, mockups, and satire.</div>
+                    </section>
+
+                    <section class="productBlock theme-lafter" data-href="https://lafter.gg/">
+                        <div class="productBanner">
+                            <span class="productName">L<span class="brandLafterA">a</span>fter</span>
+                            <span class="productVersion"><?= $VERSIONS['lafter'] ?></span>
+                            <span class="productTag">drafting tool</span>
                         </div>
-                    </div>
+                        <div class="productDesc">Live draft scouting, team comp scoring, and recommendations for League.</div>
+                    </section>
                 </div>
-                <div class="games sect">
-                    <h2>Labs</h2>
-                    <div class="cont">
-                        <div class="link">
-                            <a href="https://gaming.gangdev.co/gameEngine" target="_blank">- Game Engine -<br><b style="color: #7de6ff;">(Alpha)</b></a>
+
+                <div class="productsColumn">
+                    <h2 class="productsHeading">Labs</h2>
+
+                    <section class="productBlock theme-crust" data-href="https://crust.gangdev.co/game1">
+                        <div class="crustMapBg"></div>
+                        <div class="productBanner">
+                            <span class="productName">CRUST</span>
+                            <span class="productVersion"><?= $VERSIONS['crust'] ?></span>
+                            <span class="productTag">game engine</span>
                         </div>
-                        <div class="link">
-                            <a href="https://gaming.gangdev.co/basicFighterGame" target="_blank">- Fighting Game -<br><b style="color: #7de6ff;">(Beta)</b></a>
+                        <div class="productDesc">Multiplayer WebSocket game engine with Perlin noise terrain generation.</div>
+                    </section>
+
+                    <section class="productBlock theme-gangdev" data-href="https://gaming.gangdev.co/gameEngine">
+                        <div class="productBanner">
+                            <img class="productIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
+                            <span class="productName">Game Engine</span>
+                            <span class="productTag">alpha</span>
                         </div>
-                        <div class="link">
-                            <a href="https://crust.gangdev.co/game1" target="_blank">- Crust -<br><b style="color: #7de6ff;">(Alpha)</b> <b>[Online]</b></a>
+                        <div class="productDesc">Custom 2D engine with physics, input, and rendering pipeline.</div>
+                    </section>
+
+                    <section class="productBlock theme-gangdev" data-href="https://gaming.gangdev.co/basicFighterGame">
+                        <div class="productBanner">
+                            <img class="productIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
+                            <span class="productName">Fighting Game</span>
+                            <span class="productTag">beta</span>
                         </div>
-                        <div class="link">
-                            <a href="https://apps.gangdev.co/web/roastGenerator/">- Roast Generator -<br><b style="color: #7de6ff;">(Alpha)</b></a>
+                        <div class="productDesc">2D fighter with hitboxes, combos, and frame-based combat.</div>
+                    </section>
+
+                    <section class="productBlock theme-gangdev" data-href="https://apps.gangdev.co/web/roastGenerator/">
+                        <div class="productBanner">
+                            <img class="productIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
+                            <span class="productName">Roast Generator</span>
+                            <span class="productTag">alpha</span>
                         </div>
-                        <div class="link">
-                            <a href="https://apps.gangdev.co/web/mmfGenerator/">- MMF Generator -<br><b style="color: #7de6ff;">(Beta)</b></a>
+                        <div class="productDesc">AI-powered roasts on demand.</div>
+                    </section>
+
+                    <section class="productBlock theme-gangdev" data-href="https://apps.gangdev.co/web/mmfGenerator/">
+                        <div class="productBanner">
+                            <img class="productIcon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="">
+                            <span class="productName">MMF Generator</span>
+                            <span class="productTag">beta</span>
                         </div>
-                    </div>
+                        <div class="productDesc">Marry, make friends, or fight — the random generator.</div>
+                    </section>
                 </div>
             </div>
         </div>
@@ -112,5 +167,14 @@
         </div>
 
         <?= $footer ?>
+
+        <script>
+        // Product block click handler
+        document.querySelectorAll('.productBlock[data-href]').forEach(block => {
+            block.addEventListener('click', () => {
+                window.location.href = block.dataset.href;
+            });
+        });
+        </script>
     </body>
 </html>

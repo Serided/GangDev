@@ -32,46 +32,48 @@
     border-radius: calc(var(--scaling) * 0.1);
 }
 
-.sect.cont#products h2 {
-    font-size: calc(var(--scaling) * 2.2);
-    margin-bottom: calc(var(--scaling) * 0.5);
-}
+/* ===== PRODUCTS SECTION ===== */
 .sect.cont#products {
     justify-content: flex-start;
+    padding-top: calc(var(--scaling) * 2);
+    padding-bottom: calc(var(--scaling) * 2);
 }
-.sect.cont#products a:hover {
-    color: #F7CBA4;
-}
-.sect.cont#products a b {
-    color: lightgreen;
-}
-.sect.cont#products .columns {
+
+.productsLayout {
     width: 100%;
-    height: 100%;
+    max-width: 880px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--scaling) * 1.5);
+    align-items: start;
+}
+
+.productsHeading {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.productsColumn {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
 }
-.sect.cont#products .columns .sect {
-    width: 33.3333%;
-    padding: calc(var(--scaling) * 2) calc(var(--scaling) * 0.75);
-    justify-content: flex-start;
+
+.productsColumn .productBlock {
+    margin-bottom: 16px;
 }
-.sect.cont#products .columns.two .sect {
-    width: 50%;
+
+/* Override crust map background to use absolute URL on home page */
+.sect.cont#products .theme-crust .crustMapBg {
+    background-image: url('https://gangdev.co/updates/crust-map.png');
 }
-.sect.cont#products .columns .sect .cont {
-    width: 100%;
-}
-.sect.cont#products .columns .sect .cont .link {
-    width: 100%;
-    margin-bottom: calc(var(--scaling) * 0.5);
-    font-size: calc(var(--scaling) * 0.9);
-    line-height: calc(var(--scaling) * 0.9);
-}
-.sect.cont#products .columns .sect .cont .link .sub {
-    display: block;
-    font-size: calc(var(--scaling) * 0.6);
-    line-height: calc(var(--scaling) * 0.8);
-    color: #cdd7e6;
-    margin-top: calc(var(--scaling) * 0.2);
+
+@media (max-width: 700px) {
+    .productsLayout {
+        grid-template-columns: 1fr;
+        gap: calc(var(--scaling) * 2);
+    }
 }
