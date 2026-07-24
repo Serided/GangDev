@@ -34,7 +34,7 @@ $currentProduct = 'lafter';
             <form method="post" action="process_signup.php" autocomplete="on" class="form-pane">
                 <div class="form-header">
                     <h1>Create your account</h1>
-                    <p>Create an account to have a good laf.</p>
+                    <p>To have a good laf.</p>
                 </div>
 
                 <div class="form-fields">
