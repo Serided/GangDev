@@ -288,7 +288,23 @@ footer a:hover { color: var(--gold); }
 /* DOWNLOAD PAGE */
 .download-section { max-width: 700px; margin: 6rem auto; padding: 2rem; text-align: center; }
 .download-section h1 { font-family: 'Caveat', cursive; font-weight: 700; font-size: 2.2rem; color: #fff; margin-bottom: 0.5rem; }
-.download-subtitle { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 3rem; }
+
+/* Download CTA */
+.download-cta { margin-bottom: 2.5rem; }
+.btn-download {
+    display: inline-block;
+    font-family: 'Nothing You Could Do', cursive;
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+    border: 1px solid var(--gold-dim);
+    border-radius: 4px;
+    color: var(--gold);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    margin-bottom: 0.6rem;
+}
+.btn-download:hover { border-color: var(--gold); color: #fff; background: rgba(201,168,76,0.08); }
+.download-size { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); opacity: 0.6; margin-top: 0.5rem; }
 
 .download-status { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 2.5rem; margin-bottom: 2.5rem; }
 .download-status .status-icon { font-size: 2.5rem; margin-bottom: 1rem; }
