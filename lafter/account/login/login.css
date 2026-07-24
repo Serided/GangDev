@@ -99,7 +99,7 @@ body.is-signup .shell {
 /* PRODUCT SWITCH */
 .productSwitch { position: relative; }
 .switchBtn {
-    background: none;
+    background: var(--bg);
     border: 1px solid var(--border);
     color: var(--text-muted);
     padding: 0.3rem 0.7rem;
@@ -111,7 +111,7 @@ body.is-signup .shell {
 }
 .switchBtn:hover { border-color: var(--gold-dim); color: var(--text); }
 
-.pop {
+.productSwitch .pop {
     display: none;
     position: absolute;
     top: calc(100% + 0.4rem);
@@ -123,6 +123,7 @@ body.is-signup .shell {
     z-index: 100;
     padding: 0.4rem 0;
 }
+.productSwitch .switchBtn:focus + .pop,
 .productSwitch:hover .pop { display: block; }
 .pop a {
     display: flex;
@@ -196,6 +197,31 @@ body.is-signup .shell {
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
+
+/* INPUT ROW (with hint button) */
+.input-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.input-row .input { flex: 1; padding-right: 2.5rem; }
+
+.hint { position: absolute; right: 0.5rem; }
+.hint-btn {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--gold-dim);
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.hint-btn:hover { border-color: var(--gold); color: var(--gold); }
+.hint-pop { display: none; position: absolute; right: 0; top: calc(100% + 0.4rem); background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 0.5rem 0.7rem; font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; z-index: 50; width: max-content; max-width: 220px; white-space: normal; line-height: 1.4; }
+.hint-btn:hover + .hint-pop,
+.hint-btn:focus + .hint-pop { display: block; }
 
 .input:focus {
     border-color: var(--gold-dim);

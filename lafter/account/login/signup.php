@@ -33,24 +33,36 @@ $currentProduct = 'lafter';
         <div class="body">
             <form method="post" action="process_signup.php" autocomplete="on" class="form-pane">
                 <div class="form-header">
-                    <h1>Create account</h1>
-                    <p>One account works across all GangDev products.</p>
+                    <h1>Create your account</h1>
+                    <p>Create an account to have a good laf.</p>
                 </div>
 
                 <div class="form-fields">
                     <div class="field">
                         <label class="label">Display Name</label>
-                        <input class="input" name="display_name" required autocomplete="name">
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Username</label>
-                        <input class="input" name="username" required autocomplete="username" autocapitalize="none" spellcheck="false">
+                        <div class="input-row">
+                            <input class="input" name="display_name" required autocomplete="nickname" spellcheck="false" maxlength="20">
+                            <div class="hint">
+                                <button class="hint-btn" type="button" aria-label="Display name info">?</button>
+                                <div class="hint-pop">What others see. Your public identity on Lafter.</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="field">
                         <label class="label">Email</label>
                         <input class="input" type="email" name="email" required autocomplete="email">
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Username</label>
+                        <div class="input-row">
+                            <input class="input" name="username" required autocomplete="username" autocapitalize="none" spellcheck="false" pattern="[A-Za-z0-9_]{3,20}" maxlength="20">
+                            <div class="hint">
+                                <button class="hint-btn" type="button" aria-label="Username info">?</button>
+                                <div class="hint-pop">Used only for sign-in. Keep it private and hard to guess.</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="field">
@@ -60,12 +72,17 @@ $currentProduct = 'lafter';
                             <button class="pw-btn" type="button" data-toggle="pw-signup">Show</button>
                         </div>
                     </div>
+
+                    <div class="field">
+                        <label class="label">Confirm Password</label>
+                        <input class="input" type="password" name="confirm_password" required autocomplete="new-password">
+                    </div>
                 </div>
 
                 <input type="hidden" name="redirect" value="<?= htmlspecialchars($redirect ?: 'https://lafter.gg') ?>">
 
                 <div class="form-actions">
-                    <button class="btn primary" type="submit">Create Account</button>
+                    <button class="btn primary" type="submit">Create account</button>
                     <div class="links">
                         <a href="signin.php<?= $redirect ? '?redirect=' . urlencode($redirect) : '' ?>">Already have an account?</a>
                     </div>
@@ -73,9 +90,9 @@ $currentProduct = 'lafter';
 
                 <div class="divider"><span>or</span></div>
 
-                <a href="https://account.gangdev.co/login/signup.php?redirect=<?= urlencode($redirect ?: 'https://lafter.gg') ?>" class="btn gangdev-btn">
+                <a href="https://account.gangdev.co/login/signin.php?redirect=<?= urlencode($redirect ?: 'https://lafter.gg') ?>" class="btn gangdev-btn">
                     <img class="gangdev-icon" src="https://gangdev.co/src/img/favicon/new/favicon-96x96.png" alt="GangDev">
-                    Sign up with GangDev
+                    Sign in with GangDev
                 </a>
 
                 <?php if ($error): ?>

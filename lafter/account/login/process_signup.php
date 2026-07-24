@@ -14,11 +14,17 @@ $displayName = trim($_POST['display_name'] ?? '');
 $username = trim($_POST['username'] ?? '');
 $email = strtolower(trim($_POST['email'] ?? ''));
 $password=[REDACTED_PASSWORD] ?? '';
+$confirm = $_POST['confirm_password'] ?? '';
 $redirect = trim($_POST['redirect'] ?? 'https://lafter.gg');
 
 // Validation
-if ($displayName === '' || $username === '' || $email === '' || $password=[REDACTED_PASSWORD] '') {
+if ($displayName === '' || $username === '' || $email === '' || $password=[REDACTED_PASSWORD] '' || $confirm === '') {
 	header('Location: signup.php?error=' . urlencode('All fields are required.'));
+	exit;
+}
+
+if ($password !== $confirm) {
+	header('Location: signup.php?error=' . urlencode('Passwords do not match.'));
 	exit;
 }
 
