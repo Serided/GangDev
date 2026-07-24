@@ -1,10 +1,7 @@
 <?php
 require_once __DIR__ . '/src/php/init.php';
 
-$user = null;
-if (isset($_SESSION['user_id'])) {
-	$user = lafter_ensure_user(); // auto-creates lafter row on first visit
-}
+$user = lafter_logged_in() ? (lafter_user() ?? lafter_ensure_user()) : null;
 ?>
 <!DOCTYPE html>
 <html lang="en">

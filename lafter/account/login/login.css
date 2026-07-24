@@ -1,0 +1,330 @@
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Caveat:wght@700&family=Nothing+You+Could+Do&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+    --maroon: #4a0e0e;
+    --blood: #8b1a1a;
+    --blood-light: #a52222;
+    --gold: #c9a84c;
+    --gold-light: #e0c56a;
+    --gold-dim: #8a7234;
+    --bg: #0c0808;
+    --bg-card: #140d0d;
+    --border: #2a1515;
+    --text: #e8e0e0;
+    --text-muted: #8a7777;
+    --radius: 8px;
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    background-image:
+        linear-gradient(to right, rgba(100,15,15,0.35) 0%, transparent 18%),
+        linear-gradient(to left, rgba(100,15,15,0.3) 0%, transparent 18%),
+        linear-gradient(to bottom, rgba(80,12,12,0.3) 0%, transparent 12%),
+        linear-gradient(to top, rgba(80,12,12,0.25) 0%, transparent 12%),
+        radial-gradient(ellipse 55% 40% at 50% 50%, var(--bg) 0%, transparent 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    font: 14px/1.6 'Nothing You Could Do', cursive;
+    -webkit-text-stroke: 0.2px currentColor;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+}
+
+/* SHELL */
+.canvas { width: 100%; display: grid; place-items: center; }
+
+.shell {
+    width: min(480px, 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+body.is-signin .shell {
+    border-top: 2px solid var(--gold-dim);
+}
+
+body.is-signup .shell {
+    border-top: 2px solid var(--blood-light);
+}
+
+/* TOP BAR */
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(74, 14, 14, 0.15);
+}
+
+.brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    text-decoration: none;
+}
+
+.brand-logo {
+    font-size: 1.8rem;
+    font-family: 'Indie Flower', cursive;
+    background: linear-gradient(135deg, #fff 0%, #f0e6dc 30%, #fff 60%, #ffe8d6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.brand-a {
+    background: linear-gradient(140deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.brand-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+/* PRODUCT SWITCH */
+.productSwitch { position: relative; }
+.switchBtn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.3rem 0.7rem;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-family: 'Nothing You Could Do', cursive;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.switchBtn:hover { border-color: var(--gold-dim); color: var(--text); }
+
+.pop {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    min-width: 150px;
+    z-index: 100;
+    padding: 0.4rem 0;
+}
+.productSwitch:hover .pop { display: block; }
+.pop a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.8rem;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    transition: background 0.15s;
+}
+.pop a:hover { background: rgba(201,168,76,0.06); color: var(--text); }
+.pop .badge {
+    font-size: 0.65rem;
+    background: var(--maroon);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+    color: var(--gold-dim);
+}
+
+/* BODY */
+.body {
+    padding: 2rem 2rem 2.5rem;
+}
+
+.form-pane {
+    display: grid;
+    gap: 1.2rem;
+}
+
+.form-header h1 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 0.3rem;
+}
+
+.form-header p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* FIELDS */
+.form-fields {
+    display: grid;
+    gap: 1rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+.input {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    font: 14px/1.2 'JetBrains Mono', monospace;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+    border-color: var(--gold-dim);
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+}
+
+.pw-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input.pw { padding-right: 3.5rem; }
+
+.pw-btn {
+    position: absolute;
+    right: 0.5rem;
+    padding: 0.3rem 0.6rem;
+    background: var(--maroon);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--gold-dim);
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.pw-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+/* ACTIONS */
+.form-actions {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.1s;
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn.primary {
+    background: var(--gold-dim);
+    color: #fff;
+}
+.btn.primary:hover { background: var(--gold); }
+
+.links {
+    text-align: center;
+}
+.links a {
+    color: var(--gold-dim);
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+.links a:hover { color: var(--gold); text-decoration: underline; }
+
+/* DIVIDER */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* GANGDEV BUTTON */
+.gangdev-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: 'Nothing You Could Do', cursive;
+    font-size: 0.9rem;
+}
+.gangdev-btn:hover { border-color: var(--gold-dim); color: var(--text); }
+
+.gangdev-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+}
+
+/* ERROR */
+.error {
+    background: rgba(139, 26, 26, 0.15);
+    border: 1px solid var(--blood);
+    border-radius: 4px;
+    padding: 0.6rem 0.9rem;
+    color: var(--blood-light);
+    font-size: 0.8rem;
+}
+
+/* FOOTER */
+.footer {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    border-top: 1px solid var(--border);
+}
+.footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+}
+.footer a:hover { color: var(--gold-dim); }
+
+/* RESPONSIVE */
+@media (max-width: 520px) {
+    body { padding: 1rem; }
+    .shell { border-radius: 6px; }
+    .top { padding: 1rem; }
+    .body { padding: 1.5rem; }
+}

@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../src/php/init.php';
-$user = isset($_SESSION['user_id']) ? lafter_user() : null;
+$user = lafter_logged_in() ? lafter_user() : null;
 ?>
 <!DOCTYPE html>
 <html lang="en">

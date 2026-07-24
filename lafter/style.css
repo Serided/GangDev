@@ -232,7 +232,7 @@ nav ul { align-items: center; }
 }
 
 /* FOOTER */
-footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); c
+footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem; line-height: 1.8; }
 footer a { color: var(--gold-dim); text-decoration: none; }
 footer a:hover { color: var(--gold); }
 

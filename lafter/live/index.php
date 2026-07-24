@@ -7,23 +7,20 @@ $user = lafter_logged_in() ? lafter_user() : null;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lafter — Lookup</title>
+    <title>Lafter — Live</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Caveat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
-    <?php if ($user && $user['role'] === 'admin'): ?>
-    <link rel="stylesheet" href="../src/css/admin-overlay.css">
-    <?php endif; ?>
 </head>
 <body>
     <nav>
         <a href="https://lafter.gg" class="logo-link"><div class="logo">L<span>a</span>fter</div></a>
         <ul>
             <?php if ($user): ?>
-            <li><a href="https://lafter.gg/lookup" class="nav-active">Lookup</a></li>
-            <li><a href="https://live.lafter.gg/<?= htmlspecialchars($user['riot_name'] ?? $_SESSION['username']) ?>">Live</a></li>
+            <li><a href="https://lafter.gg/lookup">Lookup</a></li>
+            <li><a href="https://live.lafter.gg/" class="nav-active">Live</a></li>
             <li><a href="https://lafter.gg/download">Download</a></li>
             <li class="nav-user">
                 <button class="user-btn" id="user-menu-btn"><?= htmlspecialchars($_SESSION['display_name']) ?></button>
@@ -38,30 +35,15 @@ $user = lafter_logged_in() ? lafter_user() : null;
             </li>
             <?php else: ?>
             <li><a href="https://lafter.gg#features">Features</a></li>
-            <li><a href="https://lafter.gg#how">How It Works</a></li>
-            <li><a href="<?= lafter_login_url('https://lafter.gg/lookup') ?>" class="nav-signin">Sign In</a></li>
+            <li><a href="<?= lafter_login_url('https://live.lafter.gg/') ?>" class="nav-signin">Sign In</a></li>
             <?php endif; ?>
         </ul>
     </nav>
 
-    <?php if (lafter_can_use_api()): ?>
-    <!-- Admin/dev mode: full lookup functionality -->
-    <section class="lookup-section">
-        <h1>Player Lookup</h1>
-        <div class="lookup-bar">
-            <input type="text" id="lookup-input" placeholder="Riot ID (e.g. Serided#RoHan)" autocomplete="off" spellcheck="false">
-            <button id="lookup-btn">Search</button>
-        </div>
-        <div id="lookup-results"></div>
-    </section>
-
-    <?php else: ?>
-    <!-- Public: gated message -->
     <section class="gate-message">
-        <h2>Coming Soon</h2>
+        <h2>Live Sessions</h2>
         <p><?= lafter_gate_message() ?></p>
     </section>
-    <?php endif; ?>
 
     <footer>
         <p>Lafter is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties.</p>
@@ -69,9 +51,5 @@ $user = lafter_logged_in() ? lafter_user() : null;
     </footer>
 
     <script src="../script.js"></script>
-    <?php if ($user && $user['role'] === 'admin'): ?>
-    <script>const LAFTER_USER = { role: '<?= $user['role'] ?>' };</script>
-    <script src="../src/js/admin-overlay.js" defer></script>
-    <?php endif; ?>
 </body>
 </html>
