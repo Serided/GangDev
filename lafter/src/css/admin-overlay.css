@@ -1,18 +1,20 @@
 /**
  * admin-overlay.css — Admin toolbar + key popup styles.
+ * ALL fonts use lafter fonts. No system defaults.
  */
 
-/* ADMIN TOOLBAR (bottom-right fixed strip) */
+/* ADMIN TOOLBAR (bottom-right) */
 #lafter-admin-toolbar {
 	position: fixed;
 	bottom: 1rem;
 	right: 1rem;
 	z-index: 99998;
+	font-family: 'Nothing You Could Do', cursive;
 }
 
 .admin-toggle {
 	width: 32px; height: 32px;
-	border-radius: 50%;
+	border-radius: 4px;
 	background: var(--bg-card, #140d0d);
 	border: 1px solid var(--gold-dim, #8a7234);
 	color: var(--gold-dim, #8a7234);
@@ -21,6 +23,7 @@
 	display: flex; align-items: center; justify-content: center;
 	transition: transform 0.2s, border-color 0.2s;
 	box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+	font-family: 'Nothing You Could Do', cursive;
 }
 .admin-toggle:hover { border-color: var(--gold, #c9a84c); color: var(--gold, #c9a84c); }
 .admin-toggle.open { transform: rotate(180deg); }
@@ -34,30 +37,51 @@
 	border: 1px solid var(--border, #2a1515);
 	border-radius: 6px;
 	padding: 0.8rem 1rem;
-	min-width: 180px;
+	min-width: 200px;
 	box-shadow: 0 4px 16px rgba(0,0,0,0.5);
 	font-size: 0.8rem;
 }
 .admin-panel.open { display: block; }
-.admin-panel-row { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 0.5rem; }
+.admin-panel-row { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; margin-bottom: 0.6rem; }
 .admin-panel-row:last-child { margin-bottom: 0; }
 
 .toolbar-label { color: var(--gold-dim, #8a7234); font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 500; letter-spacing: 1px; }
-.toolbar-btn { background: none; border: 1px solid var(--border, #2a1515); color: var(--text, #e8e0e0); padding: 0.25rem 0.6rem; border-radius: 3px; cursor: pointer; font-size: 0.7rem; transition: border-color 0.2s; }
+.toolbar-btn { background: none; border: 1px solid var(--border, #2a1515); color: var(--text, #e8e0e0); padding: 0.25rem 0.6rem; border-radius: 3px; cursor: pointer; font-size: 0.7rem; font-family: 'Nothing You Could Do', cursive; transition: border-color 0.2s; }
 .toolbar-btn:hover { border-color: var(--gold-dim, #8a7234); }
 .toolbar-btn.public { border-color: #4caf50; color: #4caf50; }
 .toolbar-btn.private { border-color: var(--gold-dim, #8a7234); color: var(--gold-dim, #8a7234); }
+.toolbar-btn.key-btn { color: var(--gold-dim, #8a7234); }
+.toolbar-btn.view-btn { color: var(--text-muted, #8a7777); }
+.toolbar-btn.view-btn.active { border-color: var(--blood-light, #a52222); color: var(--blood-light, #a52222); }
 .toolbar-status { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; }
 .toolbar-status.ok { color: var(--text-muted, #8a7777); }
 .toolbar-status.expired { color: #e74c3c; }
 
+/* NORMAL USER VIEW EXIT BUTTON */
+#lafter-user-view-exit {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	z-index: 99998;
+	width: 32px; height: 32px;
+	border-radius: 4px;
+	background: var(--bg-card, #140d0d);
+	border: 1px solid var(--blood-light, #a52222);
+	color: var(--blood-light, #a52222);
+	font-size: 1rem;
+	cursor: pointer;
+	display: flex; align-items: center; justify-content: center;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+	font-family: 'Nothing You Could Do', cursive;
+}
+#lafter-user-view-exit:hover { border-color: #e74c3c; color: #e74c3c; }
+
 /* DISMISS BUTTON */
-.dismiss-btn { margin-top: 1rem; background: none; border: 1px solid var(--border, #2a1515); color: var(--text-muted, #8a7777); padding: 0.4rem 1rem; border-radius: 3px; cursor: pointer; font-size: 0.8rem; }
+.dismiss-btn { margin-top: 1rem; background: none; border: 1px solid var(--border, #2a1515); color: var(--text-muted, #8a7777); padding: 0.4rem 1rem; border-radius: 3px; cursor: pointer; font-size: 0.8rem; font-family: 'Nothing You Could Do', cursive; }
 .dismiss-btn:hover { border-color: var(--gold-dim, #8a7234); color: var(--text, #e8e0e0); }
 
 /**
  * KEY POPUP OVERLAY
- * Only relevant when #lafter-admin-overlay is in the DOM (admin only).
  */
 
 #lafter-admin-overlay {
@@ -70,6 +94,7 @@
 	justify-content: center;
 	backdrop-filter: blur(4px);
 	animation: fadeIn 0.2s ease;
+	font-family: 'Nothing You Could Do', cursive;
 }
 
 .admin-key-popup {
@@ -98,6 +123,7 @@
 
 .admin-key-popup p {
 	color: var(--text-muted, #8a7777);
+	font-family: 'Nothing You Could Do', cursive;
 	font-size: 0.9rem;
 	margin-bottom: 1.5rem;
 }
@@ -157,6 +183,7 @@
 
 .popup-status {
 	margin-top: 1rem;
+	font-family: 'Nothing You Could Do', cursive;
 	font-size: 0.85rem;
 	min-height: 1.2rem;
 }

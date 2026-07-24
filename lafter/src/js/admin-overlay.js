@@ -1,8 +1,10 @@
 /**
  * admin-overlay.js — Admin-only controls.
- * 1. API key expired popup (auto-appears on 403)
- * 2. Admin toolbar (public/private toggle, key status)
- * Only loads for admin users (LAFTER_USER.role === 'admin').
+ * 1. Collapsible admin panel (square arrow, bottom-right)
+ * 2. Public/Private toggle
+ * 3. Key status + Change Key button
+ * 4. Normal User View (hides admin, shows X to exit)
+ * 5. Auto key popup on expired/missing key
  */
 
 (function() {
@@ -13,8 +15,10 @@
 	const API_BASE = '/api';
 	let overlayEl = null;
 	let toolbarEl = null;
+	let userViewExitEl = null;
+	let isUserView = false;
 
-	// === Admin Toolbar (always visible for admin) ===
+	// === Admin Toolbar ===
 
 	function createToolbar() {
 		toolbarEl = document.createElement('div');
@@ -30,12 +34,22 @@
 					<span class="toolbar-label">KEY</span>
 					<span class="toolbar-status" id="toolbar-key-status"></span>
 				</div>
+				<div class="admin-panel-row">
+					<span class="toolbar-label"></span>
+					<button id="change-key-btn" class="toolbar-btn key-btn">Change Key</button>
+				</div>
+				<div class="admin-panel-row">
+					<span class="toolbar-label">VIEW</span>
+					<button id="user-view-btn" class="toolbar-btn view-btn">Normal User</button>
+				</div>
 			</div>
 		`;
 		document.body.appendChild(toolbarEl);
 
 		document.getElementById('admin-toggle-btn').addEventListener('click', togglePanel);
 		document.getElementById('toggle-public-btn').addEventListener('click', togglePublic);
+		document.getElementById('change-key-btn').addEventListener('click', () => showKeyOverlay());
+		document.getElementById('user-view-btn').addEventListener('click', enterUserView);
 		refreshStatus();
 	}
 
@@ -45,6 +59,28 @@
 		panel.classList.toggle('open');
 		btn.classList.toggle('open');
 	}
+
+	// === Normal User View ===
+
+	function enterUserView() {
+		isUserView = true;
+		toolbarEl.style.display = 'none';
+
+		userViewExitEl = document.createElement('button');
+		userViewExitEl.id = 'lafter-user-view-exit';
+		userViewExitEl.textContent = '✕';
+		userViewExitEl.title = 'Exit normal user view';
+		userViewExitEl.addEventListener('click', exitUserView);
+		document.body.appendChild(userViewExitEl);
+	}
+
+	function exitUserView() {
+		isUserView = false;
+		if (userViewExitEl) { userViewExitEl.remove(); userViewExitEl = null; }
+		toolbarEl.style.display = '';
+	}
+
+	// === Status ===
 
 	async function refreshStatus() {
 		try {
@@ -58,13 +94,13 @@
 			btn.className = 'toolbar-btn ' + (data.is_public ? 'public' : 'private');
 
 			if (data.key_expired) {
-				keyStatus.textContent = '⚠️ Key expired';
+				keyStatus.textContent = '⚠️ Expired';
 				keyStatus.className = 'toolbar-status expired';
-				showKeyOverlay();
+				if (!isUserView) showKeyOverlay();
 			} else if (!data.key_set) {
-				keyStatus.textContent = '⚠️ No key set';
+				keyStatus.textContent = '⚠️ Not set';
 				keyStatus.className = 'toolbar-status expired';
-				showKeyOverlay();
+				if (!isUserView) showKeyOverlay();
 			} else {
 				keyStatus.textContent = '✓ ' + data.key_prefix;
 				keyStatus.className = 'toolbar-status ok';
@@ -87,7 +123,7 @@
 		}
 	}
 
-	// === Key Expired Overlay ===
+	// === Key Overlay ===
 
 	function showKeyOverlay() {
 		if (overlayEl) return;

@@ -19,6 +19,7 @@ html.fonts-failed { visibility: visible; }
 
 * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
 html { scroll-behavior: smooth; }
+button, input, select, textarea { font-family: inherit; }
 
 body {
     font-family: 'Nothing You Could Do', cursive;
