@@ -131,18 +131,18 @@ nav ul { align-items: center; }
     z-index: 1001;
 }
 .user-btn:hover { border-color: var(--gold-dim); }
-.user-btn.open { border-radius: 3px 3px 0 0; border-color: var(--gold-dim); border-bottom-color: transparent; }
-.user-btn.open:hover { border-color: var(--gold-dim); border-bottom-color: transparent; }
+.user-btn.open { border-radius: 0; border-color: var(--gold-dim); border-bottom-color: transparent; }
+.user-btn.open:hover { border-color: var(--gold-dim); border-bottom-color: transparent; border-radius: 0; }
 .user-dropdown {
     display: none;
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0;
     background: var(--bg-card);
     border: 1px solid var(--gold-dim);
     border-top: none;
     border-radius: 0 0 3px 3px;
-    min-width: 100%;
+    min-width: 180px;
     z-index: 1000;
     padding: 0;
 }
