@@ -41,17 +41,10 @@ $user = lafter_logged_in() ? lafter_user() : null;
     </nav>
 
     <?php if (lafter_can_use_api()): ?>
-    <!-- Admin: live sessions landing -->
-    <section class="gate-message" data-admin-only>
+    <section class="gate-message">
         <h2>Live Sessions</h2>
         <p>No active sessions. Live draft viewer will appear here when the desktop connector is streaming.</p>
     </section>
-
-    <section class="gate-message" data-user-gate style="display:none;">
-        <h2>Coming Soon</h2>
-        <p><?= lafter_gate_message() ?></p>
-    </section>
-
     <?php else: ?>
     <section class="gate-message">
         <h2>Coming Soon</h2>

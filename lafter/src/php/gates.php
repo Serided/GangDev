@@ -30,8 +30,14 @@ function lafter_set_public(bool $public): void {
 /**
  * Check if Riot-powered features are available to the current user.
  * Returns true if: product is public OR user is admin (dev testing).
+ * 
+ * Admin can append ?view=user to any page to see it as a normal user would.
  */
 function lafter_can_use_api(): bool {
+	// Admin user-view override: pretend not admin
+	if (isset($_GET['view']) && $_GET['view'] === 'user' && lafter_is_admin()) {
+		return lafter_is_public(); // only true if actually public
+	}
 	if (lafter_is_public()) return true;
 	return lafter_is_admin();
 }

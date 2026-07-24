@@ -41,8 +41,7 @@ $user = lafter_logged_in() ? lafter_user() : null;
     </nav>
 
     <?php if (lafter_can_use_api()): ?>
-    <!-- Admin: full lookup -->
-    <section class="lookup-section" data-admin-only>
+    <section class="lookup-section">
         <h1>Player Lookup</h1>
         <div class="lookup-bar">
             <input type="text" id="lookup-input" placeholder="Riot ID (e.g. Serided#RoHan)" autocomplete="off" spellcheck="false">
@@ -50,15 +49,7 @@ $user = lafter_logged_in() ? lafter_user() : null;
         </div>
         <div id="lookup-results"></div>
     </section>
-
-    <!-- Gate shown to non-admin (hidden by default, revealed in User view) -->
-    <section class="gate-message" data-user-gate style="display:none;">
-        <h2>Coming Soon</h2>
-        <p><?= lafter_gate_message() ?></p>
-    </section>
-
     <?php else: ?>
-    <!-- Public: gate message -->
     <section class="gate-message">
         <h2>Coming Soon</h2>
         <p><?= lafter_gate_message() ?></p>

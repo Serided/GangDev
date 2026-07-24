@@ -1,9 +1,9 @@
 /**
  * admin-overlay.js — Admin-only controls.
  * 1. Collapsible admin panel (square button, bottom-right)
- * 2. Public/Private toggle
+ * 2. Public/Private toggle (reloads page)
  * 3. Key status (clickable to change)
- * 4. Admin/User view cycle
+ * 4. Admin/User view toggle (adds ?view=user to URL, reloads — PHP handles the rest)
  * 5. Auto key popup on expired/missing key
  */
 
@@ -16,8 +16,10 @@
 	let overlayEl = null;
 	let toolbarEl = null;
 	let panelOpen = localStorage.getItem('lafter_panel_open') === 'true';
-	let viewMode = localStorage.getItem('lafter_view_mode') || 'admin';
-	let isPublic = false;
+
+	// Detect current view from URL
+	const urlParams = new URLSearchParams(window.location.search);
+	const isUserView = urlParams.get('view') === 'user';
 
 	// === Admin Toolbar ===
 
@@ -37,7 +39,7 @@
 				</div>
 				<div class="admin-panel-row">
 					<span class="toolbar-label">VIEW</span>
-					<button id="view-cycle-btn" class="toolbar-btn view-btn">Admin</button>
+					<button id="view-cycle-btn" class="toolbar-btn view-btn ${isUserView ? 'active' : ''}">${isUserView ? 'User' : 'Admin'}</button>
 				</div>
 			</div>
 		`;
@@ -47,7 +49,6 @@
 		document.getElementById('toggle-public-btn').addEventListener('click', togglePublic);
 		document.getElementById('toolbar-key-status').addEventListener('click', () => showKeyOverlay());
 		document.getElementById('view-cycle-btn').addEventListener('click', cycleView);
-		applyViewMode();
 		applyPanelState();
 		refreshStatus();
 	}
@@ -63,37 +64,16 @@
 		document.getElementById('admin-toggle-btn').classList.toggle('open', panelOpen);
 	}
 
-	// === View Cycle (Admin ↔ User) ===
+	// === View Cycle — just toggles ?view=user in the URL and reloads ===
 
 	function cycleView() {
-		if (viewMode === 'admin') {
-			viewMode = 'user';
+		const url = new URL(window.location.href);
+		if (isUserView) {
+			url.searchParams.delete('view');
 		} else {
-			viewMode = 'admin';
+			url.searchParams.set('view', 'user');
 		}
-		localStorage.setItem('lafter_view_mode', viewMode);
-		document.getElementById('view-cycle-btn').textContent = viewMode === 'admin' ? 'Admin' : 'User';
-		document.getElementById('view-cycle-btn').classList.toggle('active', viewMode === 'user');
-
-		// Toggle content visibility — only when PRIVATE
-		// When PUBLIC, normal users see everything, so User view = same as Admin view
-		if (viewMode === 'user' && !isPublic) {
-			document.querySelectorAll('[data-admin-only]').forEach(el => el.style.display = 'none');
-			document.querySelectorAll('[data-user-gate]').forEach(el => el.style.display = '');
-		} else {
-			document.querySelectorAll('[data-admin-only]').forEach(el => el.style.display = '');
-			document.querySelectorAll('[data-user-gate]').forEach(el => el.style.display = 'none');
-		}
-	}
-
-	// Apply saved view mode on load
-	function applyViewMode() {
-		document.getElementById('view-cycle-btn').textContent = viewMode === 'admin' ? 'Admin' : 'User';
-		document.getElementById('view-cycle-btn').classList.toggle('active', viewMode === 'user');
-		if (viewMode === 'user' && !isPublic) {
-			document.querySelectorAll('[data-admin-only]').forEach(el => el.style.display = 'none');
-			document.querySelectorAll('[data-user-gate]').forEach(el => el.style.display = '');
-		}
+		window.location.href = url.toString();
 	}
 
 	// === Status ===
@@ -109,20 +89,14 @@
 			btn.textContent = data.is_public ? '🟢 PUBLIC' : '🔒 PRIVATE';
 			btn.className = 'toolbar-btn ' + (data.is_public ? 'public' : 'private');
 
-			// Track public state for view toggle logic
-			isPublic = data.is_public;
-
-			// Re-apply view mode now that we know public state
-			applyViewMode();
-
 			if (data.key_expired) {
 				keyStatus.textContent = '⚠️ Expired';
 				keyStatus.className = 'toolbar-status toolbar-key-clickable expired';
-				if (viewMode === 'admin') showKeyOverlay();
+				if (!isUserView) showKeyOverlay();
 			} else if (!data.key_set) {
 				keyStatus.textContent = '⚠️ Not set';
 				keyStatus.className = 'toolbar-status toolbar-key-clickable expired';
-				if (viewMode === 'admin') showKeyOverlay();
+				if (!isUserView) showKeyOverlay();
 			} else {
 				keyStatus.textContent = '✓ ' + data.key_prefix;
 				keyStatus.className = 'toolbar-status toolbar-key-clickable ok';
@@ -139,7 +113,7 @@
 				credentials: 'include',
 			});
 			const data = await res.json();
-		if (data.success) location.reload();
+			if (data.success) location.reload();
 		} catch (e) {
 			console.warn('[Lafter Admin] Toggle failed:', e.message);
 		}
