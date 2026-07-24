@@ -1,9 +1,10 @@
 <?php
 /**
- * admin.php — Admin-only key management.
+ * admin.php — Admin-only management endpoints.
  * 
- * POST ?action=update_key  { "key": "RGAPI-..." }
- * GET  ?action=status      → { key_expired, key_prefix, key_set }
+ * POST ?action=update_key   { "key": "RGAPI-..." }
+ * POST ?action=toggle_public
+ * GET  ?action=status       → { key_expired, key_prefix, key_set, is_public }
  */
 
 require_once __DIR__ . '/../src/php/init.php';
@@ -19,13 +20,13 @@ if (!lafter_is_admin()) {
 $action = $_GET['action'] ?? '';
 
 match ($action) {
-	'update_key' => updateKey(),
-	'status'     => status(),
-	default      => badAction(),
+	'update_key'    => updateKey(),
+	'toggle_public' => togglePublic(),
+	'status'        => status(),
+	default         => badAction(),
 };
 
 function updateKey(): void {
-	// Rate limit: 5 per hour
 	$logFile = LAFTER_FLAG_DIR . '/.key_changes';
 	$log = file_exists($logFile) ? json_decode(file_get_contents($logFile), true) : [];
 	$log = array_filter($log, fn($t) => time() - $t < 3600);
@@ -43,22 +44,25 @@ function updateKey(): void {
 		exit(json_encode(['error' => 'invalid_format']));
 	}
 
-	// Write to .env
 	$env = file_get_contents(LAFTER_ENV_FILE);
 	$env = str_contains($env, 'RIOT_API_KEY=')
 		? preg_replace('/^RIOT_API_KEY=.*$/m', "RIOT_API_KEY={$key}", $env)
 		: $env . "\nRIOT_API_KEY={$key}\n";
 	file_put_contents(LAFTER_ENV_FILE, $env);
 
-	// Clear expired flag
 	$riot = new RiotAPI();
 	$riot->clearExpired();
 
-	// Log change
 	$log[] = time();
 	file_put_contents($logFile, json_encode($log));
 
 	echo json_encode(['success' => true]);
+}
+
+function togglePublic(): void {
+	$nowPublic = !lafter_is_public();
+	lafter_set_public($nowPublic);
+	echo json_encode(['success' => true, 'is_public' => $nowPublic]);
 }
 
 function status(): void {
@@ -69,6 +73,7 @@ function status(): void {
 		'key_expired' => $riot->isExpired(),
 		'key_prefix'  => $key ? substr($key, 0, 12) . '...' : 'NOT SET',
 		'key_set'     => !empty($key),
+		'is_public'   => lafter_is_public(),
 	]);
 }
 

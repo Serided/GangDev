@@ -1,5 +1,38 @@
 /**
- * admin-overlay.css — Styles for the admin key-expired popup.
+ * admin-overlay.css — Admin toolbar + key popup styles.
+ */
+
+/* ADMIN TOOLBAR (bottom-right fixed strip) */
+#lafter-admin-toolbar {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	background: var(--bg-card, #140d0d);
+	border: 1px solid var(--border, #2a1515);
+	border-radius: 6px;
+	padding: 0.5rem 1rem;
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
+	z-index: 99998;
+	font-size: 0.8rem;
+	box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.toolbar-label { color: var(--gold-dim, #8a7234); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500; }
+.toolbar-btn { background: none; border: 1px solid var(--border, #2a1515); color: var(--text, #e8e0e0); padding: 0.3rem 0.7rem; border-radius: 3px; cursor: pointer; font-size: 0.75rem; transition: border-color 0.2s; }
+.toolbar-btn:hover { border-color: var(--gold-dim, #8a7234); }
+.toolbar-btn.public { border-color: #4caf50; color: #4caf50; }
+.toolbar-btn.private { border-color: var(--gold-dim, #8a7234); color: var(--gold-dim, #8a7234); }
+.toolbar-status { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; }
+.toolbar-status.ok { color: var(--text-muted, #8a7777); }
+.toolbar-status.expired { color: #e74c3c; }
+
+/* DISMISS BUTTON */
+.dismiss-btn { margin-top: 1rem; background: none; border: 1px solid var(--border, #2a1515); color: var(--text-muted, #8a7777); padding: 0.4rem 1rem; border-radius: 3px; cursor: pointer; font-size: 0.8rem; }
+.dismiss-btn:hover { border-color: var(--gold-dim, #8a7234); color: var(--text, #e8e0e0); }
+
+/**
+ * KEY POPUP OVERLAY
  * Only relevant when #lafter-admin-overlay is in the DOM (admin only).
  */
 

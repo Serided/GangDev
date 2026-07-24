@@ -1,3 +1,11 @@
+<?php
+require_once __DIR__ . '/src/php/init.php';
+
+$user = null;
+if (isset($_SESSION['user_id'])) {
+	$user = lafter_ensure_user(); // auto-creates lafter row on first visit
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,14 +17,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Caveat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Nothing+You+Could+Do&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <?php if ($user && $user['role'] === 'admin'): ?>
+    <link rel="stylesheet" href="src/css/admin-overlay.css">
+    <?php endif; ?>
 </head>
 <body>
     <nav>
-        <div class="logo">L<span>a</span>fter</div>
+        <a href="https://lafter.gg" class="logo-link"><div class="logo">L<span>a</span>fter</div></a>
         <ul>
+            <?php if ($user): ?>
+            <li><a href="https://lafter.gg/lookup">Lookup</a></li>
+            <li><a href="https://live.lafter.gg/<?= htmlspecialchars($user['riot_name'] ?? $_SESSION['username']) ?>">Live</a></li>
+            <li><a href="https://lafter.gg/download">Download</a></li>
+            <li class="nav-user">
+                <button class="user-btn" id="user-menu-btn"><?= htmlspecialchars($_SESSION['display_name']) ?></button>
+                <div class="user-dropdown" id="user-dropdown">
+                    <?php if ($user['riot_name']): ?>
+                    <span class="dropdown-riot"><?= htmlspecialchars($user['riot_name'] . '#' . $user['riot_tag']) ?></span>
+                    <?php else: ?>
+                    <a href="https://my.lafter.gg/link" class="dropdown-item">Link Riot ID</a>
+                    <?php endif; ?>
+                    <a href="https://my.lafter.gg" class="dropdown-item">Profile</a>
+                    <a href="https://account.gangdev.co" class="dropdown-item">Account</a>
+                    <a href="<?= lafter_signout_url() ?>" class="dropdown-item signout">Sign Out</a>
+                </div>
+            </li>
+            <?php else: ?>
             <li><a href="#features">Features</a></li>
             <li><a href="#how">How It Works</a></li>
             <li><a href="#data">Data</a></li>
+            <li><a href="<?= lafter_login_url('https://lafter.gg') ?>" class="nav-signin">Sign In</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 
@@ -24,8 +55,13 @@
         <h1>Draft like it's a <span class="accent">joke.</span></h1>
         <p>Live opponent scouting, team comp scoring, and draft recommendations — shared with your team the moment champ select starts.</p>
         <div class="cta-group">
-            <a href="#" class="btn btn-primary">Get Started</a>
-            <a href="#" class="btn btn-secondary">Learn More</a>
+            <?php if ($user): ?>
+            <a href="https://lafter.gg/lookup" class="btn btn-primary">Lookup a Player</a>
+            <a href="https://lafter.gg/download" class="btn btn-secondary">Get the Connector</a>
+            <?php else: ?>
+            <a href="<?= lafter_login_url('https://lafter.gg') ?>" class="btn btn-primary">Get Started</a>
+            <a href="#how" class="btn btn-secondary">Learn More</a>
+            <?php endif; ?>
         </div>
     </section>
 
@@ -102,11 +138,20 @@
         <div class="badge-info" id="badge-info"></div>
     </section>
 
+    <?php if (!$user): ?>
+    <section class="status-section">
+        <p class="status-line">⏳ Waiting on production API approval from Riot Games.</p>
+    </section>
+    <?php endif; ?>
     <footer>
         <p>Lafter is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
         <p>&copy; 2026 Lafter — <a href="https://gangdev.co">gangdev.co</a></p>
     </footer>
 
     <script src="script.js"></script>
+    <?php if ($user && $user['role'] === 'admin'): ?>
+    <script>const LAFTER_USER = { role: '<?= $user['role'] ?>' };</script>
+    <script src="src/js/admin-overlay.js" defer></script>
+    <?php endif; ?>
 </body>
 </html>

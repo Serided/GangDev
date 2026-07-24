@@ -26,6 +26,12 @@ header('Access-Control-Allow-Headers: Content-Type');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
 
+// Dev mode gate: only admin can use API endpoints
+if (!lafter_can_use_api()) {
+	http_response_code(403);
+	exit(json_encode(['error' => 'dev_mode', 'message' => 'API access restricted during development.']));
+}
+
 // Parse path
 $path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 $path = preg_replace('#^api/?#', '', $path);

@@ -30,4 +30,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // User dropdown toggle
+    const userBtn = document.getElementById('user-menu-btn');
+    const dropdown = document.getElementById('user-dropdown');
+    if (userBtn && dropdown) {
+        userBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('open');
+        });
+        document.addEventListener('click', (e) => {
+            if (!dropdown.contains(e.target) && e.target !== userBtn) {
+                dropdown.classList.remove('open');
+            }
+        });
+    }
 });

@@ -13,6 +13,7 @@ $products = [
 	'gangdev' => ['label' => 'GangDev', 'badge' => 'main', 'url' => 'https://account.gangdev.co/login/signin.php'],
 	'candor' => ['label' => 'Candor', 'badge' => 'product', 'url' => 'https://account.candor.you/login/signin.php'],
 	'dcops' => ['label' => 'DCOPS', 'badge' => 'product', 'url' => 'https://account.dcops.co/login/signin.php'],
+	'lafter' => ['label' => 'Lafter', 'badge' => 'product', 'url' => 'https://lafter.gg'],
 ];
 ?>
 <div class="productSwitch">

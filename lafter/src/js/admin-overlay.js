@@ -1,65 +1,105 @@
 /**
- * admin-overlay.js — Admin-only API key expired popup.
- * Only loads/renders for admin users. Polls /api/health every 60s.
- * When key_expired = true, shows a paste field overlay.
+ * admin-overlay.js — Admin-only controls.
+ * 1. API key expired popup (auto-appears on 403)
+ * 2. Admin toolbar (public/private toggle, key status)
+ * Only loads for admin users (LAFTER_USER.role === 'admin').
  */
 
 (function() {
 	'use strict';
 
-	// Only init if user is admin (set by PHP in a global)
 	if (typeof LAFTER_USER === 'undefined' || LAFTER_USER.role !== 'admin') return;
 
-	const API_BASE = 'https://api.lafter.gg';
-	let pollInterval = null;
+	const API_BASE = '/api';
 	let overlayEl = null;
+	let toolbarEl = null;
 
-	// Start polling health endpoint
-	function startPolling() {
-		pollInterval = setInterval(checkHealth, 60000); // Every 60s
-		checkHealth(); // Immediate first check
+	// === Admin Toolbar (always visible for admin) ===
+
+	function createToolbar() {
+		toolbarEl = document.createElement('div');
+		toolbarEl.id = 'lafter-admin-toolbar';
+		toolbarEl.innerHTML = `
+			<span class="toolbar-label">ADMIN</span>
+			<button id="toggle-public-btn" class="toolbar-btn">...</button>
+			<span class="toolbar-status" id="toolbar-key-status"></span>
+		`;
+		document.body.appendChild(toolbarEl);
+
+		document.getElementById('toggle-public-btn').addEventListener('click', togglePublic);
+		refreshStatus();
 	}
 
-	async function checkHealth() {
+	async function refreshStatus() {
 		try {
-			const res = await fetch(`${API_BASE}/health`);
+			const res = await fetch(`${API_BASE}/admin.php?action=status`, { credentials: 'include' });
 			const data = await res.json();
+
+			const btn = document.getElementById('toggle-public-btn');
+			const keyStatus = document.getElementById('toolbar-key-status');
+
+			btn.textContent = data.is_public ? '🟢 PUBLIC' : '🔒 PRIVATE';
+			btn.className = 'toolbar-btn ' + (data.is_public ? 'public' : 'private');
+
 			if (data.key_expired) {
-				showOverlay();
+				keyStatus.textContent = '⚠️ Key expired';
+				keyStatus.className = 'toolbar-status expired';
+				showKeyOverlay();
+			} else if (!data.key_set) {
+				keyStatus.textContent = '⚠️ No key set';
+				keyStatus.className = 'toolbar-status expired';
+				showKeyOverlay();
+			} else {
+				keyStatus.textContent = '✓ ' + data.key_prefix;
+				keyStatus.className = 'toolbar-status ok';
 			}
 		} catch (e) {
-			// Network error — don't show overlay, might just be offline
-			console.warn('[Lafter Admin] Health check failed:', e.message);
+			console.warn('[Lafter Admin] Status check failed:', e.message);
 		}
 	}
 
-	function showOverlay() {
-		if (overlayEl) return; // Already showing
+	async function togglePublic() {
+		try {
+			const res = await fetch(`${API_BASE}/admin.php?action=toggle_public`, {
+				method: 'POST',
+				credentials: 'include',
+			});
+			const data = await res.json();
+			if (data.success) refreshStatus();
+		} catch (e) {
+			console.warn('[Lafter Admin] Toggle failed:', e.message);
+		}
+	}
+
+	// === Key Expired Overlay ===
+
+	function showKeyOverlay() {
+		if (overlayEl) return;
 
 		overlayEl = document.createElement('div');
 		overlayEl.id = 'lafter-admin-overlay';
 		overlayEl.innerHTML = `
 			<div class="admin-key-popup">
 				<div class="popup-icon">⚠️</div>
-				<h3>API Key Expired</h3>
-				<p>Paste your new key from <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a></p>
+				<h3>API Key Needed</h3>
+				<p>Paste your key from <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a></p>
 				<div class="input-row">
 					<input type="text" id="new-riot-key" placeholder="RGAPI-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" autocomplete="off" spellcheck="false">
 					<button id="save-key-btn">Save</button>
 				</div>
 				<div class="popup-status" id="key-status"></div>
+				<button class="dismiss-btn" id="dismiss-overlay">Dismiss</button>
 			</div>
 		`;
 
 		document.body.appendChild(overlayEl);
 
-		// Event listeners
 		document.getElementById('save-key-btn').addEventListener('click', submitKey);
 		document.getElementById('new-riot-key').addEventListener('keydown', (e) => {
 			if (e.key === 'Enter') submitKey();
 		});
+		document.getElementById('dismiss-overlay').addEventListener('click', hideKeyOverlay);
 
-		// Auto-focus the input
 		setTimeout(() => document.getElementById('new-riot-key').focus(), 100);
 	}
 
@@ -69,16 +109,14 @@
 		const btn = document.getElementById('save-key-btn');
 		const key = input.value.trim();
 
-		// Validate format
 		if (!/^RGAPI-[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(key)) {
-			status.textContent = 'Invalid format. Should be RGAPI-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
+			status.textContent = 'Invalid format.';
 			status.className = 'popup-status error';
 			return;
 		}
 
 		btn.disabled = true;
 		btn.textContent = 'Saving...';
-		status.textContent = '';
 
 		try {
 			const res = await fetch(`${API_BASE}/admin.php?action=update_key`, {
@@ -87,34 +125,33 @@
 				credentials: 'include',
 				body: JSON.stringify({ key }),
 			});
-
 			const data = await res.json();
 
 			if (data.success) {
-				status.textContent = '✓ Key updated. Resuming...';
+				status.textContent = '✓ Key updated.';
 				status.className = 'popup-status success';
-				setTimeout(hideOverlay, 1500);
+				setTimeout(() => { hideKeyOverlay(); refreshStatus(); }, 1000);
 			} else {
-				status.textContent = data.message || 'Failed to update key.';
+				status.textContent = data.message || 'Failed.';
 				status.className = 'popup-status error';
 				btn.disabled = false;
 				btn.textContent = 'Save';
 			}
 		} catch (e) {
-			status.textContent = 'Network error. Try again.';
+			status.textContent = 'Network error.';
 			status.className = 'popup-status error';
 			btn.disabled = false;
 			btn.textContent = 'Save';
 		}
 	}
 
-	function hideOverlay() {
-		if (overlayEl) {
-			overlayEl.remove();
-			overlayEl = null;
-		}
+	function hideKeyOverlay() {
+		if (overlayEl) { overlayEl.remove(); overlayEl = null; }
 	}
 
-	// Init
-	startPolling();
+	// === Polling ===
+	setInterval(refreshStatus, 60000);
+
+	// === Init ===
+	createToolbar();
 })();

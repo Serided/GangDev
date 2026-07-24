@@ -19,7 +19,7 @@
                 <div class="brand">inspectre</div>
 
                 <div class="actions">
-                    <a class="demo" href="files/downloads/inspectre-extension.zip" download>Demo</a>
+                    <a class="demo" href="src/downloads/inspectre-extension.zip" download>Demo</a>
                     <a class="primary" href="learn.php">Early Access</a>
                 </div>
             </header>
@@ -27,7 +27,7 @@
             <main id="hero">
 
                 <div class="logoWrap">
-                    <img src="files/inspectre-logo.png" alt="inspectre logo" id="logo">
+                    <img src="src/inspectre-logo.png" alt="inspectre logo" id="logo">
                 </div>
 
                 <h1 class="title">

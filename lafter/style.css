@@ -38,7 +38,9 @@ body {
 
 /* NAV */
 nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; border-bottom: 1px solid var(--border); }
-.logo {
+.logo-link { text-decoration: none; }
+.logo-link:hover .logo { opacity: 0.85; }
+.logo {    
     font-size: 2.8rem;
     font-family: 'Indie Flower', cursive;
     background: linear-gradient(
@@ -96,6 +98,54 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 nav ul { display: flex; list-style: none; gap: 2.5rem; }
 nav a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
 nav a:hover { color: var(--gold); }
+nav ul { align-items: center; }
+
+/* Sign In button (logged out) */
+.nav-signin {
+    background: var(--maroon);
+    border: 1px solid var(--gold-dim);
+    padding: 0.4rem 1.2rem;
+    border-radius: 3px;
+    color: var(--gold) !important;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: border-color 0.2s, background 0.2s;
+}
+.nav-signin:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+/* User dropdown (logged in) */
+.nav-user { position: relative; }
+.user-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.4rem 1rem;
+    border-radius: 3px;
+    font-family: 'Nothing You Could Do', cursive;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.user-btn:hover { border-color: var(--gold-dim); }
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    min-width: 180px;
+    z-index: 1000;
+    padding: 0.5rem 0;
+}
+.user-dropdown.open { display: block; }
+.dropdown-riot { display: block; padding: 0.5rem 1rem; color: var(--gold-dim); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; border-bottom: 1px solid var(--border); margin-bottom: 0.3rem; }
+.dropdown-item { display: block; padding: 0.5rem 1rem; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: background 0.15s; }
+.dropdown-item:hover { background: rgba(201,168,76,0.06); color: var(--text); }
+.dropdown-item.signout { color: var(--blood-light); }
+.dropdown-item.signout:hover { background: rgba(139,26,26,0.1); }
 
 /* HERO */
 .hero { text-align: center; padding: 8rem 2rem 4rem; max-width: 800px; margin: 0 auto; }
@@ -182,7 +232,7 @@ nav a:hover { color: var(--gold); }
 }
 
 /* FOOTER */
-footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem; line-height: 1.8; }
+footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); c
 footer a { color: var(--gold-dim); text-decoration: none; }
 footer a:hover { color: var(--gold); }
 
@@ -225,3 +275,41 @@ footer a:hover { color: var(--gold); }
     nav { padding: 1rem 2rem; }
     nav ul { display: none; }
 }
+
+
+/* NAV ACTIVE */
+.nav-active { color: var(--gold) !important; }
+
+/* DOWNLOAD PAGE */
+.download-section { max-width: 700px; margin: 6rem auto; padding: 2rem; text-align: center; }
+.download-section h1 { font-family: 'Caveat', cursive; font-weight: 700; font-size: 2.2rem; color: #fff; margin-bottom: 0.5rem; }
+.download-subtitle { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 3rem; }
+
+.download-status { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 2.5rem; margin-bottom: 2.5rem; }
+.download-status .status-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.download-status h2 { font-family: 'Caveat', cursive; font-weight: 700; color: var(--gold); font-size: 1.4rem; margin-bottom: 0.8rem; }
+.download-status p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.7; margin-bottom: 0.5rem; }
+.download-status .status-detail { color: var(--text-muted); opacity: 0.7; font-size: 0.8rem; margin-top: 1rem; }
+
+.download-features { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+.dl-feature { background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 1.2rem 1.5rem; flex: 1; min-width: 180px; }
+.dl-feature span { font-size: 1.5rem; display: block; margin-bottom: 0.5rem; }
+.dl-feature p { color: var(--text-muted); font-size: 0.8rem; line-height: 1.5; }
+
+/* GATE MESSAGE (for features pending prod API) */
+.gate-message { max-width: 600px; margin: 8rem auto; padding: 2rem; text-align: center; }
+.gate-message h2 { font-family: 'Caveat', cursive; font-weight: 700; color: var(--gold-dim); font-size: 1.6rem; margin-bottom: 1rem; }
+.gate-message p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+
+/* STATUS LINE */
+.status-section { text-align: center; margin: 4rem auto; padding: 1.5rem; }
+.status-line { color: var(--text-muted); font-size: 0.85rem; opacity: 0.7; }
+
+/* LOOKUP PAGE */
+.lookup-section { max-width: 600px; margin: 6rem auto; padding: 2rem; text-align: center; }
+.lookup-section h1 { font-family: 'Caveat', cursive; font-weight: 700; font-size: 2rem; color: #fff; margin-bottom: 1.5rem; }
+.lookup-bar { display: flex; gap: 0.5rem; max-width: 450px; margin: 0 auto; }
+.lookup-bar input { flex: 1; background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 0.8rem 1.2rem; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; outline: none; }
+.lookup-bar input:focus { border-color: var(--gold-dim); }
+.lookup-bar button { background: var(--maroon); border: 1px solid var(--gold-dim); color: var(--gold); padding: 0.8rem 1.5rem; border-radius: 4px; font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.1rem; cursor: pointer; }
+.lookup-bar button:hover { border-color: var(--gold); }

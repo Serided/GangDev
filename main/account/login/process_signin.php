@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 	$password = trim($_POST["password"]);
 	$rememberMe = isset($_POST["rememberMe"]);
 
-	$stmt = $pdo->prepare("SELECT id, display_name, username, email, password FROM users WHERE username = ?");
+	$stmt = $pdo->prepare("SELECT id, display_name, username, email, password, role FROM users WHERE username = ?");
 	$stmt->execute([$username]);
 	$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		$_SESSION["display_name"] = $user["display_name"];
 		$_SESSION["username"] = $user["username"];
 		$_SESSION["email"] = $user["email"];
+		$_SESSION["user_role"] = $user["role"] ?? 'user';
 		$_SESSION["session_token"] = $sessionToken;
 
 		// Store session token
@@ -47,11 +48,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 		$redirect = isset($_POST["redirect"]) ? trim($_POST["redirect"]) : '';
 
-		if (!empty($redirect) && str_starts_with($redirect, "https://") && str_contains($redirect, "gangdev.co")) {
-			// Full gangdev URL (e.g. auth flow return)
+		// Allowed redirect domains (all gangdev-owned products)
+		$allowedDomains = ['gangdev.co', 'lafter.gg', 'candor.you', 'dcops.co'];
+		$redirectHost = parse_url($redirect, PHP_URL_HOST) ?? '';
+		$isAllowed = !empty($redirect) && str_starts_with($redirect, "https://") && array_filter($allowedDomains, fn($d) => str_ends_with($redirectHost, $d));
+
+		if ($isAllowed) {
 			header("Location: " . $redirect);
 		} elseif (!empty($redirect) && str_starts_with($redirect, "/")) {
-			// Relative path (e.g. crust game redirect)
 			header("Location: https://crust.gangdev.co" . $redirect);
 		} else {
 			header("Location: https://account.gangdev.co");
