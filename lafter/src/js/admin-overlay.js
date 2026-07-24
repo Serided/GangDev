@@ -15,8 +15,7 @@
 	const API_BASE = '/api';
 	let overlayEl = null;
 	let toolbarEl = null;
-	let exitEl = null;
-	let viewMode = 'admin'; // 'admin' or 'user'
+	let viewMode = localStorage.getItem('lafter_view_mode') || 'admin';
 
 	// === Admin Toolbar ===
 
@@ -46,6 +45,7 @@
 		document.getElementById('toggle-public-btn').addEventListener('click', togglePublic);
 		document.getElementById('toolbar-key-status').addEventListener('click', () => showKeyOverlay());
 		document.getElementById('view-cycle-btn').addEventListener('click', cycleView);
+		applyViewMode();
 		refreshStatus();
 	}
 
@@ -61,45 +61,31 @@
 	function cycleView() {
 		if (viewMode === 'admin') {
 			viewMode = 'user';
-			enterUserView();
 		} else {
 			viewMode = 'admin';
-			exitUserView();
 		}
+		localStorage.setItem('lafter_view_mode', viewMode);
 		document.getElementById('view-cycle-btn').textContent = viewMode === 'admin' ? 'Admin' : 'User';
 		document.getElementById('view-cycle-btn').classList.toggle('active', viewMode === 'user');
+
+		// Toggle content visibility
+		if (viewMode === 'user') {
+			document.querySelectorAll('[data-admin-only]').forEach(el => el.style.display = 'none');
+			document.querySelectorAll('[data-user-gate]').forEach(el => el.style.display = '');
+		} else {
+			document.querySelectorAll('[data-admin-only]').forEach(el => el.style.display = '');
+			document.querySelectorAll('[data-user-gate]').forEach(el => el.style.display = 'none');
+		}
 	}
 
-	function enterUserView() {
-		// Hide admin panel, show X exit button
-		toolbarEl.style.display = 'none';
-
-		exitEl = document.createElement('button');
-		exitEl.id = 'lafter-user-view-exit';
-		exitEl.textContent = '✕';
-		exitEl.title = 'Back to Admin view';
-		exitEl.addEventListener('click', () => {
-			viewMode = 'admin';
-			exitUserView();
-		});
-		document.body.appendChild(exitEl);
-
-		// Hide admin-only content
-		document.querySelectorAll('[data-admin-only]').forEach(el => el.style.display = 'none');
-		// Show user gate content
-		document.querySelectorAll('[data-user-gate]').forEach(el => el.style.display = '');
-	}
-
-	function exitUserView() {
-		if (exitEl) { exitEl.remove(); exitEl = null; }
-		toolbarEl.style.display = '';
-		document.getElementById('view-cycle-btn').textContent = 'Admin';
-		document.getElementById('view-cycle-btn').classList.remove('active');
-
-		// Restore admin content
-		document.querySelectorAll('[data-admin-only]').forEach(el => el.style.display = '');
-		// Hide user gate content
-		document.querySelectorAll('[data-user-gate]').forEach(el => el.style.display = 'none');
+	// Apply saved view mode on load
+	function applyViewMode() {
+		document.getElementById('view-cycle-btn').textContent = viewMode === 'admin' ? 'Admin' : 'User';
+		document.getElementById('view-cycle-btn').classList.toggle('active', viewMode === 'user');
+		if (viewMode === 'user') {
+			document.querySelectorAll('[data-admin-only]').forEach(el => el.style.display = 'none');
+			document.querySelectorAll('[data-user-gate]').forEach(el => el.style.display = '');
+		}
 	}
 
 	// === Status ===
