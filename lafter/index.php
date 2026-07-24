@@ -14,7 +14,7 @@ $user = lafter_logged_in() ? (lafter_user() ?? lafter_ensure_user()) : null;
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Caveat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Nothing+You+Could+Do&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <?php if ($user && $user['role'] === 'admin'): ?>
+    <?php if (lafter_is_admin()): ?>
     <link rel="stylesheet" href="src/css/admin-overlay.css">
     <?php endif; ?>
 </head>
@@ -32,7 +32,7 @@ $user = lafter_logged_in() ? (lafter_user() ?? lafter_ensure_user()) : null;
                     <?php if ($user['riot_name']): ?>
                     <span class="dropdown-riot"><?= htmlspecialchars($user['riot_name'] . '#' . $user['riot_tag']) ?></span>
                     <?php endif; ?>
-                    <a href="https://account.gangdev.co" class="dropdown-item">Account</a>
+                    <a href="https://my.lafter.gg" class="dropdown-item">Account</a>
                     <a href="<?= lafter_signout_url() ?>" class="dropdown-item signout">Sign Out</a>
                 </div>
             </li>
@@ -143,8 +143,8 @@ $user = lafter_logged_in() ? (lafter_user() ?? lafter_ensure_user()) : null;
     </footer>
 
     <script src="script.js"></script>
-    <?php if ($user && $user['role'] === 'admin'): ?>
-    <script>const LAFTER_USER = { role: '<?= $user['role'] ?>' };</script>
+    <?php if (lafter_is_admin()): ?>
+    <script>const LAFTER_USER = { role: 'admin' };</script>
     <script src="src/js/admin-overlay.js" defer></script>
     <?php endif; ?>
 </body>

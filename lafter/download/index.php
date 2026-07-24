@@ -29,7 +29,7 @@ $user = lafter_logged_in() ? lafter_user() : null;
                     <span class="dropdown-riot"><?= htmlspecialchars($user['riot_name'] . '#' . $user['riot_tag']) ?></span>
                     <?php endif; ?>
                     <a href="https://my.lafter.gg" class="dropdown-item">Profile</a>
-                    <a href="https://account.gangdev.co" class="dropdown-item">Account</a>
+                    <a href="https://my.lafter.gg" class="dropdown-item">Account</a>
                     <a href="<?= lafter_signout_url() ?>" class="dropdown-item signout">Sign Out</a>
                 </div>
             </li>
