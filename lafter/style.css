@@ -129,21 +129,23 @@ nav ul { align-items: center; }
     transition: border-color 0.2s;
 }
 .user-btn:hover { border-color: var(--gold-dim); }
+.user-btn.open { border-radius: 3px 3px 0 0; border-bottom-color: var(--border); }
 .user-dropdown {
     display: none;
     position: absolute;
-    top: calc(100% + 0.5rem);
+    top: 100%;
     right: 0;
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-top: none;
+    border-radius: 0 0 3px 3px;
     min-width: 180px;
     z-index: 1000;
-    padding: 0.5rem 0;
+    padding: 0;
 }
 .user-dropdown.open { display: block; }
-.dropdown-riot { display: block; padding: 0.5rem 1rem; color: var(--gold-dim); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; border-bottom: 1px solid var(--border); margin-bottom: 0.3rem; }
-.dropdown-item { display: block; padding: 0.5rem 1rem; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: background 0.15s; }
+.dropdown-riot { display: block; padding: 0.6rem 1rem; color: var(--gold-dim); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; border-bottom: 1px solid var(--border); }
+.dropdown-item { display: block; padding: 0.6rem 1rem; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: background 0.15s; }
 .dropdown-item:hover { background: rgba(201,168,76,0.06); color: var(--text); }
 .dropdown-item.signout { color: var(--blood-light); }
 .dropdown-item.signout:hover { background: rgba(139,26,26,0.1); }
@@ -342,3 +344,58 @@ footer a:hover { color: var(--gold); }
 .rank-tier { color: var(--gold); font-weight: 500; }
 .rank-lp { color: var(--text); }
 .rank-record { color: var(--text-muted); }
+
+/* DOWNLOAD PAGE — How / Steps / Tech */
+.download-subtitle { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2.5rem; }
+.download-how { margin-bottom: 2.5rem; }
+.download-how h2 { font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.4rem; color: var(--gold); margin-bottom: 1.2rem; }
+.download-steps { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+.dl-step { display: flex; align-items: flex-start; gap: 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 1rem 1.2rem; }
+.dl-step .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--gold);
+    background: var(--maroon);
+    border-radius: 50%;
+    width: 1.8rem; height: 1.8rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.dl-step p { color: var(--text-muted); font-size: 0.82rem; line-height: 1.6; }
+.download-tech { margin-top: 2.5rem; text-align: left; background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
+.download-tech h3 { font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.1rem; color: var(--text); margin-bottom: 0.8rem; }
+.download-tech ul { list-style: none; padding: 0; }
+.download-tech li { color: var(--text-muted); font-size: 0.78rem; line-height: 1.8; padding-left: 1rem; position: relative; }
+.download-tech li::before { content: '›'; position: absolute; left: 0; color: var(--gold-dim); }
+.download-tech a { color: var(--gold); text-decoration: none; }
+.download-tech a:hover { text-decoration: underline; }
+.download-tech code { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--gold-dim); background: rgba(201,168,76,0.08); padding: 0.1rem 0.3rem; border-radius: 2px; }
+.download-status code { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--gold-dim); background: rgba(201,168,76,0.08); padding: 0.1rem 0.3rem; border-radius: 2px; }
+
+/* ACCOUNT PAGE */
+.account-section { max-width: 500px; margin: 4rem auto; padding: 2rem; }
+.account-section h1 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+.account-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1rem;
+}
+.account-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+.account-row:last-of-type { border-bottom: none; }
+.account-label { font-size: 0.8rem; color: var(--text-muted); }
+.account-value { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text); }
+.account-value.riot-value { color: var(--gold); }
+.account-value.unlinked { color: var(--text-muted); font-style: italic; }
+.account-hint { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 1.5rem; opacity: 0.7; }
+.account-hint a { color: var(--gold-dim); text-decoration: none; }
+.account-hint a:hover { text-decoration: underline; }
+.account-signout { display: inline-block; font-size: 0.85rem; color: var(--blood-light); text-decoration: none; border: 1px solid var(--border); border-radius: 4px; padding: 0.5rem 1.2rem; transition: border-color 0.2s, color 0.2s; }
+.account-signout:hover { border-color: var(--blood-light); color: #fff; }

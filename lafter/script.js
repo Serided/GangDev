@@ -38,10 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
         userBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             dropdown.classList.toggle('open');
+            userBtn.classList.toggle('open');
         });
         document.addEventListener('click', (e) => {
             if (!dropdown.contains(e.target) && e.target !== userBtn) {
                 dropdown.classList.remove('open');
+                userBtn.classList.remove('open');
             }
         });
     }

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lafter Connector</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nothing+You+Could+Do&family=Caveat:wght@700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <div class="header">
+            <h1 class="logo">L<span>a</span>fter</h1>
+            <p class="subtitle">Connector</p>
+        </div>
+
+        <!-- Sign-in view -->
+        <div id="view-signin" class="view">
+            <p class="signin-prompt">Sign in to link your League account.</p>
+            <form id="signin-form" class="signin-form">
+                <input type="text" id="signin-username" placeholder="Username" autocomplete="username" spellcheck="false" required>
+                <input type="password" id="signin-password" placeholder="Password" autocomplete="current-password" required>
+                <button type="submit" class="btn btn-primary" id="signin-btn">Sign In</button>
+            </form>
+            <p class="signin-error" id="signin-error"></p>
+            <p class="signin-hint">Don't have an account? <a href="https://my.lafter.gg/login/signup.php" target="_blank">Sign up</a></p>
+        </div>
+
+        <!-- Connected view -->
+        <div id="view-connected" class="view" style="display:none;">
+            <div class="user-card" id="user-card">
+                <span class="user-display" id="user-display"></span>
+                <button class="btn-signout-small" id="signout-btn">Sign Out</button>
+            </div>
+
+            <div class="status-card" id="status-card">
+                <div class="status-indicator" id="status-dot"></div>
+                <div class="status-text">
+                    <p class="status-label" id="status-label">Checking...</p>
+                    <p class="status-detail" id="status-detail">Looking for League client</p>
+                </div>
+            </div>
+
+            <div class="champ-select" id="champ-select" style="display:none;">
+                <h2>Champ Select Active</h2>
+                <p class="cs-info" id="cs-info">Streaming to your team...</p>
+            </div>
+        </div>
+
+        <!-- Bottom actions (always visible when connected) -->
+        <div id="actions" class="actions" style="display:none;">
+            <button id="hide-btn" class="btn btn-muted">Hide to Tray</button>
+        </div>
+
+        <p class="version">v0.1.0</p>
+    </div>
+
+    <script>
+        const { invoke } = window.__TAURI__.core;
+        const { getCurrentWindow } = window.__TAURI__.window;
+
+        // DOM refs
+        const viewSignin = document.getElementById('view-signin');
+        const viewConnected = document.getElementById('view-connected');
+        const actions = document.getElementById('actions');
+        const signinForm = document.getElementById('signin-form');
+        const signinError = document.getElementById('signin-error');
+        const signinBtn = document.getElementById('signin-btn');
+        const userDisplay = document.getElementById('user-display');
+        const signoutBtn = document.getElementById('signout-btn');
+        const statusDot = document.getElementById('status-dot');
+        const statusLabel = document.getElementById('status-label');
+        const statusDetail = document.getElementById('status-detail');
+        const champSelect = document.getElementById('champ-select');
+        const csInfo = document.getElementById('cs-info');
+
+        let pollInterval = null;
+
+        // === Auth ===
+
+        async function checkAuth() {
+            try {
+                const session = await invoke('get_session');
+                if (session) {
+                    showConnectedView(session.display_name);
+                } else {
+                    showSigninView();
+                }
+            } catch (e) {
+                showSigninView();
+            }
+        }
+
+        function showSigninView() {
+            viewSignin.style.display = '';
+            viewConnected.style.display = 'none';
+            actions.style.display = 'none';
+            if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+        }
+
+        function showConnectedView(displayName) {
+            viewSignin.style.display = 'none';
+            viewConnected.style.display = '';
+            actions.style.display = '';
+            userDisplay.textContent = displayName;
+            startPolling();
+        }
+
+        signinForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            signinError.textContent = '';
+            signinBtn.disabled = true;
+            signinBtn.textContent = 'Signing in...';
+
+            const username = document.getElementById('signin-username').value.trim();
+            const password = document.getElementById('signin-password').value;
+
+            try {
+                const result = await invoke('signin', { username, password });
+                if (result.success) {
+                    showConnectedView(result.display_name);
+                } else {
+                    signinError.textContent = result.error || 'Sign in failed.';
+                }
+            } catch (e) {
+                signinError.textContent = typeof e === 'string' ? e : 'Connection error.';
+            }
+
+            signinBtn.disabled = false;
+            signinBtn.textContent = 'Sign In';
+        });
+
+        signoutBtn.addEventListener('click', async () => {
+            await invoke('signout');
+            showSigninView();
+        });
+
+        // === LCU Polling ===
+
+        function startPolling() {
+            checkLcu();
+            pollInterval = setInterval(checkLcu, 3000);
+        }
+
+        async function checkLcu() {
+            try {
+                const result = await invoke('get_lcu_status');
+                statusDot.className = 'status-indicator connected';
+                statusLabel.textContent = 'League Client Detected';
+                statusDetail.textContent = result;
+                checkChampSelect();
+            } catch (e) {
+                statusDot.className = 'status-indicator disconnected';
+                statusLabel.textContent = 'Waiting for League';
+                statusDetail.textContent = 'Launch League of Legends to connect';
+                champSelect.style.display = 'none';
+            }
+        }
+
+        async function checkChampSelect() {
+            try {
+                const data = await invoke('get_champ_select');
+                if (data.active === false) {
+                    champSelect.style.display = 'none';
+                } else {
+                    champSelect.style.display = '';
+                    csInfo.textContent = 'Streaming picks & bans to your session...';
+                }
+            } catch (e) {
+                champSelect.style.display = 'none';
+            }
+        }
+
+        // === Window controls ===
+
+        document.getElementById('hide-btn').addEventListener('click', async () => {
+            const win = getCurrentWindow();
+            await win.hide();
+        });
+
+        // === Init ===
+        checkAuth();
+    </script>
+</body>
+</html>

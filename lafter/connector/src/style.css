@@ -1,0 +1,205 @@
+:root {
+    --maroon: #4a0e0e;
+    --blood: #8b1a1a;
+    --gold: #c9a84c;
+    --gold-dim: #8a7234;
+    --bg: #0c0808;
+    --bg-card: #140d0d;
+    --border: #2a1515;
+    --text: #e8e0e0;
+    --text-muted: #8a7777;
+    --green: #4caf50;
+    --red: #c0392b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+button, input { font-family: inherit; }
+
+body {
+    font-family: 'Nothing You Could Do', cursive;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-text-stroke: 0.3px currentColor;
+    user-select: none;
+}
+
+.app {
+    width: 100%;
+    max-width: 380px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.header { margin-bottom: 1.5rem; }
+.logo {
+    font-family: 'Indie Flower', cursive;
+    font-size: 2.4rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f0e6dc 50%, #c9a84c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.logo span { color: var(--gold); -webkit-text-fill-color: var(--gold); }
+.subtitle {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-top: -0.3rem;
+}
+
+/* === Sign-in === */
+.signin-prompt {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+}
+.signin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: 0.8rem;
+}
+.signin-form input {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.6rem 0.8rem;
+    color: var(--text);
+    font-size: 0.82rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.signin-form input:focus { border-color: var(--gold-dim); }
+.signin-form input::placeholder { color: var(--text-muted); opacity: 0.6; }
+.signin-error {
+    font-size: 0.75rem;
+    color: var(--red);
+    min-height: 1rem;
+    margin-bottom: 0.5rem;
+}
+.signin-hint {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+.signin-hint a { color: var(--gold-dim); text-decoration: none; }
+.signin-hint a:hover { text-decoration: underline; }
+
+/* === User card === */
+.user-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.6rem 1rem;
+    margin-bottom: 1rem;
+}
+.user-display {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text);
+}
+.btn-signout-small {
+    font-family: 'Nothing You Could Do', cursive;
+    font-size: 0.7rem;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.25rem 0.6rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+}
+.btn-signout-small:hover { color: var(--blood-light); border-color: var(--blood-light); }
+
+/* === Status === */
+.status-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    flex-shrink: 0;
+    transition: background 0.3s;
+}
+.status-indicator.connected { background: var(--green); box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); }
+.status-indicator.disconnected { background: var(--red); }
+
+.status-label { font-size: 0.9rem; color: var(--text); margin-bottom: 0.2rem; }
+.status-detail { font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+
+/* === Champ Select === */
+.champ-select {
+    background: var(--bg-card);
+    border: 1px solid var(--gold-dim);
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    animation: pulse-border 2s ease-in-out infinite;
+}
+@keyframes pulse-border {
+    0%, 100% { border-color: var(--gold-dim); }
+    50% { border-color: var(--gold); }
+}
+.champ-select h2 {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+}
+.cs-info { font-size: 0.75rem; color: var(--text-muted); }
+
+/* === Actions === */
+.actions {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+/* === Buttons === */
+.btn {
+    font-family: 'Nothing You Could Do', cursive;
+    font-size: 0.82rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg-card);
+    color: var(--text);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+.btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+.btn:disabled { opacity: 0.5; cursor: default; }
+.btn-primary { border-color: var(--gold-dim); color: var(--gold); }
+.btn-primary:hover { border-color: var(--gold); color: #fff; }
+.btn-muted { color: var(--text-muted); }
+.btn-muted:hover { color: var(--text); }
+
+.version {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    opacity: 0.5;
+}

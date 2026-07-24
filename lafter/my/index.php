@@ -43,7 +43,8 @@ $user = lafter_user();
 
     <section class="account-section">
         <h1><?= htmlspecialchars($user['display_name'] ?? $_SESSION['display_name']) ?></h1>
-        <div class="account-details">
+
+        <div class="account-card">
             <div class="account-row">
                 <span class="account-label">Username</span>
                 <span class="account-value"><?= htmlspecialchars($user['username'] ?? $_SESSION['username']) ?></span>
@@ -55,11 +56,19 @@ $user = lafter_user();
             <?php if ($user && $user['riot_name']): ?>
             <div class="account-row">
                 <span class="account-label">Riot ID</span>
-                <span class="account-value"><?= htmlspecialchars($user['riot_name'] . '#' . $user['riot_tag']) ?></span>
+                <span class="account-value riot-value"><?= htmlspecialchars($user['riot_name'] . '#' . $user['riot_tag']) ?></span>
             </div>
+            <p class="account-hint">Linked automatically by the Lafter Connector.</p>
+            <?php else: ?>
+            <div class="account-row">
+                <span class="account-label">Riot ID</span>
+                <span class="account-value unlinked">Not linked</span>
+            </div>
+            <p class="account-hint">Install the <a href="https://lafter.gg/download">Lafter Connector</a> to link your Riot account automatically.</p>
             <?php endif; ?>
         </div>
-        <a href="<?= lafter_signout_url() ?>" class="btn-signout">Sign Out</a>
+
+        <a href="<?= lafter_signout_url() ?>" class="account-signout">Sign Out</a>
     </section>
 
     <footer>
