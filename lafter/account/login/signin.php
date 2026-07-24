@@ -34,7 +34,7 @@ $currentProduct = 'lafter';
             <form method="post" action="process_signin.php" autocomplete="on" class="form-pane">
                 <div class="form-header">
                     <h1>Sign in</h1>
-                    <p>Sign in to draft with your team.</p>
+                    <p>Missed you, lol.</p>
                 </div>
 
                 <div class="form-fields">
