@@ -17,6 +17,7 @@
 	let toolbarEl = null;
 	let panelOpen = localStorage.getItem('lafter_panel_open') === 'true';
 	let viewMode = localStorage.getItem('lafter_view_mode') || 'admin';
+	let isPublic = false;
 
 	// === Admin Toolbar ===
 
@@ -74,8 +75,9 @@
 		document.getElementById('view-cycle-btn').textContent = viewMode === 'admin' ? 'Admin' : 'User';
 		document.getElementById('view-cycle-btn').classList.toggle('active', viewMode === 'user');
 
-		// Toggle content visibility
-		if (viewMode === 'user') {
+		// Toggle content visibility — only when PRIVATE
+		// When PUBLIC, normal users see everything, so User view = same as Admin view
+		if (viewMode === 'user' && !isPublic) {
 			document.querySelectorAll('[data-admin-only]').forEach(el => el.style.display = 'none');
 			document.querySelectorAll('[data-user-gate]').forEach(el => el.style.display = '');
 		} else {
@@ -88,7 +90,7 @@
 	function applyViewMode() {
 		document.getElementById('view-cycle-btn').textContent = viewMode === 'admin' ? 'Admin' : 'User';
 		document.getElementById('view-cycle-btn').classList.toggle('active', viewMode === 'user');
-		if (viewMode === 'user') {
+		if (viewMode === 'user' && !isPublic) {
 			document.querySelectorAll('[data-admin-only]').forEach(el => el.style.display = 'none');
 			document.querySelectorAll('[data-user-gate]').forEach(el => el.style.display = '');
 		}
@@ -106,6 +108,9 @@
 
 			btn.textContent = data.is_public ? '🟢 PUBLIC' : '🔒 PRIVATE';
 			btn.className = 'toolbar-btn ' + (data.is_public ? 'public' : 'private');
+
+			// Track public state for view toggle logic
+			isPublic = data.is_public;
 
 			if (data.key_expired) {
 				keyStatus.textContent = '⚠️ Expired';
