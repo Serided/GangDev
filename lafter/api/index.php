@@ -36,14 +36,15 @@ if (!lafter_can_use_api()) {
 	exit(json_encode(['error' => 'dev_mode', 'message' => 'API access restricted during development.']));
 }
 
-// Parse path
+// Parse path — supports both /api/account/Name/Tag and /api/index.php?endpoint=account&p1=Name&p2=Tag
 $path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 $path = preg_replace('#^api/?#', '', $path);
+$path = preg_replace('#^index\.php$#', '', $path);
 $seg = explode('/', $path);
 
-$endpoint = $seg[0] ?? '';
-$p1 = $seg[1] ?? '';
-$p2 = $seg[2] ?? '';
+$endpoint = $_GET['endpoint'] ?? $seg[0] ?? '';
+$p1 = $_GET['p1'] ?? $seg[1] ?? '';
+$p2 = $_GET['p2'] ?? $seg[2] ?? '';
 
 $riot = new RiotAPI();
 

@@ -43,7 +43,7 @@
 
 		try {
 			// Step 1: Get PUUID
-			const accRes = await fetch(`/api/account/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`, { credentials: 'include' });
+			const accRes = await fetch(`/api/index.php?endpoint=account&p1=${encodeURIComponent(name)}&p2=${encodeURIComponent(tag)}`, { credentials: 'include' });
 			const accData = await accRes.json();
 
 			if (!accData.success || !accData.data) {
@@ -58,13 +58,13 @@
 			const tagLine = accData.data.tagLine;
 
 			// Step 2: Get summoner
-			const sumRes = await fetch(`/api/summoner/${puuid}`, { credentials: 'include' });
+			const sumRes = await fetch(`/api/index.php?endpoint=summoner&p1=${encodeURIComponent(puuid)}`, { credentials: 'include' });
 			const sumData = await sumRes.json();
 
 			// Step 3: Get league (needs summoner ID, not PUUID)
 			let leagueData = { success: false };
 			if (sumData.success && sumData.data?.id) {
-				const leagueRes = await fetch(`/api/league/${sumData.data.id}`, { credentials: 'include' });
+				const leagueRes = await fetch(`/api/index.php?endpoint=league&p1=${encodeURIComponent(sumData.data.id)}`, { credentials: 'include' });
 				leagueData = await leagueRes.json();
 			}
 

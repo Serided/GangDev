@@ -51,8 +51,8 @@
 .toolbar-btn.public { border-color: #4caf50; color: #4caf50; }
 .toolbar-btn.private { border-color: var(--gold-dim, #8a7234); color: var(--gold-dim, #8a7234); }
 .toolbar-btn.key-btn { color: var(--gold-dim, #8a7234); }
-.toolbar-btn.view-btn { color: var(--text-muted, #8a7777); }
-.toolbar-btn.view-btn.active { border-color: var(--blood-light, #a52222); color: var(--blood-light, #a52222); }
+.toolbar-btn.view-btn { border-color: #7abadc; color: #7abadc; }
+.toolbar-btn.view-btn.active { border-color: #e08a4c; color: #e08a4c; }
 .toolbar-status { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; }
 .toolbar-status.ok { color: var(--text-muted, #8a7777); }
 .toolbar-status.expired { color: #e74c3c; }
