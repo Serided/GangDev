@@ -7,7 +7,7 @@
 require_once '/var/www/gangdev/shared/php/init_base.php';
 
 gangdev_init([
-	'domain' => '.gangdev.co',  // shared session cookie across all gangdev products
+	'domain' => '.lafter.gg',
 	'session_lifetime' => 7 * 24 * 60 * 60,
 	'debug' => true,
 ]);

@@ -20,14 +20,30 @@
 		toolbarEl = document.createElement('div');
 		toolbarEl.id = 'lafter-admin-toolbar';
 		toolbarEl.innerHTML = `
-			<span class="toolbar-label">ADMIN</span>
-			<button id="toggle-public-btn" class="toolbar-btn">...</button>
-			<span class="toolbar-status" id="toolbar-key-status"></span>
+			<button class="admin-toggle" id="admin-toggle-btn">▲</button>
+			<div class="admin-panel" id="admin-panel">
+				<div class="admin-panel-row">
+					<span class="toolbar-label">MODE</span>
+					<button id="toggle-public-btn" class="toolbar-btn">...</button>
+				</div>
+				<div class="admin-panel-row">
+					<span class="toolbar-label">KEY</span>
+					<span class="toolbar-status" id="toolbar-key-status"></span>
+				</div>
+			</div>
 		`;
 		document.body.appendChild(toolbarEl);
 
+		document.getElementById('admin-toggle-btn').addEventListener('click', togglePanel);
 		document.getElementById('toggle-public-btn').addEventListener('click', togglePublic);
 		refreshStatus();
+	}
+
+	function togglePanel() {
+		const panel = document.getElementById('admin-panel');
+		const btn = document.getElementById('admin-toggle-btn');
+		panel.classList.toggle('open');
+		btn.classList.toggle('open');
 	}
 
 	async function refreshStatus() {

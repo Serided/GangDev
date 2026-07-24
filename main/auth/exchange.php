@@ -68,7 +68,7 @@ if (strtotime($row['created_at']) < time() - 300) {
 $pdo->prepare("UPDATE auth_codes SET used = true WHERE code = ?")->execute([$code]);
 
 // Fetch user data
-$stmt = $pdo->prepare("SELECT id, username, email, display_name FROM users WHERE id = ?");
+$stmt = $pdo->prepare("SELECT id, username, email, display_name, role FROM users WHERE id = ?");
 $stmt->execute([$row['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -85,6 +85,7 @@ echo json_encode([
 		'username' => $user['username'],
 		'email' => $user['email'],
 		'display_name' => $user['display_name'],
+		'role' => $user['role'] ?? 'user',
 	]
 ]);
 ?>
