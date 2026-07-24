@@ -20,7 +20,7 @@ $user = lafter_logged_in() ? lafter_user() : null;
         <ul>
             <?php if ($user): ?>
             <li><a href="https://lafter.gg/lookup">Lookup</a></li>
-            <li><a href="https://live.lafter.gg/<?= htmlspecialchars($user['riot_name'] ?? $_SESSION['username']) ?>">Live</a></li>
+            <li><a href="https://lafter.gg/live">Live</a></li>
             <li><a href="https://lafter.gg/download" class="nav-active">Download</a></li>
             <li class="nav-user">
                 <button class="user-btn" id="user-menu-btn"><?= htmlspecialchars($_SESSION['display_name']) ?></button>
@@ -28,7 +28,6 @@ $user = lafter_logged_in() ? lafter_user() : null;
                     <?php if ($user['riot_name']): ?>
                     <span class="dropdown-riot"><?= htmlspecialchars($user['riot_name'] . '#' . $user['riot_tag']) ?></span>
                     <?php endif; ?>
-                    <a href="https://my.lafter.gg" class="dropdown-item">Profile</a>
                     <a href="https://my.lafter.gg" class="dropdown-item">Account</a>
                     <a href="<?= lafter_signout_url() ?>" class="dropdown-item signout">Sign Out</a>
                 </div>
@@ -74,5 +73,6 @@ $user = lafter_logged_in() ? lafter_user() : null;
     </footer>
 
     <script src="../script.js"></script>
+    <?php require '/var/www/gangdev/lafter/src/php/admin_footer.php'; ?>
 </body>
 </html>

@@ -57,7 +57,8 @@
 .toolbar-status.ok { color: var(--text-muted, #8a7777); }
 .toolbar-status.expired { color: #e74c3c; }
 .toolbar-key-clickable { cursor: pointer; transition: color 0.2s; }
-.toolbar-key-clickable:hover { color: var(--gold, #c9a84c); }
+.toolbar-key-clickable:hover { color: var(--gold, #c9a84c); text-decoration: underline; }
+.toolbar-key-clickable:active { transform: scale(0.95); }
 
 /* NORMAL USER VIEW EXIT BUTTON */
 #lafter-user-view-exit {

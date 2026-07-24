@@ -20,7 +20,7 @@ $user = lafter_logged_in() ? lafter_user() : null;
         <ul>
             <?php if ($user): ?>
             <li><a href="https://lafter.gg/lookup">Lookup</a></li>
-            <li><a href="https://live.lafter.gg/" class="nav-active">Live</a></li>
+            <li><a href="https://lafter.gg/live" class="nav-active">Live</a></li>
             <li><a href="https://lafter.gg/download">Download</a></li>
             <li class="nav-user">
                 <button class="user-btn" id="user-menu-btn"><?= htmlspecialchars($_SESSION['display_name']) ?></button>
@@ -28,22 +28,36 @@ $user = lafter_logged_in() ? lafter_user() : null;
                     <?php if ($user['riot_name']): ?>
                     <span class="dropdown-riot"><?= htmlspecialchars($user['riot_name'] . '#' . $user['riot_tag']) ?></span>
                     <?php endif; ?>
-                    <a href="https://my.lafter.gg" class="dropdown-item">Profile</a>
                     <a href="https://my.lafter.gg" class="dropdown-item">Account</a>
                     <a href="<?= lafter_signout_url() ?>" class="dropdown-item signout">Sign Out</a>
                 </div>
             </li>
             <?php else: ?>
             <li><a href="https://lafter.gg#features">Features</a></li>
-            <li><a href="<?= lafter_login_url('https://live.lafter.gg/') ?>" class="nav-signin">Sign In</a></li>
+            <li><a href="https://lafter.gg#how">How It Works</a></li>
+            <li><a href="<?= lafter_login_url('https://lafter.gg/live') ?>" class="nav-signin">Sign In</a></li>
             <?php endif; ?>
         </ul>
     </nav>
 
-    <section class="gate-message">
+    <?php if (lafter_can_use_api()): ?>
+    <!-- Admin: live sessions landing -->
+    <section class="gate-message" data-admin-only>
         <h2>Live Sessions</h2>
+        <p>No active sessions. Live draft viewer will appear here when the desktop connector is streaming.</p>
+    </section>
+
+    <section class="gate-message" data-user-gate style="display:none;">
+        <h2>Coming Soon</h2>
         <p><?= lafter_gate_message() ?></p>
     </section>
+
+    <?php else: ?>
+    <section class="gate-message">
+        <h2>Coming Soon</h2>
+        <p><?= lafter_gate_message() ?></p>
+    </section>
+    <?php endif; ?>
 
     <footer>
         <p>Lafter is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties.</p>
@@ -51,5 +65,6 @@ $user = lafter_logged_in() ? lafter_user() : null;
     </footer>
 
     <script src="../script.js"></script>
+    <?php require '/var/www/gangdev/lafter/src/php/admin_footer.php'; ?>
 </body>
 </html>

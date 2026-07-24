@@ -14,9 +14,6 @@ $user = lafter_logged_in() ? (lafter_user() ?? lafter_ensure_user()) : null;
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Caveat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Nothing+You+Could+Do&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <?php if (lafter_is_admin()): ?>
-    <link rel="stylesheet" href="src/css/admin-overlay.css">
-    <?php endif; ?>
 </head>
 <body>
     <nav>
@@ -24,7 +21,7 @@ $user = lafter_logged_in() ? (lafter_user() ?? lafter_ensure_user()) : null;
         <ul>
             <?php if ($user): ?>
             <li><a href="https://lafter.gg/lookup">Lookup</a></li>
-            <li><a href="https://live.lafter.gg/<?= htmlspecialchars($user['riot_name'] ?? $_SESSION['username']) ?>">Live</a></li>
+            <li><a href="https://lafter.gg/live">Live</a></li>
             <li><a href="https://lafter.gg/download">Download</a></li>
             <li class="nav-user">
                 <button class="user-btn" id="user-menu-btn"><?= htmlspecialchars($_SESSION['display_name']) ?></button>
@@ -143,9 +140,6 @@ $user = lafter_logged_in() ? (lafter_user() ?? lafter_ensure_user()) : null;
     </footer>
 
     <script src="script.js"></script>
-    <?php if (lafter_is_admin()): ?>
-    <script>const LAFTER_USER = { role: 'admin' };</script>
-    <script src="src/js/admin-overlay.js" defer></script>
-    <?php endif; ?>
+    <?php require '/var/www/gangdev/lafter/src/php/admin_footer.php'; ?>
 </body>
 </html>
