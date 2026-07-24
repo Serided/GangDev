@@ -17,9 +17,8 @@
 	let toolbarEl = null;
 	let panelOpen = localStorage.getItem('lafter_panel_open') === 'true';
 
-	// Detect current view from URL
-	const urlParams = new URLSearchParams(window.location.search);
-	const isUserView = urlParams.get('view') === 'user';
+	// Detect current view from PHP session (injected via LAFTER_USER.view)
+	const isUserView = LAFTER_USER.view === 'user';
 
 	// === Admin Toolbar ===
 
@@ -69,7 +68,7 @@
 	function cycleView() {
 		const url = new URL(window.location.href);
 		if (isUserView) {
-			url.searchParams.delete('view');
+			url.searchParams.set('view', 'admin');
 		} else {
 			url.searchParams.set('view', 'user');
 		}

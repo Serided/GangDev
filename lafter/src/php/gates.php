@@ -34,8 +34,15 @@ function lafter_set_public(bool $public): void {
  * Admin can append ?view=user to any page to see it as a normal user would.
  */
 function lafter_can_use_api(): bool {
-	// Admin user-view override: pretend not admin
-	if (isset($_GET['view']) && $_GET['view'] === 'user' && lafter_is_admin()) {
+	// Admin user-view override: toggle via ?view=user / ?view=admin, persists in session
+	if (isset($_GET['view']) && lafter_is_admin()) {
+		if ($_GET['view'] === 'user') {
+			$_SESSION['lafter_view'] = 'user';
+		} else {
+			unset($_SESSION['lafter_view']);
+		}
+	}
+	if (!empty($_SESSION['lafter_view']) && $_SESSION['lafter_view'] === 'user' && lafter_is_admin()) {
 		return lafter_is_public(); // only true if actually public
 	}
 	if (lafter_is_public()) return true;
