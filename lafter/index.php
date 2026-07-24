@@ -31,10 +31,7 @@ $user = lafter_logged_in() ? (lafter_user() ?? lafter_ensure_user()) : null;
                 <div class="user-dropdown" id="user-dropdown">
                     <?php if ($user['riot_name']): ?>
                     <span class="dropdown-riot"><?= htmlspecialchars($user['riot_name'] . '#' . $user['riot_tag']) ?></span>
-                    <?php else: ?>
-                    <a href="https://my.lafter.gg/link" class="dropdown-item">Link Riot ID</a>
                     <?php endif; ?>
-                    <a href="https://my.lafter.gg" class="dropdown-item">Profile</a>
                     <a href="https://account.gangdev.co" class="dropdown-item">Account</a>
                     <a href="<?= lafter_signout_url() ?>" class="dropdown-item signout">Sign Out</a>
                 </div>

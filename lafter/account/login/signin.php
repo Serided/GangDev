@@ -1,6 +1,12 @@
 <?php
 require_once '/var/www/gangdev/lafter/src/php/init.php';
 
+// Already logged in? Redirect.
+if (lafter_logged_in()) {
+	header('Location: https://lafter.gg');
+	exit;
+}
+
 $error = $_GET['error'] ?? '';
 $redirect = $_GET['redirect'] ?? '';
 $currentProduct = 'lafter';
