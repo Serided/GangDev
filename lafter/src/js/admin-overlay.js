@@ -112,6 +112,9 @@
 			// Track public state for view toggle logic
 			isPublic = data.is_public;
 
+			// Re-apply view mode now that we know public state
+			applyViewMode();
+
 			if (data.key_expired) {
 				keyStatus.textContent = '⚠️ Expired';
 				keyStatus.className = 'toolbar-status toolbar-key-clickable expired';
