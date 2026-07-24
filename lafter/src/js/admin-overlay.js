@@ -32,11 +32,7 @@
 				</div>
 				<div class="admin-panel-row">
 					<span class="toolbar-label">KEY</span>
-					<span class="toolbar-status" id="toolbar-key-status"></span>
-				</div>
-				<div class="admin-panel-row">
-					<span class="toolbar-label"></span>
-					<button id="change-key-btn" class="toolbar-btn key-btn">Change Key</button>
+					<span class="toolbar-status toolbar-key-clickable" id="toolbar-key-status" title="Click to change key"></span>
 				</div>
 				<div class="admin-panel-row">
 					<span class="toolbar-label">VIEW</span>
@@ -48,7 +44,7 @@
 
 		document.getElementById('admin-toggle-btn').addEventListener('click', togglePanel);
 		document.getElementById('toggle-public-btn').addEventListener('click', togglePublic);
-		document.getElementById('change-key-btn').addEventListener('click', () => showKeyOverlay());
+		document.getElementById('toolbar-key-status').addEventListener('click', () => showKeyOverlay());
 		document.getElementById('user-view-btn').addEventListener('click', enterUserView);
 		refreshStatus();
 	}

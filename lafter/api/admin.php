@@ -10,6 +10,9 @@
 require_once __DIR__ . '/../src/php/init.php';
 require_once __DIR__ . '/riot.php';
 
+// Suppress HTML error output on API endpoints
+ini_set('display_errors', 0);
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: https://lafter.gg');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');

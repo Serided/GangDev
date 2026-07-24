@@ -21,9 +21,9 @@ function lafter_is_public(): bool {
  */
 function lafter_set_public(bool $public): void {
 	if ($public) {
-		file_put_contents(LAFTER_PUBLIC_FLAG, date('c'));
+		@file_put_contents(LAFTER_PUBLIC_FLAG, date('c'));
 	} else {
-		if (file_exists(LAFTER_PUBLIC_FLAG)) unlink(LAFTER_PUBLIC_FLAG);
+		if (file_exists(LAFTER_PUBLIC_FLAG)) @unlink(LAFTER_PUBLIC_FLAG);
 	}
 }
 

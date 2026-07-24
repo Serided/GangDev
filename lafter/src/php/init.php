@@ -18,7 +18,7 @@ $pdo->exec("SET search_path TO lafter, gangdev, public");
 
 // === Lafter Constants ===
 define('LAFTER_ENV_FILE', '/var/www/gangdev/shared/.env');
-define('LAFTER_FLAG_DIR', '/var/www/gangdev/lafter/api');
+define('LAFTER_FLAG_DIR', '/var/www/gangdev/lafter/data');
 
 // === Helpers ===
 
