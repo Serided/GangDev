@@ -137,12 +137,12 @@
 	text-decoration: underline;
 }
 
-.input-row {
+.key-input-row {
 	display: flex;
 	gap: 0.5rem;
 }
 
-.input-row input {
+.key-input-row input {
 	flex: 1;
 	background: var(--bg, #0c0808);
 	border: 1px solid var(--border, #2a1515);
@@ -155,11 +155,11 @@
 	transition: border-color 0.2s;
 }
 
-.input-row input:focus {
+.key-input-row input:focus {
 	border-color: var(--gold-dim, #8a7234);
 }
 
-.input-row button {
+.key-input-row button {
 	background: var(--gold-dim, #8a7234);
 	color: #fff;
 	border: none;
@@ -172,11 +172,11 @@
 	transition: background 0.2s;
 }
 
-.input-row button:hover {
+.key-input-row button:hover {
 	background: var(--gold, #c9a84c);
 }
 
-.input-row button:disabled {
+.key-input-row button:disabled {
 	opacity: 0.5;
 	cursor: not-allowed;
 }

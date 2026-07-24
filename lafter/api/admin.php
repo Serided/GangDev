@@ -11,6 +11,11 @@ require_once __DIR__ . '/../src/php/init.php';
 require_once __DIR__ . '/riot.php';
 
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: https://lafter.gg');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Credentials: true');
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
 
 if (!lafter_is_admin()) {
 	http_response_code(403);

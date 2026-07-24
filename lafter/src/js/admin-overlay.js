@@ -135,7 +135,7 @@
 				<div class="popup-icon">⚠️</div>
 				<h3>API Key Needed</h3>
 				<p>Paste your key from <a href="https://developer.riotgames.com" target="_blank">developer.riotgames.com</a></p>
-				<div class="input-row">
+				<div class="key-input-row">
 					<input type="text" id="new-riot-key" placeholder="RGAPI-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" autocomplete="off" spellcheck="false">
 					<button id="save-key-btn">Save</button>
 				</div>
