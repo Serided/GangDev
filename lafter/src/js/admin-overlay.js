@@ -15,6 +15,7 @@
 	const API_BASE = '/api';
 	let overlayEl = null;
 	let toolbarEl = null;
+	let panelOpen = localStorage.getItem('lafter_panel_open') === 'true';
 	let viewMode = localStorage.getItem('lafter_view_mode') || 'admin';
 
 	// === Admin Toolbar ===
@@ -46,14 +47,19 @@
 		document.getElementById('toolbar-key-status').addEventListener('click', () => showKeyOverlay());
 		document.getElementById('view-cycle-btn').addEventListener('click', cycleView);
 		applyViewMode();
+		applyPanelState();
 		refreshStatus();
 	}
 
 	function togglePanel() {
-		const panel = document.getElementById('admin-panel');
-		const btn = document.getElementById('admin-toggle-btn');
-		panel.classList.toggle('open');
-		btn.classList.toggle('open');
+		panelOpen = !panelOpen;
+		localStorage.setItem('lafter_panel_open', panelOpen);
+		applyPanelState();
+	}
+
+	function applyPanelState() {
+		document.getElementById('admin-panel').classList.toggle('open', panelOpen);
+		document.getElementById('admin-toggle-btn').classList.toggle('open', panelOpen);
 	}
 
 	// === View Cycle (Admin ↔ User) ===
@@ -125,7 +131,7 @@
 				credentials: 'include',
 			});
 			const data = await res.json();
-			if (data.success) refreshStatus();
+		if (data.success) location.reload();
 		} catch (e) {
 			console.warn('[Lafter Admin] Toggle failed:', e.message);
 		}

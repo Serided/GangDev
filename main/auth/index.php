@@ -8,7 +8,7 @@ require_once '/var/www/gangdev/main/src/php/init.php';
 $callbacks = [
 	'candor' => 'https://account.candor.you/login/callback.php',
 	'dcops'  => 'https://account.dcops.co/login/callback.php',
-	'lafter' => 'https://lafter.gg/account/login/callback.php',
+	'lafter' => 'https://my.lafter.gg/login/callback.php',
 ];
 
 $app = trim($_GET['app'] ?? '');

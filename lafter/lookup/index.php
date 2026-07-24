@@ -71,6 +71,7 @@ $user = lafter_logged_in() ? lafter_user() : null;
     </footer>
 
     <script src="../script.js"></script>
+    <script src="../src/js/lookup.js" defer></script>
     <?php require '/var/www/gangdev/lafter/src/php/admin_footer.php'; ?>
 </body>
 </html>

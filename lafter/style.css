@@ -314,3 +314,31 @@ footer a:hover { color: var(--gold); }
 .lookup-bar input:focus { border-color: var(--gold-dim); }
 .lookup-bar button { background: var(--maroon); border: 1px solid var(--gold-dim); color: var(--gold); padding: 0.8rem 1.5rem; border-radius: 4px; font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.1rem; cursor: pointer; }
 .lookup-bar button:hover { border-color: var(--gold); }
+
+/* LOOKUP RESULTS */
+.lookup-loading { color: var(--text-muted); font-size: 0.85rem; margin-top: 2rem; }
+.lookup-error { color: #e74c3c; font-size: 0.85rem; margin-top: 1.5rem; }
+
+.player-card {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    text-align: left;
+}
+.player-icon { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--gold-dim); }
+.player-info { flex: 1; }
+.player-name { font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.4rem; color: #fff; }
+.player-tag { color: var(--text-muted); font-size: 0.9rem; }
+.player-level { color: var(--text-muted); font-size: 0.8rem; }
+.player-unranked { color: var(--text-muted); font-size: 0.8rem; font-style: italic; }
+.player-ranks { display: flex; flex-direction: column; gap: 0.4rem; }
+.rank-entry { font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+.rank-queue { color: var(--text-muted); }
+.rank-tier { color: var(--gold); font-weight: 500; }
+.rank-lp { color: var(--text); }
+.rank-record { color: var(--text-muted); }

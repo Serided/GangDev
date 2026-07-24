@@ -85,12 +85,12 @@ function lafter_is_admin(): bool {
  * Get lafter login URL.
  */
 function lafter_login_url(string $returnTo = 'https://lafter.gg'): string {
-	return 'https://lafter.gg/account/login/signin.php?redirect=' . urlencode($returnTo);
+	return 'https://my.lafter.gg/login/signin.php?redirect=' . urlencode($returnTo);
 }
 
 /**
  * Get lafter signout URL.
  */
 function lafter_signout_url(): string {
-	return 'https://lafter.gg/account/login/signout.php';
+	return 'https://my.lafter.gg/login/signout.php';
 }
